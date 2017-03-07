@@ -1,4 +1,6 @@
 import os
+
+from cellcommdb.resources.base import ProteinResource
 from flask import Flask, abort
 from flask.ext.restful import Api
 
@@ -19,5 +21,6 @@ def create_app(config=BaseConfig):
         db.init_app(app)
 
     api = Api(app, prefix=config.API_PREFIX)
+    api.add_resource(ProteinResource, '/protein')
 
     return app

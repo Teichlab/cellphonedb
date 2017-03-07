@@ -7,3 +7,8 @@ class BaseConfig(object):
    SQLALCHEMY_DATABASE_URI = os.environ.get('CELLCOMMDB_URI')
    API_PREFIX = '/api'
    DEBUG = True
+
+
+class TestConfig(BaseConfig):
+
+   SQLALCHEMY_DATABASE_URI = os.environ.get('CELLCOMMDB_TEST_URI')

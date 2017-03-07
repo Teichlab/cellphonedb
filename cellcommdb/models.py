@@ -16,20 +16,24 @@ class Gene(db.Model, IdModel):
     ensembl = Column(String)
     name = Column(String)
 
+    protein_id = Column(Integer, ForeignKey('protein.id'))
+
+    protein = db.relationship('Protein', backref=db.backref('protein'))
+
 
 class Protein(db.Model, IdModel):
 
     __tablename__ = "protein"
 
-    uniprot = Column(Integer, nullable=False)
+    uniprot = Column(String, nullable=False)
     entry_name = Column(String)
+
     transmembrane = Column(Boolean)
     secretion = Column(Boolean)
     peripheral = Column(Boolean)
     receptor = Column(Boolean)
     receptor_highlight = Column(Boolean)
     receptor_desc = Column(String)
-
     adhesion = Column(Boolean)
     other = Column(Boolean)
     other_desc = Column(String)
@@ -38,7 +42,3 @@ class Protein(db.Model, IdModel):
     secreted_desc = Column(String)
     tags = Column(String)
     tags_reason = Column(String)
-
-    gene_id = Column(Integer, ForeignKey('gene.id'))
-
-    gene = db.relationship('Gene', backref=db.backref('protein'))
