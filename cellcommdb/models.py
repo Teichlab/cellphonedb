@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Float, Binary, \
-    Boolean, UniqueConstraint
+    Boolean, UniqueConstraint, Table
 
 from cellcommdb.extensions import db
 
@@ -42,3 +42,32 @@ class Protein(db.Model, IdModel):
     secreted_desc = Column(String)
     tags = Column(String)
     tags_reason = Column(String)
+
+
+class Complex(db.Model, IdModel):
+
+    __tablename__ = "complex"
+
+    total_protein = Column(Integer)
+    name = Column(String)
+    receptor = Column(Boolean)
+    receptor_highlight = Column(Boolean)
+    receptor_desc = Column(String)
+    adhesion = Column(Boolean)
+    other = Column(Boolean)
+    other_desc = Column(String)
+    transporter = Column(Boolean)
+    secreted_highlight = Column(Boolean)
+    secreted_desc = Column(String)
+
+    proteins = db.relationship("Protein",
+                               secondary=lambda: complex_composition_table,
+                               backref="complexes")
+
+
+complex_composition_table = Table(
+    'complex_composition', db.metadata,
+    Column('complex_id', Integer, ForeignKey('complex.id')),
+    Column('protein_id', Integer, ForeignKey('protein.id')),
+    Column('stoichiometry', Integer)
+)

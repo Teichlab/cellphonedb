@@ -1,5 +1,6 @@
 from flask.ext.script import Manager
 
+from cellcommdb.collection import Collector
 from cellcommdb.api import create_app
 from cellcommdb.extensions import db
 from cellcommdb.db_scripts import db_drop_everything
@@ -26,6 +27,14 @@ def reset_db():
     with app.app_context():
         db_drop_everything(db)
         db.create_all()
+
+
+@manager.command
+def collect(table, file=None):
+    collector = Collector(app)
+
+    # Get the method of the collector that matches the table name and run
+    getattr(collector, table)(file)
 
 
 if __name__ == "__main__":

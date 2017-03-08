@@ -41,3 +41,29 @@ class ProteinResource(Resource):
         result = base_query.all()
 
         return marshal(result, self.mapper)
+
+
+class ComplexResource(Resource):
+
+    parser = reqparse.RequestParser()
+    parser.add_argument('id', required=False)
+    parser.add_argument('name', required=False)
+
+    mapper = {
+        "id": fields.Integer,
+        "name": fields.String,
+        "proteins": fields.List(fields.Nested(ProteinResource.mapper))
+    }
+
+    def get(self):
+        args = self.parser.parse_args()
+        base_query = db.session.query(Complex)
+        if args.get('id'):
+            base_query = base_query.filter(Complex.id == args['id'])
+        if args.get('name'):
+            base_query = base_query.filter(Complex.name == args['name'])
+        result = base_query.all()
+
+        return marshal(result, self.mapper)
+
+
