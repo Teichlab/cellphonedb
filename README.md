@@ -11,8 +11,8 @@ Firstly, install the dependencies as specified in the requirements.txt file
 Cellcommdb looks for the sqlalchemy connection string in the environmental variables.
 Make sure you set them appropriately for the production and test servers, for example:
 
-    export CELLCOMMDB_URI="postgresql://user:password@localhost:5432/cellcommdb
-    export CELLCOMMDB_TEST_URI="postgresql://user:password@localhost:5432/test
+    export CELLCOMMDB_URI="postgresql+psycopg2://user:password@localhost:5432/cellcommdb
+    export CELLCOMMDB_TEST_URI="postgresql+psycopg2://user:password@localhost:5432/test
 
 These can be added to your `.bashrc` or your virtual environment startup script.
 Note that you may need to add this directory to your `PYTHONPATH` environmental variable.
