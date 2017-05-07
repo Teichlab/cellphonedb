@@ -2,10 +2,10 @@ from flask.ext.script import Manager
 
 from cellcommdb.collection import Collector
 from cellcommdb.api import create_app
+from cellcommdb.exporter import Exporter
 from cellcommdb.extensions import db
 from cellcommdb.db_scripts import db_drop_everything
 from cellcommdb.models import *
-
 
 app = create_app()
 manager = Manager(app)
@@ -35,6 +35,12 @@ def collect(table, file=None):
 
     # Get the method of the collector that matches the table name and run
     getattr(collector, table)(file)
+
+
+@manager.command
+def export(table):
+    exporter = Exporter(app)
+    getattr(exporter, table)()
 
 
 if __name__ == "__main__":
