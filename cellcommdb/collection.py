@@ -9,7 +9,6 @@ from cellcommdb.api import create_app
 
 
 class Collector(object):
-
     def __init__(self, app):
         self.app = app
 
@@ -19,8 +18,8 @@ class Collector(object):
             gene_file = os.path.join(current_dir, 'data', 'gene_table.csv')
 
         with self.app.app_context():
-
             # Query for existing genes
+
             existing_genes = db.session.query(Gene.ensembl).all()
             existing_genes = [g[0] for g in existing_genes]
 
@@ -40,29 +39,111 @@ class Collector(object):
             gene_df[['ensembl', 'name', 'protein_id']].to_sql(
                 name='gene', if_exists='append', con=db.engine, index=False)
 
+    def _get_column_table_names(self, model):
+        colum_names = db.session.query(model).statement.columns
+        return colum_names
+
+    def _remove_not_defined_columns(self, data_frame, defined_columns):
+        data_frame_keys = data_frame.keys()
+
+        for key in data_frame_keys:
+            if key not in defined_columns:
+                data_frame.drop(key, axis=1, inplace=True)
+
+        return data_frame
+
+    def _get_db_existent_proteines(self, df_proteine):
+        db_proteines = db.session.query(Protein).all()
+        csv_uniprots = df_proteine['uniprot'].tolist()
+
+        db_existent_uniprots = []
+        for db_proteine in db_proteines:
+            if db_proteine.uniprot in csv_uniprots:
+                db_existent_uniprots.append(db_proteine)
+
+        return db_existent_uniprots
+
+    def _get_existent_proteines(self, df_proteine):
+        db_proteines = pd.read_sql_table(table_name='protein', con=db.engine)
+        csv_uniprots = df_proteine['uniprot'].tolist()
+
+        db_proteines = db_proteines[db_proteines['uniprot'].apply(
+            lambda x: x in csv_uniprots)]
+
+        return db_proteines
+
+    def table_to_dict(self, table):
+        a = []
+
+        for row in table:
+            d = {}
+            for column in row.__table__.columns:
+                d[column.name] = str(getattr(row, column.name))
+            a.append(d)
+
+        return a
+
     def protein(self, protein_file=None):
+        # Convert to boolean
+        bools = ['transmembrane', 'secretion', 'peripheral', 'receptor',
+                 'receptor_highlight', 'adhesion', 'other', 'transporter',
+                 'secreted_highlight']
 
         with self.app.app_context():
             if not protein_file:
                 protein_file = os.path.join(current_dir, 'data', 'protein.csv')
 
             prot_df = pd.read_csv(protein_file)
-            existing_proteins = db.session.query(Protein.uniprot).all()
-            existing_proteins = [p[0] for p in existing_proteins]
 
-            prot_df = prot_df[prot_df['uniprot'].apply(
-                lambda x: x not in existing_proteins)]
-            prot_df.drop_duplicates(subset=['uniprot'], inplace=True)
-            prot_df = prot_df.iloc[:, 1:]
-            prot_df.drop('gene_name', axis=1, inplace=True)
+            prot_df['id'] = prot_df['id'].apply(lambda x: np.nan)
 
-            # Convert to boolean
-            bools = ['transmembrane', 'secretion', 'peripheral', 'receptor',
-                     'receptor_highlight', 'adhesion', 'other', 'transporter',
-                     'secreted_highlight']
+            colum_names = self._get_column_table_names(Protein)
+
+            prot_df = self._remove_not_defined_columns(prot_df, colum_names)
+
             prot_df[bools] = prot_df[bools].astype(bool)
-            prot_df.to_sql(name='protein', if_exists='append', con=db.engine,
-                           index=False)
+
+            db_repeat_proteines_df = self._get_existent_proteines(prot_df)
+
+            all_prot_df = prot_df.append(db_repeat_proteines_df)
+
+            unique_prots = all_prot_df.drop_duplicates(subset=['uniprot'])
+
+            def merge_protein_values(row):
+                proteine = all_prot_df[all_prot_df['uniprot'] == row['uniprot']]
+
+                def setNonEmptyStrings(protRow):
+                    row[protRow.notnull()] = protRow[protRow.notnull()]
+
+                proteine.apply(
+                    setNonEmptyStrings, axis=1
+                )
+
+                row[bools] = proteine[bools].any()
+
+                return row
+
+            unique_prots = unique_prots.apply(
+
+                merge_protein_values, axis=1
+            )
+
+            new_uniprots = unique_prots[unique_prots['id'].isnull()]
+
+            new_uniprots.drop('id', axis=1, inplace=True)
+            new_uniprots.to_sql(name='protein', if_exists='append', con=db.engine, index=False)
+
+            for index, unique_prot in unique_prots[unique_prots['id'].notnull()].iterrows():
+
+                protein = db.session.query(Protein).get(unique_prot['id'])
+                for key, value in unique_prot.to_dict().iteritems():
+
+                    if pd.isnull(value):
+                        setattr(protein, key, None)
+                    else:
+                        setattr(protein, key, value)
+
+                    db.session.commit()
 
     def complex(self, complex_file=None):
 
@@ -116,7 +197,7 @@ class Collector(object):
 
                 # Drop existing complexes
                 complex_df = complex_df[complex_df['name'].apply(
-                lambda x: x not in existing_complexes)]
+                    lambda x: x not in existing_complexes)]
 
                 complex_df.to_sql(name='complex', if_exists='append',
                                   con=db.engine, index=False)

@@ -30,6 +30,12 @@ Once installed, you can download the data files using the following.
 The data import files are called through the `manage.py` script.
 
     python manage.py collect protein
+
+## Exporting database table
+
+You can export datatabase tables calling the export method
+
+    python manage.py export protein
     
 ## Running the debug server
 
