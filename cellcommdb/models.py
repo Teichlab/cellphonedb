@@ -11,7 +11,7 @@ class IdModel(object):
 class Multidata(db.Model, IdModel):
     __tablename__ = "multidata"
 
-    uniprot = Column(String, nullable=False)
+    uniprot = Column(String, nullable=False, unique=True)
     entry_name = Column(String)
 
     transmembrane = Column(Boolean)
@@ -33,7 +33,7 @@ class Multidata(db.Model, IdModel):
 class Protein(db.Model, IdModel):
     __tablename__ = "protein"
 
-    multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'))
+    multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), unique=True)
 
 # TODO: Delete me
 # class Gene(db.Model, IdModel):
