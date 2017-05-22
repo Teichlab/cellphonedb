@@ -9,7 +9,7 @@ class IdModel(object):
 
 
 class Multidata(db.Model, IdModel):
-    __tablename__ = "multidata"
+    __tablename__ = 'multidata'
 
     uniprot = Column(String, nullable=False, unique=True)
     entry_name = Column(String)
@@ -34,17 +34,22 @@ class Multidata(db.Model, IdModel):
 
 
 class Protein(db.Model, IdModel):
-    __tablename__ = "protein"
+    __tablename__ = 'protein'
 
     multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), unique=True, nullable=False)
 
 
 class Complex_composition(db.Model, IdModel):
-    __tablename__ = "complex_composition"
+    __tablename__ = 'complex_composition'
 
     complex_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False)
     protein_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False)
 
+
+class Complex(db.Model, IdModel):
+    __tablename__ = 'complex'
+
+    complex_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False, unique=True)
 
 # TODO: Delete me
 # class Gene(db.Model, IdModel):

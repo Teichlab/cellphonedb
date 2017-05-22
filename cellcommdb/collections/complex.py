@@ -37,7 +37,6 @@ def load(complex_file=None):
             complex_map[row['uniprot']] = protein_id_list
             complete_indices.append(index)
 
-
     # Insert complexes
     if not complex_df.empty:
         # Remove unwanted columns
@@ -68,14 +67,23 @@ def load(complex_file=None):
 
     # Build set of complexes
     complex_set = []
+    complex_table = []
     for complex_name in complex_map:
         complex_id = new_complexes[complex_name]
         for protein_id in complex_map[complex_name]:
             complex_set.append((complex_id, protein_id))
+        complex_table.append(complex_id)
 
     # Insert complex composition
     complex_set_df = pd.DataFrame(complex_set,
                                   columns=['complex_multidata_id', 'protein_multidata_id'])
+
+    complex_table_df = pd.DataFrame(complex_table, columns=['complex_multidata_id'])
+
     complex_set_df.to_sql(
         name='complex_composition', if_exists='append',
+        con=db.engine, index=False)
+
+    complex_table_df.to_sql(
+        name='complex', if_exists='append',
         con=db.engine, index=False)
