@@ -7,8 +7,34 @@ from cellcommdb.extensions import db
 from cellcommdb.models import Multidata, Protein
 
 
+def load(protein_file=None):
+    bools = ['transmembrane', 'secretion', 'peripheral', 'receptor',
+             'receptor_highlight', 'adhesion', 'other', 'transporter',
+             'secreted_highlight']
+
+    if not protein_file:
+        protein_file = os.path.join(current_dir, 'data', 'protein.csv')
+
+    csv_proteins_df = pd.read_csv(protein_file)
+
+    _clear_column(csv_proteins_df, 'id')
+
+    csv_proteins_df[bools] = csv_proteins_df[bools].astype(bool)
+
+    db_repeat_proteins_df = _get_existent_proteins(csv_proteins_df)
+    db_repeat_proteins_df.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
+
+
+    all_prot_df = csv_proteins_df.append(db_repeat_proteins_df)
+
+    unique_prots = _merge_same_proteins(all_prot_df, bools)
+
+    _save_proteins_in_db(unique_prots)
+
+
 def _get_column_table_names(model):
     colum_names = db.session.query(model).statement.columns
+    colum_names = [p.name for p in colum_names]
     return colum_names
 
 
@@ -22,10 +48,10 @@ def _remove_not_defined_columns(data_frame, defined_columns):
     return data_frame
 
 
-def _get_existent_proteines(df_proteine):
+def _get_existent_proteins(df_protein):
     db_multidata = pd.read_sql_table(table_name='multidata', con=db.engine)
-    csv_uniprots = df_proteine['uniprot'].tolist()
-
+    csv_uniprots = df_protein['uniprot'].tolist()
+    db_multidata.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
     db_multidata = db_multidata[db_multidata['uniprot'].apply(
         lambda x: x in csv_uniprots)]
 
@@ -33,11 +59,11 @@ def _get_existent_proteines(df_proteine):
 
 
 def _save_proteins_in_db(unique_prots):
-    _save_new_proteines(unique_prots)
-    _update_proteine_multidata_in_db(unique_prots)
+    _insert_new_proteins(unique_prots)
+    _update_protein_multidata_in_db(unique_prots)
 
 
-def _update_proteine_multidata_in_db(unique_prots):
+def _update_protein_multidata_in_db(unique_prots):
     existent_uniprots = unique_prots[unique_prots['id'].notnull()]
     for index, unique_prot in existent_uniprots.iterrows():
 
@@ -52,63 +78,61 @@ def _update_proteine_multidata_in_db(unique_prots):
             db.session.commit()
 
 
-def _insert_proteins_in_db(new_prots):
-    for index, new_prot in new_prots.iterrows():
-        protein = Protein()
-        multidata = db.session.query(Multidata).filter_by(uniprot=new_prot['uniprot']).first()
-        protein.multidata_id = multidata.id
-        db.session.add(protein)
-        db.session.commit()
+def _insert_proteins_in_db(proteins_df):
+    multidatas = db.session.query(Multidata.name, Multidata.id).all()
+    multidatas = {p[0]: p[1] for p in multidatas}
+
+    protein_multidata_ids = []
+    for index, new_prot in proteins_df.iterrows():
+        protein_multidata_ids.append(multidatas[new_prot['uniprot']])
+
+    proteins = proteins_df.copy()
+
+    proteins = _remove_not_defined_columns(proteins, _get_column_table_names(Protein))
+
+    proteins.drop('id', axis=1, inplace=True)
+    protein_multidata_ids_df = pd.DataFrame(protein_multidata_ids, columns=['protein_multidata_id'])
+    proteins = pd.concat([proteins, protein_multidata_ids_df], axis=1)
 
 
-def _save_new_proteines(unique_prots):
+    proteins.to_sql(name='protein', if_exists='append', con=db.engine, index=False)
+
+
+def _insert_multidata_proteins(proteins):
+    multidata_columns = _get_column_table_names(Multidata)
+    multidata_proteins = proteins.copy()
+    multidata_proteins.rename(index=str, columns={'uniprot': 'name'}, inplace=True)
+    multidata_proteins = _remove_not_defined_columns(multidata_proteins, multidata_columns)
+    multidata_proteins.drop('id', axis=1, inplace=True)
+
+
+    multidata_proteins.to_sql(name='multidata', if_exists='append', con=db.engine, index=False)
+
+
+def _insert_new_proteins(unique_prots):
     new_uniprots = unique_prots[unique_prots['id'].isnull()]
-
-    multi_adata_columns = _get_column_table_names(Multidata)
-    new_uniprots = _remove_not_defined_columns(new_uniprots, multi_adata_columns)
-    new_uniprots.drop('id', axis=1, inplace=True)
-
-    new_uniprots.to_sql(name='multidata', if_exists='append', con=db.engine, index=False)
+    _insert_multidata_proteins(new_uniprots)
     _insert_proteins_in_db(new_uniprots)
 
 
-def load(protein_file=None):
-    bools = ['transmembrane', 'secretion', 'peripheral', 'receptor',
-             'receptor_highlight', 'adhesion', 'other', 'transporter',
-             'secreted_highlight']
-
-    if not protein_file:
-        protein_file = os.path.join(current_dir, 'data', 'protein.csv')
-
-    csv_proteines_df = pd.read_csv(protein_file)
-
-    csv_proteines_df['id'] = csv_proteines_df['id'].apply(lambda x: np.nan)
-
-    csv_proteines_df[bools] = csv_proteines_df[bools].astype(bool)
-
-    db_repeat_proteines_df = _get_existent_proteines(csv_proteines_df)
-
-    all_prot_df = csv_proteines_df.append(db_repeat_proteines_df)
-
-    unique_prots = _merge_same_proteines(all_prot_df, bools)
-
-    _save_proteins_in_db(unique_prots)
+def _clear_column(data_frame, column_name):
+    data_frame[column_name] = data_frame[column_name].apply(lambda x: np.nan)
 
 
-def _merge_same_proteines(all_prot_df, bools):
+def _merge_same_proteins(all_prot_df, bools):
     unique_prots = all_prot_df.drop_duplicates(subset=['uniprot'])
 
     def merge_values(row):
-        proteine = all_prot_df[all_prot_df['uniprot'] == row['uniprot']]
+        protein = all_prot_df[all_prot_df['uniprot'] == row['uniprot']]
 
         def setNonEmptyStrings(protRow):
             row[protRow.notnull()] = protRow[protRow.notnull()]
 
-        proteine.apply(
+        protein.apply(
             setNonEmptyStrings, axis=1
         )
 
-        row[bools] = proteine[bools].any()
+        row[bools] = protein[bools].any()
 
         return row
 

@@ -11,12 +11,8 @@ class IdModel(object):
 class Multidata(db.Model, IdModel):
     __tablename__ = 'multidata'
 
-    uniprot = Column(String, nullable=False, unique=True)
-    entry_name = Column(String)
+    name = Column(String, nullable=False, unique=True)
 
-    transmembrane = Column(Boolean)
-    secretion = Column(Boolean)
-    peripheral = Column(Boolean)
     receptor = Column(Boolean)
     receptor_highlight = Column(Boolean)
     receptor_desc = Column(String)
@@ -26,17 +22,22 @@ class Multidata(db.Model, IdModel):
     transporter = Column(Boolean)
     secreted_highlight = Column(Boolean)
     secreted_desc = Column(String)
-    tags = Column(String)
-    tags_reason = Column(String)
     comments = Column(String)
 
-    protein = db.relationship('Protein', backref='multidata', lazy='joined')
+    # protein = db.relationship('Protein', backref='multidata', lazy='joined')
 
 
 class Protein(db.Model, IdModel):
     __tablename__ = 'protein'
 
-    multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), unique=True, nullable=False)
+    entry_name = Column(String)
+    transmembrane = Column(Boolean)
+    secretion = Column(Boolean)
+    peripheral = Column(Boolean)
+    tags = Column(String)
+    tags_reason = Column(String)
+
+    protein_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), unique=True, nullable=False)
 
 
 class Complex_composition(db.Model, IdModel):
