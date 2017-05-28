@@ -24,6 +24,21 @@ Information on using and installing git lfs can be found [here](https://git-lfs.
 Once installed, you can download the data files using the following.
 
     git lfs pull
+
+### Creating Docker Container
+    docker-compose up -d
+
+### Creating database structure
+    python manage.py create_db
+
+## Running Docker Container
+    docker-compose start
+    
+## Stopping Docker Container
+    docker-compose stop
+
+## Reseting Database
+    python manage.py reset_db
     
 ## Populating the database
 
@@ -33,7 +48,7 @@ The data import files are called through the `manage.py` script.
 
 ## Exporting database table
 
-You can export datatabase tables calling the export method
+You can export datatabase tables to csv, calling the export method. Outout is stored in out folder.
 
     python manage.py export protein
     
