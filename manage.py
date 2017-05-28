@@ -44,5 +44,4 @@ def export(table):
 
 
 if __name__ == "__main__":
-    reset_db()
     manager.run()
