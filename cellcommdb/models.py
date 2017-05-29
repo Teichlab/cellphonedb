@@ -51,6 +51,11 @@ class Complex(db.Model, IdModel):
     __tablename__ = 'complex'
 
     complex_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False, unique=True)
+    pdb_structure = Column(Boolean)
+    pdb_id = Column(String)
+    stoichiometry = Column(String)
+    comments = Column(String)
+
 
 # TODO: Delete me
 # class Gene(db.Model, IdModel):

@@ -4,7 +4,7 @@ import numpy as np
 
 from cellcommdb.api import current_dir
 from cellcommdb.extensions import db
-from cellcommdb.models import Multidata, Protein
+from cellcommdb.models import Multidata, Protein, Complex
 from cellcommdb.tools import filters, database
 
 
@@ -58,15 +58,16 @@ def load(complex_file=None):
 
         # Convert ints to bool
         bools = ['receptor', 'receptor_highlight', 'adhesion', 'other',
-                 'transporter', 'secreted_highlight']
+                 'transporter', 'secreted_highlight', 'pdb_structure']
         complex_df[bools] = complex_df[bools].astype(bool)
 
         # Drop existing complexes
         complex_df = complex_df[complex_df['name'].apply(
             lambda x: x not in existing_complexes)]
 
-        filters.remove_not_defined_columns(complex_df, database.get_column_table_names(Multidata, db))
-        complex_df.to_sql(name='multidata', if_exists='append', con=db.engine, index=False)
+        multidata_df = filters.remove_not_defined_columns(complex_df.copy(),
+                                                          database.get_column_table_names(Multidata, db))
+        multidata_df.to_sql(name='multidata', if_exists='append', con=db.engine, index=False)
 
     # Now find id's of new complex rows
     new_complexes = db.session.query(Multidata.name, Multidata.id).all()
@@ -79,13 +80,16 @@ def load(complex_file=None):
         complex_id = new_complexes[complex_name]
         for protein_id in complex_map[complex_name]:
             complex_set.append((complex_id, protein_id))
-        complex_table.append(complex_id)
+        complex_table.append({'complex_multidata_id': complex_id, 'name': complex_name})
 
     # Insert complex composition
     complex_set_df = pd.DataFrame(complex_set,
                                   columns=['complex_multidata_id', 'protein_multidata_id'])
 
-    complex_table_df = pd.DataFrame(complex_table, columns=['complex_multidata_id'])
+    complex_table_df = pd.DataFrame(complex_table)
+    complex_table_df = pd.merge(complex_table_df, complex_df, on='name')
+
+    filters.remove_not_defined_columns(complex_table_df, database.get_column_table_names(Complex, db))
 
     complex_set_df.to_sql(
         name='complex_composition', if_exists='append',
