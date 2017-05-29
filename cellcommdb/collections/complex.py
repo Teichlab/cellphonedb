@@ -44,6 +44,10 @@ def load(complex_file=None):
         else:
             incomplete_indices.append(index)
 
+    if len(incomplete_indices) > 0:
+        print 'COMEPLEXES WITH MISSING PROTEINES:'
+        print  complex_df.iloc[incomplete_indices, :]['name']
+        
     # Insert complexes
     if not complex_df.empty:
         # Remove unwanted columns
