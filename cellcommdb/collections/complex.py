@@ -21,7 +21,7 @@ def load(complex_file=None):
     complex_df.dropna(axis=1, inplace=True, how='all')
     complex_df.rename(index=str, columns={'complex_name': 'name'}, inplace=True)
 
-    complex_df =  complex_df.loc[complex_df['type'] == 'COMPLEX'].reset_index()
+    complex_df = complex_df.loc[complex_df['type'] == 'COMPLEX'].reset_index()
 
     # Get complex composition info
     complete_indices = []
@@ -44,7 +44,6 @@ def load(complex_file=None):
         else:
             incomplete_indices.append(index)
 
-
     # Insert complexes
     if not complex_df.empty:
         # Remove unwanted columns
@@ -55,7 +54,6 @@ def load(complex_file=None):
         complex_df.drop(removal_columns, axis=1, inplace=True)
 
         # Remove rows with missing complexes
-        print complete_indices
         complex_df = complex_df.iloc[complete_indices, :]
 
         # Convert ints to bool
@@ -67,12 +65,9 @@ def load(complex_file=None):
         complex_df = complex_df[complex_df['name'].apply(
             lambda x: x not in existing_complexes)]
 
-        print complex_df[complex_df.duplicated(subset='name')]
         filters.remove_not_defined_columns(complex_df, database.get_column_table_names(Multidata, db))
-        complex_df.to_sql(name='multidata', if_exists='append',
-                          con=db.engine, index=False)
+        complex_df.to_sql(name='multidata', if_exists='append', con=db.engine, index=False)
 
-    return
     # Now find id's of new complex rows
     new_complexes = db.session.query(Multidata.name, Multidata.id).all()
     new_complexes = {c[0]: c[1] for c in new_complexes}
