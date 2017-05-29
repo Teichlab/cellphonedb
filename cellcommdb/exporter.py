@@ -1,5 +1,5 @@
 from cellcommdb.extensions import db
-from cellcommdb.models import Protein
+from cellcommdb.models import Protein, Multidata
 import pandas as pd
 import inspect
 
@@ -14,6 +14,12 @@ class Exporter(object):
             output_name = '%s.csv' % current_method_name
 
         with self.app.app_context():
-            proteins = db.session.query(Protein)
-            df = pd.read_sql(proteins.statement, db.engine)
-            df.to_csv('out/%s' % output_name, index=False)
+            proteins_query = db.session.query(Protein)
+            multidata_query = db.session.query(Multidata)
+
+            proteins_df = pd.read_sql(proteins_query.statement, db.engine)
+            multidata_df = pd.read_sql(multidata_query.statement, db.engine)
+
+            proteins_multidata = pd.merge(proteins_df, multidata_df, left_on='protein_multidata_id', right_on='id')
+
+            proteins_multidata.to_csv('out/%s' % output_name, index=False)
