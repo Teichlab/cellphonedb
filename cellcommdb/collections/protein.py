@@ -5,6 +5,7 @@ import numpy as np
 from cellcommdb.api import current_dir
 from cellcommdb.extensions import db
 from cellcommdb.models import Multidata, Protein
+from cellcommdb.tools import filters, database
 
 
 def load(protein_file=None):
@@ -29,22 +30,6 @@ def load(protein_file=None):
     unique_prots = _merge_same_proteins(all_prot_df, bools)
 
     _save_proteins_in_db(unique_prots)
-
-
-def _get_column_table_names(model):
-    colum_names = db.session.query(model).statement.columns
-    colum_names = [p.name for p in colum_names]
-    return colum_names
-
-
-def _remove_not_defined_columns(data_frame, defined_columns):
-    data_frame_keys = data_frame.keys()
-
-    for key in data_frame_keys:
-        if key not in defined_columns:
-            data_frame.drop(key, axis=1, inplace=True)
-
-    return data_frame
 
 
 def _get_existent_proteins(df_protein):
@@ -85,7 +70,8 @@ def _insert_proteins_in_db(proteins_df):
     proteins.rename(index=str, columns={'uniprot': 'name'}, inplace=True)
 
     proteins = pd.merge(proteins, multidatas, on='name')
-    proteins = _remove_not_defined_columns(proteins, _get_column_table_names(Protein))
+
+    proteins = filters.remove_not_defined_columns(proteins, database.get_column_table_names(Protein, db))
 
     proteins.drop('id', axis=1, inplace=True)
 
@@ -93,10 +79,10 @@ def _insert_proteins_in_db(proteins_df):
 
 
 def _insert_multidata_proteins(proteins):
-    multidata_columns = _get_column_table_names(Multidata)
+    multidata_columns = database.get_column_table_names(Multidata, db)
     multidata_proteins = proteins.copy()
     multidata_proteins.rename(index=str, columns={'uniprot': 'name'}, inplace=True)
-    multidata_proteins = _remove_not_defined_columns(multidata_proteins, multidata_columns)
+    multidata_proteins = filters.remove_not_defined_columns(multidata_proteins, multidata_columns)
     multidata_proteins.drop('id', axis=1, inplace=True)
 
     multidata_proteins.to_sql(name='multidata', if_exists='append', con=db.engine, index=False)
