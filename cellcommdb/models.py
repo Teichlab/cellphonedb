@@ -22,9 +22,6 @@ class Multidata(db.Model, IdModel):
     transporter = Column(Boolean)
     secreted_highlight = Column(Boolean)
     secreted_desc = Column(String)
-    comments = Column(String)
-
-    # protein = db.relationship('Protein', backref='multidata', lazy='joined')
 
 
 class Protein(db.Model, IdModel):
@@ -51,11 +48,10 @@ class Complex(db.Model, IdModel):
     __tablename__ = 'complex'
 
     complex_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False, unique=True)
-    pdb_structure = Column(Boolean)
+    pdb_structure = Column(String)
     pdb_id = Column(String)
     stoichiometry = Column(String)
     comments = Column(String)
-
 
 # TODO: Delete me
 # class Gene(db.Model, IdModel):

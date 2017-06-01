@@ -26,6 +26,7 @@ def load(complex_file=None):
     # Get complex composition info
     complete_indices = []
     incomplete_indices = []
+    missing_proteins = []
     complex_map = {}
     for index, row in complex_df.iterrows():
         missing = False
@@ -36,6 +37,7 @@ def load(complex_file=None):
                 protein_id = proteins.get(row[protein])
                 if protein_id is None:
                     missing = True
+                    missing_proteins.append(row[protein])
                 else:
                     protein_id_list.append(protein_id)
         if not missing:
@@ -45,7 +47,11 @@ def load(complex_file=None):
             incomplete_indices.append(index)
 
     if len(incomplete_indices) > 0:
-        print 'COMEPLEXES WITH MISSING PROTEINES:'
+        print 'MISSING PROTEINS:'
+        for protein in missing_proteins:
+            print protein
+
+        print 'COMEPLEXES WITH MISSING PROTEINS:'
         print  complex_df.iloc[incomplete_indices, :]['name']
         
     # Insert complexes
@@ -62,7 +68,7 @@ def load(complex_file=None):
 
         # Convert ints to bool
         bools = ['receptor', 'receptor_highlight', 'adhesion', 'other',
-                 'transporter', 'secreted_highlight', 'pdb_structure']
+                 'transporter', 'secreted_highlight']
         complex_df[bools] = complex_df[bools].astype(bool)
 
         # Drop existing complexes
