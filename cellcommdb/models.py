@@ -53,25 +53,21 @@ class Complex(db.Model, IdModel):
     stoichiometry = Column(String)
     comments = Column(String)
 
-# TODO: Delete me
-# class Gene(db.Model, IdModel):
-#     __tablename__ = "gene"
-#
-#     ensembl = Column(String)
-#     name = Column(String)
-#
-#     protein_id = Column(Integer, ForeignKey('protein.id'))
-#
-#     protein = db.relationship('Protein', backref=db.backref('protein'))
+
+class Unity_interaction(db.Model, IdModel):
+    __tablename__ = 'unity_interaction'
+
+    multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False, unique=True)
+    source = db.Column(String)
 
 
-
-
-
-#
-# complex_composition_table = Table(
-#     'complex_composition', db.metadata,
-#     Column('complex_id', Integer, ForeignKey('complex.id')),
-#     Column('protein_id', Integer, ForeignKey('protein.id')),
-#     Column('stoichiometry', Integer)
-# )
+    # TODO: Delete me
+    # class Gene(db.Model, IdModel):
+    #     __tablename__ = "gene"
+    #
+    #     ensembl = Column(String)
+    #     name = Column(String)
+    #
+    #     protein_id = Column(Integer, ForeignKey('protein.id'))
+    #
+    #     protein = db.relationship('Protein', backref=db.backref('protein'))
