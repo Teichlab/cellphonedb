@@ -24,6 +24,8 @@ class Exporter(object):
 
             proteins_multidata = pd.merge(proteins_df, multidata_df, left_on='protein_multidata_id', right_on='id')
 
+            proteins_multidata.drop(['id_x', 'id_y', 'protein_multidata_id'], axis=1, inplace=True)
+
             proteins_multidata.to_csv('out/%s' % output_name, index=False)
 
     def complex(self, output_name=None):
@@ -72,7 +74,7 @@ class Exporter(object):
         interaction_df = pd.read_sql(interaction_query.statement, db.engine)
 
         csv_interaction_df = pd.merge(interaction_df, multidata_df, left_on='unityinteraction_multidata_1_id', right_on='id')
-        csv_interaction_df.rename(index=str, columns={'name': 'uniprot_1'}, inplace=True)
+        csv_interaction_df.rename(inex=str, columns={'name': 'uniprot_1'}, inplace=True)
 
         csv_interaction_df = pd.merge(csv_interaction_df, multidata_df, left_on='unityinteraction_multidata_2_id', right_on='id')
         csv_interaction_df.rename(index=str, columns={'name': 'uniprot_2'}, inplace=True)
