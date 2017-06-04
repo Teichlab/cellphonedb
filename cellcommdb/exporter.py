@@ -60,6 +60,7 @@ class Exporter(object):
                 composition.append(complex_proteins)
 
             complex_complete = pd.merge(complex_complete, pd.DataFrame(composition), on='complex_multidata_id')
+            complex_complete.drop(['id_x', 'id_y', 'complex_multidata_id'], axis=1, inplace=True)
             complex_complete.to_csv('out/%s' % output_name, index=False)
 
     def interaction(self, output_name=None):
@@ -73,17 +74,18 @@ class Exporter(object):
         interaction_query = db.session.query(Interaction)
         interaction_df = pd.read_sql(interaction_query.statement, db.engine)
 
-        csv_interaction_df = pd.merge(interaction_df, multidata_df, left_on='unityinteraction_multidata_1_id', right_on='id')
+        csv_interaction_df = pd.merge(interaction_df, multidata_df, left_on='unityinteraction_multidata_1_id',
+                                      right_on='id')
         csv_interaction_df.rename(inex=str, columns={'name': 'uniprot_1'}, inplace=True)
 
-        csv_interaction_df = pd.merge(csv_interaction_df, multidata_df, left_on='unityinteraction_multidata_2_id', right_on='id')
+        csv_interaction_df = pd.merge(csv_interaction_df, multidata_df, left_on='unityinteraction_multidata_2_id',
+                                      right_on='id')
         csv_interaction_df.rename(index=str, columns={'name': 'uniprot_2'}, inplace=True)
-
-
 
         print csv_interaction_df
 
-        csv_interaction_df = filters.remove_not_defined_columns(csv_interaction_df, ['uniprot_1', 'uniprot_2', 'score_1', 'score_2'])
+        csv_interaction_df = filters.remove_not_defined_columns(csv_interaction_df,
+                                                                ['uniprot_1', 'uniprot_2', 'score_1', 'score_2'])
         csv_interaction_df.to_csv('out/%s' % output_name, index=False)
 
 
