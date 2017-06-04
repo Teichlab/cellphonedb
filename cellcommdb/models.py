@@ -61,6 +61,16 @@ class Unity_interaction(db.Model, IdModel):
     source = db.Column(String)
 
 
+class Interaction(db.Model, IdModel):
+    __tablename__ = 'interaction'
+
+    unityinteraction_multidata_1_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False)
+    unityinteraction_multidata_2_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False)
+
+    score_1 = db.Column(Float)
+    score_2 = db.Column(Float)
+
+
     # TODO: Delete me
     # class Gene(db.Model, IdModel):
     #     __tablename__ = "gene"

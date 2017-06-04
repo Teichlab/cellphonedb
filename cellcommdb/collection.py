@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 from cellcommdb.api import current_dir
-from cellcommdb.collections import protein, complex, unity_interaction
+from cellcommdb.collections import protein, complex, unity_interaction, interaction
 from cellcommdb.extensions import db
 from cellcommdb.models import *
 from cellcommdb.api import create_app
@@ -50,6 +50,10 @@ class Collector(object):
     def unity_interaction(self, unity_interaction_file=None):
         with self.app.app_context():
             unity_interaction.load(unity_interaction_file)
+
+    def interaction(self, interaction_file=None):
+        with self.app.app_context():
+            interaction.load(interaction_file)
 
 
 if __name__ == "__main__":
