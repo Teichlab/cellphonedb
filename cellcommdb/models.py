@@ -33,6 +33,7 @@ class Protein(db.Model, IdModel):
     peripheral = Column(Boolean)
     tags = Column(String)
     tags_reason = Column(String)
+    gene_name = Column(String)
 
     protein_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), unique=True, nullable=False)
 
@@ -71,13 +72,11 @@ class Interaction(db.Model, IdModel):
     score_2 = db.Column(Float)
 
 
-    # TODO: Delete me
-    # class Gene(db.Model, IdModel):
-    #     __tablename__ = "gene"
-    #
-    #     ensembl = Column(String)
-    #     name = Column(String)
-    #
-    #     protein_id = Column(Integer, ForeignKey('protein.id'))
-    #
-    #     protein = db.relationship('Protein', backref=db.backref('protein'))
+class Gene(db.Model, IdModel):
+    __tablename__ = "gene"
+
+    ensembl = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+
+    protein_id = Column(Integer, ForeignKey('protein.id'))
+

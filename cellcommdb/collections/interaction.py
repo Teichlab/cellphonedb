@@ -33,7 +33,7 @@ def load(interaction_file=None):
 
 
 
-    # interaction_df_clean.to_sql(name='interaction', if_exists='append', con=db.engine, index=False)
+    interaction_df_clean.to_sql(name='interaction', if_exists='append', con=db.engine, index=False)
 
 
     # interactions = []
