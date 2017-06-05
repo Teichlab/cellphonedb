@@ -1,5 +1,5 @@
 from cellcommdb.extensions import db
-from cellcommdb.models import Protein, Multidata, Complex, Complex_composition, Interaction
+from cellcommdb.models import Protein, Multidata, Complex, Complex_composition, Interaction, Gene
 import pandas as pd
 import inspect
 
@@ -77,37 +77,32 @@ class Exporter(object):
         csv_interaction_df = pd.merge(interaction_df, multidata_df, left_on='unityinteraction_multidata_1_id',
                                       right_on='id')
         csv_interaction_df.rename(inex=str, columns={'name': 'uniprot_1'}, inplace=True)
-
         csv_interaction_df = pd.merge(csv_interaction_df, multidata_df, left_on='unityinteraction_multidata_2_id',
                                       right_on='id')
         csv_interaction_df.rename(index=str, columns={'name': 'uniprot_2'}, inplace=True)
-
-        print csv_interaction_df
-
         csv_interaction_df = filters.remove_not_defined_columns(csv_interaction_df,
                                                                 ['uniprot_1', 'uniprot_2', 'score_1', 'score_2'])
         csv_interaction_df.to_csv('out/%s' % output_name, index=False)
 
 
-        # composition = []
-        # for complex_index, interaction in interaction_df.iterrows():
-        #     # complex_complex_composition = complex_composition_df[
-        #     #     complex_composition_df['complex_multidata_id'] == complex['complex_multidata_id']]
-        #
-        #
-        #     unityinteraction_multidata_1 = multidata_df[
-        #         multidata_df['name'] == interaction['unityinteraction_multidata_1_id']]
-        #     unityinteraction_multidata_2 = multidata_df[
-        #         multidata_df['name'] == interaction['unityinteraction_multidata_2_id']]
-        #
-        #     complex_proteins = {'uniprot_1': unityinteraction_multidata_1['name'],
-        #                         'uniprot_2': unityinteraction_multidata_2['name'],
-        #                         'score_1': interaction['score_1'],
-        #                         'score_2': interaction['score_2']
-        #                         }
-        #     # for index, complex_composition in complex_complex_composition.iterrows():
-        #     #     proteine_name = multidata_df.iloc[complex_composition['protein_multidata_id'], :]['name']
-        #     #     complex_proteins['protein_%i' % protein_index] = proteine_name
-        #     #     protein_index += 1
-        #
-        #     composition.append(complex_proteins)
+    def gene(self, output_name=None):
+        if not output_name:
+            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
+            output_name = '%s.csv' % current_method_name
+
+        with self.app.app_context():
+            gene_query = db.session.query(Gene)
+            proteins_query = db.session.query(Protein)
+            multidata_query = db.session.query(Multidata)
+
+            gene_df = pd.read_sql(gene_query.statement, db.engine)
+            proteins_df = pd.read_sql(proteins_query.statement, db.engine)
+            multidata_df = pd.read_sql(multidata_query.statement, db.engine)
+
+            gene_df.rename(index=str, columns={'name': 'gene_table_name'}, inplace=True)
+            gene_protein = pd.merge(gene_df, proteins_df, left_on='protein_id', right_on='id')
+            gene_protein_multidata = pd.merge(gene_protein, multidata_df, left_on='protein_multidata_id', right_on='id')
+
+            gene_protein_multidata.drop(['id','id_x', 'id_y', 'protein_multidata_id', 'protein_id'], axis=1, inplace=True)
+
+            gene_protein_multidata.to_csv('out/%s' % output_name, index=False)
