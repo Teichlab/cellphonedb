@@ -23,6 +23,9 @@ class Multidata(db.Model, IdModel):
     secreted_highlight = Column(Boolean)
     secreted_desc = Column(String)
 
+    protein = db.relationship('Protein', backref='protein', lazy='subquery')
+    complex = db.relationship('Complex', backref='complex', lazy='subquery')
+
 
 class Protein(db.Model, IdModel):
     __tablename__ = 'protein'
@@ -36,6 +39,7 @@ class Protein(db.Model, IdModel):
     gene_name = Column(String)
 
     protein_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), unique=True, nullable=False)
+    gene = db.relationship('Gene', backref='gene', lazy='subquery')
 
 
 class Complex_composition(db.Model, IdModel):
@@ -73,7 +77,7 @@ class Interaction(db.Model, IdModel):
 
 
 class Gene(db.Model, IdModel):
-    __tablename__ = "gene"
+    __tablename__ = 'gene'
 
     ensembl = Column(String, nullable=False)
     name = Column(String, nullable=False)
@@ -81,4 +85,3 @@ class Gene(db.Model, IdModel):
     mouse_ensembl = Column(String)
 
     protein_id = Column(Integer, ForeignKey('protein.id'))
-
