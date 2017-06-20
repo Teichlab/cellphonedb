@@ -33,6 +33,14 @@ class Collector(object):
         with self.app.app_context():
             interaction.load(interaction_file)
 
+    def all(self, filename=None):
+        with self.app.app_context():
+            protein.load()
+            complex.load()
+            unity_interaction.load()
+            interaction.load()
+            gene.load()
+
 
 if __name__ == "__main__":
     app = create_app()

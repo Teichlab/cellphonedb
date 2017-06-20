@@ -36,9 +36,30 @@ def load(gene_file=None):
                 missing_prots.append(csv_prot)
 
         print 'SOME PROTEINS DIDNT EXIST'
+        missing_prots = list(set(missing_prots))
         for missing_prot in missing_prots:
             print missing_prot
 
-    filters.remove_not_defined_columns(gene_df, database.get_column_table_names(Gene, db))
+    gene_db = pd.read_sql(db.session.query(Gene).statement, db.engine)
 
-    gene_df.to_sql(name='gene', if_exists='append', con=db.engine, index=False)
+    asd = pd.merge(gene_df, gene_db, left_on=['ensembl', 'protein_id'],
+                   right_on=['ensembl', 'protein_id'], indicator=True, how='outer')
+
+    # Load gene_mouse
+    gene_mouse_csv_file = os.path.join(current_dir, 'data', 'HumanMouseEnsembl_RVT.csv')
+
+    csv_gene_mouse = pd.read_csv(gene_mouse_csv_file)
+
+    gene_mouse_df = pd.merge(gene_df, csv_gene_mouse, left_on=['ensembl', 'uniprot'],
+                             right_on=['human_ENSEMBL', 'human_uniprot'], indicator=True, how='outer')
+    gene_mouse_df.rename(index=str, columns={'mouse_ENSEMBL': 'mouse_ensembl'}, inplace=True)
+
+    if len(csv_gene_mouse) > len(gene_mouse_df):
+        print 'SOME GENE DIDNT EXIST'
+        print gene_mouse_df[gene_mouse_df['_merge'] == 'right_only']
+
+    gene_mouse_df = gene_mouse_df[(gene_mouse_df['_merge'] == 'left_only') | (gene_mouse_df['_merge'] == 'both')]
+
+    filters.remove_not_defined_columns(gene_mouse_df, database.get_column_table_names(Gene, db))
+
+    gene_mouse_df.to_sql(name='gene', if_exists='append', con=db.engine, index=False)
