@@ -80,6 +80,5 @@ class Gene(db.Model, IdModel):
     mouse_uniprot = Column(String)
     mouse_ensembl = Column(String)
 
-
     protein_id = Column(Integer, ForeignKey('protein.id'))
 

@@ -40,11 +40,6 @@ def load(gene_file=None):
         for missing_prot in missing_prots:
             print missing_prot
 
-    gene_db = pd.read_sql(db.session.query(Gene).statement, db.engine)
-
-    asd = pd.merge(gene_df, gene_db, left_on=['ensembl', 'protein_id'],
-                   right_on=['ensembl', 'protein_id'], indicator=True, how='outer')
-
     # Load gene_mouse
     gene_mouse_csv_file = os.path.join(current_dir, 'data', 'HumanMouseEnsembl_RVT.csv')
 
@@ -54,7 +49,7 @@ def load(gene_file=None):
                              right_on=['human_ENSEMBL', 'human_uniprot'], indicator=True, how='outer')
     gene_mouse_df.rename(index=str, columns={'mouse_ENSEMBL': 'mouse_ensembl'}, inplace=True)
 
-    if len(csv_gene_mouse) > len(gene_mouse_df):
+    if len(gene_mouse_df[gene_mouse_df['_merge'] == 'right_only']):
         print 'SOME GENE DIDNT EXIST'
         print gene_mouse_df[gene_mouse_df['_merge'] == 'right_only']
 
