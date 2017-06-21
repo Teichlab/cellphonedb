@@ -29,7 +29,24 @@ def load(protein_file=None):
 
     unique_prots = _merge_same_proteins(all_prot_df, bools)
 
+    unique_prots['membrane_type'] = None
+    _defineProteinType(unique_prots, 'Single-pass+type+I.csv', 'singlepass_typeI')
+    _defineProteinType(unique_prots, 'Single-pass+type+II.csv', 'singlepass_typeII')
+    _defineProteinType(unique_prots, 'Single-pass+type+III.csv', 'singlepass_typeIII')
+    _defineProteinType(unique_prots, 'Single-pass+type+IV.csv', 'singlepass_typeIV')
+    _defineProteinType(unique_prots, 'Multi-pass.csv', 'multipass')
+    _defineProteinType(unique_prots, 'GPI-anchor.csv', 'GPI-anchor')
+
     _save_proteins_in_db(unique_prots)
+
+
+
+def _defineProteinType(proteins_df, protein_type_file, type_name):
+    protein_type_file = os.path.join(current_dir, 'data', protein_type_file)
+    proteins_type_x = pd.read_csv(protein_type_file, sep=';')['Entry'].tolist()
+
+    proteins_df['membrane_type'][proteins_df.apply(
+        lambda x: x['uniprot'] in proteins_type_x, axis=1)] = type_name
 
 
 def _get_existent_proteins(df_protein):

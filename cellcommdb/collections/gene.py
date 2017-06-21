@@ -15,7 +15,7 @@ def load(gene_file=None):
     protein_query = db.session.query(Protein.id, Multidata.name).join(Multidata)
     protein_multidata_df = pd.read_sql(protein_query.statement, db.engine)
 
-    csv_gene_df = pd.read_csv(gene_file, quotechar='"')
+    csv_gene_df = pd.read_csv(gene_file )
 
     protein_multidata_df.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
     gene_df = pd.merge(protein_multidata_df, csv_gene_df, left_on='uniprot', right_on='protein_uniprot', indicator=True, how='outer')

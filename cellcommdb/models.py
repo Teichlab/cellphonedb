@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Float, Binary, \
-    Boolean, UniqueConstraint, Table
+    Boolean, UniqueConstraint, Table, Enum
 
 from cellcommdb.extensions import db
 
@@ -37,6 +37,8 @@ class Protein(db.Model, IdModel):
     tags = Column(String)
     tags_reason = Column(String)
     gene_name = Column(String)
+
+    membrane_type = Column(String)
 
     protein_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), unique=True, nullable=False)
     gene = db.relationship('Gene', backref='gene', lazy='subquery')
