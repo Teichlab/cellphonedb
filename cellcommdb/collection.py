@@ -1,11 +1,4 @@
-import os
-import pandas as pd
-import numpy as np
-
-from cellcommdb.api import current_dir
 from cellcommdb.collections import protein, complex, unity_interaction, interaction, gene
-from cellcommdb.extensions import db
-from cellcommdb.models import *
 from cellcommdb.api import create_app
 
 
@@ -36,10 +29,9 @@ class Collector(object):
     def all(self, filename=None):
         with self.app.app_context():
             protein.load()
+            gene.load()
             complex.load()
             unity_interaction.load()
-            interaction.load()
-            gene.load()
 
 
 if __name__ == "__main__":

@@ -67,7 +67,6 @@ class Unity_interaction(db.Model, IdModel):
     multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False, unique=True)
     source = db.Column(String)
 
-
 class Interaction(db.Model, IdModel):
     __tablename__ = 'interaction'
 
