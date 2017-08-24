@@ -47,19 +47,17 @@ def load(complex_file=None):
             incomplete_indices.append(index)
 
     if len(incomplete_indices) > 0:
-        print 'MISSING PROTEINS:'
+        print('MISSING PROTEINS:')
         for protein in missing_proteins:
-            print protein
+            print(protein)
 
-        print 'COMEPLEXES WITH MISSING PROTEINS:'
-        print  complex_df.iloc[incomplete_indices, :]['name']
+        print('COMEPLEXES WITH MISSING PROTEINS:')
+        print(complex_df.iloc[incomplete_indices, :]['name'])
         
     # Insert complexes
     if not complex_df.empty:
         # Remove unwanted columns
-        removal_columns = list(filter(
-            lambda x: 'protein_' in x or 'Name_' in x or 'Unnamed' in x,
-            complex_df.columns))
+        removal_columns = list([x for x in complex_df.columns if 'protein_' in x or 'Name_' in x or 'Unnamed' in x])
         # removal_columns += ['comments']
         complex_df.drop(removal_columns, axis=1, inplace=True)
 

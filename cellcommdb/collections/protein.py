@@ -69,7 +69,7 @@ def _update_protein_multidata_in_db(unique_prots):
     for index, unique_prot in existent_uniprots.iterrows():
 
         multidata = db.session.query(Multidata).get(unique_prot['id'])
-        for key, value in unique_prot.to_dict().iteritems():
+        for key, value in unique_prot.to_dict().items():
 
             if pd.isnull(value):
                 setattr(multidata, key, None)

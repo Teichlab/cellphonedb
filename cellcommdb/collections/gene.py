@@ -22,8 +22,8 @@ def load(gene_file=None):
     gene_df.rename(index=str, columns={'id': 'protein_id'}, inplace=True)
 
     if len(gene_df[gene_df['_merge'] == 'right_only']):
-        print 'SOME PROTEINS DIDNT EXIST'
-        print gene_df[gene_df['_merge'] == 'right_only'].drop_duplicates('protein_uniprot')
+        print('SOME PROTEINS DIDNT EXIST')
+        print(gene_df[gene_df['_merge'] == 'right_only'].drop_duplicates('protein_uniprot'))
 
     gene_df = gene_df[gene_df['_merge'] == 'both']
     gene_df.drop('_merge', axis=1, inplace=True)
@@ -39,8 +39,8 @@ def load(gene_file=None):
     gene_mouse_df.rename(index=str, columns={'mouse_ENSEMBL': 'mouse_ensembl'}, inplace=True)
 
     if len(gene_mouse_df[gene_mouse_df['_merge'] == 'right_only']):
-        print 'SOME GENE DIDNT EXIST'
-        print gene_mouse_df[gene_mouse_df['_merge'] == 'right_only']
+        print('SOME GENE DIDNT EXIST')
+        print(gene_mouse_df[gene_mouse_df['_merge'] == 'right_only'])
 
     gene_mouse_df = gene_mouse_df[(gene_mouse_df['_merge'] == 'left_only') | (gene_mouse_df['_merge'] == 'both')]
 

@@ -93,17 +93,17 @@ class Exporter(object):
         complex_composition_query = db.session.query(Complex_composition)
         complex_composition_df = pd.read_sql(complex_composition_query.statement, db.engine)
 
-        print complex_ids
+        print(complex_ids)
         for interaction_index, interaction in interaction_df.iterrows():
             if interaction['unityinteraction_multidata_1_id'] in complex_ids:
-                print int(interaction['unityinteraction_multidata_1_id'])
-                print complex_composition_df[
-                    complex_composition_df['complex_multidata_id'] == interaction['unityinteraction_multidata_1_id']]
+                print(int(interaction['unityinteraction_multidata_1_id']))
+                print(complex_composition_df[
+                    complex_composition_df['complex_multidata_id'] == interaction['unityinteraction_multidata_1_id']])
 
             if interaction['unityinteraction_multidata_2_id'] in complex_ids:
-                print int(interaction['unityinteraction_multidata_2_id'])
-                print complex_composition_df[
-                    complex_composition_df['complex_multidata_id'] == interaction['unityinteraction_multidata_2_id']]
+                print(int(interaction['unityinteraction_multidata_2_id']))
+                print(complex_composition_df[
+                    complex_composition_df['complex_multidata_id'] == interaction['unityinteraction_multidata_2_id']])
 
                 # csv_interaction_df.to_csv('out/%s' % output_name, index=False)
 

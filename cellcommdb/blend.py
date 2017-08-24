@@ -64,7 +64,7 @@ class Blend:
                              range(1, len(original_column_names) + 1)] + original_column_names, axis=1, inplace=True)
 
         if not_existent_proteins:
-            print 'WARNING | BLENDING INTERACTIONS-MULTIDATA: THIS PROTEINS DIDNT EXIST IN DATABASE'
-            print not_existent_proteins
+            print('WARNING | BLENDING INTERACTIONS-MULTIDATA: THIS PROTEINS DIDNT EXIST IN DATABASE')
+            print(not_existent_proteins)
 
         return interaction_df
