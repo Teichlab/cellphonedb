@@ -8,84 +8,78 @@ from cellcommdb.models import Multidata, Interaction, Complex_composition
 from cellcommdb.tools import filters, database
 
 
-def load(interaction_file=None):
-    if not interaction_file:
-        interaction_file = os.path.join(current_dir, 'data', 'inweb_interaction.csv')
+def _blend_column(original_df, multidata_df, original_column_name, db_column_name,
+                  table_name, number):
+    """
 
-    csv_interaction_df = pd.read_csv(interaction_file, quotechar='"', na_values="-")
+    :type original_df: pd.DataFrame
+    :type multidata_df: pd.DataFrame
+    :type original_column_name: str
+    :type db_column_name: str
+    :type table_name: str
+    :type number: int
+    :rtype: pd.DataFrame
+    """
+    interaction_df = pd.merge(original_df, multidata_df, left_on=original_column_name, right_on=db_column_name,
+                              indicator=True, how='outer')
+    interaction_df.rename(index=str, columns={'id': '%s_%s_id' % (table_name, number)}, inplace=True)
 
+    interaction_df = interaction_df[(interaction_df['_merge'] == 'both') | (interaction_df['_merge'] == 'left_only')]
+    interaction_df.rename(index=str,
+                          columns={'_merge': '_merge_%s' % number, db_column_name: db_column_name + '_%s' % number},
+                          inplace=True)
+
+    return interaction_df
+
+
+def blend_multidata(original_df, original_column_names):
+    """
+    Merges dataframe with multidata names in multidata ids
+    :type original_df: pd.DataFrame
+    :type original_column_names: list
+    :type result_column_names: list
+    :return:
+    """
     multidata_query = db.session.query(Multidata.id, Multidata.name)
     multidata_df = pd.read_sql(multidata_query.statement, db.engine)
 
-    interaction_df = pd.merge(csv_interaction_df, multidata_df, left_on='protein_uniprot_1_id', right_on='name')
-    interaction_df.rename(index=str, columns={'id': 'unityinteraction_multidata_1_id'}, inplace=True)
-    interaction_df = pd.merge(interaction_df, multidata_df, left_on='protein_uniprot_2_id', right_on='name')
-    interaction_df.rename(index=str, columns={'id': 'unityinteraction_multidata_2_id'}, inplace=True)
-    interaction_df.rename(index=str, columns={'score1': 'score_1'}, inplace=True)
-    interaction_df.rename(index=str, columns={'score2': 'score_2'}, inplace=True)
+    db_column_name = 'name'
+
+    interaction_df = original_df.drop('id', errors='ignore')
+
+    not_existent_proteins = []
+
+    for i in range(0, len(original_column_names)):
+        interaction_df = _blend_column(interaction_df, multidata_df, original_column_names[i], db_column_name,
+                                       'multidata', i + 1)
+
+        not_existent_proteins = not_existent_proteins + \
+                                interaction_df[interaction_df['_merge_%s' % (i + 1)] == 'left_only'][
+                                    original_column_names[i]].drop_duplicates().tolist()
+    not_existent_proteins = list(set(not_existent_proteins))
+
+    for i in range(1, len(original_column_names) + 1):
+        interaction_df = interaction_df[(interaction_df['_merge_%s' % i] == 'both')]
+
+    interaction_df.drop(['_merge_%s' % merge_column for merge_column in
+                         range(1, len(original_column_names) + 1)] + original_column_names, axis=1, inplace=True)
+
+
+
+    if not_existent_proteins:
+        print 'WARNING | BLENDING INTERACTIONS-MULTIDATA: THIS PROTEINS DIDNT EXIST IN DATABASE'
+        print not_existent_proteins
+
+    return interaction_df
+
+
+def load(interaction_file=None):
+    if not interaction_file:
+        interaction_file = os.path.join(current_dir, 'data', 'inweb_clean_columns.csv')
+
+    csv_interaction_df = pd.read_csv(interaction_file, quotechar='"', na_values="-")
+
+    interaction_df = blend_multidata(csv_interaction_df, ['protein_uniprot_1_id', 'protein_uniprot_2_id'])
 
     filters.remove_not_defined_columns(interaction_df, database.get_column_table_names(Interaction, db))
-
-    if len(interaction_df) < len(csv_interaction_df):
-        print 'SOME PROTEINS DIDNT EXISTS, PLEASE, CHECK IT'
-
-    interaction_df_clean = remove_interaction_in_complex(interaction_df)
-
-
-
-    interaction_df_clean.to_sql(name='interaction', if_exists='append', con=db.engine, index=False)
-
-
-    # interactions = []
-    # missing_proteins = []
-    # incomplete_interactions_indices = []
-    #
-    # for index, interaction in csv_interaction_df.iterrows():
-    #     incomplete = False
-    #     unityinteraction_multidata_1 = multidata_df[multidata_df['name'] == interaction['protein_uniprot_1_id']]
-    #     unityinteraction_multidata_2 = multidata_df[multidata_df['name'] == interaction['protein_uniprot_2_id']]
-    #
-    #     if (unityinteraction_multidata_1.empty):
-    #         incomplete = True
-    #         missing_proteins.append(interaction['protein_uniprot_1_id'])
-    #
-    #     if (unityinteraction_multidata_2.empty):
-    #         incomplete = True
-    #         missing_proteins.append(interaction['protein_uniprot_2_id'])
-    #
-    #     if incomplete:
-    #         missing_proteins.append(index)
-    #         continue
-    #
-    #     interactions.append({'unityinteraction_multidata_1_id': unityinteraction_multidata_1['id'],
-    #                         'unityinteraction_multidata_2_id': unityinteraction_multidata_2['id'],
-    #                         'score_1': interaction['score1'],
-    #                         'score_2': interaction['score2']
-    #                         })
-    #
-    # if missing_proteins:
-    #     print 'MISSING PROTEINS:'
-    #     for protein in missing_proteins:
-    #         print protein
-    #
-    #
-    # interactions_df = pd.DataFrame(interactions)
-    #
-    #
-    # filters.remove_not_defined_columns(interactions_df, database.get_column_table_names(Interaction, db))
-    #
-    # print interactions_df
-    # interactions_df.to_sql(name='interaction', if_exists='append', con=db.engine, index=False)
-
-
-def remove_interaction_in_complex(interaction_df):
-    complex_composition_query = db.session.query(Complex_composition.protein_multidata_id)
-    complex_composition = pd.read_sql(complex_composition_query.statement, db.engine)[
-        'protein_multidata_id'].tolist()
-    interaction_df_clean = interaction_df[interaction_df['unityinteraction_multidata_1_id'].apply(
-        lambda multidata_id: multidata_id not in complex_composition
-    )]
-    interaction_df_clean = interaction_df_clean[interaction_df_clean['unityinteraction_multidata_2_id'].apply(
-        lambda multidata_id: multidata_id not in complex_composition
-    )]
-    return interaction_df_clean
+    # interaction_df.to_sql(name='interaction', if_exists='append', con=db.engine, index=False)

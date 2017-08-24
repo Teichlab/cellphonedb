@@ -32,6 +32,7 @@ class Collector(object):
             gene.load()
             complex.load()
             unity_interaction.load()
+            interaction.load()
 
 
 if __name__ == "__main__":
