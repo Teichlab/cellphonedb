@@ -4,7 +4,7 @@ from cellcommdb.extensions import db
 from cellcommdb.models import Multidata
 
 
-class blend:
+class Blend:
     @staticmethod
     def _blend_column(original_df, multidata_df, original_column_name, db_column_name,
                       table_name, number):
@@ -49,7 +49,7 @@ class blend:
         not_existent_proteins = []
 
         for i in range(0, len(original_column_names)):
-            interaction_df = blend._blend_column(interaction_df, multidata_df, original_column_names[i], db_column_name,
+            interaction_df = Blend._blend_column(interaction_df, multidata_df, original_column_names[i], db_column_name,
                                            'multidata', i + 1)
 
             not_existent_proteins = not_existent_proteins + \
