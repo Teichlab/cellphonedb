@@ -2,7 +2,7 @@ import os
 
 from cellcommdb.resources.base import ProteinResource, ComplexResource
 from flask import Flask, abort
-from flask.ext.restful import Api
+from flask_restful import Api
 
 from cellcommdb.config import BaseConfig
 from cellcommdb.extensions import db

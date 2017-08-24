@@ -1,4 +1,4 @@
-from flask.ext.script import Manager
+from flask_script import Manager
 
 from cellcommdb.collection import Collector
 from cellcommdb.api import create_app

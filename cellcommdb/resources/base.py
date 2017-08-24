@@ -1,4 +1,4 @@
-from flask.ext.restful import Resource, reqparse, marshal, fields
+from flask_restful import Resource, reqparse, marshal, fields
 
 from cellcommdb.extensions import db
 from cellcommdb.models import *
