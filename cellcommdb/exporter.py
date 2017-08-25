@@ -1,7 +1,7 @@
 from sqlalchemy import or_, and_
 
 from cellcommdb.extensions import db
-from cellcommdb.models import Protein, Multidata, Complex, Complex_composition, Interaction, Gene
+from cellcommdb.models import Protein, Multidata, Complex, ComplexComposition, Interaction, Gene
 import pandas as pd
 import inspect
 
@@ -38,7 +38,7 @@ class Exporter(object):
         with self.app.app_context():
             complex_query = db.session.query(Complex)
             multidata_query = db.session.query(Multidata)
-            complex_composition_query = db.session.query(Complex_composition)
+            complex_composition_query = db.session.query(ComplexComposition)
 
             complex_df = pd.read_sql(complex_query.statement, db.engine)
             multidata_df = pd.read_sql(multidata_query.statement, db.engine)
@@ -90,7 +90,7 @@ class Exporter(object):
 
         complex_ids = complex_df['complex_multidata_id'].tolist()
 
-        complex_composition_query = db.session.query(Complex_composition)
+        complex_composition_query = db.session.query(ComplexComposition)
         complex_composition_df = pd.read_sql(complex_composition_query.statement, db.engine)
 
         print(complex_ids)
@@ -135,7 +135,7 @@ class Exporter(object):
             current_method_name = inspect.getframeinfo(inspect.currentframe()).function
             output_name = '%s.csv' % current_method_name
 
-        complex_composition_query = db.session.query(Complex_composition.protein_multidata_id)
+        complex_composition_query = db.session.query(ComplexComposition.protein_multidata_id)
 
         with self.app.app_context():
             proteins_query = db.session.query(Protein, Multidata).join(Multidata).filter(and_(

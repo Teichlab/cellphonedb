@@ -44,7 +44,7 @@ class Protein(db.Model, IdModel):
     gene = db.relationship('Gene', backref='gene', lazy='subquery')
 
 
-class Complex_composition(db.Model, IdModel):
+class ComplexComposition(db.Model, IdModel):
     __tablename__ = 'complex_composition'
 
     complex_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False)
@@ -61,7 +61,7 @@ class Complex(db.Model, IdModel):
     comments = Column(String)
 
 
-class Unity_interaction(db.Model, IdModel):
+class UnityInteraction(db.Model, IdModel):
     __tablename__ = 'unity_interaction'
 
     multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False, unique=True)

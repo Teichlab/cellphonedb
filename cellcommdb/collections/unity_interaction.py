@@ -4,7 +4,7 @@ import pandas as pd
 
 from cellcommdb.api import current_dir
 from cellcommdb.extensions import db
-from cellcommdb.models import Multidata, Unity_interaction
+from cellcommdb.models import Multidata, UnityInteraction
 from cellcommdb.tools import filters, database
 
 
@@ -23,5 +23,5 @@ def load(unity_interaction_file=None):
 
     unity_interaction_df.rename(index=str, columns={'id': 'multidata_id'}, inplace=True)
 
-    filters.remove_not_defined_columns(unity_interaction_df, database.get_column_table_names(Unity_interaction, db))
+    filters.remove_not_defined_columns(unity_interaction_df, database.get_column_table_names(UnityInteraction, db))
     unity_interaction_df.to_sql(name='unity_interaction', if_exists='append', con=db.engine, index=False)
