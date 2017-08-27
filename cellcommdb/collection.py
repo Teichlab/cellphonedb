@@ -28,10 +28,15 @@ class Collector(object):
 
     def all(self, filename=None):
         with self.app.app_context():
+            print('Collecting Proteins')
             protein.load()
+            print('Collecting Genes')
             gene.load()
+            print('Collecting Complexes')
             complex.load()
+            print('Collecting Unity Interactions')
             unity_interaction.load()
+            print('Collecting Interactions')
             interaction.load()
 
 

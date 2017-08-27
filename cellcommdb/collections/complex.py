@@ -1,14 +1,22 @@
 import os
 import pandas as pd
-import numpy as np
 
 from cellcommdb.api import current_dir
 from cellcommdb.extensions import db
-from cellcommdb.models import Multidata, Protein, Complex
+from cellcommdb.models import Multidata, Protein, Complex, ComplexComposition, Gene
 from cellcommdb.tools import filters, database
 
 
 def load(complex_file=None):
+    """
+    Uploads complex data from csv.
+
+    - Creates new complexes in Multidata table
+    - Creates reference in Complex table
+    - Creates complex composition to define complexes.
+    :param complex_file:
+    :return:
+    """
     if not complex_file:
         complex_file = os.path.join(current_dir, 'data', 'complex.csv')
 
@@ -53,7 +61,7 @@ def load(complex_file=None):
 
         print('COMEPLEXES WITH MISSING PROTEINS:')
         print(complex_df.iloc[incomplete_indices, :]['name'])
-        
+
     # Insert complexes
     if not complex_df.empty:
         # Remove unwanted columns
@@ -99,10 +107,10 @@ def load(complex_file=None):
 
     filters.remove_not_defined_columns(complex_table_df, database.get_column_table_names(Complex, db))
 
-    complex_set_df.to_sql(
-        name='complex_composition', if_exists='append',
-        con=db.engine, index=False)
-
     complex_table_df.to_sql(
         name='complex', if_exists='append',
+        con=db.engine, index=False)
+
+    complex_set_df.to_sql(
+        name='complex_composition', if_exists='append',
         con=db.engine, index=False)
