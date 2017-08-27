@@ -81,7 +81,7 @@ class Gene(db.Model, IdModel):
     __tablename__ = 'gene'
 
     ensembl = Column(String, nullable=False)
-    name = Column(String, nullable=False)
+    gene_name = Column(String, nullable=False)
     mouse_uniprot = Column(String)
     mouse_ensembl = Column(String)
 

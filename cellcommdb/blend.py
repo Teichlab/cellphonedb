@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellcommdb.extensions import db
-from cellcommdb.models import Multidata
+from cellcommdb.models import Multidata, Protein
 
 
 class Blend:
@@ -42,40 +42,57 @@ class Blend:
         multidata_query = db.session.query(Multidata.id, Multidata.name)
         multidata_df = pd.read_sql(multidata_query.statement, db.engine)
 
-        db_column_name = 'name'
-        db_table_name = 'multidata'
-        interaction_df = original_df.drop('id', errors='ignore', axis=1)
+        reseult_df = Blend.blend_dataframes(original_df, original_column_names, multidata_df, 'name', 'multidata')
+
+        return reseult_df
+
+    @staticmethod
+    def blend_dataframes(left_df, left_column_names, right_df, db_column_name, db_table_name):
+        result_df = left_df.drop('id', errors='ignore', axis=1)
+
+        if db_column_name in left_df.columns:
+            print('WARNING | BLENDING: column "%s" already exists in orginal df' % (db_column_name))
 
         unique_slug = '_EDITNAME'
-        unique_original_column_names = [("%s%s" % (column_name, unique_slug)) for column_name in original_column_names]
+        unique_original_column_names = [("%s%s" % (column_name, unique_slug)) for column_name in left_column_names]
 
-        interaction_df.rename(index=str, columns=dict(zip(original_column_names, unique_original_column_names)),
-                              inplace=True)
+        result_df.rename(index=str, columns=dict(zip(left_column_names, unique_original_column_names)),
+                         inplace=True)
 
         not_existent_proteins = []
 
         for i in range(0, len(unique_original_column_names)):
-            interaction_df = Blend._blend_column(interaction_df, multidata_df, unique_original_column_names[i],
-                                                 db_column_name,
-                                                 db_table_name, i + 1)
+            result_df = Blend._blend_column(result_df, right_df, unique_original_column_names[i],
+                                            db_column_name,
+                                            db_table_name, i + 1)
 
             not_existent_proteins = not_existent_proteins + \
-                                    interaction_df[interaction_df['_merge_%s' % (i + 1)] == 'left_only'][
+                                    result_df[result_df['_merge_%s' % (i + 1)] == 'left_only'][
                                         unique_original_column_names[i]].drop_duplicates().tolist()
         not_existent_proteins = list(set(not_existent_proteins))
 
         for i in range(1, len(unique_original_column_names) + 1):
-            interaction_df = interaction_df[(interaction_df['_merge_%s' % i] == 'both')]
+            result_df = result_df[(result_df['_merge_%s' % i] == 'both')]
 
-        interaction_df.drop(['_merge_%s' % merge_column for merge_column in
-                             range(1, len(unique_original_column_names) + 1)] + unique_original_column_names, axis=1,
-                            inplace=True)
+        result_df.drop(['_merge_%s' % merge_column for merge_column in
+                        range(1, len(unique_original_column_names) + 1)] + unique_original_column_names, axis=1,
+                       inplace=True)
 
-        if len(original_column_names) == 1:
-            interaction_df.rename(index=str, columns={'%s_1' % db_column_name: db_column_name, '%s_1_id' % db_table_name: '%s_id' % db_table_name}, inplace=True)
+        if len(left_column_names) == 1:
+            result_df.rename(index=str, columns={'%s_1' % db_column_name: db_column_name,
+                                                 '%s_1_id' % db_table_name: '%s_id' % db_table_name}, inplace=True)
 
         if not_existent_proteins:
-            print('WARNING | BLENDING INTERACTIONS-MULTIDATA: THIS PROTEINS DIDNT EXIST IN DATABASE')
+            print('WARNING | BLENDING: THIS %s DIDNT EXIST IN %s' % (db_column_name, db_table_name))
             print(not_existent_proteins)
 
-        return interaction_df
+        return result_df
+
+    @staticmethod
+    def blend_protein(original_df, original_column_names):
+        database_query = db.session.query(Protein.id, Multidata.name).join(Multidata)
+        database_df = pd.read_sql(database_query.statement, db.engine)
+
+        protein_df = Blend.blend_dataframes(original_df, original_column_names, database_df, 'name', 'protein')
+
+        return protein_df
