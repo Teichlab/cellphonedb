@@ -22,6 +22,9 @@ class Multidata(db.Model, IdModel):
     transporter = Column(Boolean)
     secreted_highlight = Column(Boolean)
     secreted_desc = Column(String)
+    transmembrane = Column(Boolean)
+    secretion = Column(Boolean)
+    peripheral = Column(Boolean)
 
     protein = db.relationship('Protein', backref='protein', lazy='subquery')
     complex = db.relationship('Complex', backref='complex', lazy='subquery')
@@ -31,9 +34,6 @@ class Protein(db.Model, IdModel):
     __tablename__ = 'protein'
 
     entry_name = Column(String)
-    transmembrane = Column(Boolean)
-    secretion = Column(Boolean)
-    peripheral = Column(Boolean)
     tags = Column(String)
     tags_reason = Column(String)
     gene_name = Column(String)
