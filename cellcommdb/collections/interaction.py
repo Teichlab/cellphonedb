@@ -11,11 +11,11 @@ from cellcommdb.tools import filters, database
 
 def load(interaction_file=None):
     if not interaction_file:
-        interaction_file = os.path.join(current_dir, 'data', 'inweb_clean_columns.csv')
+        interaction_file = os.path.join(current_dir, 'data', 'interactions.csv')
 
-    csv_interaction_df = pd.read_csv(interaction_file, quotechar='"', na_values="-")
+    csv_interaction_df = pd.read_csv(interaction_file, quotechar='"', na_values='-', sep=';' )
 
-    interaction_df = Blend.blend_multidata(csv_interaction_df, ['protein_uniprot_1_id', 'protein_uniprot_2_id'])
+    interaction_df = Blend.blend_multidata(csv_interaction_df, ['protein_name_1', 'protein_name_2'])
 
     filters.remove_not_defined_columns(interaction_df, database.get_column_table_names(Interaction, db))
 

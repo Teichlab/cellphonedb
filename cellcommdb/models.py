@@ -75,6 +75,7 @@ class Interaction(db.Model, IdModel):
 
     score_1 = db.Column(Float)
     score_2 = db.Column(Float)
+    comments = db.Column(String)
 
 
 class Gene(db.Model, IdModel):
