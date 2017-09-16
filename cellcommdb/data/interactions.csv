@@ -25981,11 +25981,10 @@ score_1;score_2;protein_name_1;protein_name_2;comments
 0.43200000000000005;0.47200000000000003;Q96QR1;Q9UEW3;
 0.14300000000000002;0.0459;Q99944;Q9H400;
 1;1;CD8 receptor;P06239;1q69, PDB partially
-1;1;CNTF-1R;P20294;NA
+1;1;CNTF-1R;P26441;NA
 1;1;CNTF-1R;Q9UBD9;NA
 1;1;FcRn complex;P02768;4k71, PDB
 1;1;FcRn complex;P02768;4n0u, PDB
-1;1;FLT4 complex;P49767;4bsk, PDB partially
 1;1;Glycoprotein Ib  complex;P04275;1m10, PDB partially . Platets needed for its activation.
 1;1;Glycoprotein Ib  complex;P00734;1hyr, PDB partially
 1;1;GMCSFR;P04141;4nkq, PDB
@@ -26000,7 +25999,7 @@ score_1;score_2;protein_name_1;protein_name_2;comments
 1;1;IL13 receptor;P05112;3bpn, PDB
 1;1;IL13 receptor;P35225;3bpo, PDB
 1;1;IL15 receptor;P40933;2z3q, PDB partially
-1;1;IL17 receptor AB;Q9H293;NA
+1;1;IL17 receptor AB;Q9H293;NA IL17E called IL25
 1;1;IL17 receptor AC;IL17 AF;NA
 1;1;IL17 receptor AC;Q16552;NA
 1;1;IL17 receptor AC;Q96PD4;NA
@@ -26046,7 +26045,6 @@ score_1;score_2;protein_name_1;protein_name_2;comments
 1;1;TSLPR;Q969D9;5j11, PDB
 1;1;Type I IFNR;P01563;3se3, PDB
 1;1;Type I IFNR;P05000;3se4, PDB
-1;1;Type I IFNR;P29597;4po6, PDB
 1;1;Type II IFNR;P01579;1fg9, PDB
 1;1;a2b1 complex;P20701;5e6r, PDB partially
 1;1;aDb2 complex;P20701;5e6r, PDB partially
@@ -26058,9 +26056,9 @@ score_1;score_2;protein_name_1;protein_name_2;comments
 1;1;BMPR1A complex;P12644;InWeb: P12644 P36894
 1;1;BMPR1A complex;P43026;InWeb: P36894 P43026
 1;1;BMPR1A complex;Q6KF10;InWeb: P36894 Q6KF10
-1;1;TSPLR;Q9HC73;DOI  10.1038/ncomms14937
+1;1;TSLPR;Q9HC73;DOI  10.1038/ncomms14937
 1;1;BMPR1B complex;P12643;"InWeb: P12643 Q13873; NA, lower affinity "
 1;1;BMPR1A complex;P22004;InWeb: P22004 P36894
 1;1;BMPR1A complex;P12643;1es7, PDB partially higher affinity
-1;1;BMPR1B complex;FKBP1A;3mdy, PDB partially
 1;1;BMPR1B complex;P36894;3evs,  PDB complex higher affinity
+1;1;IL17 receptor AE;Q9P0M4;NA
