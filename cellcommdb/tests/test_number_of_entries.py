@@ -5,7 +5,7 @@ from cellcommdb.api import create_app
 from cellcommdb.collection import Collector
 from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
-from cellcommdb.models import UnityInteraction, Complex, Protein, Multidata, Interaction, ComplexComposition
+from cellcommdb.models import UnityInteraction, Complex, Protein, Multidata, Interaction, ComplexComposition, Gene
 
 
 class DatabaseNumberOfEntries(TestCase):
@@ -13,25 +13,25 @@ class DatabaseNumberOfEntries(TestCase):
         query = db.session.query(Protein.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 4151
+        assert len(dataframe) == 4150
 
     def test_gene(self):
-        query = db.session.query(Protein.id)
+        query = db.session.query(Gene.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 4151
+        assert len(dataframe) == 5511
 
     def test_complex(self):
         query = db.session.query(Complex.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 235
+        assert len(dataframe) == 236
 
     def test_unity_interaction(self):
         query = db.session.query(UnityInteraction.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 4076
+        assert len(dataframe) == 4075
 
     def test_multidata(self):
         query = db.session.query(Multidata.id)
@@ -43,13 +43,13 @@ class DatabaseNumberOfEntries(TestCase):
         query = db.session.query(Interaction.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 26047
+        assert len(dataframe) == 26063
 
     def test_complex_composition(self):
         query = db.session.query(ComplexComposition.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 495
+        assert len(dataframe) == 497
 
     def create_app(self):
         return create_app(TestConfig)

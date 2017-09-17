@@ -44,7 +44,7 @@ def load(gene_file=None):
     gene_mouse_df.rename(index=str, columns={'mouse_ENSEMBL': 'mouse_ensembl'}, inplace=True)
 
     if len(gene_mouse_df[gene_mouse_df['_merge'] == 'right_only']):
-        print('SOME GENE DIDNT EXIST')
+        print('SOME MOUSE GENE DIDNT EXIST IN HUMAN GENE')
         print(gene_mouse_df[gene_mouse_df['_merge'] == 'right_only'][['human_ENSEMBL', 'human_uniprot']])
 
     gene_mouse_df = gene_mouse_df[(gene_mouse_df['_merge'] == 'left_only') | (gene_mouse_df['_merge'] == 'both')]

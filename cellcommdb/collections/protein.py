@@ -11,7 +11,7 @@ from cellcommdb.tools import filters, database
 def load(protein_file=None):
     bools = ['transmembrane', 'secretion', 'peripheral', 'receptor',
              'receptor_highlight', 'adhesion', 'other', 'transporter',
-             'secreted_highlight']
+             'secreted_highlight', 'ligand', 'adaptor']
 
     if not protein_file:
         protein_file = os.path.join(current_dir, 'data', 'protein.csv')

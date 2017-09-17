@@ -1716,7 +1716,6 @@ id,name,receptor,receptor_highlight,receptor_desc,adhesion,other,other_desc,tran
 1906,O43508,False,False,,False,True,Ligand,False,True,Cytokine
 1907,Q9Y275,False,False,,False,False,,False,True,Cytokine
 1908,O43557,False,False,,False,True,Ligand,False,True,Cytokine
-1909,Q9UNG2,False,False,,False,True,Ligand,False,False,
 1910,Q8NBR0,False,False,,False,False,,False,False,
 1911,Q13641,False,False,,False,False,,False,False,
 1912,Q86V40,False,False,,False,False,,False,False,
@@ -3838,7 +3837,7 @@ id,name,receptor,receptor_highlight,receptor_desc,adhesion,other,other_desc,tran
 4145,Q5QGT7,True,False,,False,False,,False,False,
 4146,Q9C0C4,True,False,,False,False,,False,False,
 4147,Q9BZM6,True,False,,False,False,,False,False,
-4148,Q9UNG2_,False,False,,False,False,,False,True,cytokine
+4148,Q9UNG2,False,False,,False,False,,False,True,cytokine
 4149,P26441,False,False,,False,False,,False,True,cytokine
 4152,5HT3C5HT3A complex,True,False,,False,False,,True,False,
 4153,5HT3D receptor,True,False,,False,False,,True,False,
