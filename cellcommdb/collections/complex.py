@@ -25,7 +25,7 @@ def load(complex_file=None):
     proteins = db.session.query(Multidata.name, Multidata.id).join(Protein).all()
     proteins = {p[0]: p[1] for p in proteins}
     # Read in complexes
-    complex_df = pd.read_csv(complex_file, quotechar='"', na_values="NA", sep=',')
+    complex_df = pd.read_csv(complex_file, quotechar='"', na_values="NA", sep=';')
     complex_df.dropna(axis=1, inplace=True, how='all')
     complex_df.rename(index=str, columns={'complex_name': 'name'}, inplace=True)
 
