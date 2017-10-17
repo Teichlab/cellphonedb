@@ -13,7 +13,7 @@ def load(interaction_file=None):
     if not interaction_file:
         interaction_file = os.path.join(current_dir, 'data', 'interactions.csv')
 
-    csv_interaction_df = pd.read_csv(interaction_file, quotechar='"', na_values='-', sep=';' )
+    csv_interaction_df = pd.read_csv(interaction_file, quotechar='"', na_values='NA', sep=',')
 
     interaction_df = Blend.blend_multidata(csv_interaction_df, ['protein_name_1', 'protein_name_2'])
 
