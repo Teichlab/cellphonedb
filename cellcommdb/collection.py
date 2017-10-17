@@ -1,4 +1,4 @@
-from cellcommdb.collections import protein, complex, unity_interaction, interaction, gene
+from cellcommdb.collections import protein, complex, interaction, gene
 from cellcommdb.api import create_app
 
 
@@ -18,10 +18,6 @@ class Collector(object):
         with self.app.app_context():
             complex.load(complex_file)
 
-    def unity_interaction(self, unity_interaction_file=None):
-        with self.app.app_context():
-            unity_interaction.load(unity_interaction_file)
-
     def interaction(self, interaction_file=None):
         with self.app.app_context():
             interaction.load(interaction_file)
@@ -34,8 +30,6 @@ class Collector(object):
             gene.load()
             print('Collecting Complexes')
             complex.load()
-            print('Collecting Unity Interactions')
-            unity_interaction.load()
             print('Collecting Interactions')
             interaction.load()
 

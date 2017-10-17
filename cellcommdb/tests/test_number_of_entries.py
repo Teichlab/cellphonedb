@@ -5,7 +5,7 @@ from cellcommdb.api import create_app
 from cellcommdb.collection import Collector
 from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
-from cellcommdb.models import UnityInteraction, Complex, Protein, Multidata, Interaction, ComplexComposition, Gene
+from cellcommdb.models import Complex, Protein, Multidata, Interaction, ComplexComposition, Gene
 
 
 class DatabaseNumberOfEntries(TestCase):
@@ -26,12 +26,6 @@ class DatabaseNumberOfEntries(TestCase):
         dataframe = pd.read_sql(query.statement, db.engine)
 
         assert len(dataframe) == 236
-
-    def test_unity_interaction(self):
-        query = db.session.query(UnityInteraction.id)
-        dataframe = pd.read_sql(query.statement, db.engine)
-
-        assert len(dataframe) == 4075
 
     def test_multidata(self):
         query = db.session.query(Multidata.id)

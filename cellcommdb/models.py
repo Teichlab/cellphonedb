@@ -63,12 +63,6 @@ class Complex(db.Model, IdModel):
     comments = Column(String)
 
 
-class UnityInteraction(db.Model, IdModel):
-    __tablename__ = 'unity_interaction'
-
-    multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False, unique=True)
-    source = db.Column(String)
-
 class Interaction(db.Model, IdModel):
     __tablename__ = 'interaction'
 
@@ -77,7 +71,6 @@ class Interaction(db.Model, IdModel):
 
     score_1 = db.Column(Float)
     score_2 = db.Column(Float)
-
 
     source = db.Column(String)
     comments = db.Column(String)
