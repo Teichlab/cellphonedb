@@ -10,4 +10,5 @@ class BaseConfig(object):
 
 
 class TestConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('CELLCOMMDB_TEST_URI')
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('CELLCOMMDB_TEST_URI')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('CELLCOMMDB_URI')
