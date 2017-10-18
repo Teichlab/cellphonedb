@@ -8,7 +8,7 @@ from cellcommdb.models import Complex, Multidata
 
 complex_entries = [
     {
-        'multidata': {
+        'data': {
             "name": "5HT3C5HT3A complex",
             "receptor": True,
             "receptor_highlight": False,
@@ -23,10 +23,8 @@ complex_entries = [
             "secretion": False,
             "peripheral": False,
             "ligand": False,
-            "adaptor": False
-        },
-        'complex': {
-            "pdb_structure": "False",
+            "adaptor": False,
+            "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
             "comments": "Note: Presumably retained within the endoplasmic reticulum unless complexed with HTR3A."
@@ -40,7 +38,7 @@ complex_entries = [
         }
     },
     {
-        'multidata': {
+        'data': {
             "name": "a2Bb3 complex",
             "receptor": False,
             "receptor_highlight": False,
@@ -55,10 +53,8 @@ complex_entries = [
             "secretion": False,
             "peripheral": False,
             "ligand": False,
-            "adaptor": False
-        },
-        'complex': {
-            "pdb_structure": "True",
+            "adaptor": False,
+            "pdb_structure": "TRUE",
             "pdb_id": "1kup",
             "stoichiometry": "ITGA2B;ITGB3",
             "comments": "Well known integrin combination"
@@ -72,7 +68,7 @@ complex_entries = [
         }
     },
     {
-        'multidata': {
+        'data': {
             "name": "Agrin complex",
             "receptor": True,
             "receptor_highlight": False,
@@ -87,9 +83,7 @@ complex_entries = [
             "secretion": False,
             "peripheral": False,
             "ligand": False,
-            "adaptor": False
-        },
-        'complex': {
+            "adaptor": False,
             "pdb_structure": "partial",
             "pdb_id": "3ml4",
             "stoichiometry": "DOK7;DOK7;MUSK;MUSK",
@@ -104,7 +98,7 @@ complex_entries = [
         }
     },
     {
-        'multidata': {
+        'data': {
             "name": "CD79_IGHM receptor",
             "receptor": True,
             "receptor_highlight": False,
@@ -119,10 +113,8 @@ complex_entries = [
             "secretion": False,
             "peripheral": False,
             "ligand": False,
-            "adaptor": False
-        },
-        'complex': {
-            "pdb_structure": "False",
+            "adaptor": False,
+            "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
             "comments": "Membrane-bound IgM molecules are non-covalently associated with heterodimer of CD79A and CD79B"
@@ -136,7 +128,7 @@ complex_entries = [
         }
     },
     {
-        'multidata': {
+        'data': {
             "name": "BMPR1B complex",
             "receptor": True,
             "receptor_highlight": True,
@@ -151,10 +143,8 @@ complex_entries = [
             "secretion": False,
             "peripheral": False,
             "ligand": False,
-            "adaptor": False
-        },
-        'complex': {
-            "pdb_structure": "False",
+            "adaptor": False,
+            "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
             "comments": "Serine/threonine kinase heterodimer upon ligand binding"
@@ -168,7 +158,7 @@ complex_entries = [
         }
     },
     {
-        'multidata': {
+        'data': {
             "name": "CD1A complex",
             "receptor": False,
             "receptor_highlight": False,
@@ -183,10 +173,8 @@ complex_entries = [
             "secretion": False,
             "peripheral": False,
             "ligand": False,
-            "adaptor": False
-        },
-        'complex': {
-            "pdb_structure": "True",
+            "adaptor": False,
+            "pdb_structure": "TRUE",
             "pdb_id": "1onq",
             "stoichiometry": "B2M;CD1A",
             "comments": "Heterodimer with B2M (beta-2-microglobulin)."
@@ -200,7 +188,7 @@ complex_entries = [
         }
     },
     {
-        'multidata': {
+        'data': {
             "name": "IL17 AF",
             "receptor": False,
             "receptor_highlight": False,
@@ -215,10 +203,8 @@ complex_entries = [
             "secretion": True,
             "peripheral": False,
             "ligand": True,
-            "adaptor": False
-        },
-        'complex': {
-            "pdb_structure": "False",
+            "adaptor": False,
+            "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
             "comments": None
@@ -232,7 +218,7 @@ complex_entries = [
         }
     },
     {
-        'multidata': {
+        'data': {
             "name": "IL17 AF",
             "receptor": False,
             "receptor_highlight": False,
@@ -247,10 +233,8 @@ complex_entries = [
             "secretion": True,
             "peripheral": False,
             "ligand": True,
-            "adaptor": False
-        },
-        'complex': {
-            "pdb_structure": "False",
+            "adaptor": False,
+            "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
             "comments": None
@@ -264,7 +248,7 @@ complex_entries = [
         }
     },
     {
-        'multidata': {
+        'data': {
             "name": "IL17 receptor AC",
             "receptor": True,
             "receptor_highlight": True,
@@ -279,15 +263,12 @@ complex_entries = [
             "secretion": False,
             "peripheral": False,
             "ligand": False,
-            "adaptor": False
+            "adaptor": False,
+            "pdb_structure": "FALSE",
+            "pdb_id": None,
+            "stoichiometry": None,
+            "comments": "NA; the heterodimer binds IL17AF",
         },
-        'complex':
-            {
-                "pdb_structure": "FALSE",
-                "pdb_id": None,
-                "stoichiometry": None,
-                "comments": "NA; the heterodimer binds IL17AF",
-            },
         'composition':
             {
                 "protein_1": "Q96F46",
@@ -302,25 +283,24 @@ complex_entries = [
 
 class DatabaseRandomEntries(TestCase):
     def test_complex(self):
-        query = db.session.query(Multidata)
+        query = db.session.query(Multidata, Complex).join(Complex)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         data_not_match = False
 
         for complex in complex_entries:
-            db_complex = dataframe[dataframe['name'] == complex['multidata']['name']]
+            db_complex = dataframe[dataframe['name'] == complex['data']['name']]
 
-            for multidata_column in complex['multidata']:
-
-                if db_complex[multidata_column].iloc[0] != complex['multidata'][multidata_column]:
-                    print('Failed checking column \'%s\' of multidata with name \'%s\'' % (
-                    multidata_column, complex['multidata']['name']))
-                    print('Expected value: %s' % complex['multidata'][multidata_column])
-                    print('Database value: %s' % db_complex[multidata_column].iloc[0])
+            for complex_data in complex['data']:
+                if db_complex[complex_data].iloc[0] != complex['data'][complex_data]:
+                    print('Failed checking column \'%s\' of multidata/complex with name \'%s\'' % (
+                        complex_data, complex['data']['name']))
+                    print('Expected value: %s' % complex['data'][complex_data])
+                    print('Database value: %s' % db_complex[complex_data].iloc[0])
                     print('---')
                     data_not_match = True
 
-        self.assertFalse(data_not_match, 'Some multidata doesnt match')
+        self.assertFalse(data_not_match, 'Some complex doesnt match')
 
     def create_app(self):
         return create_app(TestConfig)
