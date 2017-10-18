@@ -4,7 +4,7 @@ from flask_testing import TestCase
 from cellcommdb.api import create_app
 from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
-from cellcommdb.models import Complex, Multidata
+from cellcommdb.models import Complex, Multidata, ComplexComposition
 
 complex_entries = [
     {
@@ -29,13 +29,7 @@ complex_entries = [
             "stoichiometry": None,
             "comments": "Note: Presumably retained within the endoplasmic reticulum unless complexed with HTR3A."
         },
-        'composition': {
-            "protein_1": "Q8WXA8",
-            "protein_2": "P46098",
-            "protein_3": None,
-            "protein_4": None
-
-        }
+        'composition': ["Q8WXA8", "P46098"]
     },
     {
         'data': {
@@ -59,13 +53,8 @@ complex_entries = [
             "stoichiometry": "ITGA2B;ITGB3",
             "comments": "Well known integrin combination"
         },
-        'composition': {
-            "protein_1": "P08514",
-            "protein_2": "P05106",
-            "protein_3": None,
-            "protein_4": None
-
-        }
+        'composition':
+            ["P08514", "P05106"]
     },
     {
         'data': {
@@ -89,13 +78,8 @@ complex_entries = [
             "stoichiometry": "DOK7;DOK7;MUSK;MUSK",
             "comments": "MUSK Interacts with LRP4; the heterodimer forms an AGRIN receptor complex that binds AGRIN resulting in activation of MUSK "
         },
-        'composition': {
-            "protein_1": "O15146",
-            "protein_2": "O00468",
-            "protein_3": "O75096",
-            "protein_4": "Q18PE1"
-
-        }
+        'composition':
+            ["O15146", "O00468", "O75096", "Q18PE1"]
     },
     {
         'data': {
@@ -119,13 +103,8 @@ complex_entries = [
             "stoichiometry": None,
             "comments": "Membrane-bound IgM molecules are non-covalently associated with heterodimer of CD79A and CD79B"
         },
-        'composition': {
-            "protein_1": "P11912",
-            "protein_2": "P40259",
-            "protein_3": "P01871",
-            "protein_4": None
-
-        }
+        'composition':
+            ["P11912", "P40259", "P01871"]
     },
     {
         'data': {
@@ -149,13 +128,8 @@ complex_entries = [
             "stoichiometry": None,
             "comments": "Serine/threonine kinase heterodimer upon ligand binding"
         },
-        'composition': {
-            "protein_1": "O00238",
-            "protein_2": "Q13873",
-            "protein_3": None,
-            "protein_4": None
-
-        }
+        'composition':
+            ["O00238", "Q13873"]
     },
     {
         'data': {
@@ -179,13 +153,8 @@ complex_entries = [
             "stoichiometry": "B2M;CD1A",
             "comments": "Heterodimer with B2M (beta-2-microglobulin)."
         },
-        'composition': {
-            "protein_1": "P61769",
-            "protein_2": "P06126",
-            "protein_3": None,
-            "protein_4": None
-
-        }
+        'composition':
+            ["P61769", "P06126"]
     },
     {
         'data': {
@@ -209,13 +178,8 @@ complex_entries = [
             "stoichiometry": None,
             "comments": None
         },
-        'composition': {
-            "protein_1": "Q16552",
-            "protein_2": "Q96PD4",
-            "protein_3": None,
-            "protein_4": None
-
-        }
+        'composition':
+            ["Q16552", "Q96PD4"]
     },
     {
         'data': {
@@ -239,13 +203,8 @@ complex_entries = [
             "stoichiometry": None,
             "comments": None
         },
-        'composition': {
-            "protein_1": "Q16552",
-            "protein_2": "Q96PD4",
-            "protein_3": None,
-            "protein_4": None
-
-        }
+        'composition':
+            ["Q16552", "Q96PD4"]
     },
     {
         'data': {
@@ -270,18 +229,58 @@ complex_entries = [
             "comments": "NA; the heterodimer binds IL17AF",
         },
         'composition':
-            {
-                "protein_1": "Q96F46",
-                "protein_2": "Q8NAC3",
-                "protein_3": None,
-                "protein_4": None,
-            }
-
+            ["Q96F46", "Q8NAC3"]
     }
 ]
 
 
 class DatabaseRandomEntries(TestCase):
+    def test_complex_composition_table(self):
+        query_multidata = db.session.query(Multidata)
+        df_multidata = pd.read_sql(query_multidata.statement, db.engine)
+
+        query_complex_composition = db.session.query(ComplexComposition)
+        df_complex_composition = pd.read_sql(query_complex_composition.statement, db.engine)
+
+        number_compositions_not_match = False
+        some_protein_didnt_exists = False
+        some_protein_not_part_of_complex = False
+
+        for complex in complex_entries:
+            db_complex_id = df_multidata[df_multidata['name'] == complex['data']['name']]['id'].iloc[0]
+
+            if len(df_complex_composition[df_complex_composition['complex_multidata_id'] != db_complex_id]) == len(
+                    complex['composition']):
+                print('Failed checking number of complex_composition with name \'%s\'' % (
+                    complex['data']['name']))
+                print('Expected value: %s' % len(
+                    df_complex_composition[df_complex_composition['complex_multidata_id'] == db_complex_id]))
+                print('Database value: %s' % len(complex['composition']))
+                print('---')
+                number_compositions_not_match = True
+
+            for protein_name in complex['composition']:
+                db_complex_composition_ids = \
+                    df_complex_composition[df_complex_composition['complex_multidata_id'] == db_complex_id][
+                        'protein_multidata_id'].tolist()
+
+                composition_multidata_id = df_multidata[df_multidata['name'] == protein_name]['id']
+
+                if not len(composition_multidata_id):
+                    print('Failed finding protein \'%s\' in multidata from complex name \'%s\'' % (
+                        protein_name, complex['data']['name']))
+                    some_protein_didnt_exists = True
+                    continue
+
+                if composition_multidata_id.iloc[0] not in db_complex_composition_ids:
+                    print('Failed finding protein \'%s\' in composition from complex name \'%s\'' % (
+                        protein_name, complex['data']['name']))
+                    some_protein_not_part_of_complex = True
+
+        self.assertFalse(number_compositions_not_match, 'Number of complex composition doesnt match')
+        self.assertFalse(some_protein_didnt_exists, 'Some complex_composition proteins doesnt match')
+        self.assertFalse(some_protein_not_part_of_complex, 'Complex_composition proteins doesnt match')
+
     def test_complex(self):
         query = db.session.query(Multidata, Complex).join(Complex)
         dataframe = pd.read_sql(query.statement, db.engine)
