@@ -1,5 +1,6 @@
 # Output files
-out/
+/out/
+/tools/out/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
