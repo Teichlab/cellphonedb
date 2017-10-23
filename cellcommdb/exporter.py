@@ -30,11 +30,10 @@ class Exporter(object):
 
             # Edit order of the columns
             column_headers = list(proteins_multidata.columns.values)
-            column_headers.insert(0, column_headers.pop(column_headers.index('name')))
-            column_headers.append(column_headers.pop(column_headers.index('tags')))
-            column_headers.append(column_headers.pop(column_headers.index('tags_reason')))
+            column_headers = self._bring_columns_to_start(['name'], column_headers)
+            column_headers = self._bring_columns_to_end(['tags', 'tags_reason'], column_headers)
 
-            proteins_multidata.to_csv('out/%s' % output_name, index=False, header=column_headers)
+            proteins_multidata.to_csv('out/%s' % output_name, index=False, header=True, columns=column_headers)
 
     def complex(self, output_name=None):
         if not output_name:
