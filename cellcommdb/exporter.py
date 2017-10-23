@@ -52,8 +52,6 @@ class Exporter(object):
             complex_composition_df = pd.read_sql(complex_composition_query.statement, db.engine)
             protein_df = pd.read_sql(protein_query.statement, db.engine)
 
-            print(protein_df)
-
             complex_complete = pd.merge(complex_df, multidata_df, left_on='complex_multidata_id', right_on='id')
 
             composition = []
@@ -70,12 +68,11 @@ class Exporter(object):
                                     }
                 for index, complex_composition in complex_complex_composition.iterrows():
                     proteine_name = \
-                    multidata_df[multidata_df['id'] == complex_composition['protein_multidata_id']]['name'].values[0]
+                        multidata_df[multidata_df['id'] == complex_composition['protein_multidata_id']]['name'].values[
+                            0]
                     complex_proteins['protein_%i' % protein_index] = proteine_name
 
                     entry_name = protein_df[protein_df['name'] == proteine_name]['entry_name'].values[0]
-                    print('->protein_name: %s' % proteine_name)
-                    print(entry_name)
                     complex_proteins['protein_%i_gene_name' % protein_index] = entry_name
                     protein_index += 1
 
@@ -84,7 +81,33 @@ class Exporter(object):
             complex_complete = pd.merge(complex_complete, pd.DataFrame(composition), on='complex_multidata_id')
             complex_complete.drop(['id_x', 'id_y', 'complex_multidata_id'], axis=1, inplace=True)
 
-            complex_complete.to_csv('out/%s' % output_name, index=False)
+            # Edit order of the columns
+            protein_headers = []
+
+            for i in range(4):
+                protein_headers.append('protein_%s' % (i + 1))
+                protein_headers.append('protein_%s_gene_name' % (i + 1))
+
+            column_headers = list(complex_complete.columns.values)
+            column_headers = self._bring_columns_to_start(['name'] + protein_headers, column_headers)
+            column_headers = self._bring_columns_to_end(['pdb_structure', 'pdb_id', 'stoichiometry', 'comments'],
+                                                        column_headers)
+
+            complex_complete.to_csv('out/%s' % output_name, header=True, columns=column_headers, index=False)
+
+    @staticmethod
+    def _bring_columns_to_start(columns, column_headers):
+        for column in reversed(columns):
+            column_headers.insert(0, column_headers.pop(column_headers.index(column)))
+
+        return column_headers
+
+    @staticmethod
+    def _bring_columns_to_end(columns, column_headers):
+        for column in columns:
+            column_headers.append(column_headers.pop(column_headers.index(column)))
+
+        return column_headers
 
     def gene(self, output_name=None):
         if not output_name:

@@ -76,7 +76,7 @@ complex_entries = [
             "pdb_structure": "partial",
             "pdb_id": "3ml4",
             "stoichiometry": "DOK7;DOK7;MUSK;MUSK",
-            "comments": "MUSK Interacts with LRP4; the heterodimer forms an AGRIN receptor complex that binds AGRIN resulting in activation of MUSK "
+            "comments": "MUSK Interacts with LRP4; the heterodimer forms an AGRIN receptor complex that binds AGRIN resulting in activation of MUSK"
         },
         'composition':
             ["O15146", "O00468", "O75096", "Q18PE1"]
