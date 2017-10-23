@@ -5,7 +5,7 @@ from cellcommdb.models import Protein, Multidata, Complex, ComplexComposition, I
 import pandas as pd
 import inspect
 
-from cellcommdb.tools import filters
+from cellcommdb.tools import filters, database
 
 
 class Exporter(object):
@@ -71,26 +71,17 @@ class Exporter(object):
             complex_complete.drop(['id_x', 'id_y', 'complex_multidata_id'], axis=1, inplace=True)
             complex_complete.to_csv('out/%s' % output_name, index=False)
 
-
     def gene(self, output_name=None):
         if not output_name:
             current_method_name = inspect.getframeinfo(inspect.currentframe()).function
             output_name = '%s.csv' % current_method_name
 
         with self.app.app_context():
-            gene_query = db.session.query(Gene)
-            proteins_query = db.session.query(Protein)
-            multidata_query = db.session.query(Multidata)
-
+            gene_query = db.session.query(Gene, Multidata).join(Protein).join(Multidata)
             gene_df = pd.read_sql(gene_query.statement, db.engine)
-            proteins_df = pd.read_sql(proteins_query.statement, db.engine)
-            multidata_df = pd.read_sql(multidata_query.statement, db.engine)
 
-            gene_df.rename(index=str, columns={'name': 'gene_table_name'}, inplace=True)
-            gene_protein = pd.merge(gene_df, proteins_df, left_on='protein_id', right_on='id')
-            gene_protein_multidata = pd.merge(gene_protein, multidata_df, left_on='protein_multidata_id', right_on='id')
+            filters.remove_not_defined_columns(gene_df, database.get_column_table_names(Gene, db) + ['name'])
 
-            gene_protein_multidata.drop(['id', 'id_x', 'id_y', 'protein_multidata_id', 'protein_id'], axis=1,
-                                        inplace=True)
+            gene_df.drop(['id', 'protein_id'], axis=1, inplace=True)
 
-            gene_protein_multidata.to_csv('out/%s' % output_name, index=False)
+            gene_df.to_csv('out/%s' % output_name, index=False)
