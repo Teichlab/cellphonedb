@@ -20,7 +20,6 @@ def merge_duplicated_proteins(protein_file):
 
     output_name = _filename_parameter(protein_file, 'merged')
 
-    print('%s/out/%s' % (current_dir, output_name))
     unique_prots.to_csv('%s/out/%s' % (current_dir, output_name), index=False)
 
 
