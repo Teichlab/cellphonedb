@@ -40,8 +40,6 @@ class Protein(db.Model, IdModel):
     tags_reason = Column(String)
     gene_name = Column(String)
 
-    membrane_type = Column(String)
-
     protein_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), unique=True, nullable=False)
     gene = db.relationship('Gene', backref='gene', lazy='subquery')
 

@@ -88,23 +88,3 @@ class Exporter(object):
                                         inplace=True)
 
             gene_protein_multidata.to_csv('out/%s' % output_name, index=False)
-
-    def protein_type_filtered(self, output_name=None):
-        if not output_name:
-            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-            output_name = '%s.csv' % current_method_name
-
-        complex_composition_query = db.session.query(ComplexComposition.protein_multidata_id)
-
-        with self.app.app_context():
-            proteins_query = db.session.query(Protein, Multidata).join(Multidata).filter(and_(
-                or_(Protein.membrane_type == 'singlepass_typeI',
-                    Protein.membrane_type == 'singlepass_typeII',
-                    Protein.membrane_type == 'GPI-anchor'),
-                ~Multidata.id.in_(complex_composition_query)
-            ))
-
-            proteins_df = pd.read_sql(proteins_query.statement, db.engine)
-            proteins_df.drop('id', axis=1, inplace=True)
-
-            proteins_df.to_csv('out/%s' % output_name, index=False)
