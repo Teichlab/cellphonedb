@@ -6,7 +6,7 @@ from tools.app import current_dir
 from cellcommdb.tools import filters
 
 
-def merge_gene_mouse(gene_human=None, gene_mouse=None):
+def merge_gene_mouse(gene_human, gene_mouse):
     """
     Loads gene table from csv.
     - Load human gene data
@@ -33,8 +33,15 @@ def merge_gene_mouse(gene_human=None, gene_mouse=None):
 
     gene_mouse_df.rename(index=str, columns={'human_ensembl': 'ensembl'}, inplace=True)
     gene_mouse_df.rename(index=str, columns={'protein_uniprot': 'name'}, inplace=True)
-    print(gene_mouse_df)
     filters.remove_not_defined_columns(gene_mouse_df,
                                        ['ensembl', 'gene_name', 'mouse_uniprot', 'mouse_ensembl', 'name'])
 
-    gene_mouse_df.to_csv('%s/out/%s' % (current_dir, 'genes.csv'), index=False)
+    output_name = _filename_parameter(gene_human, 'merged')
+    gene_mouse_df.to_csv('%s/out/%s' % (current_dir, output_name), index=False)
+
+
+def _filename_parameter(protein_file, parameter):
+    splited_filename = protein_file.split('.')
+    splited_filename[-2] = '%s_%s' % (splited_filename[-2], parameter)
+    output_name = '.'.join(splited_filename)
+    return output_name
