@@ -4,7 +4,7 @@ from flask_testing import TestCase
 from cellcommdb.api import create_app
 from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
-from cellcommdb.models import Complex, Multidata, ComplexComposition, Protein
+from cellcommdb.models import Complex, Multidata, ComplexComposition, Protein, Gene
 
 complex_entries = [
     {
@@ -570,9 +570,76 @@ protein_entries = [
         "adaptor": False
     }
 ]
+gene_entries = [
+    {
+        "ensembl": "ENSG00000280584",
+        "gene_name": "OBP2B",
+        "mouse_uniprot": None,
+        "mouse_ensembl": None,
+        "name": "Q9NPH6"
+    },
+    {
+        "ensembl": "ENSG00000171102",
+        "gene_name": "OBP2B",
+        "mouse_uniprot": "Q62472",
+        "mouse_ensembl": "ENSMUSG00000026919",
+        "name": "Q9NPH6"
+    },
+    {
+        "ensembl": "ENSG00000240038",
+        "gene_name": "AMY2B",
+        "mouse_uniprot": None,
+        "mouse_ensembl": "ENSMUSG00000070360",
+        "name": "P19961"
+    },
+    {
+        "ensembl": "ENSG00000203870",
+        "gene_name": "SMIM9",
+        "mouse_uniprot": None,
+        "mouse_ensembl": None,
+        "name": "A6NGZ8"
+    },
+    {
+        "ensembl": "ENSG00000171557",
+        "gene_name": "FGG",
+        "mouse_uniprot": "Q8VCM7",
+        "mouse_ensembl": "ENSMUSG00000033860",
+        "name": "P02679"
+    },
+    {
+        "ensembl": "ENSG00000142512",
+        "gene_name": "SIGLEC10",
+        "mouse_uniprot": None,
+        "mouse_ensembl": "ENSMUSG00000030468",
+        "name": "Q96LC7"
+    }
+]
 
 
 class DatabaseRandomEntries(TestCase):
+    def test_gene(self):
+        query = db.session.query(Gene, Multidata).join(Protein).join(Multidata)
+        dataframe = pd.read_sql(query.statement, db.engine)
+
+        data_not_match = False
+
+        for gene in gene_entries:
+            db_gene = dataframe
+
+            for column_name in gene:
+                if gene[column_name] == None:
+                    db_gene = db_gene[pd.isnull(db_gene[column_name])]
+                else:
+                    db_gene = db_gene[db_gene[column_name] == gene[column_name]]
+
+            if (len(db_gene) < 1):
+                print('Failed cheking Gene:')
+                print('Expected data:')
+                print(gene)
+                data_not_match = True
+
+        self.assertFalse(data_not_match, 'Some Gene doesnt match')
+
     def test_protein(self):
         query = db.session.query(Multidata, Protein).join(Protein)
         dataframe = pd.read_sql(query.statement, db.engine)
