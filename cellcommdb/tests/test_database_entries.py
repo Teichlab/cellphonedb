@@ -4,7 +4,8 @@ from flask_testing import TestCase
 from cellcommdb.api import create_app
 from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
-from cellcommdb.models import Complex, Multidata, ComplexComposition, Protein, Gene
+from cellcommdb.models import Complex, Multidata, ComplexComposition, Protein, Gene, Interaction
+from cellcommdb.unblend import Unblend
 
 complex_entries = [
     {
@@ -614,9 +615,86 @@ gene_entries = [
         "name": "Q96LC7"
     }
 ]
+interaction_entries = [
+    {
+        "score_1": 0.142,
+        "score_2": 0.0421,
+        "multidata_name_1": "A2VDJ0",
+        "multidata_name_2": "P01903",
+        "comments": None,
+        "source": "inweb"
+    },
+    {
+        "score_1": 1,
+        "score_2": 0,
+        "multidata_name_1": "O43561",
+        "multidata_name_2": "P01903",
+        "comments": None,
+        "source": "inweb"
+    },
+    {
+        "score_1": 1,
+        "score_2": 0.497,
+        "multidata_name_1": "P04233",
+        "multidata_name_2": "P20036",
+        "comments": None,
+        "source": "inweb"
+    },
+    {
+        "score_1": 1,
+        "score_2": 1,
+        "multidata_name_1": "IL17 receptor AE",
+        "multidata_name_2": "Q9P0M4",
+        "comments": None,
+        "source": "curated"
+    },
+    {
+        "score_1": 0.143,
+        "score_2": 0.0459,
+        "multidata_name_1": "Q99944",
+        "multidata_name_2": "Q9H400",
+        "comments": None,
+        "source": "inweb"
+    },
+    {
+        "score_1": 1,
+        "score_2": 1,
+        "multidata_name_1": "CD8 receptor",
+        "multidata_name_2": "P06239",
+        "comments": "1q69, PDB partially",
+        "source": "curated"
+    }
+]
 
 
 class DatabaseRandomEntries(TestCase):
+    def test_interaction(self):
+
+        interaction_query = db.session.query(Interaction)
+        interaction_df = pd.read_sql(interaction_query.statement, db.engine)
+
+        interaction_df = Unblend.multidata(interaction_df, ['multidata_1_id', 'multidata_2_id'], 'multidata_name',
+                                           True)
+
+        data_not_match = False
+
+        for interaction in interaction_entries:
+            db_interaction = interaction_df
+
+            for column_name in interaction:
+                if interaction[column_name] == None:
+                    db_interaction = db_interaction[pd.isnull(db_interaction[column_name])]
+                else:
+                    db_interaction = db_interaction[db_interaction[column_name] == interaction[column_name]]
+
+            if (len(db_interaction) < 1):
+                print('Failed cheking Gene:')
+                print('Expected data:')
+                print(interaction)
+                data_not_match = True
+
+        self.assertFalse(data_not_match, 'Some Gene doesnt match')
+
     def test_gene(self):
         query = db.session.query(Gene, Multidata).join(Protein).join(Multidata)
         dataframe = pd.read_sql(query.statement, db.engine)

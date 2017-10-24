@@ -157,5 +157,3 @@ class Exporter(object):
                                                            'entry_name_2'], column_headers)
 
             interaction_df.to_csv('out/%s' % output_name, header=True, columns=column_headers, index=False)
-
-            print(interaction_df)
