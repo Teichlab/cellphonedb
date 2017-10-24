@@ -236,7 +236,6 @@ complex_entries = [
 protein_entries = [
     {
         "name": "A0A0B4J2F0",
-        "gene_name": "PIGBOS1",
         "entry_name": "PIOS1_HUMAN",
         "transmembrane": False,
         "secretion": True,
@@ -257,7 +256,6 @@ protein_entries = [
     },
     {
         "name": "A0AVI2",
-        "gene_name": "FER1L5",
         "entry_name": "FR1L5_HUMAN",
         "transmembrane": True,
         "secretion": False,
@@ -278,7 +276,6 @@ protein_entries = [
     },
     {
         "name": "A1E959",
-        "gene_name": "ODAM APIN",
         "entry_name": "ODAM_HUMAN",
         "transmembrane": False,
         "secretion": True,
@@ -299,7 +296,6 @@ protein_entries = [
     },
     {
         "name": "O75970",
-        "gene_name": "MPDZ MUPP1",
         "entry_name": "MPDZ_HUMAN",
         "transmembrane": False,
         "secretion": False,
@@ -320,7 +316,6 @@ protein_entries = [
     },
     {
         "name": "O76036",
-        "gene_name": "NCR1",
         "entry_name": "NCTR1_HUMAN",
         "transmembrane": True,
         "secretion": False,
@@ -341,7 +336,6 @@ protein_entries = [
     },
     {
         "name": "O95256",
-        "gene_name": "IL18RAP",
         "entry_name": "I18RA_HUMAN",
         "transmembrane": True,
         "secretion": False,
@@ -362,7 +356,6 @@ protein_entries = [
     },
     {
         "name": "P78357",
-        "gene_name": "CNTNAP1",
         "entry_name": "CNTP1_HUMAN",
         "transmembrane": True,
         "secretion": False,
@@ -383,7 +376,6 @@ protein_entries = [
     },
     {
         "name": "Q13444",
-        "gene_name": "ADAM15",
         "entry_name": "ADA15_HUMAN",
         "transmembrane": True,
         "secretion": False,
@@ -404,7 +396,6 @@ protein_entries = [
     },
     {
         "name": "A5X5Y0",
-        "gene_name": "HTR3E",
         "entry_name": "5HT3E_HUMAN",
         "transmembrane": True,
         "secretion": False,
@@ -425,7 +416,6 @@ protein_entries = [
     },
     {
         "name": "Q9NPH3",
-        "gene_name": "IL1RAP",
         "entry_name": "IL1AP_HUMAN",
         "transmembrane": True,
         "secretion": True,
@@ -446,7 +436,6 @@ protein_entries = [
     },
     {
         "name": "O75325",
-        "gene_name": "LRRN2",
         "entry_name": "LRRN2_HUMAN",
         "transmembrane": True,
         "secretion": False,
@@ -467,7 +456,6 @@ protein_entries = [
     },
     {
         "name": "P05067",
-        "gene_name": "APP",
         "entry_name": "A4_HUMAN",
         "transmembrane": True,
         "secretion": False,
@@ -488,7 +476,6 @@ protein_entries = [
     },
     {
         "name": "Q9HC73",
-        "gene_name": "CRLF2 CRL2 ILXR TSLPR",
         "entry_name": "CRLF2_HUMAN",
         "transmembrane": True,
         "secretion": True,
@@ -509,7 +496,6 @@ protein_entries = [
     },
     {
         "name": "P48960",
-        "gene_name": "CD97",
         "entry_name": "CD97_HUMAN",
         "transmembrane": True,
         "secretion": True,
@@ -530,7 +516,6 @@ protein_entries = [
     },
     {
         "name": "Q01113",
-        "gene_name": "IL9R",
         "entry_name": "IL9R_HUMAN",
         "transmembrane": True,
         "secretion": True,
@@ -551,7 +536,6 @@ protein_entries = [
     },
     {
         "name": "P16284",
-        "gene_name": None,
         "entry_name": "PECA1_HUMAN",
         "transmembrane": True,
         "secretion": False,
