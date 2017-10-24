@@ -6,6 +6,7 @@ import pandas as pd
 import inspect
 
 from cellcommdb.tools import filters, database
+from cellcommdb.unblend import Unblend
 
 
 class Exporter(object):
@@ -122,3 +123,39 @@ class Exporter(object):
             gene_df.drop(['id', 'protein_id'], axis=1, inplace=True)
 
             gene_df.to_csv('out/%s' % output_name, index=False)
+
+    def interaction(self, output_name=None):
+        if not output_name:
+            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
+            output_name = '%s.csv' % current_method_name
+
+        with self.app.app_context():
+            interaction_query = db.session.query(Interaction)
+            interaction_df = pd.read_sql(interaction_query.statement, db.engine)
+
+            protein_query = db.session.query(Multidata.name, Protein.entry_name).join(Protein)
+            protein_df = pd.read_sql(protein_query.statement, db.engine)
+
+            interaction_df = Unblend.multidata(interaction_df, ['multidata_1_id', 'multidata_2_id'], 'multidata_name',
+                                               True)
+
+            interaction_df = pd.merge(interaction_df, protein_df, left_on=['multidata_name_1'], right_on=['name'],
+                                      how='left')
+            interaction_df.rename(index=str, columns={'entry_name': 'entry_name_1'}, inplace=True)
+
+            interaction_df = pd.merge(interaction_df, protein_df, left_on=['multidata_name_2'], right_on=['name'],
+                                      how='left')
+            interaction_df.rename(index=str, columns={'entry_name': 'entry_name_2'}, inplace=True)
+
+            filters.remove_not_defined_columns(interaction_df, ['multidata_name_1', 'multidata_name_2', 'entry_name_1',
+                                                                'entry_name_2'] + database.get_column_table_names(
+                Interaction, db))
+            interaction_df.drop('id', axis=1, inplace=True)
+
+            column_headers = list(interaction_df.columns.values)
+            column_headers = self._bring_columns_to_start(['multidata_name_1', 'entry_name_1', 'multidata_name_2',
+                                                           'entry_name_2'], column_headers)
+
+            interaction_df.to_csv('out/%s' % output_name, header=True, columns=column_headers, index=False)
+
+            print(interaction_df)

@@ -15,7 +15,7 @@ def load(interaction_file=None):
 
     csv_interaction_df = pd.read_csv(interaction_file, quotechar='"', na_values='NA', sep=',')
 
-    interaction_df = Blend.blend_multidata(csv_interaction_df, ['protein_name_1', 'protein_name_2'])
+    interaction_df = Blend.blend_multidata(csv_interaction_df, ['multidata_name_1', 'multidata_name_2'])
 
     filters.remove_not_defined_columns(interaction_df, database.get_column_table_names(Interaction, db))
 
