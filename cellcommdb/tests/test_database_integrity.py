@@ -13,9 +13,10 @@ class DatabaseIntegrity(TestCase):
         dataframe = pd.read_sql(query.statement, db.engine)
 
         dataframe.drop('id', inplace=True, axis=1)
-        duplicated_genes = dataframe[dataframe.duplicated()]
+        duplicated_genes = dataframe[dataframe.duplicated(keep=False)]
         if len(duplicated_genes):
-            duplicated_genes.to_csv('%s/../out/duplicated_genes.csv' % current_dir, index=False)
+            duplicated_genes.sort_values('gene_name').to_csv('%s/../out/duplicated_genes.csv' % current_dir,
+                                                             index=False)
 
         self.assertEqual(len(duplicated_genes), 0,
                          'There are %s duplicated genes in database. Please check duplicated_genes.csv file' % len(
