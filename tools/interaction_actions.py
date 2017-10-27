@@ -31,9 +31,7 @@ def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
         )]
 
     output_name = 'inweb_interactions_no_complex.csv'
-    inweb_df_no_complex.to_csv('%s/out/%s' % (current_dir, output_name), index=False)
-
-    print(inweb_df_no_complex)
+    inweb_df_no_complex.to_csv('%s/out/%s' % (current_dir, output_name), index=False, float_format='%.4f')
 
 
 def generate_inweb_interactions(database_proteins_namefile, inweb_inbiomap_namefile=None):
@@ -42,7 +40,7 @@ def generate_inweb_interactions(database_proteins_namefile, inweb_inbiomap_namef
     if inweb_inbiomap_namefile:
         inweb_inbiomap_file = os.path.join(current_dir, 'data', inweb_inbiomap_namefile)
 
-    inweb_inbiomap_df = pd.read_csv(inweb_inbiomap_file, delimiter='\t')
+    inweb_inbiomap_df = pd.read_csv(inweb_inbiomap_file, delimiter='\t', na_values='-')
 
     inweb_interactions = pd.DataFrame()
 
@@ -51,9 +49,9 @@ def generate_inweb_interactions(database_proteins_namefile, inweb_inbiomap_namef
     inweb_interactions['protein_2'] = inweb_inbiomap_df.take([1], axis=1).apply(
         lambda protein: protein.values[0].split(':')[1], axis=1)
     inweb_interactions['score_1'] = inweb_inbiomap_df.take([14], axis=1).apply(
-        lambda protein: protein.values[0].split('|')[0], axis=1)
+        lambda protein: 0 if protein.values[0].split('|')[0] == '-' else protein.values[0].split('|')[0], axis=1)
     inweb_interactions['score_2'] = inweb_inbiomap_df.take([14], axis=1).apply(
-        lambda protein: protein.values[0].split('|')[1], axis=1)
+        lambda protein: 0 if protein.values[0].split('|')[1] == '-' else protein.values[0].split('|')[1], axis=1)
 
     database_proteins_file = os.path.join(current_dir, 'data', database_proteins_namefile)
 
