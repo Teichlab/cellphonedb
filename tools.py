@@ -31,10 +31,10 @@ def merge_gene_mouse(filename_gene, filename_gene_mouse):
 
 
 @cli.command()
+@click.argument('inweb_inbiomap_file', default='')
 @click.argument('database_proteins', default='protein.csv')
-@click.argument('inweb_inbiomap_file', default='core.psimitab')
-def generate_inweb(database_proteins, inweb_inbiomap_file):
-    protein_generate_inweb(database_proteins, inweb_inbiomap_file)
+def generate_inweb(inweb_inbiomap_file, database_proteins):
+    protein_generate_inweb(inweb_inbiomap_file, database_proteins)
 
 
 @cli.command()

@@ -1,9 +1,36 @@
 import os
 
 import pandas as pd
+import zipfile
 
 from tools.app import current_dir
 from cellcommdb.tools.filters import remove_not_defined_columns
+
+import requests
+
+
+def _unzip_inwebinbiomap(file_path):
+    zip_ref = zipfile.ZipFile(file_path, 'r')
+    extract_path = '%s/temp' % (current_dir)
+    zip_ref.extractall(extract_path)
+    zip_ref.close()
+
+
+def _download_inwebinbiomap():
+    print('downloading InBio_Map_core_2016_09_12')
+    s = requests.Session()
+    # First, we need create session in inatomics
+    r = s.get("https://www.intomics.com/inbio/api/login_guest?ref=&_=1509120239303")
+    r = s.get('https://www.intomics.com/inbio/map/api/get_data?file=InBio_Map_core_2016_09_12.zip')
+
+    download_path = '%s/temp/InBio_Map_core_2016_09_12.zip' % (current_dir)
+    file = open(download_path, 'wb')
+    file.write(r.content)
+    file.close()
+
+    _unzip_inwebinbiomap(download_path)
+
+    return '%s/temp/InBio_Map_core_2016_09_12/core.psimitab' % current_dir
 
 
 def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
@@ -34,10 +61,11 @@ def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
     inweb_df_no_complex.to_csv('%s/out/%s' % (current_dir, output_name), index=False, float_format='%.4f')
 
 
-def generate_inweb_interactions(database_proteins_namefile, inweb_inbiomap_namefile=None):
-    # TODO: Download inweb_inbiomap
-    inweb_inbiomap_file = None
-    if inweb_inbiomap_namefile:
+def generate_inweb_interactions(inweb_inbiomap_namefile, database_proteins_namefile):
+    if not inweb_inbiomap_namefile:
+        inweb_inbiomap_namefile = _download_inwebinbiomap()
+        inweb_inbiomap_file = os.path.join(inweb_inbiomap_namefile)
+    else:
         inweb_inbiomap_file = os.path.join(current_dir, 'data', inweb_inbiomap_namefile)
 
     inweb_inbiomap_df = pd.read_csv(inweb_inbiomap_file, delimiter='\t', na_values='-')
