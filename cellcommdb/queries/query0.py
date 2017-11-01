@@ -1,26 +1,26 @@
 import pandas as pd
 
-from cellcommdb.api import current_dir
 from cellcommdb.extensions import db
 from cellcommdb.models import Protein, Multidata, Gene, Interaction
 
 
 class Query0:
     @staticmethod
-    def call():
+    def call(counts_df, meta_df):
         print('Excuting query 0')
-
-        test_counts_namefile = 'test_counts.txt'
-        counts_df = pd.read_csv('%s/data/%s' % (current_dir, test_counts_namefile), sep='\t')
 
         gene_protein_query = db.session.query(Gene, Protein, Multidata).join(Protein).join(Multidata)
         gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
 
         multidata_counts = pd.merge(counts_df, gene_protein_df, left_on='Gene', right_on='ensembl')
 
+        print('Reduging A: Receptor or Adhesion')
         # A:  Reduce matrix: All Receptors & Adhesion
         count_receptor_adhesion = multidata_counts[
             (multidata_counts['receptor'] == True) | (multidata_counts['adhesion'] == True)]
+
+        print('Reduced A: Receptor or Adhesion')
+        print('Reducing B1: interacting_ligands ')
 
         # B: Reduce Matrix: All possible interacting Ligands
 
@@ -31,6 +31,8 @@ class Query0:
                                                 (multidata_counts['transporter'] == False)) |
                                                (multidata_counts['secretion'] == True)]
 
+        print('Reduced B1: interacting_ligands ')
+        print('Reducing B2: interacting_ligands (receptor interactings)')
         # B.2 Is interacting with a receptor
         interactions_df = Query0._get_interactions()
 
@@ -40,20 +42,21 @@ class Query0:
 
         interacting_ligands = interacting_ligands[
             interacting_ligands.apply(interacting_with_receptor, axis=1)]
+        print('Reduced B2: interacting_ligands (receptor interactings)')
 
         # Merge two lists
         filtered_counts = interacting_ligands.append(count_receptor_adhesion)
 
+        print('Removing duplicates')
         filtered_counts = filtered_counts[filtered_counts.duplicated('ensembl') == False]
-        Query0._procesed_table(filtered_counts, threshold=0)
+
+        return Query0._procesed_table(filtered_counts, meta_df, 0)
 
     @staticmethod
-    def _procesed_table(counts, threshold):
-        meta_namefile = 'test_meta.txt'
-        meta_df = pd.read_csv('%s/data/%s' % (current_dir, meta_namefile), sep='\t')
+    def _procesed_table(counts, meta_df, threshold):
 
         clusters_names = meta_df[meta_df.duplicated('cell_type') == False]['cell_type']
-
+        print('Creating data for procesed table')
         procesed_data = []
         for index, count in counts.iterrows():
 
@@ -74,6 +77,7 @@ class Query0:
 
         results_data = []
 
+        print('Creating procesed table and calculating numbers')
         for data in procesed_data:
             result_row = {}
             result_row['gene'] = data['gene']
@@ -84,7 +88,8 @@ class Query0:
             results_data.append(result_row)
 
         result_df = pd.DataFrame(results_data)
-        result_df.to_csv('%s/../out/query_0.csv' % current_dir, index=False)
+
+        return result_df
 
     @staticmethod
     def _get_interactions():
