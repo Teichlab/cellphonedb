@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import zipfile
 
-from tools.app import current_dir
+from tools.app import current_dir, data_dir, output_dir
 from cellcommdb.tools.filters import remove_not_defined_columns
 
 import requests
@@ -90,6 +90,39 @@ def generate_inweb_interactions(inweb_inbiomap_namefile, database_proteins_namef
     output_name = 'cellphone_inweb.csv'
 
     inweb_interactions.to_csv('%s/out/%s' % (current_dir, output_name), index=False)
+
+
+def remove_interactions_in_file(interaction_namefile, interactions_to_remove_namefile):
+    interactions_df = pd.read_csv('%s/%s' % (data_dir, interaction_namefile))
+    interactions_remove_df = pd.read_csv('%s/%s' % (data_dir, interactions_to_remove_namefile))
+
+    def interaction_not_exists(row):
+        if len(interactions_remove_df[(row['protein_1'] == interactions_remove_df['protein_1']) & (
+                    row['protein_2'] == interactions_remove_df['protein_2'])]):
+            return False
+
+        if len(interactions_remove_df[(row['protein_1'] == interactions_remove_df['protein_2']) & (
+                    row['protein_2'] == interactions_remove_df['protein_1'])]):
+            return False
+
+        return True
+
+    print(len(interactions_df))
+    interactions_filtered = interactions_df[interactions_df.apply(interaction_not_exists, axis=1)]
+    print(len(interactions_filtered))
+
+    interactions_filtered.to_csv('%s/interactions_cleaned.csv' % (output_dir), index=False)
+
+
+def append_curated(interaction_namefile, interaction_curated_namefile):
+    interactions_df = pd.read_csv('%s/%s' % (data_dir, interaction_namefile))
+    interaction_curated_df = pd.read_csv('%s/%s' % (data_dir, interaction_curated_namefile))
+
+    interactions_df['source'] = 'inweb'
+
+    interactions_merged = interactions_df.append(interaction_curated_df)
+
+    interactions_merged.to_csv('%s/interaction.csv' % output_dir, index=False)
 
 
 def _only_uniprots_in_df(uniprots_df, inweb_interactions):
