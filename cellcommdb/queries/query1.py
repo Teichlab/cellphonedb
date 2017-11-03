@@ -75,5 +75,8 @@ class Query1:
             return False
 
         processed_unique = processed_unique[processed_unique.apply(all_clusters_null, axis=1)]
+        filters.remove_not_defined_columns(processed_non_complex_genes, list(processed_data.columns.values))
 
-        return processed_unique
+        processed_unique_and_noncomplex = processed_unique.append(processed_non_complex_genes)
+
+        return processed_unique_and_noncomplex
