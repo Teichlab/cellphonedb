@@ -156,4 +156,5 @@ class Exporter(object):
             column_headers = self._bring_columns_to_start(['multidata_name_1', 'entry_name_1', 'multidata_name_2',
                                                            'entry_name_2'], column_headers)
 
-            interaction_df.to_csv('out/%s' % output_name, header=True, columns=column_headers, index=False)
+            interaction_df.sort_values('source', ascending=False).to_csv('out/%s' % output_name, header=True,
+                                                                         columns=column_headers, index=False)

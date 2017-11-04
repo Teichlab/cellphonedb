@@ -4,13 +4,15 @@ from flask_testing import TestCase
 from cellcommdb.api import create_app
 from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
-from cellcommdb.models import Protein, Gene
+from cellcommdb.models import Protein, Gene, Multidata
 
 
 class DatabaseRelationsChecks(TestCase):
     def test_all_protein_have_gen(self):
-        protein_query = db.session.query(Protein.id)
-        protein_ids = pd.read_sql(protein_query.statement, db.engine)['id'].tolist()
+        protein_query = db.session.query(Protein, Multidata.name).join(Multidata)
+
+        protein_df = pd.read_sql(protein_query.statement, db.engine)
+        protein_ids = protein_df['id'].tolist()
 
         gene_query = db.session.query(Gene.protein_id)
         gene_protein_ids = pd.read_sql(gene_query.statement, db.engine)['protein_id'].tolist()
@@ -18,11 +20,12 @@ class DatabaseRelationsChecks(TestCase):
         protein_without_gene = []
         for protein_id in protein_ids:
             if not protein_id in gene_protein_ids:
-                protein_without_gene.append(protein_id)
+                protein_without_gene.append(protein_df[protein_df['id'] == protein_id]['name'].iloc[0])
 
+        print('There are %s Proteins without gene' % len(protein_without_gene))
         print(protein_without_gene)
 
-        assert len(protein_without_gene) == 0
+        self.assertEqual(len(protein_without_gene), 0, 'There are Proteins without Gene')
 
     def setUp(self):
         self.client = self.app.test_client()

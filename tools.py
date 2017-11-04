@@ -18,7 +18,7 @@ def cli():
 
 
 @cli.command()
-@click.argument('filename')
+@click.argument('filename', default='protein.csv')
 def merge_duplicated_proteins(filename):
     merge_proteins(filename)
 

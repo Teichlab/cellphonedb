@@ -370,7 +370,7 @@ protein_entries = [
         "secreted_highlight": False,
         "secreted_desc": None,
         "tags": "To_add",
-        "tags_reason": "Others_Laura",
+        "tags_reason": "complex",
         "ligand": False,
         "adaptor": True
     },
@@ -390,7 +390,7 @@ protein_entries = [
         "secreted_highlight": False,
         "secreted_desc": None,
         "tags": "To_add",
-        "tags_reason": "Others_Laura",
+        "tags_reason": "Active metalloproteinase with gelatinolytic and collagenolytic activity. (uniprot)",
         "ligand": False,
         "adaptor": True
     },
@@ -549,8 +549,8 @@ protein_entries = [
         "transporter": False,
         "secreted_highlight": False,
         "secreted_desc": None,
-        "tags": "To_add",
-        "tags_reason": "found in a complex",
+        "tags": None,
+        "tags_reason": None,
         "ligand": False,
         "adaptor": False
     }
