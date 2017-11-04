@@ -17,11 +17,13 @@ def _unzip_inwebinbiomap(file_path):
 
 
 def _download_inwebinbiomap():
-    print('downloading InBio_Map_core_2016_09_12')
+    print('Downloading InBio_Map_core_2016_09_12')
     s = requests.Session()
     # First, we need create session in inatomics
+    namefile = 'InBio_Map_core_2016_09_12.zip'
     r = s.get("https://www.intomics.com/inbio/api/login_guest?ref=&_=1509120239303")
-    r = s.get('https://www.intomics.com/inbio/map/api/get_data?file=InBio_Map_core_2016_09_12.zip')
+    r = s.get('https://www.intomics.com/inbio/map/api/get_data?file=%s' % namefile)
+    print('Downloaded InBio_Map_core_2016_09_12')
 
     download_path = '%s/temp/InBio_Map_core_2016_09_12.zip' % (current_dir)
     file = open(download_path, 'wb')
@@ -89,7 +91,7 @@ def generate_inweb_interactions(inweb_inbiomap_namefile, database_proteins_namef
 
     output_name = 'cellphone_inweb.csv'
 
-    inweb_interactions.to_csv('%s/out/%s' % (current_dir, output_name), index=False)
+    inweb_interactions.to_csv('%s/%s' % (output_dir, output_name), index=False)
 
 
 def remove_interactions_in_file(interaction_namefile, interactions_to_remove_namefile):
@@ -107,9 +109,7 @@ def remove_interactions_in_file(interaction_namefile, interactions_to_remove_nam
 
         return True
 
-    print(len(interactions_df))
     interactions_filtered = interactions_df[interactions_df.apply(interaction_not_exists, axis=1)]
-    print(len(interactions_filtered))
 
     interactions_filtered.to_csv('%s/interactions_cleaned.csv' % (output_dir), index=False)
 
@@ -126,10 +126,16 @@ def append_curated(interaction_namefile, interaction_curated_namefile):
 
 
 def _only_uniprots_in_df(uniprots_df, inweb_interactions):
-    inweb_cellphone = pd.merge(inweb_interactions, uniprots_df, left_on=['protein_1'],
+    inweb_cellphone = pd.merge(inweb_interactions, uniprots_df, left_on=['protein_2'],
                                right_on=['uniprot'], how='inner')
 
-    inweb_cellphone = pd.merge(inweb_cellphone, uniprots_df, left_on=['protein_2'],
+    remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)
+
+    inweb_cellphone = pd.merge(inweb_cellphone, uniprots_df, left_on=['protein_1'],
                                right_on=['uniprot'], how='inner')
+    remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)
+
+    # Prevents duplicated interactions if any uniprot is duplicated in uniprots_df
+    inweb_cellphone = inweb_cellphone[inweb_cellphone.duplicated() == False]
 
     return remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)
