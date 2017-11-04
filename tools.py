@@ -31,17 +31,17 @@ def merge_gene_mouse(filename_gene, filename_gene_mouse):
 
 
 @cli.command()
-@click.argument('inweb_inbiomap_file', default='')
-@click.argument('database_proteins', default='protein.csv')
-def generate_inweb(inweb_inbiomap_file, database_proteins):
-    protein_generate_inweb(inweb_inbiomap_file, database_proteins)
+@click.argument('inweb_inbiomap_namefile', default='')
+@click.argument('database_proteins_namefile', default='protein.csv')
+def generate_inweb(inweb_inbiomap_namefile, database_proteins_namefile):
+    protein_generate_inweb(inweb_inbiomap_namefile, database_proteins_namefile)
 
 
 @cli.command()
-@click.argument('complexes_namefile', default='complex.csv')
+@click.argument('complex_namefile', default='complex.csv')
 @click.argument('inweb_namefile', default='cellphone_inweb.csv')
-def generate_inweb_noncomplex(complexes_namefile, inweb_namefile):
-    only_noncomplex_interactions(complexes_namefile, inweb_namefile)
+def generate_inweb_noncomplex(complex_namefile, inweb_namefile):
+    only_noncomplex_interactions(complex_namefile, inweb_namefile)
 
 
 @cli.command()
@@ -54,7 +54,7 @@ def remove_interactions(interaction_namefile, interactions_to_remove):
 @cli.command()
 @click.argument('interaction_namefile', default='interactions_cleaned.csv')
 @click.argument('interaction_curated', default='interaction_curated.csv')
-def merge_interactions(interaction_namefile, interaction_curated):
+def add_curated(interaction_namefile, interaction_curated):
     append_curated(interaction_namefile, interaction_curated)
 
 

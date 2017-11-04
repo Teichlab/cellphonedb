@@ -672,12 +672,12 @@ class DatabaseRandomEntries(TestCase):
                     db_interaction = db_interaction[db_interaction[column_name] == interaction[column_name]]
 
             if (len(db_interaction) < 1):
-                print('Failed cheking Gene:')
+                print('Failed cheking Interaction:')
                 print('Expected data:')
                 print(interaction)
                 data_not_match = True
 
-        self.assertFalse(data_not_match, 'Some Gene doesnt match')
+        self.assertFalse(data_not_match, 'Some Interactions doesnt match')
 
     def test_gene(self):
         query = db.session.query(Gene, Multidata).join(Protein).join(Multidata)

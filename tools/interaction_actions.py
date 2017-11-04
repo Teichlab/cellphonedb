@@ -36,6 +36,11 @@ def _download_inwebinbiomap():
 
 
 def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
+    if os.path.isfile('%s/%s' % (data_dir, inweb_namefile)):
+        inweb_file = os.path.join(data_dir, inweb_namefile)
+    else:
+        inweb_file = os.path.join(output_dir, inweb_namefile)
+
     complexes_file = os.path.join(current_dir, 'data', complexes_namefile)
 
     complexes_df = pd.read_csv(complexes_file)
@@ -46,8 +51,6 @@ def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
         proteins_in_complex = proteins_in_complex + complexes_df['protein_%s' % i].dropna().tolist()
 
     proteins_in_complex = list(set(proteins_in_complex))
-
-    inweb_file = os.path.join(current_dir, 'data', inweb_namefile)
 
     inweb_df = pd.read_csv(inweb_file)
 
@@ -95,7 +98,12 @@ def generate_inweb_interactions(inweb_inbiomap_namefile, database_proteins_namef
 
 
 def remove_interactions_in_file(interaction_namefile, interactions_to_remove_namefile):
-    interactions_df = pd.read_csv('%s/%s' % (data_dir, interaction_namefile))
+    if os.path.isfile('%s/%s' % (data_dir, interaction_namefile)):
+        interactions_file = os.path.join(data_dir, interaction_namefile)
+    else:
+        interactions_file = os.path.join(output_dir, interaction_namefile)
+
+    interactions_df = pd.read_csv(interactions_file)
     interactions_remove_df = pd.read_csv('%s/%s' % (data_dir, interactions_to_remove_namefile))
 
     def interaction_not_exists(row):
@@ -115,10 +123,18 @@ def remove_interactions_in_file(interaction_namefile, interactions_to_remove_nam
 
 
 def append_curated(interaction_namefile, interaction_curated_namefile):
-    interactions_df = pd.read_csv('%s/%s' % (data_dir, interaction_namefile))
+    if os.path.isfile('%s/%s' % (data_dir, interaction_namefile)):
+        interactions_file = os.path.join(data_dir, interaction_namefile)
+    else:
+        interactions_file = os.path.join(output_dir, interaction_namefile)
+
+    interactions_df = pd.read_csv(interactions_file)
     interaction_curated_df = pd.read_csv('%s/%s' % (data_dir, interaction_curated_namefile))
 
     interactions_df['source'] = 'inweb'
+
+    interactions_df.rename(index=str, columns={'protein_1': 'multidata_name_1', 'protein_2': 'multidata_name_2'},
+                           inplace=True)
 
     interactions_merged = interactions_df.append(interaction_curated_df)
 
