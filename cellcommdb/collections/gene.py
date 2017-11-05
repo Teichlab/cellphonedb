@@ -17,11 +17,11 @@ def load(gene_file=None):
         """
 
     if not gene_file:
-        gene_file = os.path.join(current_dir, 'data', 'genes.csv')
+        gene_file = os.path.join(current_dir, 'data', 'gene.csv')
 
     csv_gene_df = pd.read_csv(gene_file)
 
-    gene_df = Blend.blend_protein(csv_gene_df, ['name'])
+    gene_df = Blend.blend_protein(csv_gene_df, ['name'], quiet=True)
 
     filters.remove_not_defined_columns(gene_df, database.get_column_table_names(Gene, db))
 

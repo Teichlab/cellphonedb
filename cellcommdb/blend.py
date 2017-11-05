@@ -31,14 +31,16 @@ class Blend:
         return interaction_df
 
     @staticmethod
-    def blend_multidata(original_df, original_column_names):
+    def blend_multidata(original_df, original_column_names, quiet=False):
         """
         Merges dataframe with multidata names in multidata ids
         :type original_df: pd.DataFrame
         :type original_column_names: list
-        :type result_column_names: list
+        :type quiet: bool
         :return:
         """
+        if quiet:
+            print('Blending proteins in quiet mode')
         multidata_query = db.session.query(Multidata.id, Multidata.name)
         multidata_df = pd.read_sql(multidata_query.statement, db.engine)
 
@@ -47,10 +49,10 @@ class Blend:
         return reseult_df
 
     @staticmethod
-    def blend_dataframes(left_df, left_column_names, right_df, db_column_name, db_table_name):
+    def blend_dataframes(left_df, left_column_names, right_df, db_column_name, db_table_name, quiet=False):
         result_df = left_df.drop('id', errors='ignore', axis=1)
 
-        if db_column_name in left_df.columns:
+        if not quiet and db_column_name in left_df.columns:
             print('WARNING | BLENDING: column "%s" already exists in orginal df' % (db_column_name))
 
         unique_slug = '_EDITNAME'
@@ -82,17 +84,20 @@ class Blend:
             result_df.rename(index=str, columns={'%s_1' % db_column_name: db_column_name,
                                                  '%s_1_id' % db_table_name: '%s_id' % db_table_name}, inplace=True)
 
-        if not_existent_proteins:
+        if not quiet and not_existent_proteins:
             print('WARNING | BLENDING: THIS %s DIDNT EXIST IN %s' % (db_column_name, db_table_name))
             print(not_existent_proteins)
 
         return result_df
 
     @staticmethod
-    def blend_protein(original_df, original_column_names):
+    def blend_protein(original_df, original_column_names, quiet=False):
+        if quiet:
+            print('Blending proteins in quiet mode')
         database_query = db.session.query(Protein.id, Multidata.name).join(Multidata)
         database_df = pd.read_sql(database_query.statement, db.engine)
 
-        protein_df = Blend.blend_dataframes(original_df, original_column_names, database_df, 'name', 'protein')
+        protein_df = Blend.blend_dataframes(original_df, original_column_names, database_df, 'name', 'protein',
+                                            quiet=quiet)
 
         return protein_df
