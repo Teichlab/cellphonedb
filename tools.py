@@ -46,16 +46,16 @@ def generate_inweb_noncomplex(complex_namefile, inweb_namefile):
 
 @cli.command()
 @click.argument('interaction_namefile', default='cellphone_inweb.csv')
-@click.argument('interactions_to_remove', default='remove_interactions.csv')
-def remove_interactions(interaction_namefile, interactions_to_remove):
-    remove_interactions_in_file(interaction_namefile, interactions_to_remove)
+@click.argument('interaction_to_remove_namefile', default='remove_interactions.csv')
+def remove_interactions(interaction_namefile, interaction_to_remove_namefile):
+    remove_interactions_in_file(interaction_namefile, interaction_to_remove_namefile)
 
 
 @cli.command()
 @click.argument('interaction_namefile', default='interactions_cleaned.csv')
-@click.argument('interaction_curated', default='interaction_curated.csv')
-def add_curated(interaction_namefile, interaction_curated):
-    append_curated(interaction_namefile, interaction_curated)
+@click.argument('interaction_curated_namefile', default='interaction_curated.csv')
+def add_curated(interaction_namefile, interaction_curated_namefile):
+    append_curated(interaction_namefile, interaction_curated_namefile)
 
 
 if __name__ == "__main__":
