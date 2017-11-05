@@ -9,6 +9,7 @@ from cellcommdb.extensions import db
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 output_dir = '%s/../out/' % current_dir
+data_dir = '%s/data/' % current_dir
 
 
 def create_app(config=BaseConfig):
