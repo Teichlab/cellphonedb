@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellcommdb.extensions import db
-from cellcommdb.models import Protein, Multidata, Gene, Interaction
+from cellcommdb.models import Protein, Multidata, Gene, Interaction, ComplexComposition
 
 
 class Query0:
@@ -9,15 +9,16 @@ class Query0:
     def call(counts_df, meta_df):
         print('Excuting query 0')
 
-        gene_protein_query = db.session.query(Gene, Protein, Multidata).join(Protein).join(Multidata)
+        gene_protein_query = db.session.query(Gene.ensembl, Multidata.receptor, Multidata.other, Multidata.id).join(
+            Protein).join(Multidata)
         gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
 
         multidata_counts = pd.merge(counts_df, gene_protein_df, left_on='Gene', right_on='ensembl')
 
-        print('Reduging A: Receptor or Adhesion')
-        # A:  Reduce matrix: All Receptors & Adhesion
-        count_receptor_adhesion = multidata_counts[
-            (multidata_counts['receptor'] == True) | (multidata_counts['adhesion'] == True)]
+        complex_involved_in_counts = Query0._get_complex_involved(multidata_counts)
+
+        Query0._filter_receptor_other(multidata_counts)
+        return
 
         print('Reduced A: Receptor or Adhesion')
         print('Reducing B1: interacting_ligands ')
@@ -26,10 +27,11 @@ class Query0:
 
         # B.1: Is membarane not other not transporter or secreted
 
-        interacting_ligands = multidata_counts[((multidata_counts['transmembrane'] == True) &
+        interacting_ligands = multidata_counts[(multidata_counts['secretion'] == True) |
+                                               ((multidata_counts['transmembrane'] == True) &
                                                 (multidata_counts['other'] == False) &
-                                                (multidata_counts['transporter'] == False)) |
-                                               (multidata_counts['secretion'] == True)]
+                                                (multidata_counts['transporter'] == False))
+                                               ]
 
         print('Reduced B1: interacting_ligands ')
         print('Reducing B2: interacting_ligands (receptor interactings)')
@@ -54,7 +56,6 @@ class Query0:
 
     @staticmethod
     def _procesed_table(counts, meta_df, threshold):
-
         clusters_names = meta_df[meta_df.duplicated('cell_type') == False]['cell_type']
         print('Creating data for procesed table')
         procesed_data = []
@@ -106,3 +107,44 @@ class Query0:
                                    suffixes=['_1', '_2'])
 
         return interactions_df
+
+    @staticmethod
+    def _get_complex_involved(multidata_counts):
+        """
+        Gets complexes involved in counts
+        :type multidata_counts: pd.DataFrame
+        :rtype: pd.DataFrame
+        """
+
+        complex_composition_query = db.session.query(ComplexComposition.protein_multidata_id,
+                                                     ComplexComposition.complex_multidata_id,
+                                                     ComplexComposition.total_protein)
+        complex_composition_df = pd.read_sql(complex_composition_query.statement, db.engine)
+
+        complex_counts = pd.merge(complex_composition_df, multidata_counts, left_on='protein_multidata_id',
+                                  right_on='id')
+
+        def all_protein_involved(complex):
+            number_proteins_in_counts = len(
+                complex_counts[complex_counts['complex_multidata_id'] == complex['complex_multidata_id']])
+
+            if number_proteins_in_counts < complex['total_protein']:
+                return False
+
+            return True
+
+        complex_counts = complex_counts[complex_counts.apply(all_protein_involved, axis=1)]
+        return complex_counts
+
+    @staticmethod
+    def _filter_receptor_other(multidata_counts):
+        """
+        Filter proteins if are Receptors and not other
+        If protein is involved in Complex: Evaluates if Complex is Receptor and not other and accept the
+        proteins if all complex proteins are involved.
+        :type multidata_counts: pd.DataFrame
+        """
+        print('Reduging A: Receptor and not other ')
+        # A:  Reduce matrix: All Receptors and not other
+        non_complex = multidata_counts[
+            (multidata_counts['receptor'] == True) & (multidata_counts['other'] == False)]
