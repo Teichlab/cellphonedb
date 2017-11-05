@@ -9,7 +9,9 @@ class Query0:
     def call(counts_df, meta_df):
         print('Excuting query 0')
 
-        gene_protein_query = db.session.query(Gene.ensembl, Multidata.receptor, Multidata.other, Multidata.id,
+        gene_protein_query = db.session.query(Gene.ensembl, Multidata.id, Multidata.receptor, Multidata.other,
+                                              Multidata.transmembrane, Multidata.transporter, Multidata.adaptor,
+                                              Multidata.secretion,
                                               Multidata.name).join(
             Protein).join(Multidata)
         gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
@@ -18,34 +20,13 @@ class Query0:
 
         complex_involved_in_counts = Query0._get_complex_involved(multidata_counts)
 
+        # A:  Reduce matrix: All Receptors and not other
         counts_filtered_receptor_other = Query0._filter_receptor_other(multidata_counts, complex_involved_in_counts)
-        return
+
+        counts_ligands = Query0._filter_interacting_ligands(multidata_counts, complex_involved_in_counts)
 
         print('Reduced A: Receptor or Adhesion')
-        print('Reducing B1: interacting_ligands ')
-
-        # B: Reduce Matrix: All possible interacting Ligands
-
-        # B.1: Is membarane not other not transporter or secreted
-
-        interacting_ligands = multidata_counts[(multidata_counts['secretion'] == True) |
-                                               ((multidata_counts['transmembrane'] == True) &
-                                                (multidata_counts['other'] == False) &
-                                                (multidata_counts['transporter'] == False))
-                                               ]
-
-        print('Reduced B1: interacting_ligands ')
-        print('Reducing B2: interacting_ligands (receptor interactings)')
-        # B.2 Is interacting with a receptor
-        interactions_df = Query0._get_interactions()
-
-        def interacting_with_receptor(count):
-            return (interactions_df[interactions_df['name_1'] == count['name']]['receptor_2'].any() or
-                    interactions_df[interactions_df['name_2'] == count['name']]['receptor_1'].any())
-
-        interacting_ligands = interacting_ligands[
-            interacting_ligands.apply(interacting_with_receptor, axis=1)]
-        print('Reduced B2: interacting_ligands (receptor interactings)')
+        return
 
         # Merge two lists
         filtered_counts = interacting_ligands.append(count_receptor_adhesion)
@@ -149,7 +130,6 @@ class Query0:
         :rtype: pd.DataFrame
         """
         print('Reduging A: Receptor and not other')
-        # A:  Reduce matrix: All Receptors and not other
         non_complex = multidata_counts[
             (multidata_counts['receptor'] == True) & (multidata_counts['other'] == False)]
 
@@ -161,3 +141,33 @@ class Query0:
         counts_filtered = counts_filtered[counts_filtered.duplicated(['ensembl', 'name']) == False]
 
         return counts_filtered
+
+    @staticmethod
+    def _filter_interacting_ligands(multidata_counts, complex_counts):
+        print('Reducing B1: interacting_ligands ')
+
+        # B: Reduce Matrix: All possible interacting Ligands
+
+        # B.1: Is membarane not other not transporter or secreted
+
+        interacting_ligands = multidata_counts[(multidata_counts['secretion'] == True) |
+                                               ((multidata_counts['transmembrane'] == True) &
+                                                (multidata_counts['other'] == False) &
+                                                (multidata_counts['transporter'] == False) &
+                                                (multidata_counts['adaptor'] == False))
+                                               ]
+
+        print(len(interacting_ligands))
+        print('Reduced B1: interacting_ligands ')
+        print('Reducing B2: interacting_ligands (receptor interactings)')
+        # B.2 Is interacting with a receptor
+        interactions_df = Query0._get_interactions()
+
+        def interacting_with_receptor(count):
+            return (interactions_df[interactions_df['name_1'] == count['name']]['receptor_2'].any() or
+                    interactions_df[interactions_df['name_2'] == count['name']]['receptor_1'].any())
+
+        interacting_ligands = interacting_ligands[
+            interacting_ligands.apply(interacting_with_receptor, axis=1)]
+
+        print(len(interacting_ligands))
