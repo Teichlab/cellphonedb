@@ -9,7 +9,8 @@ class Query0:
     def call(counts_df, meta_df):
         print('Excuting query 0')
 
-        gene_protein_query = db.session.query(Gene.ensembl, Multidata.receptor, Multidata.other, Multidata.id).join(
+        gene_protein_query = db.session.query(Gene.ensembl, Multidata.receptor, Multidata.other, Multidata.id,
+                                              Multidata.name).join(
             Protein).join(Multidata)
         gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
 
@@ -17,7 +18,7 @@ class Query0:
 
         complex_involved_in_counts = Query0._get_complex_involved(multidata_counts)
 
-        Query0._filter_receptor_other(multidata_counts)
+        counts_filtered_receptor_other = Query0._filter_receptor_other(multidata_counts, complex_involved_in_counts)
         return
 
         print('Reduced A: Receptor or Adhesion')
@@ -137,14 +138,26 @@ class Query0:
         return complex_counts
 
     @staticmethod
-    def _filter_receptor_other(multidata_counts):
+    def _filter_receptor_other(multidata_counts, complex_counts):
         """
         Filter proteins if are Receptors and not other
         If protein is involved in Complex: Evaluates if Complex is Receptor and not other and accept the
         proteins if all complex proteins are involved.
         :type multidata_counts: pd.DataFrame
+        :type complex_counts: pd.DataFrame
+
+        :rtype: pd.DataFrame
         """
-        print('Reduging A: Receptor and not other ')
+        print('Reduging A: Receptor and not other')
         # A:  Reduce matrix: All Receptors and not other
         non_complex = multidata_counts[
             (multidata_counts['receptor'] == True) & (multidata_counts['other'] == False)]
+
+        complex_result = complex_counts[
+            (complex_counts['receptor'] == True) & (complex_counts['other'] == False)]
+
+        counts_filtered = non_complex.append(complex_result)
+
+        counts_filtered = counts_filtered[counts_filtered.duplicated(['ensembl', 'name']) == False]
+
+        return counts_filtered
