@@ -93,12 +93,12 @@ def load(complex_file=None):
     for complex_name in complex_map:
         complex_id = new_complexes[complex_name]
         for protein_id in complex_map[complex_name]:
-            complex_set.append((complex_id, protein_id))
+            complex_set.append((complex_id, protein_id, len(complex_map[complex_name])))
         complex_table.append({'complex_multidata_id': complex_id, 'name': complex_name})
 
     # Insert complex composition
     complex_set_df = pd.DataFrame(complex_set,
-                                  columns=['complex_multidata_id', 'protein_multidata_id'])
+                                  columns=['complex_multidata_id', 'protein_multidata_id', 'total_protein'])
 
     complex_table_df = pd.DataFrame(complex_table)
     complex_table_df = pd.merge(complex_table_df, complex_df, on='name')

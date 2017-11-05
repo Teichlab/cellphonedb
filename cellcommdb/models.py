@@ -48,6 +48,7 @@ class ComplexComposition(db.Model, IdModel):
 
     complex_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False)
     protein_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id'), nullable=False)
+    total_protein = Column(Integer)
 
 
 class Complex(db.Model, IdModel):
