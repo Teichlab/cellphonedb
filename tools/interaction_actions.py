@@ -63,8 +63,8 @@ def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
             lambda protein: protein not in proteins_in_complex
         )]
 
-    output_name = 'cellphone_interactions_no_complex.csv'
-    inweb_df_no_complex.sort_values('source', ascending=False).to_csv('%s/out/%s' % (current_dir, output_name),
+    output_name = 'no_complex_interactions.csv'
+    inweb_df_no_complex.to_csv('%s/out/%s' % (current_dir, output_name),
                                                                       index=False, float_format='%.4f')
 
 
@@ -98,7 +98,7 @@ def generate_interactions_imex(interactions_base_namefile, database_proteins_nam
     cellphone_interactions.to_csv('%scellphone_interactions.csv' % output_dir, index=False)
 
 
-def generate_inweb_interactions_inbiomap(inweb_inbiomap_namefile, database_proteins_namefile):
+def generate_inweb_interactions_imex(inweb_inbiomap_namefile, database_proteins_namefile):
     if not inweb_inbiomap_namefile:
         inweb_inbiomap_namefile = _download_inwebinbiomap()
         inweb_inbiomap_file = os.path.join(inweb_inbiomap_namefile)
@@ -124,9 +124,7 @@ def generate_inweb_interactions_inbiomap(inweb_inbiomap_namefile, database_prote
 
     inweb_interactions = _only_uniprots_in_df(database_proteins_df, inweb_interactions)
 
-    output_name = 'cellphone_interactions.csv'
-
-    inweb_interactions.to_csv('%s/%s' % (output_dir, output_name), index=False)
+    inweb_interactions.to_csv('%scellphone_interactions.csv' % output_dir, index=False)
 
 
 def remove_interactions_in_file(interaction_namefile, interactions_to_remove_namefile):
@@ -151,7 +149,7 @@ def remove_interactions_in_file(interaction_namefile, interactions_to_remove_nam
 
     interactions_filtered = interactions_df[interactions_df.apply(interaction_not_exists, axis=1)]
 
-    interactions_filtered.to_csv('%s/interactions_cleaned.csv' % (output_dir), index=False)
+    interactions_filtered.to_csv('%s/clean_interactions.csv' % (output_dir), index=False)
 
 
 def append_curated(interaction_namefile, interaction_curated_namefile):
