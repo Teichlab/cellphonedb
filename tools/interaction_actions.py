@@ -1,5 +1,6 @@
 import os
 
+import math
 import pandas as pd
 import zipfile
 
@@ -36,7 +37,7 @@ def _download_inwebinbiomap():
 
 
 def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
-    if os.path.isfile('%s/%s' % (data_dir, inweb_namefile)):
+    if os.path.isfile('%s%s' % (data_dir, inweb_namefile)):
         inweb_file = os.path.join(data_dir, inweb_namefile)
     else:
         inweb_file = os.path.join(output_dir, inweb_namefile)
@@ -62,11 +63,44 @@ def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
             lambda protein: protein not in proteins_in_complex
         )]
 
-    output_name = 'inweb_interactions_no_complex.csv'
-    inweb_df_no_complex.to_csv('%s/out/%s' % (current_dir, output_name), index=False, float_format='%.4f')
+    output_name = 'no_complex_interactions.csv'
+    inweb_df_no_complex.to_csv('%s/out/%s' % (current_dir, output_name),
+                               index=False, float_format='%.4f')
 
 
-def generate_inweb_interactions(inweb_inbiomap_namefile, database_proteins_namefile):
+def generate_interactions_imex(interactions_base_namefile, database_proteins_namefile):
+    interactions_base_df = pd.read_csv('%s%s' % (data_dir, interactions_base_namefile), sep='\t', na_values='-')
+
+    interactions_base_df.dropna(how='any', subset=['A', 'B'], inplace=True)
+
+    interactions_base_df['confidenceScore'].replace('nan', pd.np.NaN, inplace=True)
+
+    imex_inteactions = pd.DataFrame()
+
+    imex_inteactions['protein_1'] = interactions_base_df['A'].apply(
+        lambda preformat_uniprot: preformat_uniprot.split(':')[1].split('-')[0])
+    imex_inteactions['protein_2'] = interactions_base_df['B'].apply(
+        lambda preformat_uniprot: preformat_uniprot.split(':')[1].split('-')[0])
+
+    def extract_score(row):
+        if isinstance(row, float) and math.isnan(row):
+            return 0
+        return row.split('intact-miscore:')[1]
+
+    imex_inteactions['score_1'] = interactions_base_df['confidenceScore'].apply(extract_score)
+
+    imex_inteactions['score_2'] = imex_inteactions['score_1']
+
+    imex_inteactions['source'] = interactions_base_df['provider']
+
+    database_proteins_df = pd.read_csv('%s%s' % (data_dir, database_proteins_namefile))
+
+    cellphone_interactions = _only_uniprots_in_df(database_proteins_df, imex_inteactions)
+
+    cellphone_interactions.to_csv('%scellphone_interactions.csv' % output_dir, index=False)
+
+
+def generate_inweb_interactions_imex(inweb_inbiomap_namefile, database_proteins_namefile):
     if not inweb_inbiomap_namefile:
         inweb_inbiomap_namefile = _download_inwebinbiomap()
         inweb_inbiomap_file = os.path.join(inweb_inbiomap_namefile)
@@ -86,15 +120,15 @@ def generate_inweb_interactions(inweb_inbiomap_namefile, database_proteins_namef
     inweb_interactions['score_2'] = inweb_inbiomap_df.take([14], axis=1).apply(
         lambda protein: 0 if protein.values[0].split('|')[1] == '-' else protein.values[0].split('|')[1], axis=1)
 
+    inweb_interactions['source'] = 'inweb'
+
     database_proteins_file = os.path.join(current_dir, 'data', database_proteins_namefile)
 
     database_proteins_df = pd.read_csv(database_proteins_file)
 
     inweb_interactions = _only_uniprots_in_df(database_proteins_df, inweb_interactions)
 
-    output_name = 'cellphone_inweb.csv'
-
-    inweb_interactions.to_csv('%s/%s' % (output_dir, output_name), index=False)
+    inweb_interactions.to_csv('%scellphone_interactions.csv' % output_dir, index=False)
 
 
 def remove_interactions_in_file(interaction_namefile, interactions_to_remove_namefile):
@@ -119,7 +153,7 @@ def remove_interactions_in_file(interaction_namefile, interactions_to_remove_nam
 
     interactions_filtered = interactions_df[interactions_df.apply(interaction_not_exists, axis=1)]
 
-    interactions_filtered.to_csv('%s/interactions_cleaned.csv' % (output_dir), index=False)
+    interactions_filtered.to_csv('%s/clean_interactions.csv' % (output_dir), index=False)
 
 
 def append_curated(interaction_namefile, interaction_curated_namefile):
@@ -131,8 +165,6 @@ def append_curated(interaction_namefile, interaction_curated_namefile):
     interactions_df = pd.read_csv(interactions_file)
     interaction_curated_df = pd.read_csv('%s/%s' % (data_dir, interaction_curated_namefile))
 
-    interactions_df['source'] = 'inweb'
-
     interactions_df.rename(index=str, columns={'protein_1': 'multidata_name_1', 'protein_2': 'multidata_name_2'},
                            inplace=True)
 
@@ -142,16 +174,16 @@ def append_curated(interaction_namefile, interaction_curated_namefile):
 
 
 def _only_uniprots_in_df(uniprots_df, inweb_interactions):
-    inweb_cellphone = pd.merge(inweb_interactions, uniprots_df, left_on=['protein_2'],
+    inweb_cellphone = pd.merge(inweb_interactions, uniprots_df, left_on=['protein_1'],
                                right_on=['uniprot'], how='inner')
 
     remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)
 
-    inweb_cellphone = pd.merge(inweb_cellphone, uniprots_df, left_on=['protein_1'],
+    inweb_cellphone = pd.merge(inweb_cellphone, uniprots_df, left_on=['protein_2'],
                                right_on=['uniprot'], how='inner')
     remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)
 
-    # Prevents duplicated interactions if any uniprot is duplicated in uniprots_df
+    # Prevents duplicated interactions if any uniprot is duplicated in uniprots_df or intaractions
     inweb_cellphone = inweb_cellphone[inweb_cellphone.duplicated() == False]
 
     return remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)

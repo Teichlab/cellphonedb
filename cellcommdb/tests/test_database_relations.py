@@ -9,6 +9,8 @@ from cellcommdb.models import Protein, Gene, Multidata
 
 class DatabaseRelationsChecks(TestCase):
     def test_all_protein_have_gen(self):
+
+        expected_protein_without_gene = 127
         protein_query = db.session.query(Protein, Multidata.name).join(Multidata)
 
         protein_df = pd.read_sql(protein_query.statement, db.engine)
@@ -22,10 +24,11 @@ class DatabaseRelationsChecks(TestCase):
             if not protein_id in gene_protein_ids:
                 protein_without_gene.append(protein_df[protein_df['id'] == protein_id]['name'].iloc[0])
 
-        print('There are %s Proteins without gene' % len(protein_without_gene))
-        print(protein_without_gene)
+        if len(protein_without_gene) > expected_protein_without_gene:
+            print('There are %s Proteins without gene' % len(protein_without_gene))
+            print(protein_without_gene)
 
-        self.assertEqual(len(protein_without_gene), 0, 'There are Proteins without Gene')
+        self.assertEqual(len(protein_without_gene), expected_protein_without_gene, 'There are Proteins without Gene.')
 
     def setUp(self):
         self.client = self.app.test_client()

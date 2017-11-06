@@ -21,7 +21,10 @@ def load(gene_file=None):
 
     csv_gene_df = pd.read_csv(gene_file)
 
-    gene_df = Blend.blend_protein(csv_gene_df, ['name'], quiet=True)
+    gene_df = Blend.blend_protein(csv_gene_df, ['uniprot'], quiet=True)
+
+    gene_df.rename(index=str, columns={'uniprot': 'name'},
+                   inplace=True)
 
     filters.remove_not_defined_columns(gene_df, database.get_column_table_names(Gene, db))
 
