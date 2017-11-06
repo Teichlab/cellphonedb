@@ -13,25 +13,25 @@ class DatabaseNumberOfEntries(TestCase):
         query = db.session.query(Protein.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 5152
+        self.assertEqual(len(dataframe), 5153, 'Number of Protein entries are different')
 
     def test_gene(self):
         query = db.session.query(Gene.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        self.assertEqual(len(dataframe), 5820, 'Number of Gene entries different')
+        self.assertEqual(len(dataframe), 5821, 'Number of Gene entries are different')
 
     def test_complex(self):
         query = db.session.query(Complex.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 236
+        self.assertEqual(len(dataframe), 236, 'Number of Complex entries are different')
 
     def test_multidata(self):
         query = db.session.query(Multidata.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 5388
+        self.assertEqual(len(dataframe), 5389, 'Number of Multidata entries are different')
 
     def test_protein_complex(self):
         query = db.session.query(Multidata.id)
@@ -58,13 +58,14 @@ class DatabaseNumberOfEntries(TestCase):
 
         self.assertEqual(len(dataframe[dataframe['source'] == 'curated']), 82,
                          'Number of curated interactions not equal')
-        self.assertEqual(len(dataframe), 41516, 'Number of interactions not equal')
+        self.assertEqual(len(dataframe), 41518, 'Number of interactions not equal')
 
     def test_complex_composition(self):
         query = db.session.query(ComplexComposition.id)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        assert len(dataframe) == 497
+        self.assertEqual(len(dataframe), 497, 'Number of Complex Composition entries are different')
+
 
     def create_app(self):
         return create_app(TestConfig)
