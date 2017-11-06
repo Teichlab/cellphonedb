@@ -65,7 +65,7 @@ def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
 
     output_name = 'no_complex_interactions.csv'
     inweb_df_no_complex.to_csv('%s/out/%s' % (current_dir, output_name),
-                                                                      index=False, float_format='%.4f')
+                               index=False, float_format='%.4f')
 
 
 def generate_interactions_imex(interactions_base_namefile, database_proteins_namefile):
@@ -90,6 +90,8 @@ def generate_interactions_imex(interactions_base_namefile, database_proteins_nam
     imex_inteactions['score_1'] = interactions_base_df['confidenceScore'].apply(extract_score)
 
     imex_inteactions['score_2'] = imex_inteactions['score_1']
+
+    imex_inteactions['source'] = interactions_base_df['provider']
 
     database_proteins_df = pd.read_csv('%s%s' % (data_dir, database_proteins_namefile))
 
@@ -117,6 +119,8 @@ def generate_inweb_interactions_imex(inweb_inbiomap_namefile, database_proteins_
         lambda protein: 0 if protein.values[0].split('|')[0] == '-' else protein.values[0].split('|')[0], axis=1)
     inweb_interactions['score_2'] = inweb_inbiomap_df.take([14], axis=1).apply(
         lambda protein: 0 if protein.values[0].split('|')[1] == '-' else protein.values[0].split('|')[1], axis=1)
+
+    inweb_interactions['source'] = 'inweb'
 
     database_proteins_file = os.path.join(current_dir, 'data', database_proteins_namefile)
 
@@ -160,8 +164,6 @@ def append_curated(interaction_namefile, interaction_curated_namefile):
 
     interactions_df = pd.read_csv(interactions_file)
     interaction_curated_df = pd.read_csv('%s/%s' % (data_dir, interaction_curated_namefile))
-
-    interactions_df['source'] = 'inweb'
 
     interactions_df.rename(index=str, columns={'protein_1': 'multidata_name_1', 'protein_2': 'multidata_name_2'},
                            inplace=True)
