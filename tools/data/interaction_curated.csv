@@ -1,0 +1,83 @@
+score_1,score_2,multidata_name_1,multidata_name_2,comments,source
+1,1,CD8 receptor,P06239,"1q69, PDB partially",curated
+1,1,CNTF-1R,P26441,NA,curated
+1,1,CNTF-1R,Q9UBD9,NA,curated
+1,1,FcRn complex,P02768,"4k71, PDB",curated
+1,1,FcRn complex,P02768,"4n0u, PDB",curated
+1,1,Glycoprotein Ib  complex,P04275,"1m10, PDB partially . Platets needed for its activation.",curated
+1,1,Glycoprotein Ib  complex,P00734,"1hyr, PDB partially",curated
+1,1,GMCSFR,P04141,"4nkq, PDB",curated
+1,1,IL1 receptor,P01583,NA,curated
+1,1,IL1 receptor,P18510,"1ira, PDB partially",curated
+1,1,IL1 receptor,P01584,"4dep, PDB",curated
+1,1,IL1 receptor inhibitor,P18510,low affinity,curated
+1,1,IL1 receptor inhibitor,P01583,low affinity,curated
+1,1,IL1 receptor inhibitor,P01584,"3o4o, PDB",curated
+1,1,IL10 receptor,P22301,"1j7v, PDB partially",curated
+1,1,IL12 receptor,IL12,NA,curated
+1,1,IL13 receptor,P05112,"3bpn, PDB",curated
+1,1,IL13 receptor,P35225,"3bpo, PDB",curated
+1,1,IL15 receptor,P40933,"2z3q, PDB partially",curated
+1,1,IL17 receptor AB,Q9H293,NA IL17E called IL25,curated
+1,1,IL17 receptor AC,IL17 AF,NA,curated
+1,1,IL17 receptor AC,Q16552,NA,curated
+1,1,IL17 receptor AC,Q96PD4,NA,curated
+1,1,IL18 receptor,Q14116,"3wo3, PDB partially",curated
+1,1,IL2 receptor_HA,P60568,"2b5i, PDB",curated
+1,1,IL2 receptor_I,P60568,"3qaz, PDB",curated
+1,1,IL20 receptor Type I,Q9UHD0,NA,curated
+1,1,IL20 receptor Type I,Q9NYY1,NA,curated
+1,1,IL20 receptor Type I,Q13007,NA,curated
+1,1,IL20 receptor Type II,Q9NYY1,NA,curated
+1,1,IL20 receptor Type II,Q13007,NA,curated
+1,1,IL21 receptor,Q9HBE4,"3tgx, PDB partially",curated
+1,1,IL22 receptor,Q9GZX6,"3dgc, PDB",curated
+1,1,IL23 receptor,IL23,NA,curated
+1,1,IL26 receptor,Q9NPH9,"Rutz et al., Nat Rev. 2014",curated
+1,1,IL27 receptor,IL27,NA,curated
+1,1,IL28 receptor,Q8IZI9,"5t5w, PDB",curated
+1,1,IL3 receptor,P08700,NA,curated
+1,1,IL33 receptor,O95760,NA,curated
+1,1,IL35 receptor,IL35,NA,curated
+1,1,IL36 receptor,Q9UBH0,NA,curated
+1,1,IL36 receptor,Q9UHA7,NA,curated
+1,1,IL36 receptor,Q9NZH7,NA,curated
+1,1,IL36 receptor,Q9NZH8,NA,curated
+1,1,IL36 receptor,Q8WWZ1,to check,curated
+1,1,IL37 receptor,Q9NZH6,"See paper Nold-Petry et al., 2015",curated
+1,1,IL4 receptor,P05112,"3qb7, PDB",curated
+1,1,IL5 receptor,P05113,"3qt2, PDB partially",curated
+1,1,IL6 receptor,P05231,NA,curated
+1,1,IL6 receptor,P05231,"1p9m, PDB",curated
+1,1,IL7 receptor,P13232,"3di2, PDB partially",curated
+1,1,IL9 receptor,P15248,NA,curated
+1,1,IL9 receptor,P15248,NA,curated
+1,1,LIFR,P15018,NA,curated
+1,1,LIFR,P13725,NA,curated
+1,1,LIFR,P15018,"1pvh, PDB partially",curated
+1,1,NKG2D II receptor,Q29983,"1hyr, PDB partially",curated
+1,1,NKG2D II receptor,Q5VY80,"4s0u, PDB partially",curated
+1,1,NKG2D II receptor,Q9BZM4,"1kcg, PDB partially",curated
+1,1,OSMR,P13725,NA,curated
+1,1,SIRB1 complex,Q08722,"2jjs, PDB partially",curated
+1,1,TSLPR,Q969D9,NA,curated
+1,1,TSLPR,Q969D9,"5j11, PDB",curated
+1,1,Type I IFNR,P01563,"3se3, PDB",curated
+1,1,Type I IFNR,P05000,"3se4, PDB",curated
+1,1,Type II IFNR,P01579,"1fg9, PDB",curated
+1,1,a2b1 complex,P20701,"5e6r, PDB partially",curated
+1,1,aDb2 complex,P20701,"5e6r, PDB partially",curated
+1,1,aLb2 complex,P20701,"5e6r, PDB partially",curated
+1,1,aMb2 complex,P20701,"5e6r, PDB partially",curated
+1,1,aVb6 complex,P01137,"5ffo, PDB",curated
+1,1,aXb2 complex,P20701,"5e6r, PDB partially",curated
+1,1,BMPR1A complex,P12643,InWeb:P12643 P36894; P12643 Q13873,curated
+1,1,BMPR1A complex,P12644,InWeb: P12644 P36894,curated
+1,1,BMPR1A complex,P43026,InWeb: P36894 P43026,curated
+1,1,BMPR1A complex,Q6KF10,InWeb: P36894 Q6KF10,curated
+1,1,TSLPR,Q9HC73,DOI  10.1038/ncomms14937,curated
+1,1,BMPR1B complex,P12643,"InWeb: P12643 Q13873; NA, lower affinity ",curated
+1,1,BMPR1A complex,P22004,InWeb: P22004 P36894,curated
+1,1,BMPR1A complex,P12643,"1es7, PDB partially higher affinity",curated
+1,1,BMPR1B complex,P36894,"3evs,  PDB complex higher affinity",curated
+1,1,IL17 receptor AE,Q9P0M4,NA,curated

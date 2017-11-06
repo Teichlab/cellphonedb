@@ -4,8 +4,9 @@ from flask.cli import FlaskGroup
 from tools.app import create_app
 from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_proteins
 from tools.merge_gene_mouse import merge_gene_mouse as merge_gene
-from tools.interaction_actions import generate_inweb_interactions as protein_generate_inweb, \
-    only_noncomplex_interactions, remove_interactions_in_file, append_curated
+from tools.interaction_actions import generate_inweb_interactions_inbiomap as protein_generate_inweb, \
+    only_noncomplex_interactions, remove_interactions_in_file, append_curated, \
+    generate_interactions_imex
 
 
 def create_tools_app(info):
@@ -38,8 +39,15 @@ def generate_inweb(inweb_inbiomap_namefile, database_proteins_namefile):
 
 
 @cli.command()
+@click.argument('imex_namefile', default='interaction_imex.txt')
+@click.argument('database_proteins_namefile', default='protein.csv')
+def generate_proteins_imex(imex_namefile, database_proteins_namefile):
+    generate_interactions_imex(imex_namefile, database_proteins_namefile)
+
+
+@cli.command()
 @click.argument('complex_namefile', default='complex.csv')
-@click.argument('inweb_namefile', default='cellphone_inweb.csv')
+@click.argument('inweb_namefile', default='cellphone_interactions.csv')
 def generate_inweb_noncomplex(complex_namefile, inweb_namefile):
     only_noncomplex_interactions(complex_namefile, inweb_namefile)
 
