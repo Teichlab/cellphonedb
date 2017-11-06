@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellcommdb.extensions import db
-from cellcommdb.models import Protein, Multidata, Gene, Interaction, ComplexComposition
+from cellcommdb.models import Protein, Multidata, Gene, Interaction, ComplexComposition, Complex
 
 
 class Query0:
@@ -22,6 +22,9 @@ class Query0:
 
         # A:  Reduce matrix: All Receptors and not other
         counts_filtered_receptor_other = Query0._filter_receptor_other(multidata_counts, complex_involved_in_counts)
+        print('Receptors and not other %s' % len(counts_filtered_receptor_other))
+
+        # B: Reduce matrix: all possible interacting ligands
 
         counts_ligands = Query0._filter_interacting_ligands(multidata_counts, complex_involved_in_counts)
 
@@ -116,6 +119,12 @@ class Query0:
             return True
 
         complex_counts = complex_counts[complex_counts.apply(all_protein_involved, axis=1)]
+
+        complex_multidata_query = db.session.query(Multidata).join(Complex)
+        complex_multidata_df = pd.read_sql(complex_multidata_query.statement, db.engine)
+
+        complex_counts = pd.merge(complex_counts, complex_multidata_df, left_on='complex_multidata_id', right_on='id',
+                                  suffixes=['_protein', '_complex'])
         return complex_counts
 
     @staticmethod
@@ -134,7 +143,9 @@ class Query0:
             (multidata_counts['receptor'] == True) & (multidata_counts['other'] == False)]
 
         complex_result = complex_counts[
-            (complex_counts['receptor'] == True) & (complex_counts['other'] == False)]
+            (complex_counts['receptor_complex'] == True) & (complex_counts['other_complex'] == False)]
+
+        complex_result = complex_result.rename(index=str, columns={'name_protein': 'name'})
 
         counts_filtered = non_complex.append(complex_result)
 
