@@ -28,7 +28,6 @@ class Query0:
 
         counts_ligands = Query0._filter_interacting_ligands(multidata_counts, complex_involved_in_counts)
 
-        print('Reduced A: Receptor or Adhesion')
         return
 
         # Merge two lists
@@ -155,21 +154,28 @@ class Query0:
 
     @staticmethod
     def _filter_interacting_ligands(multidata_counts, complex_counts):
-        print('Reducing B1: interacting_ligands ')
+        simple_ligands = Query0._filter_interacting_simple_ligands(multidata_counts)
+        complex_ligands = Query0._filter_interacting_complex_ligands(complex_counts)
 
+        ligands = simple_ligands.append(complex_ligands)[['ensembl', 'name']]
+        ligands.sort_values(['ensembl', 'name']).to_csv('cellcommdb/temp/LIGANDS_TOTAL.csv', index=False)
+        ligands = ligands[ligands.duplicated() == False]
+        ligands.sort_values(['ensembl', 'name']).to_csv('cellcommdb/temp/LIGANDS_REDUCED_TOTAL.csv', index=False)
+
+        return ligands
+
+    @staticmethod
+    def _filter_interacting_simple_ligands(multidata_counts):
+        print('Reducing B1: simple interacting_ligands ')
         # B: Reduce Matrix: All possible interacting Ligands
-
         # B.1: Is membarane not other not transporter or secreted
-
         interacting_ligands = multidata_counts[(multidata_counts['secretion'] == True) |
                                                ((multidata_counts['transmembrane'] == True) &
                                                 (multidata_counts['other'] == False) &
                                                 (multidata_counts['transporter'] == False) &
                                                 (multidata_counts['adaptor'] == False))
                                                ]
-
-        print(len(interacting_ligands))
-        print('Reduced B1: interacting_ligands ')
+        print('Simple Interacting Ligands: %s' % len(interacting_ligands))
         print('Reducing B2: interacting_ligands (receptor interactings)')
         # B.2 Is interacting with a receptor
         interactions_df = Query0._get_interactions()
@@ -180,5 +186,36 @@ class Query0:
 
         interacting_ligands = interacting_ligands[
             interacting_ligands.apply(interacting_with_receptor, axis=1)]
+        print('Simple Interacting Ligands with receptor: %s' % len(interacting_ligands))
 
-        print(len(interacting_ligands))
+        return interacting_ligands
+
+    @staticmethod
+    def _filter_interacting_complex_ligands(complex_counts):
+        print('Reducing B1: complex interacting_ligands ')
+        # B: Reduce Matrix: All possible interacting Ligands
+        # B.1: Is membarane not other not transporter or secreted
+
+        complex_interacting_ligands = complex_counts[(complex_counts['secretion_complex'] == True) |
+                                                     ((complex_counts['transmembrane_complex'] == True) &
+                                                      (complex_counts['other_complex'] == False) &
+                                                      (complex_counts['transporter_complex'] == False) &
+                                                      (complex_counts['adaptor_complex'] == False))
+                                                     ]
+
+        print('Complex Interacting Ligands: %s' % len(complex_interacting_ligands))
+        print('Reducing B2: interacting_ligands (receptor interactings)')
+        # complex_interacting_ligands = complex_interacting_ligands.rename(index=str, columns={'name_protein': 'name'})
+
+        # B.2 Is interacting with a receptor
+        interactions_df = Query0._get_interactions()
+
+        def interacting_with_receptor(count):
+            return (interactions_df[interactions_df['name_1'] == count['name_complex']]['receptor_2'].any() or
+                    interactions_df[interactions_df['name_2'] == count['name_complex']]['receptor_1'].any())
+
+        complex_interacting_ligands = complex_interacting_ligands[
+            complex_interacting_ligands.apply(interacting_with_receptor, axis=1)]
+        print('Complex Interacting Ligands with receptor: %s' % len(complex_interacting_ligands))
+
+        return complex_interacting_ligands
