@@ -13,12 +13,8 @@ class Query1:
         gene_protein_query = db.session.query(Gene.ensembl, Multidata.id).join(Protein).join(Multidata)
         gene_multidata = pd.read_sql(gene_protein_query.statement, db.engine)
 
-        # gene_protein_df.drop('id', axis=1, inplace=True)
-
         multidata_query = db.session.query(Multidata.id, Multidata.name)
         multidata_df = pd.read_sql(multidata_query.statement, db.engine)
-
-        # gene_multidata = pd.merge(gene_protein_df, multidata_df, left_on='protein_multidata_id', right_on='id')
 
         complex_composition_query = db.session.query(ComplexComposition)
         complex_composition_df = pd.read_sql(complex_composition_query.statement, db.engine)
@@ -33,6 +29,7 @@ class Query1:
 
         processed_complex_genes = pd.merge(complex_genes, processed_data, left_on='ensembl', right_on='gene')
 
+        # TODO: move to query 0
         processed = pd.DataFrame()
         for index, processed_complex_gene in processed_complex_genes.iterrows():
             genes_complex_procesed_for_one_complex = processed_complex_genes[
@@ -75,8 +72,12 @@ class Query1:
             return False
 
         processed_unique = processed_unique[processed_unique.apply(all_clusters_null, axis=1)]
+        processed_unique.drop('gene', axis=1, inplace=True)
+
         filters.remove_not_defined_columns(processed_non_complex_genes, list(processed_data.columns.values))
 
+        processed_unique['type'] = 'complex'
+        processed_non_complex_genes['type'] = 'uniprot'
         processed_unique_and_noncomplex = processed_unique.append(processed_non_complex_genes)
 
         return processed_unique_and_noncomplex
