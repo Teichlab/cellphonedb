@@ -37,7 +37,7 @@ def _download_inwebinbiomap():
 
 
 def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
-    if os.path.isfile('%s/%s' % (data_dir, inweb_namefile)):
+    if os.path.isfile('%s%s' % (data_dir, inweb_namefile)):
         inweb_file = os.path.join(data_dir, inweb_namefile)
     else:
         inweb_file = os.path.join(output_dir, inweb_namefile)
@@ -63,8 +63,9 @@ def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
             lambda protein: protein not in proteins_in_complex
         )]
 
-    output_name = 'inweb_interactions_no_complex.csv'
-    inweb_df_no_complex.to_csv('%s/out/%s' % (current_dir, output_name), index=False, float_format='%.4f')
+    output_name = 'cellphone_interactions_no_complex.csv'
+    inweb_df_no_complex.sort_values('source', ascending=False).to_csv('%s/out/%s' % (current_dir, output_name),
+                                                                      index=False, float_format='%.4f')
 
 
 def generate_interactions_imex(interactions_base_namefile, database_proteins_namefile):

@@ -47,13 +47,13 @@ def generate_proteins_imex(imex_namefile, database_proteins_namefile):
 
 @cli.command()
 @click.argument('complex_namefile', default='complex.csv')
-@click.argument('inweb_namefile', default='cellphone_interactions.csv')
-def generate_inweb_noncomplex(complex_namefile, inweb_namefile):
-    only_noncomplex_interactions(complex_namefile, inweb_namefile)
+@click.argument('cellphone_namefile', default='cellphone_interactions.csv')
+def generate_cellphone_noncomplex(complex_namefile, cellphone_namefile):
+    only_noncomplex_interactions(complex_namefile, cellphone_namefile)
 
 
 @cli.command()
-@click.argument('interaction_namefile', default='cellphone_inweb.csv')
+@click.argument('interaction_namefile', default='cellphone_interactions_no_complex.csv')
 @click.argument('interaction_to_remove_namefile', default='remove_interactions.csv')
 def remove_interactions(interaction_namefile, interaction_to_remove_namefile):
     remove_interactions_in_file(interaction_namefile, interaction_to_remove_namefile)
