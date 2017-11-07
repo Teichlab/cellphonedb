@@ -115,12 +115,14 @@ class Exporter(object):
             output_name = '%s.csv' % current_method_name
 
         with self.app.app_context():
-            gene_query = db.session.query(Gene, Multidata).join(Protein).join(Multidata)
+            gene_query = db.session.query(Gene, Multidata.name).join(Protein).join(Multidata)
             gene_df = pd.read_sql(gene_query.statement, db.engine)
 
             filters.remove_not_defined_columns(gene_df, database.get_column_table_names(Gene, db) + ['name'])
 
             gene_df.drop(['id', 'protein_id'], axis=1, inplace=True)
+
+            gene_df.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
 
             gene_df.to_csv('out/%s' % output_name, index=False)
 
