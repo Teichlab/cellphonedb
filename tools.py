@@ -6,7 +6,7 @@ from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_p
 from tools.merge_gene_mouse import merge_gene_mouse as merge_gene
 from tools.interaction_actions import generate_interactions_inweb as protein_generate_inweb, \
     only_noncomplex_interactions, remove_interactions_in_file, append_curated, \
-    generate_interactions_imex, generate_interactions_innatedb
+    generate_interactions_imex, generate_interactions_innatedb, merge_interactions_action
 
 
 def create_tools_app(info):
@@ -50,6 +50,13 @@ def imex_interactions(imex_namefile, database_proteins_namefile):
 @click.argument('database_gene_namefile', default='gene.csv')
 def innatedb_interactions(innatedb_namefile, database_gene_namefile):
     generate_interactions_innatedb(innatedb_namefile, database_gene_namefile)
+
+
+@cli.command()
+@click.argument('interactions_namefile_1')
+@click.argument('interactions_namefile_2')
+def merge_interactions(interactions_namefile_1, interactions_namefile_2):
+    merge_interactions_action(interactions_namefile_1, interactions_namefile_2)
 
 
 @cli.command()

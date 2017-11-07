@@ -93,19 +93,30 @@ def generate_interactions_imex(interactions_base_namefile, database_proteins_nam
 
     imex_inteactions['source'] = interactions_base_df['provider']
 
-    database_proteins_df = pd.read_csv('%s%s' % (data_dir, database_proteins_namefile))
+    database_proteins_df = pd.read_csv('%s/%s' % (data_dir, database_proteins_namefile))
 
     cellphone_interactions = _only_uniprots_in_df(database_proteins_df, imex_inteactions)
 
-    cellphone_interactions.to_csv('%scellphone_interactions.csv' % output_dir, index=False)
+    def set_score_duplicates(interaction):
+        interaction['score_1'] = \
+            cellphone_interactions[(cellphone_interactions['protein_1'] == interaction['protein_1']) & (
+                cellphone_interactions['protein_2'] == interaction['protein_2'])]['score_1'].max()
+
+        interaction['score_2'] = \
+            cellphone_interactions[(cellphone_interactions['protein_1'] == interaction['protein_1']) & (
+                cellphone_interactions['protein_2'] == interaction['protein_2'])]['score_2'].max()
+
+        return interaction
+
+    interactions = cellphone_interactions.apply(set_score_duplicates, axis=1)
+
+    interactions.drop_duplicates(keep='first', inplace=True)
+
+    interactions.to_csv('%scellphone_interactions_imex.csv' % output_dir, index=False)
 
 
 def generate_interactions_innatedb(interactions_base_namefile, database_gene_namefile):
-    interactions_base_df = pd.read_csv('%s%s' % (data_dir, interactions_base_namefile), sep='\t', na_values='-')
-
-    # interactions_base_df.dropna(how='any', subset=['alt_identifier_A', 'alt_identifier_B'], inplace=True)
-
-    # interactions_base_df['confidenceScore'].replace('nans, pd.np.NaN, inplace=True)
+    interactions_base_df = pd.read_csv('%s/%s' % (data_dir, interactions_base_namefile), sep='\t', na_values='-')
 
     innatedb_inteactions = pd.DataFrame()
 
@@ -117,7 +128,6 @@ def generate_interactions_innatedb(interactions_base_namefile, database_gene_nam
     innatedb_inteactions['score_1'] = 0
     innatedb_inteactions['score_2'] = 1
 
-    # TODO: Source is author?
     innatedb_inteactions['source'] = 'innatedb'
 
     database_genes_df = pd.read_csv('%s%s' % (data_dir, database_gene_namefile))
@@ -126,9 +136,41 @@ def generate_interactions_innatedb(interactions_base_namefile, database_gene_nam
 
     cellphone_interactions.rename(index=str, columns={'uniprot_1': 'protein_1', 'uniprot_2': 'protein_2'}, inplace=True)
 
-    remove_not_defined_columns(cellphone_interactions, ['protein_1', 'protein_2', 'score_1', 'score_2', 'source'])
+    cellphone_interactions = remove_not_defined_columns(cellphone_interactions,
+                                                        ['protein_1', 'protein_2', 'score_1', 'score_2', 'source'])
 
-    cellphone_interactions.to_csv('%scellphone_interactions.csv' % output_dir, index=False)
+    cellphone_interactions.drop_duplicates(inplace=True)
+
+    cellphone_interactions.to_csv('%s/cellphone_interactions_innatedb.csv' % output_dir, index=False)
+
+
+def merge_interactions_action(interactions_namefile_1, interactions_namefile_2):
+    if os.path.isfile('%s/%s' % (data_dir, interactions_namefile_1)):
+        interactions_1 = pd.read_csv('%s/%s' % (data_dir, interactions_namefile_1))
+    else:
+        interactions_1 = pd.read_csv('%s/%s' % (output_dir, interactions_namefile_1))
+
+    if os.path.isfile('%s/%s' % (data_dir, interactions_namefile_2)):
+        interactions_2 = pd.read_csv('%s/%s' % (data_dir, interactions_namefile_2))
+    else:
+        interactions_2 = pd.read_csv('%s/%s' % (output_dir, interactions_namefile_2))
+
+    def interaction_exist(interaction):
+        if len(interactions_1[(interactions_1['protein_1'] == interaction['protein_1']) & (
+                    interactions_1['protein_2'] == interaction['protein_2'])]):
+            return True
+
+        if len(interactions_1[(interactions_1['protein_2'] == interaction['protein_1']) & (
+                    interactions_1['protein_1'] == interaction['protein_2'])]):
+            return True
+
+        return False
+
+    interactions_2_not_in_1 = interactions_2[interactions_2.apply(interaction_exist, axis=1) == False]
+
+    interactions = interactions_1.append(interactions_2_not_in_1)
+
+    interactions.to_csv('cellphone_interactions.csv')
 
 
 def generate_interactions_inweb(inweb_inbiomap_namefile, database_proteins_namefile):
@@ -159,7 +201,7 @@ def generate_interactions_inweb(inweb_inbiomap_namefile, database_proteins_namef
 
     inweb_interactions = _only_uniprots_in_df(database_proteins_df, inweb_interactions)
 
-    inweb_interactions.to_csv('%scellphone_interactions.csv' % output_dir, index=False)
+    inweb_interactions.to_csv('%scellphone_interactions_inweb.csv' % output_dir, index=False)
 
 
 def remove_interactions_in_file(interaction_namefile, interactions_to_remove_namefile):
