@@ -4,9 +4,9 @@ from flask.cli import FlaskGroup
 from tools.app import create_app
 from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_proteins
 from tools.merge_gene_mouse import merge_gene_mouse as merge_gene
-from tools.interaction_actions import generate_inweb_interactions_imex as protein_generate_inweb, \
+from tools.interaction_actions import generate_interactions_inweb as protein_generate_inweb, \
     only_noncomplex_interactions, remove_interactions_in_file, append_curated, \
-    generate_interactions_imex
+    generate_interactions_imex, generate_interactions_innatedb
 
 
 def create_tools_app(info):
@@ -43,6 +43,13 @@ def inweb_interactions(inweb_inbiomap_namefile, database_proteins_namefile):
 @click.argument('database_proteins_namefile', default='protein.csv')
 def imex_interactions(imex_namefile, database_proteins_namefile):
     generate_interactions_imex(imex_namefile, database_proteins_namefile)
+
+
+@cli.command()
+@click.argument('innatedb_namefile', default='innatedb_ppi.mitab')
+@click.argument('database_gene_namefile', default='gene.csv')
+def innatedb_interactions(innatedb_namefile, database_gene_namefile):
+    generate_interactions_innatedb(innatedb_namefile, database_gene_namefile)
 
 
 @cli.command()

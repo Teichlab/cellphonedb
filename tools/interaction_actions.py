@@ -100,7 +100,38 @@ def generate_interactions_imex(interactions_base_namefile, database_proteins_nam
     cellphone_interactions.to_csv('%scellphone_interactions.csv' % output_dir, index=False)
 
 
-def generate_inweb_interactions_imex(inweb_inbiomap_namefile, database_proteins_namefile):
+def generate_interactions_innatedb(interactions_base_namefile, database_gene_namefile):
+    interactions_base_df = pd.read_csv('%s%s' % (data_dir, interactions_base_namefile), sep='\t', na_values='-')
+
+    # interactions_base_df.dropna(how='any', subset=['alt_identifier_A', 'alt_identifier_B'], inplace=True)
+
+    # interactions_base_df['confidenceScore'].replace('nans, pd.np.NaN, inplace=True)
+
+    innatedb_inteactions = pd.DataFrame()
+
+    innatedb_inteactions['gene_1'] = interactions_base_df['alt_identifier_A'].apply(
+        lambda preformat_uniprot: preformat_uniprot.split(':')[1])
+    innatedb_inteactions['gene_2'] = interactions_base_df['alt_identifier_B'].apply(
+        lambda preformat_uniprot: preformat_uniprot.split(':')[1])
+
+    innatedb_inteactions['score_1'] = 0
+    innatedb_inteactions['score_2'] = 1
+
+    # TODO: Source is author?
+    innatedb_inteactions['source'] = 'innatedb'
+
+    database_genes_df = pd.read_csv('%s%s' % (data_dir, database_gene_namefile))
+
+    cellphone_interactions = _only_genes_in_df(database_genes_df, innatedb_inteactions)
+
+    cellphone_interactions.rename(index=str, columns={'uniprot_1': 'protein_1', 'uniprot_2': 'protein_2'}, inplace=True)
+
+    remove_not_defined_columns(cellphone_interactions, ['protein_1', 'protein_2', 'score_1', 'score_2', 'source'])
+
+    cellphone_interactions.to_csv('%scellphone_interactions.csv' % output_dir, index=False)
+
+
+def generate_interactions_inweb(inweb_inbiomap_namefile, database_proteins_namefile):
     if not inweb_inbiomap_namefile:
         inweb_inbiomap_namefile = _download_inwebinbiomap()
         inweb_inbiomap_file = os.path.join(inweb_inbiomap_namefile)
@@ -187,3 +218,16 @@ def _only_uniprots_in_df(uniprots_df, inweb_interactions):
     inweb_cellphone = inweb_cellphone[inweb_cellphone.duplicated() == False]
 
     return remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)
+
+
+def _only_genes_in_df(genes_df, interactions):
+    result = pd.merge(interactions, genes_df, left_on=['gene_1'],
+                      right_on=['ensembl'], how='inner')
+
+    result = pd.merge(result, genes_df, left_on=['gene_2'],
+                      right_on=['ensembl'], how='inner', suffixes=['_1', '_2'])
+
+    # Prevents duplicated interactions if any uniprot is duplicated in uniprots_df or intaractions
+    result = result[result.duplicated() == False]
+
+    return result
