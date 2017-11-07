@@ -16,7 +16,7 @@ class Queries(object):
 
         result_df = Query0.call(counts_df, meta_df)
 
-        # result_df.to_csv('%s/../out/query_0.csv' % current_dir, index=False)
+        result_df.to_csv('%squery_0.csv' % output_dir, index=False)
 
     def query1(self, processed_data_namefile):
         processed_data_namefile = 'query_0.csv'

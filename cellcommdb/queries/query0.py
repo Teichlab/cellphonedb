@@ -28,13 +28,11 @@ class Query0:
 
         counts_ligands = Query0._filter_interacting_ligands(multidata_counts, complex_involved_in_counts)
 
-        return
-
         # Merge two lists
-        filtered_counts = interacting_ligands.append(count_receptor_adhesion)
+        filtered_counts = counts_ligands.append(counts_filtered_receptor_other)
 
         print('Removing duplicates')
-        filtered_counts = filtered_counts[filtered_counts.duplicated('ensembl') == False]
+        filtered_counts = filtered_counts[filtered_counts.duplicated(['ensembl', 'name']) == False]
 
         return Query0._procesed_table(filtered_counts, meta_df, 0)
 
