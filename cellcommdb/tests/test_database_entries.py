@@ -557,34 +557,14 @@ protein_entries = [
 ]
 gene_entries = [
     {
-        "ensembl": "ENSG00000280584",
-        "gene_name": "OBP2B",
-        "name": "Q9NPH6"
+        "ensembl": "ENSG00000127837",
+        "gene_name": "AAMP",
+        "name": "Q13685"
     },
     {
-        "ensembl": "ENSG00000171102",
-        "gene_name": "OBP2B",
-        "name": "Q9NPH6"
-    },
-    {
-        "ensembl": "ENSG00000240038",
-        "gene_name": "AMY2B",
-        "name": "P19961"
-    },
-    {
-        "ensembl": "ENSG00000203870",
-        "gene_name": "SMIM9",
-        "name": "A6NGZ8"
-    },
-    {
-        "ensembl": "ENSG00000171557",
-        "gene_name": "FGG",
-        "name": "P02679"
-    },
-    {
-        "ensembl": "ENSG00000142512",
-        "gene_name": "SIGLEC10",
-        "name": "Q96LC7"
+        "ensembl": "ENSG00000102468",
+        "gene_name": "HTR2A",
+        "name": "P28223"
     }
 ]
 interaction_entries = [
