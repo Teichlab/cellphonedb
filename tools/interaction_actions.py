@@ -170,7 +170,7 @@ def merge_interactions_action(interactions_namefile_1, interactions_namefile_2):
 
     interactions = interactions_1.append(interactions_2_not_in_1)
 
-    interactions.to_csv('cellphone_interactions.csv')
+    interactions.to_csv('%s/cellphone_interactions.csv' % output_dir, index=False)
 
 
 def generate_interactions_inweb(inweb_inbiomap_namefile, database_proteins_namefile):

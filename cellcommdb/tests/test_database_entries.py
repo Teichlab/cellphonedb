@@ -589,53 +589,54 @@ gene_entries = [
 ]
 interaction_entries = [
     {
-        "score_1": 0.142,
-        "score_2": 0.0421,
-        "multidata_name_1": "A2VDJ0",
-        "multidata_name_2": "P01903",
-        "comments": None,
-        "source": "inweb"
-    },
-    {
-        "score_1": 1,
-        "score_2": 0,
-        "multidata_name_1": "O43561",
-        "multidata_name_2": "P01903",
-        "comments": None,
-        "source": "inweb"
-    },
-    {
-        "score_1": 1,
-        "score_2": 0.497,
-        "multidata_name_1": "P04233",
-        "multidata_name_2": "P20036",
-        "comments": None,
-        "source": "inweb"
-    },
-    {
-        "score_1": 1,
-        "score_2": 1,
-        "multidata_name_1": "IL17 receptor AE",
-        "multidata_name_2": "Q9P0M4",
-        "comments": None,
-        "source": "curated"
-    },
-    {
-        "score_1": 0.143,
-        "score_2": 0.0459,
-        "multidata_name_1": "Q99944",
-        "multidata_name_2": "Q9H400",
-        "comments": None,
-        "source": "inweb"
-    },
-    {
         "score_1": 1,
         "score_2": 1,
         "multidata_name_1": "CD8 receptor",
         "multidata_name_2": "P06239",
         "comments": "1q69, PDB partially",
         "source": "curated"
-    }
+    },
+    {
+        "score_1": 0.35,
+        "score_2": 0.35,
+        "multidata_name_1": "P25106",
+        "multidata_name_2": "P25705",
+        "comments": None,
+        "source": "IntAct"
+    },
+    {
+        "score_1": 0.35,
+        "score_2": 0.35,
+        "multidata_name_1": "P01023",
+        "multidata_name_2": "P25705",
+        "comments": None,
+        "source": "MINT"
+    },
+    {
+        "score_1": 0.92,
+        "score_2": 0.92,
+        "multidata_name_1": "Q05397",
+        "multidata_name_2": "P12931",
+        "comments": None,
+        "source": "MolCon"
+    },
+    {
+        "score_1": 0.44,
+        "score_2": 0.44,
+        "multidata_name_1": "Q03167",
+        "multidata_name_2": "P01137",
+        "comments": None,
+        "source": "I2D-IMEx"
+    },
+    {
+        "score_1": 0.0,
+        "score_2": 1.0,
+        "multidata_name_1": "O00421",
+        "multidata_name_2": "Q99731",
+        "comments": None,
+        "source": "innatedb"
+    },
+
 ]
 
 
