@@ -8,7 +8,6 @@ from cellcommdb.extensions import db
 from cellcommdb.db_scripts import db_drop_everything
 from cellcommdb.models import *
 from cellcommdb.query_manager import Queries
-from cellcommdb.repository.complex import check_uniprots_are_part_of_complex
 
 
 def create_cellphone_app(info):

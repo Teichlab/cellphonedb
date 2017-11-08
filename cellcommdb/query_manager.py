@@ -3,7 +3,6 @@ import pandas as pd
 from cellcommdb.api import current_dir, output_dir, data_dir
 from cellcommdb.queries.query0 import Query0
 from cellcommdb.queries.query1 import Query1
-from cellcommdb.queries.query2 import Query2
 
 
 class Queries(object):
