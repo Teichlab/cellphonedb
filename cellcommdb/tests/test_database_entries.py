@@ -251,7 +251,7 @@ protein_entries = [
         "secreted_desc": None,
         "tags": None,
         "tags_reason": None,
-        "ligand": False,
+        "ligand": True,
         "adaptor": False
     },
     {
@@ -291,8 +291,8 @@ protein_entries = [
         "secreted_desc": None,
         "tags": None,
         "tags_reason": None,
-        "ligand": False,
-        "adaptor": False
+        "ligand": True,
+        "adaptor": True
     },
     {
         "name": "O75970",
@@ -312,7 +312,7 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "ligand": False,
-        "adaptor": False
+        "adaptor": True
     },
     {
         "name": "O76036",
@@ -372,7 +372,7 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": "complex",
         "ligand": False,
-        "adaptor": True
+        "adaptor": False
     },
     {
         "name": "Q13444",
@@ -392,7 +392,7 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": "Active metalloproteinase with gelatinolytic and collagenolytic activity. (uniprot)",
         "ligand": False,
-        "adaptor": True
+        "adaptor": False
     },
     {
         "name": "A5X5Y0",
@@ -432,7 +432,7 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "ligand": True,
-        "adaptor": True
+        "adaptor": False
     },
     {
         "name": "O75325",
@@ -451,7 +451,7 @@ protein_entries = [
         "secreted_desc": None,
         "tags": "To_add | To_comment",
         "tags_reason": "Iglike | Possible_receptor",
-        "ligand": False,
+        "ligand": True,
         "adaptor": False
     },
     {
@@ -472,7 +472,7 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": "ligandIUPHAR",
         "ligand": True,
-        "adaptor": False
+        "adaptor": True
     },
     {
         "name": "Q9HC73",
@@ -491,7 +491,7 @@ protein_entries = [
         "secreted_desc": None,
         "tags": None,
         "tags_reason": None,
-        "ligand": False,
+        "ligand": True,
         "adaptor": False
     },
     {
@@ -551,7 +551,7 @@ protein_entries = [
         "secreted_desc": None,
         "tags": None,
         "tags_reason": None,
-        "ligand": False,
+        "ligand": True,
         "adaptor": False
     }
 ]
