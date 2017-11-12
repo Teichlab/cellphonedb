@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import numpy as np
 
 from cellcommdb.api import current_dir
 from cellcommdb.extensions import db
@@ -11,7 +10,7 @@ from cellcommdb.tools import filters, database
 def load(protein_file=None):
     bools = ['transmembrane', 'secretion', 'peripheral', 'receptor',
              'receptor_highlight', 'adhesion', 'other', 'transporter',
-             'secreted_highlight', 'ligand', 'adaptor']
+             'secreted_highlight', 'ligand', 'adaptor', 'extracellular']
 
     if not protein_file:
         protein_file = os.path.join(current_dir, 'data', 'protein.csv')

@@ -251,8 +251,9 @@ protein_entries = [
         "secreted_desc": None,
         "tags": None,
         "tags_reason": None,
-        "ligand": True,
-        "adaptor": False
+        "ligand": False,
+        "adaptor": False,
+        "extracellular": True,
     },
     {
         "name": "A0AVI2",
@@ -272,7 +273,8 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "ligand": False,
-        "adaptor": False
+        "adaptor": False,
+        "extracellular": False,
     },
     {
         "name": "A1E959",
@@ -291,8 +293,9 @@ protein_entries = [
         "secreted_desc": None,
         "tags": None,
         "tags_reason": None,
-        "ligand": True,
-        "adaptor": True
+        "ligand": False,
+        "adaptor": True,
+        "extracellular": True,
     },
     {
         "name": "O75970",
@@ -312,7 +315,8 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "ligand": False,
-        "adaptor": True
+        "adaptor": True,
+        "extracellular": False,
     },
     {
         "name": "O76036",
@@ -332,7 +336,8 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "ligand": False,
-        "adaptor": False
+        "adaptor": False,
+        "extracellular": False,
     },
     {
         "name": "O95256",
@@ -352,7 +357,8 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": "Iglike",
         "ligand": False,
-        "adaptor": False
+        "adaptor": False,
+        "extracellular": False,
     },
     {
         "name": "P78357",
@@ -372,7 +378,8 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": "complex",
         "ligand": False,
-        "adaptor": False
+        "adaptor": False,
+        "extracellular": False,
     },
     {
         "name": "Q13444",
@@ -392,7 +399,8 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": "Active metalloproteinase with gelatinolytic and collagenolytic activity. (uniprot)",
         "ligand": False,
-        "adaptor": False
+        "adaptor": False,
+        "extracellular": False,
     },
     {
         "name": "A5X5Y0",
@@ -412,7 +420,8 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "ligand": False,
-        "adaptor": False
+        "adaptor": False,
+        "extracellular": False,
     },
     {
         "name": "Q9NPH3",
@@ -431,8 +440,9 @@ protein_entries = [
         "secreted_desc": "Cytokine",
         "tags": None,
         "tags_reason": None,
-        "ligand": True,
-        "adaptor": False
+        "ligand": False,
+        "adaptor": False,
+        "extracellular": True,
     },
     {
         "name": "O75325",
@@ -451,8 +461,9 @@ protein_entries = [
         "secreted_desc": None,
         "tags": "To_add | To_comment",
         "tags_reason": "Iglike | Possible_receptor",
-        "ligand": True,
-        "adaptor": False
+        "ligand": False,
+        "adaptor": False,
+        "extracellular": True,
     },
     {
         "name": "P05067",
@@ -472,7 +483,8 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": "ligandIUPHAR",
         "ligand": True,
-        "adaptor": True
+        "adaptor": True,
+        "extracellular": True,
     },
     {
         "name": "Q9HC73",
@@ -491,8 +503,9 @@ protein_entries = [
         "secreted_desc": None,
         "tags": None,
         "tags_reason": None,
-        "ligand": True,
-        "adaptor": False
+        "ligand": False,
+        "adaptor": False,
+        "extracellular": True,
     },
     {
         "name": "P48960",
@@ -512,7 +525,8 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "ligand": False,
-        "adaptor": False
+        "adaptor": False,
+        "extracellular": False,
     },
     {
         "name": "Q01113",
@@ -531,8 +545,9 @@ protein_entries = [
         "secreted_desc": "Cytokine",
         "tags": None,
         "tags_reason": None,
-        "ligand": True,
-        "adaptor": False
+        "ligand": False,
+        "adaptor": False,
+        "extracellular": True,
     },
     {
         "name": "P16284",
@@ -551,8 +566,9 @@ protein_entries = [
         "secreted_desc": None,
         "tags": None,
         "tags_reason": None,
-        "ligand": True,
-        "adaptor": False
+        "ligand": False,
+        "adaptor": False,
+        "extracellular": True,
     }
 ]
 gene_entries = [

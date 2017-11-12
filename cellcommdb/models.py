@@ -27,6 +27,7 @@ class Multidata(db.Model, IdModel):
     peripheral = Column(Boolean)
     ligand = Column(Boolean)
     adaptor = Column(Boolean)
+    extracellular = Column(Boolean)
 
     protein = db.relationship('Protein', backref='protein', lazy='subquery')
     complex = db.relationship('Complex', backref='complex', lazy='subquery')

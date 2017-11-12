@@ -29,9 +29,10 @@ class Exporter(object):
 
             proteins_multidata.drop(['id_x', 'id_y', 'protein_multidata_id'], axis=1, inplace=True)
 
+            proteins_multidata.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
             # Edit order of the columns
             column_headers = list(proteins_multidata.columns.values)
-            column_headers = self._bring_columns_to_start(['name'], column_headers)
+            column_headers = self._bring_columns_to_start(['uniprot'], column_headers)
             column_headers = self._bring_columns_to_end(['tags', 'tags_reason'], column_headers)
 
             proteins_multidata.to_csv('out/%s' % output_name, index=False, header=True, columns=column_headers)
