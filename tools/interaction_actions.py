@@ -68,8 +68,86 @@ def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
                                index=False, float_format='%.4f')
 
 
+def generate_interactions_custom(interactions_base_namefile, database_proteins_namefile, gene_proteins_namefile):
+    interactions_base_df = pd.read_csv('%s/%s' % (data_dir, interactions_base_namefile), sep='\t', na_values='-')
+    interactions_base_df.dropna(how='any', subset=['A', 'B'], inplace=True)
+
+    custom_interactions = pd.DataFrame()
+
+    custom_interactions['a_raw_data'] = interactions_base_df['A']
+    custom_interactions['b_raw_data'] = interactions_base_df['B']
+    custom_interactions['a_raw_ensembl'] = interactions_base_df['altA']
+    custom_interactions['b_raw_ensembl'] = interactions_base_df['altB']
+
+    def extract_uniprot(row_value):
+        id_type = row_value['B'].split(':')[0]
+        if id_type == 'uniprotkb':
+            return row_value['B'].split(':')[1].split('-')[1]
+
+        return pd.np.nan
+
+    custom_interactions['protein_1'] = interactions_base_df[
+        interactions_base_df['A'].apply(lambda value: value.split(':')[0] == 'uniprotkb')]['A'].apply(
+        lambda value: value.split(':')[1].split('-')[0])
+
+    custom_interactions['protein_2'] = interactions_base_df[
+        interactions_base_df['B'].apply(lambda value: value.split(':')[0] == 'uniprotkb')]['B'].apply(
+        lambda value: value.split(':')[1].split('-')[0])
+
+    custom_interactions['source'] = interactions_base_df['provider']
+
+    def extract_score(row):
+        if isinstance(row, float) and math.isnan(row):
+            return 0
+
+        print(row)
+        return row.split('intact-miscore:')[1]
+
+    custom_interactions['score_1'] = interactions_base_df['confidenceScore']  # .apply(extract_score)
+
+    custom_interactions['score_2'] = custom_interactions['score_1']
+
+    # Extract ensembl for a_raw_ensembl data. Only if value is not null and has ensembl: prefix
+    custom_interactions['ensembl_1'] = custom_interactions.dropna(subset=['a_raw_ensembl'])[
+        custom_interactions.dropna(subset=['a_raw_ensembl'])['a_raw_ensembl'].apply(
+            lambda value: value.split(':')[0] == 'ensembl')][
+        'a_raw_ensembl'].apply(
+        lambda value: value.split(':')[1])
+
+    custom_interactions['ensembl_2'] = custom_interactions.dropna(subset=['b_raw_ensembl'])[
+        custom_interactions.dropna(subset=['b_raw_ensembl'])['b_raw_ensembl'].apply(
+            lambda value: value.split(':')[0] == 'ensembl')][
+        'b_raw_ensembl'].apply(
+        lambda value: value.split(':')[1])
+
+    gene_df = pd.read_csv('%s/%s' % (data_dir, gene_proteins_namefile))
+
+    custom_interactions = pd.merge(custom_interactions, gene_df, left_on='ensembl_1', right_on='ensembl', how='outer',
+                                   indicator='_merge_1')
+
+    custom_interactions = pd.merge(custom_interactions, gene_df, left_on='ensembl_2', right_on='ensembl', how='outer',
+                                   indicator='_merge_2', suffixes=['_1', '_2'])
+
+    def get_protein(row, protein_number):
+        if row['protein_%s' % protein_number]:
+            return row['protein_%s' % protein_number]
+        return row['uniprot_%s' % protein_number]
+
+    custom_interactions['protein_1'] = custom_interactions.apply(lambda row: get_protein(row, 1), axis=1)
+    custom_interactions['protein_2'] = custom_interactions.apply(lambda row: get_protein(row, 2), axis=1)
+
+    custom_interactions.dropna(how='any', subset=['protein_1', 'protein_2'], inplace=True)
+
+    protein_df = pd.read_csv('%s/%s' % (data_dir, database_proteins_namefile))
+    custom_interactions = custom_interactions[['protein_1', 'protein_2', 'score_1', 'score_2', 'source']]
+    custom_interactions = _only_uniprots_in_df(protein_df, custom_interactions)
+    custom_interactions.to_csv('tools/out/INTERACTIONS.csv',
+                               index=False)
+    return
+
+
 def generate_interactions_imex(interactions_base_namefile, database_proteins_namefile):
-    interactions_base_df = pd.read_csv('%s%s' % (data_dir, interactions_base_namefile), sep='\t', na_values='-')
+    interactions_base_df = pd.read_csv('%s/%s' % (data_dir, interactions_base_namefile), sep='\t', na_values='-')
 
     interactions_base_df.dropna(how='any', subset=['A', 'B'], inplace=True)
 

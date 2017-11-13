@@ -6,7 +6,7 @@ from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_p
 from tools.merge_gene_mouse import merge_gene_mouse as merge_gene
 from tools.interaction_actions import generate_interactions_inweb as protein_generate_inweb, \
     only_noncomplex_interactions, remove_interactions_in_file, append_curated, \
-    generate_interactions_imex, generate_interactions_innatedb, merge_interactions_action
+    generate_interactions_imex, generate_interactions_innatedb, merge_interactions_action, generate_interactions_custom
 
 
 def create_tools_app(info):
@@ -36,6 +36,14 @@ def merge_gene_mouse(filename_gene, filename_gene_mouse):
 @click.argument('database_proteins_namefile', default='protein.csv')
 def inweb_interactions(inweb_inbiomap_namefile, database_proteins_namefile):
     protein_generate_inweb(inweb_inbiomap_namefile, database_proteins_namefile)
+
+
+@cli.command()
+@click.argument('interaction_namefile')
+@click.argument('database_proteins_namefile', default='protein.csv')
+@click.argument('database_gene_namefile', default='gene.csv')
+def custom_interactions(interaction_namefile, database_proteins_namefile, database_gene_namefile):
+    generate_interactions_custom(interaction_namefile, database_proteins_namefile, database_gene_namefile)
 
 
 @cli.command()
