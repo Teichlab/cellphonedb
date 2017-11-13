@@ -26,7 +26,7 @@ class Multidata(db.Model, IdModel):
     secretion = Column(Boolean)
     peripheral = Column(Boolean)
     ligand = Column(Boolean)
-    adaptor = Column(Boolean)
+    cytoplasm = Column(Boolean)
     extracellular = Column(Boolean)
 
     protein = db.relationship('Protein', backref='protein', lazy='subquery')

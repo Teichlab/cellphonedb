@@ -72,7 +72,8 @@ def load(complex_file=None):
 
         # Convert ints to bool
         bools = ['receptor', 'receptor_highlight', 'adhesion', 'other',
-                 'transporter', 'secreted_highlight', 'transmembrane', 'secretion', 'peripheral', 'ligand', 'adaptor']
+                 'transporter', 'secreted_highlight', 'transmembrane', 'secretion', 'peripheral', 'ligand',
+                 'extracellular', 'cytoplasm']
         complex_df[bools] = complex_df[bools].astype(bool)
 
         # Drop existing complexes
