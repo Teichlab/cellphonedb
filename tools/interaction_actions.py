@@ -133,13 +133,7 @@ def generate_interactions_custom(interactions_base_namefile, database_proteins_n
     custom_interactions = custom_interactions[['protein_1', 'protein_2', 'raw_score', 'source']]
     custom_interactions = _only_uniprots_in_df(protein_df, custom_interactions)
 
-    def extract_score(row):
-        if isinstance(row, float) and math.isnan(row):
-            return 0
-
-        return row.split('intact-miscore:')[1]
-
-    custom_interactions['score_1'] = custom_interactions['raw_score'].apply(extract_score)
+    custom_interactions['score_1'] = custom_interactions['raw_score'].apply(lambda row: row.split('intact-miscore:')[1])
     custom_interactions['score_2'] = custom_interactions['score_1']
 
     def set_score_duplicates(interaction):
