@@ -16,6 +16,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P00505,Q9UKS6,0.4,0.4,IntAct
 ,,,P48023,Q9UKS6,0.59,0.59,MINT
 ,,,Q9BY11,Q9UKS6,0.7,0.7,IntAct
+,,,Q9BY11,Q9UKS6,0.7,0.7,IntAct
 ,,,Q13444,Q9UKS6,0.65,0.65,UniProt
 ,,,Q8N3V7,Q9UKS6,0.35,0.35,IntAct
 ,,,Q13443,Q9UKS6,0.51,0.51,UniProt
@@ -53,6 +54,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,O14910,Q8NI35,0.35,0.35,IntAct
 ,,,Q8N3R9,Q8NI35,0.72,0.72,IntAct
 ,,,Q8N3R9,Q8NI35,0.72,0.72,MINT
+,,,Q8N3R9,Q8NI35,0.72,0.72,MINT
 ,,,P17252,Q8NI35,0.27,0.27,MINT
 ,,,P82279,Q8NI35,0.52,0.52,MINT
 ,,,P29033,Q96QD8,0.35,0.35,IntAct
@@ -71,6 +73,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9UHP7,P26715,0.49,0.49,IntAct
 ,,,P60201,P26715,0.49,0.49,IntAct
 ,,,Q9NTQ9,P26715,0.49,0.49,IntAct
+,,,Q01453,P26715,0.7,0.7,IntAct
 ,,,Q01453,P26715,0.7,0.7,IntAct
 ,,,O95393,P26715,0.49,0.49,IntAct
 ,,,P11686,P26715,0.49,0.49,IntAct
@@ -97,17 +100,21 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P06850,Q7Z3S9,0.49,0.49,IntAct
 ,,,P55064,Q7Z3S9,0.56,0.56,IntAct
 ,,,P08631,Q7Z3S9,0.56,0.56,IntAct
+,,,P08631,Q7Z3S9,0.56,0.56,IntAct
 ,,,P09603,Q7Z3S9,0.56,0.56,IntAct
 ,,,P09681,Q7Z3S9,0.56,0.56,IntAct
 ,,,P16860,Q7Z3S9,0.56,0.56,IntAct
 ,,,P48023,Q7Z3S9,0.56,0.56,IntAct
 ,,,P48645,Q7Z3S9,0.7,0.7,IntAct
+,,,P48645,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q99572,Q7Z3S9,0.49,0.49,IntAct
 ,,,P14770,Q7Z3S9,0.49,0.49,IntAct
+,,,Q9C0C4,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q9C0C4,Q7Z3S9,0.7,0.7,IntAct
 ,,,O14764,Q7Z3S9,0.56,0.56,IntAct
 ,,,Q15077,Q7Z3S9,0.49,0.49,IntAct
 ,,,Q8NEC5,Q7Z3S9,0.7,0.7,IntAct
+,,,Q9H2X0,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q9H2X0,Q7Z3S9,0.7,0.7,IntAct
 ,,,O15232,Q7Z3S9,0.56,0.56,IntAct
 ,,,P43115,Q7Z3S9,0.56,0.56,IntAct
@@ -115,6 +122,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9UHI7,Q7Z3S9,0.49,0.49,IntAct
 ,,,O95897,Q7Z3S9,0.49,0.49,IntAct
 ,,,P07949,Q7Z3S9,0.56,0.56,IntAct
+,,,P08582,Q7Z3S9,0.7,0.7,IntAct
 ,,,P08582,Q7Z3S9,0.7,0.7,IntAct
 ,,,P09172,Q7Z3S9,0.49,0.49,IntAct
 ,,,P09228,Q7Z3S9,0.7,0.7,IntAct
@@ -134,6 +142,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q15040,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q9NQS3,Q7Z3S9,0.56,0.56,IntAct
 ,,,Q92692,Q7Z3S9,0.56,0.56,IntAct
+,,,Q92692,Q7Z3S9,0.56,0.56,IntAct
 ,,,Q9H6L2,Q7Z3S9,0.56,0.56,IntAct
 ,,,Q9GZV7,Q7Z3S9,0.49,0.49,IntAct
 ,,,O15197,Q7Z3S9,0.56,0.56,IntAct
@@ -142,12 +151,15 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q86TG1,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q9GZM7,Q7Z3S9,0.56,0.56,IntAct
 ,,,Q9H4G1,Q7Z3S9,0.7,0.7,IntAct
+,,,Q9H4G1,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q9NXC2,Q7Z3S9,0.56,0.56,IntAct
 ,,,Q9GZQ4,Q7Z3S9,0.49,0.49,IntAct
 ,,,Q9H4F8,Q7Z3S9,0.56,0.56,IntAct
 ,,,Q9NP91,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q07912,Q7Z3S9,0.56,0.56,IntAct
 ,,,Q92824,Q7Z3S9,0.56,0.56,IntAct
+,,,Q92824,Q7Z3S9,0.56,0.56,IntAct
+,,,Q86UN2,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q86UN2,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q8NCG7,Q7Z3S9,0.49,0.49,IntAct
 ,,,Q9UIK5,Q7Z3S9,0.49,0.49,IntAct
@@ -253,6 +265,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P31947,P26045,0.4,0.4,MINT
 ,,,Q5GFL6,P26045,0.49,0.49,IntAct
 ,,,P07900,P07900,0.85,0.85,IntAct
+,,,P07900,P07900,0.85,0.85,IntAct
 ,,,P07900,P07900,0.85,0.85,UniProt
 ,,,P01892,P07900,0.4,0.4,IntAct
 ,,,P19320,P07900,0.35,0.35,IntAct
@@ -308,6 +321,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q8TEU8,P01137,0.44,0.44,MINT
 ,,,P07942,P01137,0.37,0.37,IntAct
 ,,,P11464,P01137,0.56,0.56,IntAct
+,,,P11464,P01137,0.56,0.56,IntAct
 ,,,Q6UY14,P01137,0.49,0.49,IntAct
 ,,,O60711,P01137,0.49,0.49,IntAct
 ,,,P25054,P01137,0.37,0.37,MINT
@@ -351,6 +365,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P17612,P46108,0.49,0.49,IntAct
 ,,,P10721,P46108,0.59,0.59,IntAct
 ,,,Q96CW1,P46108,0.35,0.35,IntAct
+,,,P22681,P46108,0.88,0.88,IntAct
 ,,,P22681,P46108,0.88,0.88,IntAct
 ,,,P22681,P46108,0.88,0.88,MINT
 ,,,Q9H1R2,P46108,0.4,0.4,IntAct
@@ -552,10 +567,12 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q92597,P12830,0.35,0.35,IntAct
 ,,,Q96CW1,P12830,0.35,0.35,IntAct
 ,,,O60716,P12830,0.44,0.44,IntAct
+,,,O60716,P12830,0.44,0.44,IntAct
 ,,,Q15139,P12830,0.57,0.57,IntAct
 ,,,P15151,P12830,0.27,0.27,MINT
 ,,,P12931,P15941,0.75,0.75,MINT
 ,,,P12931,P15941,0.75,0.75,MolCon
+,,,P15941,P15941,0.52,0.52,MolCon
 ,,,P15941,P15941,0.52,0.52,MolCon
 ,,,P12931,P30530,0.4,0.4,MINT
 ,,,Q14393,P30530,0.44,0.44,MINT
@@ -684,6 +701,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P50552,Q8IZP0,0.49,0.49,IntAct
 ,,,P07332,Q8IZP0,0.44,0.44,MINT
 ,,,Q9H251,Q8IZP0,0.35,0.35,IntAct
+,,,Q9H251,Q8IZP0,0.35,0.35,IntAct
 ,,,Q9Y2A7,Q8IZP0,0.79,0.79,IntAct
 ,,,Q9Y2A7,Q8IZP0,0.79,0.79,MINT
 ,,,Q9Y2A7,Q8IZP0,0.79,0.79,UniProt
@@ -694,6 +712,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P05230,P11362,0.72,0.72,UniProt
 ,,,P12830,P11362,0.59,0.59,IntAct
 ,,,P23352,P11362,0.63,0.63,IntAct
+,,,P09038,P11362,0.8,0.8,IntAct
 ,,,P09038,P11362,0.8,0.8,IntAct
 ,,,P11362,P11362,0.62,0.62,IntAct
 ,,,P55075,P11362,0.4,0.4,IntAct
@@ -730,8 +749,10 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P19320,P11142,0.35,0.35,IntAct
 ,,,P05067,P11142,0.35,0.35,IntAct
 ,,,P49407,P11142,0.5,0.5,IntAct
+,,,P49407,P11142,0.5,0.5,IntAct
 ,,,P34969,P11142,0.35,0.35,bhf-ucl
 ,,,P53041,P11142,0.35,0.35,IntAct
+,,,P32121,P11142,0.5,0.5,IntAct
 ,,,P32121,P11142,0.5,0.5,IntAct
 ,,,Q9NYA1,P11142,0.35,0.35,IntAct
 ,,,Q8IZP0,P11142,0.4,0.4,MINT
@@ -783,6 +804,8 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P19438,Q13546,0.84,0.84,UniProt
 ,,,P04083,Q13546,0.56,0.56,I2D-IMEx
 ,,,Q13546,Q13546,0.89,0.89,IntAct
+,,,Q13546,Q13546,0.89,0.89,IntAct
+,,,Q13546,Q13546,0.89,0.89,IntAct
 ,,,P25445,Q13546,0.37,0.37,IntAct
 ,,,Q9Y572,Q13546,0.95,0.95,IntAct
 ,,,P11142,Q13546,0.4,0.4,IntAct
@@ -794,6 +817,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q13546,Q9Y572,0.95,0.95,IntAct
 ,,,Q01082,Q9Y572,0.4,0.4,IntAct
 ,,,O00159,Q9Y572,0.4,0.4,IntAct
+,,,Q9Y572,Q9Y572,0.73,0.73,IntAct
 ,,,Q9Y572,Q9Y572,0.73,0.73,IntAct
 ,,,P11142,Q9Y572,0.4,0.4,IntAct
 ,,,Q9ULV4,Q9Y572,0.4,0.4,IntAct
@@ -813,6 +837,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9H8T0,O43318,0.37,0.37,IntAct
 ,,,P07900,Q92597,0.4,0.4,IntAct
 ,,,Q86X19,Q92597,0.35,0.35,IntAct
+,,,P35222,Q92597,0.4,0.4,IntAct
 ,,,P35222,Q92597,0.4,0.4,IntAct
 ,,,P08473,Q92597,0.4,0.4,IntAct
 ,,,Q01844,Q92597,0.4,0.4,IntAct
@@ -870,9 +895,13 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P49407,P05067,0.4,0.4,IntAct
 ,,,P01137,P05067,0.64,0.64,IntAct
 ,,,P49768,P05067,0.7,0.7,IntAct
+,,,P49768,P05067,0.7,0.7,IntAct
 ,,,P01023,P05067,0.37,0.37,IntAct
 ,,,O75955,P05067,0.58,0.58,IntAct
 ,,,Q9NP59,P05067,0.59,0.59,IntAct
+,,,P04156,P05067,0.64,0.64,IntAct
+,,,P04156,P05067,0.64,0.64,IntAct
+,,,P04156,P05067,0.64,0.64,IntAct
 ,,,P04156,P05067,0.64,0.64,IntAct
 ,,,P09471,P05067,0.4,0.4,IntAct
 ,,,P37840,P05067,0.4,0.4,IntAct
@@ -949,8 +978,12 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P12830,P04264,0.4,0.4,IntAct
 ,,,P13569,P06702,0.35,0.35,IntAct
 ,,,P49407,P06702,0.5,0.5,IntAct
+,,,P49407,P06702,0.5,0.5,IntAct
 ,,,P60953,P06702,0.37,0.37,IntAct
 ,,,P32121,P06702,0.5,0.5,IntAct
+,,,P32121,P06702,0.5,0.5,IntAct
+,,,P05109,P06702,0.75,0.75,IntAct
+,,,P05109,P06702,0.75,0.75,IntAct
 ,,,P05109,P06702,0.75,0.75,IntAct
 ,,,Q8IVT5,P07947,0.35,0.35,IntAct
 ,,,Q86X19,P07947,0.35,0.35,IntAct
@@ -1012,6 +1045,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P17931,Q13740,0.56,0.56,MINT
 ,,,Q6UW56,Q92832,0.61,0.61,MINT
 ,,,Q9NRI5,Q99784,0.37,0.37,IntAct
+,,,Q9NRI5,Q99784,0.37,0.37,IntAct
 ,,,Q86X19,O00213,0.35,0.35,IntAct
 ,,,P05067,O00213,0.73,0.73,IntAct
 ,,,P05067,O00213,0.73,0.73,MINT
@@ -1050,6 +1084,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q2M2I8,Q96CW1,0.64,0.64,IntAct
 ,,,P22694,P31321,0.35,0.35,IntAct
 ,,,P17612,P31321,0.73,0.73,IntAct
+,,,P17612,P31321,0.73,0.73,IntAct
 ,,,P10644,P31321,0.49,0.49,IntAct
 ,,,Q96E35,P31321,0.49,0.49,IntAct
 ,,,Q96C24,P31321,0.49,0.49,IntAct
@@ -1063,6 +1098,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q8N3V7,O95782,0.35,0.35,IntAct
 ,,,P32121,O95782,0.35,0.35,IntAct
 ,,,Q2M2I8,O95782,0.35,0.35,IntAct
+,,,A1L4H1,Q9UPT5,0.56,0.56,IntAct
 ,,,A1L4H1,Q9UPT5,0.56,0.56,IntAct
 ,,,Q9NRI5,Q9UPT5,0.37,0.37,IntAct
 ,,,Q8NFJ9,Q9UPT5,0.44,0.44,IntAct
@@ -1168,6 +1204,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P07550,P32121,0.61,0.61,IntAct
 ,,,P07550,P32121,0.61,0.61,MINT
 ,,,P49407,P32121,0.67,0.67,IntAct
+,,,P49407,P32121,0.67,0.67,IntAct
 ,,,P35221,P32121,0.56,0.56,IntAct
 ,,,P17813,P32121,0.4,0.4,MINT
 ,,,P32121,P32121,0.53,0.53,IntAct
@@ -1207,6 +1244,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P16070,P10451,0.62,0.62,IntAct
 ,,,P02647,P10451,0.37,0.37,IntAct
 ,,,Q8IXL6,P10451,0.64,0.64,IntAct
+,,,Q8IXL6,P10451,0.64,0.64,IntAct
 ,,,P16070,P26038,0.46,0.46,MolCon
 ,,,P15311,P26038,0.35,0.35,IntAct
 ,,,P43405,P26038,0.35,0.35,MINT
@@ -1216,6 +1254,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P01375,P01375,0.73,0.73,MINT
 ,,,P19438,P01375,0.94,0.94,IntAct
 ,,,P19438,P01375,0.94,0.94,MINT
+,,,P19438,P01375,0.94,0.94,IntAct
 ,,,Q08629,P01375,0.4,0.4,IntAct
 ,,,P13521,P01375,0.4,0.4,IntAct
 ,,,P20333,P01375,0.44,0.44,IntAct
@@ -1261,6 +1300,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P49768,Q99569,0.59,0.59,MINT
 ,,,Q96RT1,Q99569,0.63,0.63,MINT
 ,,,Q96RT1,Q99569,0.63,0.63,IntAct
+,,,Q96RT1,Q99569,0.63,0.63,MINT
 ,,,Q12959,Q99569,0.4,0.4,MINT
 ,,,Q9H0H5,Q99569,0.35,0.35,IntAct
 ,,,Q15262,O15530,0.44,0.44,IntAct
@@ -1346,6 +1386,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P40879,Q15599,0.61,0.61,MINT
 ,,,Q9BUZ4,Q15599,0.49,0.49,IntAct
 ,,,Q9H251,Q15599,0.35,0.35,IntAct
+,,,Q9H251,Q15599,0.35,0.35,IntAct
 ,,,P15311,P07332,0.68,0.68,MINT
 ,,,P10721,P07332,0.44,0.44,IntAct
 ,,,P07332,P07332,0.35,0.35,MINT
@@ -1359,6 +1400,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P21802,P21802,0.44,0.44,IntAct
 ,,,P05230,P21802,0.61,0.61,MINT
 ,,,P05230,P21802,0.61,0.61,IntAct
+,,,P09038,P21802,0.62,0.62,IntAct
 ,,,P09038,P21802,0.62,0.62,IntAct
 ,,,P09038,P21802,0.62,0.62,UniProt
 ,,,P21781,P21802,0.52,0.52,IntAct
@@ -1418,6 +1460,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P60953,P60953,0.52,0.52,MBInfo
 ,,,Q15642,P60953,0.61,0.61,MINT
 ,,,Q13153,P60953,0.94,0.94,IntAct
+,,,Q13153,P60953,0.94,0.94,IntAct
 ,,,Q13153,P60953,0.94,0.94,MINT
 ,,,Q8IVI9,P60953,0.4,0.4,MINT
 ,,,P32121,P60953,0.37,0.37,IntAct
@@ -1441,6 +1484,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P31947,Q96QZ7,0.4,0.4,MINT
 ,,,P08588,Q96QZ7,0.44,0.44,IntAct
 ,,,P78508,Q96QZ7,0.4,0.4,MINT
+,,,Q9Y4G8,Q96QZ7,0.52,0.52,UniProt
 ,,,Q9Y4G8,Q96QZ7,0.52,0.52,UniProt
 ,,,P46940,Q9NP85,0.56,0.56,IntAct
 ,,,P46940,Q01082,0.35,0.35,IntAct
@@ -1476,6 +1520,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9BY76,P63000,0.35,0.35,IntAct
 ,,,P02751,P63000,0.35,0.35,IntAct
 ,,,P48039,P63000,0.53,0.53,IntAct
+,,,Q13153,P63000,0.98,0.98,IntAct
 ,,,Q13153,P63000,0.98,0.98,IntAct
 ,,,Q13153,P63000,0.98,0.98,MINT
 ,,,Q13153,P63000,0.98,0.98,InnateDB-IMEx
@@ -1514,6 +1559,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P17706,O00159,0.35,0.35,IntAct
 ,,,P18206,O00159,0.35,0.35,IntAct
 ,,,P46940,O60331,0.57,0.57,MINT
+,,,P46940,O60331,0.57,0.57,MINT
 ,,,Q05397,P25054,0.4,0.4,IntAct
 ,,,P49841,P25054,0.71,0.71,bhf-ucl
 ,,,P49841,P25054,0.71,0.71,IntAct
@@ -1537,6 +1583,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q01082,P25054,0.37,0.37,IntAct
 ,,,Q8IVI9,P25054,0.37,0.37,IntAct
 ,,,Q8N3V7,P25054,0.35,0.35,IntAct
+,,,Q96N96,P25054,0.67,0.67,IntAct
 ,,,Q96N96,P25054,0.67,0.67,IntAct
 ,,,Q8IYR6,P25054,0.37,0.37,MINT
 ,,,P31947,P25054,0.4,0.4,MINT
@@ -1581,6 +1628,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9Y4C2,O43597,0.56,0.56,IntAct
 ,,,Q63HR2,P29972,0.49,0.49,IntAct
 ,,,Q7Z3S9,P29972,0.7,0.7,IntAct
+,,,Q7Z3S9,P29972,0.7,0.7,IntAct
 ,,,O60711,P29972,0.49,0.49,IntAct
 ,,,O43597,P29972,0.56,0.56,IntAct
 ,,,O15496,P29972,0.49,0.49,IntAct
@@ -1600,6 +1648,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q93096,Q8NE01,0.46,0.46,IntAct
 ,,,Q63HR2,Q8NEC5,0.49,0.49,IntAct
 ,,,Q7Z3S9,Q8NEC5,0.7,0.7,IntAct
+,,,Q7Z3S9,Q8NEC5,0.7,0.7,IntAct
 ,,,P01137,Q8NEC5,0.49,0.49,IntAct
 ,,,Q6UY14,Q8NEC5,0.49,0.49,IntAct
 ,,,O43597,Q8NEC5,0.56,0.56,IntAct
@@ -1608,6 +1657,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9H2X0,Q8NEC5,0.56,0.56,IntAct
 ,,,O15496,Q8NEC5,0.49,0.49,IntAct
 ,,,O75711,Q8NEC5,0.56,0.56,IntAct
+,,,P02652,Q8NEC5,0.7,0.7,IntAct
 ,,,P02652,Q8NEC5,0.7,0.7,IntAct
 ,,,Q9UKJ5,Q8NEC5,0.62,0.62,IntAct
 ,,,Q2TAL6,Q8NEC5,0.49,0.49,IntAct
@@ -1764,8 +1814,10 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P06241,P10636,0.4,0.4,MINT
 ,,,P49841,P10636,0.74,0.74,IntAct
 ,,,P49841,P10636,0.74,0.74,MINT
+,,,P49841,P10636,0.74,0.74,MINT
 ,,,P04156,P10636,0.5,0.5,IntAct
 ,,,P02649,P10636,0.54,0.54,bhf-ucl
+,,,P07237,P10636,0.46,0.46,IntAct
 ,,,P07237,P10636,0.46,0.46,IntAct
 ,,,O00141,P10636,0.44,0.44,MINT
 ,,,Q7KZI7,P10636,0.59,0.59,IntAct
@@ -1813,6 +1865,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P07942,Q9UMX0,0.49,0.49,IntAct
 ,,,P01160,Q9UMX0,0.56,0.56,IntAct
 ,,,Q9UMX0,Q9UMX0,0.67,0.67,IntAct
+,,,Q9UMX0,Q9UMX0,0.67,0.67,IntAct
 ,,,P02751,Q9UMX0,0.56,0.56,IntAct
 ,,,P49768,Q9UMX0,0.56,0.56,MINT
 ,,,P10147,Q9UMX0,0.49,0.49,IntAct
@@ -1823,10 +1876,17 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q16661,Q9UMX0,0.49,0.49,IntAct
 ,,,Q9UBU3,Q9UMX0,0.56,0.56,IntAct
 ,,,O95994,Q9UMX0,0.7,0.7,IntAct
+,,,O95994,Q9UMX0,0.7,0.7,IntAct
+,,,O95994,Q9UMX0,0.7,0.7,IntAct
+,,,O14764,Q9UMX0,0.67,0.67,IntAct
 ,,,O14764,Q9UMX0,0.67,0.67,IntAct
 ,,,O43852,Q9UMX0,0.56,0.56,IntAct
 ,,,O60844,Q9UMX0,0.76,0.76,IntAct
+,,,O60844,Q9UMX0,0.76,0.76,IntAct
+,,,O60844,Q9UMX0,0.76,0.76,IntAct
 ,,,O75084,Q9UMX0,0.62,0.62,IntAct
+,,,O75830,Q9UMX0,0.86,0.86,IntAct
+,,,O75830,Q9UMX0,0.86,0.86,IntAct
 ,,,O75830,Q9UMX0,0.86,0.86,IntAct
 ,,,O75830,Q9UMX0,0.86,0.86,MINT
 ,,,P05121,Q9UMX0,0.56,0.56,IntAct
@@ -1834,18 +1894,28 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P07498,Q9UMX0,0.49,0.49,IntAct
 ,,,P05408,Q9UMX0,0.56,0.56,IntAct
 ,,,P06028,Q9UMX0,0.72,0.72,IntAct
+,,,P06028,Q9UMX0,0.72,0.72,IntAct
+,,,P08123,Q9UMX0,0.7,0.7,IntAct
 ,,,P08123,Q9UMX0,0.7,0.7,IntAct
 ,,,P08294,Q9UMX0,0.49,0.49,IntAct
 ,,,P10124,Q9UMX0,0.7,0.7,IntAct
+,,,P10124,Q9UMX0,0.7,0.7,IntAct
+,,,O95967,Q9UMX0,0.71,0.71,IntAct
+,,,O95967,Q9UMX0,0.71,0.71,IntAct
+,,,O95967,Q9UMX0,0.71,0.71,IntAct
 ,,,O95967,Q9UMX0,0.71,0.71,IntAct
 ,,,P12318,Q9UMX0,0.56,0.56,IntAct
 ,,,P21741,Q9UMX0,0.49,0.49,IntAct
 ,,,P22352,Q9UMX0,0.56,0.56,IntAct
 ,,,Q9NP55,Q9UMX0,0.56,0.56,IntAct
+,,,Q9NP55,Q9UMX0,0.56,0.56,IntAct
+,,,P41271,Q9UMX0,0.56,0.56,IntAct
 ,,,P41271,Q9UMX0,0.56,0.56,IntAct
 ,,,Q969H8,Q9UMX0,0.49,0.49,IntAct
 ,,,Q9UIQ6,Q9UMX0,0.49,0.49,IntAct
 ,,,Q01524,Q9UMX0,0.56,0.56,IntAct
+,,,Q03692,Q9UMX0,0.7,0.7,IntAct
+,,,Q03692,Q9UMX0,0.7,0.7,IntAct
 ,,,Q03692,Q9UMX0,0.7,0.7,IntAct
 ,,,Q9NPQ8,Q9UMX0,0.67,0.67,IntAct
 ,,,Q9NPQ8,Q9UMX0,0.67,0.67,MINT
@@ -1872,6 +1942,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9Y4C2,Q9UQM7,0.49,0.49,IntAct
 ,,,O43820,Q9UQM7,0.49,0.49,IntAct
 ,,,Q9UQM7,Q9UQM7,0.62,0.62,IntAct
+,,,Q13557,Q9UQM7,0.7,0.7,IntAct
 ,,,Q13557,Q9UQM7,0.7,0.7,IntAct
 ,,,P48058,Q9UQM7,0.31,0.31,MINT
 ,,,Q13224,Q9UQM7,0.6,0.6,MINT
@@ -1953,6 +2024,8 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9P0L0,P10644,0.35,0.35,IntAct
 ,,,P22694,P10644,0.35,0.35,IntAct
 ,,,P17612,P10644,0.93,0.93,IntAct
+,,,P17612,P10644,0.93,0.93,IntAct
+,,,P17612,P10644,0.93,0.93,IntAct
 ,,,P17612,P10644,0.93,0.93,UniProt
 ,,,Q8IVT5,Q8WXX5,0.35,0.35,IntAct
 ,,,P67809,Q8WXX5,0.35,0.35,IntAct
@@ -1996,6 +2069,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9Y239,Q9Y5V3,0.4,0.4,IntAct
 ,,,O14654,Q9Y5V3,0.35,0.35,IntAct
 ,,,Q9Y5V3,Q9Y5V3,0.62,0.62,IntAct
+,,,Q9Y5V3,Q9Y5V3,0.62,0.62,IntAct
 ,,,Q8IZ08,Q9Y5V3,0.37,0.37,IntAct
 ,,,Q8IVT5,Q99755,0.35,0.35,IntAct
 ,,,Q8IVT5,P62070,0.35,0.35,IntAct
@@ -2006,6 +2080,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P19320,O95721,0.35,0.35,IntAct
 ,,,Q16623,O95721,0.62,0.62,IntAct
 ,,,O95183,O95721,0.7,0.7,IntAct
+,,,P63027,O95721,0.7,0.7,IntAct
 ,,,P63027,O95721,0.7,0.7,IntAct
 ,,,Q9BV40,O95721,0.62,0.62,IntAct
 ,,,Q9H4M9,O95721,0.49,0.49,IntAct
@@ -2076,6 +2151,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P49841,P49768,0.4,0.4,MINT
 ,,,P35222,P49768,0.52,0.52,IntAct
 ,,,P05067,P49768,0.63,0.63,IntAct
+,,,P05067,P49768,0.63,0.63,IntAct
 ,,,Q9UMX0,P49768,0.56,0.56,MINT
 ,,,P12830,P49768,0.4,0.4,MINT
 ,,,P20336,P49768,0.37,0.37,IntAct
@@ -2145,6 +2221,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P02730,O95393,0.49,0.49,IntAct
 ,,,P02730,P02724,0.56,0.56,IntAct
 ,,,P02724,P02724,0.55,0.55,IntAct
+,,,P02724,P02724,0.55,0.55,IntAct
 ,,,P02730,Q9BXR6,0.49,0.49,IntAct
 ,,,P05026,P02730,0.67,0.67,IntAct
 ,,,P13688,P31997,0.4,0.4,IntAct
@@ -2211,11 +2288,13 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P13569,Q9HD26,0.4,0.4,IntAct
 ,,,Q86X19,Q9HD26,0.35,0.35,IntAct
 ,,,P04004,Q9HD26,0.56,0.56,IntAct
+,,,P04004,Q9HD26,0.56,0.56,IntAct
 ,,,P55040,Q9HD26,0.49,0.49,IntAct
 ,,,P08631,Q9HD26,0.56,0.56,IntAct
 ,,,Q9NTN9,Q9HD26,0.56,0.56,IntAct
 ,,,Q0P5P2,Q9HD26,0.56,0.56,IntAct
 ,,,Q99497,Q9HD26,0.56,0.56,IntAct
+,,,Q9H251,Q9HD26,0.35,0.35,IntAct
 ,,,Q9H251,Q9HD26,0.35,0.35,IntAct
 ,,,P13569,Q9HBW0,0.56,0.56,IntAct
 ,,,Q15599,Q9HBW0,0.4,0.4,IntAct
@@ -2290,10 +2369,12 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P41240,Q8TEW0,0.4,0.4,MINT
 ,,,Q9NPB6,Q8TEW0,0.81,0.81,IntAct
 ,,,Q9NPB6,Q8TEW0,0.81,0.81,MINT
+,,,Q9NPB6,Q8TEW0,0.81,0.81,IntAct
 ,,,Q86X19,Q8TEW0,0.35,0.35,IntAct
 ,,,P35222,Q8TEW0,0.59,0.59,IntAct
 ,,,P35222,Q8TEW0,0.59,0.59,MINT
 ,,,Q9P0L0,Q8TEW0,0.35,0.35,IntAct
+,,,Q9BYG5,Q8TEW0,0.62,0.62,IntAct
 ,,,Q9BYG5,Q8TEW0,0.62,0.62,IntAct
 ,,,Q9Y624,Q8TEW0,0.4,0.4,MINT
 ,,,P33151,Q8TEW0,0.56,0.56,MINT
@@ -2368,6 +2449,8 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9BXN2,Q96S59,0.37,0.37,IntAct
 ,,,Q9Y2J2,Q96S59,0.35,0.35,IntAct
 ,,,Q9NRI5,Q96S59,0.51,0.51,IntAct
+,,,Q9NRI5,Q96S59,0.51,0.51,IntAct
+,,,Q9NRI5,Q96S59,0.51,0.51,IntAct
 ,,,P31151,Q96S59,0.51,0.51,IntAct
 ,,,Q7L5Y9,Q96S59,0.51,0.51,IntAct
 ,,,Q96E35,Q96S59,0.51,0.51,IntAct
@@ -2395,6 +2478,9 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q8TEW0,Q9BYG5,0.62,0.62,IntAct
 ,,,P63000,Q9BYG5,0.57,0.57,IntAct
 ,,,P60953,Q9BYG5,0.89,0.89,IntAct
+,,,P60953,Q9BYG5,0.89,0.89,IntAct
+,,,P60953,Q9BYG5,0.89,0.89,IntAct
+,,,Q9H4E5,Q9BYG5,0.7,0.7,IntAct
 ,,,Q9H4E5,Q9BYG5,0.7,0.7,IntAct
 ,,,Q9BYG4,Q9BYG5,0.35,0.35,IntAct
 ,,,Q9NPB6,O14641,0.4,0.4,IntAct
@@ -2443,6 +2529,8 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,O60437,O43865,0.56,0.56,IntAct
 ,,,P55040,O43865,0.7,0.7,IntAct
 ,,,O43865,O43865,0.62,0.62,IntAct
+,,,O43865,O43865,0.62,0.62,IntAct
+,,,Q9UHI7,O43865,0.56,0.56,IntAct
 ,,,Q9UHI7,O43865,0.56,0.56,IntAct
 ,,,Q86X19,O60245,0.35,0.35,IntAct
 ,,,P04049,O60245,0.35,0.35,IntAct
@@ -2477,6 +2565,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P49286,Q03001,0.37,0.37,IntAct
 ,,,Q8IZP0,Q03001,0.37,0.37,IntAct
 ,,,O75386,Q03001,0.37,0.37,IntAct
+,,,Q9NRI5,Q03001,0.37,0.37,IntAct
 ,,,Q9NRI5,Q03001,0.37,0.37,IntAct
 ,,,Q86X19,Q04656,0.35,0.35,IntAct
 ,,,Q86X19,Q08357,0.35,0.35,IntAct
@@ -2523,6 +2612,8 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P50570,Q9UNF0,0.52,0.52,MINT
 ,,,P48023,Q9UNF0,0.59,0.59,MINT
 ,,,Q9BY11,Q9UNF0,0.82,0.82,IntAct
+,,,Q9BY11,Q9UNF0,0.82,0.82,IntAct
+,,,Q9UNF0,Q9UNF0,0.79,0.79,IntAct
 ,,,Q9UNF0,Q9UNF0,0.79,0.79,IntAct
 ,,,Q9UNF0,Q9UNF0,0.79,0.79,MINT
 ,,,Q9UKS6,Q9UNF0,0.49,0.49,IntAct
@@ -2533,6 +2624,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,O15403,O14936,0.35,0.35,IntAct
 ,,,O14910,O14936,0.77,0.77,IntAct
 ,,,O14910,O14936,0.77,0.77,MINT
+,,,O14910,O14936,0.77,0.77,IntAct
 ,,,Q9C0A0,O14936,0.4,0.4,MINT
 ,,,Q13009,O14936,0.4,0.4,IntAct
 ,,,Q86X19,Q9HDC5,0.35,0.35,IntAct
@@ -2609,6 +2701,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q86X19,Q96RT1,0.35,0.35,IntAct
 ,,,Q99569,Q96RT1,0.62,0.62,MINT
 ,,,Q9HC29,Q96RT1,0.58,0.58,IntAct
+,,,Q9HC29,Q96RT1,0.58,0.58,IntAct
 ,,,Q9BY21,Q96RT1,0.4,0.4,MINT
 ,,,Q86X19,Q9Y2G0,0.35,0.35,IntAct
 ,,,Q86X19,Q96RU3,0.35,0.35,IntAct
@@ -2628,11 +2721,13 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P22460,Q12959,0.4,0.4,MINT
 ,,,Q14500,Q12959,0.4,0.4,MINT
 ,,,Q96PE1,Q12959,0.57,0.57,IntAct
+,,,Q96PE1,Q12959,0.57,0.57,IntAct
 ,,,Q96PE1,Q12959,0.57,0.57,MINT
 ,,,Q9NS75,Q12959,0.57,0.57,MINT
 ,,,Q86X19,Q8WTV0,0.35,0.35,IntAct
 ,,,Q86X19,Q8TCT9,0.35,0.35,IntAct
 ,,,Q5HYA8,Q8TCT9,0.35,0.35,IntAct
+,,,P27105,Q8TCT9,0.51,0.51,IntAct
 ,,,P27105,Q8TCT9,0.51,0.51,IntAct
 ,,,Q86WV6,Q8TCT9,0.35,0.35,IntAct
 ,,,Q86X19,O14640,0.35,0.35,IntAct
@@ -2656,10 +2751,12 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9P2E7,Q9Y2A7,0.4,0.4,IntAct
 ,,,P52799,P01588,0.44,0.44,IntAct
 ,,,P54760,P01588,0.54,0.54,IntAct
+,,,P54760,P01588,0.54,0.54,IntAct
 ,,,P19235,P01588,0.56,0.56,IntAct
 ,,,P56746,P55040,0.37,0.37,IntAct
 ,,,Q7Z3S9,P55040,0.56,0.56,IntAct
 ,,,P02749,P55040,0.37,0.37,IntAct
+,,,O43865,P55040,0.7,0.7,IntAct
 ,,,O43865,P55040,0.7,0.7,IntAct
 ,,,P13497,P55040,0.37,0.37,IntAct
 ,,,Q9NRI5,P55040,0.49,0.49,IntAct
@@ -2693,6 +2790,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q6UY14,A5D8T8,0.56,0.56,IntAct
 ,,,Q7Z3S9,O15232,0.56,0.56,IntAct
 ,,,Q7Z3S9,O60259,0.7,0.7,IntAct
+,,,Q7Z3S9,O60259,0.7,0.7,IntAct
 ,,,P41220,O60259,0.37,0.37,IntAct
 ,,,Q8IUH5,O60259,0.51,0.51,IntAct
 ,,,Q7Z3S9,O95897,0.49,0.49,IntAct
@@ -2705,7 +2803,9 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P24592,P05187,0.49,0.49,IntAct
 ,,,P63165,P05187,0.35,0.35,IntAct
 ,,,Q7Z3S9,P07510,0.7,0.7,IntAct
+,,,Q7Z3S9,P07510,0.7,0.7,IntAct
 ,,,O43597,P07510,0.56,0.56,IntAct
+,,,Q7Z3S9,P09228,0.7,0.7,IntAct
 ,,,Q7Z3S9,P09228,0.7,0.7,IntAct
 ,,,Q6UY14,P09228,0.56,0.56,IntAct
 ,,,Q7Z3S9,P09923,0.56,0.56,IntAct
@@ -2713,9 +2813,11 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q7Z3S9,P14222,0.49,0.49,IntAct
 ,,,P14222,P14222,0.63,0.63,InnateDB-IMEx
 ,,,Q7Z3S9,P15151,0.7,0.7,IntAct
+,,,Q7Z3S9,P15151,0.7,0.7,IntAct
 ,,,Q9NZ20,P15151,0.37,0.37,IntAct
 ,,,Q7Z3S9,P20155,0.56,0.56,IntAct
 ,,,Q6UY14,P20155,0.56,0.56,IntAct
+,,,Q7Z3S9,P27658,0.7,0.7,IntAct
 ,,,Q7Z3S9,P27658,0.7,0.7,IntAct
 ,,,O95967,P27658,0.37,0.37,IntAct
 ,,,Q9NP55,P27658,0.49,0.49,IntAct
@@ -2725,6 +2827,8 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q7Z3S9,P55064,0.56,0.56,IntAct
 ,,,Q7Z3S9,P82987,0.56,0.56,IntAct
 ,,,Q7Z3S9,Q04900,0.7,0.7,IntAct
+,,,Q7Z3S9,Q04900,0.7,0.7,IntAct
+,,,Q7Z3S9,Q15040,0.7,0.7,IntAct
 ,,,Q7Z3S9,Q15040,0.7,0.7,IntAct
 ,,,Q6UY14,Q15040,0.49,0.49,IntAct
 ,,,Q7Z3S9,Q6EMK4,0.49,0.49,IntAct
@@ -2736,6 +2840,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9NXC2,Q9NXC2,0.37,0.37,IntAct
 ,,,Q7Z3S9,Q7Z4I7,0.56,0.56,IntAct
 ,,,Q13418,Q7Z4I7,0.35,0.35,IntAct
+,,,Q7Z3S9,Q86TG1,0.7,0.7,IntAct
 ,,,Q7Z3S9,Q86TG1,0.7,0.7,IntAct
 ,,,Q6UY14,Q86TG1,0.56,0.56,IntAct
 ,,,Q7Z3S9,Q86UN2,0.7,0.7,IntAct
@@ -2772,6 +2877,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9H2X0,O14910,0.49,0.49,IntAct
 ,,,Q8N3R9,O14910,0.77,0.77,IntAct
 ,,,Q7Z3S9,Q14773,0.7,0.7,IntAct
+,,,Q7Z3S9,Q14773,0.7,0.7,IntAct
 ,,,Q7Z3S9,Q92824,0.56,0.56,IntAct
 ,,,Q9BUZ4,Q92824,0.49,0.49,IntAct
 ,,,Q7Z3S9,Q92835,0.56,0.56,IntAct
@@ -2788,6 +2894,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q6UY14,Q9GZQ4,0.56,0.56,IntAct
 ,,,Q7Z3S9,Q9H4F8,0.56,0.56,IntAct
 ,,,Q7Z3S9,Q9NP91,0.7,0.7,IntAct
+,,,Q7Z3S9,Q9NP91,0.7,0.7,IntAct
 ,,,Q6UY14,Q9NP91,0.56,0.56,IntAct
 ,,,Q7Z3S9,Q9UHI7,0.56,0.56,IntAct
 ,,,Q6UY14,Q9UHI7,0.56,0.56,IntAct
@@ -2796,6 +2903,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q7Z3S9,Q9H6L2,0.56,0.56,IntAct
 ,,,Q2MV58,Q9H6L2,0.51,0.51,IntAct
 ,,,Q15063,Q9H6L2,0.27,0.27,IntAct
+,,,Q7Z3S9,Q9UKJ5,0.7,0.7,IntAct
 ,,,Q7Z3S9,Q9UKJ5,0.7,0.7,IntAct
 ,,,Q6UY14,Q9UKJ5,0.49,0.49,IntAct
 ,,,O00560,Q9UKJ5,0.49,0.49,IntAct
@@ -2809,12 +2917,14 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q96HD9,Q96HD9,0.37,0.37,IntAct
 ,,,Q7Z3S9,Q9H4G1,0.7,0.7,IntAct
 ,,,Q7Z3S9,Q9NQS3,0.56,0.56,IntAct
+,,,Q7Z3S9,Q9NQS3,0.56,0.56,IntAct
 ,,,Q495A1,Q9NQS3,0.4,0.4,IntAct
 ,,,Q15223,Q9NQS3,0.59,0.59,IntAct
 ,,,Q15223,Q9NQS3,0.59,0.59,MINT
 ,,,Q96P20,Q9NQS3,0.35,0.35,IntAct
 ,,,Q7Z3S9,O15197,0.56,0.56,IntAct
 ,,,Q7Z3S9,Q494U1,0.49,0.49,IntAct
+,,,O60711,Q494U1,0.56,0.56,IntAct
 ,,,O60711,Q494U1,0.56,0.56,IntAct
 ,,,Q9H4E7,Q494U1,0.49,0.49,IntAct
 ,,,Q7Z3S9,Q9P121,0.49,0.49,IntAct
@@ -2838,6 +2948,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9UHP7,Q07325,0.49,0.49,IntAct
 ,,,P27487,Q07325,0.62,0.62,MINT
 ,,,P32971,Q07325,0.49,0.49,IntAct
+,,,P11686,Q07325,0.7,0.7,IntAct
 ,,,P11686,Q07325,0.7,0.7,IntAct
 ,,,Q9ULY5,Q07325,0.49,0.49,IntAct
 ,,,Q9BXN2,Q07325,0.49,0.49,IntAct
@@ -3047,6 +3158,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9UIQ6,P80188,0.49,0.49,IntAct
 ,,,Q6ISS4,P80188,0.49,0.49,IntAct
 ,,,Q9HBB8,Q9BYE9,0.59,0.59,IntAct
+,,,Q9HBB8,Q9BYE9,0.59,0.59,IntAct
 ,,,Q6P0Q8,Q9BYE9,0.54,0.54,IntAct
 ,,,Q96QZ7,Q9P244,0.27,0.27,IntAct
 ,,,O43166,Q9P244,0.27,0.27,IntAct
@@ -3075,6 +3187,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9P244,Q00536,0.27,0.27,IntAct
 ,,,O43166,Q00536,0.27,0.27,IntAct
 ,,,O75044,Q00536,0.27,0.27,IntAct
+,,,Q8ND76,Q00536,0.54,0.54,IntAct
 ,,,Q8ND76,Q00536,0.54,0.54,IntAct
 ,,,Q13009,Q00536,0.27,0.27,IntAct
 ,,,Q14680,Q00536,0.27,0.27,IntAct
@@ -3163,6 +3276,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q08345,P41220,0.55,0.55,IntAct
 ,,,O43166,Q9ULB1,0.37,0.37,IntAct
 ,,,O00294,Q9ULB1,0.51,0.51,IntAct
+,,,O00294,Q9ULB1,0.51,0.51,IntAct
 ,,,O15018,Q9ULB1,0.37,0.37,IntAct
 ,,,Q9UPN3,Q9ULB1,0.37,0.37,IntAct
 ,,,A1A4S6,Q9ULB1,0.27,0.27,IntAct
@@ -3172,6 +3286,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P35222,Q9UI14,0.35,0.35,MINT
 ,,,P37840,Q9UI14,0.63,0.63,UniProt
 ,,,O00141,Q9UI14,0.49,0.49,IntAct
+,,,Q9UI14,Q9UI14,0.83,0.83,IntAct
 ,,,Q9UI14,Q9UI14,0.83,0.83,IntAct
 ,,,Q9UI14,Q9UI14,0.83,0.83,MINT
 ,,,P04196,Q9UI14,0.37,0.37,IntAct
@@ -3306,6 +3421,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P18848,O60487,0.37,0.37,IntAct
 ,,,O60487,Q6UWV2,0.54,0.54,IntAct
 ,,,P18848,Q9NRI5,0.37,0.37,IntAct
+,,,P18848,Q9NRI5,0.37,0.37,IntAct
 ,,,Q3V6T2,Q9NRI5,0.37,0.37,IntAct
 ,,,Q96S59,Q9NRI5,0.51,0.51,IntAct
 ,,,Q9BUZ4,Q9NRI5,0.49,0.49,IntAct
@@ -3314,6 +3430,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q5GAN6,Q13515,0.49,0.49,IntAct
 ,,,P18848,P18848,0.44,0.44,MINT
 ,,,P02766,P18848,0.37,0.37,IntAct
+,,,Q13515,P18848,0.79,0.79,IntAct
 ,,,Q13515,P18848,0.79,0.79,IntAct
 ,,,Q9NR80,P01889,0.37,0.37,IntAct
 ,,,P01889,Q14943,0.4,0.4,IntAct
@@ -3439,8 +3556,11 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q13418,Q96HC4,0.35,0.35,IntAct
 ,,,P02751,Q96HC4,0.35,0.35,IntAct
 ,,,Q13418,Q9NVD7,0.95,0.95,IntAct
+,,,Q13418,Q9NVD7,0.95,0.95,IntAct
 ,,,Q13418,Q9NVD7,0.95,0.95,MINT
 ,,,Q9UMX0,Q9NVD7,0.37,0.37,MINT
+,,,Q13418,P48059,0.94,0.94,IntAct
+,,,Q13418,P48059,0.94,0.94,IntAct
 ,,,Q13418,P48059,0.94,0.94,IntAct
 ,,,Q13418,P48059,0.94,0.94,MINT
 ,,,O60711,P48059,0.37,0.37,IntAct
@@ -3494,6 +3614,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P00749,Q06187,0.37,0.37,IntAct
 ,,,Q8WV28,Q06187,0.67,0.67,MINT
 ,,,Q9Y279,P01024,0.59,0.59,IntAct
+,,,Q9Y279,P01024,0.59,0.59,IntAct
 ,,,Q8IXL6,P01024,0.44,0.44,IntAct
 ,,,P02787,P01024,0.27,0.27,IntAct
 ,,,P15529,P01024,0.44,0.44,InnateDB-IMEx
@@ -3520,6 +3641,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P25054,Q9UPN3,0.37,0.37,IntAct
 ,,,P02751,Q9UPN3,0.35,0.35,IntAct
 ,,,Q96EV8,Q9UPN3,0.37,0.37,IntAct
+,,,Q9NRI5,Q9UPN3,0.37,0.37,IntAct
 ,,,Q9NRI5,Q9UPN3,0.37,0.37,IntAct
 ,,,P49286,Q8WXH0,0.37,0.37,IntAct
 ,,,P32121,Q8WXH0,0.35,0.35,IntAct
@@ -3562,7 +3684,9 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q07021,P19438,0.4,0.4,IntAct
 ,,,Q9UMX0,P19438,0.37,0.37,IntAct
 ,,,P01375,P19438,0.94,0.94,IntAct
+,,,P01375,P19438,0.94,0.94,IntAct
 ,,,P01375,P19438,0.94,0.94,MINT
+,,,P19438,P19438,0.68,0.68,IntAct
 ,,,P19438,P19438,0.68,0.68,IntAct
 ,,,Q13546,P19438,0.84,0.84,IntAct
 ,,,O14735,P19438,0.4,0.4,IntAct
@@ -3608,6 +3732,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P37840,P61006,0.27,0.27,IntAct
 ,,,P27105,P61006,0.51,0.51,IntAct
 ,,,Q8NFJ9,P61006,0.51,0.51,IntAct
+,,,Q8NFJ9,P61006,0.51,0.51,IntAct
 ,,,Q8IWV1,P61006,0.46,0.46,MINT
 ,,,Q9H4M9,P61006,0.35,0.35,UniProt
 ,,,P00505,P21796,0.4,0.4,IntAct
@@ -3617,6 +3742,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P01023,P21796,0.35,0.35,MINT
 ,,,P37840,P21796,0.35,0.35,IntAct
 ,,,P81605,P21796,0.4,0.4,IntAct
+,,,P27105,P21796,0.51,0.51,IntAct
 ,,,P27105,P21796,0.51,0.51,IntAct
 ,,,P51148,P49755,0.35,0.35,IntAct
 ,,,P49768,P49755,0.5,0.5,IntAct
@@ -3667,8 +3793,11 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P29622,Q13418,0.37,0.37,MINT
 ,,,P06702,Q13418,0.4,0.4,IntAct
 ,,,P48059,Q13418,0.94,0.94,IntAct
+,,,P48059,Q13418,0.94,0.94,IntAct
 ,,,P48059,Q13418,0.94,0.94,MINT
 ,,,Q9HBI0,Q13418,0.7,0.7,IntAct
+,,,Q9HBI0,Q13418,0.7,0.7,IntAct
+,,,Q9NVD7,Q13418,0.95,0.95,IntAct
 ,,,Q9NVD7,Q13418,0.95,0.95,IntAct
 ,,,Q9NVD7,Q13418,0.95,0.95,MINT
 ,,,Q9NVD7,Q13418,0.95,0.95,MBInfo
@@ -3715,6 +3844,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P62745,O60610,0.44,0.44,MBInfo
 ,,,Q9HBH0,O60610,0.44,0.44,MBInfo
 ,,,P61586,Q9Y4F9,0.67,0.67,IntAct
+,,,P61586,Q9Y4F9,0.67,0.67,IntAct
 ,,,P08134,Q9Y4F9,0.56,0.56,IntAct
 ,,,P61586,Q92974,0.49,0.49,IntAct
 ,,,P46531,Q92974,0.35,0.35,MINT
@@ -3728,6 +3858,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,O14641,Q9HCE7,0.4,0.4,IntAct
 ,,,P62745,Q9HCE7,0.6,0.6,IntAct
 ,,,Q9BUZ4,Q9HCE7,0.59,0.59,IntAct
+,,,Q53GL0,Q9HCE7,0.64,0.64,MINT
 ,,,Q53GL0,Q9HCE7,0.64,0.64,MINT
 ,,,P61952,Q9HCE7,0.4,0.4,IntAct
 ,,,P61586,P61586,0.4,0.4,MBInfo
@@ -3778,10 +3909,14 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P16410,P42081,0.71,0.71,IntAct
 ,,,P08138,P01138,0.54,0.54,bhf-ucl
 ,,,Q99523,P01138,0.68,0.68,bhf-ucl
+,,,Q99523,P01138,0.68,0.68,bhf-ucl
+,,,P04629,P01138,0.68,0.68,bhf-ucl
 ,,,P04629,P01138,0.68,0.68,bhf-ucl
 ,,,P08138,Q99523,0.4,0.4,bhf-ucl
 ,,,Q16288,Q99523,0.54,0.54,bhf-ucl
 ,,,P01138,Q99523,0.68,0.68,bhf-ucl
+,,,P01138,Q99523,0.68,0.68,bhf-ucl
+,,,P04629,Q99523,0.46,0.46,bhf-ucl
 ,,,P04629,Q99523,0.46,0.46,bhf-ucl
 ,,,Q16620,Q99523,0.44,0.44,bhf-ucl
 ,,,P28799,Q99523,0.61,0.61,MINT
@@ -3875,7 +4010,9 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q8WUD1,Q6UY14,0.56,0.56,IntAct
 ,,,O43852,Q9UBT7,0.37,0.37,IntAct
 ,,,P11532,Q9UBT7,0.56,0.56,IntAct
+,,,P11532,Q9UBT7,0.56,0.56,IntAct
 ,,,P35240,Q8N3R9,0.35,0.35,IntAct
+,,,O14910,Q8N3R9,0.77,0.77,IntAct
 ,,,O14910,Q8N3R9,0.77,0.77,IntAct
 ,,,P82279,Q8N3R9,0.4,0.4,MINT
 ,,,P46531,P55160,0.35,0.35,MINT
@@ -3907,6 +4044,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P02647,Q92484,0.35,0.35,IntAct
 ,,,P02647,P10909,0.35,0.35,IntAct
 ,,,P18509,P10909,0.54,0.54,MINT
+,,,Q9NRI5,P10909,0.37,0.37,IntAct
 ,,,Q9NRI5,P10909,0.37,0.37,IntAct
 ,,,P02647,P02745,0.35,0.35,IntAct
 ,,,Q9UMX0,P02745,0.37,0.37,IntAct
@@ -3970,6 +4108,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P62937,P05109,0.37,0.37,IntAct
 ,,,P05060,P05109,0.37,0.37,IntAct
 ,,,P06702,P05109,0.75,0.75,IntAct
+,,,P06702,P05109,0.75,0.75,IntAct
 ,,,P19320,P61224,0.53,0.53,IntAct
 ,,,P02751,P61224,0.35,0.35,IntAct
 ,,,Q9HAU4,P61224,0.4,0.4,MINT
@@ -3983,6 +4122,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P19320,Q96P48,0.35,0.35,IntAct
 ,,,P19320,P51148,0.53,0.53,IntAct
 ,,,P02751,P51148,0.35,0.35,IntAct
+,,,P20339,P51148,0.56,0.56,IntAct
 ,,,P20339,P51148,0.56,0.56,IntAct
 ,,,P19320,P18206,0.53,0.53,IntAct
 ,,,O60711,P18206,0.49,0.49,IntAct
@@ -4027,6 +4167,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9GZV7,O43586,0.49,0.49,IntAct
 ,,,Q9Y5E9,O43586,0.7,0.7,IntAct
 ,,,O43586,O75386,0.7,0.7,IntAct
+,,,O43586,O75386,0.7,0.7,IntAct
 ,,,P10644,O75386,0.37,0.37,IntAct
 ,,,Q03001,O75386,0.37,0.37,IntAct
 ,,,Q8IVI9,O75386,0.37,0.37,IntAct
@@ -4051,6 +4192,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P22694,P31323,0.53,0.53,IntAct
 ,,,P19438,P31323,0.27,0.27,UniProt
 ,,,P17612,P31323,0.9,0.9,IntAct
+,,,P17612,P31323,0.9,0.9,IntAct
 ,,,O43687,P31323,0.49,0.49,IntAct
 ,,,P22694,P13861,0.35,0.35,IntAct
 ,,,P17612,P13861,0.59,0.59,IntAct
@@ -4062,6 +4204,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P23469,P23469,0.31,0.31,MINT
 ,,,O15294,P11464,0.56,0.56,IntAct
 ,,,Q03405,P03950,0.6,0.6,IntAct
+,,,P19883,P03950,0.37,0.37,IntAct
 ,,,P19883,P03950,0.37,0.37,IntAct
 ,,,P00749,P03950,0.4,0.4,IntAct
 ,,,P03950,Q03405,0.6,0.6,IntAct
@@ -4159,6 +4302,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P05067,P61812,0.72,0.72,IntAct
 ,,,P12643,P61812,0.4,0.4,IntAct
 ,,,P05067,P36544,0.46,0.46,IntAct
+,,,P05067,P36544,0.46,0.46,IntAct
 ,,,Q86Y78,P36544,0.35,0.35,UniProt
 ,,,P05067,P27797,0.56,0.56,IntAct
 ,,,P48039,P27797,0.53,0.53,IntAct
@@ -4170,7 +4314,10 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P53420,Q92876,0.44,0.44,IntAct
 ,,,P05067,Q9NP59,0.59,0.59,IntAct
 ,,,P05067,Q9NP59,0.59,0.59,MINT
+,,,P05067,Q9NP59,0.59,0.59,IntAct
 ,,,P00450,Q9NP59,0.4,0.4,IntAct
+,,,P05067,P04156,0.64,0.64,IntAct
+,,,P05067,P04156,0.64,0.64,IntAct
 ,,,P05067,P04156,0.64,0.64,IntAct
 ,,,P04156,P04156,0.97,0.97,IntAct
 ,,,P04156,P04156,0.97,0.97,MINT
@@ -4194,6 +4341,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P05067,Q9NSC5,0.52,0.52,IntAct
 ,,,Q14517,Q9NSC5,0.58,0.58,MINT
 ,,,Q86YM7,Q9NSC5,0.74,0.74,IntAct
+,,,Q9NSC5,Q9NSC5,0.62,0.62,IntAct
 ,,,Q9NSC5,Q9NSC5,0.62,0.62,IntAct
 ,,,Q8IZP0,Q9NSC5,0.35,0.35,IntAct
 ,,,Q16512,Q9NSC5,0.76,0.76,IntAct
@@ -4247,6 +4395,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,O14788,O00300,0.62,0.62,IntAct
 ,,,Q9Y6Q6,O00300,0.54,0.54,IntAct
 ,,,O14788,Q9Y6Q6,0.61,0.61,IntAct
+,,,O14788,Q9Y6Q6,0.61,0.61,IntAct
 ,,,O14788,O00526,0.49,0.49,IntAct
 ,,,Q9NQX7,O00526,0.49,0.49,IntAct
 ,,,P07307,O00526,0.49,0.49,IntAct
@@ -4259,11 +4408,14 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P15692,P49765,0.4,0.4,IntAct
 ,,,P21802,O15520,0.61,0.61,IntAct
 ,,,P21802,P05230,0.61,0.61,IntAct
+,,,P21802,P05230,0.61,0.61,IntAct
 ,,,P05230,P05230,0.44,0.44,UniProt
 ,,,P22607,P05230,0.56,0.56,IntAct
 ,,,P11362,P05230,0.44,0.44,IntAct
 ,,,P21802,P09038,0.62,0.62,IntAct
+,,,P21802,P09038,0.62,0.62,IntAct
 ,,,P23352,P09038,0.4,0.4,IntAct
+,,,P11362,P09038,0.8,0.8,IntAct
 ,,,P11362,P09038,0.8,0.8,IntAct
 ,,,P26022,P09038,0.79,0.79,IntAct
 ,,,P21964,P09038,0.35,0.35,IntAct
@@ -4329,6 +4481,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P05090,Q8IUN9,0.49,0.49,IntAct
 ,,,Q07325,P11686,0.7,0.7,IntAct
 ,,,P11686,P11686,0.76,0.76,IntAct
+,,,P11686,P11686,0.76,0.76,IntAct
 ,,,P05981,P11686,0.49,0.49,IntAct
 ,,,O60383,Q9NY59,0.37,0.37,IntAct
 ,,,O60383,Q9UN74,0.37,0.37,IntAct
@@ -4389,6 +4542,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q07021,Q15139,0.64,0.64,UniProt
 ,,,P12830,Q15139,0.57,0.57,IntAct
 ,,,Q15599,Q15139,0.51,0.51,IntAct
+,,,Q15599,Q15139,0.51,0.51,IntAct
 ,,,Q15139,Q15139,0.44,0.44,UniProt
 ,,,P01019,Q8TAX9,0.37,0.37,IntAct
 ,,,P02763,Q8TAX9,0.37,0.37,IntAct
@@ -4419,6 +4573,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P14780,P01033,0.52,0.52,IntAct
 ,,,P08962,P01033,0.54,0.54,MINT
 ,,,P14780,P10124,0.44,0.44,MINT
+,,,Q9UMX0,P10124,0.7,0.7,IntAct
 ,,,Q9UMX0,P10124,0.7,0.7,IntAct
 ,,,Q6UXH1,P10124,0.37,0.37,MINT
 ,,,P14222,P10124,0.4,0.4,IntAct
@@ -4457,6 +4612,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q92563,Q9ULL4,0.37,0.37,IntAct
 ,,,P01137,P08253,0.4,0.4,IntAct
 ,,,P48039,P08253,0.37,0.37,IntAct
+,,,P48039,P08253,0.37,0.37,IntAct
 ,,,P01023,P08253,0.4,0.4,IntAct
 ,,,Q8NBP7,P08253,0.62,0.62,MINT
 ,,,P01130,P08253,0.4,0.4,MINT
@@ -4489,6 +4645,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q6UY14,Q9UBL6,0.56,0.56,IntAct
 ,,,Q6UY14,Q16512,0.49,0.49,IntAct
 ,,,Q9NSC5,Q16512,0.76,0.76,IntAct
+,,,Q9NSC5,Q16512,0.76,0.76,IntAct
 ,,,Q9NRI5,Q16512,0.49,0.49,IntAct
 ,,,Q6UY14,Q9P2W3,0.49,0.49,IntAct
 ,,,Q9NRI5,Q9P2W3,0.49,0.49,IntAct
@@ -4498,6 +4655,8 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P25054,Q9UM54,0.37,0.37,IntAct
 ,,,Q8N3V7,Q9UM54,0.35,0.35,IntAct
 ,,,Q9NQC7,Q9UM54,0.4,0.4,IntAct
+,,,P25054,Q96N96,0.67,0.67,IntAct
+,,,P25054,Q96N96,0.67,0.67,IntAct
 ,,,P25054,Q96N96,0.67,0.67,IntAct
 ,,,P60953,Q96N96,0.44,0.44,IntAct
 ,,,P25054,Q9UBP4,0.37,0.37,MINT
@@ -4517,11 +4676,16 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9UMX0,Q02747,0.49,0.49,IntAct
 ,,,Q9UMX0,Q9UBU3,0.56,0.56,IntAct
 ,,,Q9UMX0,O14764,0.67,0.67,IntAct
+,,,Q9UMX0,O14764,0.67,0.67,IntAct
+,,,Q9UMX0,O60844,0.76,0.76,IntAct
+,,,Q9UMX0,O60844,0.76,0.76,IntAct
 ,,,Q9UMX0,O60844,0.76,0.76,IntAct
 ,,,Q9UMX0,O75084,0.62,0.62,IntAct
 ,,,P56703,O75084,0.59,0.59,bhf-ucl
 ,,,P56703,O75084,0.59,0.59,MolCon
 ,,,O00560,O75084,0.63,0.63,bhf-ucl
+,,,Q9UMX0,O75830,0.86,0.86,IntAct
+,,,Q9UMX0,O75830,0.86,0.86,IntAct
 ,,,Q9UMX0,O75830,0.86,0.86,IntAct
 ,,,Q9UMX0,O95994,0.56,0.56,IntAct
 ,,,P08631,O95994,0.49,0.49,IntAct
@@ -4537,6 +4701,9 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P02763,P05121,0.54,0.54,IntAct
 ,,,Q9UMX0,P05408,0.56,0.56,IntAct
 ,,,Q9UMX0,P06028,0.72,0.72,IntAct
+,,,Q9UMX0,P06028,0.72,0.72,IntAct
+,,,Q9UMX0,P08123,0.7,0.7,IntAct
+,,,Q9UMX0,P08123,0.7,0.7,IntAct
 ,,,Q9UMX0,P08123,0.7,0.7,IntAct
 ,,,P20339,P08123,0.35,0.35,IntAct
 ,,,P21964,P08123,0.35,0.35,IntAct
@@ -4558,9 +4725,12 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9BYB0,Q92887,0.37,0.37,IntAct
 ,,,Q9UMX0,Q96FE7,0.56,0.56,IntAct
 ,,,Q9UMX0,Q96NZ9,0.7,0.7,IntAct
+,,,Q9UMX0,Q96NZ9,0.7,0.7,IntAct
+,,,Q9UMX0,Q96NZ9,0.7,0.7,IntAct
 ,,,Q9UMX0,Q9BXJ5,0.56,0.56,IntAct
 ,,,Q9UMX0,Q9NP55,0.56,0.56,IntAct
 ,,,P08631,Q9NP55,0.49,0.49,IntAct
+,,,Q9UMX0,Q9NPQ8,0.67,0.67,IntAct
 ,,,Q9UMX0,Q9NPQ8,0.67,0.67,IntAct
 ,,,Q9UI14,Q9NPQ8,0.56,0.56,IntAct
 ,,,O00560,Q9NPQ8,0.56,0.56,IntAct
@@ -4700,8 +4870,10 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q96RK4,Q8IWZ6,0.79,0.79,IntAct
 ,,,Q9UPT5,Q8IWZ6,0.27,0.27,IntAct
 ,,,Q3SYG4,Q8IWZ6,0.69,0.69,IntAct
+,,,Q3SYG4,Q8IWZ6,0.69,0.69,IntAct
 ,,,Q8N3I7,Q8IWZ6,0.73,0.73,IntAct
 ,,,Q8NFJ9,Q8IWZ6,0.85,0.85,IntAct
+,,,Q8TAM2,Q8IWZ6,0.64,0.64,IntAct
 ,,,Q8TAM2,Q8IWZ6,0.64,0.64,IntAct
 ,,,Q9BXC9,Q8IWZ6,0.85,0.85,IntAct
 ,,,Q9H0F7,Q8IWZ6,0.35,0.35,IntAct
@@ -4711,7 +4883,10 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9UPT5,Q8NFJ9,0.44,0.44,IntAct
 ,,,Q3SYG4,Q8NFJ9,0.35,0.35,IntAct
 ,,,Q8IWZ6,Q8NFJ9,0.85,0.85,IntAct
+,,,Q8IWZ6,Q8NFJ9,0.85,0.85,IntAct
 ,,,Q8N3I7,Q8NFJ9,0.82,0.82,IntAct
+,,,Q8N3I7,Q8NFJ9,0.82,0.82,IntAct
+,,,Q8TAM2,Q8NFJ9,0.77,0.77,IntAct
 ,,,Q8TAM2,Q8NFJ9,0.77,0.77,IntAct
 ,,,Q9BXC9,Q8NFJ9,0.8,0.8,IntAct
 ,,,Q9H0F7,Q8NFJ9,0.65,0.65,IntAct
@@ -4721,19 +4896,30 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P00973,Q96RK4,0.49,0.49,IntAct
 ,,,Q3SYG4,Q96RK4,0.73,0.73,IntAct
 ,,,Q8IWZ6,Q96RK4,0.79,0.79,IntAct
+,,,Q8IWZ6,Q96RK4,0.79,0.79,IntAct
+,,,Q8N3I7,Q96RK4,0.79,0.79,IntAct
 ,,,Q8N3I7,Q96RK4,0.79,0.79,IntAct
 ,,,Q8NFJ9,Q96RK4,0.82,0.82,IntAct
+,,,Q8NFJ9,Q96RK4,0.82,0.82,IntAct
+,,,Q8TAM2,Q96RK4,0.73,0.73,IntAct
 ,,,Q8TAM2,Q96RK4,0.73,0.73,IntAct
 ,,,Q9BXC9,Q96RK4,0.84,0.84,IntAct
 ,,,Q9BXC9,Q96RK4,0.84,0.84,UniProt
 ,,,Q9H0F7,Q96RK4,0.46,0.46,IntAct
 ,,,O75955,Q9BXC9,0.44,0.44,IntAct
 ,,,Q96RK4,Q9BXC9,0.84,0.84,IntAct
+,,,Q96RK4,Q9BXC9,0.84,0.84,IntAct
 ,,,Q9UPT5,Q9BXC9,0.46,0.46,IntAct
 ,,,Q3SYG4,Q9BXC9,0.87,0.87,IntAct
+,,,Q3SYG4,Q9BXC9,0.87,0.87,IntAct
+,,,Q3SYG4,Q9BXC9,0.87,0.87,IntAct
+,,,Q8IWZ6,Q9BXC9,0.85,0.85,IntAct
 ,,,Q8IWZ6,Q9BXC9,0.85,0.85,IntAct
 ,,,Q8N3I7,Q9BXC9,0.79,0.79,IntAct
+,,,Q8N3I7,Q9BXC9,0.79,0.79,IntAct
 ,,,Q8NFJ9,Q9BXC9,0.8,0.8,IntAct
+,,,Q8NFJ9,Q9BXC9,0.8,0.8,IntAct
+,,,Q8TAM2,Q9BXC9,0.64,0.64,IntAct
 ,,,Q8TAM2,Q9BXC9,0.64,0.64,IntAct
 ,,,Q9H0F7,Q9BXC9,0.46,0.46,IntAct
 ,,,P04156,Q969D9,0.44,0.44,IntAct
@@ -4760,12 +4946,17 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q96RK4,P06881,0.37,0.37,IntAct
 ,,,Q96RK4,Q3SYG4,0.73,0.73,IntAct
 ,,,Q8IWZ6,Q3SYG4,0.69,0.69,IntAct
+,,,Q8IWZ6,Q3SYG4,0.69,0.69,IntAct
+,,,Q8N3I7,Q3SYG4,0.74,0.74,IntAct
 ,,,Q8N3I7,Q3SYG4,0.74,0.74,IntAct
 ,,,Q8NFJ9,Q3SYG4,0.85,0.85,IntAct
+,,,Q8NFJ9,Q3SYG4,0.85,0.85,IntAct
+,,,Q8TAM2,Q3SYG4,0.53,0.53,IntAct
 ,,,Q8TAM2,Q3SYG4,0.53,0.53,IntAct
 ,,,Q9BXC9,Q3SYG4,0.87,0.87,IntAct
 ,,,Q9H0F7,Q3SYG4,0.35,0.35,IntAct
 ,,,Q96RK4,Q8N3I7,0.79,0.79,IntAct
+,,,Q3SYG4,Q8N3I7,0.74,0.74,IntAct
 ,,,Q3SYG4,Q8N3I7,0.74,0.74,IntAct
 ,,,Q8IWZ6,Q8N3I7,0.73,0.73,IntAct
 ,,,Q8NFJ9,Q8N3I7,0.82,0.82,IntAct
@@ -4773,14 +4964,21 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9BXC9,Q8N3I7,0.79,0.79,IntAct
 ,,,Q9BXC9,Q8N3I7,0.79,0.79,UniProt
 ,,,Q96RK4,Q8TAM2,0.73,0.73,IntAct
+,,,Q96RK4,Q8TAM2,0.73,0.73,IntAct
+,,,Q3SYG4,Q8TAM2,0.53,0.53,IntAct
+,,,Q3SYG4,Q8TAM2,0.53,0.53,IntAct
 ,,,Q3SYG4,Q8TAM2,0.53,0.53,IntAct
 ,,,Q8IWZ6,Q8TAM2,0.64,0.64,IntAct
 ,,,Q8N3I7,Q8TAM2,0.64,0.64,IntAct
+,,,Q8N3I7,Q8TAM2,0.64,0.64,IntAct
 ,,,Q8NFJ9,Q8TAM2,0.77,0.77,IntAct
+,,,Q8NFJ9,Q8TAM2,0.77,0.77,IntAct
+,,,Q9BXC9,Q8TAM2,0.64,0.64,IntAct
 ,,,Q9BXC9,Q8TAM2,0.64,0.64,IntAct
 ,,,Q9H0F7,Q8TAM2,0.35,0.35,IntAct
 ,,,Q13326,O75923,0.51,0.51,IntAct
 ,,,Q99715,O75923,0.37,0.37,IntAct
+,,,P17661,O75923,0.54,0.54,IntAct
 ,,,P17661,O75923,0.54,0.54,IntAct
 ,,,Q9NZB2,O75923,0.37,0.37,IntAct
 ,,,Q15046,O75923,0.37,0.37,IntAct
@@ -4797,10 +4995,14 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P17612,Q8N6U8,0.35,0.35,IntAct
 ,,,P17612,Q9BSF0,0.35,0.35,IntAct
 ,,,P10644,Q9BSF0,0.62,0.62,IntAct
+,,,P10644,Q9BSF0,0.62,0.62,IntAct
 ,,,Q5JS13,Q9BSF0,0.37,0.37,IntAct
 ,,,P17612,P22694,0.35,0.35,IntAct
 ,,,P10644,P22694,0.4,0.4,MolCon
+,,,P10644,P22694,0.4,0.4,MolCon
 ,,,P31323,P22694,0.53,0.53,IntAct
+,,,Q00535,Q15078,0.87,0.87,IntAct
+,,,Q00535,Q15078,0.87,0.87,IntAct
 ,,,Q00535,Q15078,0.87,0.87,IntAct
 ,,,Q8NBP7,Q8IXL6,0.44,0.44,IntAct
 ,,,P10644,Q8IXL6,0.44,0.44,IntAct
@@ -4812,10 +5014,12 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P09038,P26022,0.79,0.79,IntAct
 ,,,P26022,P26022,0.7,0.7,IntAct
 ,,,O00602,P26022,0.52,0.52,IntAct
+,,,O00602,P26022,0.52,0.52,IntAct
 ,,,O75636,P26022,0.44,0.44,IntAct
 ,,,Q15485,P26022,0.71,0.71,IntAct
 ,,,P08603,P26022,0.71,0.71,IntAct
 ,,,P09038,Q14512,0.62,0.62,IntAct
+,,,P26022,O00602,0.52,0.52,IntAct
 ,,,P26022,O00602,0.52,0.52,IntAct
 ,,,P26022,Q15485,0.71,0.71,IntAct
 ,,,P11226,Q15485,0.35,0.35,IntAct
@@ -4894,6 +5098,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,O15169,Q7L5Y9,0.35,0.35,bhf-ucl
 ,,,P61006,Q7L5Y9,0.27,0.27,IntAct
 ,,,Q96S59,Q7L5Y9,0.51,0.51,IntAct
+,,,Q96S59,Q7L5Y9,0.51,0.51,IntAct
 ,,,O15169,P48730,0.35,0.35,IntAct
 ,,,Q8IUH5,P48730,0.51,0.51,IntAct
 ,,,P31323,P48730,0.35,0.35,IntAct
@@ -4930,6 +5135,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q96RF0,Q96RF0,0.4,0.4,MINT
 ,,,P48023,Q9BY11,0.59,0.59,MINT
 ,,,Q9UNF0,Q9BY11,0.82,0.82,IntAct
+,,,Q9UNF0,Q9BY11,0.82,0.82,IntAct
 ,,,Q9UKS6,Q9BY11,0.7,0.7,IntAct
 ,,,Q01082,Q9BY11,0.37,0.37,IntAct
 ,,,P48023,Q15642,0.59,0.59,MINT
@@ -4957,6 +5163,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q07065,P81172,0.37,0.37,IntAct
 ,,,P61006,Q8IY33,0.35,0.35,IntAct
 ,,,P12814,Q8IY33,0.7,0.7,IntAct
+,,,P12814,Q8IY33,0.7,0.7,IntAct
 ,,,P61006,Q96C24,0.35,0.35,IntAct
 ,,,Q9H4L5,Q96C24,0.49,0.49,IntAct
 ,,,P61006,Q9NP72,0.35,0.35,IntAct
@@ -4976,6 +5183,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P07307,P19397,0.49,0.49,IntAct
 ,,,P07307,O95183,0.49,0.49,IntAct
 ,,,Q15849,O95183,0.49,0.49,IntAct
+,,,Q12846,O95183,0.7,0.7,IntAct
 ,,,Q12846,O95183,0.7,0.7,IntAct
 ,,,O95721,O95183,0.7,0.7,IntAct
 ,,,P07307,Q01453,0.49,0.49,IntAct
@@ -5110,6 +5318,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q14242,P16109,0.72,0.72,IntAct
 ,,,Q14242,Q7Z614,0.61,0.61,UniProt
 ,,,Q16617,P21757,0.7,0.7,IntAct
+,,,Q16617,P21757,0.7,0.7,IntAct
 ,,,Q16617,Q9ULY5,0.49,0.49,IntAct
 ,,,O95994,P28906,0.49,0.49,IntAct
 ,,,P29376,Q6UXT8,0.59,0.59,UniProt
@@ -5137,6 +5346,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P02747,P02746,0.4,0.4,IntAct
 ,,,P20138,P02746,0.4,0.4,IntAct
 ,,,O15393,Q6PI25,0.49,0.49,IntAct
+,,,P49903,P49903,0.78,0.78,IntAct
 ,,,P49903,P49903,0.78,0.78,IntAct
 ,,,P49903,P49903,0.78,0.78,MINT
 ,,,Q9UNN8,Q08495,0.37,0.37,IntAct
@@ -5188,6 +5398,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9UI14,Q14088,0.62,0.62,IntAct
 ,,,Q9UI14,Q96D21,0.49,0.49,IntAct
 ,,,Q9UI14,O15068,0.37,0.37,MINT
+,,,Q969L2,Q05329,0.7,0.7,IntAct
 ,,,Q969L2,Q05329,0.7,0.7,IntAct
 ,,,Q6E0U4,Q05329,0.49,0.49,IntAct
 ,,,O00155,Q9HD89,0.49,0.49,IntAct
@@ -5256,6 +5467,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9BZB8,Q9BZB8,0.4,0.4,IntAct
 ,,,Q17RY0,Q9BZB8,0.4,0.4,IntAct
 ,,,Q7KZI7,Q9Y4B5,0.69,0.69,IntAct
+,,,Q7KZI7,Q9Y4B5,0.69,0.69,IntAct
 ,,,P27448,Q9Y4B5,0.35,0.35,IntAct
 ,,,Q7KZI7,Q9Y4J8,0.4,0.4,IntAct
 ,,,P11532,Q9Y4J8,0.67,0.67,MINT
@@ -5271,6 +5483,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,O94813,O94813,0.56,0.56,MINT
 ,,,P51884,O94813,0.27,0.27,IntAct
 ,,,P27105,O94919,0.51,0.51,IntAct
+,,,P27105,Q99720,0.51,0.51,IntAct
 ,,,P27105,Q99720,0.51,0.51,IntAct
 ,,,P27105,Q8IZ07,0.27,0.27,IntAct
 ,,,O95278,O95278,0.37,0.37,IntAct
@@ -5299,6 +5512,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9BUZ4,P63165,0.56,0.56,IntAct
 ,,,P06276,P06276,0.84,0.84,MINT
 ,,,Q13639,Q13639,0.52,0.52,MINT
+,,,Q13639,Q13639,0.52,0.52,MINT
 ,,,P13497,P07585,0.44,0.44,IntAct
 ,,,Q9HD26,Q0P5P2,0.56,0.56,IntAct
 ,,,P08709,P13726,0.89,0.89,IntAct
@@ -5313,6 +5527,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P09486,Q99972,0.53,0.53,IntAct
 ,,,P0DN86,Q96T91,0.37,0.37,IntAct
 ,,,O95967,P10745,0.49,0.49,IntAct
+,,,Q9NRI5,P12110,0.37,0.37,IntAct
 ,,,Q9NRI5,P12110,0.37,0.37,IntAct
 ,,,P15056,Q93100,0.35,0.35,IntAct
 ,,,P15056,Q02156,0.4,0.4,MINT
@@ -5427,6 +5642,8 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P63098,Q08209,0.76,0.76,MINT
 ,,,P54578,Q08209,0.46,0.46,MINT
 ,,,Q08209,P63098,0.76,0.76,IntAct
+,,,Q08209,P63098,0.76,0.76,IntAct
+,,,Q9BUZ4,Q9BUZ4,0.74,0.74,IntAct
 ,,,Q9BUZ4,Q9BUZ4,0.74,0.74,IntAct
 ,,,Q9BUZ4,Q9H0M0,0.56,0.56,IntAct
 ,,,P78310,Q86YT9,0.4,0.4,IntAct
@@ -5460,6 +5677,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q8NFJ9,Q9H0F7,0.65,0.65,IntAct
 ,,,Q5DX21,Q5DX21,0.4,0.4,IntAct
 ,,,Q6NZI2,Q9NNX1,0.27,0.27,IntAct
+,,,Q93096,Q12974,0.56,0.56,IntAct
 ,,,Q93096,Q12974,0.56,0.56,IntAct
 ,,,Q8NE01,Q12974,0.62,0.62,IntAct
 ,,,Q6UW32,Q6UW32,0.4,0.4,UniProt
@@ -5512,6 +5730,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q9Y2I2,Q9HBW1,0.44,0.44,MINT
 ,,,Q9HC57,Q12829,0.37,0.37,IntAct
 ,,,Q9NR22,Q9NR22,0.8,0.8,IntAct
+,,,Q9NR22,Q9NR22,0.8,0.8,IntAct
 ,,,Q9NR22,Q9NR22,0.8,0.8,MINT
 ,,,Q9NRU3,Q93096,0.66,0.66,IntAct
 ,,,Q9NS75,Q9Y271,0.52,0.52,IntAct
@@ -5525,6 +5744,7 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,P62834,Q8TDF6,0.4,0.4,IntAct
 ,,,Q9Y6D0,Q9Y6D0,0.56,0.56,MINT
 ,,,Q13515,Q12934,0.49,0.49,IntAct
+,,,P40123,P40123,0.62,0.62,IntAct
 ,,,P40123,P40123,0.62,0.62,IntAct
 ,,,Q9Y2H9,O95716,0.37,0.37,IntAct
 ,,,Q5VWQ8,Q5VWQ8,0.44,0.44,UniProt

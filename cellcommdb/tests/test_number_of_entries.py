@@ -56,7 +56,7 @@ class DatabaseNumberOfEntries(TestCase):
         query = db.session.query(Interaction.id, Interaction.source)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        self.assertEqual(len(dataframe), 6411, 'Number of interactions not equal')
+        self.assertEqual(len(dataframe), 6631, 'Number of interactions not equal')
 
     def test_interaction_curated(self):
         query = db.session.query(Interaction.id, Interaction.source)
