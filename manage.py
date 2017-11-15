@@ -62,5 +62,15 @@ def call_query(queryname, files):
     getattr(queries, queryname)(*files)
 
 
+@cli.command()
+def call_query_complexes():
+    import cellcommdb.queries.complexes
+
+
+@cli.command()
+def call_query_one_one():
+    import cellcommdb.queries.one_one
+
+
 if __name__ == "__main__":
     cli()
