@@ -13,6 +13,57 @@ from cellcommdb.models import *
 app = create_app()
 
 
+def call(counts, meta):
+    all_interactions = query_interactions()
+
+    ######  for all one-one interactions, take all genes and filter the count matrix, so that further analysis are done on the filtered matrix
+    all_genes = all_interactions['ensembl_x'].tolist()
+    all_genes.extend(all_interactions['ensembl_y'].tolist())
+    genes_unique = set(all_genes)
+
+    counts_filtered = counts.loc[counts.index.isin(genes_unique)]
+
+    all_clusters = {}
+    clusters_counts = {}
+
+    # new_clusters = meta.cell_type.unique()     ######    either take all clusters from the meta data or manually input them
+    # print(new_clusters)
+    # new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'Myeloid', 'NKcells_0', 'NKcells_1', 'NKcells_2', 'NKcells_6', 'Tcells']
+    # new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_2', 'NK_4', 'NK_7', 'clonalT',
+    #                 'CD8',
+    #                 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
+
+    new_clusters = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6',
+                    'NK_10',
+                    'Cycling_NK', 'CD8', 'CD4', 'Tregs']
+    # new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_0', 'NK_5', 'clonalT', 'CD8', 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
+
+
+    #####   make a count table for each cluster (cell type)
+    i = 0
+    for x in new_clusters:
+        all_clusters[i] = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % x)]).index
+        clusters_counts[i] = counts_filtered.loc[:, all_clusters[i]]
+        i = i + 1
+
+    ######     log-transform the count table for differential expression analysis
+    counts_filtered_log = np.log1p(counts_filtered)
+
+    #####  For each gene, count in how many clusters it is upregulated
+
+    upregulated_result = upregulated(clusters_counts, all_clusters, new_clusters, counts_filtered, counts_filtered_log)
+    sum_upregulated = upregulated_result.sum(axis=1)
+    sum_upregulated.to_csv('out/One_One_sum_upregulated.txt', sep="\t")
+
+    permutations_pvalue = permutations_expressed(clusters_counts, 0, all_clusters, new_clusters, counts_filtered)
+    one_one_human_interactions_permutations(all_interactions, 0, sum_upregulated, all_clusters, new_clusters,
+                                            clusters_counts, permutations_pvalue)
+
+
+    # permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1, all_clusters, new_clusters, counts_filtered)
+    # one_one_human_interactions_permutations(all_interactions, 0)
+
+
 def query_interactions():
     with app.app_context():
         ######  Interactions
@@ -113,52 +164,12 @@ def query_interactions():
         return all_1_1_interactions
 
 
-all_interactions = query_interactions()
-
-counts = pd.read_table('cellcommdb/data/queries/decidua_ss2_counts_cpm.txt',
-                       index_col=0)  #####   count table (rows are genes, columns are cells)
-meta = pd.read_table('cellcommdb/data/queries/decidua_ss2_meta.txt',
-                     index_col=0)  #####   meta data (cell type annotation for each cell)
-
-######  for all one-one interactions, take all genes and filter the count matrix, so that further analysis are done on the filtered matrix
-all_genes = all_interactions['ensembl_x'].tolist()
-all_genes.extend(all_interactions['ensembl_y'].tolist())
-genes_unique = set(all_genes)
-
-counts_filtered = counts.loc[counts.index.isin(genes_unique)]
-
-all_clusters = {}
-clusters_counts = {}
-
-# new_clusters = meta.cell_type.unique()     ######    either take all clusters from the meta data or manually input them
-# print(new_clusters)
-# new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'Myeloid', 'NKcells_0', 'NKcells_1', 'NKcells_2', 'NKcells_6', 'Tcells']
-# new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_2', 'NK_4', 'NK_7', 'clonalT', 'CD8',
-#                 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
-new_clusters = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6',
-                'NK_10',
-                'Cycling_NK', 'CD8', 'CD4', 'Tregs']
-
-# new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_0', 'NK_5', 'clonalT', 'CD8', 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
-
-
-#####   make a count table for each cluster (cell type)
-i = 0
-for x in new_clusters:
-    all_clusters[i] = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % x)]).index
-    clusters_counts[i] = counts_filtered.loc[:, all_clusters[i]]
-    i = i + 1
-
-######     log-transform the count table for differential expression analysis
-counts_filtered_log = np.log1p(counts_filtered)
-
-
 #######    Permute each gene in each cluster, take randomly with replacement cells (as many as is the size of this cluster) from the specific cluster
 #######    and in each permutation, save the mean. When you have 1000 means, you have a distribution of the means. Check if the total number of permutations
 #######    lower than 0 divided by total number of permutations (1000) is lower than 0.05 (which is our threshold for significance)
 #######    If yes, than the gene passed the test, put 1 in the output table; if not, put 0
 
-def permutations_expressed(counts_matrix, threshold):
+def permutations_expressed(counts_matrix, threshold, all_clusters, new_clusters, counts_filtered):
     np.random.seed(123)
     df = pd.DataFrame()
     for cluster in range(0, len(all_clusters)):
@@ -180,7 +191,7 @@ def permutations_expressed(counts_matrix, threshold):
         cluster_name = new_clusters[cluster]
         # df.assign(cluster_name=all_p)
         df[cluster_name] = pd.Series(all_p, index=counts_filtered.index)
-    print('end permutations expressed')
+
     return df
 
 
@@ -189,7 +200,7 @@ def permutations_expressed(counts_matrix, threshold):
 #######    lower than 10% (or input parameter percent) divided by total number of permutations (1000) is lower than 0.05 (which is our threshold for significance)
 #######    If yes, than the gene passed the test, put the real % of cells expressing this gene in the output table; if not, put 0
 
-def permutations_percent(counts_matrix, threshold, percent):
+def permutations_percent(counts_matrix, threshold, percent, all_clusters, new_clusters, counts_filtered):
     np.random.seed(123)
     df = pd.DataFrame()
     for cluster in range(0, len(all_clusters)):
@@ -220,7 +231,7 @@ def permutations_percent(counts_matrix, threshold, percent):
 #####  Use NaiveDE (https://github.com/Teichlab/NaiveDE) for differential expression analysis - check for each gene, for each cluster, if the gene is upregulated in this cluster vs all other clusters
 #####  If the gene is significanlty upregulated in this cluster (q value < 0.1), then put 1 in output table, otherwise put 0
 
-def upregulated(counts_matrix):
+def upregulated(counts_matrix, all_clusters, new_clusters, counts_filtered, counts_filtered_log):
     df = pd.DataFrame()
     for cluster in range(0, len(all_clusters)):
         counts_cluster = counts_matrix[cluster]
@@ -256,7 +267,8 @@ def upregulated(counts_matrix):
 ######    then sum both of the counts (for both partner genes of the interactions) and take the mean  - Mean_Sum - this will be used later to rank the interactions (low to high)
 ######    For genes for which the sum is 0, put artificial score - total number of clusters + 1  - so that they rank lower
 
-def one_one_human_interactions_permutations(all_interactions, threshold, sum_upregulated):
+def one_one_human_interactions_permutations(all_interactions, threshold, sum_upregulated, all_clusters, new_clusters,
+                                            clusters_counts, permutations_pvalue):
     np.random.seed(123)
     for cluster in range(0, len(all_clusters) - 1):
         columns = ['Unity_L', 'Gene_L', 'Receptor_L', 'Membrane_L', 'Secretion_L', 'Ligand_L', 'Adhesion_L',
@@ -377,17 +389,3 @@ def one_one_human_interactions_permutations(all_interactions, threshold, sum_upr
                 path_out = 'out/one-one/Cluster_%s_Cluster_%s_min%d.txt' % (
                     cluster_name, cluster2_name, threshold)
                 all_interactions_cluster.to_csv(path_out, sep="\t")
-
-
-#####  For each gene, count in how many clusters it is upregulated
-
-upregulated = upregulated(clusters_counts)
-sum_upregulated = upregulated.sum(axis=1)
-sum_upregulated.to_csv('out/One_One_sum_upregulated.txt', sep="\t")
-
-permutations_pvalue = permutations_expressed(clusters_counts, 0)
-one_one_human_interactions_permutations(all_interactions, 0, sum_upregulated)
-
-
-# permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1)
-# one_one_human_interactions_permutations(all_interactions, 0)

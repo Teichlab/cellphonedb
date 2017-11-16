@@ -4,7 +4,7 @@ from cellcommdb.api import current_dir, output_dir, data_dir
 from cellcommdb.queries.query0 import Query0
 from cellcommdb.queries.query1 import Query1
 
-from cellcommdb.queries import complexes
+from cellcommdb.queries import complexes, one_one
 
 
 class QueryLauncher(object):
@@ -32,3 +32,8 @@ class QueryLauncher(object):
         counts = pd.read_table('cellcommdb/data/queries/%s' % counts_namefile, index_col=0)
         meta = pd.read_table('cellcommdb/data/queries/%s' % meta_namefile, index_col=0)
         complexes.call(counts, meta)
+
+    def one_one(self, counts_namefile, meta_namefile):
+        counts = pd.read_table('cellcommdb/data/queries/%s' % counts_namefile, index_col=0)
+        meta = pd.read_table('cellcommdb/data/queries/%s' % meta_namefile, index_col=0)
+        one_one.call(counts, meta)
