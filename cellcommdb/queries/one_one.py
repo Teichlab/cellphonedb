@@ -115,9 +115,9 @@ def query_interactions():
 
 all_interactions = query_interactions()
 
-counts = pd.read_table('cellcommdb/data/queries/f10_counts.txt',
+counts = pd.read_table('cellcommdb/data/queries/decidua_ss2_counts_cpm.txt',
                        index_col=0)  #####   count table (rows are genes, columns are cells)
-meta = pd.read_table('cellcommdb/data/queries/f10_meta.txt',
+meta = pd.read_table('cellcommdb/data/queries/decidua_ss2_meta.txt',
                      index_col=0)  #####   meta data (cell type annotation for each cell)
 
 ######  for all one-one interactions, take all genes and filter the count matrix, so that further analysis are done on the filtered matrix
@@ -133,8 +133,12 @@ clusters_counts = {}
 # new_clusters = meta.cell_type.unique()     ######    either take all clusters from the meta data or manually input them
 # print(new_clusters)
 # new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'Myeloid', 'NKcells_0', 'NKcells_1', 'NKcells_2', 'NKcells_6', 'Tcells']
-new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_2', 'NK_4', 'NK_7', 'clonalT', 'CD8',
-                'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
+# new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_2', 'NK_4', 'NK_7', 'clonalT', 'CD8',
+#                 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
+new_clusters = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6',
+                'NK_10',
+                'Cycling_NK', 'CD8', 'CD4', 'Tregs']
+
 # new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_0', 'NK_5', 'clonalT', 'CD8', 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
 
 
@@ -176,7 +180,7 @@ def permutations_expressed(counts_matrix, threshold):
         cluster_name = new_clusters[cluster]
         # df.assign(cluster_name=all_p)
         df[cluster_name] = pd.Series(all_p, index=counts_filtered.index)
-
+    print('end permutations expressed')
     return df
 
 
