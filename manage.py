@@ -7,7 +7,7 @@ from cellcommdb.exporter import Exporter
 from cellcommdb.extensions import db
 from cellcommdb.db_scripts import db_drop_everything
 from cellcommdb.models import *
-from cellcommdb.query_manager import Queries
+from cellcommdb.query_manager import QueryLauncher
 
 
 def create_cellphone_app(info):
@@ -58,13 +58,8 @@ def export(table):
 @click.argument('queryname')
 @click.argument('files', nargs=-1)
 def call_query(queryname, files):
-    queries = Queries(app)
+    queries = QueryLauncher(app)
     getattr(queries, queryname)(*files)
-
-
-@cli.command()
-def call_query_complexes():
-    import cellcommdb.queries.complexes
 
 
 @cli.command()

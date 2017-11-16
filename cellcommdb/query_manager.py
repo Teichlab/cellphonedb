@@ -4,8 +4,10 @@ from cellcommdb.api import current_dir, output_dir, data_dir
 from cellcommdb.queries.query0 import Query0
 from cellcommdb.queries.query1 import Query1
 
+from cellcommdb.queries import complexes
 
-class Queries(object):
+
+class QueryLauncher(object):
     def __init__(self, app):
         self.app = app
 
@@ -26,7 +28,7 @@ class Queries(object):
 
         result_df.to_csv('%s/query_1.csv' % output_dir, index=False)
 
-    def query2(self, query_1_result_namefile, score_1, score_2):
-        query_1_df = pd.read_csv('%s/data/%s' % (current_dir, query_1_result_namefile))
-
-        Query2.call(query_1_df, score_1, score_2)
+    def complexes(self, counts_namefile, meta_namefile):
+        counts = pd.read_table('cellcommdb/data/queries/%s' % counts_namefile, index_col=0)
+        meta = pd.read_table('cellcommdb/data/queries/%s' % meta_namefile, index_col=0)
+        complexes.call(counts, meta)

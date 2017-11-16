@@ -13,10 +13,7 @@ from cellcommdb.models import *
 app = create_app()
 
 
-def call(counts_namefile, meta_namefile):
-    counts = pd.read_table('cellcommdb/data/queries/decidua_ss2_counts_cpm.txt', index_col=0)
-    meta = pd.read_table('cellcommdb/data/queries/decidua_ss2_meta.txt', index_col=0)
-
+def call(counts, meta):
     all_complex_interactions = query_R_S_complex_interactions()
     all_complex_genes = []
     for row1, index1 in all_complex_interactions.iterrows():
