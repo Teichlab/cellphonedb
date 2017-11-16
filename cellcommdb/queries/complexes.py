@@ -13,6 +13,62 @@ from cellcommdb.models import *
 app = create_app()
 
 
+def call(counts_namefile, meta_namefile):
+    counts = pd.read_table('cellcommdb/data/queries/decidua_ss2_counts_cpm.txt', index_col=0)
+    meta = pd.read_table('cellcommdb/data/queries/decidua_ss2_meta.txt', index_col=0)
+
+    all_complex_interactions = query_R_S_complex_interactions()
+    all_complex_genes = []
+    for row1, index1 in all_complex_interactions.iterrows():
+        proteins = get_proteins_in_complex_composition(index1['complex_multidata_id'])
+        for row, index in proteins.iterrows():
+            pr = index['ensembl']
+            all_complex_genes.append(pr)
+        if (index1['Complex'] == True):
+            proteins_2 = get_proteins_in_complex_composition(index1['multidata_2_id'])
+            for row, index in proteins_2.iterrows():
+                pr = index['ensembl']
+                all_complex_genes.append(pr)
+        else:
+            genes_multidata = get_gene_for_multidata(index1['multidata_2_id'])
+            name_ens = genes_multidata.iloc[0]['ensembl']
+            all_complex_genes.append(name_ens)
+
+    genes_unique = set(all_complex_genes)
+
+    counts_filtered = counts.loc[counts.index.isin(genes_unique)]
+    counts_filtered.to_csv('out/ss2_complex_filtered_counts.txt', sep="\t")
+
+    all_clusters = {}
+    clusters_counts = {}
+
+    # new_clusters = meta.cell_type.unique()
+    # print(new_clusters)
+    new_clusters = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6',
+                    'NK_10',
+                    'Cycling_NK', 'CD8', 'CD4', 'Tregs']
+
+    i = 0
+    for x in new_clusters:
+        all_clusters[i] = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % x)]).index
+        clusters_counts[i] = counts_filtered.loc[:, all_clusters[i]]
+        i = i + 1
+
+    ######     log-transform the count table for differential expression analysis
+    counts_filtered_log = np.log1p(counts_filtered)
+
+    upregulated_result = upregulated(clusters_counts, all_clusters, new_clusters, counts_filtered, counts_filtered_log)
+    sum_upregulated = upregulated_result.sum(axis=1)
+
+    permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1, all_clusters, new_clusters,
+                                               counts_filtered)
+    complex_interactions_permutations(all_complex_interactions, 0, sum_upregulated)
+
+
+# permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1)
+# complex_interactions_permutations(all_complex_interactions, 0, sum_upregulated)
+
+
 #####  Query all Receptor-Secreted interactions with a complex
 
 def query_R_S_complex_interactions():
@@ -221,55 +277,12 @@ def get_gene_for_multidata(multidata_id):
         return gene_protein_df
 
 
-counts = pd.read_table('cellcommdb/data/queries/decidua_ss2_counts_cpm.txt', index_col=0)
-meta = pd.read_table('cellcommdb/data/queries/decidua_ss2_meta.txt', index_col=0)
-
-all_complex_interactions = query_R_M_complex_interactions()
-all_complex_genes = []
-for row1, index1 in all_complex_interactions.iterrows():
-    proteins = get_proteins_in_complex_composition(index1['complex_multidata_id'])
-    for row, index in proteins.iterrows():
-        pr = index['ensembl']
-        all_complex_genes.append(pr)
-    if (index1['Complex'] == True):
-        proteins_2 = get_proteins_in_complex_composition(index1['multidata_2_id'])
-        for row, index in proteins_2.iterrows():
-            pr = index['ensembl']
-            all_complex_genes.append(pr)
-    else:
-        genes_multidata = get_gene_for_multidata(index1['multidata_2_id'])
-        name_ens = genes_multidata.iloc[0]['ensembl']
-        all_complex_genes.append(name_ens)
-
-genes_unique = set(all_complex_genes)
-
-counts_filtered = counts.loc[counts.index.isin(genes_unique)]
-counts_filtered.to_csv('out/ss2_complex_filtered_counts.txt', sep="\t")
-
-all_clusters = {}
-clusters_counts = {}
-
-# new_clusters = meta.cell_type.unique()
-# print(new_clusters)
-new_clusters = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6', 'NK_10',
-                'Cycling_NK', 'CD8', 'CD4', 'Tregs']
-
-i = 0
-for x in new_clusters:
-    all_clusters[i] = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % x)]).index
-    clusters_counts[i] = counts_filtered.loc[:, all_clusters[i]]
-    i = i + 1
-
-######     log-transform the count table for differential expression analysis
-counts_filtered_log = np.log1p(counts_filtered)
-
-
 #######    Permute each gene in each cluster, take randomly with replacement cells (as many as is the size of this cluster) from the specific cluster
 #######    and in each permutation, save the mean. When you have 1000 means, you have a distribution of the means. Check if the total number of permutations
 #######    lower than 0 divided by total number of permutations (1000) is lower than 0.05 (which is our threshold for significance)
 #######    If yes, than the gene passed the test, put 1 in the output table; if not, put 0
 
-def permutations_expressed(counts_matrix, threshold):
+def permutations_expressed(counts_matrix, threshold, all_clusters, new_clusters, counts_filtered):
     np.random.seed(123)
     df = pd.DataFrame()
     for cluster in range(0, len(all_clusters)):
@@ -300,7 +313,7 @@ def permutations_expressed(counts_matrix, threshold):
 #######    lower than 10% (or input parameter percent) divided by total number of permutations (1000) is lower than 0.05 (which is our threshold for significance)
 #######    If yes, than the gene passed the test, put the real % of cells expressing this gene in the output table; if not, put 0
 
-def permutations_percent(counts_matrix, threshold, percent):
+def permutations_percent(counts_matrix, threshold, percent, all_clusters, new_clusters, counts_filtered):
     np.random.seed(123)
     df = pd.DataFrame()
     for cluster in range(0, len(all_clusters)):
@@ -331,7 +344,7 @@ def permutations_percent(counts_matrix, threshold, percent):
 #####  Use NaiveDE (https://github.com/Teichlab/NaiveDE) for differential expression analysis - check for each gene, for each cluster, if the gene is upregulated in this cluster vs all other clusters
 #####  If the gene is significanlty upregulated in this cluster (q value < 0.1), then put 1 in output table, otherwise put 0
 
-def upregulated(counts_matrix):
+def upregulated(counts_matrix, all_clusters, new_clusters, counts_filtered, counts_filtered_log):
     df = pd.DataFrame()
     for cluster in range(0, len(all_clusters)):
         counts_cluster = counts_matrix[cluster]
@@ -386,7 +399,8 @@ def upregulated(counts_matrix):
 ######    For genes for which the sum is 0, put artificial score - total number of clusters + 1  - so that they rank lower
 
 
-def complex_interactions_permutations(all_complex_interactions, threshold, sum_upregulated):
+def complex_interactions_permutations(all_complex_interactions, threshold, sum_upregulated, all_clusters, new_clusters,
+                                      clusters_counts, permutations_pvalue):
     for cluster in range(0, len(all_clusters) - 1):
         columns = ['Unity_L', 'Name_L', 'Gene_L', 'Gene_L_ens', 'Receptor_L', 'Membrane_L', 'Secretion_L', 'Ligand_L',
                    'Adhesion_L', 'Unity_R', 'Name_R', 'Gene_R', 'Gene_R_ens', 'Receptor_R', 'Membrane_R', 'Secretion_R',
@@ -643,15 +657,4 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                 # all_interactions_cluster.sort_values('Mean_Sum', ascending=True)
                 path_out = 'out/complexes/Cluster_%s_Cluster_%s_min%d.txt' % (
                     cluster_name, cluster2_name, threshold)
-                all_interactions_cluster.to_csv(path_out, sep="\t")
-
-
-upregulated = upregulated(clusters_counts)
-sum_upregulated = upregulated.sum(axis=1)
-
-permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1)
-complex_interactions_permutations(all_complex_interactions, 0, sum_upregulated)
-
-
-# permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1)
-# complex_interactions_permutations(all_complex_interactions, 0, sum_upregulated)
+                all_interactions_cluster.to_csv(path_out, sep="\t", index=False)
