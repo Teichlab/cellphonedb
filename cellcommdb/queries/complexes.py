@@ -14,8 +14,9 @@ app = create_app()
 
 
 def call(counts, meta):
-    all_complex_interactions = query_R_S_complex_interactions()
+    all_complex_interactions = query_receptor_secreted_complex_interactions()
     all_complex_genes = []
+
     for row1, index1 in all_complex_interactions.iterrows():
         proteins = get_proteins_in_complex_composition(index1['complex_multidata_id'])
         for row, index in proteins.iterrows():
@@ -59,7 +60,8 @@ def call(counts, meta):
 
     permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1, all_clusters, new_clusters,
                                                counts_filtered)
-    complex_interactions_permutations(all_complex_interactions, 0, sum_upregulated)
+    complex_interactions_permutations(all_complex_interactions, 0, sum_upregulated, all_clusters, new_clusters,
+                                      clusters_counts, permutations_pvalue)
 
 
 # permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1)
@@ -67,8 +69,7 @@ def call(counts, meta):
 
 
 #####  Query all Receptor-Secreted interactions with a complex
-
-def query_R_S_complex_interactions():
+def query_receptor_secreted_complex_interactions():
     with app.app_context():
         ######  Genes
 
