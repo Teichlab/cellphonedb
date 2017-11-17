@@ -12,13 +12,11 @@ from cellcommdb.models import *
 
 def call(counts, meta):
     print('Query one-one started')
-    start_time = datetime.now()
 
     interactions_df = _get_interactions()
-    all_interactions = _filter_interactions(interactions_df, 1, 0.6)
-    end_time_interactions = datetime.now()
-    print('{}'.format(end_time_interactions - start_time))
+    all_interactions = _filter_interactions_one_one(interactions_df, 1, 0.6)
 
+    start_time = datetime.now()
     ######  for all one-one interactions, take all genes and filter the count matrix, so that further analysis are done on the filtered matrix
     all_genes = all_interactions['ensembl_x'].tolist()
     all_genes.extend(all_interactions['ensembl_y'].tolist())
@@ -26,26 +24,13 @@ def call(counts, meta):
 
     counts_filtered = counts.loc[counts.index.isin(genes_unique)]
 
+    counts_filtered.to_csv('out/TEST_counts_filtered.csv', index=False)
+
+    print('{}'.format(datetime.now() - start_time))
     all_clusters = {}
     clusters_counts = {}
 
-    # new_clusters = meta.cell_type.unique()     ######    either take all clusters from the meta data or manually input them
-    # print(new_clusters)
-    # new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'Myeloid', 'NKcells_0', 'NKcells_1', 'NKcells_2', 'NKcells_6', 'Tcells']
-    # new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_2', 'NK_4', 'NK_7', 'clonalT',
-    #                 'CD8',
-    #                 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
-
-    # new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_0', 'NK_5', 'clonalT', 'CD8', 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
-
-    # CLUSTERS decidua_ss2_meta.txt
-    # Generated output
-    # ['Trophoblasts', 'CD8', 'Stromal_13', 'NK_6', 'M4', 'CD4', 'Cycling_NK', 'M0', 'Endothelial', 'NK_10', 'Stromal_5', 'Tregs', 'M2']
-    # ['Stromal_5' 'Stromal_13' 'M0' 'M4' 'NK_10' 'Trophoblasts' 'CD4' 'CD8' 'M2','NK_6' 'Tregs' 'Cycling_NK' 'Endothelial']
-
-    # new_clusters = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6',
-    #                 'NK_10',
-    #                 'Cycling_NK', 'CD8', 'CD4', 'Tregs']
+    # new_clusters = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6', 'NK_10', 'Cycling_NK', 'CD8', 'CD4', 'Tregs']
     new_clusters = meta['cell_type'].unique()
 
     #####   make a count table for each cluster (cell type)
@@ -92,7 +77,7 @@ def _get_interactions():
     return interactions_df
 
 
-def _filter_interactions(interactions_df, score_1, min_score_2):
+def _filter_interactions_one_one(interactions_df, score_1, min_score_2):
     '''
 
     :type ineractions_df: pd.DataFrame()
@@ -140,16 +125,17 @@ def _filter_interactions(interactions_df, score_1, min_score_2):
     frames = [receptor_membrane, membrane_receptor, receptor_secreted, secreted_receptor, receptor_ligand_c,
               ligand_receptor_c]
 
-    all_1_1_interactions = pd.concat(frames)
+    one_one_interactions = pd.concat(frames)
 
-    all_1_1_interactions.drop_duplicates(inplace=True)
+    one_one_interactions.drop_duplicates(inplace=True)
 
-    all_1_1_interactions = all_1_1_interactions[
-        (all_1_1_interactions['score_1'] == score_1) &
-        (all_1_1_interactions['score_2'] > min_score_2)
+    one_one_interactions = one_one_interactions[
+        (one_one_interactions['score_1'] == score_1) &
+        (one_one_interactions['score_2'] > min_score_2)
         ]
 
-    return all_1_1_interactions
+    one_one_interactions.to_csv('out/TEST_one_one_interactions.csv', index=False)
+    return one_one_interactions
 
 
 #######    Permute each gene in each cluster, take randomly with replacement cells (as many as is the size of this cluster) from the specific cluster

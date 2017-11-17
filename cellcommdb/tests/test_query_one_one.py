@@ -44,7 +44,7 @@ class QueryOneOneChecks(TestCase):
         test_data_dir = './cellcommdb/tests/test_data/one_one'
         generated_data_dir = './out'
 
-        namefile = 'One_One_sum_upregulated.txt'
+        namefile = 'TEST_One_One_sum_upregulated.txt'
 
         file_original = open('%s/%s' % (test_data_dir, namefile))
         file_generated = open('%s/%s' % (generated_data_dir, namefile))
@@ -64,7 +64,7 @@ class QueryOneOneChecks(TestCase):
         test_data_dir = './cellcommdb/tests/test_data/one_one'
         generated_data_dir = './out'
 
-        namefile = 'all_1_1_interactions.csv'
+        namefile = 'TEST_one_one_interactions.csv'
 
         file_original = open('%s/%s' % (test_data_dir, namefile))
         file_generated = open('%s/%s' % (generated_data_dir, namefile))
