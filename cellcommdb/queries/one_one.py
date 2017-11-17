@@ -17,14 +17,7 @@ def call(counts, meta):
     all_interactions = _filter_interactions_one_one(interactions_df, 1, 0.6)
 
     start_time = datetime.now()
-    ######  for all one-one interactions, take all genes and filter the count matrix, so that further analysis are done on the filtered matrix
-    all_genes = all_interactions['ensembl_x'].tolist()
-    all_genes.extend(all_interactions['ensembl_y'].tolist())
-    genes_unique = set(all_genes)
-
-    counts_filtered = counts.loc[counts.index.isin(genes_unique)]
-
-    counts_filtered.to_csv('out/TEST_counts_filtered.csv', index=False)
+    counts_filtered = _filter_counts_by_genes(counts, all_interactions)
 
     print('{}'.format(datetime.now() - start_time))
     all_clusters = {}
@@ -47,7 +40,7 @@ def call(counts, meta):
 
     upregulated_result = upregulated(clusters_counts, all_clusters, new_clusters, counts_filtered, counts_filtered_log)
     sum_upregulated = upregulated_result.sum(axis=1)
-    sum_upregulated.to_csv('out/One_One_sum_upregulated.txt', sep="\t")
+    sum_upregulated.to_csv('out/TEST_One_One_sum_upregulated.txt', sep="\t")
 
     permutations_pvalue = permutations_expressed(clusters_counts, 0, all_clusters, new_clusters, counts_filtered)
     one_one_human_interactions_permutations(all_interactions, 0, sum_upregulated, all_clusters, new_clusters,
@@ -56,6 +49,15 @@ def call(counts, meta):
 
     # permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1, all_clusters, new_clusters, counts_filtered)
     # one_one_human_interactions_permutations(all_interactions, 0)
+
+
+def _filter_counts_by_genes(counts, interactions):
+    all_genes = interactions['ensembl_x'].tolist()
+    all_genes.extend(interactions['ensembl_y'].tolist())
+    genes_unique = set(all_genes)
+    counts_filtered = counts.loc[counts.index.isin(genes_unique)]
+    counts_filtered.to_csv('out/TEST_counts_filtered.csv')
+    return counts_filtered
 
 
 def _get_interactions():
