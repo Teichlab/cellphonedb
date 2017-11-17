@@ -3,22 +3,19 @@ from datetime import datetime
 import os
 import pandas as pd
 import numpy as np
-import NaiveDE
 from NaiveDE import lr_tests
 
 from cellcommdb.api import create_app
 
-current_dir = os.path.dirname(os.path.realpath(__file__))
-
 from cellcommdb.models import *
-
-app = create_app()
 
 
 def call(counts, meta):
     print('Query one-one started')
     start_time = datetime.now()
-    all_interactions = query_interactions()
+
+    interactions_df = _get_interactions()
+    all_interactions = _filter_interactions(interactions_df, 1, 0.6)
     end_time_interactions = datetime.now()
     print('{}'.format(end_time_interactions - start_time))
 
@@ -77,13 +74,16 @@ def call(counts, meta):
 
 
 def _get_interactions():
+    '''
+    Gets the database interactions with gene/multidata info completed
+    :rtype: pd.DataFrame()
+    '''
     interactions_query = db.session.query(Interaction)
     interactions_df = pd.read_sql(interactions_query.statement, db.engine)
 
     multidata_query = db.session.query(Multidata, Gene.ensembl, Gene.gene_name).join(Protein).join(Gene)
     multidata_df = pd.read_sql(multidata_query.statement, db.engine)
 
-    # interactions_df.drop('id', axis=1, inplace=True)
     interactions_df.rename(index=str, columns={'id': 'interaction_id'}, inplace=True)
     interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_1_id'], right_on=['id'])
     interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_2_id'], right_on=['id'],
@@ -92,48 +92,64 @@ def _get_interactions():
     return interactions_df
 
 
-def query_interactions():
-    with app.app_context():
-        all_protein_interactions = _get_interactions()
+def _filter_interactions(interactions_df, score_1, min_score_2):
+    '''
 
-        receptor_membrane = all_protein_interactions[
-            (all_protein_interactions['receptor_x'] == True) & (all_protein_interactions['transmembrane_y'] == True)
-            & (all_protein_interactions['secretion_y'] == False) & (
-                all_protein_interactions['transporter_y'] == False)
-            & (all_protein_interactions['cytoplasm_y'] == False) & (all_protein_interactions['other_y'] == False)]
+    :type ineractions_df: pd.DataFrame()
+    :rtype: pd.DataFrame()
+    '''
 
-        membrane_receptor = all_protein_interactions[
-            (all_protein_interactions['receptor_y'] == True) & (all_protein_interactions['transmembrane_x'] == True)
-            & (all_protein_interactions['secretion_x'] == False) & (
-                all_protein_interactions['transporter_x'] == False)
-            & (all_protein_interactions['cytoplasm_x'] == False) & (all_protein_interactions['other_x'] == False)]
+    receptor_membrane = interactions_df[
+        (interactions_df['receptor_x'] == True) &
+        (interactions_df['transmembrane_y'] == True) &
+        (interactions_df['secretion_y'] == False) &
+        (interactions_df['transporter_y'] == False) &
+        (interactions_df['cytoplasm_y'] == False) &
+        (interactions_df['other_y'] == False)
+        ]
 
-        receptor_secreted = all_protein_interactions[
-            (all_protein_interactions['receptor_x'] == True) & (all_protein_interactions['secretion_y'] == True)]
-        secreted_receptor = all_protein_interactions[
-            (all_protein_interactions['receptor_y'] == True) & (all_protein_interactions['secretion_x'] == True)]
+    membrane_receptor = interactions_df[
+        (interactions_df['receptor_y'] == True) &
+        (interactions_df['transmembrane_x'] == True) &
+        (interactions_df['secretion_x'] == False) &
+        (interactions_df['transporter_x'] == False) &
+        (interactions_df['cytoplasm_x'] == False) &
+        (interactions_df['other_x'] == False)
+        ]
 
-        receptor_ligand_c = all_protein_interactions[
-            (all_protein_interactions['receptor_x'] == True) & (all_protein_interactions['ligand_y'] == True)]
-        ligand_receptor_c = all_protein_interactions[
-            (all_protein_interactions['receptor_y'] == True) & (all_protein_interactions['ligand_x'] == True)]
+    receptor_secreted = interactions_df[
+        (interactions_df['receptor_x'] == True) &
+        (interactions_df['secretion_y'] == True)
+        ]
 
-        frames = [receptor_membrane, membrane_receptor, receptor_secreted, secreted_receptor, receptor_ligand_c,
-                  ligand_receptor_c]
+    secreted_receptor = interactions_df[
+        (interactions_df['receptor_y'] == True) &
+        (interactions_df['secretion_x'] == True)
+        ]
 
-        all_1_1_interactions = pd.concat(frames)
+    receptor_ligand_c = interactions_df[
+        (interactions_df['receptor_x'] == True) &
+        (interactions_df['ligand_y'] == True)
+        ]
 
-        # all_1_1_interactions.drop(['score_1_y'], axis=1, inplace=True)
-        # all_1_1_interactions.drop(['score_2_y'], axis=1, inplace=True)
-        # all_1_1_interactions.rename(index=str, columns={'score_1_x': 'score_1'}, inplace=True)
-        # all_1_1_interactions.rename(index=str, columns={'score_2_x': 'score_2'}, inplace=True)
+    ligand_receptor_c = interactions_df[
+        (interactions_df['receptor_y'] == True) &
+        (interactions_df['ligand_x'] == True)
+        ]
 
-        all_1_1_interactions = all_1_1_interactions[
-            (all_1_1_interactions['score_1'] == 1) & (all_1_1_interactions['score_2'] > 0.6)]
+    frames = [receptor_membrane, membrane_receptor, receptor_secreted, secreted_receptor, receptor_ligand_c,
+              ligand_receptor_c]
 
-        ########   All one-one interactions
-        all_1_1_interactions.to_csv('out/all_1_1_interactions.csv', index=False)
-        return all_1_1_interactions
+    all_1_1_interactions = pd.concat(frames)
+
+    all_1_1_interactions.drop_duplicates(inplace=True)
+
+    all_1_1_interactions = all_1_1_interactions[
+        (all_1_1_interactions['score_1'] == score_1) &
+        (all_1_1_interactions['score_2'] > min_score_2)
+        ]
+
+    return all_1_1_interactions
 
 
 #######    Permute each gene in each cluster, take randomly with replacement cells (as many as is the size of this cluster) from the specific cluster
