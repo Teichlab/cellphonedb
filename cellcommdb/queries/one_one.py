@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import os
 import pandas as pd
 import numpy as np
@@ -14,7 +16,11 @@ app = create_app()
 
 
 def call(counts, meta):
+    print('Query one-one started')
+    start_time = datetime.now()
     all_interactions = query_interactions()
+    end_time_interactions = datetime.now()
+    print('{}'.format(end_time_interactions - start_time))
 
     ######  for all one-one interactions, take all genes and filter the count matrix, so that further analysis are done on the filtered matrix
     all_genes = all_interactions['ensembl_x'].tolist()
@@ -33,11 +39,17 @@ def call(counts, meta):
     #                 'CD8',
     #                 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
 
-    new_clusters = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6',
-                    'NK_10',
-                    'Cycling_NK', 'CD8', 'CD4', 'Tregs']
     # new_clusters = ['Trophoblasts', 'Stromal', 'Endothelial', 'M_0', 'M_1', 'M_2', 'NK_0', 'NK_5', 'clonalT', 'CD8', 'CD4', 'Tregs', 'Gamma-delta', 'Mait', 'other_tcells']
 
+    # CLUSTERS decidua_ss2_meta.txt
+    # Generated output
+    # ['Trophoblasts', 'CD8', 'Stromal_13', 'NK_6', 'M4', 'CD4', 'Cycling_NK', 'M0', 'Endothelial', 'NK_10', 'Stromal_5', 'Tregs', 'M2']
+    # ['Stromal_5' 'Stromal_13' 'M0' 'M4' 'NK_10' 'Trophoblasts' 'CD4' 'CD8' 'M2','NK_6' 'Tregs' 'Cycling_NK' 'Endothelial']
+
+    # new_clusters = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6',
+    #                 'NK_10',
+    #                 'Cycling_NK', 'CD8', 'CD4', 'Tregs']
+    new_clusters = meta['cell_type'].unique()
 
     #####   make a count table for each cluster (cell type)
     i = 0
@@ -64,51 +76,25 @@ def call(counts, meta):
     # one_one_human_interactions_permutations(all_interactions, 0)
 
 
+def _get_interactions():
+    interactions_query = db.session.query(Interaction)
+    interactions_df = pd.read_sql(interactions_query.statement, db.engine)
+
+    multidata_query = db.session.query(Multidata, Gene.ensembl, Gene.gene_name).join(Protein).join(Gene)
+    multidata_df = pd.read_sql(multidata_query.statement, db.engine)
+
+    # interactions_df.drop('id', axis=1, inplace=True)
+    interactions_df.rename(index=str, columns={'id': 'interaction_id'}, inplace=True)
+    interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_1_id'], right_on=['id'])
+    interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_2_id'], right_on=['id'],
+                               suffixes=['_x', '_y'])
+
+    return interactions_df
+
+
 def query_interactions():
     with app.app_context():
-        ######  Interactions
-
-        interactions_query = db.session.query(Interaction)
-        all_interactions_df = pd.read_sql(interactions_query.statement, db.engine)
-
-        ######  Genes
-
-        genes_query = db.session.query(Gene)
-        genes_query_df = pd.read_sql(genes_query.statement, db.engine)
-
-        ######  Proteins - multidata
-
-        proteins_query = db.session.query(Protein)
-        multidata_query = db.session.query(Multidata)
-
-        proteins_df = pd.read_sql(proteins_query.statement, db.engine)
-        multidata_df = pd.read_sql(multidata_query.statement, db.engine)
-
-        proteins_multidata = pd.merge(proteins_df, multidata_df, left_on='protein_multidata_id', right_on='id')
-        proteins_multidata.rename(index=str, columns={'id_x': 'protein_id'}, inplace=True)
-        proteins_multidata.rename(index=str, columns={'id_y': 'multidata_id'}, inplace=True)
-        # print(proteins_multidata_receptor.shape)
-
-        proteins_multidata_genes = pd.merge(proteins_multidata, genes_query_df, left_on='protein_id',
-                                            right_on='protein_id')
-        proteins_multidata_genes.rename(index=str, columns={'id': 'gene_id'}, inplace=True)
-        # proteins_multidata_genes.rename(index=str, columns={'gene_name_y': 'gene_name'}, inplace=True)
-        # proteins_multidata_genes.drop(['gene_name_x'], axis=1, inplace=True)
-
-        protein_interaction_1 = pd.merge(all_interactions_df, proteins_multidata_genes, left_on='multidata_1_id',
-                                         right_on='multidata_id')
-        protein_interaction_1.rename(index=str, columns={'id': 'interaction_id'}, inplace=True)
-
-        protein_interaction_2 = pd.merge(all_interactions_df, proteins_multidata_genes, left_on='multidata_2_id',
-                                         right_on='multidata_id')
-        protein_interaction_2.rename(index=str, columns={'id': 'interaction_id'}, inplace=True)
-
-        all_protein_interactions = pd.merge(protein_interaction_1, protein_interaction_2, left_on='interaction_id',
-                                            right_on='interaction_id')
-        all_protein_interactions.rename(index=str, columns={'multidata_1_id_x': 'multidata_1_id'}, inplace=True)
-        all_protein_interactions.rename(index=str, columns={'multidata_2_id_x': 'multidata_2_id'}, inplace=True)
-        all_protein_interactions.drop(['multidata_1_id_y'], axis=1, inplace=True)
-        all_protein_interactions.drop(['multidata_2_id_y'], axis=1, inplace=True)
+        all_protein_interactions = _get_interactions()
 
         receptor_membrane = all_protein_interactions[
             (all_protein_interactions['receptor_x'] == True) & (all_protein_interactions['transmembrane_y'] == True)
@@ -132,35 +118,21 @@ def query_interactions():
         ligand_receptor_c = all_protein_interactions[
             (all_protein_interactions['receptor_y'] == True) & (all_protein_interactions['ligand_x'] == True)]
 
-        # receptor_adhesion = all_protein_interactions[
-        #     (all_protein_interactions['receptor_x'] == True) & (all_protein_interactions['adhesion_y'] == True)]
-        #
-        # adhesion_receptor = all_protein_interactions[
-        #     (all_protein_interactions['receptor_y'] == True) & (all_protein_interactions['adhesion_x'] == True)]
-
-        # receptor_other = all_protein_interactions[(all_protein_interactions['receptor_x'] == True) & (all_protein_interactions['other_y'] == True)]
-        # other_receptor = all_protein_interactions[(all_protein_interactions['receptor_y'] == True) & (all_protein_interactions['other_x'] == True)]
-
-
-        # frames = [receptor_membrane, membrane_receptor, receptor_secreted, secreted_receptor, receptor_ligand_c, ligand_receptor_c, receptor_adhesion, adhesion_receptor]
         frames = [receptor_membrane, membrane_receptor, receptor_secreted, secreted_receptor, receptor_ligand_c,
                   ligand_receptor_c]
 
         all_1_1_interactions = pd.concat(frames)
 
-        all_1_1_interactions.drop(['score_1_y'], axis=1, inplace=True)
-        all_1_1_interactions.drop(['score_2_y'], axis=1, inplace=True)
-        all_1_1_interactions.rename(index=str, columns={'score_1_x': 'score_1'}, inplace=True)
-        all_1_1_interactions.rename(index=str, columns={'score_2_x': 'score_2'}, inplace=True)
-        # all_1_1_interactions.drop(['unity_interaction_id_y'], axis=1, inplace=True)
-        # all_1_1_interactions.rename(index=str, columns={'unity_interaction_id_x': 'unity_interaction_id'}, inplace=True)
-        # all_1_1_interactions.drop(['source_y'], axis=1, inplace=True)
-        # all_1_1_interactions.rename(index=str, columns={'source_x': 'source'}, inplace=True)
+        # all_1_1_interactions.drop(['score_1_y'], axis=1, inplace=True)
+        # all_1_1_interactions.drop(['score_2_y'], axis=1, inplace=True)
+        # all_1_1_interactions.rename(index=str, columns={'score_1_x': 'score_1'}, inplace=True)
+        # all_1_1_interactions.rename(index=str, columns={'score_2_x': 'score_2'}, inplace=True)
 
         all_1_1_interactions = all_1_1_interactions[
             (all_1_1_interactions['score_1'] == 1) & (all_1_1_interactions['score_2'] > 0.6)]
 
         ########   All one-one interactions
+        all_1_1_interactions.to_csv('out/all_1_1_interactions.csv', index=False)
         return all_1_1_interactions
 
 
@@ -270,6 +242,14 @@ def upregulated(counts_matrix, all_clusters, new_clusters, counts_filtered, coun
 def one_one_human_interactions_permutations(all_interactions, threshold, sum_upregulated, all_clusters, new_clusters,
                                             clusters_counts, permutations_pvalue):
     np.random.seed(123)
+
+    # clean outfolder
+    path = 'out/one-one'
+    namefiles = os.listdir('%s' % path)
+    for namefile in namefiles:
+        if namefile.endswith('.txt'):
+            os.remove('%s/%s' % (path, namefile))
+
     for cluster in range(0, len(all_clusters) - 1):
         columns = ['Unity_L', 'Gene_L', 'Receptor_L', 'Membrane_L', 'Secretion_L', 'Ligand_L', 'Adhesion_L',
                    'Unity_R', 'Gene_R', 'Receptor_R', 'Membrane_R', 'Secretion_R', 'Ligand_R', 'Adhesion_R',

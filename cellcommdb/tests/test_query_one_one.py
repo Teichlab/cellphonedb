@@ -8,7 +8,7 @@ from cellcommdb.config import TestConfig
 
 class QueryOneOneChecks(TestCase):
     def test_files(self):
-        test_data_dir = './cellcommdb/tests/test_data/one_one'
+        test_data_dir = './cellcommdb/tests/test_data/one_one/results'
         generated_data_dir = './out/one-one'
         namefiles_original = os.listdir(test_data_dir)
 
@@ -34,6 +34,47 @@ class QueryOneOneChecks(TestCase):
                 not_equal = True
 
         self.assertFalse(not_equal, 'Some query one-one output files are different')
+
+    def test_One_One_sum_upregulated(self):
+
+        test_data_dir = './cellcommdb/tests/test_data/one_one'
+        generated_data_dir = './out'
+
+        namefile = 'One_One_sum_upregulated.txt'
+
+        file_original = open('%s/%s' % (test_data_dir, namefile))
+        file_generated = open('%s/%s' % (generated_data_dir, namefile))
+
+        original_df = pd.read_csv(file_original, sep='\t')
+        generated_df = pd.read_csv(file_generated, sep='\t')
+
+        file_original.close()
+        file_generated.close()
+
+        self.assertEqual(len(original_df), len(generated_df), 'Number of Sum upregulated not equal')
+
+        self.assertTrue(original_df.equals(generated_df), 'File %s isnt equal' % namefile)
+
+    def test_all_1_1_interactions(self):
+
+        test_data_dir = './cellcommdb/tests/test_data/one_one'
+        generated_data_dir = './out'
+
+        namefile = 'all_1_1_interactions.csv'
+
+        file_original = open('%s/%s' % (test_data_dir, namefile))
+        file_generated = open('%s/%s' % (generated_data_dir, namefile))
+
+        original_df = pd.read_csv(file_original)
+        generated_df = pd.read_csv(file_generated)
+
+        file_original.close()
+        file_generated.close()
+
+        self.assertEqual(len(original_df), len(generated_df), 'Number of test_all_1_1_interactions not equal')
+
+        self.assertTrue(original_df['interaction_id'].equals(generated_df['interaction_id']),
+                        'Interactions ids %s are different' % namefile)
 
     def setUp(self):
         self.client = self.app.test_client()
