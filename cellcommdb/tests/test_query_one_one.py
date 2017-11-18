@@ -123,6 +123,26 @@ class QueryOneOneChecks(TestCase):
             generated_df.sort_values('Gene').sort_index(axis=1).reset_index(drop=True)),
             'upregulated values %s are different' % namefile)
 
+    def test_expressed(self):
+        test_data_dir = './cellcommdb/tests/test_data/one_one'
+        generated_data_dir = './out'
+
+        namefile = 'TEST_permutations_expressed.csv'
+
+        file_original = open('%s/%s' % (test_data_dir, namefile))
+        file_generated = open('%s/%s' % (generated_data_dir, namefile))
+
+        original_df = pd.read_csv(file_original)
+        generated_df = pd.read_csv(file_generated)
+
+        file_original.close()
+        file_generated.close()
+
+        self.assertEqual(len(original_df), len(generated_df), 'Number of permutations expressed not equal')
+
+        self.assertTrue(original_df.sort_values('Gene').sort_index(axis=1).reset_index(drop=True).equals(
+            generated_df.sort_values('Gene').sort_index(axis=1).reset_index(drop=True)),
+            'Permutation expressed values %s are different' % namefile)
 
     def setUp(self):
         self.client = self.app.test_client()

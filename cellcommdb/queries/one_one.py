@@ -45,7 +45,7 @@ def call(counts, meta):
     sum_upregulated = upregulated_result.sum(axis=1)
     sum_upregulated.to_csv('out/TEST_One_One_sum_upregulated.txt', sep="\t")
 
-    permutations_pvalue = permutations_expressed(clusters_counts, 0, all_clusters, cluster_names, counts_filtered)
+    permutations_pvalue = _cluster_permutations_expressed(clusters, 0)
     one_one_human_interactions_permutations(all_interactions, 0, sum_upregulated, all_clusters, cluster_names,
                                             clusters_counts, permutations_pvalue)
 
@@ -143,35 +143,43 @@ def _filter_interactions_one_one(interactions_df, score_1, min_score_2):
     return one_one_interactions
 
 
-#######    Permute each gene in each cluster, take randomly with replacement cells (as many as is the size of this cluster) from the specific cluster
-#######    and in each permutation, save the mean. When you have 1000 means, you have a distribution of the means. Check if the total number of permutations
-#######    lower than 0 divided by total number of permutations (1000) is lower than 0.05 (which is our threshold for significance)
-#######    If yes, than the gene passed the test, put 1 in the output table; if not, put 0
+def _cluster_permutations_expressed(clusters, threshold, max_permutation_value=0.05, iterations=1000):
+    '''
+    Permute each gene in each cluster, take randomly with replacement cells (as many as is the size of this cluster)
+    from the specific cluster and in each permutation, save the mean. When you have 1000 means, you have a distribution
+    of the means. Check if the total number of permutations lower than 0 divided by total number of permutations (1000)
+    is lower than 0.05 (which is our threshold for significance) If yes, than the gene passed the test, put 1 in the
+    output table; if not, put 0
 
-def permutations_expressed(counts_matrix, threshold, all_clusters, new_clusters, counts_filtered):
+    :type clusters: pd.DataFrame()
+    :type threshold: float
+    :type max_permutation_value: float
+    :type iterations: int
+    :rtype: pd.DataFrame()
+    '''
+
+    # TODO: Seed, maybe only for debug??
     np.random.seed(123)
-    df = pd.DataFrame()
-    for cluster in range(0, len(all_clusters)):
-        counts_cluster = counts_matrix[cluster]
-        all_p = []
-        for row, index in counts_cluster.iterrows():
+
+    all_cells_names = next(iter(clusters.values())).index
+    result = pd.DataFrame(0, all_cells_names, clusters.keys())
+
+    for cluster_name in clusters:
+        counts_cluster = clusters[cluster_name]
+
+        for gene_name, counts_gene in counts_cluster.iterrows():
             mean_g = []
-            gene = row
-
-            for x in range(0, 1000):
-                a1 = np.random.choice(counts_cluster.loc[gene], len(counts_cluster.columns), replace=True)
+            for _ in range(0, iterations):
+                a1 = np.random.choice(counts_cluster.loc[gene_name], len(counts_cluster.columns), replace=True)
                 mean_g.append(np.mean(a1))
-            mean_g = np.array(mean_g).tolist()
-            p_val = float(sum(i <= threshold for i in mean_g)) / 1000
-            if (p_val < 0.05):
-                all_p.append(1)
-            else:
-                all_p.append(0)
-        cluster_name = new_clusters[cluster]
-        # df.assign(cluster_name=all_p)
-        df[cluster_name] = pd.Series(all_p, index=counts_filtered.index)
 
-    return df
+            mean_g = np.array(mean_g).tolist()
+            permutation_value = float(sum(i <= threshold for i in mean_g)) / iterations
+            if (permutation_value < max_permutation_value):
+                result.set_value(gene_name, cluster_name, 1)
+
+    result.to_csv('out/TEST_permutations_expressed.csv')
+    return result
 
 
 #######    Permute each gene in each cluster, take randomly with replacement cells (as many as is the size of this cluster) from the specific cluster
