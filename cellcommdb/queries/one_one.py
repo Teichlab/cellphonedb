@@ -42,7 +42,7 @@ def call(counts, meta):
         clusters[cluster_name] = counts_filtered.loc[:, cluster_cell_names]
 
     #####  For each gene, count in how many clusters it is upregulated
-    upregulated_result = upregulated(clusters, counts_filtered)
+    upregulated_result = _clusters_upregulated(clusters, counts_filtered)
     sum_upregulated = upregulated_result.sum(axis=1)
     sum_upregulated.to_csv('out/TEST_One_One_sum_upregulated.txt', sep="\t")
 
@@ -208,7 +208,7 @@ def permutations_percent(counts_matrix, threshold, percent, all_clusters, new_cl
     return df
 
 
-def upregulated(clusters, counts_filtered):
+def _clusters_upregulated(clusters, counts_filtered):
     '''
     Use NaiveDE (https://github.com/Teichlab/NaiveDE) for differential expression analysis - check for each gene, for
     each cluster, if the gene is upregulated in this cluster vs all other clusters. If the gene is significanlty
