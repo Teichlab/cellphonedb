@@ -42,9 +42,7 @@ def call(counts, meta):
         clusters[cluster_name] = counts_filtered.loc[:, cluster_cell_names]
 
     #####  For each gene, count in how many clusters it is upregulated
-    # log-transform the count table for differential expression analysis
-    counts_filtered_log = np.log1p(counts_filtered)
-    upregulated_result = upregulated(clusters, counts_filtered, counts_filtered_log)
+    upregulated_result = upregulated(clusters, counts_filtered)
     sum_upregulated = upregulated_result.sum(axis=1)
     sum_upregulated.to_csv('out/TEST_One_One_sum_upregulated.txt', sep="\t")
 
@@ -210,36 +208,38 @@ def permutations_percent(counts_matrix, threshold, percent, all_clusters, new_cl
     return df
 
 
-#####  Use NaiveDE (https://github.com/Teichlab/NaiveDE) for differential expression analysis - check for each gene, for each cluster, if the gene is upregulated in this cluster vs all other clusters
-#####  If the gene is significanlty upregulated in this cluster (q value < 0.1), then put 1 in output table, otherwise put 0
+def upregulated(clusters, counts_filtered):
+    '''
+    Use NaiveDE (https://github.com/Teichlab/NaiveDE) for differential expression analysis - check for each gene, for
+    each cluster, if the gene is upregulated in this cluster vs all other clusters. If the gene is significanlty
+    upregulated in this cluster (q value < 0.1), then put 1 in output table, otherwise put 0
 
-def upregulated(clusters, counts_filtered, counts_filtered_log):
-    result = pd.DataFrame()
+    :type clusters: pd.DataFrame()
+    :type counts_filtered: pd.DataFrame()
+    :rtype: pd.DataFrame()
+    '''
+    counts_filtered_log = np.log1p(counts_filtered)
+    all_cells_names = counts_filtered_log.columns
+
+    upregulated_clusters = pd.DataFrame(0, counts_filtered_log.index, clusters.keys())
 
     for cluster_name in clusters:
         counts_cluster = clusters[cluster_name]
-        all_pval = []
-        list_1 = [1] * len(counts_filtered.columns)
-        condition_1 = pd.DataFrame(list_1)
-        condition_1 = condition_1.T
-        condition_1.columns = counts_filtered.columns
-        condition_1[counts_cluster.columns] = 0
-        condition_1 = condition_1.T
-        condition_1.columns = ['condition']
+        condition = pd.DataFrame(None, all_cells_names)
+        condition['condition'] = 1
 
-        expr = lr_tests(condition_1, counts_filtered_log, alt_model='~ condition', null_model='~ 1', rcond=-1)
+        for cell_name in counts_cluster.columns:
+            condition.set_value(cell_name, 'condition', 0)
 
-        for row, index in expr.iterrows():
-            if (expr.loc[row, 'qval'] < 0.1):
-                all_pval.append(1)
-            else:
-                all_pval.append(0)
+        expr = lr_tests(condition, counts_filtered_log, alt_model='~ condition', null_model='~ 1', rcond=-1)
 
-        result[cluster_name] = pd.Series(all_pval, index=counts_filtered.index)
+        for index, qval in expr['qval'].iteritems():
+            if qval < 0.1:
+                upregulated_clusters.set_value(index, cluster_name, 1)
 
-        result.to_csv('out/TEST_upregulated.csv')
+    upregulated_clusters.to_csv('out/TEST_upregulated.csv')
 
-    return result
+    return upregulated_clusters
 
 
 ######    Take all one-one interactions, for all clusters (cell types) iterate through each interaction
