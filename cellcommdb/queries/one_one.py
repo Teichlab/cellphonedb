@@ -41,7 +41,6 @@ def call(counts, meta):
         cluster_cell_names = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % cluster_name)]).index
         clusters[cluster_name] = counts_filtered.loc[:, cluster_cell_names]
 
-    #####  For each gene, count in how many clusters it is upregulated
     upregulated_result = _clusters_upregulated(clusters, counts_filtered)
     sum_upregulated = upregulated_result.sum(axis=1)
     sum_upregulated.to_csv('out/TEST_One_One_sum_upregulated.txt', sep="\t")
@@ -208,7 +207,7 @@ def permutations_percent(counts_matrix, threshold, percent, all_clusters, new_cl
     return df
 
 
-def _clusters_upregulated(clusters, counts_filtered):
+def _clusters_upregulated(clusters, counts_filtered, max_qval=0.1):
     '''
     Use NaiveDE (https://github.com/Teichlab/NaiveDE) for differential expression analysis - check for each gene, for
     each cluster, if the gene is upregulated in this cluster vs all other clusters. If the gene is significanlty
@@ -216,6 +215,7 @@ def _clusters_upregulated(clusters, counts_filtered):
 
     :type clusters: pd.DataFrame()
     :type counts_filtered: pd.DataFrame()
+    :type max_qval: float
     :rtype: pd.DataFrame()
     '''
     counts_filtered_log = np.log1p(counts_filtered)
@@ -234,7 +234,7 @@ def _clusters_upregulated(clusters, counts_filtered):
         expr = lr_tests(condition, counts_filtered_log, alt_model='~ condition', null_model='~ 1', rcond=-1)
 
         for index, qval in expr['qval'].iteritems():
-            if qval < 0.1:
+            if qval < max_qval:
                 upregulated_clusters.set_value(index, cluster_name, 1)
 
     upregulated_clusters.to_csv('out/TEST_upregulated.csv')
