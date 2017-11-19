@@ -20,21 +20,6 @@ def call(counts, meta):
 
     # cluster_names = ['Trophoblasts', 'Stromal_5', 'Stromal_13', 'Endothelial', 'M0', 'M2', 'M4', 'NK_6', 'NK_10', 'Cycling_NK', 'CD8', 'CD4', 'Tregs']
     cluster_names = meta['cell_type'].unique()
-    start_time = datetime.now()
-
-    # TODO: Delete me
-    all_clusters = {}
-    clusters_counts = {}
-
-    i = 0
-    for cluster_name in cluster_names:
-        all_clusters[i] = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % cluster_name)]).index
-        clusters_counts[i] = counts_filtered.loc[:, all_clusters[i]]
-        i = i + 1
-
-    print('{}'.format(datetime.now() - start_time))
-
-    # TODO: End Delete me
 
     clusters = {}
     for cluster_name in cluster_names:
@@ -46,8 +31,10 @@ def call(counts, meta):
     sum_upregulated.to_csv('out/TEST_One_One_sum_upregulated.txt', sep="\t")
 
     permutations_pvalue = _cluster_permutations_expressed(clusters, 0)
-    one_one_human_interactions_permutations(all_interactions, 0, sum_upregulated, all_clusters, cluster_names,
-                                            clusters_counts, permutations_pvalue)
+
+    start_time = datetime.now()
+    one_one_human_interactions_permutations(clusters, all_interactions, 0, sum_upregulated, permutations_pvalue)
+    print('{}'.format(datetime.now() - start_time))
 
 
     # permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1, all_clusters, cluster_names, counts_filtered)
@@ -162,7 +149,7 @@ def _cluster_permutations_expressed(clusters, threshold, max_permutation_value=0
     np.random.seed(123)
 
     all_cells_names = next(iter(clusters.values())).index
-    result = pd.DataFrame(0, all_cells_names, clusters.keys())
+    result = pd.DataFrame(0, all_cells_names, sorted(list(clusters.keys())))
 
     for cluster_name in clusters:
         counts_cluster = clusters[cluster_name]
@@ -229,7 +216,7 @@ def _clusters_upregulated(clusters, counts_filtered, max_qval=0.1):
     counts_filtered_log = np.log1p(counts_filtered)
     all_cells_names = counts_filtered_log.columns
 
-    upregulated_clusters = pd.DataFrame(0, counts_filtered_log.index, clusters.keys())
+    upregulated_clusters = pd.DataFrame(0, counts_filtered_log.index, sorted(list(clusters.keys())))
 
     for cluster_name in clusters:
         counts_cluster = clusters[cluster_name]
@@ -256,133 +243,144 @@ def _clusters_upregulated(clusters, counts_filtered, max_qval=0.1):
 ######    then sum both of the counts (for both partner genes of the interactions) and take the mean  - Mean_Sum - this will be used later to rank the interactions (low to high)
 ######    For genes for which the sum is 0, put artificial score - total number of clusters + 1  - so that they rank lower
 
-def one_one_human_interactions_permutations(all_interactions, threshold, sum_upregulated, all_clusters, new_clusters,
-                                            clusters_counts, permutations_pvalue):
+
+def _interactions(cluster_permutation, clusters, all_interactions, permutations_pvalue, sum_upregulated, threshold):
+    all_cluster_names = sorted(list(clusters.keys()))
+    columns = ['Unity_L', 'Gene_L', 'Receptor_L', 'Membrane_L', 'Secretion_L', 'Ligand_L', 'Adhesion_L',
+               'Unity_R', 'Gene_R', 'Receptor_R', 'Membrane_R', 'Secretion_R', 'Ligand_R', 'Adhesion_R',
+               'Total_Mean_L', 'Mean_L', 'Total_cells_L', 'Num_cells_L', 'Sum_Up_L', 'Total_Mean_R', 'Mean_R',
+               'Total_cells_R',
+               'Num_cells_R', 'Sum_Up_R', 'Mean_Sum']
+
+    cluster_name = cluster_permutation[0]
+    cluster2_name = cluster_permutation[1]
+    cluster_mean1 = []
+    interaction_id1 = []
+    cluster_mean2 = []
+    interaction_id2 = []
+    for index, interaction in all_interactions.iterrows():
+        receptor = interaction['ensembl_x']
+        ligand = interaction['ensembl_y']
+        gene_1 = interaction['gene_name_x']
+        gene_2 = interaction['gene_name_y']
+        if (receptor is not None) & (ligand is not None):
+            mm1 = clusters[cluster_name]
+            mm2 = clusters[cluster2_name]
+            mean_r = []
+            mean_l = []
+            if (receptor in mm1.index) & (ligand in mm2.index):
+                p_val_r = permutations_pvalue.loc[receptor, cluster_name]
+                p_val_l = permutations_pvalue.loc[ligand, cluster2_name]
+                mean_expr_r = mm1.loc[receptor].mean()
+                num_cells_r = len(mm1.loc[receptor][mm1.loc[receptor] > 0])
+                mean_expr_l = mm2.loc[ligand].mean()
+                num_cells_l = len(mm2.loc[ligand][mm2.loc[ligand] > 0])
+                total_cells_r = len(mm1.columns)
+                total_cells_l = len(mm2.columns)
+                if (p_val_l != 0) & (p_val_r != 0):
+                    sum_r = sum_upregulated.loc[receptor]
+                    sum_l = sum_upregulated.loc[ligand]
+                    if (sum_r == 0):
+                        sum_r = float(len(all_cluster_names) + 1)
+                    if (sum_l == 0):
+                        sum_l = float(len(all_cluster_names) + 1)
+
+                    mean_sum = sum_r + sum_l
+                    mean_sum = float(mean_sum) / 2
+
+                    cluster_mean1.append(
+                        {'Unity_L': receptor, 'Gene_L': gene_1, 'Receptor_L': interaction['receptor_x'],
+                         'Membrane_L': interaction['transmembrane_x'],
+                         'Secretion_L': interaction['secretion_x'], 'Ligand_L': interaction['ligand_x'],
+                         'Adhesion_L': interaction['adhesion_x'],
+                         'Unity_R': ligand, 'Gene_R': gene_2, 'Receptor_R': interaction['receptor_y'],
+                         'Membrane_R': interaction['transmembrane_y'],
+                         'Secretion_R': interaction['secretion_y'], 'Ligand_R': interaction['ligand_y'],
+                         'Adhesion_R': interaction['adhesion_y'],
+                         'Total_Mean_L': mean_expr_r, 'Mean_L': np.mean(mean_r),
+                         'Total_cells_L': total_cells_r, 'Num_cells_L': num_cells_r, 'Sum_Up_L': sum_r,
+                         'Total_Mean_R': mean_expr_l, 'Mean_R': np.mean(mean_l),
+                         'Total_cells_R': total_cells_l, 'Num_cells_R': num_cells_l, 'Sum_Up_R': sum_l,
+                         'Mean_Sum': mean_sum})
+                    interaction_id1.append(interaction['interaction_id'])
+
+        receptor2 = interaction['ensembl_y']
+        ligand2 = interaction['ensembl_x']
+        if (receptor2 is not None) & (ligand2 is not None):
+            mm1 = clusters[cluster_name]
+            mean_expr_r = 0
+            num_cells_r = 0
+            mm2 = clusters[cluster2_name]
+            mean_expr_l = 0
+            num_cells_l = 0
+            mean_r = []
+            mean_l = []
+            if (receptor2 in mm1.index) & (ligand2 in mm2.index):
+                p_val_r = permutations_pvalue.loc[receptor2, cluster_name]
+                p_val_l = permutations_pvalue.loc[ligand2, cluster2_name]
+                mean_expr_r = mm1.loc[receptor2].mean()
+                num_cells_r = len(mm1.loc[receptor2][mm1.loc[receptor2] > 0])
+                mean_expr_l = mm2.loc[ligand2].mean()
+                num_cells_l = len(mm2.loc[ligand2][mm2.loc[ligand2] > 0])
+                total_cells_r = len(mm1.columns)
+                total_cells_l = len(mm2.columns)
+
+                if (p_val_l != 0) & (p_val_r != 0):
+                    sum_r = sum_upregulated.loc[receptor2]
+                    sum_l = sum_upregulated.loc[ligand2]
+                    if (sum_r == 0):
+                        sum_r = len(all_cluster_names) + 1
+                    if (sum_l == 0):
+                        sum_l = len(all_cluster_names) + 1
+                    mean_sum = sum_r + sum_l
+                    mean_sum = float(mean_sum) / 2
+                    cluster_mean2.append(
+                        {'Unity_L': receptor2, 'Gene_L': gene_2, 'Receptor_L': interaction['receptor_y'],
+                         'Membrane_L': interaction['transmembrane_y'],
+                         'Secretion_L': interaction['secretion_y'], 'Ligand_L': interaction['ligand_y'],
+                         'Adhesion_L': interaction['adhesion_y'],
+                         'Unity_R': ligand2, 'Gene_R': gene_1, 'Receptor_R': interaction['receptor_x'],
+                         'Membrane_R': interaction['transmembrane_x'],
+                         'Secretion_R': interaction['secretion_x'], 'Ligand_R': interaction['ligand_x'],
+                         'Adhesion_R': interaction['adhesion_x'],
+                         'Total_Mean_L': mean_expr_r, 'Mean_L': np.mean(mean_r),
+                         'Total_cells_L': total_cells_r, 'Num_cells_L': num_cells_r, 'Sum_Up_L': sum_r,
+                         'Total_Mean_R': mean_expr_l, 'Mean_R': np.mean(mean_l),
+                         'Total_cells_R': total_cells_l, 'Num_cells_R': num_cells_l, 'Sum_Up_R': sum_l,
+                         'Mean_Sum': mean_sum})
+                    interaction_id2.append(interaction['interaction_id'])
+
+    df1 = pd.DataFrame(cluster_mean1, index=interaction_id1, columns=columns)
+    df2 = pd.DataFrame(cluster_mean2, index=interaction_id2, columns=columns)
+    frames = [df1, df2]
+    all_interactions_cluster = pd.concat(frames)
+    all_interactions_cluster['Mean_Sum'].apply(pd.to_numeric)
+    # all_interactions_cluster.sort_values('Mean_Sum', ascending=True)
+    path_out = 'out/one-one/Cluster_%s_Cluster_%s_min%d.txt' % (
+        cluster_name, cluster2_name, threshold)
+    all_interactions_cluster.to_csv(path_out, sep="\t")
+
+
+def one_one_human_interactions_permutations(clusters, all_interactions, threshold, sum_upregulated,
+                                            permutations_pvalue):
+    # TODO: Seed, maybe only for debug??
     np.random.seed(123)
 
-    # clean outfolder
-    path = 'out/one-one'
+    _clean_path_txt('out/one-one')
+
+    all_cluster_names = sorted(list(clusters.keys()))
+
+    permutations = []
+    for i in range(0, len(all_cluster_names)):
+        for z in range(i + 1, len(all_cluster_names)):
+            permutations.append((all_cluster_names[i], all_cluster_names[z]))
+
+    for permutation in permutations:
+        _interactions(permutation, clusters, all_interactions, permutations_pvalue, sum_upregulated, threshold)
+
+
+def _clean_path_txt(path):
     namefiles = os.listdir('%s' % path)
     for namefile in namefiles:
         if namefile.endswith('.txt'):
             os.remove('%s/%s' % (path, namefile))
-
-    for cluster in range(0, len(all_clusters) - 1):
-        columns = ['Unity_L', 'Gene_L', 'Receptor_L', 'Membrane_L', 'Secretion_L', 'Ligand_L', 'Adhesion_L',
-                   'Unity_R', 'Gene_R', 'Receptor_R', 'Membrane_R', 'Secretion_R', 'Ligand_R', 'Adhesion_R',
-                   'Total_Mean_L', 'Mean_L', 'Total_cells_L', 'Num_cells_L', 'Sum_Up_L', 'Total_Mean_R', 'Mean_R',
-                   'Total_cells_R',
-                   'Num_cells_R', 'Sum_Up_R', 'Mean_Sum']
-        for cluster2 in range(0, len(all_clusters)):
-            if cluster < cluster2:
-                cluster_name = new_clusters[cluster]
-                cluster2_name = new_clusters[cluster2]
-                cluster_mean1 = []
-                interaction_id1 = []
-                cluster_mean2 = []
-                interaction_id2 = []
-                for row, index in all_interactions.iterrows():
-                    receptor = index['ensembl_x']
-                    ligand = index['ensembl_y']
-                    gene_1 = index['gene_name_x']
-                    gene_2 = index['gene_name_y']
-                    if (receptor is not None) & (ligand is not None):
-                        mm1 = clusters_counts[cluster]
-                        mean_expr_r = 0
-                        num_cells_r = 0
-                        mm2 = clusters_counts[cluster2]
-                        mean_expr_l = 0
-                        num_cells_l = 0
-                        mean_r = []
-                        mean_l = []
-                        if (receptor in mm1.index) & (ligand in mm2.index):
-                            p_val_r = permutations_pvalue.loc[receptor, cluster_name]
-                            p_val_l = permutations_pvalue.loc[ligand, cluster2_name]
-                            mean_expr_r = mm1.loc[receptor].mean()
-                            num_cells_r = len(mm1.loc[receptor][mm1.loc[receptor] > 0])
-                            mean_expr_l = mm2.loc[ligand].mean()
-                            num_cells_l = len(mm2.loc[ligand][mm2.loc[ligand] > 0])
-                            total_cells_r = len(mm1.columns)
-                            total_cells_l = len(mm2.columns)
-                            if (p_val_l != 0) & (p_val_r != 0):
-                                sum_r = sum_upregulated.loc[receptor]
-                                sum_l = sum_upregulated.loc[ligand]
-                                if (sum_r == 0):
-                                    sum_r = float(len(all_clusters) + 1)
-                                if (sum_l == 0):
-                                    sum_l = float(len(all_clusters) + 1)
-
-                                mean_sum = sum_r + sum_l
-                                mean_sum = float(mean_sum) / 2
-
-                                cluster_mean1.append(
-                                    {'Unity_L': receptor, 'Gene_L': gene_1, 'Receptor_L': index['receptor_x'],
-                                     'Membrane_L': index['transmembrane_x'],
-                                     'Secretion_L': index['secretion_x'], 'Ligand_L': index['ligand_x'],
-                                     'Adhesion_L': index['adhesion_x'],
-                                     'Unity_R': ligand, 'Gene_R': gene_2, 'Receptor_R': index['receptor_y'],
-                                     'Membrane_R': index['transmembrane_y'],
-                                     'Secretion_R': index['secretion_y'], 'Ligand_R': index['ligand_y'],
-                                     'Adhesion_R': index['adhesion_y'],
-                                     'Total_Mean_L': mean_expr_r, 'Mean_L': np.mean(mean_r),
-                                     'Total_cells_L': total_cells_r, 'Num_cells_L': num_cells_r, 'Sum_Up_L': sum_r,
-                                     'Total_Mean_R': mean_expr_l, 'Mean_R': np.mean(mean_l),
-                                     'Total_cells_R': total_cells_l, 'Num_cells_R': num_cells_l, 'Sum_Up_R': sum_l,
-                                     'Mean_Sum': mean_sum})
-                                interaction_id1.append(index['interaction_id'])
-
-                    receptor2 = index['ensembl_y']
-                    ligand2 = index['ensembl_x']
-                    if (receptor2 is not None) & (ligand2 is not None):
-                        mm1 = clusters_counts[cluster]
-                        mean_expr_r = 0
-                        num_cells_r = 0
-                        mm2 = clusters_counts[cluster2]
-                        mean_expr_l = 0
-                        num_cells_l = 0
-                        mean_r = []
-                        mean_l = []
-                        if (receptor2 in mm1.index) & (ligand2 in mm2.index):
-                            p_val_r = permutations_pvalue.loc[receptor2, cluster_name]
-                            p_val_l = permutations_pvalue.loc[ligand2, cluster2_name]
-                            mean_expr_r = mm1.loc[receptor2].mean()
-                            num_cells_r = len(mm1.loc[receptor2][mm1.loc[receptor2] > 0])
-                            mean_expr_l = mm2.loc[ligand2].mean()
-                            num_cells_l = len(mm2.loc[ligand2][mm2.loc[ligand2] > 0])
-                            total_cells_r = len(mm1.columns)
-                            total_cells_l = len(mm2.columns)
-
-                            if (p_val_l != 0) & (p_val_r != 0):
-                                sum_r = sum_upregulated.loc[receptor2]
-                                sum_l = sum_upregulated.loc[ligand2]
-                                if (sum_r == 0):
-                                    sum_r = len(all_clusters) + 1
-                                if (sum_l == 0):
-                                    sum_l = len(all_clusters) + 1
-                                mean_sum = sum_r + sum_l
-                                mean_sum = float(mean_sum) / 2
-                                cluster_mean2.append(
-                                    {'Unity_L': receptor2, 'Gene_L': gene_2, 'Receptor_L': index['receptor_y'],
-                                     'Membrane_L': index['transmembrane_y'],
-                                     'Secretion_L': index['secretion_y'], 'Ligand_L': index['ligand_y'],
-                                     'Adhesion_L': index['adhesion_y'],
-                                     'Unity_R': ligand2, 'Gene_R': gene_1, 'Receptor_R': index['receptor_x'],
-                                     'Membrane_R': index['transmembrane_x'],
-                                     'Secretion_R': index['secretion_x'], 'Ligand_R': index['ligand_x'],
-                                     'Adhesion_R': index['adhesion_x'],
-                                     'Total_Mean_L': mean_expr_r, 'Mean_L': np.mean(mean_r),
-                                     'Total_cells_L': total_cells_r, 'Num_cells_L': num_cells_r, 'Sum_Up_L': sum_r,
-                                     'Total_Mean_R': mean_expr_l, 'Mean_R': np.mean(mean_l),
-                                     'Total_cells_R': total_cells_l, 'Num_cells_R': num_cells_l, 'Sum_Up_R': sum_l,
-                                     'Mean_Sum': mean_sum})
-                                interaction_id2.append(index['interaction_id'])
-
-                df1 = pd.DataFrame(cluster_mean1, index=interaction_id1, columns=columns)
-                df2 = pd.DataFrame(cluster_mean2, index=interaction_id2, columns=columns)
-                frames = [df1, df2]
-                all_interactions_cluster = pd.concat(frames)
-                all_interactions_cluster['Mean_Sum'].apply(pd.to_numeric)
-                # all_interactions_cluster.sort_values('Mean_Sum', ascending=True)
-                path_out = 'out/one-one/Cluster_%s_Cluster_%s_min%d.txt' % (
-                    cluster_name, cluster2_name, threshold)
-                all_interactions_cluster.to_csv(path_out, sep="\t")
