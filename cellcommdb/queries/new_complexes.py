@@ -1,8 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
-import math
-from NaiveDE import lr_tests
+
 
 from cellcommdb.api import create_app, data_dir
 
@@ -54,12 +53,10 @@ def call(counts, meta):
     ######     log-transform the count table for differential expression analysis
     counts_filtered_log = np.log1p(counts_filtered)
 
-    upregulated_result = upregulated(clusters_counts, all_clusters, new_clusters, counts_filtered, counts_filtered_log)
-    sum_upregulated = upregulated_result.sum(axis=1)
 
-    permutations_pvalue = permutations_percent(clusters_counts, 0, 0.1, all_clusters, new_clusters,
+    permutations_pvalue = expression_percent(clusters_counts, 0, 0.1, all_clusters, new_clusters,
                                                counts_filtered)
-    complex_interactions_permutations(all_complex_interactions, 0, sum_upregulated, all_clusters, new_clusters,
+    complex_interactions_permutations(all_complex_interactions, 0, all_clusters, new_clusters,
                                       clusters_counts, permutations_pvalue)
 
 
@@ -139,7 +136,7 @@ def query_receptor_secreted_complex_interactions():
         interactions_complex.drop(['id_x'], axis=1, inplace=True)
         interactions_complex.drop(['id_y'], axis=1, inplace=True)
 
-        interactions_complex.to_csv('out/complex_filtered.txt', sep="\t")
+
 
         return interactions_complex
 
@@ -257,8 +254,7 @@ def get_proteins_in_complex_composition(complex):
         # complex_proteins_genes.rename(index=str, columns={'gene_name_y': 'gene_name'}, inplace=True)
         # complex_proteins_genes.drop(['gene_name_x'], axis=1, inplace=True)
 
-        complex_proteins_genes.to_csv('out/test4.csv', index=False)
-        # print(complex_proteins_genes.shape)
+
 
         return complex_proteins_genes
 
@@ -274,44 +270,9 @@ def get_gene_for_multidata(multidata_id):
         return gene_protein_df
 
 
-#######    Permute each gene in each cluster, take randomly with replacement cells (as many as is the size of this cluster) from the specific cluster
-#######    and in each permutation, save the mean. When you have 1000 means, you have a distribution of the means. Check if the total number of permutations
-#######    lower than 0 divided by total number of permutations (1000) is lower than 0.05 (which is our threshold for significance)
-#######    If yes, than the gene passed the test, put 1 in the output table; if not, put 0
 
-def permutations_expressed(counts_matrix, threshold, all_clusters, new_clusters, counts_filtered):
-    np.random.seed(123)
-    df = pd.DataFrame()
-    for cluster in range(0, len(all_clusters)):
-        counts_cluster = counts_matrix[cluster]
-        all_p = []
-        for row, index in counts_cluster.iterrows():
-            mean_g = []
-            gene = row
-
-            for x in range(0, 1000):
-                a1 = np.random.choice(counts_cluster.loc[gene], len(counts_cluster.columns), replace=True)
-                mean_g.append(np.mean(a1))
-            mean_g = np.array(mean_g).tolist()
-            p_val = float(sum(i <= threshold for i in mean_g)) / 1000
-            if (p_val < 0.05):
-                all_p.append(1)
-            else:
-                all_p.append(0)
-        cluster_name = new_clusters[cluster]
-        # df.assign(cluster_name=all_p)
-        df[cluster_name] = pd.Series(all_p, index=counts_filtered.index)
-
-    return df
-
-
-#######    Permute each gene in each cluster, take randomly with replacement cells (as many as is the size of this cluster) from the specific cluster
-#######    and in each permutation, save the % of cells which have expession of the specific gene > 0 (threshold). When you have 1000 percentages, you have a distribution of the percentages. Check if the total number of permutations
-#######    lower than 10% (or input parameter percent) divided by total number of permutations (1000) is lower than 0.05 (which is our threshold for significance)
-#######    If yes, than the gene passed the test, put the real % of cells expressing this gene in the output table; if not, put 0
-
-def permutations_percent(counts_matrix, threshold, percent, all_clusters, new_clusters, counts_filtered):
-    np.random.seed(123)
+def expression_percent(counts_matrix, threshold, percent, all_clusters, new_clusters,
+                                               counts_filtered):
     df = pd.DataFrame()
     for cluster in range(0, len(all_clusters)):
         counts_cluster = counts_matrix[cluster]
@@ -319,70 +280,16 @@ def permutations_percent(counts_matrix, threshold, percent, all_clusters, new_cl
         for row, index in counts_cluster.iterrows():
             mean_g = []
             gene = row
-
-            for x in range(0, 1000):
-                a1 = np.random.choice(counts_cluster.loc[gene], len(counts_cluster.columns), replace=True)
-                mean_g.append(float(sum(i > threshold for i in a1)) / a1.size)
-            mean_g = np.array(mean_g).tolist()
-            p_val = float(sum(i <= percent for i in mean_g)) / 1000
             num_cells = len(counts_cluster.loc[gene][counts_cluster.loc[gene] > threshold])
-            if (p_val < 0.05):
-                all_percent.append(float(num_cells) / len(counts_cluster.columns))
+            perc = float(num_cells) / len(counts_cluster.columns)
+            if (perc > percent):
+                all_percent.append(perc)
             else:
                 all_percent.append(0)
 
         cluster_name = new_clusters[cluster]
         # df.assign(cluster_name=all_p)
         df[cluster_name] = pd.Series(all_percent, index=counts_filtered.index)
-
-    return df
-
-
-#####  Use NaiveDE (https://github.com/Teichlab/NaiveDE) for differential expression analysis - check for each gene, for each cluster, if the gene is upregulated in this cluster vs all other clusters
-#####  If the gene is significanlty upregulated in this cluster (q value < 0.1), then put 1 in output table, otherwise put 0
-
-def upregulated(counts_matrix, all_clusters, new_clusters, counts_filtered, counts_filtered_log):
-    df = pd.DataFrame()
-    for cluster in range(0, len(all_clusters)):
-        counts_cluster = counts_matrix[cluster]
-
-        counts_other_clusters = counts_filtered.drop(counts_cluster.columns, 1)
-        cluster_name = new_clusters[cluster]
-        all_pval = []
-
-        # meta_counts = pd.DataFrame.from_records([1] * len(counts_filtered.columns), columns=counts_filtered.columns)
-        list_1 = [0] * len(counts_filtered.columns)
-        condition_1 = pd.DataFrame(list_1)
-        condition_1 = condition_1.T
-        condition_1.columns = counts_filtered.columns
-        condition_1[counts_cluster.columns] = 1
-        condition_1 = condition_1.T
-        condition_1.columns = ['condition']
-
-        # condition_1.to_csv('Maternal_fetal/meta_counts.txt', sep="\t")
-
-        expr = lr_tests(condition_1, counts_filtered_log, alt_model='~ condition', null_model='~ 1', rcond=-1)
-
-        # path_out = 'Maternal_fetal/Cluster_%s_DE.txt' % (cluster_name)
-        # expr.to_csv(path_out, sep="\t")
-
-
-        for row, index in expr.iterrows():
-            mean1 = counts_cluster.loc[row].mean()
-            mean2 = counts_other_clusters.loc[row].mean()
-            if (mean1 == 0):
-                mean1 = 0.1
-            if (mean2 == 0):
-                mean2 = 0.1
-
-            logFC = math.log(float(mean1) / mean2)
-            if (expr.loc[row, 'qval'] < 0.1) & (logFC > 0.1):
-                # if(expr.loc[row, 'qval'] < 0.1):
-                all_pval.append(1)
-            else:
-                all_pval.append(0)
-
-        df[cluster_name] = pd.Series(all_pval, index=counts_filtered.index)
 
     return df
 
@@ -396,15 +303,15 @@ def upregulated(counts_matrix, all_clusters, new_clusters, counts_filtered, coun
 ######    For genes for which the sum is 0, put artificial score - total number of clusters + 1  - so that they rank lower
 
 
-def complex_interactions_permutations(all_complex_interactions, threshold, sum_upregulated, all_clusters, new_clusters,
+def complex_interactions_permutations(all_complex_interactions, threshold, all_clusters, new_clusters,
                                       clusters_counts, permutations_pvalue):
     for cluster in range(0, len(all_clusters) - 1):
         columns = ['Unity_L', 'Name_L', 'Gene_L', 'Gene_L_ens', 'Receptor_L', 'Membrane_L', 'Secretion_L', 'Ligand_L',
                    'Adhesion_L', 'Unity_R', 'Name_R', 'Gene_R', 'Gene_R_ens', 'Receptor_R', 'Membrane_R', 'Secretion_R',
                    'Ligand_R',
-                   'Adhesion_R', 'Total_Mean_L', 'Mean_L', 'Total_cells_L', 'Num_cells_L', 'Sum_Up_L', 'Total_Mean_R',
+                   'Adhesion_R', 'Total_Mean_L', 'Mean_L', 'Total_cells_L', 'Num_cells_L', 'Total_Mean_R',
                    'Mean_R', 'Total_cells_R',
-                   'Num_cells_R', 'Sum_Up_R', 'Mean_Sum']
+                   'Num_cells_R']
         for cluster2 in range(0, len(all_clusters)):
             if cluster <= cluster2:
                 cluster_name = new_clusters[cluster]
@@ -423,7 +330,6 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                     genes_1 = []
                     mean_r = []
                     percentage_permutation = []
-                    sum_r = []
                     for row, index in proteins.iterrows():
                         pr = index['ensembl']
                         if (pr is not None):
@@ -440,10 +346,7 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                                 genes_1.append(index['gene_name'])
                                 mean_r.append((mm.loc[pr][mm.loc[pr] > 0]).mean())
                                 percentage_permutation.append(permutations_pvalue.loc[pr, cluster_name])
-                                if (sum_upregulated.loc[pr] == 0):
-                                    sum_r.append(len(all_clusters) + 1)
-                                else:
-                                    sum_r.append(sum_upregulated.loc[pr])
+
                     if (index1['Complex'] == True):
                         proteins_2 = get_proteins_in_complex_composition(index1['multidata_2_id'])
                         complexes_mean_2 = []
@@ -452,7 +355,6 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                         genes_ens_2 = []
                         genes_2 = []
                         mean_l = []
-                        sum_l = []
                         for row, index in proteins_2.iterrows():
                             pr = index['ensembl']
                             if (pr is not None):
@@ -469,13 +371,7 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                                     genes_2.append(index['gene_name'])
                                     mean_l.append((mm2.loc[pr][mm2.loc[pr] > 0]).mean())
                                     percentage_permutation.append(permutations_pvalue.loc[pr, cluster2_name])
-                                    if (sum_upregulated.loc[pr] == 0):
-                                        sum_l.append(len(all_clusters) + 1)
-                                    else:
-                                        sum_l.append(sum_upregulated.loc[pr])
 
-                        mean_sum1 = float(sum(sum_r)) / len(sum_r) + float(sum(sum_l)) / len(sum_l)
-                        mean_sum = float(mean_sum1) / 2
                         if (all(percentage_permutation) != 0):
                             cluster_mean1.append(
                                 {'Unity_L': index1['multidata_1_id'], 'Name_L': name_l, 'Gene_L': list(genes_1),
@@ -488,10 +384,8 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                                  'Ligand_R': index1['ligand_y'], 'Adhesion_R': index1['adhesion_y'],
                                  'Total_Mean_L': list(complexes_mean_1), 'Mean_L': list(mean_r),
                                  'Total_cells_L': total_cells_r, 'Num_cells_L': list(complexes_cells_1),
-                                 'Sum_Up_L': list(sum_r),
                                  'Total_Mean_R': list(complexes_mean_2), 'Mean_R': list(mean_l),
-                                 'Total_cells_R': total_cells_l, 'Num_cells_R': list(complexes_cells_2),
-                                 'Sum_Up_R': list(sum_l), 'Mean_Sum': mean_sum})
+                                 'Total_cells_R': total_cells_l, 'Num_cells_R': list(complexes_cells_2)})
                             interaction_id1.append(index1['interaction_id'])
                     else:
                         genes_multidata = get_gene_for_multidata(index1['multidata_2_id'])
@@ -510,13 +404,7 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                                 num_cells_l = len(mm2.loc[ligand][mm2.loc[ligand] > 0])
                                 mean_l = (mm2.loc[ligand][mm2.loc[ligand] > 0]).mean()
                                 percentage_permutation.append(permutations_pvalue.loc[ligand, cluster2_name])
-                                sum_l = sum_upregulated.loc[ligand]
-                                if (sum_l == 0):
-                                    sum_l = len(all_clusters) + 1
-                                # sum_r = np.array(sum_r)
-                                # mean_sum = np.mean(sum_r) + sum_l
-                                mean_sum1 = float(sum(sum_r)) / len(sum_r) + sum_l
-                                mean_sum = float(mean_sum1) / 2
+
                         if (all(percentage_permutation) != 0):
                             cluster_mean1.append(
                                 {'Unity_L': index1['multidata_1_id'], 'Name_L': name_l, 'Gene_L': list(genes_1),
@@ -529,9 +417,8 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                                  'Ligand_R': index1['ligand_y'], 'Adhesion_R': index1['adhesion_y'],
                                  'Total_Mean_L': list(complexes_mean_1), 'Mean_L': list(mean_r),
                                  'Total_cells_L': total_cells_r, 'Num_cells_L': list(complexes_cells_1),
-                                 'Sum_Up_L': list(sum_r),
                                  'Total_Mean_R': mean_expr_l, 'Mean_R': mean_l, 'Total_cells_R': total_cells_l,
-                                 'Num_cells_R': num_cells_l, 'Sum_Up_R': sum_l, 'Mean_Sum': mean_sum})
+                                 'Num_cells_R': num_cells_l})
                             interaction_id1.append(index1['interaction_id'])
 
                     complexes_mean_3 = []
@@ -541,7 +428,7 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                     genes_3 = []
                     mean_l = []
                     percentage_permutation_2 = []
-                    sum_l = []
+
                     for row, index in proteins.iterrows():
                         pr = index['ensembl']
                         if (pr is not None):
@@ -556,10 +443,6 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                                 genes_3.append(index['gene_name'])
                                 mean_l.append((mm.loc[pr][mm.loc[pr] > 0]).mean())
                                 percentage_permutation_2.append(permutations_pvalue.loc[pr, cluster2_name])
-                                if (sum_upregulated.loc[pr] == 0):
-                                    sum_l.append(len(all_clusters) + 1)
-                                else:
-                                    sum_l.append(sum_upregulated.loc[pr])
 
                     name_r = index1['name_x']
                     name_l = index1['name_y']
@@ -572,7 +455,7 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                         genes_ens_4 = []
                         genes_4 = []
                         mean_r = []
-                        sum_r = []
+
                         for row, index in proteins_4.iterrows():
                             pr = index['ensembl']
                             if (pr is not None):
@@ -589,12 +472,7 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                                     genes_4.append(index['gene_name'])
                                     mean_r.append((mm2.loc[pr][mm2.loc[pr] > 0]).mean())
                                     percentage_permutation_2.append(permutations_pvalue.loc[pr, cluster_name])
-                                    if (sum_upregulated.loc[pr] == 0):
-                                        sum_r.append(len(all_clusters) + 1)
-                                    else:
-                                        sum_r.append(sum_upregulated.loc[pr])
-                        mean_sum1 = float(sum(sum_r)) / len(sum_r) + float(sum(sum_l)) / len(sum_l)
-                        mean_sum = float(mean_sum1) / 2
+
                         if (all(percentage_permutation_2) != 0):
                             cluster_mean2.append(
                                 {'Unity_L': index1['multidata_2_id'], 'Name_L': name_l, 'Gene_L': list(genes_4),
@@ -608,10 +486,8 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                                  'Ligand_R': index1['ligand_x'], 'Adhesion_R': index1['adhesion_x'],
                                  'Total_Mean_L': list(complexes_mean_4), 'Mean_L': list(mean_r),
                                  'Total_cells_L': total_cells_r, 'Num_cells_L': list(complexes_cells_4),
-                                 'Sum_Up_L': list(sum_r),
                                  'Total_Mean_R': list(complexes_mean_3), 'Mean_R': list(mean_l),
-                                 'Total_cells_R': total_cells_l, 'Num_cells_R': list(complexes_cells_3),
-                                 'Sum_Up_R': list(sum_l), 'Mean_Sum': mean_sum})
+                                 'Total_cells_R': total_cells_l, 'Num_cells_R': list(complexes_cells_3)})
                             interaction_id2.append(index1['interaction_id'])
                     else:
                         genes_multidata = get_gene_for_multidata(index1['multidata_2_id'])
@@ -626,11 +502,7 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                             num_cells_r = len(mm1.loc[receptor2][mm1.loc[receptor2] > 0])
                             mean_r = (mm1.loc[receptor2][mm1.loc[receptor2] > 0]).mean()
                             percentage_permutation_2.append(permutations_pvalue.loc[receptor2, cluster_name])
-                            sum_r = sum_upregulated.loc[receptor2]
-                            if (sum_r == 0):
-                                sum_r = len(all_clusters) + 1
-                            mean_sum1 = float(sum(sum_l)) / len(sum_l) + sum_r
-                            mean_sum = float(mean_sum1) / 2
+
                             if (all(percentage_permutation_2) != 0):
                                 cluster_mean2.append(
                                     {'Unity_L': index1['multidata_2_id'], 'Name_L': name_l, 'Gene_L': gene1,
@@ -642,10 +514,9 @@ def complex_interactions_permutations(all_complex_interactions, threshold, sum_u
                                      'Membrane_R': index1['transmembrane_x'], 'Secretion_R': index1['secretion_x'],
                                      'Ligand_R': index1['ligand_x'], 'Adhesion_R': index1['adhesion_x'],
                                      'Total_Mean_L': mean_expr_r, 'Mean_L': mean_r, 'Total_cells_L': total_cells_r,
-                                     'Num_cells_L': num_cells_r, 'Sum_Up_L': sum_r,
+                                     'Num_cells_L': num_cells_r,
                                      'Total_Mean_R': list(complexes_mean_3), 'Mean_R': list(mean_l),
-                                     'Total_cells_R': total_cells_l, 'Num_cells_R': list(complexes_cells_3),
-                                     'Sum_Up_R': list(sum_l), 'Mean_Sum': mean_sum})
+                                     'Total_cells_R': total_cells_l, 'Num_cells_R': list(complexes_cells_3)})
                                 interaction_id2.append(index1['interaction_id'])
                 df1 = pd.DataFrame(cluster_mean1, index=interaction_id1, columns=columns)
                 df2 = pd.DataFrame(cluster_mean2, index=interaction_id2, columns=columns)
