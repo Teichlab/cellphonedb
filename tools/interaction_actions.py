@@ -68,8 +68,14 @@ def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
                                index=False, float_format='%.4f')
 
 
-def generate_interactions_custom(interactions_base_namefile, database_proteins_namefile, gene_proteins_namefile):
-    interactions_base_df = pd.read_csv('%s/%s' % (data_dir, interactions_base_namefile), sep='\t', na_values='-')
+def generate_interactions_custom(interactions_base_df, protein_df, gene_df):
+    '''
+
+    :type interactions_base_df: pd.DataFrame()
+    :typetype protein_df: pd.DataFrame()
+    :type gene_df: pd.DataFrame()
+    :rtype: pd.DataFrame()
+    '''
     interactions_base_df.dropna(how='any', subset=['A', 'B'], inplace=True)
 
     custom_interactions = pd.DataFrame()
@@ -111,29 +117,35 @@ def generate_interactions_custom(interactions_base_namefile, database_proteins_n
         'b_raw_ensembl'].apply(
         lambda value: value.split(':')[1])
 
-    gene_df = pd.read_csv('%s/%s' % (data_dir, gene_proteins_namefile))
-
     custom_interactions = pd.merge(custom_interactions, gene_df, left_on='ensembl_1', right_on='ensembl', how='outer',
                                    indicator='_merge_1')
 
+    custom_interactions.drop(['ensembl'], inplace=True, axis=1)
     custom_interactions = pd.merge(custom_interactions, gene_df, left_on='ensembl_2', right_on='ensembl', how='outer',
                                    indicator='_merge_2', suffixes=['_1', '_2'])
 
     def get_protein(row, protein_number):
-        if row['protein_%s' % protein_number]:
-            return row['protein_%s' % protein_number]
-        return row['uniprot_%s' % protein_number]
+        protein_x = row['protein_%s' % protein_number]
+        if isinstance(protein_x, float) and math.isnan(protein_x):
+            return row['uniprot_%s' % protein_number]
+
+        return row['protein_%s' % protein_number]
 
     custom_interactions['protein_1'] = custom_interactions.apply(lambda row: get_protein(row, 1), axis=1)
     custom_interactions['protein_2'] = custom_interactions.apply(lambda row: get_protein(row, 2), axis=1)
 
     custom_interactions.dropna(how='any', subset=['protein_1', 'protein_2'], inplace=True)
 
-    protein_df = pd.read_csv('%s/%s' % (data_dir, database_proteins_namefile))
     custom_interactions = custom_interactions[['protein_1', 'protein_2', 'raw_score', 'source']]
     custom_interactions = _only_uniprots_in_df(protein_df, custom_interactions)
 
-    custom_interactions['score_1'] = custom_interactions['raw_score'].apply(lambda row: row.split('intact-miscore:')[1])
+    def get_score(raw_score):
+        intact_miscore = raw_score.split('intact-miscore:')
+        if len(intact_miscore) < 2:
+            return 1
+        return float(intact_miscore[1])
+
+    custom_interactions['score_1'] = custom_interactions['raw_score'].apply(get_score)
     custom_interactions['score_2'] = custom_interactions['score_1']
 
     def set_score_duplicates(interaction):
@@ -148,10 +160,13 @@ def generate_interactions_custom(interactions_base_namefile, database_proteins_n
         return interaction
 
     custom_interactions = custom_interactions.apply(set_score_duplicates, axis=1)
-    custom_interactions.drop_duplicates(keep='first', inplace=True)
+    custom_interactions.drop_duplicates(['protein_1', 'protein_2', 'score_1', 'score_2'], keep='first', inplace=True)
 
-    custom_interactions[['protein_1', 'protein_2', 'score_1', 'score_2', 'source']].to_csv(
+    custom_interactions = custom_interactions[['protein_1', 'protein_2', 'score_1', 'score_2', 'source']]
+    custom_interactions.to_csv(
         '%s/cellphone_interactions_custom.csv' % output_dir, index=False)
+
+    return custom_interactions
 
 
 def generate_interactions_imex(interactions_base_namefile, database_proteins_namefile):

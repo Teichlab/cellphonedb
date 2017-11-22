@@ -1,7 +1,8 @@
 import click
+import pandas as pd
 
 from flask.cli import FlaskGroup
-from tools.app import create_app
+from tools.app import create_app, data_dir
 from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_proteins
 from tools.merge_gene_mouse import merge_gene_mouse as merge_gene
 from tools.interaction_actions import generate_interactions_inweb as protein_generate_inweb, \
@@ -43,7 +44,11 @@ def inweb_interactions(inweb_inbiomap_namefile, database_proteins_namefile):
 @click.argument('database_proteins_namefile', default='protein.csv')
 @click.argument('database_gene_namefile', default='gene.csv')
 def custom_interactions(interaction_namefile, database_proteins_namefile, database_gene_namefile):
-    generate_interactions_custom(interaction_namefile, database_proteins_namefile, database_gene_namefile)
+    interactions_base_df = pd.read_csv('%s/%s' % (data_dir, interaction_namefile), sep='\t', na_values='-')
+    protein_df = pd.read_csv('%s/%s' % (data_dir, database_proteins_namefile))
+    gene_df = pd.read_csv('%s/%s' % (data_dir, database_gene_namefile))
+
+    generate_interactions_custom(interactions_base_df, protein_df, gene_df)
 
 
 @cli.command()
