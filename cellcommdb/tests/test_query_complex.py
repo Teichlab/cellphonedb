@@ -5,10 +5,12 @@ from flask_testing import TestCase
 from cellcommdb.api import create_app
 from cellcommdb.config import TestConfig
 
+data_query = 'test'
+
 
 class QueryComplexChecks(TestCase):
     def test_files(self):
-        test_data_dir = './cellcommdb/tests/test_data/r-s/complex/results'
+        test_data_dir = './cellcommdb/tests/test_data/%s/r-s/complex/results' % data_query
         generated_data_dir = './out/complexes'
         namefiles_original = os.listdir(test_data_dir)
 
@@ -35,24 +37,28 @@ class QueryComplexChecks(TestCase):
 
         self.assertFalse(not_equal, 'Some query complex output files are different')
 
-    def test_complex_r_s_filter(self):
-        test_data_dir = './cellcommdb/tests/test_data/r-s/complex'
-        generated_data_dir = './out/'
-
-        namefile = 'complex_filtered.txt'
-
+    def _check_file(self, namefile, sep=',', order_by=None,
+                    test_data_dir='./cellcommdb/tests/test_data/%s/r-s/complex' % data_query,
+                    generated_data_dir='./out'):
         file_original = open('%s/%s' % (test_data_dir, namefile))
         file_generated = open('%s/%s' % (generated_data_dir, namefile))
 
-        original_df = pd.read_csv(file_original, sep='\t')
-        generated_df = pd.read_csv(file_generated, sep='\t')
+        original_df = pd.read_csv(file_original, sep=sep)
+        generated_df = pd.read_csv(file_generated, sep=sep)
 
         file_original.close()
         file_generated.close()
 
-        self.assertEqual(len(original_df), len(generated_df), 'Number of Complex Filtered not equal')
+        if order_by:
+            self.assertEqual(len(original_df), len(generated_df), 'Number of %s not equal' % namefile)
+        else:
+            self.assertEqual(len(original_df), len(generated_df), 'Number of %s not equal' % namefile)
 
-        self.assertTrue(original_df.equals(generated_df))
+        self.assertTrue(original_df.sort_values(order_by).reset_index(drop=True).equals(
+            generated_df.sort_values(order_by).reset_index(drop=True)), 'Content File %s isnt equal' % namefile)
+
+    def test_complex_filtered(self):
+        self._check_file('TEST_complex_filtered.txt', '\t', order_by='interaction_id')
 
     def setUp(self):
         self.client = self.app.test_client()
