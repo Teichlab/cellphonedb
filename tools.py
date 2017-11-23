@@ -7,7 +7,8 @@ from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_p
 from tools.merge_gene_mouse import merge_gene_mouse as merge_gene
 from tools.interaction_actions import generate_interactions_inweb as protein_generate_inweb, \
     only_noncomplex_interactions, remove_interactions_in_file, append_curated, \
-    generate_interactions_imex, generate_interactions_innatedb, merge_interactions_action, generate_interactions_custom
+    generate_interactions_imex, generate_interactions_innatedb, merge_interactions_action
+from tools.generate_data.interaction.parse_custom import generate_interactions_custom
 
 
 def create_tools_app(info):
