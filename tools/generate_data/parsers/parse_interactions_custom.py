@@ -6,29 +6,6 @@ from tools.app import output_dir
 from tools.interaction_actions import _only_uniprots_in_df
 
 
-def _validate_sources(generated_sources, original_sources):
-    '''
-    Check if all original soruces exist in generated source
-    :type generated_sources: list
-    :type original_sources: list
-    :rtype: bool
-    '''
-
-    generated_sources = list(set(generated_sources))
-    original_sources = list(set(original_sources))
-    not_existent_source = []
-    for source in original_sources:
-        if source not in generated_sources:
-            not_existent_source.append(source)
-
-    if not_existent_source:
-        print('WARN: Some sources did exist in generated file')
-        print(not_existent_source)
-        return False
-
-    return True
-
-
 def generate_interactions_custom(interactions_base_df, protein_df, gene_df):
     '''
 
@@ -130,3 +107,26 @@ def generate_interactions_custom(interactions_base_df, protein_df, gene_df):
     _validate_sources(custom_interactions['source'].tolist(), interactions_base_df['provider'].tolist())
 
     return custom_interactions
+
+
+def _validate_sources(generated_sources, original_sources):
+    '''
+    Check if all original soruces exist in generated source
+    :type generated_sources: list
+    :type original_sources: list
+    :rtype: bool
+    '''
+
+    generated_sources = list(set(generated_sources))
+    original_sources = list(set(original_sources))
+    not_existent_source = []
+    for source in original_sources:
+        if source not in generated_sources:
+            not_existent_source.append(source)
+
+    if not_existent_source:
+        print('WARN: Some sources did exist in generated file')
+        print(not_existent_source)
+        return False
+
+    return True

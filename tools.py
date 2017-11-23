@@ -5,10 +5,12 @@ from flask.cli import FlaskGroup
 from tools.app import create_app, data_dir
 from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_proteins
 from tools.merge_gene_mouse import merge_gene_mouse as merge_gene
-from tools.interaction_actions import generate_interactions_inweb as protein_generate_inweb, \
-    only_noncomplex_interactions, remove_interactions_in_file, append_curated, \
-    generate_interactions_imex, generate_interactions_innatedb, merge_interactions_action
-from tools.generate_data.interaction.parse_custom import generate_interactions_custom
+from tools.interaction_actions import only_noncomplex_interactions, remove_interactions_in_file, append_curated, \
+    merge_interactions_action
+from tools.generate_data.parsers.parse_interactions_inweb import generate_interactions_inweb as protein_generate_inweb
+from tools.generate_data.parsers.parse_interactions_innatedb import generate_interactions_innatedb
+from tools.generate_data.parsers.parse_interactions_imex import generate_interactions_imex
+from tools.generate_data.parsers.parse_interactions_custom import generate_interactions_custom
 
 
 def create_tools_app(info):
