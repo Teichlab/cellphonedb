@@ -23,13 +23,6 @@ def generate_interactions_custom(interactions_base_df, protein_df, gene_df):
     custom_interactions['a_raw_ensembl'] = interactions_base_df['altA']
     custom_interactions['b_raw_ensembl'] = interactions_base_df['altB']
 
-    def extract_uniprot(row_value):
-        id_type = row_value['B'].split(':')[0]
-        if id_type == 'uniprotkb':
-            return row_value['B'].split(':')[1].split('-')[1]
-
-        return pd.np.nan
-
     custom_interactions['protein_1'] = interactions_base_df[
         interactions_base_df['A'].apply(lambda value: value.split(':')[0] == 'uniprotkb')]['A'].apply(
         lambda value: value.split(':')[1].split('-')[0])
@@ -77,14 +70,24 @@ def generate_interactions_custom(interactions_base_df, protein_df, gene_df):
     custom_interactions = custom_interactions[['protein_1', 'protein_2', 'raw_score', 'source']]
     custom_interactions = _only_uniprots_in_df(protein_df, custom_interactions)
 
-    def get_score(raw_score):
-        intact_miscore = raw_score.split('intact-miscore:')
-        if len(intact_miscore) < 2:
-            return 1
-        return float(intact_miscore[1])
+    def get_score(row):
+        intact_miscore = row['raw_score'].split('intact-miscore:')
+        default_score = 0
+        default_innatedb_score_2 = 1
 
-    custom_interactions['score_1'] = custom_interactions['raw_score'].apply(get_score)
-    custom_interactions['score_2'] = custom_interactions['score_1']
+        if len(intact_miscore) < 2:
+            row['score_1'] = default_score
+            row['score_2'] = default_score
+            if row['source'] == 'InnateDB-All' or row['source'] == 'InnateDB':
+                row['score_2'] = default_innatedb_score_2
+
+        else:
+            row['score_1'] = float(intact_miscore[1])
+            row['score_2'] = float(intact_miscore[1])
+
+        return row
+
+    custom_interactions = custom_interactions.apply(get_score, axis=1)
 
     def set_score_duplicates(interaction):
         interaction['score_1'] = \
