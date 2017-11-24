@@ -76,10 +76,10 @@ def merge_interactions(interactions_namefile_1, interactions_namefile_2):
 
 
 @cli.command()
-@click.argument('complex_namefile', default='complex.csv')
 @click.argument('cellphone_namefile', default='cellphone_interactions.csv')
-def noncomplex_interactions(complex_namefile, cellphone_namefile):
-    only_noncomplex_interactions(complex_namefile, cellphone_namefile)
+@click.argument('complex_namefile', default='complex.csv')
+def noncomplex_interactions(cellphone_namefile, complex_namefile):
+    only_noncomplex_interactions(cellphone_namefile, complex_namefile)
 
 
 @cli.command()

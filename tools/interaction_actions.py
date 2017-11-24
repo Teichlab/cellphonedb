@@ -34,7 +34,7 @@ def _download_inwebinbiomap():
     return '%s/temp/InBio_Map_core_2016_09_12/core.psimitab' % current_dir
 
 
-def only_noncomplex_interactions(complexes_namefile, inweb_namefile):
+def only_noncomplex_interactions(inweb_namefile, complexes_namefile):
     if os.path.isfile('%s%s' % (data_dir, inweb_namefile)):
         inweb_file = os.path.join(data_dir, inweb_namefile)
     else:

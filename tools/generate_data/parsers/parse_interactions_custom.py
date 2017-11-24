@@ -8,6 +8,26 @@ from tools.interaction_actions import _only_uniprots_in_df
 
 def generate_interactions_custom(interactions_base_df, protein_df, gene_df):
     '''
+    Parses interactions list from custom file generated.
+    Steps:
+        1. Get Uniprot values from columns A and B
+        2. Get Uniprot values from ensembl in column altA and altB
+        3. Get Score values:
+            - If has intact-score -> score_1,score_2 = intact-score
+            - If has not intact-score:
+                - if is InnateDB or InnateDB-All -> score_1 = 0, score_2 = 1
+                - if isnt InnateDB or InnateDB-All -> score_1 = 0, score_2 = 0
+
+        4. Remove duplicated interactions:
+            - Remove permutations of interactions. Ex:
+                    A->B        A->B
+                    B->A    =>  A->B
+                    A->B        A->B
+            - Remove duplicated interactions and merge scores:
+                Get the max score value.
+                If exists intact-score, predominates over manual setted score.
+
+
 
     :type interactions_base_df: pd.DataFrame()
     :typetype protein_df: pd.DataFrame()
@@ -75,6 +95,7 @@ def generate_interactions_custom(interactions_base_df, protein_df, gene_df):
         default_score = 0
         default_innatedb_score_2 = 1
 
+        row['has_intacted'] = False
         if len(intact_miscore) < 2:
             row['score_1'] = default_score
             row['score_2'] = default_score
@@ -84,32 +105,58 @@ def generate_interactions_custom(interactions_base_df, protein_df, gene_df):
         else:
             row['score_1'] = float(intact_miscore[1])
             row['score_2'] = float(intact_miscore[1])
+            row['has_intacted'] = True
 
         return row
 
     custom_interactions = custom_interactions.apply(get_score, axis=1)
 
     def set_score_duplicates(interaction):
-        interaction['score_1'] = \
-            custom_interactions[(custom_interactions['protein_1'] == interaction['protein_1']) & (
-                custom_interactions['protein_2'] == interaction['protein_2'])]['score_1'].max()
+        '''
+        Returns the interaction with max score_1. Instact-miscore predominates over default score values
+        :type interaction: pd.Series()
+        :rtype: pd.Series()
+        '''
+        same_interactions = custom_interactions[(custom_interactions['protein_1'] == interaction['protein_1']) & (
+            custom_interactions['protein_2'] == interaction['protein_2'])]
 
-        interaction['score_2'] = \
-            custom_interactions[(custom_interactions['protein_1'] == interaction['protein_1']) & (
-                custom_interactions['protein_2'] == interaction['protein_2'])]['score_2'].max()
+        interactions_intacted = same_interactions[same_interactions['has_intacted'] == True]
+        if not interactions_intacted.empty:
+            index_max = interactions_intacted['score_1'].argmax()
+            return interactions_intacted.loc[index_max]
+
+        index_max = same_interactions['score_1'].argmax()
+        return same_interactions.loc[index_max]
+
+    def normalize_permutations(interaction):
+        if interaction['protein_2'] != interaction['protein_1']:
+            duplicated_inversed = custom_interactions[(custom_interactions['protein_2'] == interaction['protein_1']) & (
+                custom_interactions['protein_1'] == interaction['protein_2'])]
+
+            if len(duplicated_inversed):
+                first_interaction_duplicate = duplicated_inversed.iloc[0]
+
+                if first_interaction_duplicate.name < interaction.name:
+                    interaction['protein_1'] = first_interaction_duplicate['protein_1']
+                    interaction['protein_2'] = first_interaction_duplicate['protein_2']
+
+                return interaction
 
         return interaction
 
-    custom_interactions = custom_interactions.apply(set_score_duplicates, axis=1)
-    custom_interactions.drop_duplicates(['protein_1', 'protein_2', 'score_1', 'score_2'], keep='first', inplace=True)
+    custom_interactions = custom_interactions.apply(normalize_permutations, axis=1)
 
-    custom_interactions = custom_interactions[['protein_1', 'protein_2', 'score_1', 'score_2', 'source']]
-    custom_interactions.to_csv(
+    custom_interactions_unique = custom_interactions.drop_duplicates(['protein_1', 'protein_2'], keep='first')
+
+    custom_interactions_unique = custom_interactions_unique.apply(set_score_duplicates, axis=1)
+
+    custom_interactions_unique = custom_interactions_unique[['protein_1', 'protein_2', 'score_1', 'score_2', 'source']]
+    custom_interactions_unique.to_csv(
         '%s/cellphone_interactions_custom.csv' % output_dir, index=False)
 
-    _validate_sources(custom_interactions['source'].tolist(), interactions_base_df['provider'].tolist())
+    _validate_sources(custom_interactions_unique['source'].tolist(), interactions_base_df['provider'].tolist())
 
-    return custom_interactions
+    return custom_interactions_unique
 
 
 def _validate_sources(generated_sources, original_sources):
