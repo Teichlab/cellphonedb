@@ -16,3 +16,5 @@ pytz>=2016.10
 six>=1.10.0
 SQLAlchemy>=1.1.6
 Werkzeug>=0.11.15
+NaiveDE==1.2.0
+patsy==0.4.1

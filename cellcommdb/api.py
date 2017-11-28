@@ -1,6 +1,6 @@
 import os
 
-from cellcommdb.api_endpoints.queries import Query0Endpoint, Query1Endpoint
+from cellcommdb.api_endpoints.queries import CellToCluster
 from flask import Flask, abort, request
 from flask_restful import Api, Resource
 
@@ -11,7 +11,7 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 output_dir = '%s/../out/' % current_dir
 data_dir = '%s/data/' % current_dir
 temp_dir = '%s/temp/' % current_dir
-
+query_input_dir = '%s/data/queries' % current_dir
 
 def create_app(config=BaseConfig):
     app = Flask(__name__)
@@ -25,7 +25,6 @@ def create_app(config=BaseConfig):
     # api.add_resource(ProteinResource, '/protein')
     # api.add_resource(ComplexResource, '/complex')
 
-    api.add_resource(Query0Endpoint, '/query0')
-    api.add_resource(Query1Endpoint, '/query1')
+    api.add_resource(CellToCluster, '/cell_to_cluster')
 
     return app
