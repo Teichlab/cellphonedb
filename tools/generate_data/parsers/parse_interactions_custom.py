@@ -8,24 +8,24 @@ from tools.interaction_actions import _only_uniprots_in_df
 
 def generate_interactions_custom(interactions_base_df, protein_df, gene_df):
     '''
-    Parses interactions list from custom file generated.
+    Parses interactions list from IMEx data file.
     Steps:
         1. Get Uniprot values from columns A and B
         2. Get Uniprot values from ensembl in column altA and altB
         3. Get Score values:
-            - If has intact-score -> score_1,score_2 = intact-score
-            - If has not intact-score:
+            - If intact-score -> score_1,score_2 = intact-score
+            - If not intact-score:
                 - if is InnateDB or InnateDB-All -> score_1 = 0, score_2 = 1
-                - if isnt InnateDB or InnateDB-All -> score_1 = 0, score_2 = 0
+                - if is not InnateDB or InnateDB-All -> score_1 = 0, score_2 = 0
 
         4. Remove duplicated interactions:
-            - Remove permutations of interactions. Ex:
+            - Remove permutated interactions. i.e.:
                     A->B        A->B
                     B->A    =>  A->B
                     A->B        A->B
             - Remove duplicated interactions and merge scores:
-                Get the max score value.
-                If exists intact-score, predominates over manual setted score.
+                Get maximum score value.
+                Intact-score prevails over innatedb score (step 3).
 
 
 
