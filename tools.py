@@ -9,8 +9,7 @@ from tools.interaction_actions import only_noncomplex_interactions, remove_inter
     merge_interactions_action
 from tools.generate_data.parsers.parse_interactions_inweb import generate_interactions_inweb as protein_generate_inweb
 from tools.generate_data.parsers.parse_interactions_innatedb import generate_interactions_innatedb
-from tools.generate_data.parsers.parse_interactions_imex import generate_interactions_imex
-from tools.generate_data.parsers.parse_interactions_custom import generate_interactions_custom
+from tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
 
 
 def create_tools_app(info):
@@ -43,22 +42,15 @@ def inweb_interactions(inweb_inbiomap_namefile, database_proteins_namefile):
 
 
 @cli.command()
-@click.argument('interaction_namefile')
+@click.argument('imex_original_namefile')
 @click.argument('database_proteins_namefile', default='protein.csv')
 @click.argument('database_gene_namefile', default='gene.csv')
-def custom_interactions(interaction_namefile, database_proteins_namefile, database_gene_namefile):
-    interactions_base_df = pd.read_csv('%s/%s' % (data_dir, interaction_namefile), sep='\t', na_values='-')
+def imex_interactions(imex_original_namefile, database_proteins_namefile, database_gene_namefile):
+    interactions_base_df = pd.read_csv('%s/%s' % (data_dir, imex_original_namefile), sep='\t', na_values='-')
     protein_df = pd.read_csv('%s/%s' % (data_dir, database_proteins_namefile))
     gene_df = pd.read_csv('%s/%s' % (data_dir, database_gene_namefile))
 
-    generate_interactions_custom(interactions_base_df, protein_df, gene_df)
-
-
-@cli.command()
-@click.argument('imex_namefile', default='interaction_imex.txt')
-@click.argument('database_proteins_namefile', default='protein.csv')
-def imex_interactions(imex_namefile, database_proteins_namefile):
-    generate_interactions_imex(imex_namefile, database_proteins_namefile)
+    parse_interactions_imex(interactions_base_df, protein_df, gene_df)
 
 
 @cli.command()
