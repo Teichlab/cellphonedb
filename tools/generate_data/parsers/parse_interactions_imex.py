@@ -129,6 +129,11 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
         return same_interactions.loc[index_max]
 
     def normalize_permutations(interaction):
+        '''
+        Permutes inversed interactions.
+        :type interaction: pd.Series()
+        :rtype: pd.Series()
+        '''
         if interaction['protein_2'] != interaction['protein_1']:
             duplicated_inversed = custom_interactions[(custom_interactions['protein_2'] == interaction['protein_1']) & (
                 custom_interactions['protein_1'] == interaction['protein_2'])]
