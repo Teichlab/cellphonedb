@@ -1,5 +1,7 @@
 import pandas as pd
 
+from tools.repository.interaction import interaction_exist
+
 
 def merge_interactions(interactions_1, interactions_2, interaction_1_key='protein_2', interaction_2_key='protein_2'):
     '''
@@ -9,23 +11,9 @@ def merge_interactions(interactions_1, interactions_2, interaction_1_key='protei
     :rtype: pd.DataFrame
     '''
 
-    def interaction_exist(interaction):
-        '''
-        Checks if interaction already exists in first dataframe.
-        :type interaction: pd.Series
-        :rtype: pd.Series
-        '''
-        if len(interactions_1[(interactions_1[interaction_1_key] == interaction[interaction_1_key]) & (
-                    interactions_1[interaction_2_key] == interaction[interaction_2_key])]):
-            return True
-
-        if len(interactions_1[(interactions_1[interaction_2_key] == interaction[interaction_1_key]) & (
-                    interactions_1[interaction_1_key] == interaction[interaction_2_key])]):
-            return True
-
-        return False
-
-    interactions_2_not_in_1 = interactions_2[interactions_2.apply(interaction_exist, axis=1) == False]
+    interactions_2_not_in_1 = interactions_2[
+        interactions_2.apply(lambda row: interaction_exist(row, interactions_1, interaction_1_key, interaction_2_key),
+                             axis=1) == False]
 
     interactions = interactions_1.append(interactions_2_not_in_1)
 
