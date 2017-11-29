@@ -5,7 +5,7 @@ from cellcommdb.extensions import db
 from cellcommdb.models import Gene, Multidata, Protein, ComplexComposition, Complex, Interaction
 
 
-def call(cluster_counts, threshold):
+def call(cluster_counts, threshold=0.1):
     print('Receptor Ligands Interactions Initializated')
     clusters_names = cluster_counts.columns.values
     cluster_counts_cellphone = _cellphone_genes(cluster_counts)
@@ -109,12 +109,6 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result['ligand_iuphar'] = enabled_interactions['ligand_ligands']
     result['ligand_secreted'] = enabled_interactions['secretion_ligands']
     result['source'] = enabled_interactions['source']
-
-    def asd(row):
-        print(row)
-        print(row.values)
-        print('---')
-
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
     print(result)
@@ -239,9 +233,10 @@ def _apply_threshold(cluster_counts, cluster_names, threshold):
     :rtype: pd.DataFrame()
     '''
     cluster_counts_filtered = cluster_counts.copy()
+
     for cluster_name in cluster_names:
         cluster_counts_filtered.loc[
-            cluster_counts_filtered[cluster_name] < float(threshold) / 100, [cluster_name]] = 0.0
+            cluster_counts_filtered[cluster_name] < float(threshold), [cluster_name]] = 0.0
 
     return cluster_counts_filtered
 
