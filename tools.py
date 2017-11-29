@@ -1,12 +1,15 @@
 import click
+import os
 import pandas as pd
 
 from flask.cli import FlaskGroup
-from tools.app import create_app, data_dir
+from tools.app import create_app, data_dir, output_dir
 from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_proteins
 from tools.merge_gene_mouse import merge_gene_mouse as merge_gene
-from tools.interaction_actions import only_noncomplex_interactions, remove_interactions_in_file, append_curated, \
-    merge_interactions_action
+from tools.generate_data.mergers.add_curated import add_curated
+from tools.generate_data.mergers.merge_interactions import merge_interactions
+from tools.generate_data.filters.remove_interactions import remove_interactions_in_file
+from tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from tools.generate_data.parsers.parse_interactions_inweb import generate_interactions_inweb as protein_generate_inweb
 from tools.generate_data.parsers.parse_interactions_innatedb import generate_interactions_innatedb
 from tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
@@ -50,7 +53,9 @@ def imex_interactions(imex_original_namefile, database_proteins_namefile, databa
     protein_df = pd.read_csv('%s/%s' % (data_dir, database_proteins_namefile))
     gene_df = pd.read_csv('%s/%s' % (data_dir, database_gene_namefile))
 
-    parse_interactions_imex(interactions_base_df, protein_df, gene_df)
+    result = parse_interactions_imex(interactions_base_df, protein_df, gene_df)
+
+    result.to_csv('%s/cellphone_interactions_imex.csv' % output_dir, index=False)
 
 
 @cli.command()
@@ -64,7 +69,12 @@ def innatedb_interactions(innatedb_namefile, database_gene_namefile):
 @click.argument('interactions_namefile_1')
 @click.argument('interactions_namefile_2')
 def merge_interactions(interactions_namefile_1, interactions_namefile_2):
-    merge_interactions_action(interactions_namefile_1, interactions_namefile_2)
+    interactions_1 = _open_file(interactions_namefile_1)
+    interactions_2 = _open_file(interactions_namefile_2)
+
+    result = merge_interactions(interactions_1, interactions_2)
+
+    result.to_csv('%s/cellphone_interactions.csv' % output_dir, index=False)
 
 
 @cli.command()
@@ -85,7 +95,18 @@ def remove_interactions(interaction_namefile, interaction_to_remove_namefile):
 @click.argument('interaction_namefile', default='clean_interactions.csv')
 @click.argument('interaction_curated_namefile', default='interaction_curated.csv')
 def add_curated_interactions(interaction_namefile, interaction_curated_namefile):
-    append_curated(interaction_namefile, interaction_curated_namefile)
+    interaction = pd.read_csv(_open_file(interaction_namefile))
+    interaction_curated = pd.read_csv(_open_file(interaction_curated_namefile))
+
+    result = add_curated(interaction, interaction_curated)
+    result.to_csv('%s/interaction.csv' % output_dir, index=False)
+
+
+def _open_file(interaction_namefile):
+    if os.path.isfile('%s/%s' % (data_dir, interaction_namefile)):
+        return os.path.join(data_dir, interaction_namefile)
+
+    return os.path.join(output_dir, interaction_namefile)
 
 
 if __name__ == "__main__":

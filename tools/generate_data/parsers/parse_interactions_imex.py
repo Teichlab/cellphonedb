@@ -157,7 +157,7 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
 
     custom_interactions_unique = custom_interactions_unique[['protein_1', 'protein_2', 'score_1', 'score_2', 'source']]
     custom_interactions_unique.to_csv(
-        '%s/cellphone_interactions_custom.csv' % output_dir, index=False)
+        '%s/cellphone_interactions_imex.csv' % output_dir, index=False)
 
     _validate_sources(custom_interactions_unique['source'].tolist(), interactions_base_df['provider'].tolist())
 

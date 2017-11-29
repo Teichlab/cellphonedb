@@ -9538,7 +9538,6 @@ comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,sco
 ,,,Q6EIG7,Q8WXI8,0.0,1.0,InnateDB
 ,,,Q96PL1,Q9UEW3,0.0,1.0,InnateDB
 ,,,Q9UEW3,Q96QR1,0.0,1.0,InnateDB-All
-,,,Q6UVW9,D3W0D1,0.0,1.0,InnateDB-All
 ,,,Q9NZW4,O60882,0.0,1.0,InnateDB
 ,,,Q02383,P04279,0.0,1.0,InnateDB-All
 ,,,P0DJD7,P0DJD9,0.0,1.0,InnateDB-All
@@ -9627,7 +9626,7 @@ InWeb:P12643 P36894; P12643 Q13873,,BMP2_HUMAN,BMPR1A complex,P12643,1.0,1.0,cur
 "2z3q, PDB partially",,IL15_HUMAN,IL15 receptor,P40933,1.0,1.0,curated
 ,,IL17F_HUMAN,IL17 receptor AC,Q96PD4,1.0,1.0,curated
 "3qaz, PDB",,IL2_HUMAN,IL2 receptor_I,P60568,1.0,1.0,curated
-"2b5i, PDB",,IL2_HUMAN,IL2 receptor_HA,P60568,1.0,1.0,curatedpyt
+"2b5i, PDB",,IL2_HUMAN,IL2 receptor_HA,P60568,1.0,1.0,curated
 NA IL17E called IL25,,IL25_HUMAN,IL17 receptor AB,Q9H293,1.0,1.0,curated
 ,,IL36A_HUMAN,IL36 receptor,Q9UHA7,1.0,1.0,curated
 ,,IL36B_HUMAN,IL36 receptor,Q9NZH7,1.0,1.0,curated
