@@ -100,8 +100,8 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
         cluster_interaction_result = _check_receptor_ligand_interactions(cluster_interaction, enabled_interactions)
 
         result = pd.concat([result, cluster_interaction_result], axis=1)
-    result['receptor_name'] = enabled_interactions['name_receptors']
-    result['ligand_name'] = enabled_interactions['name_ligands']
+    result['receptor_entry_name'] = enabled_interactions['entry_name_receptors']
+    result['ligand_entry_name'] = enabled_interactions['entry_name_ligands']
     result['ligand_iuphar'] = enabled_interactions['ligand_ligands']
     result['ligand_secreted'] = enabled_interactions['secretion_ligands']
     result['source'] = enabled_interactions['source']
