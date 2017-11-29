@@ -95,9 +95,13 @@ def _get_counts_proteins_of_comlexes(cluster_counts, clusters_names, interaction
 
 def _result_interactions_table(cluster_interactions, enabled_interactions):
     result = enabled_interactions['interaction_id']
+    cluster_interactions_columns_names = []
     for cluster_interaction in cluster_interactions:
         print(cluster_interaction)
-        cluster_interaction_result = _check_receptor_ligand_interactions(cluster_interaction, enabled_interactions)
+        cluster_interaction_column_name = '%s - %s' % (cluster_interaction[0], cluster_interaction[1])
+        cluster_interactions_columns_names.append(cluster_interaction_column_name)
+        cluster_interaction_result = _check_receptor_ligand_interactions(cluster_interaction, enabled_interactions,
+                                                                         cluster_interaction_column_name)
 
         result = pd.concat([result, cluster_interaction_result], axis=1)
     result['receptor_entry_name'] = enabled_interactions['entry_name_receptors']
@@ -105,6 +109,15 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result['ligand_iuphar'] = enabled_interactions['ligand_ligands']
     result['ligand_secreted'] = enabled_interactions['secretion_ligands']
     result['source'] = enabled_interactions['source']
+
+    def asd(row):
+        print(row)
+        print(row.values)
+        print('---')
+
+    result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
+        lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
+    print(result)
     return result
 
 
@@ -237,10 +250,9 @@ def _get_all_cluster_interactions(cluster_names):
     return list(itertools.product(cluster_names, repeat=2))
 
 
-def _check_receptor_ligand_interactions(cluster_interaction, enabled_interactions):
+def _check_receptor_ligand_interactions(cluster_interaction, enabled_interactions, clusters_interaction_name):
     receptor_cluster_name = cluster_interaction[0]
     ligand_cluster_name = cluster_interaction[1]
-    clusters_interaction_name = '%s - %s' % (receptor_cluster_name, ligand_cluster_name)
 
     def get_relation_score(row):
         count_receptor = row['%s_receptors' % receptor_cluster_name]
