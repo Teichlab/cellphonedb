@@ -78,10 +78,15 @@ def merge_interactions(interactions_namefile_1, interactions_namefile_2):
 
 
 @cli.command()
-@click.argument('cellphone_namefile', default='cellphone_interactions.csv')
-@click.argument('complex_namefile', default='complex.csv')
-def noncomplex_interactions(cellphone_namefile, complex_namefile):
-    only_noncomplex_interactions(cellphone_namefile, complex_namefile)
+@click.argument('interactions_namefile')
+@click.argument('database_complex_namefile', default='complex.csv')
+def noncomplex_interactions(interactions_namefile, database_complex_namefile):
+    interactions = pd.read_csv(_open_file(interactions_namefile))
+    complexes = pd.read_csv(_open_file(database_complex_namefile))
+
+    result = only_noncomplex_interactions(interactions, complexes)
+
+    result.to_csv('%s/no_complex_interactions.csv' % (output_dir), index=False, float_format='%.4f')
 
 
 @cli.command()
@@ -100,6 +105,23 @@ def add_curated_interactions(interaction_namefile, interaction_curated_namefile)
 
     result = add_curated(interaction, interaction_curated)
     result.to_csv('%s/interaction.csv' % output_dir, index=False)
+
+
+@cli.command()
+@click.argument('imex_original_namefile')
+@click.argument('database_proteins_namefile', default='protein.csv')
+@click.argument('database_gene_namefile', default='gene.csv')
+@click.argument('database_complex_namefile', default='complex.csv')
+def generate_interactions(imex_original_namefile, database_proteins_namefile, database_gene_namefile,
+                          database_complex_namefile):
+    interactions_base = pd.read_csv('%s/%s' % (data_dir, imex_original_namefile), sep='\t', na_values='-')
+    proteins = pd.read_csv('%s/%s' % (data_dir, database_proteins_namefile))
+    genes = pd.read_csv('%s/%s' % (data_dir, database_gene_namefile))
+    complexes = pd.read_csv('%s/%s' % (data_dir, database_complex_namefile))
+
+    imex_interactions = parse_interactions_imex(interactions_base, proteins, genes)
+
+    only_noncomplex_interactions(imex_interactions, complexes)
 
 
 def _open_file(interaction_namefile):
