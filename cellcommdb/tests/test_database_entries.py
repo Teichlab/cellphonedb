@@ -612,7 +612,7 @@ interaction_entries = [
         "multidata_name_1": "O00421",
         "multidata_name_2": "Q99731",
         "comments": None,
-        "source": "innatedb"
+        "source": "InnateDB"
     },
 
 ]
