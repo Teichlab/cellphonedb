@@ -5,7 +5,7 @@ from cellcommdb.extensions import db
 from cellcommdb.models import Gene, Multidata, Protein, ComplexComposition, Complex, Interaction
 
 
-def call(cluster_counts, threshold=0.1):
+def call(cluster_counts, threshold):
     print('Receptor Ligands Interactions Initializated')
     clusters_names = cluster_counts.columns.values
     cluster_counts_cellphone = _cellphone_genes(cluster_counts)
@@ -232,7 +232,6 @@ def _apply_threshold(cluster_counts, cluster_names, threshold):
     :rtype: pd.DataFrame()
     '''
     cluster_counts_filtered = cluster_counts.copy()
-
     for cluster_name in cluster_names:
         cluster_counts_filtered.loc[
             cluster_counts_filtered[cluster_name] < float(threshold), [cluster_name]] = 0.0
