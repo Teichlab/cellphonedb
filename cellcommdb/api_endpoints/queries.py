@@ -27,7 +27,7 @@ class QueryBase(Resource):
 
     def _attach_csv(self, file_to_send):
         attachment = MIMEBase('text', 'csv')
-        attachment.set_payload(file_to_send.to_csv(sep='\t'))
+        attachment.set_payload(file_to_send)
 
         self.msg.attach(attachment)
 
@@ -46,6 +46,12 @@ class CellToCluster(QueryBase):
         result_df = cells_to_clusters.call(counts, meta)
 
         self._attach_csv(result_df.to_csv(sep='\t'))
+
+        result = {
+            'status': 'nice'
+        }
+
+        # self._attach_json(result)
         return Response(self.msg.as_string())
 
 
