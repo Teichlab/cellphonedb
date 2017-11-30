@@ -1,52 +1,32 @@
-import mimetypes
-from email import encoders
-from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import pandas as pd
-import requests
 from flask import request, Response
 from flask_restful import Resource, reqparse
 from cellcommdb.queries import cells_to_clusters, receptor_ligands_interactions
 
-parser = reqparse.RequestParser()
-parser.add_argument('meta')
-parser.add_argument('counts')
 
-
-# Example query
+# Example queries
 # Query CellToCluster
 # curl -i \
 #     -F counts_file=@cellcommdb/data/queries/test_counts.txt \
 #     -F meta_file=@cellcommdb/data/queries/test_meta.txt \
 #     http://127.0.0.1:5000/api/cell_to_cluster
 
+
+# Query ReceptorLigandsInteractions
+# curl -i \
+#     -F cells_to_clusters=@cellcommdb/data/queries/cells_to_clusters.csv \
+#     http://127.0.0.1:5000/api/receptor_ligands_interactions
+
 class QueryBase(Resource):
-    # def _add_file_to_multipart(self, file_to_send):
-    # response_body = MIMEMultipart()
-    # file_to_send = 'cellcommdb/data/queries/test_meta.txt'
-    # ctype, encoding = mimetypes.guess_type(file_to_send)
-    # if ctype is None or encoding is not None:
-    #     ctype = "application/octet-stream"
-    #
-    # maintype, subtype = ctype.split("/", 1)
-    # file = open(file_to_send, "rb")
-    # attachment = MIMEBase(maintype, subtype)
-    # attachment.set_payload(file.read())
-    # file.close()
-    # encoders.encode_base64(attachment)
-    #
-    # attachment.add_header("Content-Disposition", "attachment", filename=file_to_send)
-    # response_body.attach(attachment)
+    def __init__(self):
+        self.msg = MIMEMultipart('multipart')
 
-    def _add_file_to_multipart(self, file_to_send):
-        msg = MIMEMultipart('multipart')
-
+    def _attach_file(self, file_to_send):
         file_attach = MIMEText(file_to_send, 'plain')
-        msg.attach(file_attach)
-
-        return msg
+        self.msg.attach(file_attach)
 
 
 class CellToCluster(QueryBase):
@@ -54,17 +34,18 @@ class CellToCluster(QueryBase):
         counts = pd.read_table(request.files['counts_file'].stream, index_col=0)
         meta = pd.read_table(request.files['meta_file'].stream, index_col=0)
         result_df = cells_to_clusters.call(counts, meta)
-        # mimetype='text/csv'
 
-        response_multipart = self._add_file_to_multipart(result_df.to_csv(sep='\t'))
-        return Response(response_multipart.as_string())
+        self._attach_file(result_df.to_csv(sep='\t'))
+        return Response(self.msg.as_string())
 
 
-class ReceptorLigandsInteractions(Resource):
+class ReceptorLigandsInteractions(QueryBase):
     def post(self):
-        counts = pd.read_table(request.files['counts_file'].stream, index_col=0)
-        meta = pd.read_table(request.files['meta_file'].stream, index_col=0)
+        cells_to_clusters_file = pd.read_csv(request.files['cells_to_clusters'].stream, index_col=0)
 
-        result_df = receptor_ligands_interactions.call(counts, meta)
+        result_interactions, result_interactions_extended = receptor_ligands_interactions.call(cells_to_clusters_file)
 
-        return Response(result_df.to_csv(sep='\t'), mimetype='text/csv')
+        self._attach_file(result_interactions.to_csv(sep='\t'))
+        self._attach_file(result_interactions_extended.to_csv(sep='\t'))
+
+        return Response(self.msg.as_string())

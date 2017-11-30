@@ -111,7 +111,6 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result['source'] = enabled_interactions['source']
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
-    print(result)
     return result
 
 
