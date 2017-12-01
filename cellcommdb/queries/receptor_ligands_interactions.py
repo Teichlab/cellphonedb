@@ -13,6 +13,8 @@ def call(cluster_counts, threshold):
     print('Aplicating Threshold')
     cluster_counts_filtered = _apply_threshold(cluster_counts_cellphone, clusters_names, threshold)
 
+    cluster_counts_filtered = _filter_empty(cluster_counts_filtered, clusters_names)
+
     print('Finding Complexes')
     cluster_counts_filtered['is_complex'] = False
     cluster_counts_with_complex = cluster_counts_filtered.append(
@@ -37,6 +39,11 @@ def call(cluster_counts, threshold):
                                                                        cluster_counts_filtered)
 
     return result_interactions, result_interactions_extended
+
+
+def _filter_empty(cluster_counts, clusters_names):
+    filetered_cluster_counts = cluster_counts[cluster_counts[clusters_names].apply(lambda row: row.sum() > 0, axis=1)]
+    return filetered_cluster_counts
 
 
 def _result_interactions_extended_table(interactions, clusters_names, cluster_counts):
