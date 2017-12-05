@@ -10,22 +10,16 @@ def call(counts, meta):
 def _clusters_ratio(clusters):
     all_cells_names = next(iter(clusters.values())).index
 
-    result = pd.DataFrame(0.0, all_cells_names, sorted(list(clusters.keys())))
+    result = pd.DataFrame(None, all_cells_names)
     for cluster_name in clusters:
         print('Transforming Cluster %s' % cluster_name)
         cluster = clusters[cluster_name]
 
         cells_names = cluster.columns.values
-        for gene_name in cluster.index:
-            positives = 0
+        number_cells = len(cells_names)
+        cluster_count_value = cluster.apply(lambda row: sum(row.astype('bool')) / number_cells, axis=1)
+        result[cluster_name] = cluster_count_value
 
-            for cell_name in cells_names:
-                count_value = cluster.loc[gene_name, cell_name]
-
-                if count_value > 0:
-                    positives = positives + 1
-
-            result.set_value(gene_name, cluster_name, positives / len(cells_names))
     return result
 
 

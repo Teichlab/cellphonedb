@@ -101,6 +101,12 @@ def _get_counts_proteins_of_comlexes(cluster_counts, clusters_names, interaction
 
 
 def _result_interactions_table(cluster_interactions, enabled_interactions):
+    """
+
+    :type cluster_interactions: pd.DataFrame
+    :type enabled_interactions: pd.DataFrame
+    :rtype: pd.DataFrame
+    """
     result = enabled_interactions['interaction_id']
     cluster_interactions_columns_names = []
     for cluster_interaction in cluster_interactions:
@@ -118,6 +124,9 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result['source'] = enabled_interactions['source']
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
+
+    result.sort_values('interaction_ratio', inplace=True)
+
     return result
 
 
