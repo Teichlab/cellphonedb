@@ -103,7 +103,7 @@ def _get_counts_proteins_of_comlexes(cluster_counts, clusters_names, interaction
 def _result_interactions_table(cluster_interactions, enabled_interactions):
     """
 
-    :type cluster_interactions: pd.DataFrame
+    :type cluster_interactions: list
     :type enabled_interactions: pd.DataFrame
     :rtype: pd.DataFrame
     """
@@ -117,10 +117,16 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
                                                                          cluster_interaction_column_name)
 
         result = pd.concat([result, cluster_interaction_result], axis=1)
+
     result['receptor_entry_name'] = enabled_interactions['entry_name_receptors']
+    result['receptor_complex_name'] = enabled_interactions[enabled_interactions['is_complex_receptors']][
+        'name_receptors']
     result['ligand_entry_name'] = enabled_interactions['entry_name_ligands']
+    result['ligand_complex_name'] = enabled_interactions[enabled_interactions['is_complex_ligands']]['name_ligands']
+
     result['ligand_iuphar'] = enabled_interactions['ligand_ligands']
     result['ligand_secreted'] = enabled_interactions['secretion_ligands']
+
     result['source'] = enabled_interactions['source']
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
@@ -278,6 +284,13 @@ def _check_receptor_ligand_interactions(cluster_interaction, enabled_interaction
 
 
 def _get_enabled_interactions(cluster_counts, interactions, min_score_2):
+    """
+
+    :type cluster_counts: pd.DataFrame
+    :type interactions: pd.DataFrame
+    :type min_score_2: float
+    :rtype: pd.DataFrame
+    """
     multidata_receptors = cluster_counts[cluster_counts['is_receptor']]
     multidata_ligands = cluster_counts[cluster_counts['is_ligand']]
 
@@ -291,7 +304,7 @@ def _get_enabled_interactions(cluster_counts, interactions, min_score_2):
     enabled_interactions_inverted = pd.merge(multidata_ligands, receptor_interactions_inverted, left_on='multidata_id',
                                              right_on='multidata_1_id', suffixes=['_ligands', '_receptors'])
 
-    enabled_interactions = enabled_interactions.append(enabled_interactions_inverted)
+    enabled_interactions = enabled_interactions.append(enabled_interactions_inverted).reset_index(drop=True)
 
     enabled_interactions = enabled_interactions[enabled_interactions['score_2'] > min_score_2]
     return enabled_interactions
