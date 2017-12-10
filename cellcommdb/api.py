@@ -1,6 +1,6 @@
 import os
 
-from cellcommdb.api_endpoints.queries import CellToCluster, ReceptorLigandsInteractions
+from cellcommdb.api_endpoints.queries import CellToCluster, ReceptorLigandsInteractions, TestQuery
 from flask import Flask
 from flask_restful import Api
 
@@ -12,6 +12,7 @@ output_dir = '%s/../out/' % current_dir
 data_dir = '%s/data/' % current_dir
 temp_dir = '%s/temp/' % current_dir
 query_input_dir = '%s/data/queries' % current_dir
+
 
 def create_app(config=BaseConfig):
     app = Flask(__name__)
