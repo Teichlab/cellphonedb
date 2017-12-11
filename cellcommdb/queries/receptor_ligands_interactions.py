@@ -3,6 +3,7 @@ import pandas as pd
 
 from cellcommdb.extensions import db
 from cellcommdb.models import Gene, Multidata, Protein, ComplexComposition, Complex, Interaction
+from utilities import dataframe_format
 
 
 def call(cluster_counts, threshold):
@@ -118,20 +119,25 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
 
         result = pd.concat([result, cluster_interaction_result], axis=1)
 
-    result['receptor_entry_name'] = enabled_interactions['entry_name_receptors']
-    result['receptor_complex_name'] = enabled_interactions[enabled_interactions['is_complex_receptors']][
-        'name_receptors']
-    result['ligand_entry_name'] = enabled_interactions['entry_name_ligands']
-    result['ligand_complex_name'] = enabled_interactions[enabled_interactions['is_complex_ligands']]['name_ligands']
+    result['receptor'] = enabled_interactions['entry_name_receptors'].apply(
+        lambda value: 'single:%s' % value)
+    result.loc[enabled_interactions['is_complex_receptors'], ['receptor']] = \
+        enabled_interactions['name_receptors'].apply(lambda value: 'complex:%s' % value)
 
-    result['ligand_iuphar'] = enabled_interactions['ligand_ligands']
-    result['ligand_secreted'] = enabled_interactions['secretion_ligands']
+    result['ligand'] = enabled_interactions['entry_name_ligands'].apply(lambda value: 'single:%s' % value)
+    result.loc[enabled_interactions['is_complex_ligands'], ['receptor']] = enabled_interactions['name_ligands'].apply(
+        lambda value: 'complex:%s' % value)
+
+    result['iuphar_ligand'] = enabled_interactions['ligand_ligands']
+    result['secreted_ligand'] = enabled_interactions['secretion_ligands']
 
     result['source'] = enabled_interactions['source']
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
 
     result.sort_values('interaction_ratio', inplace=True)
+
+    result = dataframe_format.bring_columns_to_start(['receptor', 'ligand'], result)
 
     return result
 
