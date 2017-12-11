@@ -1,10 +1,9 @@
 import os
 
-from cellcommdb.api_endpoints.receptor_ligands_interactions import ReceptorLigandsInteractions
-from cellcommdb.api_endpoints.cell_to_cluster import CellToCluster
 from flask import Flask
 from flask_restful import Api
 
+from cellcommdb.api_endpoints import routes
 from cellcommdb.config import BaseConfig
 from cellcommdb.extensions import db
 
@@ -25,7 +24,6 @@ def create_app(config=BaseConfig):
 
     api = Api(app, prefix=config.API_PREFIX)
 
-    api.add_resource(CellToCluster, '/cell_to_cluster')
-    api.add_resource(ReceptorLigandsInteractions, '/receptor_ligands_interactions')
+    routes.add(api)
 
     return app

@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from flask import request, Response
 
-from cellcommdb.api_endpoints.query_base import QueryBase
+from cellcommdb.api_endpoints.queries.query_base import QueryBase
 from cellcommdb.queries import receptor_ligands_interactions
 
 
