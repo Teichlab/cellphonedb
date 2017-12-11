@@ -7,6 +7,7 @@ import inspect
 
 from cellcommdb.tools import filters, database
 from cellcommdb.unblend import Unblend
+from utilities import dataframe_format
 
 
 class Exporter(object):
@@ -30,12 +31,10 @@ class Exporter(object):
             proteins_multidata.drop(['id_x', 'id_y', 'protein_multidata_id'], axis=1, inplace=True)
 
             proteins_multidata.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
-            # Edit order of the columns
-            column_headers = list(proteins_multidata.columns.values)
-            column_headers = self._bring_columns_to_start(['uniprot'], column_headers)
-            column_headers = self._bring_columns_to_end(['tags', 'tags_reason'], column_headers)
 
-            proteins_multidata.to_csv('out/%s' % output_name, index=False, header=True, columns=column_headers)
+            proteins_multidata = dataframe_format.bring_columns_to_start(['uniprot'], proteins_multidata)
+            proteins_multidata = dataframe_format.bring_columns_to_end(['tags', 'tags_reason'], proteins_multidata)
+            proteins_multidata.to_csv('out/%s' % output_name, index=False)
 
     def complex(self, output_name=None):
         if not output_name:
@@ -89,26 +88,11 @@ class Exporter(object):
                 protein_headers.append('protein_%s' % (i + 1))
                 protein_headers.append('protein_%s_gene_name' % (i + 1))
 
-            column_headers = list(complex_complete.columns.values)
-            column_headers = self._bring_columns_to_start(['name'] + protein_headers, column_headers)
-            column_headers = self._bring_columns_to_end(['pdb_structure', 'pdb_id', 'stoichiometry', 'comments'],
-                                                        column_headers)
+            complex_complete = dataframe_format.bring_columns_to_start(['name'] + protein_headers, complex_complete)
+            complex_complete = dataframe_format.bring_columns_to_end(
+                ['pdb_structure', 'pdb_id', 'stoichiometry', 'comments'], complex_complete)
 
-            complex_complete.to_csv('out/%s' % output_name, header=True, columns=column_headers, index=False)
-
-    @staticmethod
-    def _bring_columns_to_start(columns, column_headers):
-        for column in reversed(columns):
-            column_headers.insert(0, column_headers.pop(column_headers.index(column)))
-
-        return column_headers
-
-    @staticmethod
-    def _bring_columns_to_end(columns, column_headers):
-        for column in columns:
-            column_headers.append(column_headers.pop(column_headers.index(column)))
-
-        return column_headers
+            complex_complete.to_csv('out/%s' % output_name, index=False)
 
     def gene(self, output_name=None):
         if not output_name:
@@ -155,9 +139,8 @@ class Exporter(object):
                 Interaction, db))
             interaction_df.drop('id', axis=1, inplace=True)
 
-            column_headers = list(interaction_df.columns.values)
-            column_headers = self._bring_columns_to_start(['multidata_name_1', 'entry_name_1', 'multidata_name_2',
-                                                           'entry_name_2'], column_headers)
+            interaction_df = dataframe_format.bring_columns_to_start(
+                ['multidata_name_1', 'entry_name_1', 'multidata_name_2',
+                 'entry_name_2'], interaction_df)
 
-            interaction_df.sort_values('source', ascending=False).to_csv('out/%s' % output_name, header=True,
-                                                                         columns=column_headers, index=False)
+            interaction_df.sort_values('source', ascending=False).to_csv('out/%s' % output_name, index=False)
