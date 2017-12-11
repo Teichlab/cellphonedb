@@ -71,6 +71,8 @@ def receptor_ligands_interactions_example():
     threshold = 0.1
     receptor_ligands_interactions, receptor_ligands_interactions_extended = receptor_ligands_interactions_request(
         cells_clusters, threshold)
+
+    print(receptor_ligands_interactions)
     receptor_ligands_interactions.to_csv('out/API_receptor_ligands_interactions.csv', index=False)
     receptor_ligands_interactions_extended.to_csv('out/API_receptor_ligands_interactions_extended.csv', index=False)
 
