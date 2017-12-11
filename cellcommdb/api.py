@@ -1,6 +1,7 @@
 import os
 
-from cellcommdb.api_endpoints.queries import CellToCluster, ReceptorLigandsInteractions, TestQuery
+from cellcommdb.api_endpoints.receptor_ligands_interactions import ReceptorLigandsInteractions
+from cellcommdb.api_endpoints.cell_to_cluster import CellToCluster
 from flask import Flask
 from flask_restful import Api
 
