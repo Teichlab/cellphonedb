@@ -8,7 +8,7 @@ from cellcommdb.queries.query0 import Query0
 from cellcommdb.queries.query1 import Query1
 
 from cellcommdb.queries import complexes, one_one, cells_to_clusters, \
-    receptor_ligands_interactions
+    receptor_ligands_interactions, get_ligands_from_receptor
 
 
 class QueryLauncher(object):
@@ -58,3 +58,6 @@ class QueryLauncher(object):
 
         result_interactions.to_csv('%s/receptor_ligands_interactions.csv' % output_dir, index=False)
         result_interactions_extended.to_csv('%s/receptor_ligands_interactions_extended.csv' % output_dir, index=False)
+
+    def get_ligands_from_receptor(self, receptor):
+        get_ligands_from_receptor.call(receptor)
