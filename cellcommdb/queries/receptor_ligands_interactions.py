@@ -43,6 +43,12 @@ def call(cluster_counts, threshold):
 
 
 def _filter_empty(cluster_counts, clusters_names):
+    """
+
+    :type cluster_counts:  pd.DataFrame
+    :type clusters_names: list
+    :rtype: pd.DataFrame
+    """
     filetered_cluster_counts = cluster_counts[cluster_counts[clusters_names].apply(lambda row: row.sum() > 0, axis=1)]
     return filetered_cluster_counts
 
@@ -249,6 +255,8 @@ def _get_complex_involved(multidata_counts, clusters_names):
                                                             'transporter', 'cytoplasm', 'secretion', 'name', 'ligand']]
 
     complex_counts['is_complex'] = True
+
+    complex_counts = _filter_empty(complex_counts, clusters_names)
 
     return complex_counts
 
