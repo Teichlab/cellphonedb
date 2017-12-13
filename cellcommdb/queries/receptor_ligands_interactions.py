@@ -109,6 +109,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     :type enabled_interactions: pd.DataFrame
     :rtype: pd.DataFrame
     """
+
     result = enabled_interactions['interaction_id']
     cluster_interactions_columns_names = []
     for cluster_interaction in cluster_interactions:
@@ -126,7 +127,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
         enabled_interactions['name_receptors'].apply(lambda value: 'complex:%s' % value)
 
     result['ligand'] = enabled_interactions['entry_name_ligands'].apply(lambda value: 'single:%s' % value)
-    result.loc[enabled_interactions['is_complex_ligands'], ['receptor']] = enabled_interactions['name_ligands'].apply(
+    result.loc[enabled_interactions['is_complex_ligands'], ['ligand']] = enabled_interactions['name_ligands'].apply(
         lambda value: 'complex:%s' % value)
 
     result['iuphar_ligand'] = enabled_interactions['ligand_ligands']
@@ -245,7 +246,7 @@ def _get_complex_involved(multidata_counts, clusters_names):
     complex_counts = complex_counts.apply(set_complex_cluster_counts, axis=1)
 
     complex_counts = complex_counts[list(clusters_names) + ['multidata_id', 'receptor', 'other', 'transmembrane',
-                                                            'transporter', 'cytoplasm', 'secretion', 'name']]
+                                                            'transporter', 'cytoplasm', 'secretion', 'name', 'ligand']]
 
     complex_counts['is_complex'] = True
 
