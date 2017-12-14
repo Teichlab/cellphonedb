@@ -28,8 +28,8 @@ class ReceptorLigandsInteractions(QueryBase):
             result_interactions, result_interactions_extended = receptor_ligands_interactions.call(
                 cells_to_clusters_file,
                 threshold)
-            self._attach_csv(result_interactions.to_csv(sep='\t', index=False), 'result_interactions.txt')
-            self._attach_csv(result_interactions_extended.to_csv(sep='\t', index=False),
+            self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')
+            self._attach_csv(result_interactions_extended.to_csv(index=False),
                              'result_interactions_extended.txt')
 
         self._attach_json(self._status, at_first=True)

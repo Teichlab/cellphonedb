@@ -43,6 +43,12 @@ def call(cluster_counts, threshold):
 
 
 def _filter_empty(cluster_counts, clusters_names):
+    """
+
+    :type cluster_counts:  pd.DataFrame
+    :type clusters_names: list
+    :rtype: pd.DataFrame
+    """
     filetered_cluster_counts = cluster_counts[cluster_counts[clusters_names].apply(lambda row: row.sum() > 0, axis=1)]
     return filetered_cluster_counts
 
@@ -77,6 +83,7 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
     result_ligand = result_ligand.assign(receptor_ligand='ligand')
 
     result = result_receptor.append(result_ligand)
+    result = dataframe_format.bring_columns_to_start(['interaction_id'], result)
     result.sort_values('interaction_id').to_csv('out/TEST_result_interactions_extended.csv', index=False)
 
     return result
@@ -108,6 +115,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     :type enabled_interactions: pd.DataFrame
     :rtype: pd.DataFrame
     """
+
     result = enabled_interactions['interaction_id']
     cluster_interactions_columns_names = []
     for cluster_interaction in cluster_interactions:
@@ -125,7 +133,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
         enabled_interactions['name_receptors'].apply(lambda value: 'complex:%s' % value)
 
     result['ligand'] = enabled_interactions['entry_name_ligands'].apply(lambda value: 'single:%s' % value)
-    result.loc[enabled_interactions['is_complex_ligands'], ['receptor']] = enabled_interactions['name_ligands'].apply(
+    result.loc[enabled_interactions['is_complex_ligands'], ['ligand']] = enabled_interactions['name_ligands'].apply(
         lambda value: 'complex:%s' % value)
 
     result['iuphar_ligand'] = enabled_interactions['ligand_ligands']
@@ -137,7 +145,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
 
     result.sort_values('interaction_ratio', inplace=True)
 
-    result = dataframe_format.bring_columns_to_start(['receptor', 'ligand'], result)
+    result = dataframe_format.bring_columns_to_start(['interaction_id', 'receptor', 'ligand'], result)
 
     return result
 
@@ -244,9 +252,11 @@ def _get_complex_involved(multidata_counts, clusters_names):
     complex_counts = complex_counts.apply(set_complex_cluster_counts, axis=1)
 
     complex_counts = complex_counts[list(clusters_names) + ['multidata_id', 'receptor', 'other', 'transmembrane',
-                                                            'transporter', 'cytoplasm', 'secretion', 'name']]
+                                                            'transporter', 'cytoplasm', 'secretion', 'name', 'ligand']]
 
     complex_counts['is_complex'] = True
+
+    complex_counts = _filter_empty(complex_counts, clusters_names)
 
     return complex_counts
 
