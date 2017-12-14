@@ -22,7 +22,7 @@ def load(complex_file=None):
 
     existing_complexes = db.session.query(Multidata.name).all()
     existing_complexes = [c[0] for c in existing_complexes]
-    proteins = db.session.query(Multidata.name, Multidata.id).join(Protein).all()
+    proteins = db.session.query(Multidata.name, Multidata.id_multidata).join(Protein).all()
     proteins = {p[0]: p[1] for p in proteins}
     # Read in complexes
     complex_df = pd.read_csv(complex_file, quotechar='"', na_values="NA", sep=',')
@@ -85,7 +85,7 @@ def load(complex_file=None):
         multidata_df.to_sql(name='multidata', if_exists='append', con=db.engine, index=False)
 
     # Now find id's of new complex rows
-    new_complexes = db.session.query(Multidata.name, Multidata.id).all()
+    new_complexes = db.session.query(Multidata.name, Multidata.id_multidata).all()
     new_complexes = {c[0]: c[1] for c in new_complexes}
 
     # Build set of complexes

@@ -10,41 +10,41 @@ from cellcommdb.models import Complex, Protein, Multidata, Interaction, ComplexC
 
 class DatabaseNumberOfEntries(TestCase):
     def test_protein(self):
-        query = db.session.query(Protein.id)
+        query = db.session.query(Protein.id_protein)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         self.assertEqual(len(dataframe), 5153, 'Number of Protein entries are different')
 
     def test_gene(self):
-        query = db.session.query(Gene.id)
+        query = db.session.query(Gene.id_gene)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         self.assertEqual(len(dataframe), 5821, 'Number of Gene entries are different')
 
     def test_complex(self):
-        query = db.session.query(Complex.id)
+        query = db.session.query(Complex.id_complex)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         self.assertEqual(len(dataframe), 236, 'Number of Complex entries are different')
 
     def test_multidata(self):
-        query = db.session.query(Multidata.id)
+        query = db.session.query(Multidata.id_multidata)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         self.assertEqual(len(dataframe), 5389, 'Number of Multidata entries are different')
 
     def test_protein_complex(self):
-        query = db.session.query(Multidata.id)
+        query = db.session.query(Multidata.id_multidata)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         number_of_multidata = len(dataframe)
 
-        query = db.session.query(Protein.id)
+        query = db.session.query(Protein.id_protein)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         number_of_protein = len(dataframe)
 
-        query = db.session.query(Complex.id)
+        query = db.session.query(Complex.id_complex)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         number_of_complex = len(dataframe)
@@ -53,20 +53,20 @@ class DatabaseNumberOfEntries(TestCase):
                          'Number of multidata is diferent than proteins+complex')
 
     def test_interaction(self):
-        query = db.session.query(Interaction.id, Interaction.source)
+        query = db.session.query(Interaction.id_interaction, Interaction.source)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         self.assertEqual(len(dataframe), 9657, 'Number of interactions not equal')
 
     def test_interaction_curated(self):
-        query = db.session.query(Interaction.id, Interaction.source)
+        query = db.session.query(Interaction.id_interaction, Interaction.source)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         self.assertEqual(len(dataframe[dataframe['source'] == 'curated']), 122,
                          'Number of curated interactions not equal')
 
     def test_complex_composition(self):
-        query = db.session.query(ComplexComposition.id)
+        query = db.session.query(ComplexComposition.id_complex_composition)
         dataframe = pd.read_sql(query.statement, db.engine)
 
         self.assertEqual(len(dataframe), 497, 'Number of Complex Composition entries are different')

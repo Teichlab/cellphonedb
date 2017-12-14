@@ -20,7 +20,8 @@ class Blend:
         """
         interaction_df = pd.merge(original_df, multidata_df, left_on=original_column_name, right_on=db_column_name,
                                   indicator=True, how='outer')
-        interaction_df.rename(index=str, columns={'id': '%s_%s_id' % (table_name, number)}, inplace=True)
+        interaction_df.rename(index=str, columns={'id_%s' % table_name: '%s_%s_id' % (table_name, number)},
+                              inplace=True)
 
         interaction_df = interaction_df[
             (interaction_df['_merge'] == 'both') | (interaction_df['_merge'] == 'left_only')]
@@ -37,16 +38,16 @@ class Blend:
         :type original_df: pd.DataFrame
         :type original_column_names: list
         :type quiet: bool
-        :return:
+        :rtype: pd.DataFrame
         """
         if quiet:
             print('Blending proteins in quiet mode')
-        multidata_query = db.session.query(Multidata.id, Multidata.name)
+        multidata_query = db.session.query(Multidata.id_multidata, Multidata.name)
         multidata_df = pd.read_sql(multidata_query.statement, db.engine)
 
-        reseult_df = Blend.blend_dataframes(original_df, original_column_names, multidata_df, 'name', 'multidata')
+        result = Blend.blend_dataframes(original_df, original_column_names, multidata_df, 'name', 'multidata')
 
-        return reseult_df
+        return result
 
     @staticmethod
     def blend_dataframes(left_df, left_column_names, right_df, db_column_name, db_table_name, quiet=False):
@@ -94,7 +95,7 @@ class Blend:
     def blend_protein(original_df, original_column_names, quiet=False):
         if quiet:
             print('Blending proteins in quiet mode')
-        database_query = db.session.query(Protein.id, Multidata.name).join(Multidata)
+        database_query = db.session.query(Protein.id_protein, Multidata.name).join(Multidata)
         database_df = pd.read_sql(database_query.statement, db.engine)
 
         protein_df = Blend.blend_dataframes(original_df, original_column_names, database_df, 'name', 'protein',

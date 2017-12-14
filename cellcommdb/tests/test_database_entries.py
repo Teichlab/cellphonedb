@@ -701,7 +701,7 @@ class DatabaseRandomEntries(TestCase):
         some_protein_not_part_of_complex = False
 
         for complex in complex_entries:
-            db_complex_id = df_multidata[df_multidata['name'] == complex['data']['name']]['id'].iloc[0]
+            db_complex_id = df_multidata[df_multidata['name'] == complex['data']['name']]['id_multidata'].iloc[0]
 
             if len(df_complex_composition[df_complex_composition['complex_multidata_id'] != db_complex_id]) == len(
                     complex['composition']):
@@ -718,7 +718,7 @@ class DatabaseRandomEntries(TestCase):
                     df_complex_composition[df_complex_composition['complex_multidata_id'] == db_complex_id][
                         'protein_multidata_id'].tolist()
 
-                composition_multidata_id = df_multidata[df_multidata['name'] == protein_name]['id']
+                composition_multidata_id = df_multidata[df_multidata['name'] == protein_name]['id_multidata']
 
                 if not len(composition_multidata_id):
                     print('Failed finding protein \'%s\' in multidata from complex name \'%s\'' % (

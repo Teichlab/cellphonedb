@@ -33,7 +33,7 @@ def insert_multidata_proteins(proteins):
 
 def insert_proteins_in_db(proteins_df):
     multidatas = pd.read_sql_table(table_name='multidata', con=db.engine)
-    multidatas.rename(index=str, columns={'id': 'protein_multidata_id'}, inplace=True)
+    multidatas.rename(index=str, columns={'id_multidata': 'protein_multidata_id'}, inplace=True)
     proteins = proteins_df.copy()
     proteins.rename(index=str, columns={'uniprot': 'name'}, inplace=True)
 
@@ -41,5 +41,3 @@ def insert_proteins_in_db(proteins_df):
 
     proteins = filters.remove_not_defined_columns(proteins, database.get_column_table_names(Protein, db))
     proteins.to_sql(name='protein', if_exists='append', con=db.engine, index=False)
-
-

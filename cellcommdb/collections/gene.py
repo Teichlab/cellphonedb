@@ -10,11 +10,11 @@ from cellcommdb.tools import filters, database
 
 def load(gene_file=None):
     """
-        Loads gene table from csv.
-        - Load human gene data
-        :param gene_file:
-        :return:
-        """
+    Loads gene table from csv.
+    - Load human gene data
+    :param gene_file:
+    :return:
+    """
 
     if not gene_file:
         gene_file = os.path.join(current_dir, 'data', 'gene.csv')

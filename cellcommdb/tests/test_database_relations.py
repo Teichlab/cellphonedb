@@ -14,7 +14,7 @@ class DatabaseRelationsChecks(TestCase):
         protein_query = db.session.query(Protein, Multidata.name).join(Multidata)
 
         protein_df = pd.read_sql(protein_query.statement, db.engine)
-        protein_ids = protein_df['id'].tolist()
+        protein_ids = protein_df['id_protein'].tolist()
 
         gene_query = db.session.query(Gene.protein_id)
         gene_protein_ids = pd.read_sql(gene_query.statement, db.engine)['protein_id'].tolist()
@@ -22,7 +22,7 @@ class DatabaseRelationsChecks(TestCase):
         protein_without_gene = []
         for protein_id in protein_ids:
             if not protein_id in gene_protein_ids:
-                protein_without_gene.append(protein_df[protein_df['id'] == protein_id]['name'].iloc[0])
+                protein_without_gene.append(protein_df[protein_df['id_protein'] == protein_id]['name'].iloc[0])
 
         if len(protein_without_gene) > expected_protein_without_gene:
             print('There are %s Proteins without gene' % len(protein_without_gene))

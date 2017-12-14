@@ -12,7 +12,6 @@ class DatabaseIntegrity(TestCase):
         query = db.session.query(Gene)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        dataframe.drop('id', inplace=True, axis=1)
         duplicated_genes = dataframe[dataframe.duplicated(keep=False)]
         if len(duplicated_genes):
             duplicated_genes.sort_values('gene_name').to_csv('%s/../out/duplicated_genes.csv' % current_dir,
