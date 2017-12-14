@@ -58,7 +58,7 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
                                                                '_receptors')
 
     result_receptor = interactions.loc[interactions['is_complex_receptors'] == False][
-        ['interaction_id', 'entry_name_receptors', 'name_receptors', 'gene_name_receptors', 'is_complex_receptors'] + [
+        ['id_interaction', 'entry_name_receptors', 'name_receptors', 'gene_name_receptors', 'is_complex_receptors'] + [
             cluster_name + '_receptors' for cluster_name in clusters_names]]
 
     def remove_suffix(column_name, suffix):
@@ -75,7 +75,7 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
     result_ligand_complex = _get_counts_proteins_of_comlexes(cluster_counts, clusters_names, interactions, '_ligands')
 
     result_ligand = interactions.loc[interactions['is_complex_ligands'] == False][
-        ['interaction_id', 'entry_name_ligands', 'name_ligands', 'gene_name_ligands', 'is_complex_ligands'] + [
+        ['id_interaction', 'entry_name_ligands', 'name_ligands', 'gene_name_ligands', 'is_complex_ligands'] + [
             cluster_name + '_ligands' for cluster_name in clusters_names]]
 
     result_ligand.rename(columns=lambda column_name: remove_suffix(column_name, '_ligands'), inplace=True)
@@ -83,8 +83,8 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
     result_ligand = result_ligand.assign(receptor_ligand='ligand')
 
     result = result_receptor.append(result_ligand)
-    result = dataframe_format.bring_columns_to_start(['interaction_id'], result)
-    result.sort_values('interaction_id').to_csv('out/TEST_result_interactions_extended.csv', index=False)
+    result = dataframe_format.bring_columns_to_start(['id_interaction'], result)
+    result.sort_values('id_interaction').to_csv('out/TEST_result_interactions_extended.csv', index=False)
 
     return result
 
@@ -96,12 +96,12 @@ def _get_counts_proteins_of_comlexes(cluster_counts, clusters_names, interaction
                                                  ComplexComposition.total_protein)
     complex_composition = pd.read_sql(complex_composition_query.statement, db.engine)
     receptor_complex_interactions = pd.merge(receptor_complex_interactions, complex_composition,
-                                             left_on='multidata_id%s' % suffix, right_on='complex_multidata_id')
+                                             left_on='id_multidata%s' % suffix, right_on='complex_multidata_id')
     receptor_complex_interactions = pd.merge(receptor_complex_interactions, cluster_counts,
-                                             left_on='protein_multidata_id', right_on='multidata_id')
+                                             left_on='protein_multidata_id', right_on='id_multidata')
     receptor_complex_interactions.to_csv('out/TEST_receptor_complex_interactions.csv')
     result_receptor_complex = receptor_complex_interactions[
-        ['interaction_id', 'entry_name', 'name', 'gene_name', 'name%s' % suffix] + list(clusters_names)]
+        ['id_interaction', 'entry_name', 'name', 'gene_name', 'name%s' % suffix] + list(clusters_names)]
     result_receptor_complex = result_receptor_complex.rename(columns={'name%s' % suffix: 'complex_name'}, index=str)
     result_receptor_complex = result_receptor_complex.assign(is_complex=True)
     result_receptor_complex.to_csv('out/TEST_receptor_complex.csv')
@@ -116,7 +116,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     :rtype: pd.DataFrame
     """
 
-    result = enabled_interactions['interaction_id']
+    result = enabled_interactions['id_interaction']
     cluster_interactions_columns_names = []
     for cluster_interaction in cluster_interactions:
         print(cluster_interaction)
@@ -145,7 +145,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
 
     result.sort_values('interaction_ratio', inplace=True)
 
-    result = dataframe_format.bring_columns_to_start(['interaction_id', 'receptor', 'ligand'], result)
+    result = dataframe_format.bring_columns_to_start(['id_interaction', 'receptor', 'ligand'], result)
 
     return result
 
@@ -185,14 +185,13 @@ def _cellphone_genes(cluster_counts):
     :type cluster_counts: pd.DataFrame()
     :rtype: pd.DataFrame()
     '''
-    gene_protein_query = db.session.query(Gene.ensembl, Gene.gene_name, Protein.entry_name, Multidata.id,
+    gene_protein_query = db.session.query(Gene.ensembl, Gene.gene_name, Protein.entry_name, Multidata.id_multidata,
                                           Multidata.receptor, Multidata.other,
                                           Multidata.transmembrane, Multidata.transporter, Multidata.cytoplasm,
                                           Multidata.secretion, Multidata.name, Multidata.extracellular,
                                           Multidata.ligand).join(Protein).join(Multidata)
     gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
 
-    gene_protein_df.rename(columns={'id': 'multidata_id'}, inplace=True)
 
     multidata_counts = pd.merge(cluster_counts, gene_protein_df, left_index=True, right_on='ensembl')
 
@@ -212,7 +211,7 @@ def _get_complex_involved(multidata_counts, clusters_names):
     complex_composition_df = pd.read_sql(complex_composition_query.statement, db.engine)
 
     complex_counts_composition = pd.merge(complex_composition_df, multidata_counts, left_on='protein_multidata_id',
-                                          right_on='multidata_id')
+                                          right_on='id_multidata')
 
     def all_protein_involved(complex):
         number_proteins_in_counts = len(
@@ -227,16 +226,15 @@ def _get_complex_involved(multidata_counts, clusters_names):
     complex_counts_composition = complex_counts_composition[
         complex_counts_composition.apply(all_protein_involved, axis=1)]
 
-    complex_multidata_query = db.session.query(Multidata.id, Multidata.receptor, Multidata.other,
+    complex_multidata_query = db.session.query(Multidata.id_multidata, Multidata.receptor, Multidata.other,
                                                Multidata.transmembrane, Multidata.transporter, Multidata.cytoplasm,
                                                Multidata.secretion, Multidata.name, Multidata.extracellular,
                                                Multidata.ligand).join(Complex)
     complex_multidata_df = pd.read_sql(complex_multidata_query.statement, db.engine)
-    complex_multidata_df.rename(columns={'id': 'multidata_id'}, inplace=True)
 
     complex_counts_composition = pd.merge(complex_counts_composition, complex_multidata_df,
                                           left_on='complex_multidata_id',
-                                          right_on='multidata_id',
+                                          right_on='id_multidata',
                                           suffixes=['_protein', ''])
 
     def set_complex_cluster_counts(row):
@@ -251,7 +249,7 @@ def _get_complex_involved(multidata_counts, clusters_names):
 
     complex_counts = complex_counts.apply(set_complex_cluster_counts, axis=1)
 
-    complex_counts = complex_counts[list(clusters_names) + ['multidata_id', 'receptor', 'other', 'transmembrane',
+    complex_counts = complex_counts[list(clusters_names) + ['id_multidata', 'receptor', 'other', 'transmembrane',
                                                             'transporter', 'cytoplasm', 'secretion', 'name', 'ligand']]
 
     complex_counts['is_complex'] = True
@@ -310,14 +308,14 @@ def _get_enabled_interactions(cluster_counts, interactions, min_score_2):
     multidata_receptors = cluster_counts[cluster_counts['is_receptor']]
     multidata_ligands = cluster_counts[cluster_counts['is_ligand']]
 
-    receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='multidata_id',
+    receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
                                      right_on='multidata_1_id')
-    enabled_interactions = pd.merge(multidata_ligands, receptor_interactions, left_on='multidata_id',
+    enabled_interactions = pd.merge(multidata_ligands, receptor_interactions, left_on='id_multidata',
                                     right_on='multidata_2_id', suffixes=['_ligands', '_receptors'])
 
-    receptor_interactions_inverted = pd.merge(multidata_receptors, interactions, left_on='multidata_id',
+    receptor_interactions_inverted = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
                                               right_on='multidata_2_id')
-    enabled_interactions_inverted = pd.merge(multidata_ligands, receptor_interactions_inverted, left_on='multidata_id',
+    enabled_interactions_inverted = pd.merge(multidata_ligands, receptor_interactions_inverted, left_on='id_multidata',
                                              right_on='multidata_1_id', suffixes=['_ligands', '_receptors'])
 
     enabled_interactions = enabled_interactions.append(enabled_interactions_inverted).reset_index(drop=True)
@@ -330,14 +328,13 @@ def _get_interactions():
     interactions_query = db.session.query(Interaction)
     interactions_df = pd.read_sql(interactions_query.statement, db.engine)
 
-    multidata_query = db.session.query(Multidata.id)
+    multidata_query = db.session.query(Multidata.id_multidata)
     multidata_df = pd.read_sql(multidata_query.statement, db.engine)
 
-    interactions_df.rename(columns={'id': 'interaction_id'}, index=str, inplace=True)
-    interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_1_id'], right_on=['id'])
-    interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_2_id'], right_on=['id'],
+    interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_1_id'], right_on=['id_multidata'])
+    interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_2_id'], right_on=['id_multidata'],
                                suffixes=['_1', '_2'])
 
-    interactions_df.drop(['id_1', 'id_2'], axis=1, inplace=True)
+    interactions_df.drop(['id_multidata_1', 'id_multidata_2'], axis=1, inplace=True)
 
     return interactions_df
