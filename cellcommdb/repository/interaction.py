@@ -2,7 +2,7 @@ import pandas as pd
 from sqlalchemy import or_
 
 from cellcommdb.extensions import db
-from cellcommdb.models import Interaction
+from cellcommdb.models.interaction.db_model_interaction import Interaction
 from cellcommdb.repository import multidata
 
 

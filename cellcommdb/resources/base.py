@@ -1,7 +1,8 @@
 from flask_restful import Resource, reqparse, marshal, fields
 
 from cellcommdb.extensions import db
-from cellcommdb.models import *
+from cellcommdb.models.complex.db_model_complex import Complex
+from cellcommdb.models.protein.db_model_protein import Protein
 
 
 class ProteinResource(Resource):

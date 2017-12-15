@@ -5,7 +5,7 @@ import pandas as pd
 from cellcommdb.api import current_dir
 from cellcommdb.blend import Blend
 from cellcommdb.extensions import db
-from cellcommdb.models import Interaction
+from cellcommdb.models.interaction.db_model_interaction import Interaction
 from cellcommdb.tools import filters, database
 
 

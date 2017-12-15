@@ -8,7 +8,6 @@ from cellcommdb.api import create_app, data_dir
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
-from cellcommdb.models import *
 
 app = create_app()
 

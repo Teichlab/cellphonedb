@@ -4,7 +4,7 @@ import pandas as pd
 from cellcommdb.api import current_dir
 from cellcommdb.blend import Blend
 from cellcommdb.extensions import db
-from cellcommdb.models import Gene, Protein, Multidata
+from cellcommdb.models.gene.db_model_gene import Gene
 from cellcommdb.tools import filters, database
 
 

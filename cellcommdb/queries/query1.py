@@ -1,10 +1,11 @@
 import pandas as pd
 
-from cellcommdb import tools
 from cellcommdb.extensions import db
-from cellcommdb.models import Gene, Protein, Multidata, ComplexComposition
+from cellcommdb.models.complex_composition.db_model_complex_composition import ComplexComposition
+from cellcommdb.models.gene.db_model_gene import Gene
+from cellcommdb.models.multidata.db_model_multidata import Multidata
+from cellcommdb.models.protein.db_model_protein import Protein
 from cellcommdb.tools import filters
-from cellcommdb.unblend import Unblend
 
 
 class Query1:

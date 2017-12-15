@@ -3,7 +3,9 @@ import pandas as pd
 
 from cellcommdb.api import current_dir
 from cellcommdb.extensions import db
-from cellcommdb.models import Multidata, Protein, Complex, ComplexComposition, Gene
+from cellcommdb.models.complex.db_model_complex import Complex
+from cellcommdb.models.multidata.db_model_multidata import Multidata
+from cellcommdb.models.protein.db_model_protein import Protein
 from cellcommdb.tools import filters, database
 
 

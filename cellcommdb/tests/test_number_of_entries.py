@@ -5,7 +5,12 @@ from cellcommdb.api import create_app
 from cellcommdb.collection import Collector
 from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
-from cellcommdb.models import Complex, Protein, Multidata, Interaction, ComplexComposition, Gene
+from cellcommdb.models.complex.db_model_complex import Complex
+from cellcommdb.models.complex_composition.db_model_complex_composition import ComplexComposition
+from cellcommdb.models.gene.db_model_gene import Gene
+from cellcommdb.models.interaction.db_model_interaction import Interaction
+from cellcommdb.models.multidata.db_model_multidata import Multidata
+from cellcommdb.models.protein.db_model_protein import Protein
 
 
 class DatabaseNumberOfEntries(TestCase):

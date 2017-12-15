@@ -5,10 +5,6 @@ import pandas as pd
 import numpy as np
 from NaiveDE import lr_tests
 
-from cellcommdb.api import create_app
-
-from cellcommdb.models import *
-
 
 def call(counts, meta):
     print('Query one-one started')

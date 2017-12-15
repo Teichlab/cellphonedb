@@ -1,7 +1,8 @@
 import pandas as pd
 
 from cellcommdb.extensions import db
-from cellcommdb.models import Multidata, Protein
+from cellcommdb.models.multidata.db_model_multidata import Multidata
+from cellcommdb.models.protein.db_model_protein import Protein
 
 
 def get_protein_multidata_by_uniprot(uniprot):

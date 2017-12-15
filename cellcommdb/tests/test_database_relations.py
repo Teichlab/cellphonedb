@@ -4,7 +4,9 @@ from flask_testing import TestCase
 from cellcommdb.api import create_app
 from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
-from cellcommdb.models import Protein, Gene, Multidata
+from cellcommdb.models.gene.db_model_gene import Gene
+from cellcommdb.models.multidata.db_model_multidata import Multidata
+from cellcommdb.models.protein.db_model_protein import Protein
 
 
 class DatabaseRelationsChecks(TestCase):

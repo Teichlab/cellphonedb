@@ -6,7 +6,6 @@ from cellcommdb.api import create_app
 from cellcommdb.exporter import Exporter
 from cellcommdb.extensions import db
 from cellcommdb.db_scripts import db_drop_everything
-from cellcommdb.models import *
 from cellcommdb.query_manager import QueryLauncher
 
 

@@ -4,7 +4,7 @@ from flask_testing import TestCase
 from cellcommdb.api import create_app, current_dir
 from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
-from cellcommdb.models import Gene
+from cellcommdb.models.gene.db_model_gene import Gene
 
 
 class DatabaseIntegrity(TestCase):

@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellcommdb.extensions import db
-from cellcommdb.models import Multidata
+from cellcommdb.models.multidata.db_model_multidata import Multidata
 from cellcommdb.tools.filters import remove_not_defined_columns
 
 

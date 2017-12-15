@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellcommdb.extensions import db
-from cellcommdb.models import Gene, Protein, Multidata
+from cellcommdb.models.gene.db_model_gene import Gene
 
 
 def call(counts, meta):

@@ -1,10 +1,15 @@
 from sqlalchemy import or_, and_
 
 from cellcommdb.extensions import db
-from cellcommdb.models import Protein, Multidata, Complex, ComplexComposition, Interaction, Gene
 import pandas as pd
 import inspect
 
+from cellcommdb.models.complex.db_model_complex import Complex
+from cellcommdb.models.complex_composition.db_model_complex_composition import ComplexComposition
+from cellcommdb.models.gene.db_model_gene import Gene
+from cellcommdb.models.interaction.db_model_interaction import Interaction
+from cellcommdb.models.multidata.db_model_multidata import Multidata
+from cellcommdb.models.protein.db_model_protein import Protein
 from cellcommdb.tools import filters, database
 from cellcommdb.unblend import Unblend
 from utilities import dataframe_format
