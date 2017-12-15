@@ -59,5 +59,5 @@ class QueryLauncher(object):
         result_interactions.to_csv('%s/receptor_ligands_interactions.csv' % output_dir, index=False)
         result_interactions_extended.to_csv('%s/receptor_ligands_interactions_extended.csv' % output_dir, index=False)
 
-    def get_ligands_from_receptor(self, receptor):
-        get_ligands_from_receptor.call(receptor)
+    def get_ligands_from_receptor(self, receptor, score2_threshold):
+        get_ligands_from_receptor.call(receptor, float(score2_threshold))
