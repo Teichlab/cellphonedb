@@ -4,6 +4,7 @@ import pandas as pd
 from cellcommdb.api import current_dir
 from cellcommdb.extensions import db
 from cellcommdb.models.complex.db_model_complex import Complex
+from cellcommdb.models.multidata import properties_multidata
 from cellcommdb.models.multidata.db_model_multidata import Multidata
 from cellcommdb.models.protein.db_model_protein import Protein
 from cellcommdb.tools import filters, database
@@ -84,7 +85,8 @@ def load(complex_file=None):
 
         multidata_df = filters.remove_not_defined_columns(complex_df.copy(),
                                                           database.get_column_table_names(Multidata, db))
-        multidata_df['is_complex'] = True
+
+        multidata_df = _optimitzations(multidata_df)
         multidata_df.to_sql(name='multidata', if_exists='append', con=db.engine, index=False)
 
     # Now find id's of new complex rows
@@ -116,3 +118,12 @@ def load(complex_file=None):
     complex_set_df.to_sql(
         name='complex_composition', if_exists='append',
         con=db.engine, index=False)
+
+
+def _optimitzations(multidata):
+    multidata['is_complex'] = True
+    multidata['is_cellphone_receptor'] = multidata.apply(lambda protein: properties_multidata.is_receptor(protein),
+                                                         axis=1)
+    multidata['is_cellphone_ligand'] = multidata.apply(lambda protein: properties_multidata.is_ligand(protein), axis=1)
+
+    return multidata

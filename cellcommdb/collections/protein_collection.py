@@ -4,6 +4,7 @@ import pandas as pd
 from cellcommdb.api import current_dir
 from cellcommdb.extensions import db
 from cellcommdb.models.multidata.db_model_multidata import Multidata
+from cellcommdb.models.multidata import properties_multidata
 from cellcommdb.models.protein.db_model_protein import Protein
 from cellcommdb.tools import filters, database
 
@@ -19,10 +20,19 @@ def load(protein_file=None):
     csv_proteins_df = pd.read_csv(protein_file)
 
     csv_proteins_df[bools] = csv_proteins_df[bools].astype(bool)
-    csv_proteins_df['is_complex'] = False
 
-    insert_multidata_proteins(csv_proteins_df)
-    insert_proteins_in_db(csv_proteins_df)
+    proteins = _optimizations(csv_proteins_df)
+    insert_multidata_proteins(proteins)
+    insert_proteins_in_db(proteins)
+
+
+def _optimizations(proteins):
+    proteins['is_complex'] = False
+    proteins['is_cellphone_receptor'] = proteins.apply(lambda protein: properties_multidata.is_receptor(protein),
+                                                       axis=1)
+    proteins['is_cellphone_ligand'] = proteins.apply(lambda protein: properties_multidata.is_ligand(protein), axis=1)
+
+    return proteins
 
 
 def insert_multidata_proteins(proteins):
