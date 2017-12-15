@@ -24,6 +24,8 @@ class Multidata(db.Model):
     ligand = Column(Boolean)
     cytoplasm = Column(Boolean)
     extracellular = Column(Boolean)
+    is_complex = Column(Boolean)
+
 
     protein = db.relationship('Protein', backref='protein', lazy='subquery')
     complex = db.relationship('Complex', backref='complex', lazy='subquery')

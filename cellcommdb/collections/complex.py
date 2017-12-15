@@ -84,6 +84,7 @@ def load(complex_file=None):
 
         multidata_df = filters.remove_not_defined_columns(complex_df.copy(),
                                                           database.get_column_table_names(Multidata, db))
+        multidata_df['is_complex'] = True
         multidata_df.to_sql(name='multidata', if_exists='append', con=db.engine, index=False)
 
     # Now find id's of new complex rows

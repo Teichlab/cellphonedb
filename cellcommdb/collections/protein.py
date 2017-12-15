@@ -19,6 +19,7 @@ def load(protein_file=None):
     csv_proteins_df = pd.read_csv(protein_file)
 
     csv_proteins_df[bools] = csv_proteins_df[bools].astype(bool)
+    csv_proteins_df['is_complex'] = False
 
     insert_multidata_proteins(csv_proteins_df)
     insert_proteins_in_db(csv_proteins_df)
