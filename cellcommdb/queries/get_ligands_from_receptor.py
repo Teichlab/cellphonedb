@@ -8,13 +8,7 @@ from cellcommdb.repository.protein import get_protein_multidata_by_uniprot
 
 
 # TODO: Extract methods
-def call(receptor, min_score2):
-    """
-
-    :type receptor: str
-    :type min_score2: float
-    :rtype:
-    """
+def call(receptor: str, min_score2: float) -> pd.DataFrame:
     print('Get Ligands From Receptor')
 
     protein_receptor = get_protein_multidata_by_uniprot(receptor)
@@ -31,7 +25,7 @@ def call(receptor, min_score2):
     if interactions.empty:
         return interactions
     interactions_receptor_ligand = filter_receptor_ligand_interactions_by_receptor(interactions, protein_receptor)
-    _result_query_interactions(interactions_receptor_ligand, protein_receptor)
+    return _result_query_interactions(interactions_receptor_ligand, protein_receptor)
 
 
 def _result_query_interactions(interactions: pd.DataFrame, receptor: pd.Series):
