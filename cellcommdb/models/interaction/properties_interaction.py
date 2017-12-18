@@ -8,7 +8,6 @@ def is_receptor_ligand_by_receptor(interaction, receptor):
     :type receptor:
     :rtype:
     """
-
     if interaction['multidata_1_id'] == receptor['id_multidata'] \
             and interaction['is_cellphone_ligand_2']:
         return True
