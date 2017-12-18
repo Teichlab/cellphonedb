@@ -17,7 +17,7 @@ class GetLigandsFromReceptor(QueryBase):
 
         ligands = get_ligands_from_receptor.call(receptor, 0.3)
 
-        self._attach_csv(ligands.to_csv(index=False), 'ligands')
+        self._attach_table(ligands.to_csv(index=False, sep='\t'), 'ligands')
 
         self._attach_json(self._status, at_first=True)
         self._commit_attachments()

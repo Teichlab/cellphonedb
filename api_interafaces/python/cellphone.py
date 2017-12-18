@@ -57,13 +57,27 @@ def receptor_ligands_interactions_request(cells_clusters, threshold=0.1):
     return interactions, interactions_extended
 
 
+def get_ligands_from_receptor(receptor: str) -> pd.DataFrame:
+    url = 'http://localhost:5000/api/get_ligands_from_receptor'
+
+    response = requests.post(url, data={'parameters': json.dumps({'receptor': receptor})})
+
+    response_body = email.message_from_string(response.text)
+    response_body = [i for i in response_body.walk()]
+
+    ligands_raw = response_body[2].get_payload()
+
+    ligands = pd.read_table(pd.compat.StringIO(ligands_raw))
+
+    return ligands
+
+
 def cells_to_clusters_example():
     meta = pd.read_table('cellcommdb/data/queries/test_meta.txt', index_col=0)
     counts = pd.read_table('cellcommdb/data/queries/test_counts.txt', index_col=0)
     cells_clusters = cells_to_clusters(meta, counts)
     cells_clusters.to_csv('out/API_cells_clusters.csv')
-    meta.to_csv('out/test_meta.csv')
-    counts.to_csv('out/test_counts.csv')
+    print(len(cells_clusters))
 
 
 def receptor_ligands_interactions_example():
@@ -72,11 +86,14 @@ def receptor_ligands_interactions_example():
     receptor_ligands_interactions, receptor_ligands_interactions_extended = receptor_ligands_interactions_request(
         cells_clusters, threshold)
 
-    print(receptor_ligands_interactions)
     receptor_ligands_interactions.to_csv('out/API_receptor_ligands_interactions.csv', index=False)
     receptor_ligands_interactions_extended.to_csv('out/API_receptor_ligands_interactions_extended.csv', index=False)
+    print(len(receptor_ligands_interactions))
+    print(len(receptor_ligands_interactions_extended))
 
 
 if __name__ == '__main__':
     cells_to_clusters_example()
     receptor_ligands_interactions_example()
+
+    print(get_ligands_from_receptor('P25106'))

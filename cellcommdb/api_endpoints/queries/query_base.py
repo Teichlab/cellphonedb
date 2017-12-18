@@ -21,6 +21,14 @@ class QueryBase(Resource):
 
         self._attachments.append(attachment)
 
+    def _attach_table(self, file_to_send, filename):
+        attachment = MIMEBase('text', 'tab-separated-values')
+        attachment.set_payload(file_to_send)
+
+        attachment.add_header("Content-Disposition", "attachment", filename=filename)
+
+        self._attachments.append(attachment)
+
     def _attach_json(self, data, at_first=False):
         attachment = MIMEBase('application', 'json')
         attachment.set_payload(json.dumps(data))
