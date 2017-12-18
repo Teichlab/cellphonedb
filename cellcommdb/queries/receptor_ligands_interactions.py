@@ -171,17 +171,21 @@ def _add_is_receptor_property(cluster_counts):
 def _add_is_ligand_property(cluster_counts):
     def is_ligand(multidata):
 
-        if multidata['secretion'] and not multidata['other']:
+        if multidata['secretion'] and \
+                not multidata['other']:
             return True
 
-        if multidata['transmembrane'] and not multidata['secretion'] and multidata['extracellular'] and \
-                not multidata['cytoplasm'] and not multidata['other'] and not multidata['transporter']:
+        if multidata['transmembrane'] and \
+                not multidata['secretion'] and \
+                multidata['extracellular'] and \
+                not multidata['cytoplasm'] and \
+                not multidata['other'] and \
+                not multidata['transporter']:
             return True
 
         return False
 
     cluster_counts['is_ligand'] = cluster_counts.apply(is_ligand, axis=1)
-
     return cluster_counts
 
 
@@ -197,7 +201,6 @@ def _cellphone_genes(cluster_counts):
                                           Multidata.secretion, Multidata.name, Multidata.extracellular,
                                           Multidata.ligand).join(Protein).join(Multidata)
     gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
-
 
     multidata_counts = pd.merge(cluster_counts, gene_protein_df, left_index=True, right_on='ensembl')
 
@@ -253,7 +256,8 @@ def _get_complex_involved(multidata_counts, clusters_names):
     complex_counts = complex_counts.apply(set_complex_cluster_counts, axis=1)
 
     complex_counts = complex_counts[list(clusters_names) + ['id_multidata', 'receptor', 'other', 'transmembrane',
-                                                            'transporter', 'cytoplasm', 'secretion', 'name', 'ligand']]
+                                                            'transporter', 'cytoplasm', 'secretion', 'name', 'ligand',
+                                                            'extracellular']]
 
     complex_counts['is_complex'] = True
 
