@@ -7,11 +7,11 @@ from cellcommdb.queries import get_ligands_from_receptor
 
 
 # curl -i \
-#      -F parameters="{\"receptor\": \"P25106\"}" \
+#      --data "{\"receptor\": \"P25106\"}" \
 #      http://127.0.0.1:5000/api/get_ligands_from_receptor
 class GetLigandsFromReceptor(QueryBase):
     def post(self):
-        parameters = json.loads(request.form['parameters'])
+        parameters = json.loads(request.get_data(as_text=True))
 
         receptor = parameters['receptor']
 
