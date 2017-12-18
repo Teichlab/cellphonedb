@@ -37,11 +37,11 @@ def _result_query_interactions(interactions: pd.DataFrame, receptor: pd.Series):
 
     ligand_1 = interactions[interactions['multidata_1_id'] == receptor.id_multidata]
     result_ligand_1['id_interaction'] = ligand_1['id_interaction']
+    result_ligand_1['receptor'] = ligand_1['entry_name_2']
+    result_ligand_1['receptor'] = ligand_1['entry_name_2'].apply(lambda value: 'single:%s' % value)
     result_ligand_1['ligand'] = ligand_1['entry_name_1'].apply(lambda value: 'single:%s' % value)
     result_ligand_1.loc[ligand_1['is_complex_1'], ['ligand']] = ligand_1['name_1'].apply(
         lambda value: 'complex:%s' % value)
-    result_ligand_1['receptor'] = ligand_1['entry_name_2']
-    result_ligand_1['receptor'] = ligand_1['entry_name_2'].apply(lambda value: 'single:%s' % value)
     result_ligand_1.loc[ligand_1['is_complex_2'], ['ligand']] = ligand_1['name_2'].apply(
         lambda value: 'complex:%s' % value)
 
@@ -53,11 +53,11 @@ def _result_query_interactions(interactions: pd.DataFrame, receptor: pd.Series):
     result_ligand_2 = pd.DataFrame()
 
     result_ligand_2['id_interaction'] = ligand_2['id_interaction']
-    result_ligand_2['ligand'] = ligand_2['entry_name_2'].apply(lambda value: 'single:%s' % value)
-    result_ligand_2.loc[ligand_2['is_complex_2'], ['ligand']] = ligand_2['name_2'].apply(
-        lambda value: 'complex:%s' % value)
     result_ligand_2['receptor'] = ligand_2['entry_name_1'].apply(lambda value: 'single:%s' % value)
     result_ligand_2.loc[ligand_2['is_complex_1'], ['ligand']] = ligand_2['name_1'].apply(
+        lambda value: 'complex:%s' % value)
+    result_ligand_2['ligand'] = ligand_2['entry_name_2'].apply(lambda value: 'single:%s' % value)
+    result_ligand_2.loc[ligand_2['is_complex_2'], ['ligand']] = ligand_2['name_2'].apply(
         lambda value: 'complex:%s' % value)
     result_ligand_2['source'] = ligand_2['source']
     result_ligand_2['iuphar_ligand'] = ligand_2['ligand_2']

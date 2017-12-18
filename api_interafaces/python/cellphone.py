@@ -60,7 +60,7 @@ def receptor_ligands_interactions_request(cells_clusters, threshold=0.1):
 def get_ligands_from_receptor(receptor: str) -> pd.DataFrame:
     url = 'http://localhost:5000/api/get_ligands_from_receptor'
 
-    response = requests.post(url, data={'parameters': json.dumps({'receptor': receptor})})
+    response = requests.post(url, data=json.dumps({'receptor': receptor}))
 
     response_body = email.message_from_string(response.text)
     response_body = [i for i in response_body.walk()]
