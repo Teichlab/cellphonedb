@@ -1,5 +1,6 @@
 import pandas as pd
 
+from cellcommdb.common.generic_exception import GenericException
 from cellcommdb.models.interaction.filter_interaction import filter_by_min_score2, \
     filter_receptor_ligand_interactions_by_receptor
 from cellcommdb.models.multidata.properties_multidata import is_receptor
@@ -14,10 +15,13 @@ def call(receptor: str, min_score2: float) -> pd.DataFrame:
     protein_receptor = get_protein_multidata_by_uniprot(receptor)
 
     if protein_receptor is None:
-        raise Exception('Protein not found')
+        raise GenericException(
+            {'code': 'protein_not_found', 'title': 'Protein not found',
+             'detail': 'Protein %s doesn\'t exist in Cellphone Database' % receptor})
 
     if not is_receptor(protein_receptor):
-        raise Exception('This protein is not receptor')
+        raise GenericException({'code': 'not_receptor', 'title': 'Protein not receptor',
+                                'detail': 'Protein %s is not receptor' % receptor})
 
     interactions = interaction_repository.get_interactions_multidata_by_multidata_id(protein_receptor['id_protein'])
     interactions = filter_by_min_score2(interactions, min_score2)

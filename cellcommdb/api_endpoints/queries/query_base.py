@@ -10,8 +10,11 @@ import json
 class QueryBase(Resource):
     def __init__(self):
         self._msg = MIMEMultipart('form-data')
-        self._status = {'status': 'ok', 'error': False, 'errors': []}
+        self._errors = []
         self._attachments = []
+
+    def _attach_error(self, error: json):
+        self._errors.append(error)
 
     def _attach_csv(self, file_to_send, filename):
         attachment = MIMEBase('text', 'csv')
@@ -39,7 +42,17 @@ class QueryBase(Resource):
         else:
             self._attachments.append(attachment)
 
+    def _attach_status(self, data={}):
+        status = {"data": {}}
+
+        if self._errors:
+            status['errors'] = self._errors
+
+        self._attach_json(status, at_first=True)
+
     def _commit_attachments(self):
+        self._attach_status()
+
         for attach in self._attachments:
             self._msg.attach(attach)
 

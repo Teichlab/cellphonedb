@@ -1,0 +1,2 @@
+class GenericException(Exception):
+    pass
