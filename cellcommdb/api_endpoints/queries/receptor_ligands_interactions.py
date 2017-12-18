@@ -18,10 +18,10 @@ class ReceptorLigandsInteractions(QueryBase):
         cells_to_clusters_file = self._read_table(request.files['cell_to_clusters_file'], True)
 
         if not isinstance(cells_to_clusters_file, pd.DataFrame):
-            self._status['status'] = 'error'
-            self._status['error'] = True
+            self._attach_error(
+                {'code': 'parsing_error', 'title': 'Error parsing counts file', 'detail': 'Error parsing counts file'})
 
-        if not self._status['error']:
+        if not self._errors:
             parameters = json.loads(request.form['parameters'])
             threshold = float(parameters['threshold'])
 
@@ -31,8 +31,6 @@ class ReceptorLigandsInteractions(QueryBase):
             self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')
             self._attach_csv(result_interactions_extended.to_csv(index=False),
                              'result_interactions_extended.txt')
-
-        self._attach_json(self._status, at_first=True)
 
         self._commit_attachments()
 
