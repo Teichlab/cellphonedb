@@ -3,7 +3,7 @@ from sqlalchemy import or_
 
 from cellcommdb.extensions import db
 from cellcommdb.models.interaction.db_model_interaction import Interaction
-from cellcommdb.repository import multidata
+from cellcommdb.models.interaction.functions_interaction import expand_interactions_multidatas
 
 
 def get_interactions_by_multidata_id(id):
@@ -17,23 +17,6 @@ def get_interactions_by_multidata_id(id):
     result = pd.read_sql(query.statement, db.engine)
 
     return result
-
-
-def expand_interactions_multidatas(interactions, suffixes=['_1', '_2']):
-    """
-
-    :type interactions: pd.DataFrame
-    :type suffixes: list
-    :rtype: pd.DataFrame
-    """
-
-    multidatas = multidata.get_all()
-
-    interactions_expanded = pd.merge(interactions, multidatas, left_on='multidata_1_id', right_on='id_multidata')
-    interactions_expanded = pd.merge(interactions_expanded, multidatas, left_on='multidata_2_id',
-                                     right_on='id_multidata', suffixes=suffixes)
-
-    return interactions_expanded
 
 
 def get_interactions_multidata_by_multidata_id(id):

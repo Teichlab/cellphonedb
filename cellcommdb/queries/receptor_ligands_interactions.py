@@ -8,6 +8,7 @@ from cellcommdb.models.gene.db_model_gene import Gene
 from cellcommdb.models.interaction.db_model_interaction import Interaction
 from cellcommdb.models.multidata.db_model_multidata import Multidata
 from cellcommdb.models.protein.db_model_protein import Protein
+from cellcommdb.repository import complex_repository
 from utilities import dataframe_format
 
 
@@ -210,12 +211,9 @@ def _get_complex_involved(multidata_counts, clusters_names):
     :rtype: pd.DataFrame
     '''
 
-    complex_composition_query = db.session.query(ComplexComposition.protein_multidata_id,
-                                                 ComplexComposition.complex_multidata_id,
-                                                 ComplexComposition.total_protein)
-    complex_composition_df = pd.read_sql(complex_composition_query.statement, db.engine)
+    complex_composition = complex_repository.get_all()
 
-    complex_counts_composition = pd.merge(complex_composition_df, multidata_counts, left_on='protein_multidata_id',
+    complex_counts_composition = pd.merge(complex_composition, multidata_counts, left_on='protein_multidata_id',
                                           right_on='id_multidata')
 
     def all_protein_involved(complex):

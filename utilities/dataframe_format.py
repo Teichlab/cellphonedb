@@ -1,3 +1,6 @@
+import pandas as pd
+
+
 def bring_columns_to_start(columns, dataframe):
     """
 
@@ -27,3 +30,13 @@ def bring_columns_to_end(columns, dataframe):
 
     result = dataframe.ix[:, column_headers]
     return result
+
+
+def change_column_suffix(dataframe: pd.DataFrame, old_suffix: str, new_suffix: str) -> pd.DataFrame:
+    column_names = dataframe.columns.values
+    for index, column_name in enumerate(column_names):
+        if column_name.endswith(old_suffix):
+            column_names[index] = column_name[:-len(old_suffix)] + new_suffix
+
+    dataframe.columns = column_names
+    return dataframe
