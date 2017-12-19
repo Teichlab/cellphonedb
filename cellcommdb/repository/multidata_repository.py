@@ -26,9 +26,11 @@ def get_all_expanded():
     return multidata_expanded
 
 
-def get_multidata_from_string(input_string):
+def get_multidatas_from_string(input_string: str) -> pd.DataFrame:
     multidatas = get_all_expanded()
 
     return multidatas[(multidatas['name'] == input_string) |
                       (multidatas['ensembl'] == input_string) |
-                      (multidatas['entry_name'] == input_string)]
+                      (multidatas['entry_name'] == input_string) |
+                      (multidatas['gene_name'] == input_string) |
+                      (multidatas['ensembl'] == input_string)]
