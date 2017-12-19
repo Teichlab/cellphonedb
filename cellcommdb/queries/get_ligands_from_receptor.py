@@ -6,25 +6,16 @@ from cellcommdb.models.interaction.filter_interaction import filter_by_min_score
 from cellcommdb.models.multidata import format_multidata
 from cellcommdb.models.multidata.properties_multidata import is_receptor
 from cellcommdb.repository import interaction_repository
-from cellcommdb.repository.protein import get_protein_multidata_by_uniprot
 
-# TODO: Extract methods
 from utilities import dataframe_format
 
 
-def call(receptor: str, min_score2: float) -> pd.DataFrame:
+def call(protein_receptor: pd.Series, min_score2: float) -> pd.DataFrame:
     print('Get Ligands From Receptor')
-
-    protein_receptor = get_protein_multidata_by_uniprot(receptor)
-
-    if protein_receptor is None:
-        raise GenericException(
-            {'code': 'protein_not_found', 'title': 'Protein not found',
-             'detail': 'Protein %s doesn\'t exist in Cellphone Database' % receptor})
 
     if not is_receptor(protein_receptor):
         raise GenericException({'code': 'not_receptor', 'title': 'Protein not receptor',
-                                'detail': 'Protein %s is not receptor' % receptor})
+                                'detail': 'Protein is not receptor'})
 
     interactions = interaction_repository.get_interactions_multidata_by_multidata_id(protein_receptor['id_protein'])
     interactions = filter_by_min_score2(interactions, min_score2)

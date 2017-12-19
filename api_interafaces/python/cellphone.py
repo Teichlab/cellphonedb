@@ -24,6 +24,12 @@ def cells_to_clusters(meta, counts):
 
     response_body = email.message_from_string(response.text)
     response_body = [i for i in response_body.walk()]
+
+    status = json.loads(response_body[1].get_payload())
+
+    if 'errors' in status:
+        raise Exception(status['errors'])
+
     cells_clusters_raw = response_body[2].get_payload()
 
     cells_clusters = pd.read_csv(pd.compat.StringIO(cells_clusters_raw), index_col=0)
@@ -49,6 +55,11 @@ def receptor_ligands_interactions_request(cells_clusters, threshold=0.1):
     response_body = email.message_from_string(response.text)
     response_body = [i for i in response_body.walk()]
 
+    status = json.loads(response_body[1].get_payload())
+
+    if 'errors' in status:
+        raise Exception(status['errors'])
+
     interactions_raw = response_body[2].get_payload()
     interactions_extended_raw = response_body[3].get_payload()
 
@@ -64,6 +75,11 @@ def get_ligands_from_receptor(receptor: str) -> pd.DataFrame:
 
     response_body = email.message_from_string(response.text)
     response_body = [i for i in response_body.walk()]
+
+    status = json.loads(response_body[1].get_payload())
+
+    if 'errors' in status:
+        raise Exception(status['errors'])
 
     ligands_raw = response_body[2].get_payload()
 

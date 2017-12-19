@@ -1,7 +1,7 @@
 import pandas as pd
 from flask import request, Response
 
-from cellcommdb.api_endpoints.queries.query_base import QueryBase
+from cellcommdb.api_endpoints.endpoint_base import EndpointBase
 from cellcommdb.queries import cells_to_clusters
 
 
@@ -11,17 +11,17 @@ from cellcommdb.queries import cells_to_clusters
 #     http://127.0.0.1:5000/api/cell_to_cluster
 
 
-class CellToCluster(QueryBase):
+class CellToCluster(EndpointBase):
     def post(self):
         counts = self._read_table(request.files['counts_file'], index_column_first=True)
         meta = self._read_table(request.files['meta_file'], index_column_first=True)
 
         if not isinstance(counts, pd.DataFrame):
-            self._attach_error(
+            self.attach_error(
                 {'code': 'parsing_error', 'title': 'Error parsing counts file', 'detail': 'Error parsing counts file'})
 
         if not isinstance(meta, pd.DataFrame):
-            self._attach_error(
+            self.attach_error(
                 {'code': 'parsing_error', 'title': 'Error parsing meta file', 'detail': 'Error parsing meta file'})
 
         if not self._errors:

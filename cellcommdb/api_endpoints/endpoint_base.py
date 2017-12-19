@@ -7,13 +7,13 @@ from flask_restful import Resource
 import json
 
 
-class QueryBase(Resource):
+class EndpointBase(Resource):
     def __init__(self):
         self._msg = MIMEMultipart('form-data')
         self._errors = []
         self._attachments = []
 
-    def _attach_error(self, error: json):
+    def attach_error(self, error: json):
         self._errors.append(error)
 
     def _attach_csv(self, file_to_send, filename):

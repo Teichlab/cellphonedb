@@ -24,3 +24,11 @@ def get_all_expanded():
     multidata_expanded = multidata_simple.append(multidata_complex, ignore_index=True)
 
     return multidata_expanded
+
+
+def get_multidata_from_string(input_string):
+    multidatas = get_all_expanded()
+
+    return multidatas[(multidatas['name'] == input_string) |
+                      (multidatas['ensembl'] == input_string) |
+                      (multidatas['entry_name'] == input_string)]

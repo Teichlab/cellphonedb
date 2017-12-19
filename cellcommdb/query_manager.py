@@ -9,6 +9,7 @@ from cellcommdb.queries.query1 import Query1
 
 from cellcommdb.queries import complexes, one_one, cells_to_clusters, \
     receptor_ligands_interactions, get_ligands_from_receptor
+from cellcommdb.repository import multidata_repository
 
 
 class QueryLauncher(object):
@@ -60,4 +61,7 @@ class QueryLauncher(object):
         result_interactions_extended.to_csv('%s/receptor_ligands_interactions_extended.csv' % output_dir, index=False)
 
     def get_ligands_from_receptor(self, receptor, score2_threshold):
-        get_ligands_from_receptor.call(receptor, float(score2_threshold))
+        multidatas_receptor = multidata_repository.get_multidata_from_string(receptor)
+
+        for index, multidata_receptor in multidatas_receptor.iterrows():
+            print(get_ligands_from_receptor.call(multidata_receptor, float(score2_threshold)))

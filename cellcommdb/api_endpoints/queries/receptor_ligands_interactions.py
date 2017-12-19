@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from flask import request, Response
 
-from cellcommdb.api_endpoints.queries.query_base import QueryBase
+from cellcommdb.api_endpoints.endpoint_base import EndpointBase
 from cellcommdb.queries import receptor_ligands_interactions
 
 
@@ -13,12 +13,12 @@ from cellcommdb.queries import receptor_ligands_interactions
 #      http://127.0.0.1:5000/api/receptor_ligands_interactions
 
 
-class ReceptorLigandsInteractions(QueryBase):
+class ReceptorLigandsInteractions(EndpointBase):
     def post(self):
         cells_to_clusters_file = self._read_table(request.files['cell_to_clusters_file'], True)
 
         if not isinstance(cells_to_clusters_file, pd.DataFrame):
-            self._attach_error(
+            self.attach_error(
                 {'code': 'parsing_error', 'title': 'Error parsing counts file', 'detail': 'Error parsing counts file'})
 
         if not self._errors:
