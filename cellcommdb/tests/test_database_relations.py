@@ -2,7 +2,6 @@ import pandas as pd
 from flask_testing import TestCase
 
 from cellcommdb.api import create_app
-from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
 from cellcommdb.models.gene.db_model_gene import Gene
 from cellcommdb.models.multidata.db_model_multidata import Multidata
@@ -36,4 +35,4 @@ class DatabaseRelationsChecks(TestCase):
         self.client = self.app.test_client()
 
     def create_app(self):
-        return create_app(TestConfig)
+        return create_app(environment='test')

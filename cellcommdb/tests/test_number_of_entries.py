@@ -3,7 +3,6 @@ from flask_testing import TestCase
 
 from cellcommdb.api import create_app
 from cellcommdb.collection import Collector
-from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
 from cellcommdb.models.complex.db_model_complex import Complex
 from cellcommdb.models.complex_composition.db_model_complex_composition import ComplexComposition
@@ -77,7 +76,7 @@ class DatabaseNumberOfEntries(TestCase):
         self.assertEqual(len(dataframe), 497, 'Number of Complex Composition entries are different')
 
     def create_app(self):
-        return create_app(TestConfig)
+        return create_app(environment='test')
 
     def _populate_db(self):
         with self.app.app_context():

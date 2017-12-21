@@ -1,5 +1,4 @@
 from cellcommdb.collections import protein_collection, complex_collection, interaction_collection, gene_collection
-from cellcommdb.api import create_app
 
 
 class Collector(object):
@@ -32,9 +31,3 @@ class Collector(object):
             complex_collection.load()
             print('Collecting Interactions')
             interaction_collection.load()
-
-
-if __name__ == "__main__":
-    app = create_app()
-    collector = Collector(app)
-    collector.complex()

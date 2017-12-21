@@ -2,7 +2,6 @@ import pandas as pd
 from flask_testing import TestCase
 
 from cellcommdb.api import create_app
-from cellcommdb.config import TestConfig
 from cellcommdb.extensions import db
 from cellcommdb.models.complex.db_model_complex import Complex
 from cellcommdb.models.complex_composition.db_model_complex_composition import ComplexComposition
@@ -619,7 +618,6 @@ interaction_entries = [
         "comments": None,
         "source": "InnateDB"
     },
-
 ]
 
 
@@ -761,7 +759,7 @@ class DatabaseRandomEntries(TestCase):
         self.assertFalse(data_not_match, 'Some complex doesnt match')
 
     def create_app(self):
-        return create_app(TestConfig)
+        return create_app(environment='test')
 
     def setUp(self):
         self.client = self.app.test_client()

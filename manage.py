@@ -8,36 +8,26 @@ from cellcommdb.extensions import db
 from cellcommdb.db_scripts import db_drop_everything
 from cellcommdb.query_manager import QueryLauncher
 
-
-def create_cellphone_app(info):
-    return create_app()
+app = create_app()
 
 
-app = create_cellphone_app(None)
-
-
-@click.group(cls=FlaskGroup, create_app=create_cellphone_app)
-def cli():
-    pass
-
-
-@cli.command
+@app.cli.command
 def run():
     app.run()
 
 
-@cli.command()
+@app.cli.command()
 def create_db():
     db.create_all()
 
 
-@cli.command()
+@app.cli.command()
 def reset_db():
     db_drop_everything(db)
     db.create_all()
 
 
-@cli.command()
+@app.cli.command()
 @click.argument('table')
 @click.argument('file', default='')
 def collect(table, file):
@@ -46,20 +36,16 @@ def collect(table, file):
     getattr(collector, table)(file)
 
 
-@cli.command()
+@app.cli.command()
 @click.argument('table')
 def export(table):
     exporter = Exporter(app)
     getattr(exporter, table)()
 
 
-@cli.command()
+@app.cli.command()
 @click.argument('queryname')
 @click.argument('files', nargs=-1)
 def call_query(queryname, files):
     queries = QueryLauncher(app)
     getattr(queries, queryname)(*files)
-
-
-if __name__ == "__main__":
-    cli()
