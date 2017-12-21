@@ -56,13 +56,13 @@ class DatabaseNumberOfEntries(TestCase):
         query = db.session.query(Interaction.id, Interaction.source)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        self.assertEqual(len(dataframe), 9657, 'Number of interactions not equal')
+        self.assertEqual(len(dataframe), 9658, 'Number of interactions not equal')
 
     def test_interaction_curated(self):
         query = db.session.query(Interaction.id, Interaction.source)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        self.assertEqual(len(dataframe[dataframe['source'] == 'curated']), 122,
+        self.assertEqual(len(dataframe[dataframe['source'] == 'curated']), 123,
                          'Number of curated interactions not equal')
 
     def test_complex_composition(self):
