@@ -36,11 +36,11 @@ def _filter_by_cellphone_genes(cluster_counts):
     gene_protein_query = db.session.query(Gene.ensembl)
     gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
 
-    gene_protein_df.rename(columns={'id': 'multidata_id', 'ensembl': 'Gene'}, inplace=True)
+    gene_protein_df.rename(columns={'id': 'multidata_id', 'ensembl': 'gene'}, inplace=True)
 
-    multidata_counts = pd.merge(cluster_counts, gene_protein_df, left_index=True, right_on='Gene')
+    multidata_counts = pd.merge(cluster_counts, gene_protein_df, left_index=True, right_on='gene')
 
-    multidata_counts.set_index('Gene', inplace=True)
+    multidata_counts.set_index('gene', inplace=True)
     return multidata_counts
 
 
