@@ -90,6 +90,7 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
 
     result = result_receptor.append(result_ligand)
     result = dataframe_format.bring_columns_to_start(['id_interaction'], result)
+    result.drop_duplicates(inplace=True)
     result.sort_values('id_interaction').to_csv('out/TEST_result_interactions_extended.csv', index=False)
 
     return result
@@ -149,6 +150,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
 
+    result.drop_duplicates(inplace=True)
     result.sort_values('interaction_ratio', inplace=True)
 
     result = dataframe_format.bring_columns_to_start(['id_interaction', 'receptor', 'ligand'], result)
