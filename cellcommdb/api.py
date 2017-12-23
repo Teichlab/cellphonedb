@@ -13,11 +13,14 @@ data_dir = '%s/data/' % current_dir
 temp_dir = '%s/temp/' % current_dir
 query_input_dir = '%s/data/queries' % current_dir
 
+config = None
 
-def create_app(environment='local', support='yaml', load_defaults=True):
+
+def create_app():
+    global config
     app = Flask(__name__)
-
-    flask_config = import_config.flask_config(environment, support, load_defaults)
+    config = import_config.AppConfig()
+    flask_config = config.flask_config()
     app.config.from_mapping(flask_config)
     app.url_map.strict_slashes = False
 

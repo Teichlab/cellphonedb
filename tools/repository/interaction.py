@@ -10,11 +10,11 @@ def interaction_exist(interaction, interactions, interaction_1_key='protein_1', 
     '''
 
     if len(interactions[(interactions[interaction_1_key] == interaction[interaction_1_key]) & (
-                interactions[interaction_2_key] == interaction[interaction_2_key])]):
+            interactions[interaction_2_key] == interaction[interaction_2_key])]):
         return True
 
     if len(interactions[(interactions[interaction_2_key] == interaction[interaction_1_key]) & (
-                interactions[interaction_1_key] == interaction[interaction_2_key])]):
+            interactions[interaction_1_key] == interaction[interaction_2_key])]):
         return True
 
     return False
