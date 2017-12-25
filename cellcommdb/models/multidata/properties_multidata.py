@@ -22,12 +22,11 @@ def is_ligand(multidata, suffix=''):
             and multidata['other%s' % suffix] == False:
         return True
 
-    if multidata['transmembrane%s' % suffix] == True \
-            and multidata['secretion%s' % suffix] == False \
-            and multidata['extracellular%s' % suffix] == True \
-            and multidata['cytoplasm%s' % suffix] == False \
-            and multidata['other%s' % suffix] == False \
-            and multidata['transporter%s' % suffix] == False:
+    if multidata['transmembrane'] and \
+            not multidata['secretion'] and \
+            not multidata['other'] and \
+            not multidata['transporter'] and \
+            (multidata['extracellular'] or not multidata['cytoplasm']):
         return True
 
     return False
