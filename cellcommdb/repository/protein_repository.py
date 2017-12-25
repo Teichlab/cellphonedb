@@ -5,6 +5,13 @@ from cellcommdb.models.multidata.db_model_multidata import Multidata
 from cellcommdb.models.protein.db_model_protein import Protein
 
 
+def get_all():
+    protein_query = db.session.query(Protein, Multidata).join(Multidata)
+    protein = pd.read_sql(protein_query.statement, db.session.bind)
+
+    return protein
+
+
 def get_protein_multidata_by_uniprot(uniprot):
     """
 
@@ -17,3 +24,4 @@ def get_protein_multidata_by_uniprot(uniprot):
     if not protein.empty:
         return protein.iloc[0, :]
     return None
+
