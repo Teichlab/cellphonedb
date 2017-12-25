@@ -5,21 +5,22 @@ import yaml
 
 
 class AppConfig():
-    def __init__(self):
+    def __init__(self, environment=None, support=None, load_defaults=None):
 
-        self.config_parameters = self._get_config_parameters()
+        self.config_parameters = self._get_config_parameters(environment, support, load_defaults)
 
         self.config = self._load_config()
 
-    def _get_config_parameters(self):
-
+    def _get_config_parameters(self, environment=None, support=None, load_defaults=None):
         config_parameters = {}
         config_keys = [{'env_key': 'APP_ENV', 'default': 'local', 'dict_key': 'environment'},
                        {'env_key': 'APP_CONF_SUPPORT', 'default': 'yaml', 'dict_key': 'support'},
                        {'env_key': 'APP_LOAD_DEFAULTS', 'default': 'true', 'dict_key': 'load_defaults'}]
 
         for config_key in config_keys:
-            if os.environ.get(config_key['env_key']):
+            if locals()[config_key['dict_key']]:
+                config_parameters[config_key['dict_key']] = locals()[config_key['dict_key']]
+            elif os.environ.get(config_key['env_key']):
                 config_parameters[config_key['dict_key']] = os.environ.get(config_key['env_key'])
             else:
                 warnings.warn(
