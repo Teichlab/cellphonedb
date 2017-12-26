@@ -18,6 +18,7 @@ def call(protein_receptor: pd.Series, min_score2: float) -> pd.DataFrame:
                                 'detail': 'Protein is not receptor'})
 
     interactions = interaction_repository.get_interactions_multidata_by_multidata_id(protein_receptor['id_protein'])
+
     interactions = filter_by_min_score2(interactions, min_score2)
 
     if interactions.empty:
@@ -34,24 +35,32 @@ def _result_query_interactions(interactions: pd.DataFrame, receptor: pd.Series):
     result_ligand_1['id_interaction'] = ligand_1['id_interaction']
     if not ligand_1.empty:
         result_ligand_1['ligand'] = ligand_1.apply(
-            lambda interaction: format_multidata.get_value_with_prefix(interaction, '_1'), axis=1)
-        result_ligand_1['receptor'] = ligand_1.apply(
             lambda interaction: format_multidata.get_value_with_prefix(interaction, '_2'), axis=1)
+        result_ligand_1['receptor'] = ligand_1.apply(
+            lambda interaction: format_multidata.get_value_with_prefix(interaction, '_1'), axis=1)
         result_ligand_1['source'] = ligand_1['source']
-        result_ligand_1['secreted_ligand'] = ligand_1['secretion_1']
-        result_ligand_1['iuphar_ligand'] = ligand_1['ligand_1']
+        result_ligand_1['secreted_ligand'] = ligand_1['secretion_2']
+        result_ligand_1['iuphar_ligand'] = ligand_1['ligand_2']
+        result_ligand_1['ensembl_ligand'] = ligand_1['ensembl_2']
+        result_ligand_1['uniprot_ligand'] = ligand_1[ligand_1['is_complex_2'] == False]['name_2']
+        result_ligand_1['ensembl_receptor'] = ligand_1['ensembl_1']
+        result_ligand_1['uniprot_receptor'] = ligand_1[ligand_1['is_complex_1'] == False]['name_1']
 
     ligand_2 = interactions[interactions['multidata_2_id'] == receptor.id_multidata]
     result_ligand_2 = pd.DataFrame()
     result_ligand_2['id_interaction'] = ligand_2['id_interaction']
     if not ligand_2.empty:
         result_ligand_2['ligand'] = ligand_2.apply(
-            lambda interaction: format_multidata.get_value_with_prefix(interaction, '_2'), axis=1)
-        result_ligand_2['receptor'] = ligand_2.apply(
             lambda interaction: format_multidata.get_value_with_prefix(interaction, '_1'), axis=1)
+        result_ligand_2['receptor'] = ligand_2.apply(
+            lambda interaction: format_multidata.get_value_with_prefix(interaction, '_2'), axis=1)
         result_ligand_2['source'] = ligand_2['source']
-        result_ligand_2['secreted_ligand'] = ligand_2['secretion_2']
-        result_ligand_2['iuphar_ligand'] = ligand_2['ligand_2']
+        result_ligand_2['secreted_ligand'] = ligand_2['secretion_1']
+        result_ligand_2['iuphar_ligand'] = ligand_2['ligand_1']
+        result_ligand_2['ensembl_ligand'] = ligand_2['ensembl_1']
+        result_ligand_2['uniprot_ligand'] = ligand_2[ligand_2['is_complex_1'] == False]['name_1']
+        result_ligand_2['ensembl_receptor'] = ligand_2['ensembl_2']
+        result_ligand_2['uniprot_receptor'] = ligand_2[ligand_2['is_complex_2'] == False]['name_2']
 
     result = result_ligand_1.append(result_ligand_2, ignore_index=True)
     result = dataframe_format.bring_columns_to_end(['iuphar_ligand', 'source'], result)
