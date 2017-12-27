@@ -6,6 +6,13 @@ from cellcommdb.models.interaction.db_model_interaction import Interaction
 from cellcommdb.models.interaction.functions_interaction import expand_interactions_multidatas
 
 
+def get_all():
+    query = db.session.query(Interaction)
+    interactions = pd.read_sql(query.statement, db.engine)
+
+    return interactions
+
+
 def get_interactions_by_multidata_id(id):
     """
 

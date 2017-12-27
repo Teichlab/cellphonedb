@@ -8,7 +8,7 @@ from cellcommdb.queries.query0 import Query0
 from cellcommdb.queries.query1 import Query1
 
 from cellcommdb.queries import complexes, one_one, cells_to_clusters, \
-    receptor_ligands_interactions, get_ligands_from_receptor
+    receptor_ligands_interactions, get_rl_lr_interactions_from_multidata
 from cellcommdb.repository import multidata_repository
 
 
@@ -64,4 +64,4 @@ class QueryLauncher(object):
         multidatas_receptor = multidata_repository.get_multidatas_from_string(receptor)
 
         for index, multidata_receptor in multidatas_receptor.iterrows():
-            print(get_ligands_from_receptor.call(multidata_receptor, float(score2_threshold)))
+            print(get_rl_lr_interactions_from_multidata.call(multidata_receptor, float(score2_threshold)))

@@ -4,7 +4,7 @@ import pandas as pd
 from flask import request, Response
 
 from cellcommdb.api_endpoints.endpoint_base import EndpointBase
-from cellcommdb.queries import get_ligands_from_receptor
+from cellcommdb.queries import get_rl_lr_interactions_from_multidata
 
 from cellcommdb.common.generic_exception import GenericException
 from cellcommdb.repository import multidata_repository
@@ -30,7 +30,7 @@ class GetLigandsFromReceptor(EndpointBase):
             try:
                 result = pd.DataFrame()
                 for index, multidata_receptor in multidatas_receptors.iterrows():
-                    ligands = get_ligands_from_receptor.call(multidata_receptor, 0.3)
+                    ligands = get_rl_lr_interactions_from_multidata.call(multidata_receptor, 0.3)
                     result = result.append(ligands, ignore_index=True)
 
                 self._attach_table(result.to_csv(index=False, sep='\t'), 'ligands')
