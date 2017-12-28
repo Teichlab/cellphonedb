@@ -216,7 +216,8 @@ def _get_complex_involved(multidata_counts, clusters_names):
     :rtype: pd.DataFrame
     '''
 
-    complex_composition = complex_repository.get_all()
+    complex_composition = complex_repository.get_all_compositions()
+
 
     complex_counts_composition = pd.merge(complex_composition, multidata_counts, left_on='protein_multidata_id',
                                           right_on='id_multidata')
