@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 from tools.app import current_dir
-from cellcommdb.tools import filters
+from cellphonedb.tools import filters
 
 
 def merge_gene_mouse(gene_human, gene_mouse):

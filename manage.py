@@ -1,12 +1,12 @@
 import click
 from flask.cli import FlaskGroup
 
-from cellcommdb.collection import Collector
-from cellcommdb.api import create_app
-from cellcommdb.exporter import Exporter
-from cellcommdb.extensions import db
-from cellcommdb.db_scripts import db_drop_everything
-from cellcommdb.query_manager import QueryLauncher
+from cellphonedb.collection import Collector
+from cellphonedb.api import create_app
+from cellphonedb.exporter import Exporter
+from cellphonedb.extensions import db
+from cellphonedb.db_scripts import db_drop_everything
+from cellphonedb.query_manager import QueryLauncher
 
 app = create_app()
 
