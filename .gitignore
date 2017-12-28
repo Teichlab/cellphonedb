@@ -1,6 +1,6 @@
 # Output files
 /out/
-
+/cellphonedb/data/queries/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
