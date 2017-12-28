@@ -1,4 +1,4 @@
-uniprot,entry_name,receptor,receptor_highlight,receptor_desc,adhesion,other,other_desc,transporter,secreted_highlight,secreted_desc,transmembrane,secretion,peripheral,ligand,cytoplasm,extracellular,tags,tags_reason
+uniprot,entry_name,receptor,receptor_highlight,receptor_desc,adhesion,other,other_desc,transporter,secreted_highlight,secreted_desc,transmembrane,secretion,peripheral,iuhpar_ligand,cytoplasm,extracellular,tags,tags_reason
 P25106,ACKR3_HUMAN,True,True,Atipical_chemokine_receptor_add,True,True,CoReceptor_Acts as coreceptor with CXCR4 for a restricted number of HIV isolates (uniprot),False,False,,True,False,False,False,True,False,,
 P04626,ERBB2_HUMAN,True,False,,False,False,,False,False,,True,False,False,False,True,False,To_comment,Adaptor_https://www.ncbi.nlm.nih.gov/pubmed/22505611
 A1KXE4,F168B_HUMAN,False,False,,True,False,,False,False,,True,False,False,False,True,False,To_comment,Adhesion_add

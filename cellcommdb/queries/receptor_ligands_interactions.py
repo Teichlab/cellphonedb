@@ -143,7 +143,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result.loc[enabled_interactions['is_complex_ligands'], ['ligand']] = enabled_interactions['name_ligands'].apply(
         lambda value: 'complex:%s' % value)
 
-    result['iuphar_ligand'] = enabled_interactions['ligand_ligands']
+    result['iuphar_ligand'] = enabled_interactions['iuhpar_ligand_ligands']
     result['secreted_ligand'] = enabled_interactions['secretion_ligands']
 
     result['source'] = enabled_interactions['source']
@@ -201,7 +201,7 @@ def _cellphone_genes(cluster_counts):
                                           Multidata.receptor, Multidata.other,
                                           Multidata.transmembrane, Multidata.transporter, Multidata.cytoplasm,
                                           Multidata.secretion, Multidata.name, Multidata.extracellular,
-                                          Multidata.ligand).join(Protein).join(Multidata)
+                                          Multidata.iuhpar_ligand).join(Protein).join(Multidata)
     gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
 
     multidata_counts = pd.merge(cluster_counts, gene_protein_df, left_index=True, right_on='ensembl')
@@ -238,7 +238,7 @@ def _get_complex_involved(multidata_counts, clusters_names):
     complex_multidata_query = db.session.query(Multidata.id_multidata, Multidata.receptor, Multidata.other,
                                                Multidata.transmembrane, Multidata.transporter, Multidata.cytoplasm,
                                                Multidata.secretion, Multidata.name, Multidata.extracellular,
-                                               Multidata.ligand).join(Complex)
+                                               Multidata.iuhpar_ligand).join(Complex)
     complex_multidata_df = pd.read_sql(complex_multidata_query.statement, db.engine)
 
     complex_counts_composition = pd.merge(complex_counts_composition, complex_multidata_df,
@@ -259,7 +259,8 @@ def _get_complex_involved(multidata_counts, clusters_names):
     complex_counts = complex_counts.apply(set_complex_cluster_counts, axis=1)
 
     complex_counts = complex_counts[list(clusters_names) + ['id_multidata', 'receptor', 'other', 'transmembrane',
-                                                            'transporter', 'cytoplasm', 'secretion', 'name', 'ligand',
+                                                            'transporter', 'cytoplasm', 'secretion', 'name',
+                                                            'iuhpar_ligand',
                                                             'extracellular']]
 
     complex_counts['is_complex'] = True

@@ -25,7 +25,7 @@ def call(protein: pd.Series, min_score2: float) -> pd.DataFrame:
 def _result_interactions_table(enabled_interactions: pd.DataFrame) -> pd.DataFrame:
     if enabled_interactions.empty:
         return pd.DataFrame(
-            columns=['id_interaction', 'receptor', 'ligand', 'iuphar_ligand', 'secreted_ligand', 'source'])
+            columns=['id_interaction', 'receptor', 'iuhpar_ligand', 'iuphar_ligand', 'secreted_ligand', 'source'])
     result = pd.DataFrame()
     result['id_interaction'] = enabled_interactions['id_interaction']
     result['receptor'] = enabled_interactions.apply(
@@ -58,7 +58,7 @@ def _result_interactions_table(enabled_interactions: pd.DataFrame) -> pd.DataFra
     result['ligand_ensembl'] = enabled_interactions.apply(
         lambda interaction: set_ensembl_value(interaction, '_ligands'), axis=1)
 
-    result['iuphar_ligand'] = enabled_interactions['ligand_ligands']
+    result['iuphar_ligand'] = enabled_interactions['iuhpar_ligand_ligands']
     result['secreted_ligand'] = enabled_interactions['secretion_ligands']
 
     result['source'] = enabled_interactions['source']

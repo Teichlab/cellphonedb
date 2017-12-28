@@ -21,7 +21,7 @@ class Multidata(db.Model):
     transmembrane = Column(Boolean)
     secretion = Column(Boolean)
     peripheral = Column(Boolean)
-    ligand = Column(Boolean)
+    iuhpar_ligand = Column(Boolean)
     cytoplasm = Column(Boolean)
     extracellular = Column(Boolean)
     is_complex = Column(Boolean)
