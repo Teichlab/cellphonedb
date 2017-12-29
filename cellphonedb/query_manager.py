@@ -28,7 +28,7 @@ class QueryLauncher(object):
         result_interactions.to_csv('%s/receptor_ligands_interactions.csv' % output_dir, index=False)
         result_interactions_extended.to_csv('%s/receptor_ligands_interactions_extended.csv' % output_dir, index=False)
 
-    def get_ligands_from_receptor(self, receptor, score2_threshold):
+    def get_rl_lr_interactions(self, receptor, score2_threshold):
         multidatas_receptor = multidata_repository.get_multidatas_from_string(receptor)
 
         for index, multidata_receptor in multidatas_receptor.iterrows():
