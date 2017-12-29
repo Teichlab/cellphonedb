@@ -1,4 +1,6 @@
 # Output files
+/api_interafaces/python/input_data/
+/api_interafaces/python/out/
 /out/
 /cellphonedb/data/queries/
 # Byte-compiled / optimized / DLL files

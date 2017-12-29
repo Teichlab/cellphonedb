@@ -1,23 +1,77 @@
-# cellcommdb
+# CellPhoneDB
 
 A Collection of cellular communication data
 
+## Requirements
+
+CellPhoneDB needs some external software before start working. Plese, verify if you have it installed in your system:
+```
+- Python 3.x
+- Pip
+- Docker or PostgreSQL 9.X
+```
+
 ## Installing
 
-Firstly, install the dependencies as specified in the requirements.txt file
+Firstly, clone this repo in your system
+
+    git clone https://github.com/Teichlab/cellcommdb.git
+    cd cellcommdb
+
+
+Install the dependencies as specified in the requirements.txt file
 
     pip install -r requirements.txt
 
-Cellcommdb looks for the sqlalchemy connection string in the environmental variables.
-Make sure you set them appropriately for the production and test servers, for example:
+Create Docker and start PostgreSQL instance
 
-    export CELLCOMMDB_URI="postgresql+psycopg2://user:password@localhost:5432/cellcommdb"
-    export CELLCOMMDB_TEST_URI="postgresql+psycopg2://user:password@localhost:5432/test"
+    docker-compose build
 
+CellPhoneDB requires environment variables to configure it. Please configure it:
 These can be added to your `.bashrc` or your virtual environment startup script.
 Note that you may need to add this directory to your `PYTHONPATH` environmental variable.
 
-### Downloading the database data
+    export FLASK_APP=manage.py
+    export APP_CONF_SUPPORT=yaml
+    export APP_LOAD_DEFAULTS=true
+    export APP_ENV=local
+
+Populate the database
+
+    python manage.py collect all
+
+## Using CellPhoneDB
+
+Start docker container
+
+    docker-compose start
+
+Run CellPhoneDB
+
+    flask run
+
+
+## Doing Requests
+Doing queries (please open other terminal tab/window)
+
+### Get Receptor-Ligand/Ligand-Receptor interactions
+From Terminal:
+
+    flask call_query get_rl_lr_interactions ACKR3_HUMAN 0.3
+
+From Python (Alpha Verion, while github was not public)
+
+Edit ```api_interfaces/python/cellphone``` file (after ```if __name__ == '__main__':```) with your requests and run it:
+
+You can save your input data in api_interfaces/python/input_data and view results in api_interfaces/python/out
+
+    cd api_interfaces/python
+    python cellphone.py
+
+
+## Useful commands
+
+### Downloading tools data
 
 This repository uses git lfs to store the large data files used to populate the database.
 Information on using and installing git lfs can be found [here](https://git-lfs.github.com/).

@@ -68,7 +68,7 @@ def receptor_ligands_interactions_request(cells_clusters, threshold=0.1):
     return interactions, interactions_extended
 
 
-def get_ligands_from_receptor(receptor: str) -> pd.DataFrame:
+def get_rl_lr_interactions(receptor: str) -> pd.DataFrame:
     url = 'http://localhost:5000/api/get_ligands_from_receptor'
 
     response = requests.post(url, data=json.dumps({'receptor': receptor}))
@@ -89,8 +89,8 @@ def get_ligands_from_receptor(receptor: str) -> pd.DataFrame:
 
 
 def cells_to_clusters_example():
-    meta = pd.read_table('cellphonedb/data/queries/test_meta.txt', index_col=0)
-    counts = pd.read_table('cellphonedb/data/queries/test_counts.txt', index_col=0)
+    meta = pd.read_table('input_data/test_meta.txt', index_col=0)
+    counts = pd.read_table('input_data/test_counts.txt', index_col=0)
     cells_clusters = cells_to_clusters(meta, counts)
     cells_clusters.to_csv('out/API_cells_clusters.csv')
     print(cells_clusters)
@@ -111,4 +111,4 @@ def receptor_ligands_interactions_example():
 if __name__ == '__main__':
     cells_to_clusters_example()
     receptor_ligands_interactions_example()
-    print(get_ligands_from_receptor('P05107'))
+    print(get_rl_lr_interactions('P05107'))
