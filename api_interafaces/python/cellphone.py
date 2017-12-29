@@ -63,9 +63,43 @@ def receptor_ligands_interactions_request(cells_clusters, threshold=0.1):
     interactions_raw = response_body[2].get_payload()
     interactions_extended_raw = response_body[3].get_payload()
 
-    interactions = pd.read_table(pd.compat.StringIO(interactions_raw))
-    interactions_extended = pd.read_table(pd.compat.StringIO(interactions_extended_raw))
+    interactions = pd.read_csv(pd.compat.StringIO(interactions_raw))
+    interactions_extended = pd.read_csv(pd.compat.StringIO(interactions_extended_raw))
     return interactions, interactions_extended
+
+
+def receptor_ligands_interactions_unprocessed_request(meta, counts, threshold=0.1):
+    """
+
+    :type cells_clusters: pd.DataFrame
+    :type threshold: float
+    :rtype: (pd.DataFrame, pd.DataFrame, pd.DataFrame)
+
+    """
+    url = 'http://localhost:5000/api/receptor_ligands_interactions_unprocessed'
+
+    files = {
+        'meta_file': ('meta.csv', meta.to_csv(), 'text/csv'),
+        'counts_file': ('counts.csv', counts.to_csv(), 'text/csv'),
+    }
+    response = requests.post(url, files=files, data={'parameters': json.dumps({'threshold': threshold})})
+
+    response_body = email.message_from_string(response.text)
+    response_body = [i for i in response_body.walk()]
+
+    status = json.loads(response_body[1].get_payload())
+
+    if 'errors' in status:
+        raise Exception(status['errors'])
+
+    interactions_raw = response_body[2].get_payload()
+    interactions_extended_raw = response_body[3].get_payload()
+    cells_to_clusters_raw = response_body[4].get_payload()
+
+    interactions = pd.read_csv(pd.compat.StringIO(interactions_raw))
+    interactions_extended = pd.read_csv(pd.compat.StringIO(interactions_extended_raw))
+    cells_to_clusters = pd.read_csv(pd.compat.StringIO(cells_to_clusters_raw))
+    return interactions, interactions_extended, cells_to_clusters
 
 
 def get_rl_lr_interactions(receptor: str) -> pd.DataFrame:
@@ -108,7 +142,21 @@ def receptor_ligands_interactions_example():
     print(receptor_ligands_interactions_extended)
 
 
+def receptor_ligands_interactions_unprocessed_example():
+    threshold = 0.1
+    meta = pd.read_table('input_data/test_meta.txt', index_col=0)
+    counts = pd.read_table('input_data/test_counts.txt', index_col=0)
+    receptor_ligands_interactions, receptor_ligands_interactions_extended, cells_to_clusters = receptor_ligands_interactions_unprocessed_request(
+        meta, counts, threshold)
+
+    receptor_ligands_interactions.to_csv('out/API_receptor_ligands_interactions.csv', index=False)
+    receptor_ligands_interactions_extended.to_csv('out/API_receptor_ligands_interactions_extended.csv', index=False)
+    print(receptor_ligands_interactions)
+    print(receptor_ligands_interactions_extended)
+
+
 if __name__ == '__main__':
     cells_to_clusters_example()
     receptor_ligands_interactions_example()
+    receptor_ligands_interactions_unprocessed_example()
     print(get_rl_lr_interactions('P05107'))
