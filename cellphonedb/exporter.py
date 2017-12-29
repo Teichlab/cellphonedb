@@ -1,5 +1,5 @@
 from cellphonedb.exporters import ligands_receptors_proteins_exporter, complex_exporter, interaction_exporter, \
-    receptor_ligand_interaction_exporter
+    receptor_ligand_interaction_exporter, complex_web_exporter
 from cellphonedb.extensions import db
 import pandas as pd
 import inspect
@@ -36,6 +36,15 @@ class Exporter(object):
 
         result = complex_exporter.call()
         result.to_csv('out/%s' % output_name, index=False)
+
+    def complex_web(self, output_name=None):
+        if not output_name:
+            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
+            output_name = '%s.csv' % current_method_name
+
+        result = complex_web_exporter.call()
+        result.to_csv('out/%s' % output_name, index=False)
+
 
     def interaction(self, output_name=None):
         if not output_name:

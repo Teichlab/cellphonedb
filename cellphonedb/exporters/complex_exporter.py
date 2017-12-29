@@ -1,6 +1,3 @@
-import inspect
-
-import pandas
 import pandas as pd
 
 from cellphonedb.extensions import db
@@ -40,8 +37,7 @@ def call():
         for index, complex_composition in complex_complex_composition.iterrows():
             proteine_name = \
                 multidata_df[multidata_df['id_multidata'] == complex_composition['protein_multidata_id']][
-                    'name'].values[
-                    0]
+                    'name'].values[0]
             complex_proteins['uniprot_%i' % protein_index] = proteine_name
 
             entry_name = protein_df[protein_df['name'] == proteine_name]['entry_name'].values[0]
