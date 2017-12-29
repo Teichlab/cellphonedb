@@ -32,5 +32,4 @@ def get_multidatas_from_string(input_string: str) -> pd.DataFrame:
     return multidatas[(multidatas['name'] == input_string) |
                       (multidatas['ensembl'] == input_string) |
                       (multidatas['entry_name'] == input_string) |
-                      (multidatas['gene_name'] == input_string) |
-                      (multidatas['ensembl'] == input_string)]
+                      (multidatas['gene_name'] == input_string)]

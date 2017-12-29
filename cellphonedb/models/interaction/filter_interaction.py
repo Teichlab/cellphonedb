@@ -1,3 +1,4 @@
+from cellphonedb.models.interaction import properties_interaction
 from cellphonedb.models.interaction.properties_interaction import is_receptor_ligand_by_receptor
 
 import pandas as pd
@@ -9,15 +10,14 @@ def filter_by_min_score2(interactions, min_score2):
     return filtered_interactions
 
 
-def filter_receptor_ligand_interactions_by_receptor(interactions, receptor):
-    """
-
-    :type interactions: pd.DataFrame
-    :type receptor: pd.Series
-    :type ligand: pd.Series
-    :rtype:
-    """
-
+def filter_receptor_ligand_interactions_by_receptor(interactions: pd.DataFrame, receptor: pd.Series) -> pd.DataFrame:
     result = interactions[
         interactions.apply(lambda interaction: is_receptor_ligand_by_receptor(interaction, receptor), axis=1)]
+    return result
+
+
+def filter_receptor_ligand_ligand_receptor(interactions_expanded: pd.DataFrame, suffix=['_1', '_2']) -> pd.DataFrame:
+    result = interactions_expanded[interactions_expanded.apply(
+        lambda interaction: properties_interaction.is_receptor_ligand_or_ligand_receptor(interaction, suffix), axis=1)]
+
     return result
