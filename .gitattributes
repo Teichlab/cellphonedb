@@ -1,3 +1,2 @@
-cellphonedb/data/*.csv filter=lfs diff=lfs merge=lfs -text
 tools/data/*.csv filter=lfs diff=lfs merge=lfs -text
 tools/data/*.txt filter=lfs diff=lfs merge=lfs -text
