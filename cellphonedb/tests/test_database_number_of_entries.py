@@ -29,13 +29,13 @@ class DatabaseNumberOfEntries(TestCase):
         query = db.session.query(Complex.id_complex)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        self.assertEqual(len(dataframe), 236, 'Number of Complex entries are different')
+        self.assertEqual(len(dataframe), 242, 'Number of Complex entries are different')
 
     def test_multidata(self):
         query = db.session.query(Multidata.id_multidata)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        self.assertEqual(len(dataframe), 5389, 'Number of Multidata entries are different')
+        self.assertEqual(len(dataframe), 5395, 'Number of Multidata entries are different')
 
     def test_protein_complex(self):
         query = db.session.query(Multidata.id_multidata)
@@ -73,7 +73,7 @@ class DatabaseNumberOfEntries(TestCase):
         query = db.session.query(ComplexComposition.id_complex_composition)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        self.assertEqual(len(dataframe), 497, 'Number of Complex Composition entries are different')
+        self.assertEqual(len(dataframe), 510, 'Number of Complex Composition entries are different')
 
     def create_app(self):
         return create_app(environment='test')

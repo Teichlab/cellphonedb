@@ -24,6 +24,7 @@ class Multidata(db.Model):
     iuhpar_ligand = Column(Boolean)
     cytoplasm = Column(Boolean)
     extracellular = Column(Boolean)
+    integrin_interaction = Column(Boolean)
     is_complex = Column(Boolean)
     is_cellphone_receptor = Column(Boolean)
     is_cellphone_ligand = Column(Boolean)

@@ -34,6 +34,7 @@ complex_entries = [
             "stoichiometry": None,
             "comments": "Note: Presumably retained within the endoplasmic reticulum unless complexed with HTR3A.",
             "extracellular": False,
+            "integrin_interaction": False
         },
         'composition': ["Q8WXA8", "P46098"]
     },
@@ -57,7 +58,9 @@ complex_entries = [
             "pdb_structure": "TRUE",
             "pdb_id": "1kup",
             "stoichiometry": "ITGA2B;ITGB3",
-            "comments": "Well known integrin combination"
+            "comments": "Well known integrin combination",
+            "integrin_interaction": True
+
         },
         'composition':
             ["P08514", "P05106"]
@@ -84,6 +87,7 @@ complex_entries = [
             "stoichiometry": "DOK7;DOK7;MUSK;MUSK",
             "comments": "MUSK Interacts with LRP4; the heterodimer forms an AGRIN receptor complex that binds AGRIN resulting in activation of MUSK",
             "extracellular": False,
+            "integrin_interaction": False,
         },
         'composition':
             ["O15146", "O00468", "O75096", "Q18PE1"]
@@ -110,6 +114,7 @@ complex_entries = [
             "stoichiometry": None,
             "comments": "Membrane-bound IgM molecules are non-covalently associated with heterodimer of CD79A and CD79B",
             "extracellular": False,
+            "integrin_interaction": False,
         },
         'composition':
             ["P11912", "P40259", "P01871"]
@@ -136,6 +141,7 @@ complex_entries = [
             "stoichiometry": None,
             "comments": "Serine/threonine kinase heterodimer upon ligand binding",
             "extracellular": False,
+            "integrin_interaction": False,
         },
         'composition':
             ["O00238", "Q13873"]
@@ -162,6 +168,7 @@ complex_entries = [
             "stoichiometry": "B2M;CD1A",
             "comments": "Heterodimer with B2M (beta-2-microglobulin).",
             "extracellular": False,
+            "integrin_interaction": False,
         },
         'composition':
             ["P61769", "P06126"]
@@ -188,6 +195,7 @@ complex_entries = [
             "stoichiometry": None,
             "comments": None,
             "extracellular": True,
+            "integrin_interaction": False,
         },
         'composition':
             ["Q16552", "Q96PD4"]
@@ -214,6 +222,7 @@ complex_entries = [
             "stoichiometry": None,
             "comments": "NA; the heterodimer binds IL17AF",
             "extracellular": False,
+            "integrin_interaction": False,
         },
         'composition':
             ["Q96F46", "Q8NAC3"]
