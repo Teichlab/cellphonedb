@@ -30,7 +30,8 @@ multidatas_fixtures = [
         'cytoplasm': False,
         'transporter': False,
         'is_ligand': True,
-        'is_receptor': False
+        'is_receptor': False,
+        'secreted_highlight': True
 
     },
     {
@@ -43,7 +44,8 @@ multidatas_fixtures = [
         'cytoplasm': False,
         'transporter': False,
         'is_ligand': True,
-        'is_receptor': True
+        'is_receptor': True,
+        'secreted_highlight': False
 
     },
     {
@@ -56,7 +58,8 @@ multidatas_fixtures = [
         'cytoplasm': False,
         'transporter': False,
         'is_ligand': False,
-        'is_receptor': False
+        'is_receptor': False,
+        'secreted_highlight': False
     },
     {
         'id': 4,
@@ -68,6 +71,7 @@ multidatas_fixtures = [
         'cytoplasm': False,
         'transporter': False,
         'is_ligand': False,
-        'is_receptor': False
+        'is_receptor': False,
+        'secreted_highlight': False
     },
 ]
