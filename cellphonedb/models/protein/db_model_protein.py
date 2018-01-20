@@ -10,6 +10,7 @@ class Protein(db.Model):
     entry_name = Column(String)
     tags = Column(String)
     tags_reason = Column(String)
+    tags_description = Column(String)
 
     protein_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id_multidata'), unique=True, nullable=False)
     gene = db.relationship('Gene', backref='gene', lazy='subquery')

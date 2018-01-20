@@ -43,11 +43,6 @@ Induces NK Cell Activation. Reviewed in PMID: 24223577,,MICB_HUMAN,NKG2D II rece
 "1p9m, PDB",,IL6_HUMAN,IL6 receptor,P05231,1.0,1.0,curated
 ,,IL17_HUMAN,IL17 receptor AC,Q16552,1.0,1.0,curated
 "3qt2, PDB partially",,IL5_HUMAN,IL5 receptor,P05113,1.0,1.0,curated
-"5e6r, PDB partially",,ITAL_HUMAN,aXb2 complex,P20701,1.0,1.0,curated
-"5e6r, PDB partially",,ITAL_HUMAN,aMb2 complex,P20701,1.0,1.0,curated
-"5e6r, PDB partially",,ITAL_HUMAN,aLb2 complex,P20701,1.0,1.0,curated
-"5e6r, PDB partially",,ITAL_HUMAN,aDb2 complex,P20701,1.0,1.0,curated
-"5e6r, PDB partially",,ITAL_HUMAN,a2b1 complex,P20701,1.0,1.0,curated
 "3qb7, PDB",,IL4_HUMAN,IL4 receptor,P05112,1.0,1.0,curated
 "3bpn, PDB",,IL4_HUMAN,IL13 receptor,P05112,1.0,1.0,curated
 "3evs,  PDB complex higher affinity",,BMR1A_HUMAN,BMPR1B complex,P36894,1.0,1.0,curated
@@ -94,7 +89,7 @@ Induces NK Cell Activation. Reviewed in PMID: 24223577,HLAE_HUMAN,NKG2D_HUMAN,P1
 Induces NK Cell Inhibition. Reviewed in PMID:24987108,HLAG_HUMAN,LIRB1_HUMAN,P17693,Q8NHL6,1.0,1.0,curated
 Induces NK Cell Inhibition. Reviewed in PMID:24987108,CEAM5_HUMAN,CEAM1_HUMAN,P06731,P13688,1.0,1.0,curated
 Induces NK Cell Inhibition. Reviewed in PMID:24987108,PVR_HUMAN,TIGIT_HUMAN,P15151,Q495A1,1.0,1.0,curated
-Induces NK Cell Inhibition. Reviewed in PMID:24987108,TIGIT_HUMAN,PVRL2_HUMAN,Q495A1,Q92692,1.0,1.0,inweb
+Induces NK Cell Inhibition. Reviewed in PMID:24987108,TIGIT_HUMAN,PVRL2_HUMAN,Q495A1,Q92692,1.0,1.0,curated
 antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,CD28_HUMAN,CD80_HUMAN,P10747,P33681,1.0,1.0,curated
 antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,CD28_HUMAN,CD86_HUMAN,P10747,P42081,1.0,1.0,curated
 antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143,CTLA4_HUMAN,CD80_HUMAN,P16410,P33681,1.0,1.0,curated
@@ -126,6 +121,254 @@ PMID: 19815499,TIGIT_HUMAN,PVR_HUMAN,Q495A1,P15151,1.0,1.0,curated
 PMID: 1313846,TIGIT_HUMAN,NECT2_HUMAN,Q495A1,Q92692,1.0,1.0,curated
 PMID: 1313846,TIGIT_HUMAN,NECT3_HUMAN,Q495A1,Q9NQS3,1.0,1.0,curated
 PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
+uniprot,LIRB1_HUMAN,HLAG_HUMAN,Q8NHL6,P17693,1.0,1.0,curated
+uniprot,LIRB2_HUMAN,HLAG_HUMAN,Q8N423,P17693,1.0,1.0,curated
+uniprot,,VEGFA_HUMAN,FLT1 complex,P15692,1.0,1.0,curated
+uniprot,,VEGFB_HUMAN,FLT1 complex,P49765,1.0,1.0,curated
+uniprot,,PLGF_HUMAN,FLT1 complex,P49763,1.0,1.0,curated
+uniprot,,PDGFB_HUMAN,PDGFR complex,P01127,1.0,1.0,curated
+uniprot,,PDGFD_HUMAN,PDGFR complex,Q9GZP0,1.0,1.0,curated
+uniprot,,ICAM1_HUMAN,aLb2 complex,P05362,1.0,1.0,curated
+uniprot,,ICAM2_HUMAN,aLb2 complex,P13598,1.0,1.0,curated
+uniprot,,ICAM3_HUMAN,aLb2 complex,P32942,1.0,1.0,curated
+uniprot,,ICAM4_HUMAN,aLb2 complex,Q14773,1.0,1.0,curated
+"(PubMed:11812992, PubMed:15528364)",,JAM1_HUMAN,aLb2 complex,Q9Y624,1.0,1.0,curated
+uniprot,,CO3_HUMAN,aMb2 complex,P01024,1.0,1.0,curated
+uniprot,,,aMb2 complex,fibrinogen,1.0,1.0,curated
+uniprot,,FA10_HUMAN,aMb2 complex,P00742,1.0,1.0,curated
+uniprot,,ICAM1_HUMAN,aMb2 complex,P05362,1.0,1.0,curated
+uniprot,,,aXb2 complex,fibrinogen,1.0,1.0,curated
+uniprot,,ICAM3_HUMAN,aDb2 complex,P32942,1.0,1.0,curated
+uniprot,,VCAM1_HUMAN,aDb2 complex,P19320,1.0,1.0,curated
+uniprot,,CADH1_HUMAN,aEb7 complex,P12830,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a2b1 complex,P02751,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a3b1 complex,P02751,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a4b1 complex,P02751,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a5b1 complex,P02751,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a8b1 complex,P02751,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a10b1 complex,P02751,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a11b1 complex,P02751,1.0,1.0,curated
+uniprot,,FINC_HUMAN,aVb1 complex,P02751,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a5b1 complex,P02751,1.0,1.0,curated
+uniprot,,LAMC1_HUMAN,a2b1 complex,P11047,1.0,1.0,curated
+uniprot,,LAMC1_HUMAN,a2b1 complex,P11047,1.0,1.0,curated
+uniprot,,LAMC1_HUMAN,a6b1 complex,P11047,1.0,1.0,curated
+uniprot,,LAMC1_HUMAN,a7b1 complex,P11047,1.0,1.0,curated
+uniprot,,TSP1_HUMAN,a3b1 complex,P07996,1.0,1.0,curated
+uniprot,,CSPG4_HUMAN,a3b1 complex,Q6UVK1,1.0,1.0,curated
+uniprot,,VTNC_HUMAN,aVb1 complex,P04004,1.0,1.0,curated
+uniprot,,PA2GA_HUMAN,a4b1 complex,P14555,1.0,1.0,curated
+uniprot,,PA2GA_HUMAN,a5b1 complex,P14555,1.0,1.0,curated
+uniprot,,FBN1_HUMAN,a5b1 complex,P35555,1.0,1.0,curated
+uniprot,,VCAM1_HUMAN,a9b1 complex,P19320,1.0,1.0,curated
+uniprot,,OSTP_HUMAN,a9b1 complex,P10451,1.0,1.0,curated
+uniprot,,FINC_HUMAN,aVb3 complex,P02751,1.0,1.0,curated
+uniprot,,LAMC1_HUMAN,aVb3 complex,P11047,1.0,1.0,curated
+uniprot,,MMP2_HUMAN,aVb3 complex,P08253,1.0,1.0,curated
+uniprot,,OSTP_HUMAN,aVb3 complex,P10451,1.0,1.0,curated
+uniprot,,OMD_HUMAN,aVb3 complex,Q99983,1.0,1.0,curated
+uniprot,,THRB_HUMAN,aVb3 complex,P00734,1.0,1.0,curated
+uniprot,,TSP1_HUMAN,aVb3 complex,P07996,1.0,1.0,curated
+uniprot,,VTNC_HUMAN,aVb3 complex,P04004,1.0,1.0,curated
+uniprot,,VWF_HUMAN,aVb3 complex,P04275,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a2Bb3 complex,P02751,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a2Bb3 complex,fibrinogen,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a2Bb3 complex,P00747,1.0,1.0,curated
+uniprot,,THRB_HUMAN,a2Bb3 complex,P00734,1.0,1.0,curated
+uniprot,,TSP1_HUMAN,a2Bb3 complex,P07996,1.0,1.0,curated
+uniprot,,VTNC_HUMAN,a2Bb3 complex,P04004,1.0,1.0,curated
+uniprot,,TENA_HUMAN,a8b1 complex,P24821,1.0,1.0,curated
+uniprot,,TENA_HUMAN,a9b1 complex,P24821,1.0,1.0,curated
+uniprot,,TENA_HUMAN,aVb3 complex,P24821,1.0,1.0,curated
+uniprot,,TENA_HUMAN,aVb6 complex,P24821,1.0,1.0,curated
+uniprot,,MADCA_HUMAN,a4b7 complex,Q13477,1.0,1.0,curated
+uniprot,,FINC_HUMAN,aVb5 complex,P02751,1.0,1.0,curated
+uniprot,,VCAM1_HUMAN,a4b7 complex,P19320,1.0,1.0,curated
+uniprot,,FINC_HUMAN,a4b7 complex,P02751,1.0,1.0,curated
+uniprot,,TENA_HUMAN,a4b1 complex,P24821,1.0,1.0,curated
+uniprot,,LAMA3_HUMAN,a3b1 complex,Q16787,1.0,1.0,curated
+uniprot,,TENA_HUMAN,a9b1 complex,P24821,1.0,1.0,curated
+uniprot,,TENA_HUMAN,aVb3 complex,P24821,1.0,1.0,curated
+uniprot,,CO1A1_HUMAN,a1b1 complex,P02452,1.0,1.0,curated
+uniprot,,CO2A1_HUMAN,a1b1 complex,P02458,1.0,1.0,curated
+uniprot,,CO3A1_HUMAN,a1b1 complex,P02461,1.0,1.0,curated
+uniprot,,CO4A1_HUMAN,a1b1 complex,P02462,1.0,1.0,curated
+uniprot,,CO6A6_HUMAN,a1b1 complex,A6NMZ7,1.0,1.0,curated
+uniprot,,CO6A5_HUMAN,a1b1 complex,A8TX70,1.0,1.0,curated
+uniprot,,CO5A2_HUMAN,a1b1 complex,P05997,1.0,1.0,curated
+uniprot,,CO1A2_HUMAN,a1b1 complex,P08123,1.0,1.0,curated
+uniprot,,CO4A2_HUMAN,a1b1 complex,P08572,1.0,1.0,curated
+uniprot,,COBA1_HUMAN,a1b1 complex,P12107,1.0,1.0,curated
+uniprot,,CO6A1_HUMAN,a1b1 complex,P12109,1.0,1.0,curated
+uniprot,,CO6A2_HUMAN,a1b1 complex,P12110,1.0,1.0,curated
+uniprot,,CO6A3_HUMAN,a1b1 complex,P12111,1.0,1.0,curated
+uniprot,,COBA2_HUMAN,a1b1 complex,P13942,1.0,1.0,curated
+uniprot,,CO9A1_HUMAN,a1b1 complex,P20849,1.0,1.0,curated
+uniprot,,CO5A1_HUMAN,a1b1 complex,P20908,1.0,1.0,curated
+uniprot,,CO8A2_HUMAN,a1b1 complex,P25067,1.0,1.0,curated
+uniprot,,CO5A3_HUMAN,a1b1 complex,P25940,1.0,1.0,curated
+uniprot,,CO8A1_HUMAN,a1b1 complex,P27658,1.0,1.0,curated
+uniprot,,CO4A5_HUMAN,a1b1 complex,P29400,1.0,1.0,curated
+uniprot,,COFA1_HUMAN,a1b1 complex,P39059,1.0,1.0,curated
+uniprot,,COIA1_HUMAN,a1b1 complex,P39060,1.0,1.0,curated
+uniprot,,CO4A4_HUMAN,a1b1 complex,P53420,1.0,1.0,curated
+uniprot,,CO4A3_HUMAN,a1b1 complex,Q01955,1.0,1.0,curated
+uniprot,,CO7A1_HUMAN,a1b1 complex,Q02388,1.0,1.0,curated
+uniprot,,COAA1_HUMAN,a1b1 complex,Q03692,1.0,1.0,curated
+uniprot,,COEA1_HUMAN,a1b1 complex,Q05707,1.0,1.0,curated
+uniprot,,COGA1_HUMAN,a1b1 complex,Q07092,1.0,1.0,curated
+uniprot,,CO4A6_HUMAN,a1b1 complex,Q14031,1.0,1.0,curated
+uniprot,,CO9A3_HUMAN,a1b1 complex,Q14050,1.0,1.0,curated
+uniprot,,CO9A2_HUMAN,a1b1 complex,Q14055,1.0,1.0,curated
+uniprot,,COJA1_HUMAN,a1b1 complex,Q14993,1.0,1.0,curated
+uniprot,,COOA1_HUMAN,a1b1 complex,Q17RW2,1.0,1.0,curated
+uniprot,,COSA1_HUMAN,a1b1 complex,Q2UY09,1.0,1.0,curated
+uniprot,,CODA1_HUMAN,a1b1 complex,Q5TAT6,1.0,1.0,curated
+uniprot,,CORA1_HUMAN,a1b1 complex,Q8IZC6,1.0,1.0,curated
+uniprot,,COMA1_HUMAN,a1b1 complex,Q8NFW1,1.0,1.0,curated
+uniprot,,COQA1_HUMAN,a1b1 complex,Q96A83,1.0,1.0,curated
+uniprot,,COLA1_HUMAN,a1b1 complex,Q96P44,1.0,1.0,curated
+uniprot,,COCA1_HUMAN,a1b1 complex,Q99715,1.0,1.0,curated
+uniprot,,COKA1_HUMAN,a1b1 complex,Q9P218,1.0,1.0,curated
+uniprot,,COHA1_HUMAN,a1b1 complex,Q9UMD9,1.0,1.0,curated
+uniprot,,CO1A1_HUMAN,a2b1 complex,P02452,1.0,1.0,curated
+uniprot,,CO2A1_HUMAN,a2b1 complex,P02458,1.0,1.0,curated
+uniprot,,CO3A1_HUMAN,a2b1 complex,P02461,1.0,1.0,curated
+uniprot,,CO4A1_HUMAN,a2b1 complex,P02462,1.0,1.0,curated
+uniprot,,CO6A6_HUMAN,a2b1 complex,A6NMZ7,1.0,1.0,curated
+uniprot,,CO6A5_HUMAN,a2b1 complex,A8TX70,1.0,1.0,curated
+uniprot,,CO5A2_HUMAN,a2b1 complex,P05997,1.0,1.0,curated
+uniprot,,CO1A2_HUMAN,a2b1 complex,P08123,1.0,1.0,curated
+uniprot,,CO4A2_HUMAN,a2b1 complex,P08572,1.0,1.0,curated
+uniprot,,COBA1_HUMAN,a2b1 complex,P12107,1.0,1.0,curated
+uniprot,,CO6A1_HUMAN,a2b1 complex,P12109,1.0,1.0,curated
+uniprot,,CO6A2_HUMAN,a2b1 complex,P12110,1.0,1.0,curated
+uniprot,,CO6A3_HUMAN,a2b1 complex,P12111,1.0,1.0,curated
+uniprot,,COBA2_HUMAN,a2b1 complex,P13942,1.0,1.0,curated
+uniprot,,CO9A1_HUMAN,a2b1 complex,P20849,1.0,1.0,curated
+uniprot,,CO5A1_HUMAN,a2b1 complex,P20908,1.0,1.0,curated
+uniprot,,CO8A2_HUMAN,a2b1 complex,P25067,1.0,1.0,curated
+uniprot,,CO5A3_HUMAN,a2b1 complex,P25940,1.0,1.0,curated
+uniprot,,CO8A1_HUMAN,a2b1 complex,P27658,1.0,1.0,curated
+uniprot,,CO4A5_HUMAN,a2b1 complex,P29400,1.0,1.0,curated
+uniprot,,COFA1_HUMAN,a2b1 complex,P39059,1.0,1.0,curated
+uniprot,,COIA1_HUMAN,a2b1 complex,P39060,1.0,1.0,curated
+uniprot,,CO4A4_HUMAN,a2b1 complex,P53420,1.0,1.0,curated
+uniprot,,CO4A3_HUMAN,a2b1 complex,Q01955,1.0,1.0,curated
+uniprot,,CO7A1_HUMAN,a2b1 complex,Q02388,1.0,1.0,curated
+uniprot,,COAA1_HUMAN,a2b1 complex,Q03692,1.0,1.0,curated
+uniprot,,COEA1_HUMAN,a2b1 complex,Q05707,1.0,1.0,curated
+uniprot,,COGA1_HUMAN,a2b1 complex,Q07092,1.0,1.0,curated
+uniprot,,CO4A6_HUMAN,a2b1 complex,Q14031,1.0,1.0,curated
+uniprot,,CO9A3_HUMAN,a2b1 complex,Q14050,1.0,1.0,curated
+uniprot,,CO9A2_HUMAN,a2b1 complex,Q14055,1.0,1.0,curated
+uniprot,,COJA1_HUMAN,a2b1 complex,Q14993,1.0,1.0,curated
+uniprot,,COOA1_HUMAN,a2b1 complex,Q17RW2,1.0,1.0,curated
+uniprot,,COSA1_HUMAN,a2b1 complex,Q2UY09,1.0,1.0,curated
+uniprot,,CODA1_HUMAN,a2b1 complex,Q5TAT6,1.0,1.0,curated
+uniprot,,CORA1_HUMAN,a2b1 complex,Q8IZC6,1.0,1.0,curated
+uniprot,,COMA1_HUMAN,a2b1 complex,Q8NFW1,1.0,1.0,curated
+uniprot,,COQA1_HUMAN,a2b1 complex,Q96A83,1.0,1.0,curated
+uniprot,,COLA1_HUMAN,a2b1 complex,Q96P44,1.0,1.0,curated
+uniprot,,COCA1_HUMAN,a2b1 complex,Q99715,1.0,1.0,curated
+uniprot,,COKA1_HUMAN,a2b1 complex,Q9P218,1.0,1.0,curated
+uniprot,,COHA1_HUMAN,a2b1 complex,Q9UMD9,1.0,1.0,curated
+uniprot,,CO1A1_HUMAN,a10b1 complex,P02452,1.0,1.0,curated
+uniprot,,CO2A1_HUMAN,a10b1 complex,P02458,1.0,1.0,curated
+uniprot,,CO3A1_HUMAN,a10b1 complex,P02461,1.0,1.0,curated
+uniprot,,CO4A1_HUMAN,a10b1 complex,P02462,1.0,1.0,curated
+uniprot,,CO6A6_HUMAN,a10b1 complex,A6NMZ7,1.0,1.0,curated
+uniprot,,CO6A5_HUMAN,a10b1 complex,A8TX70,1.0,1.0,curated
+uniprot,,CO5A2_HUMAN,a10b1 complex,P05997,1.0,1.0,curated
+uniprot,,CO1A2_HUMAN,a10b1 complex,P08123,1.0,1.0,curated
+uniprot,,CO4A2_HUMAN,a10b1 complex,P08572,1.0,1.0,curated
+uniprot,,COBA1_HUMAN,a10b1 complex,P12107,1.0,1.0,curated
+uniprot,,CO6A1_HUMAN,a10b1 complex,P12109,1.0,1.0,curated
+uniprot,,CO6A2_HUMAN,a10b1 complex,P12110,1.0,1.0,curated
+uniprot,,CO6A3_HUMAN,a10b1 complex,P12111,1.0,1.0,curated
+uniprot,,COBA2_HUMAN,a10b1 complex,P13942,1.0,1.0,curated
+uniprot,,CO9A1_HUMAN,a10b1 complex,P20849,1.0,1.0,curated
+uniprot,,CO5A1_HUMAN,a10b1 complex,P20908,1.0,1.0,curated
+uniprot,,CO8A2_HUMAN,a10b1 complex,P25067,1.0,1.0,curated
+uniprot,,CO5A3_HUMAN,a10b1 complex,P25940,1.0,1.0,curated
+uniprot,,CO8A1_HUMAN,a10b1 complex,P27658,1.0,1.0,curated
+uniprot,,CO4A5_HUMAN,a10b1 complex,P29400,1.0,1.0,curated
+uniprot,,COFA1_HUMAN,a10b1 complex,P39059,1.0,1.0,curated
+uniprot,,COIA1_HUMAN,a10b1 complex,P39060,1.0,1.0,curated
+uniprot,,CO4A4_HUMAN,a10b1 complex,P53420,1.0,1.0,curated
+uniprot,,CO4A3_HUMAN,a10b1 complex,Q01955,1.0,1.0,curated
+uniprot,,CO7A1_HUMAN,a10b1 complex,Q02388,1.0,1.0,curated
+uniprot,,COAA1_HUMAN,a10b1 complex,Q03692,1.0,1.0,curated
+uniprot,,COEA1_HUMAN,a10b1 complex,Q05707,1.0,1.0,curated
+uniprot,,COGA1_HUMAN,a10b1 complex,Q07092,1.0,1.0,curated
+uniprot,,CO4A6_HUMAN,a10b1 complex,Q14031,1.0,1.0,curated
+uniprot,,CO9A3_HUMAN,a10b1 complex,Q14050,1.0,1.0,curated
+uniprot,,CO9A2_HUMAN,a10b1 complex,Q14055,1.0,1.0,curated
+uniprot,,COJA1_HUMAN,a10b1 complex,Q14993,1.0,1.0,curated
+uniprot,,COOA1_HUMAN,a10b1 complex,Q17RW2,1.0,1.0,curated
+uniprot,,COSA1_HUMAN,a10b1 complex,Q2UY09,1.0,1.0,curated
+uniprot,,CODA1_HUMAN,a10b1 complex,Q5TAT6,1.0,1.0,curated
+uniprot,,CORA1_HUMAN,a10b1 complex,Q8IZC6,1.0,1.0,curated
+uniprot,,COMA1_HUMAN,a10b1 complex,Q8NFW1,1.0,1.0,curated
+uniprot,,COQA1_HUMAN,a10b1 complex,Q96A83,1.0,1.0,curated
+uniprot,,COLA1_HUMAN,a10b1 complex,Q96P44,1.0,1.0,curated
+uniprot,,COCA1_HUMAN,a10b1 complex,Q99715,1.0,1.0,curated
+uniprot,,COKA1_HUMAN,a10b1 complex,Q9P218,1.0,1.0,curated
+uniprot,,COHA1_HUMAN,a10b1 complex,Q9UMD9,1.0,1.0,curated
+uniprot,,CO1A1_HUMAN,a11b1 complex,P02452,1.0,1.0,curated
+uniprot,,CO2A1_HUMAN,a11b1 complex,P02458,1.0,1.0,curated
+uniprot,,CO3A1_HUMAN,a11b1 complex,P02461,1.0,1.0,curated
+uniprot,,CO4A1_HUMAN,a11b1 complex,P02462,1.0,1.0,curated
+uniprot,,CO6A6_HUMAN,a11b1 complex,A6NMZ7,1.0,1.0,curated
+uniprot,,CO6A5_HUMAN,a11b1 complex,A8TX70,1.0,1.0,curated
+uniprot,,CO5A2_HUMAN,a11b1 complex,P05997,1.0,1.0,curated
+uniprot,,CO1A2_HUMAN,a11b1 complex,P08123,1.0,1.0,curated
+uniprot,,CO4A2_HUMAN,a11b1 complex,P08572,1.0,1.0,curated
+uniprot,,COBA1_HUMAN,a11b1 complex,P12107,1.0,1.0,curated
+uniprot,,CO6A1_HUMAN,a11b1 complex,P12109,1.0,1.0,curated
+uniprot,,CO6A2_HUMAN,a11b1 complex,P12110,1.0,1.0,curated
+uniprot,,CO6A3_HUMAN,a11b1 complex,P12111,1.0,1.0,curated
+uniprot,,COBA2_HUMAN,a11b1 complex,P13942,1.0,1.0,curated
+uniprot,,CO9A1_HUMAN,a11b1 complex,P20849,1.0,1.0,curated
+uniprot,,CO5A1_HUMAN,a11b1 complex,P20908,1.0,1.0,curated
+uniprot,,CO8A2_HUMAN,a11b1 complex,P25067,1.0,1.0,curated
+uniprot,,CO5A3_HUMAN,a11b1 complex,P25940,1.0,1.0,curated
+uniprot,,CO8A1_HUMAN,a11b1 complex,P27658,1.0,1.0,curated
+uniprot,,CO4A5_HUMAN,a11b1 complex,P29400,1.0,1.0,curated
+uniprot,,COFA1_HUMAN,a11b1 complex,P39059,1.0,1.0,curated
+uniprot,,COIA1_HUMAN,a11b1 complex,P39060,1.0,1.0,curated
+uniprot,,CO4A4_HUMAN,a11b1 complex,P53420,1.0,1.0,curated
+uniprot,,CO4A3_HUMAN,a11b1 complex,Q01955,1.0,1.0,curated
+uniprot,,CO7A1_HUMAN,a11b1 complex,Q02388,1.0,1.0,curated
+uniprot,,COAA1_HUMAN,a11b1 complex,Q03692,1.0,1.0,curated
+uniprot,,COEA1_HUMAN,a11b1 complex,Q05707,1.0,1.0,curated
+uniprot,,COGA1_HUMAN,a11b1 complex,Q07092,1.0,1.0,curated
+uniprot,,CO4A6_HUMAN,a11b1 complex,Q14031,1.0,1.0,curated
+uniprot,,CO9A3_HUMAN,a11b1 complex,Q14050,1.0,1.0,curated
+uniprot,,CO9A2_HUMAN,a11b1 complex,Q14055,1.0,1.0,curated
+uniprot,,COJA1_HUMAN,a11b1 complex,Q14993,1.0,1.0,curated
+uniprot,,COOA1_HUMAN,a11b1 complex,Q17RW2,1.0,1.0,curated
+uniprot,,COSA1_HUMAN,a11b1 complex,Q2UY09,1.0,1.0,curated
+uniprot,,CODA1_HUMAN,a11b1 complex,Q5TAT6,1.0,1.0,curated
+uniprot,,CORA1_HUMAN,a11b1 complex,Q8IZC6,1.0,1.0,curated
+uniprot,,COMA1_HUMAN,a11b1 complex,Q8NFW1,1.0,1.0,curated
+uniprot,,COQA1_HUMAN,a11b1 complex,Q96A83,1.0,1.0,curated
+uniprot,,COLA1_HUMAN,a11b1 complex,Q96P44,1.0,1.0,curated
+uniprot,,COCA1_HUMAN,a11b1 complex,Q99715,1.0,1.0,curated
+uniprot,,COKA1_HUMAN,a11b1 complex,Q9P218,1.0,1.0,curated
+uniprot,,COHA1_HUMAN,a11b1 complex,Q9UMD9,1.0,1.0,curated
+PMID: 28484462,KI2L1_HUMAN,HLAC,P43626,HLAC,1.0,1.0,curated
+PMID: 28484462,KI2L3_HUMAN,HLAC,P43628,HLAC,1.0,1.0,curated
+uniprot,KI3L1_HUMAN,HLAA,P43629,HLAA,1.0,1.0,curated
+uniprot,KI3L2_HUMAN,HLAB,P43630,HLAB,1.0,1.0,curated
+PMID: 28484462,,HLAE_HUMAN,CD94:NKG2A,P13747,1.0,1.0,curated
+PMID: 28484462,,HLAE_HUMAN,CD94:NKG2C,P13747,1.0,1.0,curated
+PMID: 28484462,,HLAE_HUMAN,CD94:NKG2E,P13747,1.0,1.0,curated
+"PMID: 1830891, PMID: 8970045",,OSTP_HUMAN,a4b1 complex,P10451,1.0,1.0,curated
+"PMID: 1830891, PMID: 8970045",,OSTP_HUMAN,a9b1 complex,P10451,1.0,1.0,curated
+PMID: 24442579,,OSTP_HUMAN,aVb3 complex,P10451,1.0,1.0,curated
+uniprot,,IGF1_HUMAN,a6b4 complex,P05019,1.0,1.0,curated
+uniprot,,NRG1_HUMAN,a6b4 complex,Q02297,1.0,1.0,curated
 ,,,Q04900,P25106,0.35,0.35,MolCon
 ,,,P29033,P25106,0.35,0.35,IntAct
 ,,,Q04900,P61073,0.5,0.5,MolCon
@@ -136,6 +379,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O60603,P61073,0.59,0.59,I2D-IMEx
 ,,,Q96J02,P61073,0.0,1.0,InnateDB-All
 ,,,P10321,P61073,0.0,1.0,InnateDB-All
+,,,HLAC,P61073,0.0,1.0,InnateDB-All
 ,,,P61073,P61073,0.0,1.0,InnateDB
 ,,,P32121,P61073,0.0,1.0,InnateDB-All
 ,,,P48061,P61073,0.0,1.0,InnateDB-All
@@ -171,7 +415,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P06850,Q7Z3S9,0.49,0.49,IntAct
 ,,,P55064,Q7Z3S9,0.56,0.56,IntAct
 ,,,P48645,Q7Z3S9,0.7,0.7,IntAct
-,,,Q99572,Q7Z3S9,0.49,0.49,IntAct
 ,,,P14770,Q7Z3S9,0.49,0.49,IntAct
 ,,,Q9C0C4,Q7Z3S9,0.7,0.7,IntAct
 ,,,O14764,Q7Z3S9,0.56,0.56,IntAct
@@ -208,6 +451,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q92824,Q7Z3S9,0.56,0.56,IntAct
 ,,,Q86UN2,Q7Z3S9,0.7,0.7,IntAct
 ,,,Q8NCG7,Q7Z3S9,0.49,0.49,IntAct
+,,,Q6NT52,Q7Z3S9,0.49,0.49,IntAct
 ,,,Q9UIK5,Q7Z3S9,0.49,0.49,IntAct
 ,,,P07510,Q7Z3S9,0.7,0.7,IntAct
 ,,,P46940,P19320,0.53,0.53,IntAct
@@ -492,6 +736,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P02768,P02751,0.35,0.35,IntAct
 ,,,P02787,P02751,0.35,0.35,IntAct
 ,,,Q8IXL6,P02751,0.44,0.44,IntAct
+,,,P07996,P02751,0.61,0.61,IntAct
+,,,P01857,P02751,0.35,0.35,IntAct
 ,,,Q16586,P02751,0.37,0.37,IntAct
 ,,,P46940,O60500,0.56,0.56,IntAct
 ,,,P06241,O60500,0.0,1.0,InnateDB-All
@@ -582,6 +828,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P35125,P62330,0.0,1.0,InnateDB-All
 ,,,O43739,P62330,0.0,1.0,InnateDB-All
 ,,,P00505,P62330,0.4,0.4,IntAct
+,,,P07355,P62330,0.4,0.4,IntAct
 ,,,Q8NDX1,P62330,0.44,0.44,IntAct
 ,,,P46940,P12931,0.0,1.0,InnateDB-All
 ,,,P07900,P12931,0.0,1.0,InnateDB-All
@@ -1051,6 +1298,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P13569,Q02413,0.35,0.35,IntAct
 ,,,Q02487,Q02413,0.0,1.0,InnateDB-All
 ,,,Q08554,Q02413,0.0,1.0,InnateDB-All
+,,,Q6SPF0,Q02413,0.35,0.35,IntAct
 ,,,P46940,Q14126,0.35,0.35,IntAct
 ,,,P49768,Q14126,0.0,1.0,InnateDB-All
 ,,,P07550,Q14126,0.0,1.0,InnateDB
@@ -1224,6 +1472,16 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q8IVT5,O00159,0.35,0.35,IntAct
 ,,,Q9NYA1,O00159,0.35,0.35,IntAct
 ,,,P17706,O00159,0.35,0.35,IntAct
+,,,P46940,P07355,0.35,0.35,IntAct
+,,,P19320,P07355,0.53,0.53,IntAct
+,,,P46092,P07355,0.5,0.5,IntAct
+,,,Q9UJM3,P07355,0.35,0.35,IntAct
+,,,P02751,P07355,0.35,0.35,IntAct
+,,,P49407,P07355,0.35,0.35,IntAct
+,,,P32121,P07355,0.35,0.35,IntAct
+,,,P03950,P07355,0.54,0.54,IntAct
+,,,Q8NBP7,P07355,0.61,0.61,bhf-ucl
+,,,Q8N3V7,P07355,0.35,0.35,IntAct
 ,,,P63010,O60331,0.0,1.0,InnateDB-All
 ,,,P19022,O60331,0.0,1.0,InnateDB
 ,,,P62330,O60331,0.0,1.0,InnateDB-All
@@ -1561,6 +1819,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P19235,Q04912,0.0,1.0,InnateDB-All
 ,,,Q04912,Q04912,0.4,0.4,IntAct
 ,,,O43157,Q04912,0.52,0.52,IntAct
+,,,P26927,Q04912,0.72,0.72,IntAct
 ,,,Q9ULL4,Q04912,0.52,0.52,IntAct
 ,,,O15031,Q04912,0.52,0.52,IntAct
 ,,,P11142,Q13546,0.4,0.4,IntAct
@@ -1582,54 +1841,95 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P07900,P01903,0.0,1.0,InnateDB-All
 ,,,P11142,P01903,0.0,1.0,InnateDB-All
 ,,,P28068,P01903,0.0,1.0,InnateDB-All
+,,,HLADMB,P01903,0.0,1.0,InnateDB-All
 ,,,P01903,P01903,0.0,1.0,InnateDB-All
+,,,HLADRA,P01903,0.0,1.0,InnateDB-All
 ,,,O60603,P01903,0.0,1.0,InnateDB
 ,,,P04233,P01903,0.4,0.4,MINT
 ,,,P11836,P01903,0.0,1.0,InnateDB-All
 ,,,P05026,P01903,0.0,1.0,InnateDB-All
 ,,,P28067,P01903,0.56,0.56,IntAct
+,,,HLADMA,P01903,0.0,1.0,InnateDB
 ,,,Q8IUH5,P01903,0.0,1.0,InnateDB-All
 ,,,Q30154,P01903,0.0,1.0,InnateDB-All
+,,,HLADRB5,P01903,0.0,1.0,InnateDB-All
 ,,,P01911,P01903,0.0,1.0,InnateDB-All
 ,,,Q9GIY3,P01903,0.0,1.0,InnateDB-All
 ,,,P04229,P01903,0.67,0.67,IntAct
 ,,,Q29974,P01903,0.0,1.0,InnateDB-All
+,,,HLADRB1,P01903,0.0,1.0,InnateDB-All
 ,,,P02686,P01903,0.0,1.0,InnateDB-All
 ,,,P13760,P01903,0.69,0.69,IntAct
+,,,P07900,HLADRA,0.0,1.0,InnateDB-All
+,,,P11142,HLADRA,0.0,1.0,InnateDB-All
+,,,P28068,HLADRA,0.0,1.0,InnateDB-All
+,,,HLADMB,HLADRA,0.0,1.0,InnateDB-All
+,,,HLADRA,HLADRA,0.0,1.0,InnateDB-All
+,,,O60603,HLADRA,0.0,1.0,InnateDB
+,,,P04233,HLADRA,0.0,1.0,InnateDB-All
+,,,P11836,HLADRA,0.0,1.0,InnateDB-All
+,,,P05026,HLADRA,0.0,1.0,InnateDB-All
+,,,P28067,HLADRA,0.0,1.0,InnateDB
+,,,HLADMA,HLADRA,0.0,1.0,InnateDB
+,,,Q8IUH5,HLADRA,0.0,1.0,InnateDB-All
+,,,Q30154,HLADRA,0.0,1.0,InnateDB-All
+,,,HLADRB5,HLADRA,0.0,1.0,InnateDB-All
+,,,P01911,HLADRA,0.0,1.0,InnateDB-All
+,,,Q9GIY3,HLADRA,0.0,1.0,InnateDB-All
+,,,P04229,HLADRA,0.0,1.0,InnateDB-All
+,,,Q29974,HLADRA,0.0,1.0,InnateDB-All
+,,,HLADRB1,HLADRA,0.0,1.0,InnateDB-All
+,,,P02686,HLADRA,0.0,1.0,InnateDB-All
 ,,,P07900,P01911,0.0,1.0,InnateDB-All
 ,,,P11142,P01911,0.0,1.0,InnateDB-All
 ,,,P08473,P01911,0.0,1.0,InnateDB-All
 ,,,P11836,P01911,0.0,1.0,InnateDB-All
 ,,,P05026,P01911,0.0,1.0,InnateDB-All
 ,,,P28067,P01911,0.35,0.35,InnateDB-IMEx
+,,,HLADMA,P01911,0.0,1.0,InnateDB
 ,,,P01911,P01911,0.0,1.0,InnateDB-All
 ,,,Q9GIY3,P01911,0.0,1.0,InnateDB-All
 ,,,P04229,P01911,0.0,1.0,InnateDB-All
 ,,,Q29974,P01911,0.0,1.0,InnateDB-All
+,,,HLADRB1,P01911,0.0,1.0,InnateDB-All
 ,,,P07900,Q9GIY3,0.0,1.0,InnateDB-All
 ,,,P11142,Q9GIY3,0.0,1.0,InnateDB-All
 ,,,P08473,Q9GIY3,0.0,1.0,InnateDB-All
 ,,,P11836,Q9GIY3,0.0,1.0,InnateDB-All
 ,,,P05026,Q9GIY3,0.0,1.0,InnateDB-All
 ,,,P28067,Q9GIY3,0.0,1.0,InnateDB
+,,,HLADMA,Q9GIY3,0.0,1.0,InnateDB
 ,,,Q9GIY3,Q9GIY3,0.0,1.0,InnateDB-All
 ,,,P04229,Q9GIY3,0.0,1.0,InnateDB-All
 ,,,Q29974,Q9GIY3,0.0,1.0,InnateDB-All
+,,,HLADRB1,Q9GIY3,0.0,1.0,InnateDB-All
 ,,,P07900,P04229,0.0,1.0,InnateDB-All
 ,,,P11142,P04229,0.0,1.0,InnateDB-All
 ,,,P08473,P04229,0.35,0.35,MINT
 ,,,P11836,P04229,0.0,1.0,InnateDB-All
 ,,,P05026,P04229,0.0,1.0,InnateDB-All
 ,,,P28067,P04229,0.69,0.69,IntAct
+,,,HLADMA,P04229,0.0,1.0,InnateDB
 ,,,P04229,P04229,0.0,1.0,InnateDB-All
 ,,,Q29974,P04229,0.0,1.0,InnateDB-All
+,,,HLADRB1,P04229,0.0,1.0,InnateDB-All
 ,,,P07900,Q29974,0.0,1.0,InnateDB-All
 ,,,P11142,Q29974,0.0,1.0,InnateDB-All
 ,,,P08473,Q29974,0.0,1.0,InnateDB-All
 ,,,P11836,Q29974,0.0,1.0,InnateDB-All
 ,,,P05026,Q29974,0.0,1.0,InnateDB-All
 ,,,P28067,Q29974,0.0,1.0,InnateDB
+,,,HLADMA,Q29974,0.0,1.0,InnateDB
 ,,,Q29974,Q29974,0.0,1.0,InnateDB-All
+,,,HLADRB1,Q29974,0.0,1.0,InnateDB-All
+,,,P07900,HLADRB1,0.0,1.0,InnateDB-All
+,,,P11142,HLADRB1,0.0,1.0,InnateDB-All
+,,,P08473,HLADRB1,0.0,1.0,InnateDB-All
+,,,P11836,HLADRB1,0.0,1.0,InnateDB-All
+,,,P05026,HLADRB1,0.0,1.0,InnateDB-All
+,,,P28067,HLADRB1,0.0,1.0,InnateDB
+,,,HLADMA,HLADRB1,0.0,1.0,InnateDB
+,,,HLADRB1,HLADRB1,0.0,1.0,InnateDB-All
 ,,,Q12913,P04629,0.44,0.44,IntAct
 ,,,Q07912,P04629,0.0,1.0,InnateDB-All
 ,,,P46934,P04629,0.0,1.0,InnateDB-All
@@ -2118,6 +2418,10 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P11142,Q30154,0.0,1.0,InnateDB-All
 ,,,P11836,Q30154,0.0,1.0,InnateDB-All
 ,,,P05026,Q30154,0.0,1.0,InnateDB-All
+,,,P07900,HLADRB5,0.0,1.0,InnateDB-All
+,,,P11142,HLADRB5,0.0,1.0,InnateDB-All
+,,,P11836,HLADRB5,0.0,1.0,InnateDB-All
+,,,P05026,HLADRB5,0.0,1.0,InnateDB-All
 ,,,P07900,P37023,0.0,1.0,InnateDB-All
 ,,,P01137,P37023,0.0,1.0,InnateDB-All
 ,,,Q8N6C5,P37023,0.0,1.0,InnateDB-All
@@ -2604,6 +2908,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O00213,P67809,0.0,1.0,InnateDB-All
 ,,,Q9HAU4,P67809,0.0,1.0,InnateDB-All
 ,,,P10321,P67809,0.0,1.0,InnateDB-All
+,,,HLAC,P67809,0.0,1.0,InnateDB-All
 ,,,Q07021,P67809,0.74,0.74,IntAct
 ,,,P05362,P67809,0.0,1.0,InnateDB-All
 ,,,P08183,P67809,0.0,1.0,InnateDB-All
@@ -2611,6 +2916,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P31645,P67809,0.0,1.0,InnateDB-All
 ,,,P57087,P67809,0.37,0.37,IntAct
 ,,,P30508,P67809,0.37,0.37,IntAct
+,,,P46379,P67809,0.35,0.35,IntAct
 ,,,Q01844,P78310,0.37,0.37,IntAct
 ,,,P78310,P78310,0.4,0.4,IntAct
 ,,,Q86X19,P78310,0.35,0.35,IntAct
@@ -2714,6 +3020,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9UKQ9,P01137,0.37,0.37,MINT
 ,,,Q96QR1,P01137,0.37,0.37,MINT
 ,,,Q15198,P01137,0.37,0.37,MINT
+,,,P07996,P01137,0.52,0.52,UniProt
 ,,,P42566,P02786,0.4,0.4,IntAct
 ,,,P02786,P02786,0.62,0.62,MINT
 ,,,P18206,P02786,0.0,1.0,InnateDB-All
@@ -2783,6 +3090,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q16445,Q9UMX0,0.0,1.0,InnateDB-All
 ,,,Q92887,Q9UMX0,0.37,0.37,IntAct
 ,,,Q03692,Q9UMX0,0.7,0.7,IntAct
+,,,P46379,Q9UMX0,0.49,0.49,IntAct
 ,,,P22466,Q9UMX0,0.49,0.49,IntAct
 ,,,Q16661,Q9UMX0,0.49,0.49,IntAct
 ,,,O95994,Q9UMX0,0.7,0.7,IntAct
@@ -2857,6 +3165,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P48039,P48039,0.0,1.0,InnateDB-All
 ,,,P42892,P48039,0.37,0.37,IntAct
 ,,,Q93052,P48039,0.37,0.37,IntAct
+,,,P46379,P48039,0.37,0.37,IntAct
 ,,,P26022,P48039,0.37,0.37,IntAct
 ,,,O00264,P48039,0.53,0.53,IntAct
 ,,,O75074,P48039,0.37,0.37,IntAct
@@ -2953,6 +3262,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P40198,P05109,0.0,1.0,InnateDB
 ,,,O60383,P05109,0.37,0.37,IntAct
 ,,,P05109,P05109,0.0,1.0,InnateDB
+,,,Q96ID5,P05109,0.37,0.37,IntAct
 ,,,Q13332,Q16849,0.51,0.51,IntAct
 ,,,P60201,Q16849,0.56,0.56,IntAct
 ,,,Q16849,Q16849,0.31,0.31,MINT
@@ -3026,6 +3336,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q16099,P20339,0.0,1.0,InnateDB-All
 ,,,P05067,O14735,0.0,1.0,InnateDB-All
 ,,,Q13418,O14735,0.35,0.35,IntAct
+,,,Q6SPF0,O14735,0.35,0.35,IntAct
 ,,,O00560,O95259,0.56,0.56,IntAct
 ,,,P48547,O95259,0.0,1.0,InnateDB-All
 ,,,O00560,P24592,0.49,0.49,IntAct
@@ -3262,6 +3573,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P10721,P11274,0.4,0.4,IntAct
 ,,,P60953,P11274,0.0,1.0,InnateDB-All
 ,,,P20020,P11274,0.27,0.27,MINT
+,,,Q96ID5,P11274,0.37,0.37,IntAct
 ,,,Q9BXB1,Q09013,0.0,1.0,InnateDB-All
 ,,,P05067,Q9H4E7,0.0,1.0,InnateDB
 ,,,P61586,Q9H4E7,0.0,1.0,InnateDB-All
@@ -3357,6 +3669,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P01889,Q9NR80,0.37,0.37,IntAct
 ,,,Q31612,Q9NR80,0.0,1.0,InnateDB-All
 ,,,Q31610,Q9NR80,0.0,1.0,InnateDB-All
+,,,HLAB,Q9NR80,0.0,1.0,InnateDB-All
 ,,,P11166,P27105,0.0,1.0,InnateDB-All
 ,,,P27105,P27105,0.0,1.0,InnateDB-All
 ,,,O95425,P27105,0.0,1.0,InnateDB-All
@@ -3441,9 +3754,11 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P01889,P30486,0.0,1.0,InnateDB-All
 ,,,Q31612,P30486,0.0,1.0,InnateDB-All
 ,,,Q31610,P30486,0.0,1.0,InnateDB-All
+,,,HLAB,P30486,0.0,1.0,InnateDB-All
 ,,,P58335,P30486,0.0,1.0,InnateDB-All
 ,,,P07550,P30486,0.0,1.0,InnateDB-All
 ,,,Q8N423,P30486,0.0,1.0,InnateDB-All
+,,,Q8NHL6,P30486,0.0,1.0,InnateDB-All
 ,,,P26038,Q29836,0.0,1.0,InnateDB-All
 ,,,P15311,Q29836,0.0,1.0,InnateDB-All
 ,,,P63165,Q29836,0.0,1.0,InnateDB-All
@@ -3452,9 +3767,11 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P01889,Q29836,0.0,1.0,InnateDB-All
 ,,,Q31612,Q29836,0.0,1.0,InnateDB-All
 ,,,Q31610,Q29836,0.0,1.0,InnateDB-All
+,,,HLAB,Q29836,0.0,1.0,InnateDB-All
 ,,,P58335,Q29836,0.0,1.0,InnateDB-All
 ,,,P07550,Q29836,0.0,1.0,InnateDB-All
 ,,,Q8N423,Q29836,0.0,1.0,InnateDB-All
+,,,Q8NHL6,Q29836,0.0,1.0,InnateDB-All
 ,,,P26038,P30480,0.4,0.4,IntAct
 ,,,P02786,P30480,0.4,0.4,IntAct
 ,,,P21796,P30480,0.4,0.4,IntAct
@@ -3473,44 +3790,60 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P01889,P30480,0.0,1.0,InnateDB-All
 ,,,Q31612,P30480,0.0,1.0,InnateDB-All
 ,,,Q31610,P30480,0.0,1.0,InnateDB-All
+,,,HLAB,P30480,0.0,1.0,InnateDB-All
 ,,,P58335,P30480,0.0,1.0,InnateDB-All
 ,,,P07550,P30480,0.0,1.0,InnateDB-All
 ,,,Q8N423,P30480,0.0,1.0,InnateDB-All
+,,,Q8NHL6,P30480,0.0,1.0,InnateDB-All
 ,,,Q15019,P30480,0.4,0.4,IntAct
 ,,,Q15758,P30480,0.4,0.4,IntAct
 ,,,P10599,P30480,0.4,0.4,IntAct
 ,,,Q96CX2,P30480,0.4,0.4,IntAct
 ,,,P02771,P30480,0.4,0.4,IntAct
 ,,,P00505,P30480,0.4,0.4,IntAct
+,,,P07355,P30480,0.4,0.4,IntAct
 ,,,P26038,P01889,0.0,1.0,InnateDB-All
 ,,,P15311,P01889,0.0,1.0,InnateDB-All
 ,,,P63165,P01889,0.0,1.0,InnateDB-All
 ,,,P01889,P01889,0.0,1.0,InnateDB-All
 ,,,Q31612,P01889,0.0,1.0,InnateDB-All
 ,,,Q31610,P01889,0.0,1.0,InnateDB-All
+,,,HLAB,P01889,0.0,1.0,InnateDB-All
 ,,,P58335,P01889,0.0,1.0,InnateDB-All
 ,,,P07550,P01889,0.0,1.0,InnateDB-All
 ,,,Q8N423,P01889,0.0,1.0,InnateDB-All
+,,,Q8NHL6,P01889,0.0,1.0,InnateDB-All
 ,,,P26038,Q31612,0.0,1.0,InnateDB-All
 ,,,P15311,Q31612,0.0,1.0,InnateDB-All
 ,,,P63165,Q31612,0.0,1.0,InnateDB-All
 ,,,Q31612,Q31612,0.0,1.0,InnateDB-All
 ,,,Q31610,Q31612,0.0,1.0,InnateDB-All
+,,,HLAB,Q31612,0.0,1.0,InnateDB-All
 ,,,P58335,Q31612,0.0,1.0,InnateDB-All
 ,,,P07550,Q31612,0.0,1.0,InnateDB-All
 ,,,Q8N423,Q31612,0.0,1.0,InnateDB-All
+,,,Q8NHL6,Q31612,0.0,1.0,InnateDB-All
 ,,,P43628,Q31612,0.62,0.62,IntAct
 ,,,Q9H2H9,Q31612,0.35,0.35,IntAct
 ,,,P26038,Q31610,0.0,1.0,InnateDB-All
 ,,,P15311,Q31610,0.0,1.0,InnateDB-All
 ,,,P63165,Q31610,0.0,1.0,InnateDB-All
 ,,,Q31610,Q31610,0.0,1.0,InnateDB-All
+,,,HLAB,Q31610,0.0,1.0,InnateDB-All
 ,,,P58335,Q31610,0.0,1.0,InnateDB-All
 ,,,P07550,Q31610,0.0,1.0,InnateDB-All
 ,,,Q8N423,Q31610,0.0,1.0,InnateDB-All
+,,,Q8NHL6,Q31610,0.0,1.0,InnateDB-All
+,,,P26038,HLAB,0.0,1.0,InnateDB-All
+,,,P15311,HLAB,0.0,1.0,InnateDB-All
+,,,P63165,HLAB,0.0,1.0,InnateDB-All
+,,,HLAB,HLAB,0.0,1.0,InnateDB-All
+,,,P58335,HLAB,0.0,1.0,InnateDB-All
+,,,P07550,HLAB,0.0,1.0,InnateDB-All
+,,,Q8N423,HLAB,0.0,1.0,InnateDB-All
+,,,Q8NHL6,HLAB,0.0,1.0,InnateDB-All
 ,,,P26038,P05362,0.0,1.0,InnateDB-All
 ,,,P05362,P05362,0.0,1.0,InnateDB-All
-,,,P02679,P05362,0.4,0.4,IntAct
 ,,,P26038,P15529,0.0,1.0,InnateDB-All
 ,,,P15529,P15529,0.0,1.0,InnateDB-All
 ,,,P48509,P15529,0.0,1.0,InnateDB-All
@@ -3834,7 +4167,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9UQC9,P02768,0.35,0.35,IntAct
 ,,,Q15758,P02768,0.35,0.35,IntAct
 ,,,P00734,P02768,0.35,0.35,IntAct
-,,,P02671,P02768,0.35,0.35,IntAct
 ,,,P08603,P02768,0.35,0.35,IntAct
 ,,,P00751,P02768,0.35,0.35,IntAct
 ,,,P0C0L4,P02768,0.35,0.35,IntAct
@@ -3862,6 +4194,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P07477,P02768,0.35,0.35,IntAct
 ,,,P02787,P02768,0.35,0.35,IntAct
 ,,,Q8IXL6,P02768,0.44,0.44,IntAct
+,,,P01857,P02768,0.35,0.35,IntAct
 ,,,P17931,P02787,0.0,1.0,InnateDB
 ,,,Q9Y6N6,P02787,0.37,0.37,IntAct
 ,,,P80188,P02787,0.0,1.0,InnateDB-All
@@ -3870,6 +4203,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P02787,P02787,0.0,1.0,InnateDB-All
 ,,,P01344,P02787,0.0,1.0,InnateDB-All
 ,,,P01350,P02787,0.62,0.62,MINT
+,,,P01861,P02787,0.27,0.27,IntAct
 ,,,Q30201,Q30201,0.0,1.0,InnateDB-All
 ,,,Q9UP52,Q30201,0.0,1.0,InnateDB
 ,,,P02786,Q10589,0.0,1.0,InnateDB-All
@@ -3913,6 +4247,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9UQ26,P61006,0.0,1.0,InnateDB-All
 ,,,Q96C24,P61006,0.35,0.35,IntAct
 ,,,Q8IYJ3,P61006,0.0,1.0,InnateDB-All
+,,,P46379,P61006,0.37,0.37,IntAct
 ,,,Q8IWV1,P61006,0.46,0.46,MINT
 ,,,P02786,P23508,0.4,0.4,IntAct
 ,,,P21796,P23508,0.4,0.4,IntAct
@@ -3936,6 +4271,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9Y696,P23508,0.4,0.4,IntAct
 ,,,Q6FHJ7,P23508,0.37,0.37,MINT
 ,,,P00505,P23508,0.4,0.4,IntAct
+,,,P07355,P23508,0.4,0.4,IntAct
 ,,,O00264,P23508,0.4,0.4,IntAct
 ,,,Q9HCI5,P23508,0.49,0.49,IntAct
 ,,,Q5T7P8,P23508,0.49,0.49,IntAct
@@ -4009,6 +4345,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O60331,Q9Y490,0.0,1.0,InnateDB-All
 ,,,Q99523,Q9Y490,0.35,0.35,IntAct
 ,,,Q13162,Q9Y490,0.0,1.0,InnateDB-All
+,,,P46379,Q9Y490,0.35,0.35,IntAct
+,,,Q6SPF0,Q9Y490,0.35,0.35,IntAct
 ,,,P18206,Q9H3Z4,0.0,1.0,InnateDB-All
 ,,,P18206,Q13283,0.0,1.0,InnateDB-All
 ,,,Q13283,Q13283,0.0,1.0,InnateDB-All
@@ -4083,6 +4421,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P02647,P04264,0.35,0.35,IntAct
 ,,,Q9BXB1,P04264,0.0,1.0,InnateDB-All
 ,,,P11226,P04264,0.0,1.0,InnateDB-All
+,,,P01857,P04264,0.35,0.35,IntAct
 ,,,P05067,P61224,0.0,1.0,InnateDB
 ,,,Q9HAU4,P61224,0.4,0.4,MINT
 ,,,P01023,P61224,0.37,0.37,MINT
@@ -4092,6 +4431,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P05060,P61224,0.37,0.37,MINT
 ,,,P49286,P42356,0.53,0.53,IntAct
 ,,,Q99523,P42356,0.35,0.35,IntAct
+,,,P46379,P42356,0.35,0.35,IntAct
 ,,,P05067,Q9P0L0,0.0,1.0,InnateDB-All
 ,,,P17612,Q9P0L0,0.35,0.35,IntAct
 ,,,Q07157,Q9P0L0,0.0,1.0,InnateDB-All
@@ -4215,6 +4555,10 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P04114,P02649,0.35,0.35,bhf-ucl
 ,,,Q96JB6,P02649,0.37,0.37,IntAct
 ,,,P15311,P07384,0.44,0.44,MINT
+,,,P19320,P01857,0.35,0.35,IntAct
+,,,P02787,P01857,0.35,0.35,IntAct
+,,,P31994,P01857,0.56,0.56,IntAct
+,,,P01709,P01857,0.44,0.44,MINT
 ,,,Q9BSJ8,Q9BSJ8,0.59,0.59,IntAct
 ,,,A0FGR8,Q9BSJ8,0.62,0.62,IntAct
 ,,,Q8IVT5,Q9BSJ8,0.35,0.35,IntAct
@@ -4252,6 +4596,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q86YR5,P08754,0.0,1.0,InnateDB
 ,,,P31323,P08754,0.0,1.0,InnateDB-All
 ,,,Q8N3V7,P08754,0.35,0.35,IntAct
+,,,P80303,P08754,0.37,0.37,IntAct
 ,,,P19320,Q6UY14,0.35,0.35,IntAct
 ,,,P07858,Q6UY14,0.54,0.54,MINT
 ,,,Q9HB63,Q6UY14,0.37,0.37,IntAct
@@ -4398,6 +4743,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P30531,Q16623,0.0,1.0,InnateDB-All
 ,,,P05067,P27797,0.56,0.56,IntAct
 ,,,P27797,P27797,0.0,1.0,InnateDB-All
+,,,P13747,P27797,0.0,1.0,InnateDB-All
 ,,,P00750,P27797,0.0,1.0,InnateDB-All
 ,,,P16473,P27797,0.0,1.0,InnateDB-All
 ,,,Q12809,P27797,0.0,1.0,InnateDB-All
@@ -4433,6 +4779,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P03950,P13385,0.37,0.37,IntAct
 ,,,O60383,P13385,0.37,0.37,IntAct
 ,,,P35052,P13385,0.4,0.4,MINT
+,,,P46379,P13385,0.37,0.37,IntAct
 ,,,P53680,P57735,0.0,1.0,InnateDB-All
 ,,,Q9HAU4,P57735,0.0,1.0,InnateDB-All
 ,,,P20648,P57735,0.0,1.0,InnateDB-All
@@ -4508,6 +4855,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q00535,Q86YS7,0.64,0.64,IntAct
 ,,,Q99523,Q86YS7,0.35,0.35,IntAct
 ,,,Q9H0H5,Q86YS7,0.35,0.35,IntAct
+,,,P46379,Q86YS7,0.35,0.35,IntAct
 ,,,Q6ZRP7,Q86YS7,0.35,0.35,IntAct
 ,,,P51148,Q8NFJ5,0.35,0.35,IntAct
 ,,,Q86X19,Q8NFJ5,0.35,0.35,IntAct
@@ -4543,7 +4891,9 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P05067,P04233,0.0,1.0,InnateDB
 ,,,P04233,P04233,0.0,1.0,InnateDB-All
 ,,,P20036,P04233,0.4,0.4,MINT
+,,,HLADPA1,P04233,0.0,1.0,InnateDB-All
 ,,,P01909,P04233,0.59,0.59,IntAct
+,,,HLADQA1,P04233,0.0,1.0,InnateDB-All
 ,,,P28067,P04233,0.35,0.35,InnateDB-IMEx
 ,,,O00526,P04233,0.49,0.49,IntAct
 ,,,Q9UBY5,P04233,0.49,0.49,IntAct
@@ -4685,13 +5035,13 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P00738,P02647,0.56,0.56,MINT
 ,,,P04180,P02647,0.62,0.62,bhf-ucl
 ,,,P02652,P02647,0.0,1.0,InnateDB-All
-,,,P02671,P02647,0.56,0.56,IntAct
 ,,,P02766,P02647,0.35,0.35,IntAct
 ,,,P02654,P02647,0.35,0.35,IntAct
 ,,,P02656,P02647,0.35,0.35,IntAct
 ,,,P02787,P02647,0.35,0.35,IntAct
 ,,,P04114,P02647,0.0,1.0,InnateDB-All
 ,,,P02745,P02647,0.35,0.35,IntAct
+,,,P01857,P02647,0.35,0.35,IntAct
 ,,,P00450,P02647,0.35,0.35,IntAct
 ,,,Q8WTV0,P02647,0.4,0.4,bhf-ucl
 ,,,P02747,P02647,0.35,0.35,IntAct
@@ -4849,8 +5199,11 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P46939,O14713,0.37,0.37,IntAct
 ,,,P12931,P08962,0.4,0.4,MINT
 ,,,P13765,P08962,0.0,1.0,InnateDB-All
+,,,HLADOB,P08962,0.0,1.0,InnateDB-All
 ,,,P28068,P08962,0.0,1.0,InnateDB-All
+,,,HLADMB,P08962,0.0,1.0,InnateDB-All
 ,,,P01903,P08962,0.0,1.0,InnateDB-All
+,,,HLADRA,P08962,0.0,1.0,InnateDB-All
 ,,,P10721,P08962,0.0,1.0,InnateDB-All
 ,,,P27701,P08962,0.0,1.0,InnateDB-All
 ,,,Q9P2B2,P08962,0.0,1.0,InnateDB-All
@@ -4876,6 +5229,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P22455,Q9BY76,0.37,0.37,MINT
 ,,,P06858,Q9BY76,0.44,0.44,UniProt
 ,,,Q9BY76,Q9BY76,0.44,0.44,UniProt
+,,,Q6ISS4,Q9Y6C2,0.56,0.56,IntAct
+,,,Q5JTB6,Q9Y6C2,0.64,0.64,IntAct
 ,,,P11362,Q63HR2,0.0,1.0,InnateDB-All
 ,,,P48023,Q63HR2,0.49,0.49,IntAct
 ,,,Q03135,Q63HR2,0.0,1.0,InnateDB-All
@@ -4889,6 +5244,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9NRI5,Q63HR2,0.0,1.0,InnateDB-All
 ,,,P48645,Q63HR2,0.37,0.37,IntAct
 ,,,Q2M385,Q63HR2,0.37,0.37,IntAct
+,,,Q6NT52,Q63HR2,0.49,0.49,IntAct
 ,,,Q6P1J6,Q63HR2,0.37,0.37,IntAct
 ,,,P05067,P16671,0.0,1.0,InnateDB-All
 ,,,P35222,P16671,0.0,1.0,InnateDB
@@ -4912,10 +5268,12 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9NQ38,P09958,0.0,1.0,InnateDB
 ,,,Q9H239,P09958,0.0,1.0,InnateDB
 ,,,Q04912,P09958,0.44,0.44,MolCon
+,,,P46379,P09958,0.35,0.35,IntAct
 ,,,Q96CW1,P06127,0.37,0.37,IntAct
 ,,,P06241,P06127,0.0,1.0,InnateDB-All
 ,,,P06239,P06127,0.0,1.0,InnateDB-All
 ,,,P30203,P06127,0.0,1.0,InnateDB-All
+,,,P21854,P06127,0.4,0.4,IntAct
 ,,,Q96CW1,O60716,0.35,0.35,IntAct
 ,,,P05067,O60716,0.0,1.0,InnateDB
 ,,,P12931,O60716,0.0,1.0,InnateDB-All
@@ -4956,6 +5314,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9BYG5,Q9HCK4,0.35,0.35,IntAct
 ,,,Q9HCK4,Q9HCK4,0.4,0.4,IntAct
 ,,,P04440,Q9HCK4,0.37,0.37,MINT
+,,,HLADPB1,Q9HCK4,0.0,1.0,InnateDB-All
 ,,,P01023,P05090,0.35,0.35,MINT
 ,,,P02647,P05090,0.0,1.0,InnateDB-All
 ,,,P02652,P05090,0.0,1.0,InnateDB-All
@@ -5184,13 +5543,13 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q05397,P41240,0.0,1.0,InnateDB-All
 ,,,P41240,P41240,0.44,0.44,MINT
 ,,,P32121,P41240,0.0,1.0,InnateDB-All
+,,,Q8NHL6,P41240,0.48,0.48,MINT
 ,,,Q15262,P41240,0.44,0.44,IntAct
 ,,,O15530,P41240,0.49,0.49,IntAct
 ,,,P23471,P41240,0.44,0.44,IntAct
 ,,,O75051,P41240,0.0,1.0,InnateDB-All
 ,,,Q6GTX8,P41240,0.37,0.37,MINT
 ,,,Q9C0H9,P41240,0.4,0.4,MINT
-,,,Q8NHL6,P41240,0.48,0.48,MINT
 ,,,Q9BZW8,P41240,0.35,0.35,UniProt
 ,,,P06241,P29322,0.0,1.0,InnateDB-All
 ,,,P22681,P29322,0.0,1.0,InnateDB-All
@@ -5205,11 +5564,13 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q15262,O15530,0.44,0.44,IntAct
 ,,,O15530,O15530,0.4,0.4,IntAct
 ,,,Q8IUH5,O15530,0.51,0.51,IntAct
+,,,P01857,O15530,0.35,0.35,IntAct
 ,,,Q9BY67,Q9Y2J2,0.35,0.35,IntAct
 ,,,P49841,Q9Y2J2,0.35,0.35,IntAct
 ,,,Q8IVT5,Q9Y2J2,0.35,0.35,IntAct
 ,,,Q8IX03,Q9Y2J2,0.35,0.35,IntAct
 ,,,Q9UPW8,Q9Y2J2,0.37,0.37,IntAct
+,,,Q96ID5,Q9Y2J2,0.37,0.37,IntAct
 ,,,P32248,O00626,0.0,1.0,InnateDB
 ,,,P32248,O00585,0.4,0.4,MolCon
 ,,,P07339,O00585,0.0,1.0,InnateDB
@@ -5234,6 +5595,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P32241,P01282,0.4,0.4,IntAct
 ,,,P37288,P01282,0.4,0.4,IntAct
 ,,,P27487,P01303,0.44,0.44,MINT
+,,,P46379,P01303,0.37,0.37,IntAct
 ,,,Q12884,P01303,0.44,0.44,MINT
 ,,,P25929,P01303,0.4,0.4,IntAct
 ,,,P49146,P01303,0.4,0.4,IntAct
@@ -5257,6 +5619,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q16270,P13501,0.0,1.0,InnateDB-All
 ,,,P27487,P20366,0.44,0.44,MINT
 ,,,P25103,P20366,0.4,0.4,IntAct
+,,,P46379,P20366,0.37,0.37,IntAct
 ,,,P21452,P20366,0.4,0.4,IntAct
 ,,,P29371,P20366,0.0,1.0,InnateDB-All
 ,,,Q03403,P20366,0.0,1.0,InnateDB-All
@@ -5524,6 +5887,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O75077,P04156,0.0,1.0,InnateDB
 ,,,P07498,P04156,0.44,0.44,IntAct
 ,,,Q9NPF8,P04156,0.44,0.44,IntAct
+,,,P46379,P04156,0.37,0.37,IntAct
 ,,,P05067,P05120,0.0,1.0,InnateDB-All
 ,,,P05120,P05120,0.0,1.0,InnateDB-All
 ,,,P05067,P07858,0.0,1.0,InnateDB-All
@@ -5532,6 +5896,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P02760,P07858,0.6,0.6,MINT
 ,,,P01034,P07858,0.0,1.0,InnateDB-All
 ,,,Q9NYA1,P07858,0.44,0.44,MINT
+,,,P46379,P07858,0.37,0.37,IntAct
 ,,,P05067,P08631,0.0,1.0,InnateDB-All
 ,,,P51677,P08631,0.0,1.0,InnateDB-All
 ,,,Q05397,P08631,0.51,0.51,IntAct
@@ -5679,13 +6044,11 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P07585,P61812,0.0,1.0,InnateDB-All
 ,,,P12643,P61812,0.4,0.4,IntAct
 ,,,P05067,Q92876,0.44,0.44,IntAct
-,,,P02671,Q92876,0.44,0.44,IntAct
 ,,,Q92876,Q92876,0.44,0.44,IntAct
 ,,,P47710,Q92876,0.44,0.44,IntAct
 ,,,P33241,Q92876,0.37,0.37,MINT
 ,,,P02462,Q92876,0.44,0.44,IntAct
 ,,,P08572,Q92876,0.44,0.44,IntAct
-,,,P02675,Q92876,0.44,0.44,IntAct
 ,,,P29400,Q92876,0.44,0.44,IntAct
 ,,,P53420,Q92876,0.44,0.44,IntAct
 ,,,Q01955,Q92876,0.44,0.44,IntAct
@@ -5734,6 +6097,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9P244,Q00536,0.27,0.27,IntAct
 ,,,O43166,Q00536,0.27,0.27,IntAct
 ,,,Q14680,Q00536,0.27,0.27,IntAct
+,,,P46379,Q00536,0.37,0.37,IntAct
 ,,,O75044,Q00536,0.27,0.27,IntAct
 ,,,Q8ND76,Q00536,0.54,0.54,IntAct
 ,,,P05067,P62079,0.0,1.0,InnateDB-All
@@ -5745,6 +6109,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P08138,P02766,0.37,0.37,MINT
 ,,,Q9BRK5,P02766,0.37,0.37,MINT
 ,,,Q6UXH1,P02766,0.37,0.37,MINT
+,,,P01857,P02766,0.35,0.35,IntAct
 ,,,O95741,P02766,0.37,0.37,MINT
 ,,,P02753,P02766,0.44,0.44,MINT
 ,,,P05067,O15551,0.0,1.0,InnateDB-All
@@ -5821,7 +6186,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P02647,P23142,0.49,0.49,IntAct
 ,,,Q6UY14,P23142,0.37,0.37,IntAct
 ,,,Q8IXL6,P23142,0.44,0.44,IntAct
-,,,P02675,P23142,0.0,1.0,InnateDB-All
 ,,,Q86TH1,P23142,0.37,0.37,IntAct
 ,,,Q96FE5,P23142,0.49,0.49,IntAct
 ,,,Q03135,P08138,0.0,1.0,InnateDB-All
@@ -5973,6 +6337,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9BVN2,P60880,0.0,1.0,InnateDB-All
 ,,,Q7Z6L0,P60880,0.37,0.37,IntAct
 ,,,P05067,P09466,0.0,1.0,InnateDB-All
+,,,Q96ID5,P09466,0.37,0.37,IntAct
 ,,,P05067,P36980,0.0,1.0,InnateDB-All
 ,,,P05067,Q9P121,0.0,1.0,InnateDB-All
 ,,,P32239,Q9P121,0.56,0.56,IntAct
@@ -6028,6 +6393,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P30480,P43628,0.0,1.0,InnateDB
 ,,,P01889,P43628,0.0,1.0,InnateDB
 ,,,Q31610,P43628,0.0,1.0,InnateDB
+,,,HLAB,P43628,0.0,1.0,InnateDB
 ,,,P30484,P43628,0.62,0.62,IntAct
 ,,,P30505,P43628,0.62,0.62,IntAct
 ,,,P30510,P43628,0.44,0.44,IntAct
@@ -6124,6 +6490,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P05113,P05113,0.0,1.0,InnateDB
 ,,,P13727,Q13219,0.0,1.0,InnateDB-All
 ,,,P00747,Q13219,0.0,1.0,InnateDB-All
+,,,P01857,Q13219,0.35,0.35,IntAct
 ,,,P51677,P13500,0.0,1.0,InnateDB
 ,,,P41597,P13500,0.0,1.0,InnateDB
 ,,,P32246,P13500,0.0,1.0,InnateDB
@@ -6188,6 +6555,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P98095,P15502,0.0,1.0,InnateDB-All
 ,,,P35556,P15502,0.0,1.0,InnateDB-All
 ,,,P35555,P15502,0.0,1.0,InnateDB-All
+,,,P01857,P15502,0.35,0.35,IntAct
 ,,,P39900,P02775,0.0,1.0,InnateDB
 ,,,P02775,P02775,0.0,1.0,InnateDB
 ,,,P25024,P02775,0.0,1.0,InnateDB-All
@@ -6196,6 +6564,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P10145,P10145,0.0,1.0,InnateDB
 ,,,P01023,P10145,0.0,1.0,InnateDB
 ,,,P25024,P10145,0.0,1.0,InnateDB-All
+,,,P46379,P10145,0.37,0.37,IntAct
 ,,,P39900,P09341,0.0,1.0,InnateDB
 ,,,Q16570,P09341,0.0,1.0,InnateDB-All
 ,,,P01112,P09341,0.37,0.37,MINT
@@ -6265,11 +6634,14 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P48061,P48061,0.0,1.0,InnateDB-All
 ,,,P35222,P27701,0.0,1.0,InnateDB-All
 ,,,P13765,P27701,0.0,1.0,InnateDB-All
+,,,HLADOB,P27701,0.0,1.0,InnateDB-All
 ,,,P28068,P27701,0.0,1.0,InnateDB-All
+,,,HLADMB,P27701,0.0,1.0,InnateDB-All
 ,,,P19397,P27701,0.0,1.0,InnateDB-All
 ,,,P15529,P27701,0.0,1.0,InnateDB-All
 ,,,Q99075,P27701,0.0,1.0,InnateDB-All
 ,,,P01903,P27701,0.0,1.0,InnateDB-All
+,,,HLADRA,P27701,0.0,1.0,InnateDB-All
 ,,,P48509,P27701,0.0,1.0,InnateDB-All
 ,,,Q969P0,P27701,0.0,1.0,InnateDB-All
 ,,,P35222,Q15262,0.0,1.0,InnateDB-All
@@ -6314,7 +6686,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P07949,Q14451,0.0,1.0,InnateDB-All
 ,,,P54762,Q14451,0.51,0.51,UniProt
 ,,,P04217,Q14451,0.37,0.37,MINT
-,,,P02675,Q14451,0.37,0.37,MINT
 ,,,O95741,Q14451,0.37,0.37,MINT
 ,,,Q5SQ64,Q14451,0.46,0.46,MINT
 ,,,Q8IWV1,Q14451,0.56,0.56,IntAct
@@ -6451,8 +6822,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P35221,P33151,0.27,0.27,MINT
 ,,,O60716,P33151,0.0,1.0,InnateDB-All
 ,,,O60331,P33151,0.0,1.0,InnateDB
-,,,P02671,P33151,0.0,1.0,InnateDB-All
-,,,P02675,P33151,0.0,1.0,InnateDB-All
 ,,,P21246,Q9Y6N8,0.37,0.37,IntAct
 ,,,Q03431,Q15599,0.0,1.0,InnateDB-All
 ,,,P01112,Q15599,0.0,1.0,InnateDB-All
@@ -6481,6 +6850,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9GZV9,P11362,0.0,1.0,InnateDB-All
 ,,,Q86Z14,P11362,0.44,0.44,MINT
 ,,,Q8IVI9,P11362,0.63,0.63,MINT
+,,,P01857,P11362,0.35,0.35,IntAct
 ,,,P23352,P11362,0.63,0.63,IntAct
 ,,,P12272,Q03431,0.0,1.0,InnateDB-All
 ,,,P01270,Q03431,0.0,1.0,InnateDB-All
@@ -6509,6 +6879,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P01023,P07288,0.4,0.4,IntAct
 ,,,P01009,P07288,0.0,1.0,InnateDB-All
 ,,,Q9Y3R0,P07288,0.0,1.0,InnateDB
+,,,P01857,P07288,0.35,0.35,IntAct
 ,,,P01011,P07288,0.4,0.4,IntAct
 ,,,P05154,P07288,0.0,1.0,InnateDB-All
 ,,,Q9ULW2,Q9Y5L2,0.4,0.4,bhf-ucl
@@ -6597,6 +6968,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q99523,P07949,0.35,0.35,IntAct
 ,,,P56159,P07949,0.0,1.0,InnateDB-All
 ,,,Q99748,P07949,0.0,1.0,InnateDB-All
+,,,P46379,P07949,0.35,0.35,IntAct
 ,,,P17931,P11279,0.0,1.0,InnateDB-All
 ,,,Q03135,P13987,0.35,0.35,UniProt
 ,,,P02748,P13987,0.0,1.0,InnateDB-All
@@ -6655,6 +7027,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P22694,P31321,0.35,0.35,IntAct
 ,,,O43687,P31321,0.49,0.49,IntAct
 ,,,Q96C24,P31321,0.49,0.49,IntAct
+,,,P46379,P31321,0.49,0.49,IntAct
 ,,,Q96E35,P31321,0.49,0.49,IntAct
 ,,,P12931,P51636,0.0,1.0,InnateDB-All
 ,,,Q6NZI2,P51636,0.0,1.0,InnateDB-All
@@ -6794,6 +7167,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q13007,Q04721,0.37,0.37,MINT
 ,,,Q9Y337,Q04721,0.37,0.37,MINT
 ,,,Q86X19,Q04721,0.35,0.35,IntAct
+,,,Q86UX2,Q04721,0.37,0.37,MINT
 ,,,Q03135,P13861,0.0,1.0,InnateDB-All
 ,,,P13861,P13861,0.0,1.0,InnateDB-All
 ,,,P22694,P13861,0.35,0.35,IntAct
@@ -6812,6 +7186,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P14555,Q6UXH1,0.37,0.37,MINT
 ,,,P20366,Q6UXH1,0.37,0.37,MINT
 ,,,P48304,Q6UXH1,0.37,0.37,MINT
+,,,P49841,Q96ID5,0.37,0.37,MINT
+,,,P01116,Q96ID5,0.37,0.37,MINT
 ,,,P01112,Q5VWQ8,0.0,1.0,InnateDB-All
 ,,,Q5VWQ8,Q5VWQ8,0.44,0.44,UniProt
 ,,,P49841,Q9UP38,0.0,1.0,InnateDB-All
@@ -6840,6 +7216,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P53618,P16188,0.0,1.0,InnateDB-All
 ,,,P27797,P16188,0.0,1.0,InnateDB-All
 ,,,Q8N423,P16188,0.0,1.0,InnateDB
+,,,Q8NHL6,P16188,0.0,1.0,InnateDB
 ,,,O15533,P16188,0.0,1.0,InnateDB-All
 ,,,Q13418,P16188,0.35,0.35,IntAct
 ,,,P30450,P16188,0.4,0.4,IntAct
@@ -6851,6 +7228,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P53618,P04439,0.0,1.0,InnateDB-All
 ,,,P27797,P04439,0.0,1.0,InnateDB-All
 ,,,Q8N423,P04439,0.0,1.0,InnateDB
+,,,Q8NHL6,P04439,0.0,1.0,InnateDB
 ,,,O15533,P04439,0.0,1.0,InnateDB-All
 ,,,Q13418,P04439,0.35,0.35,IntAct
 ,,,Q86X19,P04439,0.35,0.35,IntAct
@@ -6862,15 +7240,33 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P53618,P13746,0.0,1.0,InnateDB-All
 ,,,P27797,P13746,0.0,1.0,InnateDB-All
 ,,,Q8N423,P13746,0.0,1.0,InnateDB
+,,,Q8NHL6,P13746,0.0,1.0,InnateDB
 ,,,O15533,P13746,0.0,1.0,InnateDB-All
 ,,,P43628,P13746,0.44,0.44,IntAct
 ,,,Q13418,P13746,0.35,0.35,IntAct
+,,,P63165,HLAA,0.0,1.0,InnateDB-All
+,,,P84996,HLAA,0.0,1.0,InnateDB-All
+,,,Q5JWF2,HLAA,0.0,1.0,InnateDB-All
+,,,P63092,HLAA,0.0,1.0,InnateDB-All
+,,,O95467,HLAA,0.0,1.0,InnateDB-All
+,,,P53618,HLAA,0.0,1.0,InnateDB-All
+,,,P27797,HLAA,0.0,1.0,InnateDB-All
+,,,Q8N423,HLAA,0.0,1.0,InnateDB
+,,,Q8NHL6,HLAA,0.0,1.0,InnateDB
+,,,O15533,HLAA,0.0,1.0,InnateDB-All
 ,,,P63165,P10321,0.0,1.0,InnateDB-All
 ,,,P10321,P10321,0.0,1.0,InnateDB-All
+,,,HLAC,P10321,0.0,1.0,InnateDB-All
 ,,,P07550,P10321,0.0,1.0,InnateDB
 ,,,Q8N423,P10321,0.0,1.0,InnateDB-All
+,,,Q8NHL6,P10321,0.0,1.0,InnateDB-All
 ,,,P43626,P10321,0.0,1.0,InnateDB
 ,,,Q9H2H9,P10321,0.35,0.35,IntAct
+,,,P63165,HLAC,0.0,1.0,InnateDB-All
+,,,HLAC,HLAC,0.0,1.0,InnateDB-All
+,,,P07550,HLAC,0.0,1.0,InnateDB
+,,,Q8N423,HLAC,0.0,1.0,InnateDB-All
+,,,Q8NHL6,HLAC,0.0,1.0,InnateDB-All
 ,,,P63165,O14672,0.0,1.0,InnateDB-All
 ,,,P06239,O14672,0.0,1.0,InnateDB-All
 ,,,P29320,O14672,0.0,1.0,InnateDB-All
@@ -6985,6 +7381,18 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q92673,Q6Q788,0.4,0.4,bhf-ucl
 ,,,P61020,Q6Q788,0.37,0.37,IntAct
 ,,,Q8IXL6,Q6Q788,0.44,0.44,IntAct
+,,,P25445,P46379,0.37,0.37,IntAct
+,,,P10909,P46379,0.37,0.37,IntAct
+,,,P05155,P46379,0.37,0.37,IntAct
+,,,P02751,P46379,0.35,0.35,IntAct
+,,,P21246,P46379,0.37,0.37,IntAct
+,,,O95967,P46379,0.49,0.49,IntAct
+,,,P18428,P46379,0.37,0.37,IntAct
+,,,P02745,P46379,0.37,0.37,IntAct
+,,,Q3V6T2,P46379,0.35,0.35,IntAct
+,,,Q9NPY3,P46379,0.37,0.37,IntAct
+,,,Q12805,P46379,0.56,0.56,IntAct
+,,,Q6E0U4,P46379,0.49,0.49,IntAct
 ,,,P25445,O75888,0.0,1.0,InnateDB-All
 ,,,P19438,O75888,0.0,1.0,InnateDB-All
 ,,,P01116,O75888,0.37,0.37,MINT
@@ -7043,6 +7451,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P98155,P10909,0.0,1.0,InnateDB-All
 ,,,P02748,P10909,0.0,1.0,InnateDB-All
 ,,,P27169,P10909,0.0,1.0,InnateDB-All
+,,,P01857,P10909,0.35,0.35,IntAct
 ,,,P18509,P10909,0.54,0.54,MINT
 ,,,P37023,P10600,0.0,1.0,InnateDB-All
 ,,,P17813,P10600,0.0,1.0,InnateDB-All
@@ -7057,7 +7466,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P15692,P09486,0.0,1.0,InnateDB-All
 ,,,Q99972,P09486,0.53,0.53,IntAct
 ,,,P01127,P09486,0.0,1.0,InnateDB
-,,,P02671,P09486,0.0,1.0,InnateDB
 ,,,P04085,P09486,0.0,1.0,InnateDB
 ,,,P09486,P09486,0.0,1.0,InnateDB-All
 ,,,Q9NY15,P09486,0.0,1.0,InnateDB
@@ -7199,7 +7607,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O43306,P84996,0.0,1.0,InnateDB-All
 ,,,Q08462,P84996,0.0,1.0,InnateDB-All
 ,,,Q6IAA8,P84996,0.0,1.0,InnateDB-All
-,,,Q96RD7,P84996,0.0,1.0,InnateDB-All
 ,,,Q5JWF2,Q5JWF2,0.0,1.0,InnateDB-All
 ,,,P63092,Q5JWF2,0.0,1.0,InnateDB-All
 ,,,O95467,Q5JWF2,0.0,1.0,InnateDB-All
@@ -7207,7 +7614,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O43306,Q5JWF2,0.0,1.0,InnateDB-All
 ,,,Q08462,Q5JWF2,0.0,1.0,InnateDB-All
 ,,,Q6IAA8,Q5JWF2,0.0,1.0,InnateDB-All
-,,,Q96RD7,Q5JWF2,0.0,1.0,InnateDB-All
 ,,,P63092,P63092,0.4,0.4,IntAct
 ,,,O95467,P63092,0.0,1.0,InnateDB-All
 ,,,P49286,P63092,0.37,0.37,IntAct
@@ -7215,14 +7621,12 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O43306,P63092,0.0,1.0,InnateDB-All
 ,,,Q08462,P63092,0.4,0.4,IntAct
 ,,,Q6IAA8,P63092,0.0,1.0,InnateDB-All
-,,,Q96RD7,P63092,0.0,1.0,InnateDB-All
 ,,,Q8N3V7,P63092,0.35,0.35,IntAct
 ,,,O95467,O95467,0.0,1.0,InnateDB-All
 ,,,P43119,O95467,0.0,1.0,InnateDB-All
 ,,,O43306,O95467,0.0,1.0,InnateDB-All
 ,,,Q08462,O95467,0.0,1.0,InnateDB-All
 ,,,Q6IAA8,O95467,0.0,1.0,InnateDB-All
-,,,Q96RD7,O95467,0.0,1.0,InnateDB-All
 ,,,O15169,Q7L5Y9,0.35,0.35,bhf-ucl
 ,,,O75955,Q7L5Y9,0.0,1.0,InnateDB-All
 ,,,Q99972,Q7L5Y9,0.0,1.0,InnateDB-All
@@ -7254,13 +7658,13 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q86X19,P33527,0.35,0.35,IntAct
 ,,,Q9BUZ4,Q9H0M0,0.56,0.56,IntAct
 ,,,P11686,Q9H0M0,0.0,1.0,InnateDB-All
-,,,P17693,Q8N423,0.61,0.61,IntAct
 ,,,P03989,Q8N423,0.4,0.4,IntAct
 ,,,P18465,Q8N423,0.4,0.4,IntAct
 ,,,P30447,Q8N423,0.4,0.4,IntAct
 ,,,P30511,Q8N423,0.0,1.0,InnateDB-All
 ,,,Q9UKU9,Q8N423,0.67,0.67,IntAct
 ,,,Q86XS5,Q8N423,0.71,0.71,IntAct
+,,,HLAF,Q8N423,0.0,1.0,InnateDB-All
 ,,,P50851,P50851,0.0,1.0,InnateDB-All
 ,,,Q86X19,P50851,0.35,0.35,IntAct
 ,,,P60484,Q13464,0.0,1.0,InnateDB-All
@@ -7321,10 +7725,18 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P19440,P19440,0.0,1.0,InnateDB-All
 ,,,P07550,P43121,0.0,1.0,InnateDB-All
 ,,,Q86X19,P43121,0.35,0.35,IntAct
+,,,P08473,P15814,0.35,0.35,MINT
 ,,,P28068,P28067,0.59,0.59,MINT
+,,,HLADMB,P28067,0.0,1.0,InnateDB-All
 ,,,P06340,P28067,0.0,1.0,InnateDB-All
+,,,HLADOA,P28067,0.0,1.0,InnateDB-All
 ,,,Q9P2W7,P28067,0.0,1.0,InnateDB-All
 ,,,P13760,P28067,0.46,0.46,InnateDB-IMEx
+,,,P28068,HLADMA,0.0,1.0,InnateDB-All
+,,,HLADMB,HLADMA,0.0,1.0,InnateDB-All
+,,,P06340,HLADMA,0.0,1.0,InnateDB-All
+,,,HLADOA,HLADMA,0.0,1.0,InnateDB-All
+,,,Q9P2W7,HLADMA,0.0,1.0,InnateDB-All
 ,,,P02751,P01024,0.0,1.0,InnateDB-All
 ,,,P01031,P01024,0.0,1.0,InnateDB-All
 ,,,P01024,P01024,0.0,1.0,InnateDB
@@ -7347,30 +7759,17 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P25942,P11836,0.0,1.0,InnateDB-All
 ,,,P01880,P11836,0.4,0.4,IntAct
 ,,,P01903,Q8TCQ1,0.0,1.0,InnateDB-All
+,,,HLADRA,Q8TCQ1,0.0,1.0,InnateDB-All
 ,,,P01911,Q8TCQ1,0.0,1.0,InnateDB-All
 ,,,Q9GIY3,Q8TCQ1,0.0,1.0,InnateDB-All
 ,,,P04229,Q8TCQ1,0.0,1.0,InnateDB-All
 ,,,Q29974,Q8TCQ1,0.0,1.0,InnateDB-All
+,,,HLADRB1,Q8TCQ1,0.0,1.0,InnateDB-All
 ,,,O00220,Q8TCQ1,0.0,1.0,InnateDB-All
 ,,,P01903,P01912,0.44,0.44,MINT
 ,,,P01903,Q15113,0.0,1.0,InnateDB-All
+,,,HLADRA,Q15113,0.0,1.0,InnateDB-All
 ,,,P00747,Q15113,0.0,1.0,InnateDB-All
-,,,P48509,P26715,0.49,0.49,IntAct
-,,,P11686,P26715,0.49,0.49,IntAct
-,,,P27701,P26715,0.49,0.49,IntAct
-,,,Q9BXN2,P26715,0.49,0.49,IntAct
-,,,P60201,P26715,0.49,0.49,IntAct
-,,,P29033,P26715,0.49,0.49,IntAct
-,,,O75508,P26715,0.49,0.49,IntAct
-,,,O95452,P26715,0.49,0.49,IntAct
-,,,Q9UHP7,P26715,0.49,0.49,IntAct
-,,,Q9NTQ9,P26715,0.49,0.49,IntAct
-,,,Q01453,P26715,0.7,0.7,IntAct
-,,,O95393,P26715,0.49,0.49,IntAct
-,,,Q16617,P26715,0.49,0.49,IntAct
-,,,Q96E93,P26715,0.49,0.49,IntAct
-,,,O95183,P26715,0.49,0.49,IntAct
-,,,Q9BZJ8,P26715,0.49,0.49,IntAct
 ,,,P08754,P21453,0.0,1.0,InnateDB-All
 ,,,P63096,P21453,0.0,1.0,InnateDB-All
 ,,,Q07108,P21453,0.0,1.0,InnateDB-All
@@ -7466,14 +7865,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P01024,O00187,0.0,1.0,InnateDB
 ,,,O00187,O00187,0.0,1.0,InnateDB-All
 ,,,P02751,P00488,0.0,1.0,InnateDB-All
-,,,P02671,P00488,0.0,1.0,InnateDB-All
 ,,,P00488,P00488,0.0,1.0,InnateDB-All
 ,,,P05160,P00488,0.0,1.0,InnateDB-All
-,,,P02751,P02679,0.0,1.0,InnateDB-All
-,,,P02679,P02679,0.0,1.0,InnateDB-All
-,,,P00734,P02679,0.0,1.0,InnateDB
-,,,P02671,P02679,0.8,0.8,IntAct
-,,,P02675,P02679,0.0,1.0,InnateDB-All
 ,,,P02452,P04085,0.0,1.0,InnateDB-All
 ,,,P02751,P04085,0.0,1.0,InnateDB-All
 ,,,P02458,P04085,0.0,1.0,InnateDB-All
@@ -7515,6 +7908,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P16188,Q8IUH5,0.0,1.0,InnateDB-All
 ,,,P04439,Q8IUH5,0.37,0.37,IntAct
 ,,,P13746,Q8IUH5,0.0,1.0,InnateDB-All
+,,,HLAA,Q8IUH5,0.0,1.0,InnateDB-All
 ,,,Q15642,Q8IUH5,0.37,0.37,IntAct
 ,,,P50591,Q8IUH5,0.37,0.37,IntAct
 ,,,Q8IUH5,Q8IUH5,0.37,0.37,IntAct
@@ -7524,6 +7918,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O15130,Q8IUH5,0.37,0.37,IntAct
 ,,,O95867,Q8IUH5,0.37,0.37,IntAct
 ,,,Q7Z699,Q8IUH5,0.51,0.51,IntAct
+,,,P55145,Q8IUH5,0.37,0.37,IntAct
 ,,,P02749,P55040,0.37,0.37,IntAct
 ,,,Q9NRI5,P55040,0.49,0.49,IntAct
 ,,,P56746,P55040,0.37,0.37,IntAct
@@ -7563,6 +7958,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O15496,Q8NEC5,0.49,0.49,IntAct
 ,,,O75711,Q8NEC5,0.56,0.56,IntAct
 ,,,Q2TAL6,Q8NEC5,0.49,0.49,IntAct
+,,,P16671,P07996,0.56,0.56,IntAct
 ,,,P01137,O75339,0.43,0.43,UniProt
 ,,,P01137,Q14766,0.0,1.0,InnateDB-All
 ,,,Q9NYA1,Q14766,0.35,0.35,IntAct
@@ -7575,7 +7971,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q6UY14,O95967,0.49,0.49,IntAct
 ,,,Q9C004,O95967,0.49,0.49,IntAct
 ,,,Q8NEC5,O95967,0.37,0.37,IntAct
-,,,Q99572,O95967,0.49,0.49,IntAct
 ,,,O15375,O95967,0.49,0.49,IntAct
 ,,,P43115,O95967,0.56,0.56,IntAct
 ,,,Q9UHI7,O95967,0.49,0.49,IntAct
@@ -7611,9 +8006,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9UH65,Q9NYQ7,0.37,0.37,IntAct
 ,,,P53618,P17693,0.0,1.0,InnateDB-All
 ,,,P43629,P17693,0.0,1.0,InnateDB
+,,,Q99706,P17693,0.0,1.0,InnateDB
 ,,,P17693,P17693,0.0,1.0,InnateDB-All
-,,,P26715,P17693,0.4,0.4,IntAct
-,,,P26717,P17693,0.4,0.4,IntAct
 ,,,O14654,Q9Y5V3,0.35,0.35,IntAct
 ,,,Q13418,Q9Y5V3,0.35,0.35,IntAct
 ,,,Q9Y239,Q9Y5V3,0.4,0.4,IntAct
@@ -7623,6 +8017,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q8IZ08,Q9Y5V3,0.37,0.37,IntAct
 ,,,O43164,Q9Y5V3,0.0,1.0,InnateDB-All
 ,,,Q9Y5V3,Q9Y5V3,0.62,0.62,IntAct
+,,,P46379,Q9Y5V3,0.4,0.4,IntAct
 ,,,P11274,Q9UK41,0.0,1.0,InnateDB-All
 ,,,Q9BYG5,Q9UK41,0.35,0.35,IntAct
 ,,,Q9Y5E8,P01891,0.35,0.35,IntAct
@@ -7653,8 +8048,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P01892,Q8NHL6,0.4,0.4,IntAct
 ,,,P03989,Q8NHL6,0.4,0.4,IntAct
 ,,,P18465,Q8NHL6,0.4,0.4,IntAct
-,,,P26717,Q13241,0.4,0.4,IntAct
-,,,Q07444,Q13241,0.0,1.0,InnateDB-All
+,,,P30511,Q8NHL6,0.0,1.0,InnateDB-All
+,,,HLAF,Q8NHL6,0.0,1.0,InnateDB-All
 ,,,P84996,P32241,0.0,1.0,InnateDB-All
 ,,,Q5JWF2,P32241,0.0,1.0,InnateDB-All
 ,,,P63092,P32241,0.0,1.0,InnateDB-All
@@ -7670,7 +8065,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q96GD0,P30518,0.0,1.0,InnateDB-All
 ,,,P46089,P30518,0.0,1.0,InnateDB-All
 ,,,Q9BXJ1,P30518,0.0,1.0,InnateDB-All
-,,,Q86X19,Q96RD7,0.35,0.35,IntAct
+,,,P84996,P80303,0.37,0.37,IntAct
+,,,Q2MV58,P80303,0.35,0.35,IntAct
 ,,,P50895,O15230,0.0,1.0,InnateDB-All
 ,,,Q99972,O15230,0.0,1.0,InnateDB-All
 ,,,P00750,O15230,0.0,1.0,InnateDB-All
@@ -7737,6 +8133,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q15019,P01241,0.4,0.4,IntAct
 ,,,P08134,P01241,0.4,0.4,IntAct
 ,,,P00505,P01241,0.4,0.4,IntAct
+,,,P07355,P01241,0.4,0.4,IntAct
 ,,,Q02413,P01241,0.4,0.4,IntAct
 ,,,P13497,P01241,0.0,1.0,InnateDB-All
 ,,,P15924,Q02487,0.4,0.4,IntAct
@@ -7888,27 +8285,23 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q15139,O60602,0.0,1.0,InnateDB
 ,,,Q8WWN9,Q15438,0.49,0.49,IntAct
 ,,,P02751,P78423,0.4,0.4,IntAct
-,,,P02679,P78423,0.52,0.52,IntAct
 ,,,Q13444,P78423,0.4,0.4,IntAct
 ,,,P78423,P78423,0.0,1.0,InnateDB-All
 ,,,P49238,P78423,0.0,1.0,InnateDB
+,,,P01857,Q14773,0.35,0.35,IntAct
 ,,,P23469,P23469,0.31,0.31,MINT
 ,,,Q9NRA1,Q9NRA1,0.44,0.44,IntAct
 ,,,Q14524,P56539,0.0,1.0,InnateDB-All
 ,,,O75923,P56539,0.0,1.0,InnateDB-All
 ,,,Q9BR39,P56539,0.0,1.0,InnateDB-All
 ,,,P02647,P10451,0.37,0.37,IntAct
+,,,P46379,P10451,0.37,0.37,IntAct
 ,,,Q8IXL6,P10451,0.64,0.64,IntAct
 ,,,P24593,P10451,0.0,1.0,InnateDB-All
 ,,,P16070,Q12891,0.0,1.0,InnateDB
-,,,P02751,P02675,0.0,1.0,InnateDB-All
-,,,P27797,P02675,0.0,1.0,InnateDB-All
-,,,P02671,P02675,0.8,0.8,IntAct
 ,,,P02751,P08697,0.0,1.0,InnateDB-All
 ,,,P00746,P08697,0.0,1.0,InnateDB-All
 ,,,P02751,P04196,0.37,0.37,IntAct
-,,,P02679,P04196,0.0,1.0,InnateDB
-,,,P02671,P04196,0.0,1.0,InnateDB-All
 ,,,Q9H2X0,P04196,0.37,0.37,IntAct
 ,,,Q13418,Q96HC4,0.35,0.35,IntAct
 ,,,P63027,O00186,0.0,1.0,InnateDB-All
@@ -7945,15 +8338,10 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P02751,P19827,0.0,1.0,InnateDB-All
 ,,,P02751,Q96IY4,0.0,1.0,InnateDB-All
 ,,,P01023,Q96IY4,0.0,1.0,InnateDB-All
-,,,P02751,P02671,0.0,1.0,InnateDB-All
-,,,P00750,P02671,0.0,1.0,InnateDB-All
-,,,P02671,P02671,0.0,1.0,InnateDB-All
-,,,Q8IXL6,P02671,0.62,0.62,IntAct
 ,,,P02751,P00734,0.0,1.0,InnateDB-All
 ,,,Q07021,P00734,0.46,0.46,UniProt
 ,,,Q96IY4,P00734,0.0,1.0,InnateDB-All
 ,,,P00734,P00734,0.0,1.0,InnateDB-All
-,,,P02671,P00734,0.4,0.4,IntAct
 ,,,P10451,P00734,0.4,0.4,IntAct
 ,,,P07204,P00734,0.44,0.44,IntAct
 ,,,P01008,P00734,0.4,0.4,IntAct
@@ -8051,6 +8439,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P15056,O14807,0.0,1.0,InnateDB-All
 ,,,P04049,P46019,0.0,1.0,InnateDB-All
 ,,,Q93100,P46019,0.49,0.49,IntAct
+,,,P46379,P46019,0.35,0.35,IntAct
 ,,,P17612,P28472,0.0,1.0,InnateDB-All
 ,,,P17252,P28472,0.0,1.0,InnateDB-All
 ,,,P17612,P51787,0.0,1.0,InnateDB-All
@@ -8113,6 +8502,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9Y6Y9,Q8IWL1,0.0,1.0,InnateDB
 ,,,P06239,Q96IF1,0.0,1.0,InnateDB-All
 ,,,Q8NEC5,Q96IF1,0.49,0.49,IntAct
+,,,Q8N2X6,Q96IF1,0.49,0.49,IntAct
 ,,,Q86X19,Q9H2E6,0.35,0.35,IntAct
 ,,,O94875,O14512,0.49,0.49,IntAct
 ,,,P07947,O14512,0.49,0.49,IntAct
@@ -8178,6 +8568,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O15496,P29972,0.49,0.49,IntAct
 ,,,Q9NQ79,P29972,0.56,0.56,IntAct
 ,,,Q7Z699,P29972,0.49,0.49,IntAct
+,,,Q16609,P29972,0.49,0.49,IntAct
 ,,,P49747,P29972,0.49,0.49,IntAct
 ,,,Q9UBU3,P43115,0.0,1.0,InnateDB-All
 ,,,O43597,P07510,0.56,0.56,IntAct
@@ -8326,6 +8717,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O95460,O00165,0.0,1.0,InnateDB-All
 ,,,Q08116,O00165,0.0,1.0,InnateDB-All
 ,,,P13569,P34925,0.35,0.35,IntAct
+,,,P13569,Q02817,0.35,0.35,IntAct
 ,,,Q9NZN1,Q9NZN1,0.0,1.0,InnateDB-All
 ,,,P13569,Q7Z2H8,0.0,1.0,InnateDB
 ,,,Q13884,Q14524,0.0,1.0,InnateDB-All
@@ -8354,6 +8746,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P48764,P35462,0.0,1.0,InnateDB-All
 ,,,Q96NY7,P35462,0.0,1.0,InnateDB-All
 ,,,Q9BXB1,P04440,0.0,1.0,InnateDB-All
+,,,P53618,HLADPB1,0.0,1.0,InnateDB-All
+,,,Q9BXB1,HLADPB1,0.0,1.0,InnateDB-All
 ,,,P20339,O75354,0.35,0.35,IntAct
 ,,,Q9H0H5,O75354,0.35,0.35,IntAct
 ,,,P07602,Q9NYQ6,0.37,0.37,IntAct
@@ -8482,8 +8876,11 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P48061,P46092,0.0,1.0,InnateDB-All
 ,,,Q9Y4X3,P46092,0.0,1.0,InnateDB-All
 ,,,P01909,P01909,0.0,1.0,InnateDB-All
+,,,HLADQA1,P01909,0.0,1.0,InnateDB-All
 ,,,P51693,P01909,0.37,0.37,IntAct
 ,,,P01920,P01909,0.61,0.61,MINT
+,,,HLADQA1,HLADQA1,0.0,1.0,InnateDB-All
+,,,P51693,HLADQA1,0.0,1.0,InnateDB-All
 ,,,Q13424,Q9Y4J8,0.0,1.0,InnateDB-All
 ,,,P25100,Q9Y4J8,0.0,1.0,InnateDB-All
 ,,,Q15049,Q9Y4J8,0.0,1.0,InnateDB-All
@@ -8658,8 +9055,6 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q86X19,P52799,0.35,0.35,IntAct
 ,,,Q9H6B4,Q9H6B4,0.4,0.4,IntAct
 ,,,Q15768,P54753,0.0,1.0,InnateDB-All
-,,,Q15768,Q99572,0.37,0.37,IntAct
-,,,O14936,Q99572,0.37,0.37,IntAct
 ,,,Q15768,Q9NX52,0.0,1.0,InnateDB-All
 ,,,P01236,P13497,0.0,1.0,InnateDB-All
 ,,,O14793,P13497,0.62,0.62,MINT
@@ -8673,6 +9068,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P16188,P43630,0.0,1.0,InnateDB-All
 ,,,P04439,P43630,0.0,1.0,InnateDB-All
 ,,,P13746,P43630,0.0,1.0,InnateDB-All
+,,,HLAA,P43630,0.0,1.0,InnateDB-All
 ,,,P27797,P00451,0.4,0.4,IntAct
 ,,,P00734,P00451,0.0,1.0,InnateDB-All
 ,,,P07225,P00451,0.0,1.0,InnateDB-All
@@ -8740,11 +9136,21 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P43626,Q9TNN7,0.62,0.62,IntAct
 ,,,P43628,Q9TNN7,0.44,0.44,IntAct
 ,,,P43628,P30499,0.62,0.62,IntAct
+,,,Q9NP55,Q99706,0.49,0.49,IntAct
 ,,,P06340,P13765,0.0,1.0,InnateDB-All
+,,,HLADOA,P13765,0.0,1.0,InnateDB-All
 ,,,P28067,P13765,0.0,1.0,InnateDB-All
+,,,HLADMA,P13765,0.0,1.0,InnateDB-All
+,,,P06340,HLADOB,0.0,1.0,InnateDB-All
+,,,HLADOA,HLADOB,0.0,1.0,InnateDB-All
+,,,P28067,HLADOB,0.0,1.0,InnateDB-All
+,,,HLADMA,HLADOB,0.0,1.0,InnateDB-All
 ,,,P06340,P28068,0.0,1.0,InnateDB-All
+,,,HLADOA,P28068,0.0,1.0,InnateDB-All
 ,,,P04229,P28068,0.4,0.4,IntAct
 ,,,P13760,P28068,0.35,0.35,InnateDB-IMEx
+,,,P06340,HLADMB,0.0,1.0,InnateDB-All
+,,,HLADOA,HLADMB,0.0,1.0,InnateDB-All
 ,,,Q9P2W7,Q9P2W7,0.0,1.0,InnateDB-All
 ,,,P36888,Q8IXJ6,0.0,1.0,InnateDB-All
 ,,,P10721,Q8IXJ6,0.0,1.0,InnateDB-All
@@ -8772,6 +9178,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P16066,P01160,0.0,1.0,InnateDB-All
 ,,,P20594,P01160,0.0,1.0,InnateDB-All
 ,,,Q99689,P01270,0.37,0.37,IntAct
+,,,P46379,P01270,0.37,0.37,IntAct
 ,,,P01270,P01270,0.0,1.0,InnateDB-All
 ,,,Q99689,Q14055,0.37,0.37,IntAct
 ,,,P48039,Q14055,0.37,0.37,IntAct
@@ -8779,13 +9186,10 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q99972,Q9NRN5,0.0,1.0,InnateDB-All
 ,,,Q99689,Q8IX03,0.0,1.0,InnateDB-All
 ,,,Q9NQ25,Q9NQ25,0.59,0.59,IntAct
-,,,P02679,P05160,0.0,1.0,InnateDB-All
 ,,,P10586,P14543,0.0,1.0,InnateDB-All
 ,,,P14543,P14543,0.0,1.0,InnateDB-All
 ,,,P98095,P14543,0.0,1.0,InnateDB-All
 ,,,Q8IVT5,P14543,0.35,0.35,IntAct
-,,,P02671,P14543,0.0,1.0,InnateDB-All
-,,,P02675,P14543,0.0,1.0,InnateDB-All
 ,,,Q99748,P56159,0.0,1.0,InnateDB-All
 ,,,P39905,P56159,0.0,1.0,InnateDB-All
 ,,,P41159,O15389,0.0,1.0,InnateDB
@@ -8837,6 +9241,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P02458,P20849,0.0,1.0,InnateDB-All
 ,,,Q9NPB6,P51805,0.35,0.35,IntAct
 ,,,Q9Y5E8,P51805,0.35,0.35,IntAct
+,,,P46379,P51805,0.35,0.35,IntAct
 ,,,Q9NPB6,Q96II8,0.35,0.35,IntAct
 ,,,Q8NB16,Q96II8,0.35,0.35,IntAct
 ,,,Q9BYG5,Q96II8,0.35,0.35,IntAct
@@ -8870,6 +9275,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P08571,Q9UMF0,0.35,0.35,IntAct
 ,,,Q99523,Q9UMF0,0.35,0.35,IntAct
 ,,,Q9BYG5,Q9UMF0,0.35,0.35,IntAct
+,,,P46379,Q9UMF0,0.35,0.35,IntAct
 ,,,P29074,Q9UMF0,0.35,0.35,IntAct
 ,,,Q13418,Q15063,0.35,0.35,IntAct
 ,,,Q9UMX0,Q9NVD7,0.37,0.37,MINT
@@ -8884,6 +9290,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,O95967,P28300,0.0,1.0,InnateDB-All
 ,,,P23142,Q8N2S1,0.37,0.37,IntAct
 ,,,Q96P20,Q8N2S1,0.35,0.35,IntAct
+,,,P01857,Q8N2S1,0.35,0.35,IntAct
 ,,,P00747,Q9HBL7,0.44,0.44,UniProt
 ,,,P35556,P35556,0.44,0.44,MINT
 ,,,P34969,P55083,0.35,0.35,bhf-ucl
@@ -8941,6 +9348,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P49771,P49771,0.0,1.0,InnateDB-All
 ,,,P02647,O14798,0.37,0.37,IntAct
 ,,,P02788,P00450,0.0,1.0,InnateDB-All
+,,,P01857,P00450,0.35,0.35,IntAct
+,,,P01857,P02654,0.35,0.35,IntAct
 ,,,P02647,P01614,0.35,0.35,IntAct
 ,,,P02768,P01614,0.35,0.35,IntAct
 ,,,P02787,P01614,0.35,0.35,IntAct
@@ -9074,11 +9483,14 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P25024,P24593,0.49,0.49,IntAct
 ,,,P05121,P24593,0.0,1.0,InnateDB-All
 ,,,Q9H2H9,P24593,0.49,0.49,IntAct
+,,,P46379,P24593,0.37,0.37,IntAct
 ,,,Q8IXL6,P24593,0.44,0.44,IntAct
 ,,,Q8NFJ6,P24593,0.49,0.49,IntAct
 ,,,Q96GZ6,P24593,0.49,0.49,IntAct
 ,,,P35858,P24593,0.0,1.0,InnateDB-All
 ,,,O95393,Q13530,0.37,0.37,IntAct
+,,,P01909,HLADQB1,0.0,1.0,InnateDB-All
+,,,HLADQA1,HLADQB1,0.0,1.0,InnateDB-All
 ,,,Q9BXB1,A3KMH1,0.0,1.0,InnateDB-All
 ,,,Q9BXB1,P13637,0.0,1.0,InnateDB-All
 ,,,O15537,P13637,0.35,0.35,IntAct
@@ -9108,6 +9520,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q6UXT9,Q2TAL6,0.49,0.49,IntAct
 ,,,Q6UY14,Q9P2W3,0.49,0.49,IntAct
 ,,,Q9NRI5,Q9P2W3,0.49,0.49,IntAct
+,,,Q9Y6C2,Q9P2W3,0.49,0.49,IntAct
 ,,,O95967,P10745,0.49,0.49,IntAct
 ,,,O75197,Q8J025,0.0,1.0,InnateDB-All
 ,,,O14641,Q9BZM1,0.37,0.37,IntAct
@@ -9126,6 +9539,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9UKR3,Q9NQ38,0.0,1.0,InnateDB
 ,,,Q9P0G3,Q9NQ38,0.0,1.0,InnateDB
 ,,,P49903,P49903,0.78,0.78,IntAct
+,,,Q96ID5,P49903,0.37,0.37,IntAct
 ,,,Q8TCY5,Q8TCY5,0.57,0.57,IntAct
 ,,,P32245,Q8TCY5,0.0,1.0,InnateDB-All
 ,,,P41968,Q8TCY5,0.0,1.0,InnateDB-All
@@ -9149,6 +9563,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P14770,P40197,0.5,0.5,IntAct
 ,,,P00749,P55000,0.44,0.44,UniProt
 ,,,P19957,Q9UNI1,0.0,1.0,InnateDB-All
+,,,Q6NT52,Q7Z699,0.49,0.49,IntAct
 ,,,Q8IUH5,P79483,0.37,0.37,IntAct
 ,,,Q8IUH5,Q9NTN9,0.37,0.37,IntAct
 ,,,Q8IUH5,Q96CG8,0.37,0.37,IntAct
@@ -9156,6 +9571,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q6E0U4,Q05329,0.49,0.49,IntAct
 ,,,P51693,Q9UN74,0.37,0.37,IntAct
 ,,,O60383,Q9UN74,0.37,0.37,IntAct
+,,,Q96ID5,Q9UN74,0.37,0.37,IntAct
 ,,,P02652,P02655,0.35,0.35,bhf-ucl
 ,,,P02655,P02655,0.35,0.35,bhf-ucl
 ,,,P02768,P02655,0.35,0.35,IntAct
@@ -9168,6 +9584,9 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q8IXL6,P01034,0.44,0.44,IntAct
 ,,,P02766,Q11203,0.37,0.37,IntAct
 ,,,Q12791,Q2I0M4,0.0,1.0,InnateDB-All
+,,,P02768,P01859,0.35,0.35,IntAct
+,,,P01857,Q9GZM6,0.35,0.35,IntAct
+,,,P02768,Q8NHM4,0.35,0.35,IntAct
 ,,,P10646,P35030,0.0,1.0,InnateDB-All
 ,,,P08709,P08709,0.59,0.59,IntAct
 ,,,P13726,P08709,0.89,0.89,UniProt
@@ -9245,6 +9664,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P01225,P01225,0.0,1.0,InnateDB-All
 ,,,Q96T91,P01225,0.37,0.37,IntAct
 ,,,P05305,P05305,0.0,1.0,InnateDB-All
+,,,P46379,P05305,0.37,0.37,IntAct
 ,,,Q9UNN8,P04070,0.0,1.0,InnateDB-All
 ,,,P04070,P04070,0.0,1.0,InnateDB-All
 ,,,P25815,P25815,0.37,0.37,IntAct
@@ -9338,6 +9758,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q7Z3S9,P52824,0.49,0.49,IntAct
 ,,,Q86X19,Q9HB21,0.35,0.35,IntAct
 ,,,O15455,Q14162,0.0,1.0,InnateDB
+,,,O60235,P26927,0.44,0.44,MINT
 ,,,O60494,P02774,0.0,1.0,InnateDB-All
 ,,,P02774,P02774,0.0,1.0,InnateDB-All
 ,,,P40121,P02774,0.0,1.0,InnateDB-All
@@ -9439,6 +9860,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q7Z3S9,Q9UBD3,0.56,0.56,IntAct
 ,,,Q9HCK4,O95897,0.37,0.37,IntAct
 ,,,Q7Z3S9,P48146,0.56,0.56,IntAct
+,,,Q7Z3S9,Q6ZMM2,0.56,0.56,IntAct
 ,,,Q7Z3S9,Q9GZM5,0.56,0.56,IntAct
 ,,,Q2MV58,Q9H6L2,0.51,0.51,IntAct
 ,,,Q15063,Q9H6L2,0.27,0.27,IntAct
@@ -9447,7 +9869,12 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9UHP7,Q5J5C9,0.49,0.49,IntAct
 ,,,P01892,P30511,0.4,0.4,IntAct
 ,,,Q9H2H9,P30505,0.35,0.35,IntAct
+,,,P01857,P01700,0.35,0.35,IntAct
 ,,,P30447,P30450,0.4,0.4,IntAct
+,,,P46379,P23416,0.37,0.37,IntAct
+,,,P46379,P48304,0.37,0.37,IntAct
+,,,P46379,Q07507,0.37,0.37,IntAct
+,,,P46379,Q969H8,0.37,0.37,IntAct
 ,,,Q08722,Q9P1W8,0.4,0.4,IntAct
 ,,,Q01453,P40198,0.49,0.49,IntAct
 ,,,Q01453,Q92838,0.49,0.49,IntAct
@@ -9460,6 +9887,8 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q8IXL6,O95972,0.4,0.4,IntAct
 ,,,Q8IXL6,O94769,0.44,0.44,IntAct
 ,,,Q8IXL6,Q13103,0.44,0.44,IntAct
+,,,Q8IXL6,P02810,0.44,0.44,IntAct
+,,,Q8TAX7,P02810,0.51,0.51,IntAct
 ,,,Q8IXL6,Q99217,0.44,0.44,IntAct
 ,,,Q8IXL6,Q13316,0.44,0.44,IntAct
 ,,,Q8IXL6,Q9UK55,0.44,0.44,IntAct
@@ -9485,6 +9914,11 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q7Z3B1,Q7Z3B1,0.4,0.4,IntAct
 ,,,P01286,Q02643,0.0,1.0,InnateDB-All
 ,,,P02462,Q07092,0.27,0.27,MINT
+,,,P01857,P28039,0.35,0.35,IntAct
+,,,P01857,P35542,0.35,0.35,IntAct
+,,,P01857,P55289,0.35,0.35,IntAct
+,,,P01857,P01764,0.35,0.35,IntAct
+,,,P01857,P01780,0.35,0.35,IntAct
 ,,,Q13324,P06850,0.0,1.0,InnateDB-All
 ,,,P24387,P55089,0.0,1.0,InnateDB-All
 ,,,P08949,P28336,0.0,1.0,InnateDB-All
@@ -9548,6 +9982,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,P43681,P17787,0.4,0.4,IntAct
 ,,,P30532,P17787,0.56,0.56,IntAct
 ,,,Q86Y78,P17787,0.35,0.35,UniProt
+,,,Q2MV58,P55145,0.35,0.35,IntAct
 ,,,Q2MV58,Q9P2K2,0.35,0.35,IntAct
 ,,,Q2MV58,Q9H6E4,0.35,0.35,IntAct
 ,,,O75356,O75356,0.35,0.35,MINT
@@ -9608,6 +10043,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q8IVJ1,Q96RI9,0.49,0.49,IntAct
 ,,,Q8IVJ1,Q9H7V2,0.49,0.49,IntAct
 ,,,Q9NZD1,Q9H7V2,0.49,0.49,IntAct
+,,,Q9UF72,Q8TDS5,0.49,0.49,IntAct
 ,,,Q96AP7,Q96AP7,0.4,0.4,IntAct
 ,,,Q9HBW1,Q96CW9,0.62,0.62,MINT
 ,,,Q96FL8,Q6UWT2,0.49,0.49,IntAct
@@ -9620,6 +10056,7 @@ PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
 ,,,Q9Y5X9,Q9Y5X9,0.0,1.0,InnateDB-All
 ,,,Q9Y6D0,Q9Y6D0,0.56,0.56,MINT
 ,,,Q13515,Q12934,0.49,0.49,IntAct
+,,,Q13515,Q96MU5,0.49,0.49,IntAct
 ,,,P01270,P49190,0.0,1.0,InnateDB-All
 ,,,O15431,O15431,0.0,1.0,InnateDB-All
 ,,,Q14512,Q9HCT0,0.0,1.0,InnateDB-All
