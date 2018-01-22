@@ -27,10 +27,6 @@ def call(cluster_counts, threshold):
     cluster_counts_with_complex = cluster_counts_filtered.append(
         _get_complex_involved(cluster_counts_filtered, clusters_names))
 
-    print('Filtering Receptor / Ligands')
-    _add_is_receptor_property(cluster_counts_with_complex)
-    _add_is_ligand_property(cluster_counts_with_complex)
-
     print('Cluster Interactions')
     cluster_interactions = _get_all_cluster_interactions(clusters_names)
 
@@ -38,8 +34,6 @@ def call(cluster_counts, threshold):
 
     print('Finding Enabled Interactions')
     enabled_interactions = _get_enabled_interactions(cluster_counts_with_complex, interactions, 0.3)
-
-    enabled_interactions.to_csv('out/TEST_enabled_interactions.csv', index=False)
 
     result_interactions = _result_interactions_table(cluster_interactions, enabled_interactions)
     result_interactions_extended = _result_interactions_extended_table(enabled_interactions, clusters_names,
@@ -91,7 +85,6 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
     result = result_receptor.append(result_ligand)
     result = dataframe_format.bring_columns_to_start(['id_interaction'], result)
     result.drop_duplicates(inplace=True)
-    result.sort_values('id_interaction').to_csv('out/TEST_result_interactions_extended.csv', index=False)
 
     return result
 
@@ -106,12 +99,10 @@ def _get_counts_proteins_of_comlexes(cluster_counts, clusters_names, interaction
                                              left_on='id_multidata%s' % suffix, right_on='complex_multidata_id')
     receptor_complex_interactions = pd.merge(receptor_complex_interactions, cluster_counts,
                                              left_on='protein_multidata_id', right_on='id_multidata')
-    receptor_complex_interactions.to_csv('out/TEST_receptor_complex_interactions.csv')
     result_receptor_complex = receptor_complex_interactions[
         ['id_interaction', 'entry_name', 'name', 'gene_name', 'name%s' % suffix] + list(clusters_names)]
     result_receptor_complex = result_receptor_complex.rename(columns={'name%s' % suffix: 'complex_name'}, index=str)
     result_receptor_complex = result_receptor_complex.assign(is_complex=True)
-    result_receptor_complex.to_csv('out/TEST_receptor_complex.csv')
     return result_receptor_complex
 
 
@@ -158,50 +149,14 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     return result
 
 
-def _add_is_receptor_property(cluster_counts):
-    def is_receptor(multidata):
-        if multidata['receptor'] and multidata['transmembrane']:
-            return True
-
-        return False
-
-    cluster_counts['is_receptor'] = cluster_counts.apply(is_receptor, axis=1)
-
-    return cluster_counts
-
-
-def _add_is_ligand_property(cluster_counts):
-    def is_ligand(multidata):
-
-        if multidata['secretion'] and \
-                not multidata['other']:
-            return True
-
-        if multidata['transmembrane'] and \
-                not multidata['secretion'] and \
-                multidata['extracellular'] and \
-                not multidata['cytoplasm'] and \
-                not multidata['other'] and \
-                not multidata['transporter']:
-            return True
-
-        return False
-
-    cluster_counts['is_ligand'] = cluster_counts.apply(is_ligand, axis=1)
-    return cluster_counts
-
-
 def _cellphone_genes(cluster_counts):
-    '''
+    """
     Merges cluster genes with CellPhoneDB values
     :type cluster_counts: pd.DataFrame()
     :rtype: pd.DataFrame()
-    '''
-    gene_protein_query = db.session.query(Gene.ensembl, Gene.gene_name, Protein.entry_name, Multidata.id_multidata,
-                                          Multidata.receptor, Multidata.other,
-                                          Multidata.transmembrane, Multidata.transporter, Multidata.cytoplasm,
-                                          Multidata.secretion, Multidata.name, Multidata.extracellular,
-                                          Multidata.iuhpar_ligand).join(Protein).join(Multidata)
+    """
+    gene_protein_query = db.session.query(Gene.ensembl, Gene.gene_name, Protein.entry_name, Multidata).join(
+        Protein).join(Multidata)
     gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
 
     multidata_counts = pd.merge(cluster_counts, gene_protein_df, left_index=True, right_on='ensembl')
@@ -210,11 +165,11 @@ def _cellphone_genes(cluster_counts):
 
 
 def _get_complex_involved(multidata_counts, clusters_names):
-    '''
+    """
     Gets complexes involved in counts
     :type multidata_counts: pd.DataFrame()
     :rtype: pd.DataFrame
-    '''
+    """
 
     complex_composition = complex_repository.get_all_compositions()
 
@@ -234,10 +189,7 @@ def _get_complex_involved(multidata_counts, clusters_names):
     complex_counts_composition = complex_counts_composition[
         complex_counts_composition.apply(all_protein_involved, axis=1)]
 
-    complex_multidata_query = db.session.query(Multidata.id_multidata, Multidata.receptor, Multidata.other,
-                                               Multidata.transmembrane, Multidata.transporter, Multidata.cytoplasm,
-                                               Multidata.secretion, Multidata.name, Multidata.extracellular,
-                                               Multidata.iuhpar_ligand).join(Complex)
+    complex_multidata_query = db.session.query(Multidata, Complex).join(Complex)
     complex_multidata_df = pd.read_sql(complex_multidata_query.statement, db.engine)
 
     complex_counts_composition = pd.merge(complex_counts_composition, complex_multidata_df,
@@ -257,10 +209,7 @@ def _get_complex_involved(multidata_counts, clusters_names):
 
     complex_counts = complex_counts.apply(set_complex_cluster_counts, axis=1)
 
-    complex_counts = complex_counts[list(clusters_names) + ['id_multidata', 'receptor', 'other', 'transmembrane',
-                                                            'transporter', 'cytoplasm', 'secretion', 'name',
-                                                            'iuhpar_ligand',
-                                                            'extracellular']]
+    complex_counts = complex_counts[list(clusters_names) + list(complex_multidata_df.columns.values)]
 
     complex_counts['is_complex'] = True
 
@@ -270,13 +219,13 @@ def _get_complex_involved(multidata_counts, clusters_names):
 
 
 def _apply_threshold(cluster_counts, cluster_names, threshold):
-    '''
+    """
     Sets to 0 minor value colunts than threshold
     :type cluster_counts: pd.DataFrame()
     :type cluster_names: list
     :type threshold: float
     :rtype: pd.DataFrame()
-    '''
+    """
     cluster_counts_filtered = cluster_counts.copy()
     for cluster_name in cluster_names:
         cluster_counts_filtered.loc[
@@ -302,8 +251,6 @@ def _check_receptor_ligand_interactions(cluster_interaction, enabled_interaction
 
     result = enabled_interactions.apply(get_relation_score, axis=1)
 
-    result.to_csv('out/TEST_cluster_interactions.csv', index=False)
-
     return result[[clusters_interaction_name]]
 
 
@@ -315,8 +262,8 @@ def _get_enabled_interactions(cluster_counts, interactions, min_score_2):
     :type min_score_2: float
     :rtype: pd.DataFrame
     """
-    multidata_receptors = cluster_counts[cluster_counts['is_receptor']]
-    multidata_ligands = cluster_counts[cluster_counts['is_ligand']]
+    multidata_receptors = cluster_counts[cluster_counts['is_cellphone_receptor']]
+    multidata_ligands = cluster_counts[cluster_counts['is_cellphone_ligand']]
 
     receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
                                      right_on='multidata_1_id')
