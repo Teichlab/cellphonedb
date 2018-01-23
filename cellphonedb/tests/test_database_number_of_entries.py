@@ -23,7 +23,7 @@ class DatabaseNumberOfEntries(TestCase):
         query = db.session.query(Gene.id_gene)
         dataframe = pd.read_sql(query.statement, db.engine)
 
-        self.assertEqual(len(dataframe), 5847, 'Number of Gene entries are different')
+        self.assertEqual(len(dataframe), 9852, 'Number of Gene entries are different')
 
     def test_complex(self):
         query = db.session.query(Complex.id_complex)

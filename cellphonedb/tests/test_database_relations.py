@@ -11,7 +11,7 @@ from cellphonedb.models.protein.db_model_protein import Protein
 class DatabaseRelationsChecks(TestCase):
     def test_all_protein_have_gen(self):
 
-        expected_protein_without_gene = 226
+        expected_protein_without_gene = 234
         protein_query = db.session.query(Protein, Multidata.name).join(Multidata)
 
         protein_df = pd.read_sql(protein_query.statement, db.engine)
