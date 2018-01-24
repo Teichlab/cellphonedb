@@ -12,7 +12,7 @@ from cellphonedb.repository import complex_repository
 from utilities import dataframe_format
 
 
-def call(cluster_counts, threshold):
+def call(cluster_counts, threshold, enable_integrin):
     print('Receptor Ligands Interactions Initializated')
     clusters_names = cluster_counts.columns.values
     cluster_counts_cellphone = _cellphone_genes(cluster_counts)
@@ -33,7 +33,7 @@ def call(cluster_counts, threshold):
     interactions = _get_interactions()
 
     print('Finding Enabled Interactions')
-    enabled_interactions = _get_enabled_interactions(cluster_counts_with_complex, interactions, 0.3)
+    enabled_interactions = _get_enabled_interactions(cluster_counts_with_complex, interactions, 0.3, enable_integrin)
 
     result_interactions = _result_interactions_table(cluster_interactions, enabled_interactions)
     result_interactions_extended = _result_interactions_extended_table(enabled_interactions, clusters_names,
@@ -140,6 +140,9 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result['source'] = enabled_interactions['source']
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
+
+    if 'is_integrin' in enabled_interactions:
+        result['is_integrin'] = enabled_interactions['is_integrin']
 
     result.drop_duplicates(inplace=True)
     result.sort_values('interaction_ratio', inplace=True)
@@ -254,7 +257,34 @@ def _check_receptor_ligand_interactions(cluster_interaction, enabled_interaction
     return result[[clusters_interaction_name]]
 
 
-def _get_enabled_interactions(cluster_counts, interactions, min_score_2):
+def _get_enabled_integrin_interactions(cluster_counts, interactions):
+    """
+
+    :type cluster_counts: pd.DataFrame
+    :type interactions: pd.DataFrame
+    :rtype: pd.DataFrame
+    """
+    multidata_receptors = cluster_counts[cluster_counts['integrin_interaction']]
+
+    receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
+                                     right_on='multidata_1_id')
+    enabled_interactions = pd.merge(cluster_counts, receptor_interactions, left_on='id_multidata',
+                                    right_on='multidata_2_id', suffixes=['_ligands', '_receptors'])
+
+    receptor_interactions_inverted = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
+                                              right_on='multidata_2_id')
+
+    enabled_interactions_inverted = pd.merge(cluster_counts, receptor_interactions_inverted, left_on='id_multidata',
+                                             right_on='multidata_1_id', suffixes=['_ligands', '_receptors'])
+
+    enabled_interactions = enabled_interactions.append(enabled_interactions_inverted).reset_index(drop=True)
+
+    enabled_interactions.drop_duplicates(inplace=True)
+
+    return enabled_interactions
+
+
+def _get_enabled_interactions(cluster_counts, interactions, min_score_2, enable_integrin):
     """
 
     :type cluster_counts: pd.DataFrame
@@ -262,22 +292,40 @@ def _get_enabled_interactions(cluster_counts, interactions, min_score_2):
     :type min_score_2: float
     :rtype: pd.DataFrame
     """
+
+    interactions.to_csv('out/TEST_interactions_no_filtered.csv', index=False)
+    enabled_interactions = _get_receptor_ligands_interactions(cluster_counts, interactions)
+    enabled_interactions['is_integrin'] = False
+
+    if enable_integrin:
+        integrin_interactions = _get_enabled_integrin_interactions(cluster_counts, interactions)
+        integrin_interactions['is_integrin'] = True
+        enabled_interactions = integrin_interactions.append(enabled_interactions)
+
+    enabled_interactions = enabled_interactions[enabled_interactions['score_2'] > min_score_2]
+
+    print(enabled_interactions[enabled_interactions.duplicated(['multidata_1_id', 'multidata_2_id'])])
+
+    enabled_interactions.drop_duplicates(['id_multidata_ligands', 'id_multidata_receptors'], inplace=True)
+    enabled_interactions.reset_index(drop=True, inplace=True)
+
+    return enabled_interactions
+
+
+def _get_receptor_ligands_interactions(cluster_counts, interactions):
     multidata_receptors = cluster_counts[cluster_counts['is_cellphone_receptor']]
     multidata_ligands = cluster_counts[cluster_counts['is_cellphone_ligand']]
-
     receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
                                      right_on='multidata_1_id')
     enabled_interactions = pd.merge(multidata_ligands, receptor_interactions, left_on='id_multidata',
                                     right_on='multidata_2_id', suffixes=['_ligands', '_receptors'])
-
     receptor_interactions_inverted = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
                                               right_on='multidata_2_id')
     enabled_interactions_inverted = pd.merge(multidata_ligands, receptor_interactions_inverted, left_on='id_multidata',
                                              right_on='multidata_1_id', suffixes=['_ligands', '_receptors'])
-
     enabled_interactions = enabled_interactions.append(enabled_interactions_inverted).reset_index(drop=True)
 
-    enabled_interactions = enabled_interactions[enabled_interactions['score_2'] > min_score_2]
+    enabled_interactions.drop_duplicates(['id_multidata_ligands', 'id_multidata_receptors'], inplace=True)
     return enabled_interactions
 
 
