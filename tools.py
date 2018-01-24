@@ -125,13 +125,16 @@ def generate_interactions(imex_original_namefile, database_proteins_namefile, da
     complexes = pd.read_csv('%s/%s' % (data_dir, database_complex_namefile))
     interactions_to_remove = pd.read_csv('%s/%s' % (data_dir, interaction_to_remove_namefile))
     interaction_curated = pd.read_csv('%s/%s' % (data_dir, interaction_curated_namefile))
-
+    print('generating imex file')
     imex_interactions = parse_interactions_imex(interactions_base, proteins, genes)
 
+    print('removing complex interactions')
     no_complex_interactions = only_noncomplex_interactions(imex_interactions, complexes)
 
+    print('removing selected interactions')
     clean_interactions = remove_interactions_in_file(no_complex_interactions, interactions_to_remove)
 
+    print('adding curated interaction')
     interactions_with_curated = add_curated(clean_interactions, interaction_curated)
 
     interactions_with_curated.to_csv('%s/interaction.csv' % output_dir, index=False)

@@ -1,7 +1,5 @@
 comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,score_2,source
 "3tgx, PDB partially",,IL21_HUMAN,IL21 receptor,Q9HBE4,1.0,1.0,curated
-,,LIF_HUMAN,LIFR,P15018,1.0,1.0,curated
-,,IL9_HUMAN,IL9 receptor,P15248,1.0,1.0,curated
 ,,IL9_HUMAN,IL9 receptor,P15248,1.0,1.0,curated
 "Induces NK Cell Activation. Reviewed in PMID: 24223577. 4s0u, PDB partially",,RET1L_HUMAN,NKG2D II receptor,Q5VY80,1.0,1.0,curated
 "1pvh, PDB partially",,LIF_HUMAN,LIFR,P15018,1.0,1.0,curated
@@ -28,17 +26,14 @@ InWeb: P36894 P43026,,GDF5_HUMAN,BMPR1A complex,P43026,1.0,1.0,curated
 "2jjs, PDB partially",,CD47_HUMAN,SIRB1 complex,Q08722,1.0,1.0,curated
 "3dgc, PDB",,IL22_HUMAN,IL22 receptor,Q9GZX6,1.0,1.0,curated
 "5ffo, PDB",,TGFB1_HUMAN,aVb6 complex,P01137,1.0,1.0,curated
-,,IL6_HUMAN,IL6 receptor,P05231,1.0,1.0,curated
 "1hyr, PDB partially, Induces NK Cell Activation. Reviewed in PMID: 24223577",,MICA_HUMAN,NKG2D II receptor,Q29983,1.0,1.0,curated
 Induces NK Cell Activation. Reviewed in PMID: 24223577,,MICB_HUMAN,NKG2D II receptor,Q29980,1.0,1.0,curated
 ,,CLCF1_HUMAN,CNTF-1R,Q9UBD9,1.0,1.0,curated
 "4dep, PDB",,IL1B_HUMAN,IL1 receptor,P01584,1.0,1.0,curated
 "3o4o, PDB",,IL1B_HUMAN,IL1 receptor inhibitor,P01584,1.0,1.0,curated
-"4n0u, PDB",,ALBU_HUMAN,FcRn complex,P02768,1.0,1.0,curated
-"4k71, PDB",,ALBU_HUMAN,FcRn complex,P02768,1.0,1.0,curated
+"4n0u, PDB & 4k71, PDB",,ALBU_HUMAN,FcRn complex,P02768,1.0,1.0,curated
 "1j7v, PDB partially",,IL10_HUMAN,IL10 receptor,P22301,1.0,1.0,curated
 "5j11, PDB",,TSLP_HUMAN,TSLPR,Q969D9,1.0,1.0,curated
-,,TSLP_HUMAN,TSLPR,Q969D9,1.0,1.0,curated
 "Induces NK Cell Activation. Reviewed in PMID: 24223577. 1kcg, PDB partially",,N2DL3_HUMAN,NKG2D II receptor,Q9BZM4,1.0,1.0,curated
 "1p9m, PDB",,IL6_HUMAN,IL6 receptor,P05231,1.0,1.0,curated
 ,,IL17_HUMAN,IL17 receptor AC,Q16552,1.0,1.0,curated
@@ -58,7 +53,6 @@ InWeb: P12644 P36894,,BMP4_HUMAN,BMPR1A complex,P12644,1.0,1.0,curated
 ,,I36RA_HUMAN,IL36 receptor,Q9UBH0,1.0,1.0,curated
 "InWeb: P12643 Q13873; NA, lower affinity ",,BMP2_HUMAN,BMPR1B complex,P12643,1.0,1.0,curated
 "1es7, PDB partially higher affinity",,BMP2_HUMAN,BMPR1A complex,P12643,1.0,1.0,curated
-InWeb:P12643 P36894; P12643 Q13873,,BMP2_HUMAN,BMPR1A complex,P12643,1.0,1.0,curated
 ,,IL19_HUMAN,IL20 receptor Type I,Q9UHD0,1.0,1.0,curated
 ,,IL20_HUMAN,IL20 receptor Type II,Q9NYY1,1.0,1.0,curated
 ,,IL20_HUMAN,IL20 receptor Type I,Q9NYY1,1.0,1.0,curated
@@ -86,17 +80,12 @@ Induces NK Cell Activation. Reviewed in PMID: 24223577,,N2DL4_HUMAN,NKG2D II rec
 Induces NK Cell Activation. Reviewed in PMID: 24223577,,RET1G_HUMAN,NKG2D II receptor,Q6H3X3,1.0,1.0,curated
 Induces NK Cell Inhibition. Reviewed in PMID: 24223577,HLAE_HUMAN,NKG2A_HUMAN,P13747,P26715,1.0,1.0,curated
 Induces NK Cell Activation. Reviewed in PMID: 24223577,HLAE_HUMAN,NKG2D_HUMAN,P13747,P26718,1.0,1.0,curated
-Induces NK Cell Inhibition. Reviewed in PMID:24987108,HLAG_HUMAN,LIRB1_HUMAN,P17693,Q8NHL6,1.0,1.0,curated
 Induces NK Cell Inhibition. Reviewed in PMID:24987108,CEAM5_HUMAN,CEAM1_HUMAN,P06731,P13688,1.0,1.0,curated
-Induces NK Cell Inhibition. Reviewed in PMID:24987108,PVR_HUMAN,TIGIT_HUMAN,P15151,Q495A1,1.0,1.0,curated
-Induces NK Cell Inhibition. Reviewed in PMID:24987108,TIGIT_HUMAN,PVRL2_HUMAN,Q495A1,Q92692,1.0,1.0,curated
 antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,CD28_HUMAN,CD80_HUMAN,P10747,P33681,1.0,1.0,curated
 antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,CD28_HUMAN,CD86_HUMAN,P10747,P42081,1.0,1.0,curated
 antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143,CTLA4_HUMAN,CD80_HUMAN,P16410,P33681,1.0,1.0,curated
 antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143,CTLA4_HUMAN,CD86_HUMAN,P16410,P42081,1.0,1.0,curated
 important for T follicular helper cells (Tfh) and type 2 T helper cell (Th2) responses. Reviewed in PMID: 23954143,ICOS_HUMAN,ICOSL_HUMAN,Q9Y6W8,O75144,1.0,1.0,curated
-NK cell cytotoxicity. PMID: 24440149,CD226_HUMAN,PVR_HUMAN,Q15762,P15151,1.0,1.0,curated
-NK cell cytotoxicity. PMID: 24440149,CD226_HUMAN,NECT2_HUMAN,Q15762,Q92692,1.0,1.0,curated
 antigen-stimulated T cells become anergic. PMID: 23954143,PDCD1_HUMAN,PD1L1_HUMAN,Q15116,Q9NZQ7,1.0,1.0,curated
 antigen-stimulated T cells become anergic. PMID: 23954143,PDCD1_HUMAN,PD1L2_HUMAN,Q15116,Q9BQ51,1.0,1.0,curated
 Reviewed in PMID: 27192565,HAVR2_HUMAN,LEG9_HUMAN,Q8TDQ0,O00182,1.0,1.0,curated
@@ -108,8 +97,8 @@ Reviewed in PMID: 23602662,CD6_HUMAN,CD166_HUMAN,P30203,Q13740,1.0,1.0,curated
 Reviewed in PMID: 23602662,ICAM1_HUMAN,ITAL_HUMAN,P05362,P20701,1.0,1.0,curated
 activating interaction from uniprot,NCTR3_HUMAN,BAG6_HUMAN,O14931,P46379,1.0,1.0,curated
 activating interaction from uniprot,NCTR3_HUMAN,NR3L1_HUMAN,O14931,Q68D85,1.0,1.0,curated
-activating interaction PMID: 15607800,CD226_HUMAN,NECT2_HUMAN,Q15762,Q92692,1.0,1.0,curated
-activating interaction PMID: 15607800,CD226_HUMAN,PVR_HUMAN,Q15762,P15151,1.0,1.0,curated
+"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149",CD226_HUMAN,NECT2_HUMAN,Q15762,Q92692,1.0,1.0,curated
+"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149",CD226_HUMAN,PVR_HUMAN,Q15762,P15151,1.0,1.0,curated
 activating interaction. uniprot & PMID: 26697006,NKG2C_HUMAN,HLAE_HUMAN,P26717,P13747,1.0,1.0,curated
 activating interaction. uniprot & PMID: 26697006,CD244_HUMAN,CD48_HUMAN,Q9BZW8,P09326,1.0,1.0,curated
 activating interaction for NK and T cells. uniprot & PMID: 26697006,CD27_HUMAN,CD70_HUMAN,P26842,P32970,1.0,1.0,curated
@@ -117,11 +106,11 @@ PMID: 24319778,SEM4D_HUMAN,CD72_HUMAN,Q92854,P21854,1.0,1.0,curated
 uniprot,CRTAM_HUMAN,CADM1_HUMAN,O95727,Q9BY67,1.0,1.0,curated
 uniprot,TACT_HUMAN,PVR_HUMAN,P40200,P15151,1.0,1.0,curated
 PMID: 24658051,TACT_HUMAN,NECT1_HUMAN,P40200,Q15223,1.0,1.0,curated
-PMID: 19815499,TIGIT_HUMAN,PVR_HUMAN,Q495A1,P15151,1.0,1.0,curated
-PMID: 1313846,TIGIT_HUMAN,NECT2_HUMAN,Q495A1,Q92692,1.0,1.0,curated
+"PMID: 19815499, Induces NK Cell Inhibition. Reviewed in PMID:24987108",TIGIT_HUMAN,PVR_HUMAN,Q495A1,P15151,1.0,1.0,curated
+"PMID: 1313846, Induces NK Cell Inhibition. Reviewed in PMID:24987108",TIGIT_HUMAN,NECT2_HUMAN,Q495A1,Q92692,1.0,1.0,curated
 PMID: 1313846,TIGIT_HUMAN,NECT3_HUMAN,Q495A1,Q9NQS3,1.0,1.0,curated
 PMID:15107857,EPHB2_HUMAN,EFNA5_HUMAN,P29323,P52803,1.0,1.0,curated
-uniprot,LIRB1_HUMAN,HLAG_HUMAN,Q8NHL6,P17693,1.0,1.0,curated
+"uniprot, Induces NK Cell Inhibition. Reviewed in PMID:24987108",LIRB1_HUMAN,HLAG_HUMAN,Q8NHL6,P17693,1.0,1.0,curated
 uniprot,LIRB2_HUMAN,HLAG_HUMAN,Q8N423,P17693,1.0,1.0,curated
 uniprot,,VEGFA_HUMAN,FLT1 complex,P15692,1.0,1.0,curated
 uniprot,,VEGFB_HUMAN,FLT1 complex,P49765,1.0,1.0,curated
@@ -144,13 +133,11 @@ uniprot,,CADH1_HUMAN,aEb7 complex,P12830,1.0,1.0,curated
 uniprot,,FINC_HUMAN,a2b1 complex,P02751,1.0,1.0,curated
 uniprot,,FINC_HUMAN,a3b1 complex,P02751,1.0,1.0,curated
 uniprot,,FINC_HUMAN,a4b1 complex,P02751,1.0,1.0,curated
-uniprot,,FINC_HUMAN,a5b1 complex,P02751,1.0,1.0,curated
 uniprot,,FINC_HUMAN,a8b1 complex,P02751,1.0,1.0,curated
 uniprot,,FINC_HUMAN,a10b1 complex,P02751,1.0,1.0,curated
 uniprot,,FINC_HUMAN,a11b1 complex,P02751,1.0,1.0,curated
 uniprot,,FINC_HUMAN,aVb1 complex,P02751,1.0,1.0,curated
 uniprot,,FINC_HUMAN,a5b1 complex,P02751,1.0,1.0,curated
-uniprot,,LAMC1_HUMAN,a2b1 complex,P11047,1.0,1.0,curated
 uniprot,,LAMC1_HUMAN,a2b1 complex,P11047,1.0,1.0,curated
 uniprot,,LAMC1_HUMAN,a6b1 complex,P11047,1.0,1.0,curated
 uniprot,,LAMC1_HUMAN,a7b1 complex,P11047,1.0,1.0,curated
@@ -161,11 +148,9 @@ uniprot,,PA2GA_HUMAN,a4b1 complex,P14555,1.0,1.0,curated
 uniprot,,PA2GA_HUMAN,a5b1 complex,P14555,1.0,1.0,curated
 uniprot,,FBN1_HUMAN,a5b1 complex,P35555,1.0,1.0,curated
 uniprot,,VCAM1_HUMAN,a9b1 complex,P19320,1.0,1.0,curated
-uniprot,,OSTP_HUMAN,a9b1 complex,P10451,1.0,1.0,curated
 uniprot,,FINC_HUMAN,aVb3 complex,P02751,1.0,1.0,curated
 uniprot,,LAMC1_HUMAN,aVb3 complex,P11047,1.0,1.0,curated
 uniprot,,MMP2_HUMAN,aVb3 complex,P08253,1.0,1.0,curated
-uniprot,,OSTP_HUMAN,aVb3 complex,P10451,1.0,1.0,curated
 uniprot,,OMD_HUMAN,aVb3 complex,Q99983,1.0,1.0,curated
 uniprot,,THRB_HUMAN,aVb3 complex,P00734,1.0,1.0,curated
 uniprot,,TSP1_HUMAN,aVb3 complex,P07996,1.0,1.0,curated
@@ -178,8 +163,6 @@ uniprot,,THRB_HUMAN,a2Bb3 complex,P00734,1.0,1.0,curated
 uniprot,,TSP1_HUMAN,a2Bb3 complex,P07996,1.0,1.0,curated
 uniprot,,VTNC_HUMAN,a2Bb3 complex,P04004,1.0,1.0,curated
 uniprot,,TENA_HUMAN,a8b1 complex,P24821,1.0,1.0,curated
-uniprot,,TENA_HUMAN,a9b1 complex,P24821,1.0,1.0,curated
-uniprot,,TENA_HUMAN,aVb3 complex,P24821,1.0,1.0,curated
 uniprot,,TENA_HUMAN,aVb6 complex,P24821,1.0,1.0,curated
 uniprot,,MADCA_HUMAN,a4b7 complex,Q13477,1.0,1.0,curated
 uniprot,,FINC_HUMAN,aVb5 complex,P02751,1.0,1.0,curated

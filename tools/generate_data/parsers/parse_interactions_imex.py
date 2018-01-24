@@ -1,13 +1,12 @@
 import math
-
 import pandas as pd
 
-from tools.app import output_dir
 from tools.interaction_actions import _only_uniprots_in_df
+from tools.repository.interaction import normalize_interactions
 
 
 def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
-    '''
+    """
     Parses interactions list from IMEx data file.
     Steps:
         1. Get Uniprot values from columns A and B
@@ -33,7 +32,7 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
     :typetype protein_df: pd.DataFrame()
     :type gene_df: pd.DataFrame()
     :rtype: pd.DataFrame()
-    '''
+    """
     interactions_base_df.dropna(how='any', subset=['A', 'B'], inplace=True)
 
     custom_interactions = pd.DataFrame()
@@ -112,13 +111,13 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
     custom_interactions = custom_interactions.apply(get_score, axis=1)
 
     def set_score_duplicates(interaction):
-        '''
+        """
         Returns the interaction with max score_1. Instact-miscore predominates over default score values
         :type interaction: pd.Series()
         :rtype: pd.Series()
-        '''
+        """
         same_interactions = custom_interactions[(custom_interactions['protein_1'] == interaction['protein_1']) & (
-            custom_interactions['protein_2'] == interaction['protein_2'])]
+                custom_interactions['protein_2'] == interaction['protein_2'])]
 
         interactions_intacted = same_interactions[same_interactions['has_intacted'] == True]
         if not interactions_intacted.empty:
@@ -128,36 +127,13 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
         index_max = same_interactions['score_1'].argmax()
         return same_interactions.loc[index_max]
 
-    def normalize_permutations(interaction):
-        '''
-        Permutes inversed interactions.
-        :type interaction: pd.Series()
-        :rtype: pd.Series()
-        '''
-        if interaction['protein_2'] != interaction['protein_1']:
-            duplicated_inversed = custom_interactions[(custom_interactions['protein_2'] == interaction['protein_1']) & (
-                custom_interactions['protein_1'] == interaction['protein_2'])]
-
-            if len(duplicated_inversed):
-                first_interaction_duplicate = duplicated_inversed.iloc[0]
-
-                if first_interaction_duplicate.name < interaction.name:
-                    interaction['protein_1'] = first_interaction_duplicate['protein_1']
-                    interaction['protein_2'] = first_interaction_duplicate['protein_2']
-
-                return interaction
-
-        return interaction
-
-    custom_interactions = custom_interactions.apply(normalize_permutations, axis=1)
+    custom_interactions = normalize_interactions(custom_interactions)
 
     custom_interactions_unique = custom_interactions.drop_duplicates(['protein_1', 'protein_2'], keep='first')
 
     custom_interactions_unique = custom_interactions_unique.apply(set_score_duplicates, axis=1)
 
     custom_interactions_unique = custom_interactions_unique[['protein_1', 'protein_2', 'score_1', 'score_2', 'source']]
-    custom_interactions_unique.to_csv(
-        '%s/cellphone_interactions_imex.csv' % output_dir, index=False)
 
     _validate_sources(custom_interactions_unique['source'].tolist(), interactions_base_df['provider'].tolist())
 
@@ -165,12 +141,12 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
 
 
 def _validate_sources(generated_sources, original_sources):
-    '''
+    """
     Check if all original soruces exist in generated source
     :type generated_sources: list
     :type original_sources: list
     :rtype: bool
-    '''
+    """
 
     generated_sources = list(set(generated_sources))
     original_sources = list(set(original_sources))
