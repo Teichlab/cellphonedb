@@ -27,7 +27,7 @@ KNOWED_PROTEINS_WITHOUT_GENE = ['Q5VU13', 'P48960', 'Q30KQ2', 'Q6UXV3', 'Q8WXG9'
 class DatabaseRelationsChecks(TestCase):
     def test_all_protein_have_gen(self):
 
-        expected_protein_without_gene = 161
+        expected_protein_without_gene = 159
         protein_query = db.session.query(Protein, Multidata.name).join(Multidata)
 
         protein_df = pd.read_sql(protein_query.statement, db.engine)
