@@ -21,3 +21,30 @@ def filter_receptor_ligand_ligand_receptor(interactions_expanded: pd.DataFrame, 
         lambda interaction: properties_interaction.is_receptor_ligand_or_ligand_receptor(interaction, suffix), axis=1)]
 
     return result
+
+
+def _filter_by_integrin(proteins, interactions):
+    """
+
+    :type proteins: pd.DataFrame
+    :type interactions: pd.DataFrame
+    :rtype: pd.DataFrame
+    """
+    multidata_receptors = proteins[proteins['integrin_interaction']]
+
+    receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
+                                     right_on='multidata_1_id')
+    enabled_interactions = pd.merge(proteins, receptor_interactions, left_on='id_multidata',
+                                    right_on='multidata_2_id', suffixes=['_ligands', '_receptors'])
+
+    receptor_interactions_inverted = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
+                                              right_on='multidata_2_id')
+
+    enabled_interactions_inverted = pd.merge(proteins, receptor_interactions_inverted, left_on='id_multidata',
+                                             right_on='multidata_1_id', suffixes=['_ligands', '_receptors'])
+
+    enabled_interactions = enabled_interactions.append(enabled_interactions_inverted).reset_index(drop=True)
+
+    enabled_interactions.drop_duplicates(inplace=True)
+
+    return enabled_interactions
