@@ -30,6 +30,7 @@ def _filter_by_integrin(proteins, interactions):
     :type interactions: pd.DataFrame
     :rtype: pd.DataFrame
     """
+    print('Filtering by integrin')
     multidata_receptors = proteins[proteins['integrin_interaction']]
 
     receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
