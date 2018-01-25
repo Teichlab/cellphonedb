@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+import os
 import pandas as pd
 
 from cellphonedb.models.interaction import filter_interaction
@@ -7,9 +8,10 @@ from cellphonedb.models.interaction import filter_interaction
 
 class IntegrinInteractions(TestCase):
     def test_asd(self):
-        proteins = pd.read_csv('fixtures/integrin_proteins.csv')
-        interactions = pd.read_csv('fixtures/integrin_interactions.csv')
-        test_results = pd.read_csv('fixtures/integrin_enabled_interactions.csv')
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        proteins = pd.read_csv('{}/fixtures/integrin_proteins.csv'.format(current_dir))
+        interactions = pd.read_csv('{}/fixtures/integrin_interactions.csv'.format(current_dir))
+        test_results = pd.read_csv('{}/fixtures/integrin_enabled_interactions.csv'.format(current_dir))
 
         filtered_interactions = filter_interaction._filter_by_integrin(proteins, interactions)
 
