@@ -153,8 +153,9 @@ def receptor_ligands_interactions_unprocessed_example():
     receptor_ligands_interactions, receptor_ligands_interactions_extended, cells_to_clusters = receptor_ligands_interactions_unprocessed_request(
         meta, counts, threshold)
 
-    receptor_ligands_interactions.to_csv('out/API_receptor_ligands_interactions.csv', index=False)
-    receptor_ligands_interactions_extended.to_csv('out/API_receptor_ligands_interactions_extended.csv', index=False)
+    receptor_ligands_interactions.to_csv('out/API_unprocessed_receptor_ligands_interactions.csv', index=False)
+    receptor_ligands_interactions_extended.to_csv('out/API_unprocessed_receptor_ligands_interactions_extended.csv',
+                                                  index=False)
     print(receptor_ligands_interactions)
     print(receptor_ligands_interactions_extended)
 
