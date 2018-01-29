@@ -10,7 +10,7 @@ from cellphonedb.queries import receptor_ligands_interactions, cells_to_clusters
 # curl -i \
 #     -F "counts_file=@cellphonedb/data/queries/test_counts.txt;type=text/tab-separated-values" \
 #     -F "meta_file=@cellphonedb/data/queries/test_meta.txt;type=text/tab-separated-values" \
-#     -F parameters="{\"threshold\": 0.1}" \
+#     -F parameters="{\"threshold\": 0.1, \"enable_integrin\": true}" \
 #     http://127.0.0.1:5000/api/receptor_ligands_interactions_unprocessed
 
 
@@ -32,10 +32,11 @@ class ReceptorLigandsInteractionsUnprocessed(EndpointBase):
 
             parameters = json.loads(request.form['parameters'])
             threshold = float(parameters['threshold'])
+            enable_integrin = float(parameters['enable_integrin'])
 
             result_interactions, result_interactions_extended = receptor_ligands_interactions.call(
                 cells_to_clusters_result,
-                threshold)
+                threshold, enable_integrin)
 
             self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')
             self._attach_csv(result_interactions_extended.to_csv(index=False),

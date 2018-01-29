@@ -9,9 +9,9 @@ from cellphonedb.queries import receptor_ligands_interactions
 
 # curl -i \
 #      -F "cell_to_clusters_file=@cellphonedb/data/queries/cells_to_clusters.csv;type=text/csv" \
-#      -F parameters="{\"threshold\": 0.1}" \
+#      -F parameters="{\"threshold\": 0.1, \"enable_integrin\": \"true\"}" \
 #      http://127.0.0.1:5000/api/receptor_ligands_interactions
-
+#
 
 class ReceptorLigandsInteractions(EndpointBase):
     def post(self):
@@ -24,10 +24,10 @@ class ReceptorLigandsInteractions(EndpointBase):
         if not self._errors:
             parameters = json.loads(request.form['parameters'])
             threshold = float(parameters['threshold'])
+            enable_integrin = bool(parameters['enable_integrin'])
 
             result_interactions, result_interactions_extended = receptor_ligands_interactions.call(
-                cells_to_clusters_file,
-                threshold)
+                cells_to_clusters_file, threshold, enable_integrin)
             self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')
             self._attach_csv(result_interactions_extended.to_csv(index=False),
                              'result_interactions_extended.txt')
