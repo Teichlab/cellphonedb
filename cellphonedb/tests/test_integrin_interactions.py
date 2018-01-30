@@ -7,7 +7,7 @@ from cellphonedb.models.interaction import filter_interaction
 
 
 class IntegrinInteractions(TestCase):
-    def test_asd(self):
+    def test_integrin_filter(self):
         current_dir = os.path.dirname(os.path.realpath(__file__))
         proteins = pd.read_csv('{}/fixtures/integrin_proteins.csv'.format(current_dir))
         interactions = pd.read_csv('{}/fixtures/integrin_interactions.csv'.format(current_dir))

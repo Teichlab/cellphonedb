@@ -267,7 +267,6 @@ def _get_enabled_interactions(cluster_counts, interactions, min_score_2, enable_
     :rtype: pd.DataFrame
     """
 
-    interactions.to_csv('out/TEST_interactions_no_filtered.csv', index=False)
     enabled_interactions = _get_receptor_ligands_interactions(cluster_counts, interactions)
     enabled_interactions['is_integrin'] = False
 
