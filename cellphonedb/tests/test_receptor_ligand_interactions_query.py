@@ -7,11 +7,11 @@ from cellphonedb.queries import receptor_ligands_interactions
 from utilities import dataframe_functions
 
 
-class ReceptorLigandInteractions(TestCase):
+class ReceptorLigandInteractionsQuery(TestCase):
     def create_app(self):
         return create_app()
 
-    def test_query_threshold_01_no_integrin(self):
+    def test_threshold_01_no_integrin(self):
         current_dir = os.path.dirname(os.path.realpath(__file__))
         cluster_counts = pd.read_csv('{}/fixtures/real_cells_to_clusters.csv'.format(current_dir), index_col=0)
 
@@ -32,7 +32,7 @@ class ReceptorLigandInteractions(TestCase):
                                                                      'id_interaction'),
                         'Receptor Ligand extended non integrin result is differnet than expected')
 
-    def test_query_threshold_01_with_integrin(self):
+    def test_threshold_01_with_integrin(self):
         current_dir = os.path.dirname(os.path.realpath(__file__))
         cluster_counts = pd.read_csv('{}/fixtures/real_cells_to_clusters.csv'.format(current_dir), index_col=0)
 
