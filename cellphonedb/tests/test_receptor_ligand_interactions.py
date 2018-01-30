@@ -19,7 +19,15 @@ class ReceptorLigandInteractions(TestCase):
                                                                                                False)
 
         expected_result_interactions = pd.read_csv(
-            '{}/fixtures/real_receptor_ligand_interactions_query_result.csv'.format(current_dir))
+            '{}/fixtures/real_receptor_ligand_interactions_query_result_no_integrin.csv'.format(current_dir))
+        expected_result_interactions_extended = pd.read_csv(
+            '{}/fixtures/real_receptor_ligand_interactions_extended_query_result_no_integrin.csv'.format(current_dir))
 
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result_interactions, expected_result_interactions,
-                                                                     'id_interaction'))
+                                                                     'id_interaction'),
+                        'Receptor Ligand non integrin result is differnet than expected')
+
+        self.assertTrue(dataframe_functions.dataframes_has_same_data(result_interactions_extended,
+                                                                     expected_result_interactions_extended,
+                                                                     'id_interaction'),
+                        'Receptor Ligand extended non integrin result is differnet than expected')
