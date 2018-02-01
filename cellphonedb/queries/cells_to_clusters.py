@@ -28,11 +28,11 @@ def _clusters_ratio(counts):
 
 
 def _filter_by_cellphone_genes(cluster_counts):
-    '''
+    """
     Merges cluster genes with CellPhoneDB values
     :type cluster_counts: pd.DataFrame
     :rtype: pd.DataFrame
-    '''
+    """
     gene_protein_query = db.session.query(Gene.ensembl)
     gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
 
