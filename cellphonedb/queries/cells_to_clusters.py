@@ -1,3 +1,5 @@
+import logging
+
 import pandas as pd
 
 from cellphonedb.extensions import db
@@ -16,7 +18,7 @@ def _clusters_ratio(counts):
 
     result = pd.DataFrame(None, all_cells_names)
     for cluster_name in counts:
-        print('Transforming Cluster %s' % cluster_name)
+        logging.info('Transforming Cluster %s' % cluster_name)
         cluster = counts[cluster_name]
 
         cells_names = cluster.columns.values
@@ -45,10 +47,10 @@ def _filter_by_cellphone_genes(cluster_counts):
 
 
 def _create_clusters_structure(counts, meta):
-    print('Creating Cluster Structure')
+    logging.info('Creating Cluster Structure')
     cluster_names = meta['cell_type'].unique()
 
-    print(cluster_names)
+    logging.info(cluster_names)
     clusters = {}
     for cluster_name in cluster_names:
         cluster_cell_names = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % cluster_name)]).index

@@ -6,3 +6,5 @@ database:
   user: root
 flask:
   debug: true
+app:
+  debug: true

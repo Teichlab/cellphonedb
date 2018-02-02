@@ -1,6 +1,8 @@
+import logging
 import os
 import warnings
 
+import sys
 import yaml
 
 
@@ -11,6 +13,19 @@ class AppConfig():
         self.config_parameters = self._get_config_parameters(environment, support, load_defaults)
 
         self.config = self._load_config()
+        self._set_logger_config(self.config['app']['debug'])
+
+    def _set_logger_config(self, enable_debug):
+        root = logging.getLogger()
+
+        if enable_debug:
+            root.setLevel(logging.DEBUG)
+
+        ch = logging.StreamHandler(sys.stdout)
+        ch.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s - %(message)s', "%H:%M:%S")
+        ch.setFormatter(formatter)
+        root.addHandler(ch)
 
     def _get_config_parameters(self, environment=None, support=None, load_defaults=None):
         config_parameters = {}
