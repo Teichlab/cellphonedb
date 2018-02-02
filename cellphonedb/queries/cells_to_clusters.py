@@ -2,8 +2,7 @@ import logging
 
 import pandas as pd
 
-from cellphonedb.extensions import db
-from cellphonedb.models.gene.db_model_gene import Gene
+from cellphonedb.repository import gene_repository
 
 
 def call(counts, meta):
@@ -35,14 +34,11 @@ def _filter_by_cellphone_genes(cluster_counts):
     :type cluster_counts: pd.DataFrame
     :rtype: pd.DataFrame
     """
-    gene_protein_query = db.session.query(Gene.ensembl)
-    gene_protein_df = pd.read_sql(gene_protein_query.statement, db.engine)
+    gene_protein_df = gene_repository.get_all()
 
-    gene_protein_df.rename(columns={'id': 'multidata_id', 'ensembl': 'gene'}, inplace=True)
+    multidata_counts = pd.merge(cluster_counts, gene_protein_df, left_index=True, right_on='ensembl')
 
-    multidata_counts = pd.merge(cluster_counts, gene_protein_df, left_index=True, right_on='gene')
-
-    multidata_counts.set_index('gene', inplace=True)
+    multidata_counts.set_index('ensembl', inplace=True)
     return multidata_counts
 
 
