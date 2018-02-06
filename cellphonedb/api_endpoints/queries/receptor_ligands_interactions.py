@@ -25,9 +25,16 @@ class ReceptorLigandsInteractions(EndpointBase):
             parameters = json.loads(request.form['parameters'])
             threshold = float(parameters['threshold'])
             enable_integrin = bool(parameters['enable_integrin'])
+            enable_complex = True
+            if 'enable_complex' in parameters:
+                enable_complex = bool(parameters['enable_complex'])
+
+            clusters = None
+            if 'clusters' in parameters and parameters['clusters']:
+                clusters = list(parameters['clusters'])
 
             result_interactions, result_interactions_extended = receptor_ligands_interactions.call(
-                cells_to_clusters_file, threshold, enable_integrin)
+                cells_to_clusters_file, threshold, enable_integrin, enable_complex, clusters)
             self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')
             self._attach_csv(result_interactions_extended.to_csv(index=False),
                              'result_interactions_extended.txt')

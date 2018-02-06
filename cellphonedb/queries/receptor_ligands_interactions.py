@@ -13,9 +13,10 @@ from cellphonedb.repository import complex_repository
 from utilities import dataframe_format
 
 
-def call(cluster_counts, threshold, enable_integrin, enable_complex):
+def call(cluster_counts, threshold, enable_integrin, enable_complex, clusters_names=None):
     print('Receptor Ligands Interactions Initializated')
-    clusters_names = cluster_counts.columns.values
+    if not clusters_names:
+        clusters_names = cluster_counts.columns.values
     cluster_counts_cellphone = _cellphone_genes(cluster_counts)
 
     print('Aplicating Threshold')
@@ -31,6 +32,7 @@ def call(cluster_counts, threshold, enable_integrin, enable_complex):
             complex_counts)
 
     print('Cluster Interactions')
+
     cluster_interactions = _get_all_cluster_interactions(clusters_names)
 
     interactions = _get_interactions()
