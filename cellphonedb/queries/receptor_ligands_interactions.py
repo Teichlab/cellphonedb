@@ -13,7 +13,7 @@ from cellphonedb.repository import complex_repository
 from utilities import dataframe_format
 
 
-def call(cluster_counts, threshold, enable_integrin):
+def call(cluster_counts, threshold, enable_integrin, enable_complex):
     print('Receptor Ligands Interactions Initializated')
     clusters_names = cluster_counts.columns.values
     cluster_counts_cellphone = _cellphone_genes(cluster_counts)
@@ -23,10 +23,12 @@ def call(cluster_counts, threshold, enable_integrin):
 
     cluster_counts_filtered = _filter_empty(cluster_counts_filtered, clusters_names)
 
-    print('Finding Complexes')
-    cluster_counts_filtered['is_complex'] = False
-    cluster_counts_with_complex = cluster_counts_filtered.append(
-        _get_complex_involved(cluster_counts_filtered, clusters_names))
+    if enable_complex:
+        print('Finding Complexes')
+        cluster_counts_filtered['is_complex'] = False
+        complex_counts = _get_complex_involved(cluster_counts_filtered, clusters_names)
+        cluster_counts_filtered = cluster_counts_filtered.append(
+            complex_counts)
 
     print('Cluster Interactions')
     cluster_interactions = _get_all_cluster_interactions(clusters_names)
@@ -34,7 +36,7 @@ def call(cluster_counts, threshold, enable_integrin):
     interactions = _get_interactions()
 
     print('Finding Enabled Interactions')
-    enabled_interactions = _get_enabled_interactions(cluster_counts_with_complex, interactions, 0.3, enable_integrin)
+    enabled_interactions = _get_enabled_interactions(cluster_counts_filtered, interactions, 0.3, enable_integrin)
 
     result_interactions = _result_interactions_table(cluster_interactions, enabled_interactions)
     result_interactions_extended = _result_interactions_extended_table(enabled_interactions, clusters_names,
