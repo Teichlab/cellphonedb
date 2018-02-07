@@ -11,12 +11,13 @@ class ReceptorLigandInteractionsQuery(TestCase):
     def create_app(self):
         return create_app()
 
-    def test_threshold_01_no_integrin(self):
+    def test_threshold_01_no_integrin_with_complex(self):
         current_dir = os.path.dirname(os.path.realpath(__file__))
         cluster_counts = pd.read_csv('{}/fixtures/real_cells_to_clusters.csv'.format(current_dir), index_col=0)
 
         result_interactions, result_interactions_extended = receptor_ligands_interactions.call(cluster_counts, 0.1,
-                                                                                               enable_integrin=False)
+                                                                                               enable_integrin=False,
+                                                                                               enable_complex=True)
 
         expected_result_interactions = pd.read_csv(
             '{}/fixtures/real_receptor_ligand_interactions_query_result_no_integrin.csv'.format(current_dir))
@@ -32,12 +33,13 @@ class ReceptorLigandInteractionsQuery(TestCase):
                                                                      'id_interaction'),
                         'Receptor Ligand extended non integrin result is differnet than expected')
 
-    def test_threshold_01_with_integrin(self):
+    def test_threshold_01_with_integrin_and_complex(self):
         current_dir = os.path.dirname(os.path.realpath(__file__))
         cluster_counts = pd.read_csv('{}/fixtures/real_cells_to_clusters.csv'.format(current_dir), index_col=0)
 
         result_interactions, result_interactions_extended = receptor_ligands_interactions.call(cluster_counts, 0.1,
-                                                                                               enable_integrin=True)
+                                                                                               enable_integrin=True,
+                                                                                               enable_complex=True)
 
         expected_result_interactions = pd.read_csv(
             '{}/fixtures/real_receptor_ligand_interactions_query_result_with_integrin.csv'.format(current_dir))

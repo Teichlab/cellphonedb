@@ -37,7 +37,8 @@ def cells_to_clusters(meta, counts):
     return cells_clusters
 
 
-def receptor_ligands_interactions_request(cells_clusters, threshold=0.1, enable_integrin=True):
+def receptor_ligands_interactions_request(cells_clusters, threshold=0.1, enable_integrin=True, enable_complex=True,
+                                          clusters=None):
     """
 
     :type cells_clusters: pd.DataFrame
@@ -52,7 +53,10 @@ def receptor_ligands_interactions_request(cells_clusters, threshold=0.1, enable_
         'cells_to_clusters.csv', cells_clusters.to_csv(), 'text/csv')}
 
     response = requests.post(url, files=files, data={
-        'parameters': json.dumps({'threshold': threshold, 'enable_integrin': enable_integrin})
+        'parameters': json.dumps(
+            {'threshold': threshold, 'enable_integrin': enable_integrin, 'enable_complex': enable_complex,
+             'clusters': clusters}
+        )
     })
 
     response_body = email.message_from_string(response.text)
@@ -71,11 +75,14 @@ def receptor_ligands_interactions_request(cells_clusters, threshold=0.1, enable_
     return interactions, interactions_extended
 
 
-def receptor_ligands_interactions_unprocessed_request(meta, counts, threshold=0.1, enable_integrin=True):
+def receptor_ligands_interactions_unprocessed_request(meta, counts, threshold=0.1, enable_integrin=True,
+                                                      enable_complex=True, clusters=None):
     """
 
     :type cells_clusters: pd.DataFrame
     :type threshold: float
+    :type enable_integrin: bool
+    :type clusters: tuple
     :rtype: (pd.DataFrame, pd.DataFrame, pd.DataFrame)
 
     """
@@ -86,7 +93,12 @@ def receptor_ligands_interactions_unprocessed_request(meta, counts, threshold=0.
         'counts_file': ('counts.csv', counts.to_csv(), 'text/csv'),
     }
     response = requests.post(url, files=files, data={
-        'parameters': json.dumps({'threshold': threshold, 'enable_integrin': enable_integrin})})
+        'parameters': json.dumps(
+            {'threshold': threshold, 'enable_integrin': enable_integrin, 'enable_complex': enable_complex,
+             'clusters': clusters}
+
+        )
+    })
 
     response_body = email.message_from_string(response.text)
     response_body = [i for i in response_body.walk()]
@@ -138,7 +150,7 @@ def receptor_ligands_interactions_example():
     cells_clusters = pd.read_csv('out/API_cells_clusters.csv', index_col=0)
     threshold = 0.1
     receptor_ligands_interactions, receptor_ligands_interactions_extended = receptor_ligands_interactions_request(
-        cells_clusters, threshold)
+        cells_clusters, threshold, True)
 
     receptor_ligands_interactions.to_csv('out/API_receptor_ligands_interactions.csv', index=False)
     receptor_ligands_interactions_extended.to_csv('out/API_receptor_ligands_interactions_extended.csv', index=False)
@@ -151,7 +163,7 @@ def receptor_ligands_interactions_unprocessed_example():
     meta = pd.read_table('input_data/test_meta.txt', index_col=0)
     counts = pd.read_table('input_data/test_counts.txt', index_col=0)
     receptor_ligands_interactions, receptor_ligands_interactions_extended, cells_to_clusters = receptor_ligands_interactions_unprocessed_request(
-        meta, counts, threshold)
+        meta, counts, threshold, True)
 
     receptor_ligands_interactions.to_csv('out/API_unprocessed_receptor_ligands_interactions.csv', index=False)
     receptor_ligands_interactions_extended.to_csv('out/API_unprocessed_receptor_ligands_interactions_extended.csv',
