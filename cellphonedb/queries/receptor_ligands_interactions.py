@@ -19,7 +19,7 @@ def call(cluster_counts, threshold, enable_integrin, enable_complex, clusters_na
         clusters_names = cluster_counts.columns.values
     cluster_counts_cellphone = _cellphone_genes(cluster_counts)
 
-    print('Aplicating Threshold')
+    print('Aplicating Threshold {}'.format(threshold))
     cluster_counts_filtered = _apply_threshold(cluster_counts_cellphone, clusters_names, threshold)
 
     cluster_counts_filtered = _filter_empty(cluster_counts_filtered, clusters_names)
