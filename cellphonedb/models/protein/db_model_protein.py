@@ -1,9 +1,10 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
-from cellphonedb.extensions import db
+from cellphonedb.models import Base
 
 
-class Protein(db.Model):
+class Protein(Base):
     __tablename__ = 'protein'
     id_protein = Column(Integer, nullable=False, primary_key=True)
 
@@ -12,5 +13,5 @@ class Protein(db.Model):
     tags_reason = Column(String)
     tags_description = Column(String)
 
-    protein_multidata_id = db.Column(db.Integer, db.ForeignKey('multidata.id_multidata'), unique=True, nullable=False)
-    gene = db.relationship('Gene', backref='gene', lazy='subquery')
+    protein_multidata_id = Column(Integer, ForeignKey('multidata.id_multidata'), unique=True, nullable=False)
+    gene = relationship('Gene', backref='gene', lazy='subquery')

@@ -5,7 +5,7 @@ from flask_restful import Api
 
 from cellphonedb.api_endpoints import routes
 from cellphonedb.app import import_config
-from cellphonedb.extensions import db
+from cellphonedb.extensions import db, cellphonedb_flask
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 output_dir = '%s/../out/' % current_dir
@@ -26,6 +26,7 @@ def create_app(environment=None, support=None, load_defaults=None):
 
     with app.app_context():
         db.init_app(app)
+        cellphonedb_flask.init_app(app)
 
     api = Api(app, prefix=flask_config['API_PREFIX'])
 

@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy.orm import relationship
 
-from cellphonedb.extensions import db
+from cellphonedb.models import Base
 
 
-class Multidata(db.Model):
+class Multidata(Base):
     __tablename__ = 'multidata'
     id_multidata = Column(Integer, nullable=False, primary_key=True)
 
@@ -29,5 +30,5 @@ class Multidata(db.Model):
     is_cellphone_receptor = Column(Boolean)
     is_cellphone_ligand = Column(Boolean)
 
-    protein = db.relationship('Protein', backref='protein', lazy='subquery')
-    complex = db.relationship('Complex', backref='complex', lazy='subquery')
+    protein = relationship('Protein', backref='protein', lazy='subquery')
+    complex = relationship('Complex', backref='complex', lazy='subquery')

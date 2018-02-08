@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 
-from cellphonedb.extensions import db
+from cellphonedb.models import Base
 
 
-class Gene(db.Model):
+class Gene(Base):
     __tablename__ = 'gene'
     id_gene = Column(Integer, nullable=False, primary_key=True)
 
