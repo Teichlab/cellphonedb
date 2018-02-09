@@ -1,8 +1,10 @@
+# TODO: Load all repositories
 class DatabaseManager:
     def __init__(self, repositories, db=None):
         self._repositories = repositories
         self.database = db
 
+    # TODO: Throw error
     def add_repository(self, repository):
         if not self._repositories:
             self._repositories = {}
@@ -10,4 +12,4 @@ class DatabaseManager:
         self._repositories[repository.name] = repository
 
     def get_repository(self, respository_name):
-        return self._repositories[respository_name]
+        return self._repositories[respository_name](self.database)

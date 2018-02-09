@@ -7,7 +7,7 @@ from cellphonedb.models.protein.db_model_protein import Protein
 
 
 class GeneRepository(Repository):
-    name = 'gene_repository'
+    name = 'gene'
 
     def get_all(self):
         query = self.database.session.query(Gene)

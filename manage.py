@@ -1,12 +1,10 @@
 import click
-from flask.cli import FlaskGroup
-
 from cellphonedb.collection import Collector
 from cellphonedb.api import create_app
 from cellphonedb.exporter import Exporter
 from cellphonedb.extensions import db
 from cellphonedb.db_scripts import db_drop_everything
-from cellphonedb.query_manager import QueryLauncher
+from cellphonedb.FlaskQueryLauncher import FlaskQueryLauncher
 
 app = create_app()
 
@@ -47,5 +45,4 @@ def export(table):
 @click.argument('queryname')
 @click.argument('files', nargs=-1)
 def call_query(queryname, files):
-    queries = QueryLauncher(app)
-    getattr(queries, queryname)(*files)
+    getattr(FlaskQueryLauncher, queryname)(*files)

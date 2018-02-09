@@ -1,21 +1,19 @@
 import pandas as pd
 
 from cellphonedb.models.multidata import format_multidata
-from cellphonedb.repository import interaction_repository, complex_repository, multidata_repository
 
 from utilities import dataframe_format
 
 
-def call(protein: pd.Series, min_score2: float) -> pd.DataFrame:
-    print('Get receptor')
-
-    protein = protein.to_frame().transpose()
+def call(protein: pd.DataFrame, min_score2: float, complex_by_multidata, interactions,
+         multidatas_expanded) -> pd.DataFrame:
     print('Finding Complexes')
+
     multidatas = protein.append(
-        complex_repository.get_complex_by_multidatas(protein, False), ignore_index=True)
+        complex_by_multidata, ignore_index=True)
 
     print('Finding Enabled Interactions')
-    enabled_interactions = _get_rl_lr_interactions(multidatas, min_score2)
+    enabled_interactions = _get_rl_lr_interactions(multidatas, min_score2, interactions, multidatas_expanded)
 
     result_interactions = _result_interactions_table(enabled_interactions)
 
@@ -68,13 +66,12 @@ def _result_interactions_table(enabled_interactions: pd.DataFrame) -> pd.DataFra
     return result
 
 
-def _get_rl_lr_interactions(multidatas: pd.DataFrame, min_score_2: float) -> pd.DataFrame:
-    interactions = interaction_repository.get_all()
+def _get_rl_lr_interactions(multidatas: pd.DataFrame, min_score_2: float, interactions,
+                            multidatas_expanded) -> pd.DataFrame:
     interactions = interactions[interactions['score_2'] > min_score_2]
-    all_multidatas = multidata_repository.get_all_expanded()
-    enabled_interactions = _get_receptor_ligand_interactions(multidatas, interactions, all_multidatas)
+    enabled_interactions = _get_receptor_ligand_interactions(multidatas, interactions, multidatas_expanded)
     enabled_interactions = enabled_interactions.append(
-        _get_ligand_receptor_interactions(multidatas, interactions, all_multidatas), ignore_index=True)
+        _get_ligand_receptor_interactions(multidatas, interactions, multidatas_expanded), ignore_index=True)
 
     return enabled_interactions
 

@@ -2,11 +2,9 @@ import logging
 
 import pandas as pd
 
-from cellphonedb.repository import gene_repository
 
-
-def call(counts, meta):
-    cellphone_counts = _filter_by_cellphone_genes(counts)
+def call(counts, meta, genes):
+    cellphone_counts = _filter_by_cellphone_genes(counts, genes)
     clusters = _create_clusters_structure(cellphone_counts, meta)
 
     return _clusters_ratio(clusters)
@@ -28,15 +26,14 @@ def _clusters_ratio(counts):
     return result
 
 
-def _filter_by_cellphone_genes(cluster_counts):
+def _filter_by_cellphone_genes(cluster_counts, genes):
     """
     Merges cluster genes with CellPhoneDB values
     :type cluster_counts: pd.DataFrame
     :rtype: pd.DataFrame
     """
-    gene_protein_df = gene_repository.get_all()
 
-    multidata_counts = pd.merge(cluster_counts, gene_protein_df, left_index=True, right_on='ensembl')
+    multidata_counts = pd.merge(cluster_counts, genes, left_index=True, right_on='ensembl')
 
     multidata_counts.set_index('ensembl', inplace=True)
     return multidata_counts
