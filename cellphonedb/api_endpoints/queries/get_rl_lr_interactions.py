@@ -7,7 +7,6 @@ from cellphonedb.api_endpoints.endpoint_base import EndpointBase
 from cellphonedb.queries import get_rl_lr_interactions_from_multidata
 
 from cellphonedb.common.generic_exception import GenericException
-from cellphonedb.repository import multidata_repository
 
 
 # curl -i \

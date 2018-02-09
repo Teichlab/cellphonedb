@@ -12,4 +12,4 @@ class DatabaseManager:
         self._repositories[repository.name] = repository
 
     def get_repository(self, respository_name):
-        return self._repositories[respository_name](self.database)
+        return self._repositories[respository_name](self)

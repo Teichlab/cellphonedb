@@ -1,10 +1,11 @@
 import click
 from cellphonedb.collection import Collector
 from cellphonedb.api import create_app
-from cellphonedb.exporter import Exporter
+from cellphonedb.core.exporters.exporterlauncher import ExporterLauncher
 from cellphonedb.extensions import db
 from cellphonedb.db_scripts import db_drop_everything
 from cellphonedb.FlaskQueryLauncher import FlaskQueryLauncher
+from cellphonedb.flaskexporterlauncher import FlaskExporterLauncher
 
 app = create_app()
 
@@ -37,7 +38,7 @@ def collect(table, file):
 @app.cli.command()
 @click.argument('table')
 def export(table):
-    exporter = Exporter(app)
+    exporter = FlaskExporterLauncher()
     getattr(exporter, table)()
 
 

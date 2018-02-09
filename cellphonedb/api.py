@@ -8,10 +8,12 @@ from cellphonedb.app import import_config
 from cellphonedb.extensions import db, cellphonedb_flask
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
-output_dir = '%s/../out/' % current_dir
+output_dir = '%s/../out' % current_dir
 data_dir = '%s/data/' % current_dir
 temp_dir = '%s/temp/' % current_dir
 query_input_dir = '%s/data/queries' % current_dir
+
+output_test_dir = '{}/tests/out'.format(current_dir)
 
 config = None
 

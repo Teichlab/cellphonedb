@@ -4,27 +4,26 @@ from cellphonedb.database.Repository import Repository
 from cellphonedb.models.complex.db_model_complex import Complex
 from cellphonedb.models.complex_composition.db_model_complex_composition import ComplexComposition
 from cellphonedb.models.multidata.db_model_multidata import Multidata
-from cellphonedb.repository import multidata_repository
 
 
 class ComplexRepository(Repository):
     name = 'complex'
 
     def get_all(self) -> pd.DataFrame:
-        query = self.database.session.query(Complex)
-        result = pd.read_sql(query.statement, self.database.engine)
+        query = self.database_manager.database.session.query(Complex)
+        result = pd.read_sql(query.statement, self.database_manager.database.engine)
 
         return result
 
     def get_all_expanded(self) -> pd.DataFrame:
-        query = self.database.session.query(Complex, Multidata).join(Multidata)
-        result = pd.read_sql(query.statement, self.database.engine)
+        query = self.database_manager.database.session.query(Complex, Multidata).join(Multidata)
+        result = pd.read_sql(query.statement, self.database_manager.database.engine)
 
         return result
 
     def get_all_compositions(self) -> pd.DataFrame:
-        query = self.database.session.query(ComplexComposition)
-        result = pd.read_sql(query.statement, self.database.engine)
+        query = self.database_manager.database.session.query(ComplexComposition)
+        result = pd.read_sql(query.statement, self.database_manager.database.engine)
 
         return result
 
@@ -32,10 +31,11 @@ class ComplexRepository(Repository):
         if not suffixes:
             suffixes = ['_complex', '_protein']
 
-        query = self.database.session.query(ComplexComposition)
-        complex_composition = pd.read_sql(query.statement, self.database.engine)
+        query = self.database_manager.database.session.query(ComplexComposition)
+        complex_composition = pd.read_sql(query.statement, self.database_manager.database.engine)
 
-        multidatas = multidata_repository.get_all()
+        multidata_query = self.database_manager.database.session.query(Multidata)
+        multidatas = pd.read_sql(multidata_query.statement, self.database_manager.database.engine)
 
         complex_composition_expanded = pd.merge(complex_composition, multidatas, left_on='complex_multidata_id',
                                                 right_on='id_multidata')

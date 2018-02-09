@@ -10,13 +10,13 @@ class GeneRepository(Repository):
     name = 'gene'
 
     def get_all(self):
-        query = self.database.session.query(Gene)
-        result = pd.read_sql(query.statement, self.database.session.bind)
+        query = self.database_manager.database.session.query(Gene)
+        result = pd.read_sql(query.statement, self.database_manager.database.session.bind)
 
         return result
 
     def get_all_expanded(self):
-        query = self.database.session.query(Gene, Protein, Multidata).join(Protein).join(Multidata)
-        result = pd.read_sql(query.statement, self.database.session.bind)
+        query = self.database_manager.database.session.query(Gene, Protein, Multidata).join(Protein).join(Multidata)
+        result = pd.read_sql(query.statement, self.database_manager.database.session.bind)
 
         return result

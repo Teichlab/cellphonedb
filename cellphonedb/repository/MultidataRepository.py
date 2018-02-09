@@ -11,17 +11,18 @@ class MultidataRepository(Repository):
     name = 'multidata'
 
     def get_all(self):
-        query = self.database.session.query(Multidata)
-        result = pd.read_sql(query.statement, self.database.engine)
+        query = self.database_manager.database.session.query(Multidata)
+        result = pd.read_sql(query.statement, self.database_manager.database.engine)
 
         return result
 
     def get_all_expanded(self):
-        query_single = self.database.session.query(Gene, Protein, Multidata).join(Protein).join(Multidata)
-        multidata_simple = pd.read_sql(query_single.statement, self.database.engine)
+        query_single = self.database_manager.database.session.query(Gene, Protein, Multidata).join(Protein).join(
+            Multidata)
+        multidata_simple = pd.read_sql(query_single.statement, self.database_manager.database.engine)
 
-        query_complex = self.database.session.query(Multidata, Complex).join(Complex)
-        multidata_complex = pd.read_sql(query_complex.statement, self.database.engine)
+        query_complex = self.database_manager.database.session.query(Multidata, Complex).join(Complex)
+        multidata_complex = pd.read_sql(query_complex.statement, self.database_manager.database.engine)
 
         multidata_expanded = multidata_simple.append(multidata_complex, ignore_index=True)
 
