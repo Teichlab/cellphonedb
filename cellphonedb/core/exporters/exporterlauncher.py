@@ -19,14 +19,13 @@ class ExporterLauncher(object):
 
         return complex_exporter.call(complexes, multidatas, complex_compositions, proteins)
 
+    def complex_web(self):
+        complexes = self.database_manager.get_repository('complex').get_all()
+        multidatas = self.database_manager.get_repository('multidata').get_all()
+        complex_compositions = self.database_manager.get_repository('complex').get_all_compositions()
+        proteins = self.database_manager.get_repository('protein').get_all()
 
-def complex_web(self, output_name=None):
-    complexes = self.database_manager.get_repository('complex').get_all()
-    multidatas = self.database_manager.get_repository('multidata').get_all()
-    complex_compositions = self.database_manager.get_repository('complex').get_all_compositions()
-    proteins = self.database_manager.get_repository('protein').get_all()
-
-    return complex_web_exporter.call(complexes, multidatas, complex_compositions, proteins)
+        return complex_web_exporter.call(complexes, multidatas, complex_compositions, proteins)
 
 # def interaction(self, output_name=None):
 #     if not output_name:

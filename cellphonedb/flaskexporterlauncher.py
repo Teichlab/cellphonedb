@@ -35,13 +35,18 @@ class FlaskExporterLauncher(object):
         result = cellphonedb_flask.cellphonedb.export.complex()
         result.to_csv('{}/{}'.format(output_path, output_name), index=False)
 
-    # def complex_web(self, output_name=None):
-    #     if not output_name:
-    #         current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-    #         output_name = '%s.csv' % current_method_name
-    #
-    #     result = complex_web_exporter.call()
-    #     result.to_csv('out/%s' % output_name, index=False)
+    @staticmethod
+    def complex_web(output_name=None, output_path=None):
+        if not output_name:
+            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
+            output_name = '%s.csv' % current_method_name
+
+        if not output_path:
+            output_path = output_dir
+
+        result = cellphonedb_flask.cellphonedb.export.complex_web()
+        result.to_csv('{}/{}'.format(output_path, output_name), index=False)
+
     #
     # def interaction(self, output_name=None):
     #     if not output_name:
