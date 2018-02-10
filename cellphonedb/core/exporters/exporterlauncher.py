@@ -1,6 +1,6 @@
 import inspect
 
-from cellphonedb.core.exporters import ligands_receptors_proteins_exporter, complex_exporter
+from cellphonedb.core.exporters import ligands_receptors_proteins_exporter, complex_exporter, complex_web_exporter
 
 
 class ExporterLauncher(object):
@@ -19,14 +19,15 @@ class ExporterLauncher(object):
 
         return complex_exporter.call(complexes, multidatas, complex_compositions, proteins)
 
-# def complex_web(self, output_name=None):
-#     if not output_name:
-#         current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-#         output_name = '%s.csv' % current_method_name
-#
-#     result = complex_web_exporter.call()
-#     result.to_csv('out/%s' % output_name, index=False)
-#
+
+def complex_web(self, output_name=None):
+    complexes = self.database_manager.get_repository('complex').get_all()
+    multidatas = self.database_manager.get_repository('multidata').get_all()
+    complex_compositions = self.database_manager.get_repository('complex').get_all_compositions()
+    proteins = self.database_manager.get_repository('protein').get_all()
+
+    return complex_web_exporter.call(complexes, multidatas, complex_compositions, proteins)
+
 # def interaction(self, output_name=None):
 #     if not output_name:
 #         current_method_name = inspect.getframeinfo(inspect.currentframe()).function

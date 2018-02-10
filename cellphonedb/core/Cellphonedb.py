@@ -1,3 +1,6 @@
+import pandas as pd
+
+from cellphonedb.core.exporters.exporterlauncher import ExporterLauncher
 from cellphonedb.database import DatabaseManager
 from cellphonedb.queries import cells_to_clusters, receptor_ligands_interactions, \
     get_rl_lr_interactions_from_multidata
@@ -6,6 +9,7 @@ from cellphonedb.queries import cells_to_clusters, receptor_ligands_interactions
 class Cellphonedb(object):
     def __init__(self, database_manager: DatabaseManager):
         self.database_manager = database_manager
+        self.export = ExporterLauncher(self.database_manager)
 
     def cells_to_clusters(self, counts, meta):
         genes = self.database_manager.get_repository('gene').get_all()
@@ -36,3 +40,7 @@ class Cellphonedb(object):
                                                            interactions, multidatas_expanded))
 
         return results
+
+    def get_multidatas_from_string(self, string: str) -> pd.DataFrame:
+        multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(string)
+        return multidatas
