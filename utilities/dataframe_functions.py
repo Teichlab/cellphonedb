@@ -20,4 +20,7 @@ def dataframes_has_same_data(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame,
         dataframe1 = dataframe1.sort_values(sort_column).reset_index(drop=True)
         dataframe2 = dataframe2.sort_values(sort_column).reset_index(drop=True)
 
+    dataframe1.to_csv('TEST_dataframe1.csv', index=False)
+    dataframe2.to_csv('TEST_dataframe2.csv', index=False)
+
     return dataframe1.equals(dataframe2)
