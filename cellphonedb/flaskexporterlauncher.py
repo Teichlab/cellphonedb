@@ -59,14 +59,18 @@ class FlaskExporterLauncher(object):
         result = cellphonedb_flask.cellphonedb.export.interaction()
         result.to_csv('{}/{}'.format(output_path, output_name), index=False)
 
-    # def receptor_ligand_interaction(self, output_name=None):
-    #     if not output_name:
-    #         current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-    #         output_name = '%s.csv' % current_method_name
-    #
-    #     result = receptor_ligand_interaction_exporter.call()
-    #     result.to_csv('out/%s' % output_name, index=False)
-    #
+    @staticmethod
+    def receptor_ligand_interaction(output_name=None, output_path=None):
+        if not output_name:
+            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
+            output_name = '%s.csv' % current_method_name
+
+        if not output_path:
+            output_path = output_dir
+
+        result = cellphonedb_flask.cellphonedb.export.receptor_ligand_interaction()
+        result.to_csv('{}/{}'.format(output_path, output_name), index=False)
+
     # def protein(self, output_name=None):
     #     if not output_name:
     #         current_method_name = inspect.getframeinfo(inspect.currentframe()).function
