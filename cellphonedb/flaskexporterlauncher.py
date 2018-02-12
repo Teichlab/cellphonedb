@@ -16,7 +16,6 @@ class FlaskExporterLauncher(object):
     def _call_cellphonecore_method(export_method, output_name=None, output_path=None):
 
         if not output_name:
-            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
             output_name = '%s.csv' % export_method.__name__
 
         if not output_path:
@@ -32,28 +31,6 @@ class FlaskExporterLauncher(object):
 
         return wrapper
 
-    # def protein(self, output_name=None):
-    #     if not output_name:
-    #         current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-    #         output_name = '%s.csv' % current_method_name
-    #
-    #     proteins_query = db.session.query(Protein)
-    #     multidata_query = db.session.query(Multidata)
-    #
-    #     proteins_df = pd.read_sql(proteins_query.statement, db.engine)
-    #     multidata_df = pd.read_sql(multidata_query.statement, db.engine)
-    #
-    #     proteins_multidata = pd.merge(proteins_df, multidata_df, left_on='protein_multidata_id',
-    #                                   right_on='id_multidata')
-    #
-    #     proteins_multidata.drop(['id_multidata', 'id_protein', 'protein_multidata_id'], axis=1, inplace=True)
-    #
-    #     proteins_multidata.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
-    #
-    #     proteins_multidata = dataframe_format.bring_columns_to_start(['uniprot'], proteins_multidata)
-    #     proteins_multidata = dataframe_format.bring_columns_to_end(['tags', 'tags_reason'], proteins_multidata)
-    #     proteins_multidata.to_csv('out/%s' % output_name, index=False)
-    #
     # def gene(self, output_name=None):
     #     if not output_name:
     #         current_method_name = inspect.getframeinfo(inspect.currentframe()).function

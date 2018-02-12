@@ -1,5 +1,5 @@
 from cellphonedb.core.exporters import ligands_receptors_proteins_exporter, complex_exporter, complex_web_exporter, \
-    interaction_exporter, receptor_ligand_interaction_exporter
+    interaction_exporter, receptor_ligand_interaction_exporter, protein_exporter
 
 
 class ExporterLauncher(object):
@@ -14,7 +14,7 @@ class ExporterLauncher(object):
         complexes = self.database_manager.get_repository('complex').get_all()
         multidatas = self.database_manager.get_repository('multidata').get_all()
         complex_compositions = self.database_manager.get_repository('complex').get_all_compositions()
-        proteins = self.database_manager.get_repository('protein').get_all()
+        proteins = self.database_manager.get_repository('protein').get_all_expanded()
 
         return complex_exporter.call(complexes, multidatas, complex_compositions, proteins)
 
@@ -22,7 +22,7 @@ class ExporterLauncher(object):
         complexes = self.database_manager.get_repository('complex').get_all()
         multidatas = self.database_manager.get_repository('multidata').get_all()
         complex_compositions = self.database_manager.get_repository('complex').get_all_compositions()
-        proteins = self.database_manager.get_repository('protein').get_all()
+        proteins = self.database_manager.get_repository('protein').get_all_expanded()
 
         return complex_web_exporter.call(complexes, multidatas, complex_compositions, proteins)
 
@@ -34,27 +34,9 @@ class ExporterLauncher(object):
         interactions_expanded = self.database_manager.get_repository('interaction').get_all_expanded()
         return receptor_ligand_interaction_exporter.call(interactions_expanded)
 
-# def protein(self, output_name=None):
-#     if not output_name:
-#         current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-#         output_name = '%s.csv' % current_method_name
-#
-#     proteins_query = db.session.query(Protein)
-#     multidata_query = db.session.query(Multidata)
-#
-#     proteins_df = pd.read_sql(proteins_query.statement, db.engine)
-#     multidata_df = pd.read_sql(multidata_query.statement, db.engine)
-#
-#     proteins_multidata = pd.merge(proteins_df, multidata_df, left_on='protein_multidata_id',
-#                                   right_on='id_multidata')
-#
-#     proteins_multidata.drop(['id_multidata', 'id_protein', 'protein_multidata_id'], axis=1, inplace=True)
-#
-#     proteins_multidata.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
-#
-#     proteins_multidata = dataframe_format.bring_columns_to_start(['uniprot'], proteins_multidata)
-#     proteins_multidata = dataframe_format.bring_columns_to_end(['tags', 'tags_reason'], proteins_multidata)
-#     proteins_multidata.to_csv('out/%s' % output_name, index=False)
+    def protein(self):
+        proteins_expanded = self.database_manager.get_repository('protein').get_all_expanded()
+        return protein_exporter.call(proteins_expanded)
 #
 # def gene(self, output_name=None):
 #     if not output_name:

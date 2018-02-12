@@ -9,6 +9,12 @@ class ProteinRepository(Repository):
     name = 'protein'
 
     def get_all(self):
+        protein_query = self.database_manager.database.session.query(Protein)
+        protein = pd.read_sql(protein_query.statement, self.database_manager.database.session.bind)
+
+        return protein
+
+    def get_all_expanded(self):
         protein_query = self.database_manager.database.session.query(Protein, Multidata).join(Multidata)
         protein = pd.read_sql(protein_query.statement, self.database_manager.database.session.bind)
 

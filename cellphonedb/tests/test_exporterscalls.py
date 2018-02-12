@@ -26,6 +26,9 @@ class TestExportersCalls(TestCase):
     def test_receptor_ligand_interaction(self):
         self.assert_file_exist('receptor_ligand_interaction')
 
+    def test_protein(self):
+        self.assert_file_exist('protein')
+
     def assert_file_exist(self, method_name, message='', expected_extension='csv', expected_namefile=''):
         if not expected_namefile:
             expected_namefile = '{}'.format(method_name)
