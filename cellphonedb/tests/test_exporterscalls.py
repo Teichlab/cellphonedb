@@ -29,6 +29,9 @@ class TestExportersCalls(TestCase):
     def test_protein(self):
         self.assert_file_exist('protein')
 
+    def test_gene(self):
+        self.assert_file_exist('gene')
+
     def assert_file_exist(self, method_name, message='', expected_extension='csv', expected_namefile=''):
         if not expected_namefile:
             expected_namefile = '{}'.format(method_name)

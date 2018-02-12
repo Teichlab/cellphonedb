@@ -4,6 +4,7 @@ from cellphonedb.database.DatabaseManager import DatabaseManager
 
 from sqlalchemy import create_engine
 
+from cellphonedb.models import Base
 from cellphonedb.repository.ComplexRepository import ComplexRepository
 from cellphonedb.repository.InteractionRepository import InteractionRepository
 from cellphonedb.repository.MultidataRepository import MultidataRepository
@@ -17,6 +18,7 @@ class CellphonedbSqlalchemy(Cellphonedb):
         engine = create_engine('postgresql+psycopg2://root:root@localhost:5432/cellphonedb', echo=True)
         # engine = create_engine('sqlite:///:memory:', echo=True)
         database = Database(engine)
+        database.base_model = Base
         database_manager = DatabaseManager(None, database)
         # TODO: Auto-load repositories
         database_manager.add_repository(ComplexRepository)

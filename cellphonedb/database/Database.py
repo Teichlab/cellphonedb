@@ -7,6 +7,7 @@ class Database:
         self.engine = engine
         self.established_session = None
         self.base = declarative_base()
+        self.base_model = None
 
     @property
     def session(self):

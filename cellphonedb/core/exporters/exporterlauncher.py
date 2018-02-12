@@ -1,5 +1,5 @@
 from cellphonedb.core.exporters import ligands_receptors_proteins_exporter, complex_exporter, complex_web_exporter, \
-    interaction_exporter, receptor_ligand_interaction_exporter, protein_exporter
+    interaction_exporter, receptor_ligand_interaction_exporter, protein_exporter, gene_exporter
 
 
 class ExporterLauncher(object):
@@ -37,19 +37,8 @@ class ExporterLauncher(object):
     def protein(self):
         proteins_expanded = self.database_manager.get_repository('protein').get_all_expanded()
         return protein_exporter.call(proteins_expanded)
-#
-# def gene(self, output_name=None):
-#     if not output_name:
-#         current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-#         output_name = '%s.csv' % current_method_name
-#
-#     gene_query = db.session.query(Gene, Multidata.name).join(Protein).join(Multidata)
-#     gene_df = pd.read_sql(gene_query.statement, db.engine)
-#
-#     filters.remove_not_defined_columns(gene_df, database.get_column_table_names(Gene, db) + ['name'])
-#
-#     gene_df.drop(['id_gene', 'protein_id'], axis=1, inplace=True)
-#
-#     gene_df.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
-#
-#     gene_df.to_csv('out/%s' % output_name, index=False)
+
+    def gene(self):
+        genes_expanded = self.database_manager.get_repository('gene').get_all_expanded()
+        output_columns = self.database_manager.get_column_table_names('gene') + ['name']
+        return gene_exporter.call(genes_expanded, output_columns)
