@@ -4,72 +4,33 @@ import inspect
 
 
 class FlaskExporterLauncher(object):
-    # @staticmethod
-    # def all(self):
-    #     FlaskExporterLauncher.protein()
-    #     FlaskExporterLauncher.complex()
-    #     FlaskExporterLauncher.gene()
-    #     FlaskExporterLauncher.interaction()
 
     @staticmethod
-    def ligands_receptors_proteins(output_name=None, output_path=None):
+    def all():
+        # FlaskExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.protein)
+        FlaskExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.complex)
+        # FlaskExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.gene)
+        # FlaskExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.interaction)
+
+    @staticmethod
+    def _call_cellphonecore_method(export_method, output_name=None, output_path=None):
+
         if not output_name:
             current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-            output_name = '%s.csv' % current_method_name
+            output_name = '%s.csv' % export_method.__name__
 
         if not output_path:
             output_path = output_dir
 
-        result = cellphonedb_flask.cellphonedb.export.ligands_receptors_proteins()
+        result = export_method()
         result.to_csv('{}/{}'.format(output_path, output_name), index=False)
 
-    @staticmethod
-    def complex(output_name=None, output_path=None):
-        if not output_name:
-            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-            output_name = '%s.csv' % current_method_name
+    def __getattr__(cls, method_name):
+        def wrapper(output_name=None, output_path=None):
+            export_method = getattr(cellphonedb_flask.cellphonedb.export, method_name)
+            cls._call_cellphonecore_method(export_method, output_name, output_path)
 
-        if not output_path:
-            output_path = output_dir
-
-        result = cellphonedb_flask.cellphonedb.export.complex()
-        result.to_csv('{}/{}'.format(output_path, output_name), index=False)
-
-    @staticmethod
-    def complex_web(output_name=None, output_path=None):
-        if not output_name:
-            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-            output_name = '%s.csv' % current_method_name
-
-        if not output_path:
-            output_path = output_dir
-
-        result = cellphonedb_flask.cellphonedb.export.complex_web()
-        result.to_csv('{}/{}'.format(output_path, output_name), index=False)
-
-    @staticmethod
-    def interaction(output_name=None, output_path=None):
-        if not output_name:
-            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-            output_name = '%s.csv' % current_method_name
-
-        if not output_path:
-            output_path = output_dir
-
-        result = cellphonedb_flask.cellphonedb.export.interaction()
-        result.to_csv('{}/{}'.format(output_path, output_name), index=False)
-
-    @staticmethod
-    def receptor_ligand_interaction(output_name=None, output_path=None):
-        if not output_name:
-            current_method_name = inspect.getframeinfo(inspect.currentframe()).function
-            output_name = '%s.csv' % current_method_name
-
-        if not output_path:
-            output_path = output_dir
-
-        result = cellphonedb_flask.cellphonedb.export.receptor_ligand_interaction()
-        result.to_csv('{}/{}'.format(output_path, output_name), index=False)
+        return wrapper
 
     # def protein(self, output_name=None):
     #     if not output_name:
