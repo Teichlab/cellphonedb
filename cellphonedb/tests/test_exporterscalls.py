@@ -21,6 +21,9 @@ class TestExportersCalls(TestCase):
     def test_complex_web(self):
         self.assert_file_exist('test_exporter_complex_web', 'csv', FlaskExporterLauncher.complex_web)
 
+    def test_interaction(self):
+        self.assert_file_exist('test_interactions', 'csv', FlaskExporterLauncher.interaction)
+
     def assert_file_exist(self, expected_name, expected_extension, function_call):
         namefile = self.get_test_namefile('%s' % expected_name, expected_extension)
         function_call(namefile, output_test_dir)
@@ -29,7 +32,8 @@ class TestExportersCalls(TestCase):
         self.assertTrue(os.path.isfile(path_file))
         self.remove_file(path_file)
 
-    def remove_file(self, file):
+    @staticmethod
+    def remove_file(file):
         os.remove(file)
 
     @staticmethod

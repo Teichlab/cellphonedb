@@ -42,16 +42,15 @@ class InteractionRepository(Repository):
 
     # TODO: Not tested
     def get_all_expanded(self):
-        interactions_query = self.database_manager.session.query(Interaction)
-        interactions_df = pd.read_sql(interactions_query.statement, self.database_manager.engine)
+        interactions_query = self.database_manager.database.session.query(Interaction)
+        interactions = pd.read_sql(interactions_query.statement, self.database_manager.database.engine)
 
-        multidata_query = self.database_manager.session.query(Multidata.id_multidata)
-        multidata_df = pd.read_sql(multidata_query.statement, self.database_manager.engine)
+        multidata_expanded = self.database_manager.get_repository('multidata').get_all_expanded()
 
-        interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_1_id'], right_on=['id_multidata'])
-        interactions_df = pd.merge(interactions_df, multidata_df, left_on=['multidata_2_id'], right_on=['id_multidata'],
-                                   suffixes=['_1', '_2'])
+        interactions = pd.merge(interactions, multidata_expanded, left_on=['multidata_1_id'], right_on=['id_multidata'])
+        interactions = pd.merge(interactions, multidata_expanded, left_on=['multidata_2_id'], right_on=['id_multidata'],
+                                suffixes=['_1', '_2'])
 
-        interactions_df.drop(['id_multidata_1', 'id_multidata_2'], axis=1, inplace=True)
+        interactions.drop(['id_multidata_1', 'id_multidata_2'], axis=1, inplace=True)
 
-        return interactions_df
+        return interactions
