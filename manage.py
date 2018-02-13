@@ -1,9 +1,7 @@
 import click
-from cellphonedb.collection import Collector
+from cellphonedb.flaskcollectorlauncher import FlaskCollectorLauncher
 from cellphonedb.api import create_app
-from cellphonedb.core.exporters.exporterlauncher import ExporterLauncher
-from cellphonedb.extensions import db
-from cellphonedb.db_scripts import db_drop_everything
+from cellphonedb.extensions import cellphonedb_flask
 from cellphonedb.FlaskQueryLauncher import FlaskQueryLauncher
 from cellphonedb.flaskexporterlauncher import FlaskExporterLauncher
 
@@ -17,29 +15,27 @@ def run():
 
 @app.cli.command()
 def create_db():
-    db.create_all()
+    cellphonedb_flask.cellphonedb.database_manager.database.create_all()
 
 
 @app.cli.command()
 def reset_db():
-    db_drop_everything(db)
-    db.create_all()
+    database = cellphonedb_flask.cellphonedb.database_manager.database
+    database.drop_everything()
+    database.create_all()
 
 
 @app.cli.command()
 @click.argument('table')
 @click.argument('file', default='')
 def collect(table, file):
-    collector = Collector(app)
-    # Get the method of the collector that matches the table name and run
-    getattr(collector, table)(file)
+    getattr(FlaskCollectorLauncher(), table)(file)
 
 
 @app.cli.command()
 @click.argument('table')
 def export(table):
-    exporter = FlaskExporterLauncher()
-    getattr(exporter, table)()
+    getattr(FlaskExporterLauncher(), table)()
 
 
 @app.cli.command()

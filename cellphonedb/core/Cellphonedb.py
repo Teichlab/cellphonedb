@@ -1,5 +1,6 @@
 import pandas as pd
 
+from cellphonedb.core.collectors.collectorlauncher import CollectorLauncher
 from cellphonedb.core.exporters.exporterlauncher import ExporterLauncher
 from cellphonedb.database import DatabaseManager
 from cellphonedb.queries import cells_to_clusters, receptor_ligands_interactions, \
@@ -10,6 +11,7 @@ class Cellphonedb(object):
     def __init__(self, database_manager: DatabaseManager):
         self.database_manager = database_manager
         self.export = ExporterLauncher(self.database_manager)
+        self.collect = CollectorLauncher(self.database_manager)
 
     def cells_to_clusters(self, counts, meta):
         genes = self.database_manager.get_repository('gene').get_all()
