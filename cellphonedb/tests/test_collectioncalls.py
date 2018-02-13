@@ -10,19 +10,38 @@ from cellphonedb.flaskcollectorlauncher import FlaskCollectorLauncher
 
 class TestCollectionCalls(TestCase):
 
-    def test_collect_protein(self):
+    def test_collect_data(self):
         cellphonedb_flask.cellphonedb.database_manager.database.drop_everything()
         cellphonedb_flask.cellphonedb.database_manager.database.create_all()
-        protein_namefile = 'collect_protein.csv'
-        FlaskCollectorLauncher().protein(protein_namefile, self.fixtures_dir())
 
-        proteins_expected = pd.read_csv('{}/{}'.format(self.fixtures_dir(), protein_namefile))
+        self.check_proteins()
+        self.check_genes()
 
-        proteins_db = cellphonedb_flask.cellphonedb.database_manager.get_repository('protein').get_all()
+    def check_proteins(self):
+        self.collect_data('protein')
+        self.assert_number_data('protein')
+
+        proteins_expected = pd.read_csv('{}/{}'.format(self.fixtures_dir(), 'collect_protein.csv'))
         multidatas_db = cellphonedb_flask.cellphonedb.database_manager.get_repository('multidata').get_all()
 
-        self.assertEqual(len(proteins_expected), len(proteins_db))
-        self.assertEqual(len(proteins_expected), len(multidatas_db))
+        self.assertEqual(len(proteins_expected), len(multidatas_db),
+                         'Database collected multidata (from proteins) didnt match')
+
+    def check_genes(self):
+        self.collect_data('gene')
+        self.assert_number_data('gene')
+
+    def assert_number_data(self, name):
+        namefile = 'collect_{}.csv'.format(name)
+
+        db_data = cellphonedb_flask.cellphonedb.database_manager.get_repository(name).get_all()
+
+        expected_data = pd.read_csv('{}/{}'.format(self.fixtures_dir(), namefile))
+        self.assertEqual(len(db_data), len(expected_data), 'Database collected {} didnt match'.format(name))
+
+    def collect_data(self, name):
+        namefile = 'collect_{}.csv'.format(name)
+        getattr(FlaskCollectorLauncher(), name)(namefile, self.fixtures_dir())
 
     def create_app(self):
         return create_app(environment='test')

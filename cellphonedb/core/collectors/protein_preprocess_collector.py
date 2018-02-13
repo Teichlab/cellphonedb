@@ -4,7 +4,7 @@ from cellphonedb.models.multidata import properties_multidata
 from cellphonedb.tools import filters
 
 
-def process_data(proteins: pd.DataFrame, multidata_colums, protein_columns):
+def call(proteins: pd.DataFrame, multidata_colums, protein_columns):
     bools = ['transmembrane', 'secretion', 'peripheral', 'receptor',
              'receptor_highlight', 'adhesion', 'other', 'transporter',
              'secreted_highlight', 'iuhpar_ligand', 'cytoplasm', 'extracellular']

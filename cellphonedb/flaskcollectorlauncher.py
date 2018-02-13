@@ -5,22 +5,21 @@ from cellphonedb.extensions import cellphonedb_flask
 
 
 class FlaskCollectorLauncher(object):
-    def protein(self, protein_file='', data_path=''):
-        if not protein_file:
-            protein_file = 'protein.csv'
+    def __getattr__(self, method_name):
 
-        if not data_path:
-            data_path = data_dir
+        def wrapper(namefile='', data_path=''):
+            if not namefile:
+                namefile = '{}.csv'.format(method_name)
 
-        proteins = pd.read_csv('{}/{}'.format(data_path, protein_file))
-        cellphonedb_flask.cellphonedb.collect.protein(proteins)
+            if not data_path:
+                data_path = data_dir
 
-    # def gene(self, gene_file=None):
-    #         gene_collection.load(gene_file)
-    #
-    # def complex(self, complex_file=None):
-    #         complex_collection.load(complex_file)
-    #
+            data = pd.read_csv('{}/{}'.format(data_path, namefile))
+
+            getattr(cellphonedb_flask.cellphonedb.collect, method_name)(data)
+
+        return wrapper
+
     # def interaction(self, interaction_file=None):
     #         interaction_collection.load(interaction_file)
     #
