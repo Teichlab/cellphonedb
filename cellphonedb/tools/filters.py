@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def remove_not_defined_columns(data_frame, defined_columns):
+def remove_not_defined_columns(data_frame: pd.DataFrame, defined_columns: list) -> pd.DataFrame:
     """
 
     :type data_frame: pd.DataFrame

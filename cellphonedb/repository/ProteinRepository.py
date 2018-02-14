@@ -20,6 +20,13 @@ class ProteinRepository(Repository):
 
         return protein
 
+    def get_all_name_id(self) -> pd.DataFrame:
+        query_multidatas = self.database_manager.database.session.query(Protein.id_protein, Multidata.name).join(
+            Multidata)
+        multidatas = pd.read_sql(query_multidatas.statement, self.database_manager.database.session.bind)
+
+        return multidatas
+
     def get_protein_multidata_by_uniprot(self, uniprot: str) -> pd.DataFrame:
         protein_query = self.database_manager.database.session.query(Protein, Multidata).join(Multidata).filter_by(
             name=uniprot).limit(1)

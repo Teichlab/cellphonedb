@@ -2,7 +2,7 @@ from cellphonedb.core.collectors import protein_preprocess_collector, gene_prepr
 from cellphonedb.database import DatabaseManager
 
 
-class CollectorLauncher(object):
+class Collector(object):
     def __init__(self, database_manager: DatabaseManager):
         self.database_manager = database_manager
 
@@ -19,9 +19,9 @@ class CollectorLauncher(object):
         genes_processed = gene_preprocess_collector.call(genes, self.database_manager.get_column_table_names('gene'))
         self.database_manager.get_repository('gene').add(genes_processed)
 
-    # def complex(self, complex_file=None):
-    #     complex_collection.load(complex_file)
-    #
+    def complex(self, complexes):
+        self.database_manager.get_repository('complex').add(complexes)
+
     # def interaction(self, interaction_file=None):
     #     interaction_collection.load(interaction_file)
     #
