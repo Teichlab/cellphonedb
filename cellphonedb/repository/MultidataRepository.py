@@ -28,6 +28,12 @@ class MultidataRepository(Repository):
 
         return multidata_expanded
 
+    def get_all_name_id(self) -> pd.DataFrame:
+        query_multidatas = self.database_manager.database.session.query(Multidata.id_multidata, Multidata.name)
+        multidatas = pd.read_sql(query_multidatas.statement, self.database_manager.database.session.bind)
+
+        return multidatas
+
     def get_multidatas_from_string(self, input_string: str) -> pd.DataFrame:
         multidatas = self.get_all_expanded()
 

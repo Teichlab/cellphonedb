@@ -22,9 +22,9 @@ class Collector(object):
     def complex(self, complexes):
         self.database_manager.get_repository('complex').add(complexes)
 
-    # def interaction(self, interaction_file=None):
-    #     interaction_collection.load(interaction_file)
-    #
+    def interaction(self, interactions):
+        self.database_manager.get_repository('interaction').add(interactions)
+
     # def all(self, filename=None):
     #     print('Collecting Proteins')
     #     protein_collection.load()

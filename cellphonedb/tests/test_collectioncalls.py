@@ -17,6 +17,7 @@ class TestCollectionCalls(TestCase):
         self.check_proteins()
         self.check_genes()
         self.check_complex()
+        self.check_interaction()
 
     def check_proteins(self):
         self.collect_data('protein')
@@ -35,6 +36,10 @@ class TestCollectionCalls(TestCase):
     def check_complex(self):
         self.collect_data('complex')
         self.assert_number_data('complex')
+
+    def check_interaction(self):
+        self.collect_data('interaction')
+        self.assert_number_data('interaction')
 
     def assert_number_data(self, name):
         namefile = 'collect_{}.csv'.format(name)

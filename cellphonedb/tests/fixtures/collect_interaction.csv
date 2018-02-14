@@ -1,0 +1,5 @@
+comments,entry_name_1,entry_name_2,multidata_name_1,multidata_name_2,score_1,score_2,source
+"3tgx, PDB partially",,IL21_HUMAN,uniprot_1,uniprot_2,1.0,1.0,curated
+,,IL9_HUMAN,uniprot_1,complex_1,1.0,1.0,curated
+"Induces NK Cell Activation. Reviewed in PMID: 24223577. 4s0u, PDB partially",,RET1L_HUMAN,uniprot_3,uniprot_3,1.0,1.0,curated
+"1pvh, PDB partially",,LIF_HUMAN,complex_2,complex_3,1.0,1.0,curated

@@ -4,7 +4,7 @@ from sqlalchemy import or_
 from cellphonedb.database.Repository import Repository
 from cellphonedb.models.interaction.db_model_interaction import Interaction
 from cellphonedb.models.interaction.functions_interaction import expand_interactions_multidatas
-from cellphonedb.models.multidata.db_model_multidata import Multidata
+from cellphonedb.tools import filters
 
 
 class InteractionRepository(Repository):
@@ -40,7 +40,6 @@ class InteractionRepository(Repository):
         interactions_expanded = expand_interactions_multidatas(interactions, multidatas_expanded)
         return interactions_expanded
 
-    # TODO: Not tested
     def get_all_expanded(self):
         interactions_query = self.database_manager.database.session.query(Interaction)
         interactions = pd.read_sql(interactions_query.statement, self.database_manager.database.engine)
@@ -54,3 +53,13 @@ class InteractionRepository(Repository):
         interactions.drop(['id_multidata_1', 'id_multidata_2'], axis=1, inplace=True)
 
         return interactions
+
+    def add(self, interactions):
+        interaction_df = self.blend_dataframes(interactions, ['multidata_name_1', 'multidata_name_2'],
+                                               self.database_manager.get_repository('multidata').get_all_name_id(),
+                                               'name', 'multidata')
+
+        filters.remove_not_defined_columns(interaction_df, self.database_manager.get_column_table_names('interaction'))
+
+        interaction_df.to_sql(name='interaction', if_exists='append', con=self.database_manager.database.engine,
+                              index=False)
