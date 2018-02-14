@@ -25,12 +25,12 @@ class Collector(object):
     def interaction(self, interactions):
         self.database_manager.get_repository('interaction').add(interactions)
 
-    # def all(self, filename=None):
-    #     print('Collecting Proteins')
-    #     protein_collection.load()
-    #     print('Collecting Genes')
-    #     gene_collection.load()
-    #     print('Collecting Complexes')
-    #     complex_collection.load()
-    #     print('Collecting Interactions')
-    #     interaction_collection.load()
+    def all(self, proteins, genes, complexes, interactions):
+        print('Collecting Proteins')
+        self.protein(proteins)
+        print('Collecting Genes')
+        self.gene(genes)
+        print('Collecting Complexes')
+        self.complex(complexes)
+        print('Collecting Interactions')
+        self.interaction(interactions)

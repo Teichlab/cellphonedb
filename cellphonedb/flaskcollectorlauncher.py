@@ -20,15 +20,13 @@ class FlaskCollectorLauncher(object):
 
         return wrapper
 
-    # def interaction(self, interaction_file=None):
-    #         interaction_collection.load(interaction_file)
-    #
-    # def all(self, filename=None):
-    #         print('Collecting Proteins')
-    #         protein_collection.load()
-    #         print('Collecting Genes')
-    #         gene_collection.load()
-    #         print('Collecting Complexes')
-    #         complex_collection.load()
-    #         print('Collecting Interactions')
-    #         interaction_collection.load()
+    def all(self, protein_filename='', gene_filename='', complex_filename='', interaction_filename=''):
+        print('Collecting Proteins')
+        self.protein(protein_filename)
+        print('Collecting Genes')
+        self.gene(gene_filename)
+        print('Collecting Complexes')
+        self.complex(complex_filename)
+        print('Collecting Interactions')
+        self.interaction(interaction_filename)
+#
