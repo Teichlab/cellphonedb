@@ -1,15 +1,12 @@
-import random
-import string
-
-from flask_testing import TestCase
-
 from cellphonedb.api import create_app, output_test_dir
-from cellphonedb.flaskexporterlauncher import FlaskExporterLauncher
+from cellphonedb.flask_exporter_launcher import FlaskExporterLauncher
 
 import os.path
 
+from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
-class TestExportersCalls(TestCase):
+
+class TestExporterCalls(CellphoneFlaskTestCase):
 
     def test_ligands_receptors_proteins(self):
         self.assert_file_exist('ligands_receptors_proteins')
@@ -46,19 +43,9 @@ class TestExportersCalls(TestCase):
         self.assertTrue(os.path.isfile(path_file), message)
         self.remove_file(path_file)
 
-    @staticmethod
-    def remove_file(file):
-        os.remove(file)
-
-    @staticmethod
-    def rand_string(digits=5):
-        return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(digits))
-
-    @staticmethod
-    def get_test_namefile(original_namefile, extension, prefix='TESTING'):
-        namefile = '{}_{}_{}.{}'.format(prefix, original_namefile, TestExportersCalls.rand_string(), extension)
-
-        return namefile
+    def setUp(self):
+        self.reset_db()
+        self.populate_db()
 
     def create_app(self):
         return create_app(environment='test')

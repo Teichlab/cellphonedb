@@ -1,6 +1,6 @@
 uniprot,entry_name,receptor,receptor_highlight,receptor_desc,adhesion,other,other_desc,transporter,secreted_highlight,secreted_desc,transmembrane,secretion,peripheral,iuhpar_ligand,cytoplasm,extracellular,tags,tags_reason,tags_description,integrin_interaction
 uniprot_1,ACKR3_HUMAN,TRUE,TRUE,Atipical_chemokine_receptor_add,TRUE,TRUE,CoReceptor_Acts as coreceptor with CXCR4 for a restricted number of HIV isolates (uniprot),FALSE,FALSE,,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,To_comment,Receptor_add,CoReceptor_Acts as coreceptor with CXCR4 for a restricted number of HIV isolates (uniprot),FALSE
-uniprot_2,ERBB2_HUMAN,TRUE,TRUE,https://www.ncbi.nlm.nih.gov/pubmed/22505611,FALSE,FALSE,,FALSE,FALSE,,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,,,,FALSE
+uniprot_2,ERBB2_HUMAN,TRUE,TRUE,https://www.ncbi.nlm.nih.gov/pubmed/22505611,FALSE,FALSE,,FALSE,TRUE,,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,,,,FALSE
 uniprot_3,F168B_HUMAN,FALSE,FALSE,,TRUE,FALSE,,FALSE,FALSE,,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,To_comment,Adhesion_add,,FALSE
 uniprot_4,CLD24_HUMAN,FALSE,FALSE,,TRUE,FALSE,,FALSE,FALSE,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,To_comment,Adhesion_add,Claudins,FALSE
 uniprot_5,CLD25_HUMAN,FALSE,FALSE,,TRUE,FALSE,,FALSE,FALSE,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,To_comment,Adhesion_add,Claudins,FALSE

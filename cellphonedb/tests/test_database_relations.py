@@ -1,8 +1,8 @@
 import pandas as pd
 from flask_testing import TestCase
 
+from cellphonedb import extensions
 from cellphonedb.api import create_app
-from cellphonedb.extensions import db
 from cellphonedb.models.gene.db_model_gene import Gene
 from cellphonedb.models.multidata.db_model_multidata import Multidata
 from cellphonedb.models.protein.db_model_protein import Protein
@@ -28,13 +28,18 @@ class DatabaseRelationsChecks(TestCase):
     def test_all_protein_have_gen(self):
 
         expected_protein_without_gene = 159
-        protein_query = db.session.query(Protein, Multidata.name).join(Multidata)
+        protein_query = extensions.cellphonedb_flask.cellphonedb.database_manager.database.session.query(Protein,
+                                                                                                         Multidata.name).join(
+            Multidata)
 
-        protein_df = pd.read_sql(protein_query.statement, db.engine)
+        protein_df = pd.read_sql(protein_query.statement,
+                                 extensions.cellphonedb_flask.cellphonedb.database_manager.database.engine)
         protein_ids = protein_df['id_protein'].tolist()
 
-        gene_query = db.session.query(Gene.protein_id)
-        gene_protein_ids = pd.read_sql(gene_query.statement, db.engine)['protein_id'].tolist()
+        gene_query = extensions.cellphonedb_flask.cellphonedb.database_manager.database.session.query(Gene.protein_id)
+        gene_protein_ids = \
+        pd.read_sql(gene_query.statement, extensions.cellphonedb_flask.cellphonedb.database_manager.database.engine)[
+            'protein_id'].tolist()
 
         protein_without_gene = []
         for protein_id in protein_ids:
@@ -56,8 +61,5 @@ class DatabaseRelationsChecks(TestCase):
 
         self.assertEqual(len(protein_without_gene), expected_protein_without_gene, 'There are Proteins without Gene.')
 
-    def setUp(self):
-        self.client = self.app.test_client()
-
     def create_app(self):
-        return create_app(environment='test')
+        return create_app()

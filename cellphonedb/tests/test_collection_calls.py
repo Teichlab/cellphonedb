@@ -1,14 +1,12 @@
-import os
-
 import pandas as pd
-from flask_testing import TestCase
 
 from cellphonedb.api import create_app
 from cellphonedb.extensions import cellphonedb_flask
-from cellphonedb.flaskcollectorlauncher import FlaskCollectorLauncher
+from cellphonedb.flask_collector_launcher import FlaskCollectorLauncher
+from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 
-class TestCollectionCalls(TestCase):
+class TestCollectionCalls(CellphoneFlaskTestCase):
 
     def test_collect_data(self):
         cellphonedb_flask.cellphonedb.database_manager.database.drop_everything()
@@ -55,10 +53,3 @@ class TestCollectionCalls(TestCase):
 
     def create_app(self):
         return create_app(environment='test')
-
-    @staticmethod
-    def fixtures_dir():
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        fixtures_dir = '{}/fixtures'.format(current_dir)
-
-        return fixtures_dir

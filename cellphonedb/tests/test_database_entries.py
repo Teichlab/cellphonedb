@@ -1,15 +1,8 @@
 import pandas as pd
 from flask_testing import TestCase
 
+from cellphonedb import extensions
 from cellphonedb.api import create_app
-from cellphonedb.extensions import db
-from cellphonedb.models.complex.db_model_complex import Complex
-from cellphonedb.models.complex_composition.db_model_complex_composition import ComplexComposition
-from cellphonedb.models.gene.db_model_gene import Gene
-from cellphonedb.models.interaction.db_model_interaction import Interaction
-from cellphonedb.models.multidata.db_model_multidata import Multidata
-from cellphonedb.models.protein.db_model_protein import Protein
-from cellphonedb.unblend import Unblend
 
 complex_entries = [
     {
@@ -32,7 +25,7 @@ complex_entries = [
             "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
-            "comments": "Note: Presumably retained within the endoplasmic reticulum unless complexed with HTR3A.",
+            "comments_complex": "Note: Presumably retained within the endoplasmic reticulum unless complexed with HTR3A.",
             "extracellular": False,
             "integrin_interaction": False
         },
@@ -58,7 +51,7 @@ complex_entries = [
             "pdb_structure": "TRUE",
             "pdb_id": "1kup",
             "stoichiometry": "ITGA2B;ITGB3",
-            "comments": "Well known integrin combination",
+            "comments_complex": "Well known integrin combination",
             "integrin_interaction": True
 
         },
@@ -85,7 +78,7 @@ complex_entries = [
             "pdb_structure": "partial",
             "pdb_id": "3ml4",
             "stoichiometry": "DOK7;DOK7;MUSK;MUSK",
-            "comments": "MUSK Interacts with LRP4; the heterodimer forms an AGRIN receptor complex that binds AGRIN resulting in activation of MUSK",
+            "comments_complex": "MUSK Interacts with LRP4; the heterodimer forms an AGRIN receptor complex that binds AGRIN resulting in activation of MUSK",
             "extracellular": False,
             "integrin_interaction": False,
         },
@@ -112,7 +105,7 @@ complex_entries = [
             "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
-            "comments": "Membrane-bound IgM molecules are non-covalently associated with heterodimer of CD79A and CD79B",
+            "comments_complex": "Membrane-bound IgM molecules are non-covalently associated with heterodimer of CD79A and CD79B",
             "extracellular": False,
             "integrin_interaction": False,
         },
@@ -139,7 +132,7 @@ complex_entries = [
             "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
-            "comments": "Serine/threonine kinase heterodimer upon ligand binding",
+            "comments_complex": "Serine/threonine kinase heterodimer upon ligand binding",
             "extracellular": False,
             "integrin_interaction": False,
         },
@@ -166,7 +159,7 @@ complex_entries = [
             "pdb_structure": "TRUE",
             "pdb_id": "1onq",
             "stoichiometry": "B2M;CD1A",
-            "comments": "Heterodimer with B2M (beta-2-microglobulin).",
+            "comments_complex": "Heterodimer with B2M (beta-2-microglobulin).",
             "extracellular": False,
             "integrin_interaction": False,
         },
@@ -193,7 +186,7 @@ complex_entries = [
             "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
-            "comments": None,
+            "comments_complex": None,
             "extracellular": True,
             "integrin_interaction": False,
         },
@@ -220,7 +213,7 @@ complex_entries = [
             "pdb_structure": "FALSE",
             "pdb_id": None,
             "stoichiometry": None,
-            "comments": "NA; the heterodimer binds IL17AF",
+            "comments_complex": "NA; the heterodimer binds IL17AF",
             "extracellular": False,
             "integrin_interaction": False,
         },
@@ -595,51 +588,51 @@ gene_entries = [
 ]
 interaction_entries = [
     {
-        "score_1": 1,
-        "score_2": 1,
-        "multidata_name_1": "CD8 receptor",
-        "multidata_name_2": "P06239",
-        "comments": "1q69, PDB partially",
+        "score_1": 1.0,
+        "score_2": 1.0,
+        "name_1": "CD8 receptor",
+        "name_2": "P06239",
+        "comments_interaction": "1q69, PDB partially",
         "source": "curated"
     },
     {
         "score_1": 0.35,
         "score_2": 0.35,
-        "multidata_name_1": "P25106",
-        "multidata_name_2": "P25705",
-        "comments": None,
+        "name_1": "P25106",
+        "name_2": "P25705",
+        "comments_interaction": None,
         "source": "IntAct"
     },
     {
         "score_1": 0.35,
         "score_2": 0.35,
-        "multidata_name_1": "P01023",
-        "multidata_name_2": "P25705",
-        "comments": None,
+        "name_1": "P01023",
+        "name_2": "P25705",
+        "comments_interaction": None,
         "source": "MINT"
     },
     {
         "score_1": 0.92,
         "score_2": 0.92,
-        "multidata_name_1": "Q05397",
-        "multidata_name_2": "P12931",
-        "comments": None,
+        "name_1": "Q05397",
+        "name_2": "P12931",
+        "comments_interaction": None,
         "source": "MolCon"
     },
     {
         "score_1": 0.44,
         "score_2": 0.44,
-        "multidata_name_1": "Q03167",
-        "multidata_name_2": "P01137",
-        "comments": None,
+        "name_1": "Q03167",
+        "name_2": "P01137",
+        "comments_interaction": None,
         "source": "I2D-IMEx"
     },
     {
         "score_1": 0.0,
         "score_2": 1.0,
-        "multidata_name_1": "O00421",
-        "multidata_name_2": "Q99731",
-        "comments": None,
+        "name_1": "O00421",
+        "name_2": "Q99731",
+        "comments_interaction": None,
         "source": "InnateDB"
     },
 ]
@@ -648,34 +641,36 @@ interaction_entries = [
 class DatabaseRandomEntries(TestCase):
     def test_interaction(self):
 
-        interaction_query = db.session.query(Interaction)
-        interaction_df = pd.read_sql(interaction_query.statement, db.engine)
-
-        interaction_df = Unblend.multidata(interaction_df, ['multidata_1_id', 'multidata_2_id'], 'multidata_name',
-                                           True)
+        interaction_df = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+            'interaction').get_all_expanded()
 
         data_not_match = False
 
         for interaction in interaction_entries:
             db_interaction = interaction_df
-
+            non_match_properties = []
             for column_name in interaction:
                 if interaction[column_name] == None:
                     db_interaction = db_interaction[pd.isnull(db_interaction[column_name])]
                 else:
                     db_interaction = db_interaction[db_interaction[column_name] == interaction[column_name]]
 
+                if len(db_interaction) < 1:
+                    non_match_properties.append(column_name)
             if (len(db_interaction) < 1):
                 print('Failed cheking Interaction:')
                 print('Expected data:')
                 print(interaction)
+                print('Non Match properties')
+                print(non_match_properties)
                 data_not_match = True
 
         self.assertFalse(data_not_match, 'Some Interactions doesnt match')
 
     def test_gene(self):
-        query = db.session.query(Gene, Multidata).join(Protein).join(Multidata)
-        dataframe = pd.read_sql(query.statement, db.engine)
+
+        dataframe = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+            'gene').get_all_expanded()
 
         data_not_match = False
 
@@ -697,8 +692,9 @@ class DatabaseRandomEntries(TestCase):
         self.assertFalse(data_not_match, 'Some Gene doesnt match')
 
     def test_protein(self):
-        query = db.session.query(Multidata, Protein).join(Protein)
-        dataframe = pd.read_sql(query.statement, db.engine)
+
+        dataframe = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+            'protein').get_all_expanded()
 
         data_not_match = False
 
@@ -717,11 +713,9 @@ class DatabaseRandomEntries(TestCase):
         self.assertFalse(data_not_match, 'Some proteins doesnt match')
 
     def test_complex_composition_table(self):
-        query_multidata = db.session.query(Multidata)
-        df_multidata = pd.read_sql(query_multidata.statement, db.engine)
-
-        query_complex_composition = db.session.query(ComplexComposition)
-        df_complex_composition = pd.read_sql(query_complex_composition.statement, db.engine)
+        df_multidata = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('multidata').get_all()
+        df_complex_composition = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+            'complex').get_all_compositions()
 
         number_compositions_not_match = False
         some_protein_didnt_exists = False
@@ -763,8 +757,9 @@ class DatabaseRandomEntries(TestCase):
         self.assertFalse(some_protein_not_part_of_complex, 'Complex_composition proteins doesnt match')
 
     def test_complex(self):
-        query = db.session.query(Multidata, Complex).join(Complex)
-        dataframe = pd.read_sql(query.statement, db.engine)
+
+        dataframe = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+            'complex').get_all_expanded()
 
         data_not_match = False
 
@@ -783,7 +778,7 @@ class DatabaseRandomEntries(TestCase):
         self.assertFalse(data_not_match, 'Some complex doesnt match')
 
     def create_app(self):
-        return create_app(environment='test')
+        return create_app()
 
     def setUp(self):
         self.client = self.app.test_client()
