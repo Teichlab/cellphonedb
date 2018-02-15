@@ -43,6 +43,6 @@ def call(complexes, multidatas, complex_compositions, proteins):
 
     complex_complete = dataframe_format.bring_columns_to_start(['name'] + protein_headers, complex_complete)
     complex_complete = dataframe_format.bring_columns_to_end(
-        ['pdb_structure', 'pdb_id', 'stoichiometry', 'comments'], complex_complete)
+        ['pdb_structure', 'pdb_id', 'stoichiometry', 'comments_complex'], complex_complete)
 
     return complex_complete

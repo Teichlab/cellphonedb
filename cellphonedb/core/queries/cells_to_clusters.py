@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 
 
-def call(counts, meta, genes):
+def call(meta, counts, genes):
     cellphone_counts = _filter_by_cellphone_genes(counts, genes)
     clusters = _create_clusters_structure(cellphone_counts, meta)
 
