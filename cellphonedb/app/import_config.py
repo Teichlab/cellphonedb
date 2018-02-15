@@ -13,7 +13,14 @@ class AppConfig():
         self.config_parameters = self._get_config_parameters(environment, support, load_defaults)
 
         self.config = self._load_config()
+        self.sqlalchemy_config = {'uri': self._build_sqlalchemy_database_uri(self.config['database']),
+                                  'echo': self.config['database']['echo']}
         self._set_logger_config(self.config['app']['debug'])
+
+    def get_cellphone_config(self):
+        return {
+            'sqlalchemy': self.sqlalchemy_config
+        }
 
     def _set_logger_config(self, enable_debug):
         root = logging.getLogger()
@@ -72,6 +79,10 @@ class AppConfig():
         return config
 
     def _build_sqlalchemy_database_uri(self, database_config):
+
+        if database_config['adapter'] == 'sqlite':
+            return '{}:///{}'.format(database_config['adapter'], database_config['path'])
+
         return '{}://{}:{}@{}:{}/{}'.format(database_config['adapter'], database_config['user'],
                                             database_config['password'], database_config['host'],
                                             database_config['port'], database_config['db_name'])

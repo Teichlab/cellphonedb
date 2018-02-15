@@ -1,6 +1,5 @@
 database: 
-  db_name: cellphonedb
+  db_name: cellphonedb_test
   host: localhost
-  password: root
-  port: 5432
-  user: root
+  adapter: sqlite
+  path: ":memory:"

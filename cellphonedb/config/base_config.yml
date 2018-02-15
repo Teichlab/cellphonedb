@@ -8,6 +8,7 @@ database:
   password:
   port: 5432
   user:
+  echo: false
 flask:
   debug: false
   sqlalchemy_track_modifications: false
