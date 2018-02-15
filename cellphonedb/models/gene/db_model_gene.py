@@ -11,4 +11,4 @@ class Gene(Base):
     gene_name = Column(String, nullable=False)
     hgnc_symbol = Column(String)
 
-    protein_id = Column(Integer, ForeignKey('protein.id_protein'))
+    protein_id = Column(Integer, ForeignKey('protein.id_protein'), nullable=False)

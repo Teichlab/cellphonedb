@@ -15,4 +15,4 @@ class Interaction(Base):
     score_2 = Column(Float)
 
     source = Column(String)
-    comments = Column(String)
+    comments_interaction = Column(String)

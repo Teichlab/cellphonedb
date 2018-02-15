@@ -11,4 +11,4 @@ class Complex(Base):
     pdb_structure = Column(String)
     pdb_id = Column(String)
     stoichiometry = Column(String)
-    comments = Column(String)
+    comments_complex = Column(String)
