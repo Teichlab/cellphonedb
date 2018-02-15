@@ -4,7 +4,7 @@ import pandas as pd
 from flask import request, Response
 
 from cellphonedb.api_endpoints.endpoint_base import EndpointBase
-from cellphonedb.queries import receptor_ligands_interactions
+from cellphonedb.core.queries import receptor_ligands_interactions
 
 
 # curl -i \

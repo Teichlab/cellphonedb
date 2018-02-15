@@ -2,7 +2,7 @@ import pandas as pd
 from flask import request, Response
 
 from cellphonedb.api_endpoints.endpoint_base import EndpointBase
-from cellphonedb.queries import cells_to_clusters
+from cellphonedb.core.queries import cells_to_clusters
 
 
 # curl -i \
