@@ -28,6 +28,8 @@ class GeneRepository(Repository):
         multidatas = pd.read_sql(query_multidatas.statement, self.database_manager.database.session.bind)
 
         genes = self._blend_multidata(genes, ['name'], multidatas)
+
+        genes.rename(index=str, columns={'id_protein': 'protein_id'}, inplace=True)
         genes = filters.remove_not_defined_columns(genes, self.database_manager.get_column_table_names('gene'))
 
         genes.to_sql(name='gene', if_exists='append', con=self.database_manager.database.engine, index=False)

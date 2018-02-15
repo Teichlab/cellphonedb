@@ -20,13 +20,13 @@ class FlaskCollectorLauncher(object):
 
         return wrapper
 
-    def all(self, protein_filename='', gene_filename='', complex_filename='', interaction_filename=''):
+    def all(self, protein_filename='', gene_filename='', complex_filename='', interaction_filename='', data_path=''):
         print('Collecting Proteins')
-        self.protein(protein_filename)
+        self.protein(protein_filename, data_path)
         print('Collecting Genes')
-        self.gene(gene_filename)
+        self.gene(gene_filename, data_path)
         print('Collecting Complexes')
-        self.complex(complex_filename)
+        self.complex(complex_filename, data_path)
         print('Collecting Interactions')
-        self.interaction(interaction_filename)
+        self.interaction(interaction_filename, data_path)
 #
