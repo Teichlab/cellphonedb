@@ -13,10 +13,8 @@ from cellphonedb.repository.GeneRepository import GeneRepository
 
 
 class CellphonedbSqlalchemy(Cellphonedb):
-    def __init__(self):
-        # TODO: Hardcoded. Move to config file
-        engine = create_engine('postgresql+psycopg2://root:root@localhost:5432/cellphonedb', echo=True)
-        # engine = create_engine('sqlite:///:memory:', echo=True)
+    def __init__(self, config):
+        engine = create_engine(config['sqlalchemy']['uri'], echo=config['sqlalchemy']['echo'])
         database = Database(engine)
         database.base_model = Base
         database_manager = DatabaseManager(None, database)
