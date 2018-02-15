@@ -3,6 +3,7 @@ import json
 import pandas as pd
 from flask import request, Response
 
+from cellphonedb import extensions
 from cellphonedb.api_endpoints.endpoint_base import EndpointBase
 from cellphonedb.core.queries import receptor_ligands_interactions
 
@@ -33,7 +34,7 @@ class ReceptorLigandsInteractions(EndpointBase):
             if 'clusters' in parameters and parameters['clusters']:
                 clusters = list(parameters['clusters'])
 
-            result_interactions, result_interactions_extended = receptor_ligands_interactions.call(
+            result_interactions, result_interactions_extended = extensions.cellphonedb_flask.cellphonedb.query.receptor_ligands_interactions(
                 cells_to_clusters_file, threshold, enable_integrin, enable_complex, clusters)
             self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')
             self._attach_csv(result_interactions_extended.to_csv(index=False),

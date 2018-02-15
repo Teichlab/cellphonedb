@@ -3,9 +3,8 @@ import json
 import pandas as pd
 from flask import request, Response
 
+from cellphonedb import extensions
 from cellphonedb.api_endpoints.endpoint_base import EndpointBase
-from cellphonedb.core.queries import receptor_ligands_interactions
-from cellphonedb.core.queries import cells_to_clusters
 
 
 # curl -i \
@@ -29,7 +28,7 @@ class ReceptorLigandsInteractionsUnprocessed(EndpointBase):
                 {'code': 'parsing_error', 'title': 'Error parsing meta file', 'detail': 'Error parsing meta file'})
 
         if not self._errors:
-            cells_to_clusters_result = cells_to_clusters.call(counts, meta)
+            cells_to_clusters_result = extensions.cellphonedb_flask.cellphonedb.query.cells_to_clusters(meta, counts)
 
             parameters = json.loads(request.form['parameters'])
             threshold = float(parameters['threshold'])
@@ -43,7 +42,7 @@ class ReceptorLigandsInteractionsUnprocessed(EndpointBase):
             if 'clusters' in parameters and parameters['clusters']:
                 clusters = list(parameters['clusters'])
 
-            result_interactions, result_interactions_extended = receptor_ligands_interactions.call(
+            result_interactions, result_interactions_extended = extensions.cellphonedb_flask.cellphonedb.query.receptor_ligands_interactions(
                 cells_to_clusters_result, threshold, enable_integrin, enable_complex, clusters)
 
             self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')

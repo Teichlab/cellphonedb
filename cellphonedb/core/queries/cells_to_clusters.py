@@ -34,8 +34,8 @@ def _filter_by_cellphone_genes(cluster_counts, genes):
     """
 
     multidata_counts = pd.merge(cluster_counts, genes, left_index=True, right_on='ensembl')
-
-    multidata_counts.set_index('ensembl', inplace=True)
+    multidata_counts.rename(index=str, columns={'ensembl': 'gene'}, inplace=True)
+    multidata_counts.set_index('gene', inplace=True)
     return multidata_counts
 
 

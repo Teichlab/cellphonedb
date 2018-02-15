@@ -1,8 +1,8 @@
 import pandas as pd
 from flask import request, Response
 
+from cellphonedb import extensions
 from cellphonedb.api_endpoints.endpoint_base import EndpointBase
-from cellphonedb.core.queries import cells_to_clusters
 
 
 # curl -i \
@@ -25,7 +25,7 @@ class CellToCluster(EndpointBase):
                 {'code': 'parsing_error', 'title': 'Error parsing meta file', 'detail': 'Error parsing meta file'})
 
         if not self._errors:
-            result_df = cells_to_clusters.call(counts, meta)
+            result_df = extensions.cellphonedb_flask.cellphonedb.query.cells_to_clusters(meta, counts)
 
             self._attach_csv(result_df.to_csv(), 'cluster_counts.csv')
 

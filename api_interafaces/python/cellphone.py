@@ -176,4 +176,5 @@ if __name__ == '__main__':
     cells_to_clusters_example()
     receptor_ligands_interactions_example()
     receptor_ligands_interactions_unprocessed_example()
+    print(get_rl_lr_interactions('ACKR3_HUMAN'))
     print(get_rl_lr_interactions('P05107'))

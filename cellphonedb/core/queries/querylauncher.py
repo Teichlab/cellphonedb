@@ -22,21 +22,25 @@ class QueryLauncher():
                                                   complex_composition, genes_expanded, complex_expanded, interactions,
                                                   clusters_names)
 
-    def get_rl_lr_interactions_from_multidata(self, receptor: str, score2_threshold: float):
+    def get_rl_lr_interactions_from_multidata(self, receptor: str, score2_threshold: float) -> pd.DataFrame:
         multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(receptor)
+        if multidatas.empty:
+            return pd.DataFrame()
         interactions = self.database_manager.get_repository('interaction').get_all()
         multidatas_expanded = self.database_manager.get_repository('multidata').get_all_expanded()
         complex_by_multidata = self.database_manager.get_repository('complex').get_complex_by_multidatas(multidatas,
                                                                                                          False)
 
-        results = []
+        result = pd.DataFrame()
         for index, multidata in multidatas.iterrows():
             multidata = multidata.to_frame().transpose()
-            results.append(
-                get_rl_lr_interactions_from_multidata.call(multidata, float(score2_threshold), complex_by_multidata,
-                                                           interactions, multidatas_expanded))
 
-        return results
+            result = result.append(
+                get_rl_lr_interactions_from_multidata.call(multidata, float(score2_threshold), complex_by_multidata,
+                                                           interactions, multidatas_expanded),
+                ignore_index=True)
+
+        return result
 
     def get_multidatas_from_string(self, string: str) -> pd.DataFrame:
         multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(string)
