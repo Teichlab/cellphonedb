@@ -43,3 +43,7 @@ def export(table):
 @click.argument('files', nargs=-1)
 def call_query(queryname, files):
     getattr(FlaskQueryLauncher(), queryname)(*files)
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
