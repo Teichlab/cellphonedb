@@ -195,12 +195,14 @@ class ComplexRepository(Repository):
             name='complex_composition', if_exists='append',
             con=self.database_manager.database.engine, index=False)
 
-    def _add_complex_optimitzations(self, multidata):
-        multidata['is_complex'] = True
-        multidata['is_cellphone_receptor'] = multidata.apply(
+    def _add_complex_optimitzations(self, multidatas):
+        multidatas['is_complex'] = True
+        multidatas['is_cellphone_receptor'] = multidatas.apply(
             lambda protein: properties_multidata.is_receptor(protein),
             axis=1)
-        multidata['is_cellphone_ligand'] = multidata.apply(lambda protein: properties_multidata.is_ligand(protein),
-                                                           axis=1)
+        multidatas['is_cellphone_secreted_ligand'] = multidatas.apply(
+            lambda multidata: properties_multidata.is_secreted_ligand(multidata), axis=1)
+        multidatas['is_cellphone_transmembrane_ligand'] = multidatas.apply(
+            lambda multidata: properties_multidata.is_transmembrane_ligand(multidata), axis=1)
 
-        return multidata
+        return multidatas
