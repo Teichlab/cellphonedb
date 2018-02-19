@@ -1,4 +1,4 @@
-from cellphonedb.tools import filters
+from cellphonedb.core.utils import filters
 
 
 def call(gene_expanded, output_columns):

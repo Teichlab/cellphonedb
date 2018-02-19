@@ -1,7 +1,7 @@
 import itertools
 import pandas as pd
 
-from cellphonedb.models.interaction.filter_interaction import _filter_by_integrin
+from cellphonedb.core.models.interaction.filter_interaction import _filter_by_integrin
 from utilities import dataframe_format
 
 

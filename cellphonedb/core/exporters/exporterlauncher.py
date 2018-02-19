@@ -1,14 +1,10 @@
-from cellphonedb.core.exporters import ligands_receptors_proteins_exporter, complex_exporter, complex_web_exporter, \
-    interaction_exporter, receptor_ligand_interaction_exporter, protein_exporter, gene_exporter
+from cellphonedb.core.exporters import complex_exporter, complex_web_exporter, \
+    interaction_exporter, protein_exporter, gene_exporter
 
 
 class ExporterLauncher(object):
     def __init__(self, database_manager):
         self.database_manager = database_manager
-
-    def ligands_receptors_proteins(self):
-        genes_expanded = self.database_manager.get_repository('gene').get_all_expanded()
-        return ligands_receptors_proteins_exporter.call(genes_expanded)
 
     def complex(self):
         complexes = self.database_manager.get_repository('complex').get_all()

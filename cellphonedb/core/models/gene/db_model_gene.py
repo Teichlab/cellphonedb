@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 
-from cellphonedb.models import Base
+from cellphonedb.core.models import Base
 
 
 class Gene(Base):

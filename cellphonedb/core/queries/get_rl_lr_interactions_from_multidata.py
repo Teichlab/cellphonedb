@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.models.multidata import format_multidata
+from cellphonedb.core.models.multidata import format_multidata
 
 from utilities import dataframe_format
 

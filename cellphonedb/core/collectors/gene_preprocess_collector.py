@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.tools import filters
+from cellphonedb.core.utils import filters
 
 
 def call(genes: pd.DataFrame, gene_columns: list) -> pd.DataFrame:

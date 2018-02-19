@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.tools import filters
+from cellphonedb.core.utils import filters
 from utilities import dataframe_format
 
 

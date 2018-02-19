@@ -3,7 +3,7 @@ from unittest import TestCase
 import os
 import pandas as pd
 
-from cellphonedb.models.interaction import filter_interaction
+from cellphonedb.core.models.interaction import filter_interaction
 
 
 class IntegrinInteractions(TestCase):

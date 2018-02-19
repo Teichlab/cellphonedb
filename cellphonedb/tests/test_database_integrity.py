@@ -3,7 +3,7 @@ from flask_testing import TestCase
 
 from cellphonedb import extensions
 from cellphonedb.api import create_app, output_dir
-from cellphonedb.models.gene.db_model_gene import Gene
+from cellphonedb.core.models.gene.db_model_gene import Gene
 
 
 class DatabaseIntegrity(TestCase):

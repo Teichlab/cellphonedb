@@ -4,12 +4,12 @@ from cellphonedb.database.DatabaseManager import DatabaseManager
 
 from sqlalchemy import create_engine
 
-from cellphonedb.models import Base
-from cellphonedb.repository.ComplexRepository import ComplexRepository
-from cellphonedb.repository.InteractionRepository import InteractionRepository
-from cellphonedb.repository.MultidataRepository import MultidataRepository
-from cellphonedb.repository.ProteinRepository import ProteinRepository
-from cellphonedb.repository.GeneRepository import GeneRepository
+from cellphonedb.core.models import Base
+from cellphonedb.core.repository.ComplexRepository import ComplexRepository
+from cellphonedb.core.repository.InteractionRepository import InteractionRepository
+from cellphonedb.core.repository.MultidataRepository import MultidataRepository
+from cellphonedb.core.repository.ProteinRepository import ProteinRepository
+from cellphonedb.core.repository.GeneRepository import GeneRepository
 
 
 class CellphonedbSqlalchemy(Cellphonedb):

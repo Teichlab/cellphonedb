@@ -8,9 +8,6 @@ from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 class TestExporterCalls(CellphoneFlaskTestCase):
 
-    def test_ligands_receptors_proteins(self):
-        self.assert_file_exist('ligands_receptors_proteins')
-
     def test_complex(self):
         self.assert_file_exist('complex')
 
@@ -19,9 +16,6 @@ class TestExporterCalls(CellphoneFlaskTestCase):
 
     def test_interaction(self):
         self.assert_file_exist('interaction')
-
-    def test_receptor_ligand_interaction(self):
-        self.assert_file_exist('receptor_ligand_interaction')
 
     def test_protein(self):
         self.assert_file_exist('protein')

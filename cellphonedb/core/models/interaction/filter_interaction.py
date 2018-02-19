@@ -1,4 +1,4 @@
-from cellphonedb.models.interaction import properties_interaction
+from cellphonedb.core.models.interaction import properties_interaction
 
 import pandas as pd
 

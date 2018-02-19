@@ -3,9 +3,9 @@ from flask_testing import TestCase
 
 from cellphonedb import extensions
 from cellphonedb.api import create_app
-from cellphonedb.models.gene.db_model_gene import Gene
-from cellphonedb.models.multidata.db_model_multidata import Multidata
-from cellphonedb.models.protein.db_model_protein import Protein
+from cellphonedb.core.models.gene.db_model_gene import Gene
+from cellphonedb.core.models.multidata.db_model_multidata import Multidata
+from cellphonedb.core.models.protein.db_model_protein import Protein
 
 KNOWED_PROTEINS_WITHOUT_GENE = ['Q5VU13', 'P48960', 'Q30KQ2', 'Q6UXV3', 'Q8WXG9', 'Q9BZG9', 'P01782', 'A8MVG2',
                                 'Q8NGJ3', 'P0C617',

@@ -1,7 +1,7 @@
 import pandas as pd
 
-from cellphonedb.models.multidata import properties_multidata
-from cellphonedb.tools import filters
+from cellphonedb.core.models.multidata import properties_multidata
+from cellphonedb.core.utils import filters
 
 
 def call(proteins: pd.DataFrame, multidata_colums, protein_columns):
