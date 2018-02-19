@@ -1,8 +1,8 @@
 import pandas as pd
 
-from cellphonedb.api import create_app
+from cellphonedb.flask_app import create_app
 from cellphonedb.extensions import cellphonedb_flask
-from cellphonedb.flask_collector_launcher import FlaskCollectorLauncher
+from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 
@@ -49,7 +49,7 @@ class TestCollectionCalls(CellphoneFlaskTestCase):
 
     def collect_data(self, name):
         namefile = 'collect_{}.csv'.format(name)
-        getattr(FlaskCollectorLauncher(), name)(namefile, self.fixtures_dir())
+        getattr(FlaskTerminalCollectorLauncher(), name)(namefile, self.fixtures_dir())
 
     def create_app(self):
         return create_app(environment='test')

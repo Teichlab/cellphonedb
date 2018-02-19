@@ -3,7 +3,7 @@ import typing
 import pandas as pd
 
 from cellphonedb.core.queries.query_utils import apply_threshold, merge_cellphone_genes, \
-    get_complex_involved_in_counts, filter_empty_cluster_counts, get_cluster_interactions_combinations
+    get_complex_involved_in_counts, filter_empty_cluster_counts, get_cluster_combinations
 from utilities import dataframe_format
 
 
@@ -27,7 +27,7 @@ def call(cluster_counts: pd.DataFrame, threshold: float, enable_complex: bool, c
             complex_counts)
 
     print('Cluster Interactions')
-    cluster_interactions = get_cluster_interactions_combinations(clusters_names)
+    cluster_interactions = get_cluster_combinations(clusters_names)
 
     print('Finding Enabled Interactions')
     enabled_interactions = _get_enabled_interactions(cluster_counts_filtered, interactions_expanded, 0.3)
@@ -156,9 +156,6 @@ def _get_enabled_interactions(cluster_counts: pd.DataFrame, interactions: pd.Dat
     enabled_interactions = _get_receptor_ligand_secreted_interactions(cluster_counts, interactions)
 
     enabled_interactions = enabled_interactions[enabled_interactions['score_2'] > min_score_2]
-
-    enabled_interactions.drop_duplicates(['id_multidata_ligands', 'id_multidata_receptors'], inplace=True)
-    enabled_interactions.reset_index(drop=True, inplace=True)
 
     return enabled_interactions
 

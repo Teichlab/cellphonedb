@@ -5,7 +5,7 @@ import string
 from flask_testing import TestCase
 
 from cellphonedb.extensions import cellphonedb_flask
-from cellphonedb.flask_collector_launcher import FlaskCollectorLauncher
+from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
 
 
 class CellphoneFlaskTestCase(TestCase):
@@ -21,7 +21,7 @@ class CellphoneFlaskTestCase(TestCase):
         cellphonedb_flask.cellphonedb.database_manager.database.create_all()
 
     def populate_db(self):
-        FlaskCollectorLauncher().all('collect_protein.csv', 'collect_gene.csv', 'collect_complex.csv',
+        FlaskTerminalCollectorLauncher().all('collect_protein.csv', 'collect_gene.csv', 'collect_complex.csv',
                                      'collect_interaction.csv', self.fixtures_dir())
 
     @staticmethod

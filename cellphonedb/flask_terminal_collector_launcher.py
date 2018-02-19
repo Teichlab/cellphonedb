@@ -1,10 +1,10 @@
 import pandas as pd
 
-from cellphonedb.api import data_dir
+from cellphonedb.flask_app import data_dir
 from cellphonedb.extensions import cellphonedb_flask
 
 
-class FlaskCollectorLauncher(object):
+class FlaskTerminalCollectorLauncher(object):
     def __getattr__(self, method_name):
 
         def wrapper(namefile='', data_path=''):

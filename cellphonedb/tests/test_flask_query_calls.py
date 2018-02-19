@@ -1,7 +1,7 @@
 import os
 
-from cellphonedb.flask_query_launcher import FlaskQueryLauncher
-from cellphonedb.api import create_app, data_test_dir, output_test_dir
+from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
+from cellphonedb.flask_app import create_app, data_test_dir, output_test_dir
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 
@@ -15,7 +15,8 @@ class TestFlaskQueryCalls(CellphoneFlaskTestCase):
         return create_app('test')
 
     def test_cell_to_cluster_real_data(self):
-        FlaskQueryLauncher().cells_to_clusters('query_meta.csv', 'query_counts.csv', data_test_dir, output_test_dir)
+        FlaskTerminalQueryLauncher().cells_to_clusters('query_meta.csv', 'query_counts.csv', data_test_dir,
+                                                       output_test_dir)
 
         self.assert_file_exist('cells_to_clusters.csv')
 

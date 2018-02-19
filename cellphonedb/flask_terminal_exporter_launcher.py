@@ -1,15 +1,15 @@
-from cellphonedb.api import output_dir
+from cellphonedb.flask_app import output_dir
 from cellphonedb.extensions import cellphonedb_flask
 
 
-class FlaskExporterLauncher(object):
+class FlaskTerminalExporterLauncher(object):
 
     @staticmethod
     def all():
-        FlaskExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.protein)
-        FlaskExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.complex)
-        FlaskExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.gene)
-        FlaskExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.interaction)
+        FlaskTerminalExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.protein)
+        FlaskTerminalExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.complex)
+        FlaskTerminalExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.gene)
+        FlaskTerminalExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.interaction)
 
     @staticmethod
     def _call_cellphonecore_method(export_method, output_name=None, output_path=None):

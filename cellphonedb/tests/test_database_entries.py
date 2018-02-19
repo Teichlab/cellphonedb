@@ -2,7 +2,7 @@ import pandas as pd
 from flask_testing import TestCase
 
 from cellphonedb import extensions
-from cellphonedb.api import create_app
+from cellphonedb.flask_app import create_app
 
 complex_entries = [
     {

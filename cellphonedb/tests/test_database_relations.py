@@ -2,7 +2,7 @@ import pandas as pd
 from flask_testing import TestCase
 
 from cellphonedb import extensions
-from cellphonedb.api import create_app
+from cellphonedb.flask_app import create_app
 from cellphonedb.core.models.gene.db_model_gene import Gene
 from cellphonedb.core.models.multidata.db_model_multidata import Multidata
 from cellphonedb.core.models.protein.db_model_protein import Protein

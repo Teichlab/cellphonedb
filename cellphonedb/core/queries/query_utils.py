@@ -84,5 +84,5 @@ def filter_empty_cluster_counts(cluster_counts: pd.DataFrame, clusters_names: li
     return filetered_cluster_counts
 
 
-def get_cluster_interactions_combinations(cluster_names):
+def get_cluster_combinations(cluster_names):
     return list(itertools.product(cluster_names, repeat=2))

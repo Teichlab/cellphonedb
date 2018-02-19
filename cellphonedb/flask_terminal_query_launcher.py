@@ -1,10 +1,10 @@
 import pandas as pd
 
-from cellphonedb.api import output_dir, query_input_dir
+from cellphonedb.flask_app import output_dir, query_input_dir
 from cellphonedb.extensions import cellphonedb_flask
 
 
-class FlaskQueryLauncher(object):
+class FlaskTerminalQueryLauncher(object):
     def cells_to_clusters(self, meta_namefile, counts_namefile, data_path, output_path=''):
         if not data_path:
             data_path = query_input_dir

@@ -1,5 +1,5 @@
 from cellphonedb import extensions
-from cellphonedb.api import create_app
+from cellphonedb.flask_app import create_app
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 

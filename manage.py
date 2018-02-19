@@ -1,9 +1,9 @@
 import click
-from cellphonedb.flask_collector_launcher import FlaskCollectorLauncher
-from cellphonedb.api import create_app
+from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
+from cellphonedb.flask_app import create_app
 from cellphonedb.extensions import cellphonedb_flask
-from cellphonedb.flask_query_launcher import FlaskQueryLauncher
-from cellphonedb.flask_exporter_launcher import FlaskExporterLauncher
+from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
+from cellphonedb.flask_terminal_exporter_launcher import FlaskTerminalExporterLauncher
 
 app = create_app()
 
@@ -29,20 +29,20 @@ def reset_db():
 @click.argument('table')
 @click.argument('file', default='')
 def collect(table, file):
-    getattr(FlaskCollectorLauncher(), table)(file)
+    getattr(FlaskTerminalCollectorLauncher(), table)(file)
 
 
 @app.cli.command()
 @click.argument('table')
 def export(table):
-    getattr(FlaskExporterLauncher(), table)()
+    getattr(FlaskTerminalExporterLauncher(), table)()
 
 
 @app.cli.command()
 @click.argument('queryname')
 @click.argument('files', nargs=-1)
 def call_query(queryname, files):
-    getattr(FlaskQueryLauncher(), queryname)(*files)
+    getattr(FlaskTerminalQueryLauncher(), queryname)(*files)
 
 
 if __name__ == "__main__":

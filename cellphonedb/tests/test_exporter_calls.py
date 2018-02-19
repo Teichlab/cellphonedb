@@ -1,5 +1,5 @@
-from cellphonedb.api import create_app, output_test_dir
-from cellphonedb.flask_exporter_launcher import FlaskExporterLauncher
+from cellphonedb.flask_app import create_app, output_test_dir
+from cellphonedb.flask_terminal_exporter_launcher import FlaskTerminalExporterLauncher
 
 import os.path
 
@@ -31,7 +31,7 @@ class TestExporterCalls(CellphoneFlaskTestCase):
         if not message:
             message = 'File {} didnt exist'.format(namefile)
 
-        getattr(FlaskExporterLauncher(), method_name)(namefile, output_test_dir)
+        getattr(FlaskTerminalExporterLauncher(), method_name)(namefile, output_test_dir)
 
         path_file = '{}/{}'.format(output_test_dir, namefile)
         self.assertTrue(os.path.isfile(path_file), message)
