@@ -1,0 +1,9 @@
+id_multidata,is_cellphone_receptor,is_cellphone_transmembrane_ligand
+1,False,False
+2,True,False
+3,False,True
+4,True,True
+5,False,False
+6,True,False
+7,False,True
+8,True,True

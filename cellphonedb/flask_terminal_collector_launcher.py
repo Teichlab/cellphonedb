@@ -29,4 +29,3 @@ class FlaskTerminalCollectorLauncher(object):
         self.complex(complex_filename, data_path)
         print('Collecting Interactions')
         self.interaction(interaction_filename, data_path)
-#
