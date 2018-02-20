@@ -18,11 +18,11 @@ class TestDatabaseNumberOfEntries(CellphoneFlaskTestCase):
 
     def test_complex(self):
         complex = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('complex').get_all()
-        self.assertEqual(len(complex), 240, 'Number of Complex entries are different')
+        self.assertEqual(len(complex), 247, 'Number of Complex entries are different')
 
     def test_multidata(self):
         multidatas = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('multidata').get_all()
-        self.assertEqual(len(multidatas), 5509, 'Number of Multidata entries are different')
+        self.assertEqual(len(multidatas), 5516, 'Number of Multidata entries are different')
 
     def test_protein_complex(self):
         multidatas = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('multidata').get_all()
@@ -40,17 +40,17 @@ class TestDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def test_interaction(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
 
-        self.assertEqual(len(interactions), 10539, 'Number of interactions not equal')
+        self.assertEqual(len(interactions), 10549, 'Number of interactions not equal')
 
     def test_interaction_curated(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
-        self.assertEqual(len(interactions[interactions['source'] == 'curated']), 353,
+        self.assertEqual(len(interactions[interactions['source'] == 'curated']), 403,
                          'Number of curated interactions not equal')
 
     def test_complex_composition(self):
         complex_compositions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
             'complex').get_all_compositions()
-        self.assertEqual(len(complex_compositions), 506, 'Number of Complex Composition entries are different')
+        self.assertEqual(len(complex_compositions), 521, 'Number of Complex Composition entries are different')
 
     def setUp(self):
         return create_app()
