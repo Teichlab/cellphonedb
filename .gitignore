@@ -2,6 +2,7 @@
 /api_interafaces/python/input_data/
 /api_interafaces/python/out/
 /out/
+/in/
 /cellphonedb/data/queries/
 # Byte-compiled / optimized / DLL files
 __pycache__/

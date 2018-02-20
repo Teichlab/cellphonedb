@@ -5,7 +5,7 @@ from cellphonedb.extensions import cellphonedb_flask
 
 
 class FlaskTerminalQueryLauncher(object):
-    def cells_to_clusters(self, meta_namefile, counts_namefile, data_path, output_path=''):
+    def cells_to_clusters(self, meta_namefile, counts_namefile, data_path='', output_path=''):
         if not data_path:
             data_path = query_input_dir
         if not output_path:
@@ -18,6 +18,20 @@ class FlaskTerminalQueryLauncher(object):
 
         result.to_csv('{}/cells_to_clusters.csv'.format(output_path))
 
+    def receptor_ligand_secreted_interactions(self, cluster_counts_namefile, threshold=0.2,
+                                              enable_complex: bool = True, data_path='', output_path=''):
+
+        enable_complex = bool(int(enable_complex))
+        cluster_counts = pd.read_table('{}/{}'.format(query_input_dir, cluster_counts_namefile), index_col=0, sep=',')
+
+        result_interactions, result_interactions_extended = cellphonedb_flask.cellphonedb.query.receptor_ligand_secreted_interactions(
+            cluster_counts, threshold, enable_complex)
+
+        result_interactions.to_csv('{}/receptor_ligand_secreted_interactions.csv'.format(output_dir), index=False)
+        result_interactions_extended.to_csv('{}/receptor_ligand_secreted_interactions_extended.csv'.format(output_dir),
+                                            index=False)
+
+    # TODO: Remove me
     def receptor_ligands_interactions(self, cluster_counts_namefile, threshold=0.1, enable_integrin: bool = False,
                                       enable_complex: bool = True, clusters=None):
         if clusters:
