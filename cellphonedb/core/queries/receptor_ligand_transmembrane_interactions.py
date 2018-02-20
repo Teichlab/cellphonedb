@@ -10,7 +10,7 @@ from utilities import dataframe_format
 def call(cluster_counts: pd.DataFrame, threshold: float, enable_complex: bool, complex_composition: pd.DataFrame,
          genes_expanded: pd.DataFrame, complex_expanded: pd.DataFrame,
          interactions_expanded: pd.DataFrame) -> typing.Tuple[pd.DataFrame, pd.DataFrame]:
-    print('Receptor Ligand Secreted Interactions')
+    print('Receptor Ligand Transmembrane Interactions')
     clusters_names = cluster_counts.columns.values
     cluster_counts_cellphone = merge_cellphone_genes(cluster_counts, genes_expanded)
 
@@ -123,9 +123,6 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result['source'] = enabled_interactions['source']
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
-
-    if 'is_integrin' in enabled_interactions:
-        result['is_integrin'] = enabled_interactions['is_integrin']
 
     result.drop_duplicates(inplace=True)
     result.sort_values('interaction_ratio', inplace=True)

@@ -1,7 +1,7 @@
 import itertools
 import pandas as pd
 
-from cellphonedb.core.models.interaction.filter_interaction import _filter_by_integrin
+from cellphonedb.core.models.interaction.filter_interaction import filter_by_integrin
 from utilities import dataframe_format
 
 
@@ -257,7 +257,7 @@ def _get_enabled_interactions(cluster_counts, interactions, min_score_2, enable_
     enabled_interactions['is_integrin'] = False
 
     if enable_integrin:
-        integrin_interactions = _filter_by_integrin(cluster_counts, interactions)
+        integrin_interactions = filter_by_integrin(cluster_counts, interactions)
         integrin_interactions['is_integrin'] = True
         enabled_interactions = integrin_interactions.append(enabled_interactions)
 

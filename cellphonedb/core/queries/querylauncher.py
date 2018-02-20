@@ -2,7 +2,7 @@ import pandas as pd
 
 from cellphonedb.core.queries import cells_to_clusters, receptor_ligands_interactions, \
     get_rl_lr_interactions_from_multidata, receptor_ligand_secreted_interactions, \
-    receptor_ligand_transmembrane_interactions
+    receptor_ligand_transmembrane_interactions, receptor_ligand_integrin_interactions
 
 
 class QueryLauncher():
@@ -30,6 +30,15 @@ class QueryLauncher():
         return receptor_ligand_transmembrane_interactions.call(cluster_counts, threshold, enable_complex,
                                                                complex_composition, genes_expanded, complex_expanded,
                                                                interactions_expanded)
+
+    def receptor_ligand_integrin_interactions(self, cluster_counts, threshold, enable_complex):
+        complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
+        complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
+        genes_expanded = self.database_manager.get_repository('gene').get_all_expanded()
+        interactions_expanded = self.database_manager.get_repository('interaction').get_all_expanded()
+        return receptor_ligand_integrin_interactions.call(cluster_counts, threshold, enable_complex,
+                                                          complex_composition, genes_expanded, complex_expanded,
+                                                          interactions_expanded)
 
     def receptor_ligands_interactions(self, cluster_counts, threshold, enable_integrin, enable_complex, clusters_names):
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()

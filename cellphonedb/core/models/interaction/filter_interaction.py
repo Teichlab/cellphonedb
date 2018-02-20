@@ -23,12 +23,9 @@ def filter_receptor_ligand_ligand_receptor(interactions_expanded: pd.DataFrame, 
     return result
 
 
-def _filter_by_integrin(proteins, interactions):
+def filter_by_integrin(proteins: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
     """
-
-    :type proteins: pd.DataFrame
-    :type interactions: pd.DataFrame
-    :rtype: pd.DataFrame
+    Returns a DataFrame of enabled integrin interactions
     """
     print('Filtering by integrin')
     multidata_receptors = proteins[proteins['integrin_interaction']]
