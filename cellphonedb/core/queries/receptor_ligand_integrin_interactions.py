@@ -3,6 +3,7 @@ import typing
 import pandas as pd
 
 from cellphonedb.core.models.interaction import filter_interaction
+from cellphonedb.core.queries import query_utils
 from cellphonedb.core.queries.query_utils import apply_threshold, merge_cellphone_genes, \
     get_complex_involved_in_counts, filter_empty_cluster_counts, get_cluster_combinations
 from utilities import dataframe_format
@@ -40,7 +41,7 @@ def call(cluster_counts: pd.DataFrame, threshold: float, enable_complex: bool, c
 
 
 def _result_interactions_extended_table(interactions, clusters_names, cluster_counts, complex_composition):
-    result_receptor_complex = _get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions,
+    result_receptor_complex = query_utils.get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions,
                                                                 '_receptors', complex_composition)
 
     result_receptor = interactions.loc[interactions['is_complex_receptors'] == False][
@@ -58,8 +59,9 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
     result_receptor = result_receptor.append(result_receptor_complex)
     result_receptor = result_receptor.assign(receptor_ligand='receptor')
 
-    result_ligand_complex = _get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions, '_ligands',
-                                                              complex_composition)
+    result_ligand_complex = query_utils.get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions,
+                                                                         '_ligands',
+                                                                         complex_composition)
 
     result_ligand = interactions.loc[interactions['is_complex_ligands'] == False][
         ['id_interaction', 'entry_name_ligands', 'name_ligands', 'gene_name_ligands', 'is_complex_ligands'] + [
@@ -74,19 +76,6 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
     result.drop_duplicates(inplace=True)
 
     return result
-
-
-def _get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions, suffix, complex_composition):
-    receptor_complex_interactions = interactions.loc[interactions['is_complex%s' % suffix] == True]
-    receptor_complex_interactions = pd.merge(receptor_complex_interactions, complex_composition,
-                                             left_on='id_multidata%s' % suffix, right_on='complex_multidata_id')
-    receptor_complex_interactions = pd.merge(receptor_complex_interactions, cluster_counts,
-                                             left_on='protein_multidata_id', right_on='id_multidata')
-    result_receptor_complex = receptor_complex_interactions[
-        ['id_interaction', 'entry_name', 'name', 'gene_name', 'name%s' % suffix] + list(clusters_names)]
-    result_receptor_complex = result_receptor_complex.rename(columns={'name%s' % suffix: 'complex_name'}, index=str)
-    result_receptor_complex = result_receptor_complex.assign(is_complex=True)
-    return result_receptor_complex
 
 
 def _result_interactions_table(cluster_interactions, enabled_interactions):
@@ -124,8 +113,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
 
-    if 'is_integrin' in enabled_interactions:
-        result['is_integrin'] = enabled_interactions['is_integrin']
+    result['enabled_by_integrin'] = enabled_interactions['enabled_by_integrin']
 
     result.drop_duplicates(inplace=True)
     result.sort_values('interaction_ratio', inplace=True)
@@ -152,6 +140,6 @@ def _check_receptor_ligand_interactions(cluster_interaction, enabled_interaction
 
 
 def _get_enabled_interactions(cluster_counts: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
-    enabled_interactions = filter_interaction.filter_by_integrin(cluster_counts, interactions)
+    enabled_interactions = filter_interaction.filter_by_receptor_ligand_integrin(cluster_counts, interactions)
 
     return enabled_interactions

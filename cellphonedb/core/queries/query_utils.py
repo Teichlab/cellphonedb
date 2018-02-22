@@ -86,3 +86,17 @@ def filter_empty_cluster_counts(cluster_counts: pd.DataFrame, clusters_names: li
 
 def get_cluster_combinations(cluster_names):
     return list(itertools.product(cluster_names, repeat=2))
+
+
+def get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions, suffix, complex_composition):
+    receptor_complex_interactions = interactions.loc[interactions['is_complex%s' % suffix] == True]
+    receptor_complex_interactions = pd.merge(receptor_complex_interactions, complex_composition,
+
+                                             left_on='id_multidata%s' % suffix, right_on='complex_multidata_id')
+    receptor_complex_interactions = pd.merge(receptor_complex_interactions, cluster_counts,
+                                             left_on='protein_multidata_id', right_on='id_multidata')
+    result_receptor_complex = receptor_complex_interactions[
+        ['id_interaction', 'entry_name', 'name', 'gene_name', 'name%s' % suffix] + list(clusters_names)]
+    result_receptor_complex = result_receptor_complex.rename(columns={'name%s' % suffix: 'complex_name'}, index=str)
+    result_receptor_complex = result_receptor_complex.assign(is_complex=True)
+    return result_receptor_complex

@@ -40,15 +40,16 @@ class QueryLauncher():
                                                           complex_composition, genes_expanded, complex_expanded,
                                                           interactions_expanded)
 
-    def receptor_ligands_interactions(self, cluster_counts, threshold, enable_integrin, enable_complex, clusters_names):
+    def receptor_ligands_interactions(self, cluster_counts, threshold, enable_integrin, enable_transmembrane,
+                                      enable_secreted, enable_complex, clusters_names):
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
         genes_expanded = self.database_manager.get_repository('gene').get_all_expanded()
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
 
-        return receptor_ligands_interactions.call(cluster_counts, threshold, enable_integrin, enable_complex,
-                                                  complex_composition, genes_expanded, complex_expanded, interactions,
-                                                  clusters_names)
+        return receptor_ligands_interactions.call(cluster_counts, threshold, enable_integrin, enable_transmembrane,
+                                                  enable_secreted, enable_complex, complex_composition, genes_expanded,
+                                                  complex_expanded, interactions, clusters_names)
 
     def get_rl_lr_interactions_from_multidata(self, receptor: str, score2_threshold: float) -> pd.DataFrame:
         multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(receptor)

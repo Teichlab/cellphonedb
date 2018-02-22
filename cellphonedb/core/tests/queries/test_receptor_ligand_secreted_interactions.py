@@ -2,8 +2,8 @@ from unittest import TestCase
 
 import pandas as pd
 
+import cellphonedb.core.models.interaction.filter_interaction
 from cellphonedb.core.Cellphonedb import data_test_dir
-from cellphonedb.core.queries import receptor_ligand_secreted_interactions
 
 
 class TestReceptorLigandSecretedInteractions(TestCase):
@@ -13,8 +13,8 @@ class TestReceptorLigandSecretedInteractions(TestCase):
         interactions = pd.read_csv('{}/secreted_interactions_interactions.csv'.format(data_test_dir))
         expected_result = pd.read_csv('{}/secreted_interactions_enabled_interactions.csv'.format(data_test_dir))
 
-        result = receptor_ligand_secreted_interactions._get_receptor_ligand_secreted_interactions(cluster_counts,
-                                                                                                  interactions)
+        result = cellphonedb.core.models.interaction.filter_interaction.filter_by_receptor_ligand_secreted(
+            cluster_counts, interactions)
 
         self.assertEqual(len(result), len(expected_result[expected_result['enabled']]))
         result_matches = True

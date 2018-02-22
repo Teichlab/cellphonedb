@@ -12,7 +12,7 @@ class TestInteractionFilters(TestCase):
         interactions = pd.read_csv('{}/filter_interaction_interactions.csv'.format(data_test_dir))
         expected_result = pd.read_csv('{}/filter_interaction_interactions_filtered.csv'.format(data_test_dir))
 
-        result = filter_interaction.filter_by_integrin(proteins, interactions)
+        result = filter_interaction.filter_by_receptor_ligand_integrin(proteins, interactions)
 
         self.assertEqual(len(result), len(expected_result[expected_result['enabled']]))
         result_matches = True

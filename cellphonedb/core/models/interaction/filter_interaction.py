@@ -23,7 +23,7 @@ def filter_receptor_ligand_ligand_receptor(interactions_expanded: pd.DataFrame, 
     return result
 
 
-def filter_by_integrin(proteins: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
+def filter_by_receptor_ligand_integrin(proteins: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
     """
     Returns a DataFrame of enabled integrin interactions
     """
@@ -45,4 +45,42 @@ def filter_by_integrin(proteins: pd.DataFrame, interactions: pd.DataFrame) -> pd
 
     enabled_interactions.drop_duplicates(inplace=True)
 
+    return enabled_interactions
+
+
+def filter_by_receptor_ligand_transmembrane(cluster_counts: pd.DataFrame,
+                                            interactions_curated: pd.DataFrame) -> pd.DataFrame:
+    multidata_receptors = cluster_counts[cluster_counts['is_cellphone_receptor']]
+    multidata_ligands = cluster_counts[cluster_counts['is_cellphone_transmembrane_ligand']]
+
+    receptor_interactions = pd.merge(multidata_receptors, interactions_curated, left_on='id_multidata',
+                                     right_on='multidata_1_id')
+    enabled_interactions = pd.merge(multidata_ligands, receptor_interactions, left_on='id_multidata',
+                                    right_on='multidata_2_id', suffixes=['_ligands', '_receptors'])
+    receptor_interactions_inverted = pd.merge(multidata_receptors, interactions_curated, left_on='id_multidata',
+                                              right_on='multidata_2_id')
+    enabled_interactions_inverted = pd.merge(multidata_ligands, receptor_interactions_inverted, left_on='id_multidata',
+                                             right_on='multidata_1_id', suffixes=['_ligands', '_receptors'])
+    enabled_interactions = enabled_interactions.append(enabled_interactions_inverted).reset_index(drop=True)
+
+    enabled_interactions.drop_duplicates(['id_multidata_ligands', 'id_multidata_receptors'], inplace=True)
+    return enabled_interactions
+
+
+def filter_by_receptor_ligand_secreted(cluster_counts: pd.DataFrame,
+                                       interactions: pd.DataFrame) -> pd.DataFrame:
+    multidata_receptors = cluster_counts[cluster_counts['is_cellphone_receptor']]
+    multidata_ligands = cluster_counts[cluster_counts['is_cellphone_secreted_ligand']]
+
+    receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
+                                     right_on='multidata_1_id')
+    enabled_interactions = pd.merge(multidata_ligands, receptor_interactions, left_on='id_multidata',
+                                    right_on='multidata_2_id', suffixes=['_ligands', '_receptors'])
+    receptor_interactions_inverted = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
+                                              right_on='multidata_2_id')
+    enabled_interactions_inverted = pd.merge(multidata_ligands, receptor_interactions_inverted, left_on='id_multidata',
+                                             right_on='multidata_1_id', suffixes=['_ligands', '_receptors'])
+    enabled_interactions = enabled_interactions.append(enabled_interactions_inverted).reset_index(drop=True)
+
+    enabled_interactions.drop_duplicates(['id_multidata_ligands', 'id_multidata_receptors'], inplace=True)
     return enabled_interactions

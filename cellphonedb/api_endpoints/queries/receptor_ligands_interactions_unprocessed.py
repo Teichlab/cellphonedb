@@ -33,6 +33,8 @@ class ReceptorLigandsInteractionsUnprocessed(EndpointBase):
             parameters = json.loads(request.form['parameters'])
             threshold = float(parameters['threshold'])
             enable_integrin = bool(parameters['enable_integrin'])
+            enable_transmembrane = bool(parameters['enable_transmembrane'])
+            enable_secreted = bool(parameters['enable_secreted'])
 
             enable_complex = True
             if 'enable_complex' in parameters:
@@ -43,7 +45,8 @@ class ReceptorLigandsInteractionsUnprocessed(EndpointBase):
                 clusters = list(parameters['clusters'])
 
             result_interactions, result_interactions_extended = extensions.cellphonedb_flask.cellphonedb.query.receptor_ligands_interactions(
-                cells_to_clusters_result, threshold, enable_integrin, enable_complex, clusters)
+                cells_to_clusters_result, threshold, enable_integrin, enable_transmembrane, enable_secreted,
+                enable_complex, clusters)
 
             self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')
             self._attach_csv(result_interactions_extended.to_csv(index=False),

@@ -70,18 +70,20 @@ class FlaskTerminalQueryLauncher(object):
         result_interactions_extended.to_csv('{}/receptor_ligand_integrin_interactions_extended.csv'.format(output_dir),
                                             index=False)
 
-    # TODO: Remove me
-    def receptor_ligands_interactions(self, cluster_counts_namefile, threshold=0.1, enable_integrin: bool = False,
+    def receptor_ligands_interactions(self, cluster_counts_namefile, threshold=0.2, enable_integrin: bool = True,
+                                      enable_transmembrane: bool = True, enable_secreted: bool = True,
                                       enable_complex: bool = True, clusters=None):
         if clusters:
             clusters = clusters.split(' ')
 
         enable_integrin = bool(int(enable_integrin))
+        enable_transmembrane = bool(int(enable_transmembrane))
+        enable_secreted = bool(int(enable_secreted))
         enable_complex = bool(int(enable_complex))
         cluster_counts = pd.read_table('%s/%s' % (query_input_dir, cluster_counts_namefile), index_col=0, sep=',')
 
-        result_interactions, result_interactions_extended = cellphonedb_flask.cellphonedb.receptor_ligands_interactions(
-            cluster_counts, threshold, enable_integrin, enable_complex, clusters)
+        result_interactions, result_interactions_extended = cellphonedb_flask.cellphonedb.query.receptor_ligands_interactions(
+            cluster_counts, threshold, enable_integrin, enable_transmembrane, enable_secreted, enable_complex, clusters)
 
         result_interactions.to_csv('%s/receptor_ligands_interactions.csv' % output_dir, index=False)
         result_interactions_extended.to_csv('%s/receptor_ligands_interactions_extended.csv' % output_dir, index=False)

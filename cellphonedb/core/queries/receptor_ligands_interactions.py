@@ -1,37 +1,36 @@
-import itertools
 import pandas as pd
 
-from cellphonedb.core.models.interaction.filter_interaction import filter_by_integrin
+from cellphonedb.core.models.interaction import filter_interaction
+from cellphonedb.core.queries import query_utils
+from cellphonedb.core.queries.query_utils import get_counts_proteins_of_complexes
 from utilities import dataframe_format
 
 
-def call(cluster_counts, threshold, enable_integrin, enable_complex, complex_composition, genes_expanded,
-         complex_expanded, interactions_expanded, clusters_names=None):
+def call(cluster_counts, threshold, enable_integrin, enable_transmembrane, enable_secreted, enable_complex,
+         complex_composition, genes_expanded, complex_expanded, interactions_expanded, clusters_names=None):
     print('Receptor Ligands Interactions Initializated')
     if not clusters_names:
         clusters_names = cluster_counts.columns.values
-    cluster_counts_cellphone = _cellphone_genes(cluster_counts, genes_expanded)
+    cluster_counts_cellphone = query_utils.merge_cellphone_genes(cluster_counts, genes_expanded)
 
-    print('Aplicating Threshold {}'.format(threshold))
-    cluster_counts_filtered = _apply_threshold(cluster_counts_cellphone, clusters_names, threshold)
+    cluster_counts_filtered = query_utils.apply_threshold(cluster_counts_cellphone, clusters_names, threshold)
 
-    cluster_counts_filtered = _filter_empty(cluster_counts_filtered, clusters_names)
+    cluster_counts_filtered = query_utils.filter_empty_cluster_counts(cluster_counts_filtered, clusters_names)
 
     if enable_complex:
         print('Finding Complexes')
         cluster_counts_filtered['is_complex'] = False
-        complex_counts = _get_complex_involved(cluster_counts_filtered, clusters_names, complex_composition,
-                                               complex_expanded)
+        complex_counts = query_utils.get_complex_involved_in_counts(cluster_counts_filtered, clusters_names,
+                                                                    complex_composition, complex_expanded)
         cluster_counts_filtered = cluster_counts_filtered.append(
             complex_counts)
 
     print('Cluster Interactions')
-
-    cluster_interactions = _get_all_cluster_interactions(clusters_names)
+    cluster_interactions = query_utils.get_cluster_combinations(clusters_names)
 
     print('Finding Enabled Interactions')
     enabled_interactions = _get_enabled_interactions(cluster_counts_filtered, interactions_expanded, 0.3,
-                                                     enable_integrin)
+                                                     enable_integrin, enable_transmembrane, enable_secreted)
 
     result_interactions = _result_interactions_table(cluster_interactions, enabled_interactions)
     result_interactions_extended = _result_interactions_extended_table(enabled_interactions, clusters_names,
@@ -40,20 +39,12 @@ def call(cluster_counts, threshold, enable_integrin, enable_complex, complex_com
     return result_interactions, result_interactions_extended
 
 
-def _filter_empty(cluster_counts, clusters_names):
-    """
-
-    :type cluster_counts:  pd.DataFrame
-    :type clusters_names: list
-    :rtype: pd.DataFrame
-    """
-    filetered_cluster_counts = cluster_counts[cluster_counts[clusters_names].apply(lambda row: row.sum() > 0, axis=1)]
-    return filetered_cluster_counts
-
-
 def _result_interactions_extended_table(interactions, clusters_names, cluster_counts, complex_composition):
-    result_receptor_complex = _get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions,
-                                                                '_receptors', complex_composition)
+    if interactions.empty:
+        return pd.DataFrame(columns=['id_interaction', 'complex_name', 'entry_name', 'gene_name', 'is_complex', 'name',
+                                     'receptor_ligand'] + list(clusters_names))
+    result_receptor_complex = get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions,
+                                                               '_receptors', complex_composition)
 
     result_receptor = interactions.loc[interactions['is_complex_receptors'] == False][
         ['id_interaction', 'entry_name_receptors', 'name_receptors', 'gene_name_receptors', 'is_complex_receptors'] + [
@@ -70,8 +61,8 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
     result_receptor = result_receptor.append(result_receptor_complex)
     result_receptor = result_receptor.assign(receptor_ligand='receptor')
 
-    result_ligand_complex = _get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions, '_ligands',
-                                                              complex_composition)
+    result_ligand_complex = get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions, '_ligands',
+                                                             complex_composition)
 
     result_ligand = interactions.loc[interactions['is_complex_ligands'] == False][
         ['id_interaction', 'entry_name_ligands', 'name_ligands', 'gene_name_ligands', 'is_complex_ligands'] + [
@@ -86,19 +77,6 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
     result.drop_duplicates(inplace=True)
 
     return result
-
-
-def _get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions, suffix, complex_composition):
-    receptor_complex_interactions = interactions.loc[interactions['is_complex%s' % suffix] == True]
-    receptor_complex_interactions = pd.merge(receptor_complex_interactions, complex_composition,
-                                             left_on='id_multidata%s' % suffix, right_on='complex_multidata_id')
-    receptor_complex_interactions = pd.merge(receptor_complex_interactions, cluster_counts,
-                                             left_on='protein_multidata_id', right_on='id_multidata')
-    result_receptor_complex = receptor_complex_interactions[
-        ['id_interaction', 'entry_name', 'name', 'gene_name', 'name%s' % suffix] + list(clusters_names)]
-    result_receptor_complex = result_receptor_complex.rename(columns={'name%s' % suffix: 'complex_name'}, index=str)
-    result_receptor_complex = result_receptor_complex.assign(is_complex=True)
-    return result_receptor_complex
 
 
 def _result_interactions_table(cluster_interactions, enabled_interactions):
@@ -120,6 +98,12 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
 
         result = pd.concat([result, cluster_interaction_result], axis=1)
 
+    if result.empty:
+        return pd.DataFrame(
+            columns=list(result.columns.values) + ['receptor', 'ligand', 'iuphar_ligand', 'secreted_ligand', 'source',
+                                                   'interaction_ratio', 'enabled_by_integrin',
+                                                   'enabled_by_transmembrane', 'enabled_by_secreted'])
+
     result['receptor'] = enabled_interactions['entry_name_receptors'].apply(
         lambda value: 'single:%s' % value)
     result.loc[enabled_interactions['is_complex_receptors'], ['receptor']] = \
@@ -136,8 +120,9 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
         lambda row: sum(row.astype('bool')) / len(cluster_interactions_columns_names), axis=1)
 
-    if 'is_integrin' in enabled_interactions:
-        result['is_integrin'] = enabled_interactions['is_integrin']
+    result['enabled_by_integrin'] = enabled_interactions['enabled_by_integrin']
+    result['enabled_by_transmembrane'] = enabled_interactions['enabled_by_transmembrane']
+    result['enabled_by_secreted'] = enabled_interactions['enabled_by_secreted']
 
     result.drop_duplicates(inplace=True)
     result.sort_values('interaction_ratio', inplace=True)
@@ -145,87 +130,6 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result = dataframe_format.bring_columns_to_start(['id_interaction', 'receptor', 'ligand'], result)
 
     return result
-
-
-def _cellphone_genes(cluster_counts, genes_expanded):
-    """
-    Merges cluster genes with CellPhoneDB values
-    :type cluster_counts: pd.DataFrame()
-    :rtype: pd.DataFrame()
-    """
-
-    multidata_counts = pd.merge(cluster_counts, genes_expanded, left_index=True, right_on='ensembl')
-
-    return multidata_counts
-
-
-def _get_complex_involved(multidata_counts, clusters_names, complex_composition, complex_expanded):
-    """
-    Gets complexes involved in counts
-    :type multidata_counts: pd.DataFrame()
-    :rtype: pd.DataFrame
-    """
-
-    complex_counts_composition = pd.merge(complex_composition, multidata_counts, left_on='protein_multidata_id',
-                                          right_on='id_multidata')
-
-    def all_protein_involved(complex):
-        number_proteins_in_counts = len(
-            complex_counts_composition[
-                complex_counts_composition['complex_multidata_id'] == complex['complex_multidata_id']])
-
-        if number_proteins_in_counts < complex['total_protein']:
-            return False
-
-        return True
-
-    complex_counts_composition = complex_counts_composition[
-        complex_counts_composition.apply(all_protein_involved, axis=1)]
-
-    complex_counts_composition = pd.merge(complex_counts_composition, complex_expanded,
-                                          left_on='complex_multidata_id',
-                                          right_on='id_multidata',
-                                          suffixes=['_protein', ''])
-
-    def set_complex_cluster_counts(row):
-        scores_complex = complex_counts_composition[
-            row['complex_multidata_id'] == complex_counts_composition['complex_multidata_id']]
-
-        for cluster_name in clusters_names:
-            row[cluster_name] = scores_complex[cluster_name].min()
-        return row
-
-    complex_counts = complex_counts_composition.drop_duplicates(['complex_multidata_id'])
-
-    complex_counts = complex_counts.apply(set_complex_cluster_counts, axis=1)
-
-    complex_counts = complex_counts[list(clusters_names) + list(complex_expanded.columns.values)]
-
-    complex_counts['is_complex'] = True
-
-    complex_counts = _filter_empty(complex_counts, clusters_names)
-
-    return complex_counts
-
-
-def _apply_threshold(cluster_counts, cluster_names, threshold):
-    """
-    Sets to 0 minor value colunts than threshold
-    :type cluster_counts: pd.DataFrame()
-    :type cluster_names: list
-    :type threshold: float
-    :rtype: pd.DataFrame()
-    """
-    cluster_counts_filtered = cluster_counts.copy()
-    for cluster_name in cluster_names:
-        cluster_counts_filtered.loc[
-            cluster_counts_filtered[cluster_name] < float(threshold), [cluster_name]] = 0.0
-
-    return cluster_counts_filtered
-
-
-def _get_all_cluster_interactions(cluster_names):
-    return list(itertools.product(cluster_names, repeat=2))
 
 
 def _check_receptor_ligand_interactions(cluster_interaction, enabled_interactions, clusters_interaction_name):
@@ -240,47 +144,70 @@ def _check_receptor_ligand_interactions(cluster_interaction, enabled_interaction
         return row
 
     result = enabled_interactions.apply(get_relation_score, axis=1)
+    if result.empty:
+        result = pd.DataFrame(columns=[clusters_interaction_name])
 
     return result[[clusters_interaction_name]]
 
 
-def _get_enabled_interactions(cluster_counts, interactions, min_score_2, enable_integrin):
-    """
+def _get_enabled_interactions(cluster_counts, interactions, min_score_2, enable_integrin, enable_transmembrane,
+                              enable_secreted):
+    result_columns = list(interactions.columns.values) + [
+        'id_multidata_ligands', 'id_multidata_receptors', 'enabled_by_integrin', 'enabled_by_transmembrane',
+        'enabled_by_secreted']
 
-    :type cluster_counts: pd.DataFrame
-    :type interactions: pd.DataFrame
-    :type min_score_2: float
-    :rtype: pd.DataFrame
-    """
+    enabled_columns = []
 
-    enabled_interactions = _get_receptor_ligands_interactions(cluster_counts, interactions)
-    enabled_interactions['is_integrin'] = False
+    interactions = interactions[interactions['score_2'] > min_score_2]
+    enabled_interactions = pd.DataFrame(columns=result_columns)
 
     if enable_integrin:
-        integrin_interactions = filter_by_integrin(cluster_counts, interactions)
-        integrin_interactions['is_integrin'] = True
+        integrin_interactions = filter_interaction.filter_by_receptor_ligand_integrin(cluster_counts, interactions)
+        integrin_interactions['enabled_by_integrin'] = True
+        enabled_columns.append('enabled_by_integrin')
         enabled_interactions = integrin_interactions.append(enabled_interactions)
 
-    enabled_interactions = enabled_interactions[enabled_interactions['score_2'] > min_score_2]
+    if enable_transmembrane:
+        transmembrane_interactions = filter_interaction.filter_by_receptor_ligand_transmembrane(cluster_counts,
+                                                                                                interactions)
+        transmembrane_interactions['enabled_by_transmembrane'] = True
+        enabled_columns.append('enabled_by_transmembrane')
+        enabled_interactions = transmembrane_interactions.append(enabled_interactions)
 
-    enabled_interactions.drop_duplicates(['id_multidata_ligands', 'id_multidata_receptors'], inplace=True)
+    if enable_secreted:
+        secreted_interactions = filter_interaction.filter_by_receptor_ligand_secreted(cluster_counts, interactions)
+        secreted_interactions['enabled_by_secreted'] = True
+        enabled_columns.append('enabled_by_secreted')
+        enabled_interactions = secreted_interactions.append(enabled_interactions)
+
+    enabled_interactions[enabled_columns] = \
+        enabled_interactions[enabled_columns].fillna(False)
+
     enabled_interactions.reset_index(drop=True, inplace=True)
 
-    return enabled_interactions
+    merged_interactions = merge_enabled_interactions(enabled_interactions, enabled_columns)
+
+    return merged_interactions
 
 
-def _get_receptor_ligands_interactions(cluster_counts, interactions):
-    multidata_receptors = cluster_counts[cluster_counts['is_cellphone_receptor']]
-    multidata_ligands = cluster_counts[cluster_counts['is_cellphone_ligand']]
-    receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
-                                     right_on='multidata_1_id')
-    enabled_interactions = pd.merge(multidata_ligands, receptor_interactions, left_on='id_multidata',
-                                    right_on='multidata_2_id', suffixes=['_ligands', '_receptors'])
-    receptor_interactions_inverted = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
-                                              right_on='multidata_2_id')
-    enabled_interactions_inverted = pd.merge(multidata_ligands, receptor_interactions_inverted, left_on='id_multidata',
-                                             right_on='multidata_1_id', suffixes=['_ligands', '_receptors'])
-    enabled_interactions = enabled_interactions.append(enabled_interactions_inverted).reset_index(drop=True)
+def merge_enabled_interactions(enabled_interactions: pd.DataFrame, boolean_columns: list) -> pd.DataFrame:
+    non_duplicated_interactions = enabled_interactions.drop_duplicates(
+        ['id_multidata_ligands', 'id_multidata_receptors'], keep=False)
 
-    enabled_interactions.drop_duplicates(['id_multidata_ligands', 'id_multidata_receptors'], inplace=True)
-    return enabled_interactions
+    duplicated_interactions = enabled_interactions[
+        enabled_interactions.duplicated(['id_multidata_ligands', 'id_multidata_receptors'], keep=False)]
+
+    def merge_enabled_values(row):
+        values = \
+            duplicated_interactions[(duplicated_interactions['id_multidata_ligands'] == row['id_multidata_ligands']) &
+                                    (duplicated_interactions['id_multidata_receptors'] == row[
+                                        'id_multidata_receptors'])][boolean_columns]
+
+        row[boolean_columns] = values.any(axis=0, skipna=True)
+
+        return row
+
+    unique_interactions = duplicated_interactions.drop_duplicates(['id_multidata_ligands', 'id_multidata_receptors'])
+    unique_interactions = unique_interactions.apply(merge_enabled_values, axis=1)
+
+    return non_duplicated_interactions.append(unique_interactions)
