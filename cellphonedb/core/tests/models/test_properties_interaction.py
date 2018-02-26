@@ -35,7 +35,5 @@ class TestPropertiesInteraction(TestCase):
             '{}/properties_interaction_get_receptor_ligand_ligand_receptor_result_expected.csv'.format(data_test_dir))
 
         result = properties_interaction.get_receptor_ligand_ligand_receptor(interactions)
-        print(result[['id_interaction', 'id_multidata_receptor', 'id_multidata_ligand', 'test_is_receptor_ligand',
-                      'test_is_ligand_receptor', 'id_multidata_receptor', 'id_multidata_ligand']])
 
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result_expected, result))
