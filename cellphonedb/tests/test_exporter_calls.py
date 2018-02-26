@@ -8,20 +8,12 @@ from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 class TestExporterCalls(CellphoneFlaskTestCase):
 
-    def test_complex(self):
-        self.assert_file_exist('complex')
+    def test_all_exporter_generators(self):
+        exporters = ['complex', 'complex_web', 'interaction', 'protein', 'gene', 's4_multidata', 's5_heterodimer',
+                     's6_interaction']
 
-    def test_complex_web(self):
-        self.assert_file_exist('complex_web')
-
-    def test_interaction(self):
-        self.assert_file_exist('interaction')
-
-    def test_protein(self):
-        self.assert_file_exist('protein')
-
-    def test_gene(self):
-        self.assert_file_exist('gene')
+        for exporter in exporters:
+            self.assert_file_exist(exporter)
 
     def assert_file_exist(self, method_name, message='', expected_extension='csv', expected_namefile=''):
         if not expected_namefile:

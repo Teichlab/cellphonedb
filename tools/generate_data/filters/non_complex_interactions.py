@@ -16,7 +16,7 @@ def only_noncomplex_interactions(interactions, complexes):
     proteins_in_complex = []
 
     for i in range(1, 5):
-        proteins_in_complex = proteins_in_complex + complexes['protein_%s' % i].dropna().tolist()
+        proteins_in_complex = proteins_in_complex + complexes['uniprot_%s' % i].dropna().tolist()
 
     proteins_in_complex = list(set(proteins_in_complex))
 

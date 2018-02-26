@@ -3,9 +3,7 @@ from cellphonedb.extensions import cellphonedb_flask
 
 
 class FlaskTerminalExporterLauncher(object):
-
-    @staticmethod
-    def all():
+    def all(self):
         FlaskTerminalExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.protein)
         FlaskTerminalExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.complex)
         FlaskTerminalExporterLauncher._call_cellphonecore_method(cellphonedb_flask.cellphonedb.export.gene)

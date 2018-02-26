@@ -33,10 +33,16 @@ def bring_columns_to_end(columns, dataframe):
 
 
 def change_column_suffix(dataframe: pd.DataFrame, old_suffix: str, new_suffix: str) -> pd.DataFrame:
-    column_names = dataframe.columns.values
-    for index, column_name in enumerate(column_names):
-        if column_name.endswith(old_suffix):
-            column_names[index] = column_name[:-len(old_suffix)] + new_suffix
+    """
+    Renames multiple columns suffixes
+    """
+    column_names = list(dataframe.columns.values)
 
-    dataframe.columns = column_names
+    renamed_columns = {}
+    for column_name in column_names:
+        if column_name.endswith(old_suffix):
+            new_name = column_name[:-len(old_suffix)] + new_suffix
+            renamed_columns[column_name] = new_name
+
+    dataframe = dataframe.rename(index=str, columns=renamed_columns)
     return dataframe

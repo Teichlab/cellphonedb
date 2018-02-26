@@ -200,9 +200,5 @@ class ComplexRepository(Repository):
         multidatas['is_cellphone_receptor'] = multidatas.apply(
             lambda protein: properties_multidata.is_receptor(protein),
             axis=1)
-        multidatas['is_cellphone_secreted_ligand'] = multidatas.apply(
-            lambda multidata: properties_multidata.is_secreted_ligand(multidata), axis=1)
-        multidatas['is_cellphone_transmembrane_ligand'] = multidatas.apply(
-            lambda multidata: properties_multidata.is_transmembrane_ligand(multidata), axis=1)
 
         return multidatas

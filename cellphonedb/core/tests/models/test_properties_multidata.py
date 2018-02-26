@@ -2,6 +2,7 @@ from unittest import TestCase
 
 import pandas as pd
 
+from cellphonedb.core.Cellphonedb import data_test_dir
 from cellphonedb.core.models.multidata import properties_multidata
 
 
@@ -21,6 +22,18 @@ class TestPropertiesMultidata(TestCase):
         for index, multidata in multidatas.iterrows():
             self.assertEqual(properties_multidata.is_receptor(multidata), multidata['is_receptor'],
                              'Multidata {} receptor dont match')
+
+    def test_is_cellphone_ligand(self):
+        multidatas = pd.read_csv('{}/multidata_properties_cellphone_ligand_multidata.csv'.format(data_test_dir))
+        interactions_extended = pd.read_csv(
+            '{}/multidata_properties_cellphone_ligand_interactions_extended.csv'.format(data_test_dir))
+
+        correct_result = True
+        for index, multidata in multidatas.iterrows():
+            if properties_multidata.is_cellphone_ligand(multidata, interactions_extended) != multidata['test_result']:
+                correct_result = False
+
+        self.assertTrue(correct_result, 'Multidata is_cellphone_ligand property is not correct')
 
 
 multidatas_fixtures = [

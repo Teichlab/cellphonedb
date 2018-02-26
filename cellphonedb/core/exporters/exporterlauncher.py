@@ -1,10 +1,27 @@
 from cellphonedb.core.exporters import complex_exporter, complex_web_exporter, \
-    interaction_exporter, protein_exporter, gene_exporter
+    interaction_exporter, protein_exporter, gene_exporter, s4_multidata_exporter, \
+    s5_heterodimer_exporter, s6_interaction_exporter
 
 
 class ExporterLauncher(object):
     def __init__(self, database_manager):
         self.database_manager = database_manager
+
+    def s4_multidata(self):
+        multidata_expanded = self.database_manager.get_repository('multidata').get_all_expanded(include_gene=False)
+        return s4_multidata_exporter.call(multidata_expanded)
+
+    def s5_heterodimer(self):
+        complexes = self.database_manager.get_repository('complex').get_all()
+        multidatas = self.database_manager.get_repository('multidata').get_all()
+        complex_compositions = self.database_manager.get_repository('complex').get_all_compositions()
+        proteins = self.database_manager.get_repository('protein').get_all_expanded()
+
+        return s5_heterodimer_exporter.call(complexes, multidatas, complex_compositions, proteins)
+
+    def s6_interaction(self):
+        interactions_expanded = self.database_manager.get_repository('interaction').get_all_expanded(include_gene=False)
+        return s6_interaction_exporter.call(interactions_expanded)
 
     def complex(self):
         complexes = self.database_manager.get_repository('complex').get_all()
@@ -23,12 +40,8 @@ class ExporterLauncher(object):
         return complex_web_exporter.call(complexes, multidatas, complex_compositions, proteins)
 
     def interaction(self):
-        interactions_expanded = self.database_manager.get_repository('interaction').get_all_expanded()
+        interactions_expanded = self.database_manager.get_repository('interaction').get_all_expanded(include_gene=False)
         return interaction_exporter.call(interactions_expanded)
-
-    def receptor_ligand_interaction(self):
-        interactions_expanded = self.database_manager.get_repository('interaction').get_all_expanded()
-        return receptor_ligand_interaction_exporter.call(interactions_expanded)
 
     def protein(self):
         proteins_expanded = self.database_manager.get_repository('protein').get_all_expanded()

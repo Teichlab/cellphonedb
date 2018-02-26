@@ -1,4 +1,5 @@
-from cellphonedb.core.collectors import protein_preprocess_collector, gene_preprocess_collector
+from cellphonedb.core.collectors import protein_preprocess_collector, gene_preprocess_collector, \
+    complex_preprocess_collector
 from cellphonedb.database import DatabaseManager
 
 
@@ -20,7 +21,8 @@ class Collector(object):
         self.database_manager.get_repository('gene').add(genes_processed)
 
     def complex(self, complexes):
-        self.database_manager.get_repository('complex').add(complexes)
+        complexes_processed = complex_preprocess_collector.call(complexes)
+        self.database_manager.get_repository('complex').add(complexes_processed)
 
     def interaction(self, interactions):
         self.database_manager.get_repository('interaction').add(interactions)

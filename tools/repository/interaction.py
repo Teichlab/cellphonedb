@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def interaction_exist(interaction, interactions, interaction_1_key='protein_1', interaction_2_key='protein_2'):
+def interaction_exist(interaction, interactions, interaction_1_key='uniprot_1', interaction_2_key='uniprot_2'):
     """
     Checks if interaction already exists in first dataframe.
     :type interaction: pd.Series
@@ -40,8 +40,8 @@ def normalize_interactions(interactions, interaction_1_key='protein_1', interact
     return interactions_normalized
 
 
-def normalize_interaction(custom_interactions, interaction, interaction_1_key='protein_1',
-                          interaction_2_key='protein_2'):
+def normalize_interaction(custom_interactions, interaction, interaction_1_key='uniprot_1',
+                          interaction_2_key='uniprot_2'):
     """
     Permute interaction if is it necessary.
     :type interaction: pd.Series()

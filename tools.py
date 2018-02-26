@@ -5,7 +5,6 @@ import pandas as pd
 from flask.cli import FlaskGroup
 from tools.app import create_app, data_dir, output_dir
 from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_proteins
-from tools.merge_gene_mouse import merge_gene_mouse as merge_gene
 from tools.generate_data.mergers.add_curated import add_curated
 from tools.generate_data.mergers.merge_interactions import merge_interactions
 from tools.generate_data.filters.remove_interactions import remove_interactions_in_file
@@ -29,12 +28,6 @@ def cli():
 def merge_duplicated_proteins(filename):
     merge_proteins(filename)
 
-
-@cli.command()
-@click.argument('dilename_gene')
-@click.argument('filename_gene_mouse')
-def merge_gene_mouse(filename_gene, filename_gene_mouse):
-    merge_gene(filename_gene, filename_gene_mouse)
 
 
 @cli.command()

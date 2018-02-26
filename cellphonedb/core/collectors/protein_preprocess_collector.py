@@ -23,11 +23,6 @@ def _optimizations(proteins):
     proteins['is_complex'] = False
     proteins['is_cellphone_receptor'] = proteins.apply(lambda protein: properties_multidata.is_receptor(protein),
                                                        axis=1)
-    proteins['is_cellphone_secreted_ligand'] = proteins.apply(
-        lambda protein: properties_multidata.is_secreted_ligand(protein), axis=1)
-    proteins['is_cellphone_transmembrane_ligand'] = proteins.apply(
-        lambda protein: properties_multidata.is_transmembrane_ligand(protein), axis=1)
-
     return proteins
 
 

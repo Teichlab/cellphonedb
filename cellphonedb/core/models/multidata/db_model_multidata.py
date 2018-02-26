@@ -28,8 +28,8 @@ class Multidata(Base):
     integrin_interaction = Column(Boolean)
     is_complex = Column(Boolean)
     is_cellphone_receptor = Column(Boolean)
-    is_cellphone_secreted_ligand = Column(Boolean)
-    is_cellphone_transmembrane_ligand = Column(Boolean)
+    is_cellphone_ligand = Column(Boolean, nullable=True)
+
 
     protein = relationship('Protein', backref='protein', lazy='subquery')
     complex = relationship('Complex', backref='complex', lazy='subquery')

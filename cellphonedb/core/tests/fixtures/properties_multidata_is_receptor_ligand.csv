@@ -1,0 +1,13 @@
+id_interaction,source,score_2,is_cellphone_receptor_1,secreted_highlight_1,integrin_interaction_1,is_cellphone_receptor_2,secreted_highlight_2,integrin_interaction_2,test_is_receptor_ligand,test_is_ligand_receptor
+1,something,0,False,False,False,False,False,False,False,False
+2,curated,1,True,False,False,False,False,False,True,False
+3,curated,1,False,False,False,True,False,False,False,True
+4,curated,1,True,False,False,True,False,False,True,True
+5,curated,1,False,False,False,False,False,False,False,False
+6,something,0.3,True,False,False,False,True,False,True,False
+7,something,0.3,False,True,False,True,False,False,False,True
+8,something,0.8,True,True,False,True,True,False,True,True
+9,something,0,False,False,True,False,False,False,True,False
+10,something,0,False,False,False,False,False,True,False,True
+11,something,0.1,False,False,True,False,False,True,True,True
+12,curated,1,True,True,True,True,True,True,True,True

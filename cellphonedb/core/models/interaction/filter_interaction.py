@@ -3,6 +3,28 @@ from cellphonedb.core.models.interaction import properties_interaction
 import pandas as pd
 
 
+def filter_by_multidata(multidata: pd.Series, interactions: pd.DataFrame):
+    def filter(interaction):
+        if interaction['multidata_1_id'] == multidata['id_multidata']:
+            return True
+        if interaction['multidata_2_id'] == multidata['id_multidata']:
+            return True
+
+        return False
+
+    data_filtered = interactions[interactions.apply(filter, axis=1)]
+
+    return data_filtered
+
+
+def filter_by_multidatas(multidatas: pd.DataFrame, interactions: pd.DataFrame):
+    interactions_filtered = pd.merge(multidatas, interactions, left_on='id_multidata', right_on='multidata_1_id')
+    interactions_filtered = interactions_filtered.append(
+        pd.merge(multidatas, interactions, left_on='id_multidata', right_on='multidata_2_id'))
+
+    return interactions_filtered[interactions.columns.values]
+
+
 def filter_by_min_score2(interactions, min_score2):
     filtered_interactions = interactions[interactions['score_2'] > min_score2]
 
