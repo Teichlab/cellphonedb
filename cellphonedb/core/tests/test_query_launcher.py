@@ -6,7 +6,7 @@ import pandas as pd
 from cellphonedb.app import import_config
 from cellphonedb.core.CellphonedbSqlalchemy import CellphonedbSqlalchemy
 from cellphonedb.core.queries import cells_to_clusters
-from utilities import dataframe_functions
+from utils import dataframe_functions
 
 
 class TestQueryLauncher(TestCase):

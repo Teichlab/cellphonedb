@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellphonedb.core.utils import filters
-from utilities import dataframe_format
+from utils import dataframe_format
 
 
 def call(interactions_expanded: pd.DataFrame) -> pd.DataFrame:

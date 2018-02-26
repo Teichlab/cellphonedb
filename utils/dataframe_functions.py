@@ -1,6 +1,6 @@
 import pandas as pd
 
-from utilities import dataframe_format
+from utils import dataframe_format
 
 
 def dataframes_has_same_data(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame:

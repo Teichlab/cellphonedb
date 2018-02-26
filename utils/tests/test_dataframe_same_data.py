@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import pandas as pd
 
-from utilities import dataframe_functions
+from utils import dataframe_functions
 
 
 class TestDataframeSameData(TestCase):

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from utilities import dataframe_format
+from utils import dataframe_format
 
 
 # TODO: Move to helper

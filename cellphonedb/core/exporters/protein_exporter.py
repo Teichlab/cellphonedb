@@ -1,6 +1,6 @@
 import pandas as pd
 
-from utilities import dataframe_format
+from utils import dataframe_format
 
 
 def call(proteins_expanded: pd.DataFrame) -> pd.DataFrame:

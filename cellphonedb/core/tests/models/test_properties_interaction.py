@@ -4,7 +4,7 @@ import pandas as pd
 
 from cellphonedb.core.Cellphonedb import data_test_dir
 from cellphonedb.core.models.interaction import properties_interaction
-from utilities import dataframe_functions
+from utils import dataframe_functions
 
 
 class TestPropertiesInteraction(TestCase):
