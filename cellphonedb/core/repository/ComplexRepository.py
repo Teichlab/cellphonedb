@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.database.Repository import Repository
+from cellphonedb.core.database.Repository import Repository
 from cellphonedb.core.models.complex.db_model_complex import Complex
 from cellphonedb.core.models.complex_composition.db_model_complex_composition import ComplexComposition
 from cellphonedb.core.models.multidata import properties_multidata

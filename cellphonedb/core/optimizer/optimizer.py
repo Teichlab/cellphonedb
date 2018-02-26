@@ -1,5 +1,5 @@
 from cellphonedb.core.optimizer import protein_optimizer, complex_optimizer
-from cellphonedb.database import DatabaseManager
+from cellphonedb.core.database import DatabaseManager
 
 
 class Optimizer():

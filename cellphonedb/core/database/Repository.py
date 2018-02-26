@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.database import DatabaseManager
+from cellphonedb.core.database import DatabaseManager
 
 
 class Repository():

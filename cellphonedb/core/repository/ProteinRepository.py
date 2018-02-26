@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.database.Repository import Repository
+from cellphonedb.core.database.Repository import Repository
 from cellphonedb.core.models.multidata.db_model_multidata import Multidata
 from cellphonedb.core.models.protein.db_model_protein import Protein
 

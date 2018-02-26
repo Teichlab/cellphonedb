@@ -1,6 +1,6 @@
 from cellphonedb.core.collectors import protein_preprocess_collector, gene_preprocess_collector, \
     complex_preprocess_collector
-from cellphonedb.database import DatabaseManager
+from cellphonedb.core.database import DatabaseManager
 
 
 class Collector(object):
