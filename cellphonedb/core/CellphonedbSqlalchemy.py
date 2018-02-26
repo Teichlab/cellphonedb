@@ -1,6 +1,6 @@
 from cellphonedb.core.Cellphonedb import Cellphonedb
-from cellphonedb.database.Database import Database
-from cellphonedb.database.DatabaseManager import DatabaseManager
+from cellphonedb.core.database.Database import Database
+from cellphonedb.core.database.DatabaseManager import DatabaseManager
 
 from sqlalchemy import create_engine
 

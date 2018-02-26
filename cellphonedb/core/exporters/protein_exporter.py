@@ -4,7 +4,7 @@ from utilities import dataframe_format
 
 
 def call(proteins_expanded: pd.DataFrame) -> pd.DataFrame:
-    proteins_expanded.drop(['id_multidata', 'id_protein', 'protein_multidata_id'], axis=1, inplace=True)
+    proteins_expanded = proteins_expanded.drop(['id_multidata', 'id_protein', 'protein_multidata_id'], axis=1)
 
     proteins_expanded.rename(index=str, columns={'name': 'uniprot'}, inplace=True)
 

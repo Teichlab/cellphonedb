@@ -10,7 +10,7 @@ class Optimizer():
         multidatas = self.database_manager.get_repository('multidata').get_all_expanded(include_gene=False)
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
 
-        protein_optimizer.call(multidatas, interactions)
+        return protein_optimizer.call(multidatas, interactions)
 
     def complex(self):
         multidatas = self.database_manager.get_repository('multidata').get_all_expanded(include_gene=False)
@@ -20,5 +20,5 @@ class Optimizer():
         proteins = self.database_manager.get_repository('protein').get_all_expanded()
 
         multidata_column_names = self.database_manager.get_column_table_names('multidata')
-        complex_optimizer.call(multidatas, interactions, multidata_column_names, complexes, complex_compositions,
-                               proteins)
+        return complex_optimizer.call(multidatas, interactions, multidata_column_names, complexes, complex_compositions,
+                                      proteins)
