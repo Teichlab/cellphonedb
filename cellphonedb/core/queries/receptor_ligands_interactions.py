@@ -3,7 +3,7 @@ import pandas as pd
 from cellphonedb.core.models.interaction import filter_interaction
 from cellphonedb.core.queries import query_utils
 from cellphonedb.core.queries.query_utils import get_counts_proteins_of_complexes
-from utilities import dataframe_format
+from utils import dataframe_format
 
 
 def call(cluster_counts, threshold, enable_integrin, enable_transmembrane, enable_secreted, enable_complex,

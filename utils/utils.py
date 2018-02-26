@@ -8,7 +8,8 @@ def read_data_table_from_file(file: str, index_column_first: bool = False, separ
     filename, file_extension = os.path.splitext(file)
     if not separator:
         separator = _get_separator(file_extension)
-    return _read_data(open(file), separator, index_column_first)
+    with open(file) as f:
+        return _read_data(f, separator, index_column_first)
 
 
 # TODO: set file type

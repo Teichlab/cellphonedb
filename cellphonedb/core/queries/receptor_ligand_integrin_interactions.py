@@ -6,7 +6,7 @@ from cellphonedb.core.models.interaction import filter_interaction
 from cellphonedb.core.queries import query_utils
 from cellphonedb.core.queries.query_utils import apply_threshold, merge_cellphone_genes, \
     get_complex_involved_in_counts, filter_empty_cluster_counts, get_cluster_combinations
-from utilities import dataframe_format
+from utils import dataframe_format
 
 
 def call(cluster_counts: pd.DataFrame, threshold: float, enable_complex: bool, complex_composition: pd.DataFrame,
