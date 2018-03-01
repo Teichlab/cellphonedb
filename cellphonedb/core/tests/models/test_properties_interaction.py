@@ -2,6 +2,7 @@ from unittest import TestCase
 
 import pandas as pd
 
+import cellphonedb.core.models.interaction.filter_interaction
 from cellphonedb.core.Cellphonedb import data_test_dir
 from cellphonedb.core.models.interaction import properties_interaction
 from utils import dataframe_functions
@@ -15,10 +16,12 @@ class TestPropertiesInteraction(TestCase):
         correct_result_lr = True
 
         for index, interaction in interactions.iterrows():
-            if properties_interaction.is_receptor_ligand(interaction, '_1', '_2') != interaction[
+            if properties_interaction.is_receptor_ligand(interaction, enable_integrin=True, receptor_suffix='_1',
+                                                         ligand_suffix='_2') != interaction[
                 'test_is_receptor_ligand']:
                 correct_result_rl = False
-            if properties_interaction.is_receptor_ligand(interaction, '_2', '_1') != interaction[
+            if properties_interaction.is_receptor_ligand(interaction, enable_integrin=True, receptor_suffix='_2',
+                                                         ligand_suffix='_1') != interaction[
                 'test_is_ligand_receptor']:
                 correct_result_lr = False
 
@@ -34,6 +37,7 @@ class TestPropertiesInteraction(TestCase):
         result_expected = pd.read_csv(
             '{}/properties_interaction_get_receptor_ligand_ligand_receptor_result_expected.csv'.format(data_test_dir))
 
-        result = properties_interaction.get_receptor_ligand_ligand_receptor(interactions)
+        result = cellphonedb.core.models.interaction.filter_interaction.filter_by_receptor_ligand_ligand_receptor(
+            interactions, enable_integrin=True)
 
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result_expected, result))
