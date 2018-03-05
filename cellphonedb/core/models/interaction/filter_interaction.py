@@ -29,6 +29,7 @@ def filter_by_multidatas(multidatas: pd.DataFrame, interactions: pd.DataFrame) -
 
     interactions_filtered.drop_duplicates('id_interaction', inplace=True)
     interactions_filtered.reset_index(drop=True, inplace=True)
+
     return interactions_filtered[interactions.columns.values]
 
 
@@ -36,20 +37,6 @@ def filter_by_min_score2(interactions, min_score2):
     filtered_interactions = interactions[interactions['score_2'] > min_score2]
 
     return filtered_interactions
-
-
-def filter_receptor_ligand_interactions_by_receptor(interactions: pd.DataFrame, receptor: pd.Series) -> pd.DataFrame:
-    result = interactions[
-        interactions.apply(
-            lambda interaction: properties_interaction.is_receptor_ligand_by_receptor(interaction, receptor), axis=1)]
-    return result
-
-
-def filter_receptor_ligand_ligand_receptor(interactions_expanded: pd.DataFrame, suffix=['_1', '_2']) -> pd.DataFrame:
-    result = interactions_expanded[interactions_expanded.apply(
-        lambda interaction: properties_interaction.is_receptor_ligand_or_ligand_receptor(interaction, suffix), axis=1)]
-
-    return result
 
 
 def filter_by_receptor_ligand_integrin(proteins: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
