@@ -1,0 +1,10 @@
+gene,cluster_1,cluster_2,cluster_3
+ensembl_1,0,0,0
+ensembl_2,0,0,0
+ensembl_3,0.4,0.4,0.4
+ensembl_4,0.5,0.5,0.5
+ensembl_5,0.6,0.6,0.6
+ensembl_6,0.5,0.5,0
+ensembl_7,0.5,0,0.5
+ensembl_8,0,0.5,0.5
+ensembl_9,0.5,0.5,0.5
