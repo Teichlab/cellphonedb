@@ -10,6 +10,7 @@ def call(interactions: pd.DataFrame) -> pd.DataFrame:
 
     interactions_enabled['receptor'] = interactions_enabled['entry_name_receptor'].apply(
         lambda value: 'single:%s' % value)
+
     interactions_enabled.loc[interactions_enabled['is_complex_receptor'], ['receptor']] = \
         interactions_enabled['name_receptor'].apply(lambda value: 'complex:%s' % value)
 
@@ -18,4 +19,6 @@ def call(interactions: pd.DataFrame) -> pd.DataFrame:
         'name_ligand'].apply(
         lambda value: 'complex:%s' % value)
 
-    return interactions_enabled[['id_interaction', 'score_1', 'score_2', 'receptor', 'ligand', 'source']]
+    return interactions_enabled[
+        ['id_interaction', 'score_1', 'score_2', 'receptor', 'secreted_highlight_receptor', 'secreted_desc_receptor',
+         'secreted_highlight_ligand', 'secreted_desc_ligand', 'ligand', 'source', 'comments_interaction']]
