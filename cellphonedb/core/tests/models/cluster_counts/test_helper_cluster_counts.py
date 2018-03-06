@@ -46,3 +46,17 @@ class TestHelperClusterCounts(TestCase):
         expected_result[complex_column_names] = expected_result[complex_column_names].astype(dtype='int32')
 
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result, expected_result))
+
+    def test_merge_complex_cluster_counts_empty(self):
+        complex_counts_composition = pd.read_csv(
+            '{}/cluster_counts_helper_merge_complex_cluster_counts_complex_counts_composition.csv'.format(
+                self.FIXTURES_SUBPATH))
+
+        complex_counts_composition.drop(complex_counts_composition.index, inplace=True)
+        cluster_names = ['cluster_1', 'cluster_2', 'cluster_3']
+        complex_column_names = ['complex_multidata_id']
+
+        result = helper_cluster_counts.merge_complex_cluster_counts(cluster_names, complex_counts_composition,
+                                                                    complex_column_names)
+
+        self.assertTrue(result.empty)
