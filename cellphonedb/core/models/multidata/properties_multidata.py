@@ -32,7 +32,7 @@ def is_cellphone_ligand(multidata: pd.Series, interactions_extended: pd.DataFram
     if receptor_is_2[receptor_is_2['source'] == 'curated'].empty == False:
         return True
 
-    if receptor_is_2[(receptor_is_2['score_2'] >= 0.3) & (receptor_is_2['secreted_highlight_1'])].empty == False:
+    if receptor_is_2[(receptor_is_2['score_2'] > 0.3) & (receptor_is_2['secreted_highlight_1'])].empty == False:
         return True
 
     receptor_is_1 = pd.merge(multidata, interactions_extended, left_on='id_multidata', right_on='multidata_2_id')
@@ -41,7 +41,7 @@ def is_cellphone_ligand(multidata: pd.Series, interactions_extended: pd.DataFram
     if receptor_is_1[receptor_is_1['source'] == 'curated'].empty == False:
         return True
 
-    if receptor_is_1[(receptor_is_1['secreted_highlight_2']) & (receptor_is_1['score_2'] >= 0.3)].empty == False:
+    if receptor_is_1[(receptor_is_1['secreted_highlight_2']) & (receptor_is_1['score_2'] > 0.3)].empty == False:
         return True
 
     return False
