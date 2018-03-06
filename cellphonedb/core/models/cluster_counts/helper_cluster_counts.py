@@ -6,8 +6,8 @@ from cellphonedb.core.models.cluster_counts.filter_cluster_counts import filter_
 from cellphonedb.core.models.complex import complex_helper
 
 
-def merge_complex_cluster_counts(clusters_names: pd.DataFrame, complex_counts_composition: pd.DataFrame,
-                                 complex_expanded: pd.DataFrame) -> pd.DataFrame:
+def merge_complex_cluster_counts(clusters_names: list, complex_counts_composition: pd.DataFrame,
+                                 complex_columns_names: list) -> pd.DataFrame:
     """
     Merges the counts values of multiple components of complex.
     Sets the minimum cluster value for the components of a complex.
@@ -23,8 +23,7 @@ def merge_complex_cluster_counts(clusters_names: pd.DataFrame, complex_counts_co
 
     complex_counts = complex_counts_composition.drop_duplicates(['complex_multidata_id'])
     complex_counts = complex_counts.apply(set_complex_cluster_counts, axis=1)
-    complex_counts = complex_counts[list(clusters_names) + list(complex_expanded.columns.values)]
-    complex_counts = filter_empty_cluster_counts(complex_counts, clusters_names)
+    complex_counts = complex_counts[clusters_names + complex_columns_names]
     return complex_counts
 
 
@@ -43,9 +42,12 @@ def get_complex_involved_in_counts(multidatas_counts: pd.DataFrame, clusters_nam
                                                                                   complex_composition,
                                                                                   drop_duplicates=False)
 
-    complex_counts = merge_complex_cluster_counts(clusters_names, complex_counts_composition, complex_expanded)
+    complex_counts = merge_complex_cluster_counts(clusters_names, complex_counts_composition,
+                                                  list(complex_expanded.columns.values))
+    complex_counts = filter_empty_cluster_counts(complex_counts, clusters_names)
 
     complex_counts['is_complex'] = True
+    complex_counts.reset_index(drop=True, inplace=True)
 
     return complex_counts
 

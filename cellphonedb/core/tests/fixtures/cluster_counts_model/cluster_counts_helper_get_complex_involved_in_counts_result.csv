@@ -1,0 +1,5 @@
+id_multidata,cluster_1,cluster_2,cluster_3,is_complex
+100,0.5,0.5,0.5,True
+101,0.1,0,0,True
+102,0,0.8,0,True
+103,0,0,0.5,True

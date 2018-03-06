@@ -60,3 +60,24 @@ class TestHelperClusterCounts(TestCase):
                                                                     complex_column_names)
 
         self.assertTrue(result.empty)
+
+    def test_get_complex_involved_in_counts(self):
+        multidatas_counts = pd.read_csv(
+            '{}/helper_cluster_counts.csv'.format(
+                self.FIXTURES_SUBPATH))
+        cluster_names = ['cluster_1', 'cluster_2', 'cluster_3']
+        complex_composition = pd.read_csv(
+            '{}/helper_cluster_counts_complex_composition.csv'.format(
+                self.FIXTURES_SUBPATH))
+        complex_expanded = pd.read_csv(
+            '{}/helper_cluster_counts_complex.csv'.format(
+                self.FIXTURES_SUBPATH))
+
+        result_expected = pd.read_csv(
+            '{}/cluster_counts_helper_get_complex_involved_in_counts_result.csv'.format(self.FIXTURES_SUBPATH))
+
+        result = helper_cluster_counts.get_complex_involved_in_counts(multidatas_counts, cluster_names,
+                                                                      complex_composition, complex_expanded)
+
+        self.assertTrue(dataframe_functions.dataframes_has_same_data(result, result_expected),
+                        'get_complex_involved_in_counts result did not match with expected')
