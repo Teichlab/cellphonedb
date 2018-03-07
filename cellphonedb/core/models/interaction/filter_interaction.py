@@ -33,7 +33,7 @@ def filter_by_multidatas(multidatas: pd.DataFrame, interactions: pd.DataFrame) -
     return interactions_filtered[interactions.columns.values]
 
 
-def filter_by_min_score2(interactions, min_score2):
+def filter_by_min_score2(interactions: pd.DataFrame, min_score2: float):
     filtered_interactions = interactions[interactions['score_2'] > min_score2]
 
     return filtered_interactions
@@ -69,6 +69,10 @@ def filter_by_receptor_ligand_ligand_receptor(interactions: pd.DataFrame, enable
     """
     return a table of receptor ligand interactons
     """
+
+    if interactions.empty:
+        return pd.DataFrame()
+
     interactions = interactions.rename(index=str, columns={'score_1': 'score_one', 'score_2': 'score_two'})
 
     interactions_enabled_rl = interactions[
