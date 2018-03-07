@@ -20,7 +20,7 @@ def is_receptor_ligand(interaction: pd.Series, enable_integrin: bool, receptor_s
         return True
 
     if (interaction['secreted_highlight{}'.format(ligand_suffix)]) & (
-            interaction['score{}'.format(score_two_suffix)] >= 0.3):
+            interaction['score{}'.format(score_two_suffix)] > 0.3):
         return True
 
     return False
