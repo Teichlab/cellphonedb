@@ -1,2 +1,10 @@
-id_interaction,multidata_1_id,multidata_2_id,score_2,source,is_cellphone_receptor_1,is_cellphone_receptor_2,is_cellphone_ligand_1,is_cellphone_ligand_2,integrin_interaction_1,integrin_interaction_2,entry_name_1,entry_name_2,name_1,name_2,gene_name_1,gene_name_2,iuhpar_ligand_1,iuhpar_ligand_2,secretion_1,secretion_2
-1,3,4,0.3,random_source,True,True,True,True,True,True,entry_name_1,entry_name_2,name_1,name_2,gene_name_1,gene_name_2,True,True,True,True
+id_interaction,multidata_1_id,multidata_2_id,score_2,source,is_cellphone_receptor_1,is_cellphone_receptor_2,integrin_interaction_1,secreted_highlight_1,secreted_highlight_2,integrin_interaction_2,entry_name_1,entry_name_2,name_1,name_2,gene_name_1,gene_name_2,iuhpar_ligand_1,iuhpar_ligand_2,secretion_1,secretion_2,test_comments
+1,3,4,1,curated,True,False,False,False,False,False,entry_name_3,entry_name_4,name_3,name_4,gene_name_3,gene_name_4,False,False,False,False,enabled by curated 1
+2,4,5,1,curated,False,True,False,False,False,False,entry_name_4,entry_name_5,name_4,name_5,gene_name_4,gene_name_5,False,False,False,False,enabled by curated 2
+3,5,3,1,curated,True,True,False,False,False,False,entry_name_5,entry_name_3,name_5,name_3,gene_name_5,gene_name_3,False,False,False,False,enabled by curated both
+4,6,7,0.31,something,False,False,True,False,False,False,entry_name_6,entry_name_7,name_6,name_7,gene_name_6,gene_name_7,False,False,False,False,enabled by integrin 1
+5,7,8,0.31,something,False,False,False,True,False,True,entry_name_7,entry_name_8,name_7,name_8,gene_name_7,gene_name_8,False,False,False,False,enabled by integrin 2
+6,6,8,0.31,something,False,False,True,True,False,True,entry_name_6,entry_name_8,name_6,name_8,gene_name_6,gene_name_8,False,False,False,False,enabled by integrin both
+7,9,10,0.31,something,True,False,False,False,True,False,entry_name_9,entry_name_10,name_9,name_10,gene_name_9,gene_name_10,False,False,False,False,enabled by secreted_highlight 2
+8,11,9,0.31,something,False,True,False,True,False,False,entry_name_11,entry_name_9,name_11,name_9,gene_name_11,gene_name_9,False,False,False,False,enabled by receptor highlight 1
+9,9,12,0.31,something,True,True,False,True,True,False,entry_name_9,entry_name_12,name_9,name_12,gene_name_9,gene_name_12,False,False,False,False,enabled by receptor highlight both

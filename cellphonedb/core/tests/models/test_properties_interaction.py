@@ -29,7 +29,6 @@ class TestPropertiesInteraction(TestCase):
         self.assertTrue(correct_result_lr, 'Some ligand_receptor interactions results are not correct')
 
     def test_get_receptor_ligand_ligand_receptor(self):
-
         interactions = pd.read_csv(
             '{}/properties_interaction_get_receptor_ligand_ligand_receptor_interaction_extended.csv'.format(
                 data_test_dir))
