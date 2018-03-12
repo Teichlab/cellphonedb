@@ -2,8 +2,8 @@ id_interaction,id_multidata_receptor,id_multidata_ligand,source,score_2,is_cellp
 2,3,4,curated,1,True,False,False,False,False,False,True,False
 3,6,5,curated,1,True,False,False,False,False,False,False,True
 4,7,8,curated,1,True,False,False,True,False,False,True,True
-6,11,12,something,0.3,True,False,False,False,True,False,True,False
-7,14,13,something,0.3,True,False,False,False,True,False,False,True
+6,11,12,something,0.31,True,False,False,False,True,False,True,False
+7,14,13,something,0.31,True,False,False,False,True,False,False,True
 8,15,16,something,0.8,True,True,False,True,True,False,True,True
 9,17,18,something,0,False,False,True,False,False,False,True,False
 10,20,19,something,0,False,False,True,False,False,False,False,True

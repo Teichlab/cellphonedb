@@ -4,8 +4,8 @@ id_interaction,source,score_2,is_cellphone_receptor_1,secreted_highlight_1,integ
 3,curated,1,False,False,False,True,False,False,False,True
 4,curated,1,True,False,False,True,False,False,True,True
 5,curated,1,False,False,False,False,False,False,False,False
-6,something,0.3,True,False,False,False,True,False,True,False
-7,something,0.3,False,True,False,True,False,False,False,True
+6,something,0.31,True,False,False,False,True,False,True,False
+7,something,0.31,False,True,False,True,False,False,False,True
 8,something,0.8,True,True,False,True,True,False,True,True
 9,something,0,False,False,True,False,False,False,True,False
 10,something,0,False,False,False,False,False,True,False,True
