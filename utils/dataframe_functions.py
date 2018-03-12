@@ -29,4 +29,7 @@ def dataframes_has_same_data(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame,
         if round_decimals:
             dataframe2 = dataframe2.round(5)
 
+    if dataframe1.empty and dataframe2.empty:
+        return pd.Series(dataframe1.columns.values).equals(pd.Series(dataframe2.columns.values))
+
     return dataframe1.equals(dataframe2)

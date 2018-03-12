@@ -99,8 +99,8 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
                                          cluster_interaction in cluster_interactions]
 
     empty_result = pd.DataFrame(
-        columns=result_cluster_interactions_names + ['receptor', 'ligand', 'iuphar_ligand', 'secreted_ligand', 'source',
-                                                     'interaction_ratio', 'is_integrin'])
+        columns=['id_interaction', 'receptor', 'ligand', 'iuphar_ligand', 'secreted_ligand', 'source',
+                 'interaction_ratio', 'is_integrin'] + result_cluster_interactions_names)
 
     if enabled_interactions.empty:
         return empty_result
