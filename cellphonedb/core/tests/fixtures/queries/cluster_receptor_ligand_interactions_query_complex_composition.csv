@@ -1,6 +1,7 @@
-complex_multidata_id,protein_multidata_id,total_protein
-100,1,2
-100,2,2
-101,3,3
-101,4,3
-101,5,3
+complex_multidata_id,protein_multidata_id,total_protein,entry_name,name,gene_name
+101,51,2,entry_name_51,name_51,gene_name_51
+101,52,2,entry_name_52,name_52,gene_name_52
+102,54,4,entry_name_54,name_54,gene_name_54
+102,53,4,entry_name_53,name_53,gene_name_53
+102,52,4,entry_name_52,name_52,gene_name_52
+102,51,4,entry_name_51,name_51,gene_name_51

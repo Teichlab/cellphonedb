@@ -8,3 +8,5 @@ id_interaction,multidata_1_id,multidata_2_id,score_2,source,is_cellphone_recepto
 7,9,10,0.31,something,True,False,False,False,True,False,entry_name_9,entry_name_10,name_9,name_10,gene_name_9,gene_name_10,False,False,False,False,enabled by secreted_highlight 2
 8,11,9,0.31,something,False,True,False,True,False,False,entry_name_11,entry_name_9,name_11,name_9,gene_name_11,gene_name_9,False,False,False,False,enabled by receptor highlight 1
 9,9,12,0.31,something,True,True,False,True,True,False,entry_name_9,entry_name_12,name_9,name_12,gene_name_9,gene_name_12,False,False,False,False,enabled by receptor highlight both
+10,101,5,0.35,something_complex,False,False,False,False,False,True,,entry_name_5,name_101,name_5,,gene_name_5,False,False,False,False,complex interaction 1 (integrin 2)
+11,7,102,0.35,something_complex,False,True,False,True,False,False,entry_name_7,,name_7,name_102,gene_name_7,,False,False,False,False,complex interaction 2 (secreted_highlight)
