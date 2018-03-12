@@ -10,3 +10,10 @@ id_interaction,multidata_1_id,multidata_2_id,score_2,source,is_cellphone_recepto
 9,9,12,0.31,something,True,True,False,True,True,False,entry_name_9,entry_name_12,name_9,name_12,gene_name_9,gene_name_12,False,False,False,False,enabled by receptor highlight both
 10,101,5,0.35,something_complex,False,False,False,False,False,True,,entry_name_5,name_101,name_5,,gene_name_5,False,False,False,False,complex interaction 1 (integrin 2)
 11,7,102,0.35,something_complex,False,True,False,True,False,False,entry_name_7,,name_7,name_102,gene_name_7,,False,False,False,False,complex interaction 2 (secreted_highlight)
+99,9,999,0.31,something,True,False,False,False,True,False,entry_name_9,entry_name_999,name_9,name_999,gene_name_9,gene_name_999,False,False,False,False,disabled because multidata 2 didnt exists
+98,13,5,1,non_curated,False,True,False,False,False,False,entry_name_13,entry_name_5,name_13,name_5,gene_name_13,gene_name_5,False,False,False,False,disabled because source != curated
+97,7,14,0.30,something,True,True,False,True,True,False,entry_name_9,entry_name_14,name_9,name_14,gene_name_9,gene_name_14,False,False,False,False,disabled because score_2 <= 3.0
+96,7,1,0.35,something,True,True,False,True,True,False,entry_name_9,entry_name_1,name_9,name_1,gene_name_9,gene_name_1,False,False,False,False,disabled because 1 counts are all 0
+95,7,2,0.35,something,True,True,False,True,True,False,entry_name_9,entry_name_2,name_9,name_2,gene_name_9,gene_name_2,False,False,False,False,disabled because 1 counts are all 0.19 and threshold is 0.20
+94,199,5,0.35,something_complex,False,False,False,False,False,True,,entry_name_5,name_199,name_5,,gene_name_5,False,False,False,False,disabled because 1 complex is incomplete
+93,198,5,0.35,something_complex,False,False,False,False,False,True,,entry_name_5,name_198,name_5,,gene_name_5,False,False,False,False,"disabled because 1 complex is incomplete (one component is cluster 0,0,0)"

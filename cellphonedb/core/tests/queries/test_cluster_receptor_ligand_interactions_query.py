@@ -33,8 +33,6 @@ class TestClusterReceptorLigandInteractionsQuery(TestCase):
             complex_composition=complex_composition, genes_expanded=genes, complex_expanded=complex_expanded,
             interactions_expanded=interacions_expanded, clusters_names=[])
 
-        print(result)
-        print(result_expected)
         self.assertTrue(
             dataframe_functions.dataframes_has_same_data(result, result_expected, round_decimals=True),
             'Result of Cluster Receptor Ligand Interaction Query did not match with expected')

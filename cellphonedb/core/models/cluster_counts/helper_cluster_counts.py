@@ -13,6 +13,9 @@ def merge_complex_cluster_counts(clusters_names: list, complex_counts_compositio
     Sets the minimum cluster value for the components of a complex.
     """
 
+    if complex_counts_composition.empty:
+        return pd.DataFrame()
+
     def set_complex_cluster_counts(row):
         scores_complex = complex_counts_composition[
             row['complex_multidata_id'] == complex_counts_composition['complex_multidata_id']]

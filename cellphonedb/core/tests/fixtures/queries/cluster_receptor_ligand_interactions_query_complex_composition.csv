@@ -5,3 +5,7 @@ complex_multidata_id,protein_multidata_id,total_protein,entry_name,name,gene_nam
 102,53,4,entry_name_53,name_53,gene_name_53
 102,52,4,entry_name_52,name_52,gene_name_52
 102,51,4,entry_name_51,name_51,gene_name_51
+199,51,3,entry_name_51,name_51,gene_name_51
+199,52,3,entry_name_52,name_52,gene_name_52
+198,51,2,entry_name_51,name_51,gene_name_51
+198,1,2,entry_name_1,name_1,gene_name_1
