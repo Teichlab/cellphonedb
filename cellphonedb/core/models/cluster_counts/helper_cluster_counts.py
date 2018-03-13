@@ -49,7 +49,6 @@ def get_complex_involved_in_counts(multidatas_counts: pd.DataFrame, clusters_nam
                                                   list(complex_expanded.columns.values))
     complex_counts = filter_empty_cluster_counts(complex_counts, clusters_names)
 
-    complex_counts['is_complex'] = True
     complex_counts.reset_index(drop=True, inplace=True)
 
     return complex_counts

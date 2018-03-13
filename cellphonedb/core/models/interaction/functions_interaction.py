@@ -5,6 +5,9 @@ def expand_interactions_multidatas(interactions: pd.DataFrame, multidatas_expand
                                    suffixes: list = ('_1', '_2')) -> pd.DataFrame:
     interactions_expanded = pd.merge(interactions, multidatas_expanded, left_on='multidata_1_id',
                                      right_on='id_multidata')
+
+    interactions_expanded.drop(['ensembl', 'id_multidata'], inplace=True, axis=1, errors='ignore')
+
     interactions_expanded = pd.merge(interactions_expanded, multidatas_expanded, left_on='multidata_2_id',
                                      right_on='id_multidata', suffixes=suffixes)
 

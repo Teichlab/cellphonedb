@@ -20,10 +20,10 @@ class FlaskTerminalQueryLauncher(object):
 
         result.to_csv('{}/{}'.format(output_path, result_namefile))
 
-    def receptor_ligands_interactions(self, cluster_counts_namefile, threshold=0.2, enable_integrin: bool = True,
-                                      enable_complex: bool = True, clusters=None, data_path='', output_path='',
-                                      result_namefile='receptor_ligands_interactions.csv',
-                                      result_extended_namefile='receptor_ligands_interactions_extended.csv'):
+    def cluster_receptor_ligand_interactions(self, cluster_counts_namefile, threshold=0.2, enable_integrin: bool = True,
+                                             enable_complex: bool = True, clusters=None, data_path='', output_path='',
+                                             result_namefile='receptor_ligands_interactions.csv',
+                                             result_extended_namefile='receptor_ligands_interactions_extended.csv'):
         if clusters:
             clusters = clusters.split(' ')
 
@@ -37,7 +37,7 @@ class FlaskTerminalQueryLauncher(object):
         cluster_counts = utils.read_data_table_from_file('{}/{}'.format(data_path, cluster_counts_namefile),
                                                          index_column_first=True)
 
-        result_interactions, result_interactions_extended = cellphonedb_flask.cellphonedb.query.receptor_ligands_interactions(
+        result_interactions, result_interactions_extended = cellphonedb_flask.cellphonedb.query.cluster_receptor_ligand_interactions(
             cluster_counts, threshold, enable_integrin, enable_complex, clusters)
 
         result_interactions.to_csv('{}/{}'.format(output_path, result_namefile), index=False)

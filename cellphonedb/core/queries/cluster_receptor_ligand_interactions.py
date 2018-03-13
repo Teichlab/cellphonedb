@@ -23,7 +23,6 @@ def call(cluster_counts: pd.DataFrame, threshold: float, enable_integrin: bool, 
 
     if enable_complex:
         print('Finding Complexes')
-        cluster_counts_filtered['is_complex'] = False
         complex_counts = helper_cluster_counts.get_complex_involved_in_counts(cluster_counts_filtered, clusters_names,
                                                                               complex_composition, complex_expanded)
         cluster_counts_filtered = cluster_counts_filtered.append(
@@ -108,7 +107,6 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
     result = enabled_interactions['id_interaction']
     cluster_interactions_columns_names = []
     for cluster_interaction in cluster_interactions:
-        print(cluster_interaction)
         cluster_interaction_column_name = '%s - %s' % (cluster_interaction[0], cluster_interaction[1])
         cluster_interactions_columns_names.append(cluster_interaction_column_name)
         cluster_interaction_result = _check_receptor_ligand_interactions(cluster_interaction, enabled_interactions,
