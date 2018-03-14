@@ -19,6 +19,12 @@ def call(interactions: pd.DataFrame) -> pd.DataFrame:
         'name_ligand'].apply(
         lambda value: 'complex:%s' % value)
 
+    interactions_enabled['uniprot_receptor'] = \
+        interactions_enabled[interactions_enabled['is_complex_receptor'] == False]['name_receptor']
+    interactions_enabled['uniprot_ligand'] = interactions_enabled[interactions_enabled['is_complex_ligand'] == False][
+        'name_ligand']
+
     return interactions_enabled[
-        ['id_interaction', 'score_1', 'score_2', 'receptor', 'secreted_highlight_receptor', 'secreted_desc_receptor',
-         'secreted_highlight_ligand', 'secreted_desc_ligand', 'ligand', 'source', 'comments_interaction']]
+        ['id_interaction', 'score_1', 'score_2', 'receptor', 'ligand', 'uniprot_receptor', 'uniprot_ligand',
+         'secreted_highlight_receptor', 'secreted_desc_receptor', 'secreted_highlight_ligand', 'secreted_desc_ligand',
+         'source', 'comments_interaction']]
