@@ -40,17 +40,17 @@ class TestDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def test_interaction(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
 
-        self.assertEqual(len(interactions), 10549, 'Number of interactions not equal')
+        self.assertEqual(len(interactions), 10550, 'Number of interactions not equal')
 
     def test_interaction_curated(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
-        self.assertEqual(len(interactions[interactions['source'] == 'curated']), 403,
+        self.assertEqual(len(interactions[interactions['source'] == 'curated']), 477,
                          'Number of curated interactions not equal')
 
     def test_complex_composition(self):
         complex_compositions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
             'complex').get_all_compositions()
-        self.assertEqual(len(complex_compositions), 521, 'Number of Complex Composition entries are different')
+        self.assertEqual(len(complex_compositions), 519, 'Number of Complex Composition entries are different')
 
     def setUp(self):
         return create_app()
