@@ -1,19 +1,18 @@
 import pandas as pd
 
-from cellphonedb.core.models.multidata import format_multidata
+from cellphonedb.core.models.interaction import filter_interaction
+from cellphonedb.core.models.multidata import format_multidata, helper_multidata
+from cellphonedb.core.queries import cluster_receptor_ligand_interactions
 
-from utilities import dataframe_format
 
-
-def call(protein: pd.DataFrame, min_score2: float, complex_by_multidata, interactions,
-         multidatas_expanded) -> pd.DataFrame:
-    print('Finding Complexes')
-
+def call(protein: pd.DataFrame, enable_secreted: bool, enable_transmembrane: bool, enable_integrin: bool,
+         min_score2: float, complex_by_multidata, interactions, multidatas_expanded) -> pd.DataFrame:
     multidatas = protein.append(
         complex_by_multidata, ignore_index=True)
 
     print('Finding Enabled Interactions')
-    enabled_interactions = _get_rl_lr_interactions(multidatas, min_score2, interactions, multidatas_expanded)
+    enabled_interactions = _get_rl_lr_interactions(multidatas, min_score2, enable_secreted, enable_transmembrane,
+                                                   enable_integrin, interactions, multidatas_expanded)
 
     result_interactions = _result_interactions_table(enabled_interactions)
 
@@ -57,7 +56,7 @@ def _result_interactions_table(enabled_interactions: pd.DataFrame) -> pd.DataFra
         lambda interaction: set_ensembl_value(interaction, '_ligands'), axis=1)
 
     result['iuphar_ligand'] = enabled_interactions['iuhpar_ligand_ligands']
-    result['secreted_ligand'] = enabled_interactions['secretion_ligands']
+    result['secreted_ligand'] = enabled_interactions['secretion_ligandsr']
 
     result['source'] = enabled_interactions['source']
     result.drop_duplicates(inplace=True)
@@ -66,12 +65,19 @@ def _result_interactions_table(enabled_interactions: pd.DataFrame) -> pd.DataFra
     return result
 
 
-def _get_rl_lr_interactions(multidatas: pd.DataFrame, min_score_2: float, interactions,
+def _get_rl_lr_interactions(multidatas: pd.DataFrame, min_score_2: float, enable_secreted: bool,
+                            enable_transmembrane: bool, enable_integrin: bool, interactions,
                             multidatas_expanded) -> pd.DataFrame:
-    interactions = interactions[interactions['score_2'] > min_score_2]
-    enabled_interactions = _get_receptor_ligand_interactions(multidatas, interactions, multidatas_expanded)
-    enabled_interactions = enabled_interactions.append(
-        _get_ligand_receptor_interactions(multidatas, interactions, multidatas_expanded), ignore_index=True)
+    filtered_interactions = interactions[interactions['score_2'] > min_score_2]
+
+    filtered_interactions = filter_interaction.filter_by_any_multidatas(multidatas, filtered_interactions)
+
+    multidatas_interactions = helper_multidata.get_multidatas_from_interactions(filtered_interactions,
+                                                                                multidatas_expanded)
+
+    print(multidatas_interactions)
+
+    exit()
 
     return enabled_interactions
 
@@ -97,9 +103,9 @@ def _get_ligand_receptor_interactions(multidatas: pd.DataFrame, interactions: pd
 
 
 def _get_receptor_ligand_interactions(multidatas: pd.DataFrame, interactions: pd.DataFrame,
-                                      all_multidatas: pd.DataFrame) -> pd.DataFrame:
+                                      all_multidatas: pd.DataFrame, enabled_columns: list) -> pd.DataFrame:
     multidata_receptors = multidatas[multidatas['is_cellphone_receptor']]
-    all_multidata_ligands = all_multidatas[all_multidatas['is_cellphone_ligand']]
+    all_multidata_ligands = all_multidatas[all_multidatas['']]
 
     receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
                                      right_on='multidata_1_id')
