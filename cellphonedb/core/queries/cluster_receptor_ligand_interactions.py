@@ -1,7 +1,5 @@
 import pandas as pd
 
-import cellphonedb.core.models.cluster_counts.helper_cluster_counts
-import cellphonedb.core.models.cluster_counts.filter_cluster_counts
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.models.cluster_counts import helper_cluster_counts, filter_cluster_counts
 from cellphonedb.core.models.interaction import filter_interaction, functions_interaction
@@ -13,7 +11,7 @@ from utils import dataframe_format
 def call(cluster_counts: pd.DataFrame, threshold: float, enable_integrin: bool, enable_complex: bool,
          complex_composition: pd.DataFrame, genes_expanded: pd.DataFrame, complex_expanded: pd.DataFrame,
          interactions_expanded: pd.DataFrame, clusters_names: list = None) -> (pd.DataFrame, pd.DataFrame):
-    print('Receptor Ligands Interactions Initializated')
+    core_logger.debug('Receptor Ligands Interactions Initializated')
     if not clusters_names:
         clusters_names = list(cluster_counts.columns.values)
     cluster_counts_cellphone = query_utils.merge_cellphone_genes(cluster_counts, genes_expanded)
@@ -29,10 +27,10 @@ def call(cluster_counts: pd.DataFrame, threshold: float, enable_integrin: bool, 
         cluster_counts_filtered = cluster_counts_filtered.append(
             complex_counts)
 
-    print('Cluster Interactions')
+    core_logger.debug('Cluster Interactions')
     cluster_interactions = helper_cluster_counts.get_cluster_combinations(clusters_names)
 
-    print('Finding Enabled Interactions')
+    core_logger.debug('Finding Enabled Interactions')
     count_interactions = filter_interaction.filter_by_multidatas(cluster_counts_filtered, interactions_expanded)
     count_interactions = functions_interaction.expand_interactions_multidatas(count_interactions,
                                                                               cluster_counts_filtered)
