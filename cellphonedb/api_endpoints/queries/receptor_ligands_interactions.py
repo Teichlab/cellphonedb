@@ -5,8 +5,6 @@ from flask import request, Response
 
 from cellphonedb import extensions
 from cellphonedb.api_endpoints.endpoint_base import EndpointBase
-from cellphonedb.core.queries import cluster_receptor_ligands_interactions
-
 
 # curl -i \
 #      -F "cell_to_clusters_file=@cellphonedb/data/queries/cells_to_clusters.csv;type=text/csv" \
