@@ -1,5 +1,3 @@
-import pandas as pd
-
 from cellphonedb.flask_app import output_dir, query_input_dir
 from cellphonedb.extensions import cellphonedb_flask
 from utils import utils

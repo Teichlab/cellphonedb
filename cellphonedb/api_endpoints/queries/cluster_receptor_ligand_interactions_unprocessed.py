@@ -10,14 +10,15 @@ from cellphonedb.api_endpoints.endpoint_base import EndpointBase
 # curl -i \
 #     -F "counts_file=@in/queries/test_counts.txt;type=text/tab-separated-values" \
 #     -F "meta_file=@in/queries/test_meta.txt;type=text/tab-separated-values" \
-#     -F parameters="{\"threshold\": 0.1}" \
-#     http://127.0.0.1:5000/api/receptor_ligand_integrin_unprocessed
+#     -F parameters="{\"threshold\": 0.1, \"enable_integrin\": true}" \
+#     http://127.0.0.1:5000/api/cluster_receptor_ligand_interactions_unprocessed
 
 
-class ReceptorLigandIntegrinUnprocessed(EndpointBase):
+class ClusterReceptorLigandInteractionsUnprocessed(EndpointBase):
     def post(self):
-        counts = self._read_table(request.files['counts_file'], index_column_first=True)
+
         meta = self._read_table(request.files['meta_file'], index_column_first=True)
+        counts = self._read_table(request.files['counts_file'], index_column_first=True)
 
         if not isinstance(counts, pd.DataFrame):
             self.attach_error(
@@ -29,16 +30,22 @@ class ReceptorLigandIntegrinUnprocessed(EndpointBase):
 
         if not self._errors:
             cells_to_clusters_result = extensions.cellphonedb_flask.cellphonedb.query.cells_to_clusters(meta, counts)
-
+            cells_to_clusters_result['gene'] = cells_to_clusters_result.index
+            cells_to_clusters_result.reset_index(drop=True, inplace=True)
             parameters = json.loads(request.form['parameters'])
             threshold = float(parameters['threshold'])
+            enable_integrin = bool(parameters['enable_integrin'])
 
             enable_complex = True
             if 'enable_complex' in parameters:
                 enable_complex = bool(parameters['enable_complex'])
 
-            result_interactions, result_interactions_extended = extensions.cellphonedb_flask.cellphonedb.query.receptor_ligand_integrin_interactions(
-                cells_to_clusters_result, threshold, enable_complex)
+            clusters = None
+            if 'clusters' in parameters and parameters['clusters']:
+                clusters = list(parameters['clusters'])
+
+            result_interactions, result_interactions_extended = extensions.cellphonedb_flask.cellphonedb.query.cluster_receptor_ligand_interactions(
+                cells_to_clusters_result, threshold, enable_integrin, enable_complex, clusters)
 
             self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')
             self._attach_csv(result_interactions_extended.to_csv(index=False),
