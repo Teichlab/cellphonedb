@@ -3,21 +3,19 @@ import pandas as pd
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.models.cluster_counts import helper_cluster_counts, filter_cluster_counts
 from cellphonedb.core.models.interaction import filter_interaction, functions_interaction
-from cellphonedb.core.queries import query_utils
 from cellphonedb.core.queries.query_utils import get_counts_proteins_of_complexes
 from utils import dataframe_format
 
 
 def call(cluster_counts: pd.DataFrame, threshold: float, enable_integrin: bool, enable_complex: bool,
          complex_composition: pd.DataFrame, genes_expanded: pd.DataFrame, complex_expanded: pd.DataFrame,
-         interactions_expanded: pd.DataFrame, clusters_names: list = None) -> (pd.DataFrame, pd.DataFrame):
+         interactions: pd.DataFrame, clusters_names: list = None) -> (pd.DataFrame, pd.DataFrame):
     core_logger.debug('Receptor Ligands Interactions Initializated')
     if not clusters_names:
         clusters_names = list(cluster_counts.columns.values)
-    cluster_counts_cellphone = query_utils.merge_cellphone_genes(cluster_counts, genes_expanded)
-
+        clusters_names.remove('gene')
+    cluster_counts_cellphone = filter_cluster_counts.filter_by_gene(cluster_counts, genes_expanded)
     cluster_counts_filtered = helper_cluster_counts.apply_threshold(cluster_counts_cellphone, clusters_names, threshold)
-
     cluster_counts_filtered = filter_cluster_counts.filter_empty_cluster_counts(cluster_counts_filtered, clusters_names)
 
     if enable_complex:
@@ -31,7 +29,7 @@ def call(cluster_counts: pd.DataFrame, threshold: float, enable_integrin: bool, 
     cluster_interactions = helper_cluster_counts.get_cluster_combinations(clusters_names)
 
     core_logger.debug('Finding Enabled Interactions')
-    count_interactions = filter_interaction.filter_by_multidatas(cluster_counts_filtered, interactions_expanded)
+    count_interactions = filter_interaction.filter_by_multidatas(cluster_counts_filtered, interactions)
     count_interactions = functions_interaction.expand_interactions_multidatas(count_interactions,
                                                                               cluster_counts_filtered)
     enabled_interactions = filter_interaction.filter_by_receptor_ligand_ligand_receptor(count_interactions,
@@ -50,43 +48,35 @@ def _result_interactions_extended_table(interactions, clusters_names, cluster_co
 
     if interactions.empty:
         return pd.DataFrame(columns=output_columns)
-    # result_receptor_complex = get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions,
-    #                                                            '_receptor', complex_composition)
 
-    result_receptor = interactions.loc[interactions['is_complex_receptor'] == False][
-        ['id_interaction', 'entry_name_receptor', 'name_receptor', 'gene_name_receptor', 'is_complex_receptor'] + [
-            cluster_name + '_receptor' for cluster_name in clusters_names]]
+    receptors = _result_extended_part(cluster_counts, clusters_names, complex_composition, interactions, '_receptor')
+    receptors['receptor_ligand'] = 'receptor'
+    ligands = _result_extended_part(cluster_counts, clusters_names, complex_composition, interactions, '_ligand')
+    ligands['receptor_ligand'] = 'ligand'
 
-    # TODO: Change to dataframe_format.change_column_suffix
-    def remove_suffix(column_name, suffix):
-        if column_name.endswith(suffix):
-            return column_name[:-len(suffix)]
+    extended_proteins = receptors.append(ligands)
 
-        return column_name
+    if not 'complex_name' in extended_proteins:
+        extended_proteins['complex_name'] = pd.np.NaN
 
-    result_receptor.rename(columns=lambda column_name: remove_suffix(column_name, '_receptor'), inplace=True)
+    return extended_proteins[output_columns]
 
-    # result_receptor = result_receptor.append(result_receptor_complex)
-    result_receptor = result_receptor.assign(receptor_ligand='receptor')
 
-    result_ligand_complex = get_counts_proteins_of_complexes(cluster_counts, clusters_names, interactions, '_ligand',
-                                                             complex_composition)
+def _result_extended_part(cluster_counts: pd.DataFrame, clusters_names: list, complex_composition: pd.DataFrame,
+                          interactions: pd.DataFrame, suffix: str) -> pd.DataFrame:
+    complex_multidatas = pd.DataFrame()
+    complex_multidatas[['id_interaction', 'id_multidata', 'name']] = \
+        interactions[interactions['is_complex{}'.format(suffix)]][
+            ['id_interaction', 'id_multidata{}'.format(suffix), 'name{}'.format(suffix)]]
+    complexes = get_counts_proteins_of_complexes(cluster_counts, complex_multidatas, complex_composition)
+    multidatas = pd.DataFrame()
+    multidatas[['id_interaction', 'id_multidata']] = \
+        interactions[interactions['is_complex{}'.format(suffix)] == False][
+            ['id_interaction', 'id_multidata{}'.format(suffix)]]
+    non_complex = pd.merge(multidatas, cluster_counts, on='id_multidata')
+    result = non_complex.append(complexes)
 
-    result_ligand = interactions.loc[interactions['is_complex_ligand'] == False][
-        ['id_interaction', 'entry_name_ligand', 'name_ligand', 'gene_name_ligand', 'is_complex_ligand'] + [
-            cluster_name + '_ligand' for cluster_name in clusters_names]]
-
-    result_ligand.rename(columns=lambda column_name: remove_suffix(column_name, '_ligand'), inplace=True)
-    result_ligand = result_ligand.append(result_ligand_complex)
-    result_ligand = result_ligand.assign(receptor_ligand='ligand')
-
-    result = result_receptor.append(result_ligand)
-    result.drop_duplicates(inplace=True)
-    result.reset_index(inplace=True, drop=True)
-    if not 'complex_name' in result:
-        result['complex_name'] = ''
-
-    return result[output_columns]
+    return result
 
 
 def _result_interactions_table(cluster_interactions, enabled_interactions):

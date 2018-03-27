@@ -16,10 +16,8 @@ class QueryLauncher():
                                              clusters_names):
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
-        complex_expanded = complex_expanded[['id_multidata']]
         genes = self.database_manager.get_repository('gene').get_all_expanded()
-        genes = genes[['ensembl', 'id_multidata']]
-        interactions = self.database_manager.get_repository('interaction').get_all_expanded()
+        interactions = self.database_manager.get_repository('interaction').get_all()
 
         return cluster_receptor_ligand_interactions.call(cluster_counts, threshold, enable_integrin, enable_complex,
                                                          complex_composition, genes, complex_expanded, interactions,
