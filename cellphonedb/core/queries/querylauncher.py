@@ -23,13 +23,15 @@ class QueryLauncher():
                                                          complex_composition, genes, complex_expanded, interactions,
                                                          clusters_names)
 
-    def get_rl_lr_interactions_from_multidata(self, receptor: str, enable_secreted: bool, enable_transmembrane: bool,
-                                              enable_integrin: bool, score2_threshold: float) -> pd.DataFrame:
+    def get_rl_lr_interactions_from_multidata(self, receptor: str,
+                                              enable_integrin: bool, min_score2: float) -> pd.DataFrame:
         multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(receptor)
         if multidatas.empty:
             return pd.DataFrame()
+
+        multidatas.drop_duplicates('id_multidata', inplace=True)
         interactions = self.database_manager.get_repository('interaction').get_all()
-        multidatas_expanded = self.database_manager.get_repository('multidata').get_all()
+        multidatas_expanded = self.database_manager.get_repository('multidata').get_all_expanded()
         complex_by_multidata = self.database_manager.get_repository('complex').get_complex_by_multidatas(multidatas,
                                                                                                          False)
 
@@ -39,7 +41,7 @@ class QueryLauncher():
 
             result = result.append(
                 get_rl_lr_interactions_from_multidata.call(
-                    multidata, enable_secreted, enable_transmembrane, enable_integrin, float(score2_threshold),
+                    multidata, enable_integrin, float(min_score2),
                     complex_by_multidata, interactions, multidatas_expanded),
                 ignore_index=True)
 

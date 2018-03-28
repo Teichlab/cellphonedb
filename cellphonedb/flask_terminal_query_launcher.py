@@ -40,11 +40,9 @@ class FlaskTerminalQueryLauncher(object):
         result_interactions.to_csv('{}/{}'.format(output_path, result_namefile), index=False)
         result_interactions_extended.to_csv('{}/{}'.format(output_path, result_extended_namefile), index=False)
 
-    def get_rl_lr_interactions(self, receptor, enable_secreted: str, enable_transmembrane: str, enable_integrin: str,
+    def get_rl_lr_interactions(self, receptor, enable_integrin: str,
                                score2_threshold):
 
         enable_integrin = bool(int(enable_integrin))
-        enable_transmembrane = bool(int(enable_transmembrane))
-        enable_secreted = bool(int(enable_secreted))
         print(cellphonedb_flask.cellphonedb.query.get_rl_lr_interactions_from_multidata(
-            receptor, enable_secreted, enable_transmembrane, enable_integrin, float(score2_threshold)))
+            receptor, enable_integrin, float(score2_threshold)))

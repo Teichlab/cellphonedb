@@ -18,7 +18,9 @@ class GetRlLrInteractions(EndpointBase):
         receptor = parameters['receptor']
 
         try:
-            result = extensions.cellphonedb_flask.cellphonedb.query.get_rl_lr_interactions_from_multidata(receptor, 0.3)
+            result = extensions.cellphonedb_flask.cellphonedb.query.get_rl_lr_interactions_from_multidata(receptor,
+                                                                                                          enable_integrin=True,
+                                                                                                          min_score2=0.3)
 
             if result.empty:
                 self.attach_error(
