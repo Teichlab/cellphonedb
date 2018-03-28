@@ -20,3 +20,4 @@ NaiveDE==1.2.0
 patsy==0.4.1
 requests_toolbelt
 PyYAML==3.12
+uWSGI>=2.0.17
