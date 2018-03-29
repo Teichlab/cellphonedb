@@ -137,6 +137,9 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
 
     _validate_sources(custom_interactions_unique['source'].tolist(), interactions_base_df['provider'].tolist())
 
+    custom_interactions_unique.rename(index=str, columns={'protein_1': 'uniprot_1', 'protein_2': 'uniprot_2'},
+                                      inplace=True)
+
     return custom_interactions_unique
 
 
