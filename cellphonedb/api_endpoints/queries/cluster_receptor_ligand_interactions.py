@@ -8,10 +8,10 @@ from cellphonedb.api_endpoints.endpoint_base import EndpointBase
 
 
 # curl -i \
-#      -F "cell_to_clusters_file=@in/queries/cells_to_clusters.csv;type=text/csv" \
+#      -F "cell_to_clusters_file=@in/example_data/cells_to_clusters.csv;type=text/csv" \
 #      -F parameters="{\"threshold\": 0.1, \"enable_integrin\": \"true\"}" \
 #      http://127.0.0.1:5000/api/cluster_receptor_ligand_interactions
-#
+
 
 class ReceptorLigandInteractions(EndpointBase):
     def post(self):

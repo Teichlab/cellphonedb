@@ -24,7 +24,6 @@ class FlaskTerminalQueryLauncher(object):
                                              result_extended_namefile='receptor_ligands_interactions_extended.csv'):
         if clusters:
             clusters = clusters.split(' ')
-
         if not data_path:
             data_path = query_input_dir
         if not output_path:
@@ -40,9 +39,8 @@ class FlaskTerminalQueryLauncher(object):
         result_interactions.to_csv('{}/{}'.format(output_path, result_namefile), index=False)
         result_interactions_extended.to_csv('{}/{}'.format(output_path, result_extended_namefile), index=False)
 
-    def get_rl_lr_interactions(self, receptor, enable_integrin: str,
-                               score2_threshold):
+    def get_rl_lr_interactions(self, receptor: str, enable_integrin: str = '1', min_score2: str = '0.2'):
 
         enable_integrin = bool(int(enable_integrin))
         print(cellphonedb_flask.cellphonedb.query.get_rl_lr_interactions_from_multidata(
-            receptor, enable_integrin, float(score2_threshold)))
+            receptor, enable_integrin, float(min_score2)))

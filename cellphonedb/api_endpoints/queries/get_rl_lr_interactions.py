@@ -11,6 +11,7 @@ from cellphonedb.common.generic_exception import GenericException
 # curl -i \
 #      --data "{\"receptor\": \"P25106\"}" \
 #      http://127.0.0.1:5000/api/get_ligands_from_receptor
+
 class GetRlLrInteractions(EndpointBase):
     def post(self):
         parameters = json.loads(request.get_data(as_text=True))

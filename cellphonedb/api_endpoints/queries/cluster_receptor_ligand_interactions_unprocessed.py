@@ -8,9 +8,9 @@ from cellphonedb.api_endpoints.endpoint_base import EndpointBase
 
 
 # curl -i \
-#     -F "counts_file=@in/queries/test_counts.txt;type=text/tab-separated-values" \
-#     -F "meta_file=@in/queries/test_meta.txt;type=text/tab-separated-values" \
-#     -F parameters="{\"threshold\": 0.1, \"enable_integrin\": true}" \
+#     -F "counts_file=@in/example_data/test_counts.txt;type=text/tab-separated-values" \
+#     -F "meta_file=@in/example_data/test_meta.txt;type=text/tab-separated-values" \
+#     -F parameters="{\"threshold\": 0.2, \"enable_integrin\": \"true\"}" \
 #     http://127.0.0.1:5000/api/cluster_receptor_ligand_interactions_unprocessed
 
 
