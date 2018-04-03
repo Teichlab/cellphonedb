@@ -40,7 +40,7 @@ class TestDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def test_interaction(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
 
-        self.assertEqual(len(interactions), 10550, 'Number of interactions not equal')
+        self.assertEqual(len(interactions), 10500, 'Number of interactions not equal')
 
     def test_interaction_curated(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()

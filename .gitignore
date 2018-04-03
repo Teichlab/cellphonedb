@@ -2,7 +2,9 @@
 /api_interafaces/python/input_data/
 /api_interafaces/python/out/
 /out/
-/in/
+/in/*
+!/in/.gitkeep
+!/in/example_data/
 /cellphonedb/data/queries/
 # Byte-compiled / optimized / DLL files
 __pycache__/
