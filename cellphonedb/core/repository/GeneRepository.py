@@ -1,5 +1,6 @@
 import pandas as pd
 
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database.Repository import Repository
 from cellphonedb.core.models.gene.db_model_gene import Gene
 from cellphonedb.core.models.multidata.db_model_multidata import Multidata
@@ -41,7 +42,7 @@ class GeneRepository(Repository):
         Merges dataframe with multidata names in multidata ids
         """
         if quiet:
-            print('Blending proteins in quiet mode')
+            core_logger.debug('Blending proteins in quiet mode')
 
         result = GeneRepository.blend_dataframes(original_data, original_column_names, multidatas, 'name', 'multidata')
 

@@ -1,4 +1,4 @@
-from cellphonedb.core.models.interaction import properties_interaction
+from cellphonedb.core.core_logger import core_logger
 
 import pandas as pd
 
@@ -43,7 +43,7 @@ def filter_by_receptor_ligand_integrin(proteins: pd.DataFrame, interactions: pd.
     """
     Returns a DataFrame of enabled integrin interactions
     """
-    print('Filtering by integrin')
+    core_logger.debug('Filtering by integrin')
     multidata_receptors = proteins[proteins['integrin_interaction']]
 
     receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',

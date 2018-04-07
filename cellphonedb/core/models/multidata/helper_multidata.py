@@ -5,7 +5,6 @@ def get_multidatas_from_interactions(interactions: pd.DataFrame, multidatas: pd.
     interaction_multidatas = pd.DataFrame(
         interactions['multidata_1_id'].append(interactions['multidata_2_id']).drop_duplicates(),
         columns=['id_multidata'])
-    print(multidatas[multidatas['id_multidata'] == 1946])
 
     result = multidatas.merge(interaction_multidatas, on='id_multidata')
 

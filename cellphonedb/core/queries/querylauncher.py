@@ -1,5 +1,6 @@
 import pandas as pd
 
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.queries import cells_to_clusters, cluster_receptor_ligand_interactions, \
     get_rl_lr_interactions_from_multidata
 
@@ -7,6 +8,13 @@ from cellphonedb.core.queries import cells_to_clusters, cluster_receptor_ligand_
 class QueryLauncher():
     def __init__(self, database_manager):
         self.database_manager = database_manager
+
+    def __getattribute__(self, name):
+        method = object.__getattribute__(self, name)
+        if hasattr(method, '__call__'):
+            core_logger.info('Launching Query {}'.format(name))
+
+        return method
 
     def cells_to_clusters(self, meta, counts):
         genes = self.database_manager.get_repository('gene').get_all()

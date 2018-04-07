@@ -1,3 +1,4 @@
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.exporters import complex_exporter, complex_web_exporter, \
     interaction_exporter, protein_exporter, gene_exporter, s4_multidata_exporter, \
     s5_heterodimer_exporter, s6_interaction_exporter
@@ -6,6 +7,13 @@ from cellphonedb.core.exporters import complex_exporter, complex_web_exporter, \
 class ExporterLauncher(object):
     def __init__(self, database_manager):
         self.database_manager = database_manager
+
+    def __getattribute__(self, name):
+        method = object.__getattribute__(self, name)
+        if hasattr(method, '__call__'):
+            core_logger.info('Exporting {}'.format(name))
+
+        return method
 
     def s4_multidata(self):
         multidata_expanded = self.database_manager.get_repository('multidata').get_all_expanded(include_gene=False)

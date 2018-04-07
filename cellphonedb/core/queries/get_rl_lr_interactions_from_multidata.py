@@ -1,5 +1,6 @@
 import pandas as pd
 
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.models.interaction import filter_interaction, functions_interaction
 from cellphonedb.core.models.multidata import format_multidata, helper_multidata
 
@@ -9,7 +10,7 @@ def call(protein: pd.DataFrame, enable_integrin: bool,
     multidatas = protein.append(
         complex_by_multidata, ignore_index=True)
 
-    print('Finding Enabled Interactions')
+    core_logger.debug('Finding Enabled Interactions')
     enabled_interactions = _get_rl_lr_interactions(multidatas, min_score2, enable_integrin, interactions,
                                                    multidatas_expanded)
 

@@ -41,7 +41,7 @@ def get_complex_involved_in_counts(multidatas_counts: pd.DataFrame, clusters_nam
     """
     Gets complexes involved in counts
     """
-    print('Finding Complexes')
+    core_logger.debug('Finding Complexes')
     complex_counts_composition = complex_helper.get_involved_complex_from_protein(multidatas_counts, complex_expanded,
                                                                                   complex_composition,
                                                                                   drop_duplicates=False)

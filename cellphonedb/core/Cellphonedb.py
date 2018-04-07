@@ -1,6 +1,7 @@
 import os
 
 from cellphonedb.core.collectors.collector import Collector
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.exporters.exporterlauncher import ExporterLauncher
 from cellphonedb.core.queries.querylauncher import QueryLauncher
 from cellphonedb.core.optimizer.optimizer import Optimizer
@@ -14,6 +15,7 @@ data_test_dir = '{}/tests/fixtures'.format(cellphone_core_dir)
 
 class Cellphonedb(object):
     def __init__(self, database_manager: DatabaseManager):
+        core_logger.info('Initializing CellPhoneDB Core')
         self.database_manager = database_manager
         self.export = ExporterLauncher(self.database_manager)
         self.collect = Collector(self.database_manager)

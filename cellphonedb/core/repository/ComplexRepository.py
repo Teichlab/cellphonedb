@@ -1,5 +1,6 @@
 import pandas as pd
 
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database.Repository import Repository
 from cellphonedb.core.models.complex.db_model_complex import Complex
 from cellphonedb.core.models.complex_composition.db_model_complex_composition import ComplexComposition
@@ -127,12 +128,12 @@ class ComplexRepository(Repository):
                 incomplete_indices.append(index)
 
         if len(incomplete_indices) > 0:
-            print('MISSING PROTEINS:')
+            core_logger.warning('MISSING PROTEINS:')
             for protein in missing_proteins:
-                print(protein)
+                core_logger.warning('MISSING PROTEINS:')(protein)
 
-            print('COMEPLEXES WITH MISSING PROTEINS:')
-            print(complexes.iloc[incomplete_indices, :]['name'])
+            core_logger.warning('COMEPLEXES WITH MISSING PROTEINS:')
+            core_logger.warning(complexes.iloc[incomplete_indices, :]['name'])
 
         # Insert complexes
         if not complexes.empty:

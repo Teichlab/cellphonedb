@@ -1,4 +1,5 @@
 from cellphonedb.core.Cellphonedb import Cellphonedb
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database.Database import Database
 from cellphonedb.core.database.DatabaseManager import DatabaseManager
 
@@ -14,6 +15,7 @@ from cellphonedb.core.repository.GeneRepository import GeneRepository
 
 class CellphonedbSqlalchemy(Cellphonedb):
     def __init__(self, config):
+        core_logger.info('Initializing SqlAlchemy CellPhoneDB Core')
         engine = create_engine(config['sqlalchemy']['uri'], echo=config['sqlalchemy']['echo'])
         database = Database(engine)
         database.base_model = Base

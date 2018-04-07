@@ -1,5 +1,6 @@
 import pandas as pd
 
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database import DatabaseManager
 
 
@@ -41,7 +42,7 @@ class Repository():
         result_df = left_df.copy()
 
         if not quiet and db_column_name in left_df.columns:
-            print('WARNING | BLENDING: column "%s" already exists in orginal df' % (db_column_name))
+            core_logger.debug('WARNING | BLENDING: column "%s" already exists in orginal df' % (db_column_name))
 
         unique_slug = '_EDITNAME'
         unique_original_column_names = [("%s%s" % (column_name, unique_slug)) for column_name in left_column_names]
@@ -73,7 +74,7 @@ class Repository():
                                                  '%s_1_id' % db_table_name: '%s_id' % db_table_name}, inplace=True)
 
         if not quiet and not_existent_proteins:
-            print('WARNING | BLENDING: THIS %s DIDNT EXIST IN %s' % (db_column_name, db_table_name))
-            print(not_existent_proteins)
+            core_logger.debug('WARNING | BLENDING: THIS %s DIDNT EXIST IN %s' % (db_column_name, db_table_name))
+            core_logger.debug(not_existent_proteins)
 
         return result_df

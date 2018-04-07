@@ -1,11 +1,19 @@
 from cellphonedb.core.collectors import protein_preprocess_collector, gene_preprocess_collector, \
     complex_preprocess_collector
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database import DatabaseManager
 
 
 class Collector(object):
     def __init__(self, database_manager: DatabaseManager):
         self.database_manager = database_manager
+
+    def __getattribute__(self, name):
+        method = object.__getattribute__(self, name)
+        if hasattr(method, '__call__'):
+            core_logger.info('Collecting {}'.format(name))
+
+        return method
 
     def protein(self, proteins):
         multidata_columns = self.database_manager.get_column_table_names('multidata')
@@ -28,11 +36,7 @@ class Collector(object):
         self.database_manager.get_repository('interaction').add(interactions)
 
     def all(self, proteins, genes, complexes, interactions):
-        print('Collecting Proteins')
         self.protein(proteins)
-        print('Collecting Genes')
         self.gene(genes)
-        print('Collecting Complexes')
         self.complex(complexes)
-        print('Collecting Interactions')
         self.interaction(interactions)
