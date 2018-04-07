@@ -20,11 +20,11 @@ def only_noncomplex_interactions(interactions, complexes):
 
     proteins_in_complex = list(set(proteins_in_complex))
 
-    inweb_df_no_complex = interactions[interactions['protein_1'].apply(
+    inweb_df_no_complex = interactions[interactions['uniprot_1'].apply(
         lambda protein: protein not in proteins_in_complex
     )]
     inweb_df_no_complex = inweb_df_no_complex[
-        inweb_df_no_complex['protein_2'].apply(
+        inweb_df_no_complex['uniprot_2'].apply(
             lambda protein: protein not in proteins_in_complex
         )]
 

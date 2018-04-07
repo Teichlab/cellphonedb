@@ -25,6 +25,5 @@ def call(interactions: pd.DataFrame) -> pd.DataFrame:
         'name_ligand']
 
     return interactions_enabled[
-        ['id_interaction', 'score_1', 'score_2', 'receptor', 'ligand', 'uniprot_receptor', 'uniprot_ligand',
-         'secreted_highlight_receptor', 'secreted_desc_receptor', 'secreted_highlight_ligand', 'secreted_desc_ligand',
-         'source', 'comments_interaction']]
+        ['id_interaction', 'source', 'score_1', 'score_2', 'receptor', 'ligand', 'uniprot_receptor', 'uniprot_ligand',
+         'secreted_desc_receptor', 'secreted_highlight_ligand', 'secreted_desc_ligand', 'comments_interaction']]

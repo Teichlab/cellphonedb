@@ -75,7 +75,7 @@ def receptor_ligands_interactions_request(cells_clusters, threshold=0.1, enable_
     return interactions, interactions_extended
 
 
-def receptor_ligands_interactions_unprocessed_request(meta, counts, threshold=0.1, enable_integrin=True,
+def receptor_ligands_interactions_unprocessed_request(meta, counts, threshold=0.2, enable_integrin=True,
                                                       enable_complex=True, clusters=None):
     """
 
@@ -148,7 +148,7 @@ def cells_to_clusters_example():
 
 def receptor_ligands_interactions_example():
     cells_clusters = pd.read_csv('out/API_cells_clusters.csv', index_col=0)
-    threshold = 0.1
+    threshold = 0.2
     receptor_ligands_interactions, receptor_ligands_interactions_extended = receptor_ligands_interactions_request(
         cells_clusters, threshold, True)
 
@@ -159,7 +159,7 @@ def receptor_ligands_interactions_example():
 
 
 def receptor_ligands_interactions_unprocessed_example():
-    threshold = 0.1
+    threshold = 0.2
     meta = pd.read_table('input_data/test_meta.txt', index_col=0)
     counts = pd.read_table('input_data/test_counts.txt', index_col=0)
     receptor_ligands_interactions, receptor_ligands_interactions_extended, cells_to_clusters = receptor_ligands_interactions_unprocessed_request(

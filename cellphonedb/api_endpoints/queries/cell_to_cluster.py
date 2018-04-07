@@ -6,8 +6,8 @@ from cellphonedb.api_endpoints.endpoint_base import EndpointBase
 
 
 # curl -i \
-#     -F "counts_file=@cellphonedb/data/queries/test_counts.txt;type=text/tab-separated-values" \
-#     -F "meta_file=@cellphonedb/data/queries/test_meta.txt;type=text/tab-separated-values" \
+#     -F "counts_file=@in/example_data/test_counts.txt;type=text/tab-separated-values" \
+#     -F "meta_file=@in/example_data/test_meta.txt;type=text/tab-separated-values" \
 #     http://127.0.0.1:5000/api/cell_to_cluster
 
 

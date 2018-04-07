@@ -1,0 +1,10 @@
+database:
+  db_name: cellphonedb
+  host: db
+  password: root
+  port: 5432
+  user: root
+flask:
+  debug: true
+app:
+  debug: false

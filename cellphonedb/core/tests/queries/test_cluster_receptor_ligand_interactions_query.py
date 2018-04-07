@@ -34,7 +34,7 @@ class TestClusterReceptorLigandInteractionsQuery(TestCase):
             data['cluster_counts'], threshold=0.2, enable_integrin=True, enable_complex=True,
             complex_composition=data['complex_composition'], genes_expanded=data['genes'],
             complex_expanded=data['complex_expanded'],
-            interactions_expanded=data['interacions_expanded'], clusters_names=[])
+            interactions=data['interactions'], clusters_names=[])
 
         self.assertTrue(
             dataframe_functions.dataframes_has_same_data(result, data['result_expected'], round_decimals=True),
@@ -45,8 +45,7 @@ class TestClusterReceptorLigandInteractionsQuery(TestCase):
     def _load_fixtures(self):
         data = {}
         data['cluster_counts'] = pd.read_csv(
-            '{}/cluster_receptor_ligand_interactions_query_cluster_counts.csv'.format(self.FIXTURES_SUBPATH),
-            index_col=0)
+            '{}/cluster_receptor_ligand_interactions_query_cluster_counts.csv'.format(self.FIXTURES_SUBPATH))
 
         data['complex_composition'] = pd.read_csv(
             '{}/cluster_receptor_ligand_interactions_query_complex_composition.csv'.format(self.FIXTURES_SUBPATH))
@@ -57,7 +56,7 @@ class TestClusterReceptorLigandInteractionsQuery(TestCase):
         data['complex_expanded'] = pd.read_csv(
             '{}/cluster_receptor_ligand_interactions_query_complex.csv'.format(self.FIXTURES_SUBPATH))
 
-        data['interacions_expanded'] = pd.read_csv(
+        data['interactions'] = pd.read_csv(
             '{}/cluster_receptor_ligand_interactions_query_interaction.csv'.format(self.FIXTURES_SUBPATH))
 
         data['result_expected'] = pd.read_csv(

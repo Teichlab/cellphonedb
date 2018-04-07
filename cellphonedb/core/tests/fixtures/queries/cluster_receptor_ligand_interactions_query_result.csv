@@ -8,5 +8,5 @@ id_interaction,receptor,ligand,cluster_1 - cluster_1,cluster_1 - cluster_2,clust
 7,single:entry_name_9,single:entry_name_10,0.3,0.4,0.5,0,0,0,0.3,0.4,0.6,False,False,something,0.666666,False
 8,single:entry_name_9,single:entry_name_11,0.5,0.3,0.2,0,0,0,0.5,0.3,0.2,False,False,something,0.666666,False
 9,single:entry_name_9,single:entry_name_12,0.3,0.2,0,0,0,0,0.3,0.2,0,False,False,something,0.444444,False
-10,single:entry_name_5,complex:name_101,0.3,0.6,0.3,0.3,0.6,0.3,0.3,0.6,0.3,False,False,something_complex,1.0,True
-11,complex:name_102,single:entry_name_7,0,0,0,0.2,0.2,0,0.3,0.3,0,False,False,something_complex,0.444444,False
+10,complex:complex_1,single:entry_name_5,0.3,0.3,0.3,0.6,0.6,0.6,0.3,0.3,0.3,False,False,something_complex,1.0,True
+11,single:entry_name_9,complex:complex_2,0,0.2,0.3,0,0,0,0,0.2,0.3,False,False,something_complex,0.444444,False

@@ -1,14 +1,12 @@
 from cellphonedb.api_endpoints.queries.cell_to_cluster import CellToCluster
 from cellphonedb.api_endpoints.queries.get_rl_lr_interactions import GetRlLrInteractions
-from cellphonedb.api_endpoints.queries.receptor_ligand_integrin_unprocessed import ReceptorLigandIntegrinUnprocessed
-from cellphonedb.api_endpoints.queries.receptor_ligands_interactions import ReceptorLigandsInteractions
-from cellphonedb.api_endpoints.queries.receptor_ligands_interactions_unprocessed import \
-    ReceptorLigandsInteractionsUnprocessed
+from cellphonedb.api_endpoints.queries.cluster_receptor_ligand_interactions import ReceptorLigandInteractions
+from cellphonedb.api_endpoints.queries.cluster_receptor_ligand_interactions_unprocessed import \
+    ClusterReceptorLigandInteractionsUnprocessed
 
 
 def add(api):
     api.add_resource(CellToCluster, '/cell_to_cluster')
-    api.add_resource(ReceptorLigandsInteractionsUnprocessed, '/receptor_ligands_interactions_unprocessed')
-    api.add_resource(ReceptorLigandsInteractions, '/receptor_ligands_interactions')
+    api.add_resource(ReceptorLigandInteractions, '/cluster_receptor_ligand_interactions')
+    api.add_resource(ClusterReceptorLigandInteractionsUnprocessed, '/cluster_receptor_ligand_interactions_unprocessed')
     api.add_resource(GetRlLrInteractions, '/get_ligands_from_receptor')
-    api.add_resource(ReceptorLigandIntegrinUnprocessed, '/receptor_ligand_integrin_unprocessed')

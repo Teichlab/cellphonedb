@@ -6,15 +6,16 @@ from flask import request, Response
 from cellphonedb import extensions
 from cellphonedb.api_endpoints.endpoint_base import EndpointBase
 
-# curl -i \
-#      -F "cell_to_clusters_file=@cellphonedb/data/queries/cells_to_clusters.csv;type=text/csv" \
-#      -F parameters="{\"threshold\": 0.1, \"enable_integrin\": \"true\"}" \
-#      http://127.0.0.1:5000/api/receptor_ligands_interactions
-#
 
-class ReceptorLigandsInteractions(EndpointBase):
+# curl -i \
+#      -F "cell_to_clusters_file=@in/example_data/cells_to_clusters.csv;type=text/csv" \
+#      -F parameters="{\"threshold\": 0.1, \"enable_integrin\": \"true\"}" \
+#      http://127.0.0.1:5000/api/cluster_receptor_ligand_interactions
+
+
+class ReceptorLigandInteractions(EndpointBase):
     def post(self):
-        cells_to_clusters_file = self._read_table(request.files['cell_to_clusters_file'], True)
+        cells_to_clusters_file = self._read_table(request.files['cell_to_clusters_file'])
 
         if not isinstance(cells_to_clusters_file, pd.DataFrame):
             self.attach_error(
@@ -24,8 +25,6 @@ class ReceptorLigandsInteractions(EndpointBase):
             parameters = json.loads(request.form['parameters'])
             threshold = float(parameters['threshold'])
             enable_integrin = bool(parameters['enable_integrin'])
-            enable_transmembrane = bool(parameters['enable_transmembrane'])
-            enable_secreted = bool(parameters['enable_secreted'])
             enable_complex = True
             if 'enable_complex' in parameters:
                 enable_complex = bool(parameters['enable_complex'])
@@ -34,9 +33,8 @@ class ReceptorLigandsInteractions(EndpointBase):
             if 'clusters' in parameters and parameters['clusters']:
                 clusters = list(parameters['clusters'])
 
-            result_interactions, result_interactions_extended = extensions.cellphonedb_flask.cellphonedb.query.receptor_ligands_interactions(
-                cells_to_clusters_file, threshold, enable_integrin, enable_transmembrane, enable_secreted,
-                enable_complex, clusters)
+            result_interactions, result_interactions_extended = extensions.cellphonedb_flask.cellphonedb.query.cluster_receptor_ligand_interactions(
+                cells_to_clusters_file, threshold, enable_integrin, enable_complex, clusters)
             self._attach_csv(result_interactions.to_csv(index=False), 'result_interactions.csv')
             self._attach_csv(result_interactions_extended.to_csv(index=False),
                              'result_interactions_extended.txt')

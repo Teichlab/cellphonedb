@@ -1,19 +1,19 @@
-id_interaction,id_multidata_1,id_multidata_2,multidata_1_id,multidata_2_id,score_2,source,is_cellphone_receptor_1,is_cellphone_receptor_2,integrin_interaction_1,integrin_interaction_2,secreted_highlight_1,secreted_highlight_2,entry_name_1,entry_name_2,name_1,name_2,gene_name_1,gene_name_2,iuhpar_ligand_1,iuhpar_ligand_2,secretion_1,secretion_2,is_complex_1,is_complex_2,test_comments
-1,3,4,3,4,1,curated,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,entry_name_3,entry_name_4,name_3,name_4,gene_name_3,gene_name_4,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,enabled by curated 1
-2,4,5,4,5,1,curated,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,entry_name_4,entry_name_5,name_4,name_5,gene_name_4,gene_name_5,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,enabled by curated 2
-3,5,3,5,3,1,curated,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,entry_name_5,entry_name_3,name_5,name_3,gene_name_5,gene_name_3,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,enabled by curated both
-4,6,7,6,7,0.31,something,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,entry_name_6,entry_name_7,name_6,name_7,gene_name_6,gene_name_7,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,enabled by integrin 1
-5,7,8,7,8,0.31,something,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,entry_name_7,entry_name_8,name_7,name_8,gene_name_7,gene_name_8,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,enabled by integrin 2
-6,6,8,6,8,0.31,something,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,entry_name_6,entry_name_8,name_6,name_8,gene_name_6,gene_name_8,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,enabled by integrin both
-7,9,10,9,10,0.31,something,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,entry_name_9,entry_name_10,name_9,name_10,gene_name_9,gene_name_10,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,enabled by secreted_highlight 2
-8,11,9,11,9,0.31,something,FALSE,TRUE,FALSE,FALSE,TRUE,FALSE,entry_name_11,entry_name_9,name_11,name_9,gene_name_11,gene_name_9,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,enabled by receptor highlight 1
-9,9,12,9,12,0.31,something,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,entry_name_9,entry_name_12,name_9,name_12,gene_name_9,gene_name_12,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,enabled by receptor highlight both
-10,101,5,101,5,0.35,something_complex,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,,entry_name_5,name_101,name_5,,gene_name_5,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,complex interaction 1 (integrin 2)
-11,7,102,7,102,0.35,something_complex,FALSE,TRUE,FALSE,FALSE,TRUE,FALSE,entry_name_7,,name_7,name_102,gene_name_7,,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,complex interaction 2 (secreted_highlight)
-99,9,999,9,999,0.31,something,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,entry_name_9,entry_name_999,name_9,name_999,gene_name_9,gene_name_999,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,disabled because multidata 2 didnt exists
-98,13,5,13,5,1,non_curated,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,entry_name_13,entry_name_5,name_13,name_5,gene_name_13,gene_name_5,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,disabled because source != curated
-97,7,14,7,14,0.3,something,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,entry_name_9,entry_name_14,name_9,name_14,gene_name_9,gene_name_14,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,disabled because score_2 <= 3.0
-96,7,1,7,1,0.35,something,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,entry_name_9,entry_name_1,name_9,name_1,gene_name_9,gene_name_1,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,disabled because 1 counts are all 0
-95,7,2,7,2,0.35,something,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,entry_name_9,entry_name_2,name_9,name_2,gene_name_9,gene_name_2,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,disabled because 1 counts are all 0.19 and threshold is 0.20
-94,199,5,199,5,0.35,something_complex,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,,entry_name_5,name_199,name_5,,gene_name_5,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,disabled because 1 complex is incomplete
-93,198,5,198,5,0.35,something_complex,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,,entry_name_5,name_198,name_5,,gene_name_5,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,"disabled because 1 complex is incomplete (one component is cluster 0,0,0)"
+id_interaction,multidata_1_id,multidata_2_id,score_2,source,test_comments
+1,3,4,1,curated,enabled by curated 1
+2,4,5,1,curated,enabled by curated 2
+3,5,3,1,curated,enabled by curated both
+4,6,7,0.31,something,enabled by integrin 1
+5,7,8,0.31,something,enabled by integrin 2
+6,6,8,0.31,something,enabled by integrin both
+7,9,10,0.31,something,enabled by secreted_highlight 2
+8,11,9,0.31,something,enabled by receptor highlight 1
+9,9,12,0.31,something,enabled by receptor highlight both
+10,101,5,0.35,something_complex,complex interaction 1 (integrin 1)
+11,9,102,0.35,something_complex,complex interaction 2 (secreted_highlight)
+99,9,999,0.31,something,disabled because multidata 2 didnt exists
+98,13,5,1,non_curated,disabled because source != curated
+97,7,14,0.3,something,disabled because score_2 <= 3.0
+96,7,1,0.35,something,disabled because 1 counts are all 0
+95,7,2,0.35,something,disabled because 1 counts are all 0.19 and threshold is 0.20
+94,199,5,0.35,something_complex,disabled because 1 complex is incomplete
+93,198,5,0.35,something_complex,"disabled because 1 complex is incomplete (one component is cluster 0,0,0)"

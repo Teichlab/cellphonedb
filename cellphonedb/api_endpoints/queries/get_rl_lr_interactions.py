@@ -11,6 +11,7 @@ from cellphonedb.common.generic_exception import GenericException
 # curl -i \
 #      --data "{\"receptor\": \"P25106\"}" \
 #      http://127.0.0.1:5000/api/get_ligands_from_receptor
+
 class GetRlLrInteractions(EndpointBase):
     def post(self):
         parameters = json.loads(request.get_data(as_text=True))
@@ -18,7 +19,9 @@ class GetRlLrInteractions(EndpointBase):
         receptor = parameters['receptor']
 
         try:
-            result = extensions.cellphonedb_flask.cellphonedb.query.get_rl_lr_interactions_from_multidata(receptor, 0.3)
+            result = extensions.cellphonedb_flask.cellphonedb.query.get_rl_lr_interactions_from_multidata(receptor,
+                                                                                                          enable_integrin=True,
+                                                                                                          min_score2=0.3)
 
             if result.empty:
                 self.attach_error(
