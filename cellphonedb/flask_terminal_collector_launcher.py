@@ -1,13 +1,14 @@
 import pandas as pd
 
+from cellphonedb.app_logger import app_logger
 from cellphonedb.flask_app import data_dir
 from cellphonedb.extensions import cellphonedb_flask
 
 
 class FlaskTerminalCollectorLauncher(object):
     def __getattr__(self, method_name):
-
         def wrapper(namefile='', data_path=''):
+            app_logger.info('Collecting {}'.format(method_name))
             if not namefile:
                 namefile = '{}.csv'.format(method_name)
 
@@ -21,11 +22,7 @@ class FlaskTerminalCollectorLauncher(object):
         return wrapper
 
     def all(self, protein_filename='', gene_filename='', complex_filename='', interaction_filename='', data_path=''):
-        print('Collecting Proteins')
         self.protein(protein_filename, data_path)
-        print('Collecting Genes')
         self.gene(gene_filename, data_path)
-        print('Collecting Complexes')
         self.complex(complex_filename, data_path)
-        print('Collecting Interactions')
         self.interaction(interaction_filename, data_path)

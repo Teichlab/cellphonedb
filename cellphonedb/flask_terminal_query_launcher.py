@@ -1,9 +1,16 @@
+from cellphonedb.app_logger import app_logger
 from cellphonedb.flask_app import output_dir, query_input_dir
 from cellphonedb.extensions import cellphonedb_flask
 from utils import utils
 
 
 class FlaskTerminalQueryLauncher(object):
+    def __getattribute__(self, name):
+        method = object.__getattribute__(self, name)
+        if hasattr(method, '__call__'):
+            app_logger.info('Launching Query {}'.format(name))
+
+        return method
     def cells_to_clusters(self, meta_namefile, counts_namefile, data_path='', output_path='',
                           result_namefile='cells_to_clusters.csv'):
         if not data_path:
