@@ -10,6 +10,7 @@ import scipy.stats
 from numpy import *
 import sys
 
+np.random.seed(123)  #####   setting the random seed so that we get always same random shuffles
 
 #######   Input arguments from command line
 
@@ -28,7 +29,6 @@ how_many = int(how_many)
 
 
 def one_one_human_interactions_permutations(all_interactions, cluster_pairs, clusters_counts_shuffle, count_r):
-    np.random.seed(123)
 
     all_means_1 = pd.DataFrame(columns=cluster_pairs)
     df_percent = pd.DataFrame(columns=cluster_pairs)
@@ -206,6 +206,9 @@ for key,value in all_pairs_means.items():
 
             sum_larger = sum(i > real_p for i in target_cluster)
 
+            ####  check the % of cells expressing the receptor and ligand of the specific interaction, if the value is 0,
+            # it means one or both of receptor/ligand were expressed in less than 20% of cells, so the p-value is not significant - put 1
+            # (the lowest the p-value, the better the significance)
             if (real_p==0 or int(real_per)==0):
                 p_val = 1
             else:

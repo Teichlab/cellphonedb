@@ -11,7 +11,7 @@ import sys
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
-
+np.random.seed(123)  #####   setting the random seed so that we get always same random shuffles
 
 num_interactions = sys.argv[1]
 num_interactions = int(num_interactions)
@@ -62,8 +62,14 @@ def get_gene_for_multidata(multidata_id):
     return gene_protein_df
 
 
+
+
+######  function where we input the real unshuffled count table to get the real means of expression of (receptor, ligand),
+# and we find and save in lists all genes - members of the complexes in all_interactions that have minimum expression in cluster 1 (genes 1)
+# and cluster 2 (genes 2), and we save also the % of cells expressing those minimum genes in the clusters, so that
+# if the genes are expressed in less than 20% of the cells in the cluster, save 0, otherwise save 1
+
 def complexes_interactions(all_interactions, cluster_pairs, clusters_counts):
-    np.random.seed(123)
 
     all_means = pd.DataFrame(columns=cluster_pairs)
     df_percent = pd.DataFrame(columns=cluster_pairs)
@@ -153,21 +159,23 @@ def complexes_interactions(all_interactions, cluster_pairs, clusters_counts):
 
 
 
+######  Function to calculate the mean (receptor, ligand) of each cluster-cluster analysis for each interaction pair
+######  all_interactions  - dataframe with all interaction pairs already queried from the database and filtered (containing the ensembl and gene names of the receptor and ligand)
+######  cluster_pairs - list of cluster_cluster names  - will be used to put column names on the final table
+######  clusters_counts_shuffle - shuffled count table, where the columns of the original count table (the cells) are shuffled so that the cells now belong to different clusters
+######  count_r - if this value is 0, calculate the % of cells expressing the receptor and ligand and real mean of expression of (receptor,ligand), using the original count matrix, not the shuffle
+######  genes1 - list of genes - members of the complexes that are min expressed in cluster 1
+######  genes2 - list of genes - members of the complexes that are min expressed in cluster 2 (in the cases where )
+######  the complexes_interactions_shuffle will be performed 1000 times, each time, we calculate the mean and we save these values in a dictionary (all_pairs_means)
+
+
 
 def complexes_interactions_shuffle(all_interactions, cluster_pairs, clusters_counts_shuffle, genes1, genes2):
-    np.random.seed(123)
 
-    interactions = pd.DataFrame(columns=cluster_pairs)
-    all_means = pd.DataFrame(columns=cluster_pairs)
-    df_percent = pd.DataFrame(columns=cluster_pairs)
-
-    # print(len(cluster_pairs))
     num = 0
     for row1, index1 in all_interactions.iterrows():
 
-        all_scores_1 = []
         all_means_1 = []
-        all_percent = []
 
         for cluster in range(0, len(all_clusters)):
             for cluster2 in range(0, len(all_clusters)):
@@ -219,7 +227,7 @@ def complexes_interactions_shuffle(all_interactions, cluster_pairs, clusters_cou
 
 
 
-
+######  all complex interactions already queried and filtered
 all_complex_interactions_filtered = pd.read_table('complexes.txt', index_col=0)
 
 
@@ -229,6 +237,7 @@ counts = pd.read_table('counts.txt', index_col=0)
 meta = pd.read_table('metadata.txt', index_col=0)
 
 
+#####  filter count matrix so that only the genes that are in the complex interaction list are there
 all_complex_genes = []
 remove_rows = []
 for row1, index1 in all_complex_interactions_filtered.iterrows():
@@ -258,6 +267,10 @@ genes_unique = set(all_complex_genes)
 
 counts_filtered = counts.loc[counts.index.isin(genes_unique)]
 
+
+
+##### start the analysis from the specific pair and run it on "how_many" pairs
+
 if (num_interactions+how_many)<len(all_complex_interactions_filtered):
     all_complex_interactions_filtered = all_complex_interactions_filtered.iloc[num_interactions:num_interactions+how_many]
 else:
@@ -268,10 +281,11 @@ all_clusters = {}
 clusters_counts = {}
 
 
+######   get the cluster annotations - the meta data should have a column named "cell_type"
 new_clusters = meta.cell_type.unique()
 
 
-
+#######    make separate count dataframes for each cluster
 i = 0
 for x in new_clusters:
     all_clusters[i] = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % x)]).index
@@ -293,6 +307,9 @@ cells_clusters = dict(zip(cells_keys, cells_values))
 
 
 
+#####  run this funtion with the real unshuffled count data to get the real means, % of cells expressing the receptor and ligand
+# in the specific clusters and to get the genes - members of the complexes with min expression in the specific cluster
+# these genes will be used for the shuffling
 res = complexes_interactions(all_complex_interactions_filtered, cluster_pairs, clusters_counts)
 real_pvalues = res[0]
 real_percent = res[1]
@@ -301,9 +318,12 @@ genes2 = res[3]
 
 
 
+###### do the shuffling and create the shuffled count tables for each cluster
+
 all_pairs_means = collections.defaultdict(dict)
 
 for count_r in range(1, 1001):
+
     clusters_values = list(cells_clusters.values())
     random.shuffle(clusters_values)
 
@@ -316,17 +336,25 @@ for count_r in range(1, 1001):
     all_clusters_shuffle = {}
     clusters_counts_shuffle = {}
 
+    ######   creating the shuffled count tables for each cluster
+
     i = 0
     for x in new_clusters:
         all_clusters_shuffle[i] = pd.DataFrame(new_meta.loc[(new_meta['cell_type'] == '%s' % x)]).index
         clusters_counts_shuffle[i] = counts_filtered.loc[:, all_clusters_shuffle[i]]
         i = i + 1
 
+    ######    run the function to calculate mean of (receptor,ligand) for each of the 1000 shufflings
     complexes_interactions_shuffle(all_complex_interactions_filtered,cluster_pairs,clusters_counts_shuffle, genes1, genes2)
 
 
 
-final_means = pd.DataFrame(columns=cluster_pairs)
+final_means = pd.DataFrame(columns=cluster_pairs) #####   here we will save all the means from the 1000 shufflings, and we will use these 1000 values
+# per each interaction pair for each cluster-cluster analysis to calculate the p-value of the interaction pair for this cluster-cluster
+
+
+######   calculate p-values for each interaction pair, for all cluster-cluster comparisons and save them in final_means
+
 for key,value in all_pairs_means.items():
     for cluster in range(0, len(all_clusters)):
         for cluster2 in range(0, len(all_clusters)):
@@ -337,6 +365,9 @@ for key,value in all_pairs_means.items():
 
             sum_larger = sum(i > real_p for i in target_cluster)
 
+            ####  check the % of cells expressing the receptor and ligand of the specific interaction, if the value is 0,
+            # it means one or both of receptor/ligand were expressed in less than 20% of cells, so the p-value is not significant - put 1
+            # (the lowest the p-value, the better the significance)
             if (real_p==0 or int(real_per)==0):
                 p_val = 1
             else:
@@ -348,9 +379,9 @@ for key,value in all_pairs_means.items():
 
 
 
-path_1 = 'complexes_pvalues_%d.txt' % (num_interactions)
+path_1 = 'complexes_pvalues_%d.txt' % (num_interactions)   ######   save pvalues for the specific interactions starting from num_interactions
 final_means.to_csv(path_1, sep="\t")
-path_2 = 'complexes_pvalues_%d.txt' % (num_interactions)
+path_2 = 'complexes_pvalues_%d.txt' % (num_interactions)   ######   save means for the specific interactions starting from num_interactions
 real_pvalues.to_csv(path_2, sep="\t")
 
 
