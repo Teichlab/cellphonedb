@@ -16,15 +16,12 @@ query_input_dir = '%s/../in' % current_dir
 output_test_dir = '{}/tests/out'.format(current_dir)
 data_test_dir = '{}/tests/fixtures'.format(current_dir)
 
-config = None
 
-
-def create_app(environment=None, support=None, load_defaults=None):
-    global config
+def create_app(environment=None, support=None, load_defaults=None, raise_non_defined_vars=True):
     app = Flask(__name__)
-    config = import_config.AppConfig(environment, support, load_defaults)
+    config = import_config.AppConfig(environment, support, load_defaults, raise_non_defined_vars)
 
-    cellphone_config = config.get_cellphone_config()
+    cellphone_config = config.get_cellphone_core_config()
 
     cellphonedb_flask.init_app(cellphone_config)
 

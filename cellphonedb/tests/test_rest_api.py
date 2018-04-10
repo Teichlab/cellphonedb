@@ -6,7 +6,7 @@ from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 class TestRestApi(CellphoneFlaskTestCase):
     def create_app(self):
-        return create_app(environment='test')
+        return create_app(environment='test', raise_non_defined_vars=False)
 
     def setUp(self):
         self.reset_db()

@@ -14,7 +14,8 @@ from cellphonedb.core.repository.GeneRepository import GeneRepository
 
 
 class CellphonedbSqlalchemy(Cellphonedb):
-    def __init__(self, config):
+    def __init__(self, config: dict):
+        core_logger.setLevel(config['logger']['level'])
         core_logger.info('Initializing SqlAlchemy CellPhoneDB Core')
         engine = create_engine(config['sqlalchemy']['uri'], echo=config['sqlalchemy']['echo'])
         database = Database(engine)

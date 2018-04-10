@@ -12,7 +12,7 @@ class FlaskTerminalExporterLauncher(object):
 
     @staticmethod
     def _call_cellphonecore_method(export_method, output_name=None, output_path=None):
-        app_logger.debug('Exporting {}'.format(export_method))
+        app_logger.debug('Exporting {}'.format(export_method.__name__))
         if not output_name:
             output_name = '%s.csv' % export_method.__name__
 

@@ -7,12 +7,12 @@ from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 class TestQueryLauncherReal(CellphoneFlaskTestCase):
     def create_app(self):
-        return create_app()
+        return create_app(raise_non_defined_vars=False)
 
     def setUp(self):
         super().setUp()
-        config = import_config.AppConfig()
-        cellphone_config = config.get_cellphone_config()
+        config = import_config.AppConfig(raise_non_defined_vars=False)
+        cellphone_config = config.get_cellphone_core_config()
 
         self.cellphonedb = CellphonedbSqlalchemy(cellphone_config)
 

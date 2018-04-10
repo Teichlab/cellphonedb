@@ -7,5 +7,5 @@ class CellphonedbFlask(object):
         if app is not None:
             self.init_app(config)
 
-    def init_app(self, config):
+    def init_app(self, config: dict):
         self.cellphonedb = CellphonedbSqlalchemy(config)

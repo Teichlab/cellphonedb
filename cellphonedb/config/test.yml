@@ -3,3 +3,6 @@ database:
   host: localhost
   adapter: sqlite
   path: ":memory:"
+
+app:
+  debug: true

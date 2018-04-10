@@ -52,4 +52,4 @@ class TestCollectionCalls(CellphoneFlaskTestCase):
         getattr(FlaskTerminalCollectorLauncher(), name)(namefile, self.fixtures_dir())
 
     def create_app(self):
-        return create_app(environment='test')
+        return create_app(environment='test', raise_non_defined_vars=False)

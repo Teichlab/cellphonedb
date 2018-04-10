@@ -34,4 +34,4 @@ class TestExporterCalls(CellphoneFlaskTestCase):
         self.populate_db()
 
     def create_app(self):
-        return create_app(environment='test')
+        return create_app(environment='test', raise_non_defined_vars=False)

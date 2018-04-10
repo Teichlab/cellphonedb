@@ -10,7 +10,7 @@ class TestFlaskTerminalQueryCalls(CellphoneFlaskTestCase):
         self.populate_db()
 
     def create_app(self):
-        return create_app('test')
+        return create_app(environment='test', raise_non_defined_vars=False)
 
     def test_cell_to_cluster(self):
         namefile = self.get_test_namefile('cells_to_clusters', 'csv')

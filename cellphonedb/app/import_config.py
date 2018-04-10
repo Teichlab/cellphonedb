@@ -1,40 +1,44 @@
-import logging
 import os
-import warnings
 
-import sys
 import yaml
+
+from cellphonedb import app_logger
 
 
 class AppConfig():
-    def __init__(self, environment=None, support=None, load_defaults=None):
+    def __init__(self, environment=None, support=None, load_defaults=None, raise_non_defined_vars=True):
 
         self._current_dir = os.path.dirname(os.path.realpath(__file__))
-        self.config_parameters = self._get_config_parameters(environment, support, load_defaults)
+        self.config_parameters = self._get_config_parameters(environment, support, load_defaults,
+                                                             raise_non_defined_vars)
 
         self.config = self._load_config()
+
+        self._set_app_logger_config(self.config['app']['debug'])
         self.sqlalchemy_config = {'uri': self._build_sqlalchemy_database_uri(self.config['database']),
                                   'echo': self.config['database']['echo']}
-        self._set_logger_config(self.config['app']['debug'])
 
-    def get_cellphone_config(self):
+        self.logger_config = self._get_core_logger_config(self.config['app']['debug'])
+
+    def get_cellphone_core_config(self):
         return {
-            'sqlalchemy': self.sqlalchemy_config
+            'sqlalchemy': self.sqlalchemy_config,
+            'logger': self.logger_config
         }
 
-    def _set_logger_config(self, enable_debug):
-        root = logging.getLogger()
+    def _set_app_logger_config(self, enable_debug: str):
+        if enable_debug:
+            app_logger.setLevel('DEBUG')
+
+    def _get_core_logger_config(self, enable_debug):
+        config = {'level': 'WARNING'}
 
         if enable_debug:
-            root.setLevel(logging.DEBUG)
+            config['level'] = 'DEBUG'
 
-        ch = logging.StreamHandler(sys.stdout)
-        ch.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(asctime)s - %(message)s', "%H:%M:%S")
-        ch.setFormatter(formatter)
-        root.addHandler(ch)
+        return config
 
-    def _get_config_parameters(self, environment=None, support=None, load_defaults=None):
+    def _get_config_parameters(self, environment=None, support=None, load_defaults=None, raise_non_defined_vars=True):
         config_parameters = {}
         config_keys = [{'env_key': 'APP_ENV', 'default': 'local', 'dict_key': 'environment'},
                        {'env_key': 'APP_CONF_SUPPORT', 'default': 'yaml', 'dict_key': 'support'},
@@ -46,8 +50,9 @@ class AppConfig():
             elif os.environ.get(config_key['env_key']):
                 config_parameters[config_key['dict_key']] = os.environ.get(config_key['env_key'])
             else:
-                warnings.warn(
-                    '{} not defined, setted to {} by default'.format(config_key['env_key'], config_key['default']))
+                if raise_non_defined_vars:
+                    app_logger.app_logger.warning(
+                        '{} not defined, setted to {} by default'.format(config_key['env_key'], config_key['default']))
                 config_parameters[config_key['dict_key']] = config_key['default']
 
         return config_parameters

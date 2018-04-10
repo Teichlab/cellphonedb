@@ -62,4 +62,4 @@ class DatabaseRelationsChecks(TestCase):
         self.assertEqual(len(protein_without_gene), expected_protein_without_gene, 'There are Proteins without Gene.')
 
     def create_app(self):
-        return create_app()
+        return create_app(raise_non_defined_vars=False)

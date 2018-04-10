@@ -778,7 +778,7 @@ class DatabaseRandomEntries(TestCase):
         self.assertFalse(data_not_match, 'Some complex doesnt match')
 
     def create_app(self):
-        return create_app()
+        return create_app(raise_non_defined_vars=False)
 
     def setUp(self):
         self.client = self.app.test_client()

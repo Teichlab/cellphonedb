@@ -22,4 +22,4 @@ class DatabaseIntegrity(TestCase):
                              duplicated_genes))
 
     def create_app(self):
-        return create_app()
+        return create_app(raise_non_defined_vars=False)

@@ -4,7 +4,5 @@ database:
   password: root
   port: 5432
   user: root
-flask:
-  debug: true
 app:
-  debug: true
+  debug: false

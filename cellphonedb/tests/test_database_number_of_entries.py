@@ -5,7 +5,7 @@ from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 class TestDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def create_app(self):
-        return create_app()
+        return create_app(raise_non_defined_vars=False)
 
     def test_protein(self):
         proteins = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('protein').get_all()
@@ -53,4 +53,4 @@ class TestDatabaseNumberOfEntries(CellphoneFlaskTestCase):
         self.assertEqual(len(complex_compositions), 519, 'Number of Complex Composition entries are different')
 
     def setUp(self):
-        return create_app()
+        return create_app(raise_non_defined_vars=False)
