@@ -1,4 +1,5 @@
 # !/usr/bin/env python
+import json
 import os
 import pandas as pd
 import numpy as np
@@ -9,9 +10,10 @@ import scipy.stats
 from numpy import *
 import sys
 
-np.random.seed(123)  #####   setting the random seed so that we get always same random shuffles
-
+np.random.seed(0)  #####   setting the random seed so that we get always same random shuffles
+iterations = 10
 #######   Input arguments from command line
+
 
 num_interactions = sys.argv[1]  ####   from which interactions pair to start
 num_interactions = int(num_interactions)
@@ -93,7 +95,7 @@ def one_one_human_interactions_permutations(all_interactions, cluster_pairs, clu
     return [all_means, df_percent]
 
 
-all_interactions = pd.read_table('one_one_interactions.txt',
+all_interactions = pd.read_table('methods/in/one_one_interactions_filtered.txt',
                                  index_col=0)  ######   the dataframe of interaction pairs queried from the database and filtered
 
 ##### start the analysis from the specific pair and run it on "how_many" pairs
@@ -103,9 +105,10 @@ if (num_interactions + how_many) < len(all_interactions):
 else:
     all_interactions = all_interactions.iloc[num_interactions:len(all_interactions)]
 
-counts = pd.read_table('counts.txt', index_col=0)  ####   count table
-meta = pd.read_table('metadata.txt',
-                     index_col=0)  ####   meta data - cluster annotation should be column named "cell_type"
+counts = pd.read_table('in/example_data/test_counts.txt', index_col=0)
+meta = pd.read_table('in/example_data/test_meta.txt', index_col=0)
+# counts = pd.read_table('methods/in/counts.txt', index_col=0)
+# meta = pd.read_table('methods/in/metadata.txt',index_col=0)
 
 all_genes = all_interactions['ensembl_x'].tolist()
 all_genes.extend(all_interactions['ensembl_y'].tolist())
@@ -142,12 +145,12 @@ all_pairs_means = collections.defaultdict(
 
 
 ######   Shuffling the cluster annotation of all cells - column names and creating the shuffled count tables for each cluster
-for count_r in range(1, 1001):
-    clusters_values = list(cells_clusters.values())
+for count_r in range(1, iterations + 1):
+    clusters_values = sorted(cells_clusters.values())
     random.shuffle(clusters_values)
 
     new_meta = pd.DataFrame(
-        {'Cell': list(cells_clusters.keys()),
+        {'Cell': sorted(cells_clusters.keys()),
          'cell_type': clusters_values
          })
 
@@ -163,10 +166,12 @@ for count_r in range(1, 1001):
         i = i + 1
 
     ######    run the function to calculate mean of (receptor,ligand) for each of the 1000 shufflings
+
     one_one_human_interactions_permutations(all_interactions, cluster_pairs, clusters_counts_shuffle, count_r)
 
 ######    run the function to calculate mean of (receptor,ligand) for the real unshuffled count matrix to calculate the real observed mean and
 # the % of cells expressing the ligand and the receptor in the specific clusters
+print(json.dumps(all_pairs_means))
 res = one_one_human_interactions_permutations(all_interactions, cluster_pairs, clusters_counts, 0)
 real_pvalues = res[0]
 real_percent = res[1]
@@ -181,7 +186,6 @@ for key, value in all_pairs_means.items():
             target_cluster = all_pairs_means[key]["_".join([str(new_clusters[cluster]), str(new_clusters[cluster2])])]
             real_p = real_pvalues.at[key, "_".join([str(new_clusters[cluster]), str(new_clusters[cluster2])])]
             real_per = real_percent.at[key, "_".join([str(new_clusters[cluster]), str(new_clusters[cluster2])])]
-
             sum_larger = sum(i > real_p for i in target_cluster)
 
             ####  check the % of cells expressing the receptor and ligand of the specific interaction, if the value is 0,
@@ -194,9 +198,9 @@ for key, value in all_pairs_means.items():
 
             final_means.at[key, "_".join([str(new_clusters[cluster]), str(new_clusters[cluster2])])] = p_val
 
-file1 = 'r_m_pvalues_%d.txt' % (
+file1 = 'methods/out/or_r_m_pvalues_%d.txt' % (
     num_interactions)  ######   save pvalues for the specific interactions starting from num_interactions
-final_means.to_csv(file1, sep="\t")
-file2 = 'r_m_means_%d.txt' % (
+final_means.sort_index().to_csv(file1, sep="\t")
+file2 = 'methods/out/or_r_m_means_%d.txt' % (
     num_interactions)  ######   save means for the specific interactions starting from num_interactions
 real_pvalues.to_csv(file2, sep="\t")

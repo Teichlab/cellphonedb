@@ -4,10 +4,11 @@ import pandas as pd
 from unittest import TestCase
 
 import collections
-from numpy import *
+import numpy as np
 
 from methods.one_one_human_interactions_permutations import one_one_human_interactions_permutations, \
     one_one_human_individual
+from utils import dataframe_functions
 
 
 def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
@@ -69,17 +70,18 @@ def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFra
 
 
 class TestOneOneHumanInteractionsPermutations(TestCase):
-    num_interactions = 1000
+    np.random.seed(0)
+    num_interactions = 10
 
     all_interactions = pd.read_table('../methods/in/one_one_interactions_filtered.txt', index_col=0)
 
-    interactions = filter_interactions_by_range(1, 100000, all_interactions)
+    interactions = filter_interactions_by_range(1, 10, all_interactions)
     print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
-    # counts = pd.read_table('../in/example_data/test_counts.txt', index_col=0)
-    # meta = pd.read_table('../in/example_data/test_meta.txt', index_col=0)
-    counts = pd.read_table('../methods/in/counts.txt', index_col=0)
+    counts = pd.read_table('../in/example_data/test_counts.txt', index_col=0)
+    meta = pd.read_table('../in/example_data/test_meta.txt', index_col=0)
+    # counts = pd.read_table('../methods/in/counts.txt', index_col=0)
+    # meta = pd.read_table('../methods/in/metadata.txt', index_col=0)
     print('COUNTS ORIGINAL: {}'.format(len(counts)))
-    meta = pd.read_table('../methods/in/metadata.txt', index_col=0)
     counts_filtered = filter_counts_by_genes(interactions, counts)
     print('COUNTS TRIMED: {}'.format(len(counts_filtered)))
     interactions = filter_interactions_by_counts(interactions, counts)
@@ -116,11 +118,11 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
     for count_r in range(1, num_interactions + 1):
         start_partial = datetime.datetime.now()
 
-        clusters_values = list(cells_clusters.values())
-        random.shuffle(clusters_values)
+        clusters_values = sorted(cells_clusters.values())
+        np.random.shuffle(clusters_values)
 
         new_meta = pd.DataFrame(
-            {'Cell': list(cells_clusters.keys()),
+            {'Cell': sorted(cells_clusters.keys()),
              'cell_type': clusters_values
              })
 
@@ -200,9 +202,17 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
 
                 final_means.at[key, cluster_interaction] = p_val
 
-    file1 = '../methods/out/r_m_pvalues_%d.txt' % (
+    file1 = '../methods/out/test_r_m_pvalues_%d.txt' % (
         num_interactions)  ######   save pvalues for the specific interactions starting from num_interactions
-    final_means.to_csv(file1, sep="\t")
-    file2 = '../methods/out/r_m_means_%d.txt' % (
+    file2 = '../methods/out/test_r_m_means_%d.txt' % (
         num_interactions)  ######   save means for the specific interactions starting from num_interactions
     real_pvalues.to_csv(file2, sep="\t")
+
+    original_means = pd.read_table('../method_tests/data/or_it10_int10_r_m_pvalues.txt', index_col=0)
+    assert (dataframe_functions.dataframes_has_same_data(final_means.astype('float', copy=True),
+                                                         original_means.astype('float', copy=True)))
+
+    original_pvalues = pd.read_table('../method_tests/data/or_it10_int10_r_m_means.txt', index_col=0)
+    assert (dataframe_functions.dataframes_has_same_data(real_pvalues.astype('float', copy=True),
+                                                         original_pvalues.astype('float', copy=True),
+                                                         round_decimals=True))
