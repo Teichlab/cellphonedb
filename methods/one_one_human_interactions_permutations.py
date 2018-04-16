@@ -45,7 +45,7 @@ def one_one_human_individual(all_interactions, cluster_pairs, clusters_counts_sh
     return [all_means, df_percent]
 
 
-def one_one_human_interactions_permutations(all_interactions, clusters_counts_shuffle, all_clusters,
+def one_one_human_interactions_permutations(all_interactions, clusters_counts_shuffle, all_clusters, clusters_means,
                                             all_pairs_means, cluster_names):
     for index, row in all_interactions.iterrows():
         all_means_1 = []
@@ -56,11 +56,9 @@ def one_one_human_interactions_permutations(all_interactions, clusters_counts_sh
         gene_2 = row['gene_name_y']
 
         for cluster in range(0, len(all_clusters)):
+            mean_expr_r = clusters_means[cluster][receptor]
             for cluster2 in range(0, len(all_clusters)):
-                mm1 = clusters_counts_shuffle[cluster]
-                mm2 = clusters_counts_shuffle[cluster2]
-                mean_expr_r = mm1.loc[receptor].mean()
-                mean_expr_l = mm2.loc[ligand].mean()
+                mean_expr_l = clusters_means[cluster2][ligand]
 
                 #######    Calculation of the mean of expression of (receptor,ligand)
                 gene_interaction = "_".join([str(gene_1), str(gene_2)])
@@ -78,9 +76,9 @@ def mean_expression_receptor_ligand(all_means_1, all_pairs_means, cluster, clust
         total_mean = (mean_expr_r + mean_expr_l) / 2
 
     cluster_interaction = "_".join([str(cluster_names[cluster]), str(cluster_names[cluster2])])
+
     if (gene_interaction in all_pairs_means.keys()):
-        if (cluster_interaction in all_pairs_means[
-            gene_interaction].keys()):
+        if (cluster_interaction in all_pairs_means[gene_interaction].keys()):
             all_pairs_means[gene_interaction][cluster_interaction].append(total_mean)
         else:
             all_pairs_means[gene_interaction][cluster_interaction] = [total_mean]

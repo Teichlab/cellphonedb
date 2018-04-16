@@ -28,17 +28,19 @@ def filter_counts_by_genes(interactions: pd.DataFrame, counts: pd.DataFrame) -> 
     return counts_filtered
 
 
-def cells_to_clusters(cluster_names: list, meta: pd.DataFrame, counts: pd.DataFrame) -> (dict, dict):
+def cells_to_clusters(cluster_names: list, meta: pd.DataFrame, counts: pd.DataFrame) -> list:
     all_clusters = {}
     clusters_counts = {}
+    cluster_means = []
 
     i = 0
     for x in cluster_names:
         all_clusters[i] = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % x)]).index
         clusters_counts[i] = counts.loc[:, all_clusters[i]]
+        cluster_means.append(clusters_counts[i].apply(lambda counts: counts.mean(), axis=1))
         i = i + 1
 
-    return all_clusters, clusters_counts
+    return [all_clusters, clusters_counts, cluster_means]
 
 
 def filter_interactions_by_range(first_interaction: int, range: int, interactions: pd.DataFrame) -> pd.DataFrame:
@@ -67,22 +69,30 @@ def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFra
 
 
 class TestOneOneHumanInteractionsPermutations(TestCase):
-    num_interactions = 10
+    num_interactions = 1000
 
     all_interactions = pd.read_table('../methods/in/one_one_interactions_filtered.txt', index_col=0)
 
-    interactions = filter_interactions_by_range(1, 10, all_interactions)
-    counts = pd.read_table('../in/example_data/test_counts.txt', index_col=0)
-    meta = pd.read_table('../in/example_data/test_meta.txt', index_col=0)
+    interactions = filter_interactions_by_range(1, 100000, all_interactions)
+    print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
+    # counts = pd.read_table('../in/example_data/test_counts.txt', index_col=0)
+    # meta = pd.read_table('../in/example_data/test_meta.txt', index_col=0)
+    counts = pd.read_table('../methods/in/counts.txt', index_col=0)
+    print('COUNTS ORIGINAL: {}'.format(len(counts)))
+    meta = pd.read_table('../methods/in/metadata.txt', index_col=0)
+    counts_filtered = filter_counts_by_genes(interactions, counts)
+    print('COUNTS TRIMED: {}'.format(len(counts_filtered)))
     interactions = filter_interactions_by_counts(interactions, counts)
     interactions = filter_non_individual_interactions(interactions)
-    # counts = pd.read_table('../methods/in/counts.txt', index_col=0)
-    # meta = pd.read_table('../methods/in/metadata.txt', index_col=0)
+    print('INTERACTIONS FILTERED: {}'.format(len(interactions)))
 
-    counts_filtered = filter_counts_by_genes(interactions, counts)
     cluster_names = meta.cell_type.unique()
 
-    all_clusters, clusters_counts = cells_to_clusters(cluster_names, meta, counts_filtered)
+    clusters_data = cells_to_clusters(cluster_names, meta, counts_filtered)
+
+    all_clusters = clusters_data[0]
+    clusters_counts = clusters_data[1]
+    clusters_means = clusters_data[2]
 
     cluster_pairs = get_cluster_combinations(cluster_names)
 
@@ -117,7 +127,10 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
         new_meta.set_index('Cell', inplace=True)
         cell_to_clusters_start_time = datetime.datetime.now()
 
-        all_clusters_shuffle, clusters_counts_shuffle = cells_to_clusters(cluster_names, new_meta, counts_filtered)
+        clusters_data_shuffle = cells_to_clusters(cluster_names, new_meta, counts_filtered)
+        all_clusters_shuffle = clusters_data_shuffle[0]
+        clusters_counts_shuffle = clusters_data_shuffle[1]
+        clusters_means_shuffle = clusters_data_shuffle[2]
 
         ######    run the function to calculate mean of (receptor,ligand) for each of the 1000 shufflings
         interaction_permutations_start_time = datetime.datetime.now()
@@ -125,8 +138,8 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
         cell_to_clusters_partials.append(
             (interaction_permutations_start_time - cell_to_clusters_start_time).microseconds)
 
-        one_one_human_interactions_permutations(interactions, clusters_counts_shuffle, all_clusters,
-                                                all_pairs_means, cluster_names)
+        one_one_human_interactions_permutations(interactions, clusters_counts_shuffle, all_clusters_shuffle,
+                                                clusters_means_shuffle, all_pairs_means, cluster_names)
 
         end_partial = datetime.datetime.now()
         one_one_partials.append((end_partial - interaction_permutations_start_time).microseconds)
