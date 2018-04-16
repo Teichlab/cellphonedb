@@ -59,6 +59,13 @@ def get_cluster_combinations(cluster_names: list) -> list:
     return cluster_pairs
 
 
+def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFrame:
+    interactions_filtered = interactions[
+        interactions.apply(lambda interaction: interaction['ensembl_x'] != interaction['ensembl_y'], axis=1)]
+
+    return interactions_filtered
+
+
 class TestOneOneHumanInteractionsPermutations(TestCase):
     num_interactions = 10
 
@@ -68,6 +75,7 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
     counts = pd.read_table('../in/example_data/test_counts.txt', index_col=0)
     meta = pd.read_table('../in/example_data/test_meta.txt', index_col=0)
     interactions = filter_interactions_by_counts(interactions, counts)
+    interactions = filter_non_individual_interactions(interactions)
     # counts = pd.read_table('../methods/in/counts.txt', index_col=0)
     # meta = pd.read_table('../methods/in/metadata.txt', index_col=0)
 
