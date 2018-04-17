@@ -12,6 +12,7 @@ import sys
 
 np.random.seed(0)  #####   setting the random seed so that we get always same random shuffles
 iterations = 10
+CPD_TEST = False
 #######   Input arguments from command line
 
 
@@ -105,11 +106,14 @@ if (num_interactions + how_many) < len(all_interactions):
 else:
     all_interactions = all_interactions.iloc[num_interactions:len(all_interactions)]
 
-counts = pd.read_table('in/example_data/test_counts.txt', index_col=0)
-meta = pd.read_table('in/example_data/test_meta.txt', index_col=0)
-# counts = pd.read_table('methods/in/counts.txt', index_col=0)
-# meta = pd.read_table('methods/in/metadata.txt',index_col=0)
-
+if CPD_TEST:
+    counts = pd.read_table('in/example_data/test_counts.txt', index_col=0)
+    meta = pd.read_table('in/example_data/test_meta.txt', index_col=0)
+    data_font = 'test'
+else:
+    counts = pd.read_table('methods/in/counts.txt', index_col=0)
+    meta = pd.read_table('methods/in/metadata.txt', index_col=0)
+    data_font = 'original'
 all_genes = all_interactions['ensembl_x'].tolist()
 all_genes.extend(all_interactions['ensembl_y'].tolist())
 genes_unique = set(all_genes)
@@ -198,9 +202,7 @@ for key, value in all_pairs_means.items():
 
             final_means.at[key, "_".join([str(new_clusters[cluster]), str(new_clusters[cluster2])])] = p_val
 
-file1 = 'methods/out/or_r_m_pvalues_%d.txt' % (
-    num_interactions)  ######   save pvalues for the specific interactions starting from num_interactions
+file1 = 'methods/out/r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many)
 final_means.sort_index().to_csv(file1, sep="\t")
-file2 = 'methods/out/or_r_m_means_%d.txt' % (
-    num_interactions)  ######   save means for the specific interactions starting from num_interactions
+file2 = 'methods/out/r_m_means_data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many)
 real_pvalues.to_csv(file2, sep="\t")

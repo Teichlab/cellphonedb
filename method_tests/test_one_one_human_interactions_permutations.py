@@ -71,16 +71,26 @@ def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFra
 
 class TestOneOneHumanInteractionsPermutations(TestCase):
     np.random.seed(0)
-    num_interactions = 10
+    CPD_TEST = False
+    iterations = 1000
+    how_many_interactions = 100000
+
 
     all_interactions = pd.read_table('../methods/in/one_one_interactions_filtered.txt', index_col=0)
 
-    interactions = filter_interactions_by_range(1, 10, all_interactions)
+    interactions = filter_interactions_by_range(0, how_many_interactions, all_interactions)
     print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
-    counts = pd.read_table('../in/example_data/test_counts.txt', index_col=0)
-    meta = pd.read_table('../in/example_data/test_meta.txt', index_col=0)
-    # counts = pd.read_table('../methods/in/counts.txt', index_col=0)
-    # meta = pd.read_table('../methods/in/metadata.txt', index_col=0)
+
+    if CPD_TEST:
+        counts = pd.read_table('../in/example_data/test_counts.txt', index_col=0)
+        meta = pd.read_table('../in/example_data/test_meta.txt', index_col=0)
+        data_font = 'test'
+    else:
+        counts = pd.read_table('../methods/in/counts.txt', index_col=0)
+        meta = pd.read_table('../methods/in/metadata.txt', index_col=0)
+        data_font = 'original'
+
+    print('[RUNNING][DATA:{}][ITERATIONS:{}][INTERACTIONS:{}]'.format(data_font, iterations, how_many_interactions))
     print('COUNTS ORIGINAL: {}'.format(len(counts)))
     counts_filtered = filter_counts_by_genes(interactions, counts)
     print('COUNTS TRIMED: {}'.format(len(counts_filtered)))
@@ -115,7 +125,7 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
     cell_to_clusters_partials = []
     print('[START] Shuffling the cluster annotation of all cells'.format(start_time))
     #####
-    for count_r in range(1, num_interactions + 1):
+    for count_r in range(1, iterations + 1):
         start_partial = datetime.datetime.now()
 
         clusters_values = sorted(cells_clusters.values())
@@ -202,17 +212,21 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
 
                 final_means.at[key, cluster_interaction] = p_val
 
-    file1 = '../methods/out/test_r_m_pvalues_%d.txt' % (
-        num_interactions)  ######   save pvalues for the specific interactions starting from num_interactions
-    file2 = '../methods/out/test_r_m_means_%d.txt' % (
-        num_interactions)  ######   save means for the specific interactions starting from num_interactions
+    file1 = '../methods/out/test_r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(data_font, iterations,
+                                                                             how_many_interactions)
+    final_means.sort_index().to_csv(file1, sep="\t")
+    file2 = '../methods/out/test_r_m_means_data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many_interactions)
     real_pvalues.to_csv(file2, sep="\t")
 
-    original_means = pd.read_table('../method_tests/data/or_it10_int10_r_m_pvalues.txt', index_col=0)
+    original_means = pd.read_table(
+        '../method_tests/data/r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many_interactions),
+        index_col=0)
     assert (dataframe_functions.dataframes_has_same_data(final_means.astype('float', copy=True),
                                                          original_means.astype('float', copy=True)))
 
-    original_pvalues = pd.read_table('../method_tests/data/or_it10_int10_r_m_means.txt', index_col=0)
+    original_pvalues = pd.read_table(
+        '../method_tests/data/r_m_means_data-{}_it-{}_in-{}.txt'.format(data_font, iterations,
+                                                                        how_many_interactions), index_col=0)
     assert (dataframe_functions.dataframes_has_same_data(real_pvalues.astype('float', copy=True),
                                                          original_pvalues.astype('float', copy=True),
                                                          round_decimals=True))
