@@ -8,6 +8,7 @@ import numpy as np
 
 from methods.one_one_human_interactions_permutations import one_one_human_interactions_permutations, \
     one_one_human_individual
+import methods_refactor
 from utils import dataframe_functions
 
 
@@ -71,23 +72,23 @@ def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFra
 
 class TestOneOneHumanInteractionsPermutations(TestCase):
     np.random.seed(0)
-    CPD_TEST = False
-    iterations = 1000
-    how_many_interactions = 100000
+    CPD_TEST = True
+    iterations = 10
+    how_many_interactions = 10
 
+    all_interactions = pd.read_table('{}/one_one_interactions_filtered.txt'.format(methods_refactor.methods_input_data),
+                                     index_col=0)
 
-    all_interactions = pd.read_table('../methods/in/one_one_interactions_filtered.txt', index_col=0)
-
-    interactions = filter_interactions_by_range(0, how_many_interactions, all_interactions)
+    interactions = filter_interactions_by_range(1, how_many_interactions, all_interactions)
     print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
 
     if CPD_TEST:
-        counts = pd.read_table('../in/example_data/test_counts.txt', index_col=0)
-        meta = pd.read_table('../in/example_data/test_meta.txt', index_col=0)
+        counts = pd.read_table('{}/test_counts.txt'.format(methods_refactor.methods_example_data), index_col=0)
+        meta = pd.read_table('{}/test_meta.txt'.format(methods_refactor.methods_example_data), index_col=0)
         data_font = 'test'
     else:
-        counts = pd.read_table('../methods/in/counts.txt', index_col=0)
-        meta = pd.read_table('../methods/in/metadata.txt', index_col=0)
+        counts = pd.read_table('{}/counts.txt'.format(methods_refactor.methods_input_data), index_col=0)
+        meta = pd.read_table('{}/metadata.txt'.format(methods_refactor.methods_input_data), index_col=0)
         data_font = 'original'
 
     print('[RUNNING][DATA:{}][ITERATIONS:{}][INTERACTIONS:{}]'.format(data_font, iterations, how_many_interactions))
@@ -212,21 +213,24 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
 
                 final_means.at[key, cluster_interaction] = p_val
 
-    file1 = '../methods/out/test_r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(data_font, iterations,
-                                                                             how_many_interactions)
+    file1 = '{}/test_r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_output_data, data_font,
+                                                                 iterations,
+                                                                 how_many_interactions)
     final_means.sort_index().to_csv(file1, sep="\t")
-    file2 = '../methods/out/test_r_m_means_data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many_interactions)
+    file2 = '{}/test_r_m_means_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_output_data, data_font,
+                                                               iterations, how_many_interactions)
     real_pvalues.to_csv(file2, sep="\t")
 
     original_means = pd.read_table(
-        '../method_tests/data/r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many_interactions),
+        '{}/r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_data_test_dir, data_font, iterations,
+                                                        how_many_interactions),
         index_col=0)
     assert (dataframe_functions.dataframes_has_same_data(final_means.astype('float', copy=True),
                                                          original_means.astype('float', copy=True)))
 
     original_pvalues = pd.read_table(
-        '../method_tests/data/r_m_means_data-{}_it-{}_in-{}.txt'.format(data_font, iterations,
-                                                                        how_many_interactions), index_col=0)
+        '{}/r_m_means_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_data_test_dir, data_font, iterations,
+                                                      how_many_interactions), index_col=0)
     assert (dataframe_functions.dataframes_has_same_data(real_pvalues.astype('float', copy=True),
                                                          original_pvalues.astype('float', copy=True),
                                                          round_decimals=True))
