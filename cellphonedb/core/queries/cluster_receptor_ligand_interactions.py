@@ -91,7 +91,7 @@ def _result_interactions_table(cluster_interactions, enabled_interactions):
                                          cluster_interaction in cluster_interactions]
 
     empty_result = pd.DataFrame(
-        columns=['id_interaction', 'receptor', 'ligand', 'iuphar_ligand', 'secreted_ligand', 'source',
+        columns=['id_interaction', 'receptor', 'ligand', 'secreted_ligand', 'source',
                  'interaction_ratio', 'is_integrin'] + result_cluster_interactions_names)
 
     if enabled_interactions.empty:
@@ -123,7 +123,6 @@ def _format_result_interaction(cluster_interactions_columns_names, enabled_inter
     result['ligand'] = enabled_interactions['entry_name_ligand'].apply(lambda value: 'single:%s' % value)
     result.loc[enabled_interactions['is_complex_ligand'], ['ligand']] = enabled_interactions['name_ligand'].apply(
         lambda value: 'complex:%s' % value)
-    result['iuphar_ligand'] = enabled_interactions['iuhpar_ligand_ligand']
     result['secreted_ligand'] = enabled_interactions['secretion_ligand']
     result['source'] = enabled_interactions['source']
     result['interaction_ratio'] = result[cluster_interactions_columns_names].apply(
