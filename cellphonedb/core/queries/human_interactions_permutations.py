@@ -16,14 +16,10 @@ from utils import dataframe_functions
 # TODO: WIP
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
          iterations: int = 1000):
-    counts['gene'] = counts.index
-    counts_2 = filter_cluster_counts.filter_by_gene(counts, genes)
-
-    interactions_2 = filter_interaction.filter_by_gene(counts)
-
     np.random.seed(0)
     CPD_TEST = True
-    how_many_interactions = 10
+    iterations = 10
+    how_many_interactions = 1000
 
     all_interactions = pd.read_table('{}/one_one_interactions_filtered.txt'.format(methods_refactor.methods_input_data),
                                      index_col=0)
@@ -43,7 +39,6 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
     print('[RUNNING][DATA:{}][ITERATIONS:{}][INTERACTIONS:{}]'.format(data_font, iterations, how_many_interactions))
     print('COUNTS ORIGINAL: {}'.format(len(counts)))
     counts_filtered = filter_counts_by_genes(interactions, counts)
-
     print('COUNTS TRIMED: {}'.format(len(counts_filtered)))
     interactions = filter_interactions_by_counts(interactions, counts)
     interactions = filter_non_individual_interactions(interactions)
@@ -55,6 +50,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
 
     all_clusters = clusters_data[0]
     clusters_counts = clusters_data[1]
+    clusters_means = clusters_data[2]
 
     cluster_pairs = get_cluster_combinations(cluster_names)
 
@@ -75,7 +71,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
     cell_to_clusters_partials = []
     print('[START] Shuffling the cluster annotation of all cells'.format(start_time))
     #####
-    for count_r in range(1, iterations + 1):
+    for count_r in range(0, iterations + 1):
         start_partial = datetime.datetime.now()
 
         clusters_values = sorted(cells_clusters.values())
@@ -91,6 +87,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
 
         clusters_data_shuffle = cells_to_clusters(cluster_names, new_meta, counts_filtered)
         all_clusters_shuffle = clusters_data_shuffle[0]
+        clusters_counts_shuffle = clusters_data_shuffle[1]
         clusters_means_shuffle = clusters_data_shuffle[2]
 
         ######    run the function to calculate mean of (receptor,ligand) for each of the 1000 shufflings
@@ -161,11 +158,11 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
 
                 final_means.at[key, cluster_interaction] = p_val
 
-    file1 = '{}/test_r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_output_data, data_font,
+    file1 = '{}/core_r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_output_data, data_font,
                                                                  iterations,
                                                                  how_many_interactions)
     final_means.sort_index().to_csv(file1, sep="\t")
-    file2 = '{}/test_r_m_means_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_output_data, data_font,
+    file2 = '{}/core_r_m_means_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_output_data, data_font,
                                                                iterations, how_many_interactions)
     real_pvalues.to_csv(file2, sep="\t")
 
@@ -173,8 +170,10 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
         '{}/r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_data_test_dir, data_font, iterations,
                                                         how_many_interactions),
         index_col=0)
+
     assert (dataframe_functions.dataframes_has_same_data(final_means.astype('float', copy=True),
-                                                         original_means.astype('float', copy=True)))
+                                                         original_means.astype('float', copy=True),
+                                                         round_decimals=True))
 
     original_pvalues = pd.read_table(
         '{}/r_m_means_data-{}_it-{}_in-{}.txt'.format(methods_refactor.methods_data_test_dir, data_font, iterations,
