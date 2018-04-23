@@ -11,6 +11,7 @@ class FlaskTerminalQueryLauncher(object):
             app_logger.info('Launching Query {}'.format(name))
 
         return method
+
     def cells_to_clusters(self, meta_namefile, counts_namefile, data_path='', output_path='',
                           result_namefile='cells_to_clusters.csv'):
         if not data_path:
@@ -84,3 +85,17 @@ class FlaskTerminalQueryLauncher(object):
         enable_integrin = bool(int(enable_integrin))
         print(cellphonedb_flask.cellphonedb.query.get_rl_lr_interactions_from_multidata(
             receptor, enable_integrin, float(min_score2)))
+
+    def human_interactions_permutations(self, meta_namefile: str, counts_namefile: str, iterations: str, data_path='',
+                                        output_path: str = '', ):
+        iterations = int(iterations)
+
+        if not data_path:
+            data_path = query_input_dir
+        if not output_path:
+            output_path = output_dir
+
+        meta = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_namefile), index_column_first=True)
+        counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_namefile), index_column_first=True)
+
+        result = cellphonedb_flask.cellphonedb.query.human_interactions_permutations(meta, counts, iterations)
