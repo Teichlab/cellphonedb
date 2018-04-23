@@ -1,85 +1,34 @@
 import datetime
 
 import pandas as pd
-from unittest import TestCase
 
 import collections
 import numpy as np
 
+from cellphonedb.core.models.cluster_counts import filter_cluster_counts
+from cellphonedb.core.models.interaction import filter_interaction
 from methods.one_one_human_interactions_permutations import one_one_human_interactions_permutations, \
     one_one_human_individual
 import methods_refactor
 from utils import dataframe_functions
 
 
-def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
-    ensembl_counts = counts.index
-    interactions_filtered = interactions[interactions.apply(
-        lambda row: row['ensembl_x'] in ensembl_counts and row['ensembl_y'] in ensembl_counts, axis=1
-    )]
-    return interactions_filtered
+# TODO: WIP
+def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
+         iterations: int = 1000):
+    counts['gene'] = counts.index
+    counts_2 = filter_cluster_counts.filter_by_gene(counts, genes)
 
+    interactions_2 = filter_interaction.filter_by_gene(counts)
 
-def filter_counts_by_genes(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
-    all_genes = interactions['ensembl_x'].tolist()
-    all_genes.extend(interactions['ensembl_y'].tolist())
-    genes_unique = set(all_genes)
-
-    counts_filtered = counts.loc[counts.index.isin(genes_unique)]
-
-    return counts_filtered
-
-
-def cells_to_clusters(cluster_names: list, meta: pd.DataFrame, counts: pd.DataFrame) -> list:
-    all_clusters = {}
-    clusters_counts = {}
-    cluster_means = []
-
-    i = 0
-    for x in cluster_names:
-        all_clusters[i] = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % x)]).index
-        clusters_counts[i] = counts.loc[:, all_clusters[i]]
-        cluster_means.append(clusters_counts[i].apply(lambda counts: counts.mean(), axis=1))
-        i = i + 1
-
-    return [all_clusters, clusters_counts, cluster_means]
-
-
-def filter_interactions_by_range(first_interaction: int, range: int, interactions: pd.DataFrame) -> pd.DataFrame:
-    if (first_interaction + range) < len(interactions):
-        interactions_filtered = interactions.iloc[first_interaction:first_interaction + range]
-    else:
-        interactions_filtered = interactions.iloc[first_interaction:len(interactions)]
-
-    return interactions_filtered
-
-
-def get_cluster_combinations(cluster_names: list) -> list:
-    cluster_pairs = []
-    for cluster in range(0, len(cluster_names)):
-        for cluster2 in range(0, len(cluster_names)):
-            cluster_pairs.append("_".join([str(cluster_names[cluster]), str(cluster_names[cluster2])]))
-
-    return cluster_pairs
-
-
-def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFrame:
-    interactions_filtered = interactions[
-        interactions.apply(lambda interaction: interaction['ensembl_x'] != interaction['ensembl_y'], axis=1)]
-
-    return interactions_filtered
-
-
-class TestOneOneHumanInteractionsPermutations(TestCase):
     np.random.seed(0)
     CPD_TEST = True
-    iterations = 10
     how_many_interactions = 10
 
     all_interactions = pd.read_table('{}/one_one_interactions_filtered.txt'.format(methods_refactor.methods_input_data),
                                      index_col=0)
 
-    interactions = filter_interactions_by_range(1, how_many_interactions, all_interactions)
+    interactions = filter_interactions_by_range(0, how_many_interactions, all_interactions)
     print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
 
     if CPD_TEST:
@@ -94,6 +43,7 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
     print('[RUNNING][DATA:{}][ITERATIONS:{}][INTERACTIONS:{}]'.format(data_font, iterations, how_many_interactions))
     print('COUNTS ORIGINAL: {}'.format(len(counts)))
     counts_filtered = filter_counts_by_genes(interactions, counts)
+
     print('COUNTS TRIMED: {}'.format(len(counts_filtered)))
     interactions = filter_interactions_by_counts(interactions, counts)
     interactions = filter_non_individual_interactions(interactions)
@@ -105,7 +55,6 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
 
     all_clusters = clusters_data[0]
     clusters_counts = clusters_data[1]
-    clusters_means = clusters_data[2]
 
     cluster_pairs = get_cluster_combinations(cluster_names)
 
@@ -142,7 +91,6 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
 
         clusters_data_shuffle = cells_to_clusters(cluster_names, new_meta, counts_filtered)
         all_clusters_shuffle = clusters_data_shuffle[0]
-        clusters_counts_shuffle = clusters_data_shuffle[1]
         clusters_means_shuffle = clusters_data_shuffle[2]
 
         ######    run the function to calculate mean of (receptor,ligand) for each of the 1000 shufflings
@@ -234,3 +182,61 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
     assert (dataframe_functions.dataframes_has_same_data(real_pvalues.astype('float', copy=True),
                                                          original_pvalues.astype('float', copy=True),
                                                          round_decimals=True))
+
+
+def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
+    ensembl_counts = counts.index
+    interactions_filtered = interactions[interactions.apply(
+        lambda row: row['ensembl_x'] in ensembl_counts and row['ensembl_y'] in ensembl_counts, axis=1
+    )]
+    return interactions_filtered
+
+
+def filter_counts_by_genes(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
+    all_genes = interactions['ensembl_x'].tolist()
+    all_genes.extend(interactions['ensembl_y'].tolist())
+    genes_unique = set(all_genes)
+
+    counts_filtered = counts.loc[counts.index.isin(genes_unique)]
+
+    return counts_filtered
+
+
+def cells_to_clusters(cluster_names: list, meta: pd.DataFrame, counts: pd.DataFrame) -> list:
+    all_clusters = {}
+    clusters_counts = {}
+    cluster_means = []
+
+    i = 0
+    for x in cluster_names:
+        all_clusters[i] = pd.DataFrame(meta.loc[(meta['cell_type'] == '%s' % x)]).index
+        clusters_counts[i] = counts.loc[:, all_clusters[i]]
+        cluster_means.append(clusters_counts[i].apply(lambda counts: counts.mean(), axis=1))
+        i = i + 1
+
+    return [all_clusters, clusters_counts, cluster_means]
+
+
+def filter_interactions_by_range(first_interaction: int, range: int, interactions: pd.DataFrame) -> pd.DataFrame:
+    if (first_interaction + range) < len(interactions):
+        interactions_filtered = interactions.iloc[first_interaction:first_interaction + range]
+    else:
+        interactions_filtered = interactions.iloc[first_interaction:len(interactions)]
+
+    return interactions_filtered
+
+
+def get_cluster_combinations(cluster_names: list) -> list:
+    cluster_pairs = []
+    for cluster in range(0, len(cluster_names)):
+        for cluster2 in range(0, len(cluster_names)):
+            cluster_pairs.append("_".join([str(cluster_names[cluster]), str(cluster_names[cluster2])]))
+
+    return cluster_pairs
+
+
+def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFrame:
+    interactions_filtered = interactions[
+        interactions.apply(lambda interaction: interaction['ensembl_x'] != interaction['ensembl_y'], axis=1)]
+
+    return interactions_filtered

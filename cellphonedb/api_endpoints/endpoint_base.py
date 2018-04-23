@@ -56,6 +56,7 @@ class EndpointBase(Resource):
         for attach in self._attachments:
             self._msg.attach(attach)
 
+    # TODO: use function in root utils
     def _read_table(self, file, index_column_first=False):
 
         if file.content_type == 'text/csv':

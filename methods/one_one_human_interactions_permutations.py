@@ -45,8 +45,8 @@ def one_one_human_individual(all_interactions, cluster_pairs, clusters_counts_sh
     return [all_means, df_percent]
 
 
-def one_one_human_interactions_permutations(all_interactions, clusters_counts_shuffle, all_clusters, clusters_means,
-                                            all_pairs_means, cluster_names):
+def one_one_human_interactions_permutations(all_interactions, all_clusters, clusters_means, all_pairs_means,
+                                            cluster_names):
     for index, row in all_interactions.iterrows():
         all_means_1 = []
         receptor = row['ensembl_x']
@@ -60,7 +60,6 @@ def one_one_human_interactions_permutations(all_interactions, clusters_counts_sh
             for cluster2 in range(0, len(all_clusters)):
                 mean_expr_l = clusters_means[cluster2][ligand]
 
-                #######    Calculation of the mean of expression of (receptor,ligand)
                 gene_interaction = "_".join([str(gene_1), str(gene_2)])
                 mean_expression_receptor_ligand(all_means_1, all_pairs_means, cluster, cluster2, mean_expr_l,
                                                 mean_expr_r, cluster_names, gene_interaction)
