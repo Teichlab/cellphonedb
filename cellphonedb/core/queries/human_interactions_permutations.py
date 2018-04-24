@@ -18,8 +18,10 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
          iterations: int = 1000):
     np.random.seed(0)
     CPD_TEST = True
-    iterations = 10
-    how_many_interactions = 1000
+    if CPD_TEST:
+        data_font = 'test'
+
+    how_many_interactions = 10
 
     all_interactions = pd.read_table('{}/one_one_interactions_filtered.txt'.format(methods_refactor.methods_input_data),
                                      index_col=0)
@@ -27,21 +29,13 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
     interactions = filter_interactions_by_range(0, how_many_interactions, all_interactions)
     print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
 
-    if CPD_TEST:
-        counts = pd.read_table('{}/test_counts.txt'.format(methods_refactor.methods_example_data), index_col=0)
-        meta = pd.read_table('{}/test_meta.txt'.format(methods_refactor.methods_example_data), index_col=0)
-        data_font = 'test'
-    else:
-        counts = pd.read_table('{}/counts.txt'.format(methods_refactor.methods_input_data), index_col=0)
-        meta = pd.read_table('{}/metadata.txt'.format(methods_refactor.methods_input_data), index_col=0)
-        data_font = 'original'
-
     print('[RUNNING][DATA:{}][ITERATIONS:{}][INTERACTIONS:{}]'.format(data_font, iterations, how_many_interactions))
     print('COUNTS ORIGINAL: {}'.format(len(counts)))
     counts_filtered = filter_counts_by_genes(interactions, counts)
     print('COUNTS TRIMED: {}'.format(len(counts_filtered)))
     interactions = filter_interactions_by_counts(interactions, counts)
     interactions = filter_non_individual_interactions(interactions)
+    counts_filtered = filter_counts_by_interactions(counts_filtered, interactions)
     print('INTERACTIONS FILTERED: {}'.format(len(interactions)))
 
     cluster_names = meta.cell_type.unique()
@@ -50,7 +44,6 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
 
     all_clusters = clusters_data[0]
     clusters_counts = clusters_data[1]
-    clusters_means = clusters_data[2]
 
     cluster_pairs = get_cluster_combinations(cluster_names)
 
@@ -87,7 +80,6 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
 
         clusters_data_shuffle = cells_to_clusters(cluster_names, new_meta, counts_filtered)
         all_clusters_shuffle = clusters_data_shuffle[0]
-        clusters_counts_shuffle = clusters_data_shuffle[1]
         clusters_means_shuffle = clusters_data_shuffle[2]
 
         ######    run the function to calculate mean of (receptor,ligand) for each of the 1000 shufflings
@@ -105,8 +97,6 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
         partials.append(partial.microseconds)
 
     end_time = datetime.datetime.now()
-
-    # print(json.dumps(all_pairs_means))
 
     print('[END][TOTAL TIME] {}'.format(end_time - start_time))
     print('[AVG ITERATION TIME] {}'.format(sum(partials) / len(partials)))
@@ -181,6 +171,14 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
     assert (dataframe_functions.dataframes_has_same_data(real_pvalues.astype('float', copy=True),
                                                          original_pvalues.astype('float', copy=True),
                                                          round_decimals=True))
+
+
+def filter_counts_by_interactions(counts: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
+    genes = interactions['ensembl_x'].append(interactions['ensembl_y']).drop_duplicates()
+
+    counts_filtered = counts.filter(genes, axis=0)
+
+    return counts_filtered
 
 
 def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
