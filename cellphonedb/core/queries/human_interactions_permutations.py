@@ -16,15 +16,24 @@ from utils import dataframe_functions
 # TODO: WIP
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
          iterations: int = 1000):
+    print(len(interactions))
+    interactions = filter_interactions_by_receptor_ligand(interactions)
+    print(len(interactions))
+    interactions = filter_interactions_by_counts(interactions, counts)
+    print(len(interactions))
+
+    interactions.to_csv('out/TEST_INTERACTIONS_interactions_fitered.csv')
     np.random.seed(0)
-    CPD_TEST = True
+    CPD_TEST = False
     if CPD_TEST:
         data_font = 'test'
 
+    else:
+        data_font = 'original'
+
     how_many_interactions = 10
 
-    all_interactions = pd.read_table('{}/one_one_interactions_filtered.txt'.format(methods_refactor.methods_input_data),
-                                     index_col=0)
+    all_interactions = interactions.sort_values('id_interaction')
 
     interactions = filter_interactions_by_range(0, how_many_interactions, all_interactions)
     print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
@@ -34,6 +43,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
     counts_filtered = filter_counts_by_genes(interactions, counts)
     print('COUNTS TRIMED: {}'.format(len(counts_filtered)))
     interactions = filter_interactions_by_counts(interactions, counts)
+    interactions.to_csv('out/TEST_interactions_filtered.csv')
     interactions = filter_non_individual_interactions(interactions)
     counts_filtered = filter_counts_by_interactions(counts_filtered, interactions)
     print('INTERACTIONS FILTERED: {}'.format(len(interactions)))
@@ -173,8 +183,32 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
                                                          round_decimals=True))
 
 
+def filter_interactions_by_receptor_ligand(interactions: pd.DataFrame) -> pd.DataFrame:
+    receptor_membrane = interactions[(interactions['receptor_1'] == True) &
+                                     (interactions['secreted_highlight_2'] == False) &
+                                     (interactions['source'] == 'curated')]
+
+    membrane_receptor = interactions[(interactions['receptor_2'] == True) &
+                                     (interactions['secreted_highlight_1'] == False) &
+                                     (interactions['source'] == 'curated')]
+
+    receptor_secreted = interactions[
+        (interactions['receptor_1'] == True) & (interactions['other_1'] == False) &
+        (interactions['secreted_highlight_2'] == True)]
+    secreted_receptor = interactions[
+        (interactions['receptor_2'] == True) & (interactions['other_2'] == False) &
+        (interactions['secreted_highlight_1'] == True)]
+
+    frames = [receptor_membrane, membrane_receptor, receptor_secreted, secreted_receptor]
+
+    all_1_1_interactions = pd.concat(frames)
+    all_1_1_interactions = all_1_1_interactions[all_1_1_interactions['score_2'] == 1]
+
+    return all_1_1_interactions
+
+
 def filter_counts_by_interactions(counts: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
-    genes = interactions['ensembl_x'].append(interactions['ensembl_y']).drop_duplicates()
+    genes = interactions['ensembl_1'].append(interactions['ensembl_2']).drop_duplicates()
 
     counts_filtered = counts.filter(genes, axis=0)
 
@@ -184,14 +218,14 @@ def filter_counts_by_interactions(counts: pd.DataFrame, interactions: pd.DataFra
 def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
     ensembl_counts = counts.index
     interactions_filtered = interactions[interactions.apply(
-        lambda row: row['ensembl_x'] in ensembl_counts and row['ensembl_y'] in ensembl_counts, axis=1
+        lambda row: row['ensembl_1'] in ensembl_counts and row['ensembl_2'] in ensembl_counts, axis=1
     )]
     return interactions_filtered
 
 
 def filter_counts_by_genes(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
-    all_genes = interactions['ensembl_x'].tolist()
-    all_genes.extend(interactions['ensembl_y'].tolist())
+    all_genes = interactions['ensembl_1'].tolist()
+    all_genes.extend(interactions['ensembl_2'].tolist())
     genes_unique = set(all_genes)
 
     counts_filtered = counts.loc[counts.index.isin(genes_unique)]
@@ -234,6 +268,6 @@ def get_cluster_combinations(cluster_names: list) -> list:
 
 def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFrame:
     interactions_filtered = interactions[
-        interactions.apply(lambda interaction: interaction['ensembl_x'] != interaction['ensembl_y'], axis=1)]
+        interactions.apply(lambda interaction: interaction['ensembl_1'] != interaction['ensembl_2'], axis=1)]
 
     return interactions_filtered

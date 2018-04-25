@@ -8,11 +8,11 @@ def one_one_human_individual(all_interactions, cluster_pairs, clusters_counts_sh
     for index, row in all_interactions.iterrows():
         all_means_1 = []
         all_percent = []
-        receptor = row['ensembl_x']
-        ligand = row['ensembl_y']
+        receptor = row['ensembl_1']
+        ligand = row['ensembl_2']
 
-        gene_1 = row['gene_name_x']
-        gene_2 = row['gene_name_y']
+        gene_1 = row['gene_name_1']
+        gene_2 = row['gene_name_2']
 
         for cluster in range(0, len(all_clusters)):
             for cluster2 in range(0, len(all_clusters)):
@@ -49,11 +49,11 @@ def one_one_human_interactions_permutations(all_interactions, all_clusters, clus
                                             cluster_names):
     for index, row in all_interactions.iterrows():
         all_means_1 = []
-        receptor = row['ensembl_x']
-        ligand = row['ensembl_y']
+        receptor = row['ensembl_1']
+        ligand = row['ensembl_2']
 
-        gene_1 = row['gene_name_x']
-        gene_2 = row['gene_name_y']
+        gene_1 = row['gene_name_1']
+        gene_2 = row['gene_name_2']
 
         for cluster in range(0, len(all_clusters)):
             mean_expr_r = clusters_means[cluster][receptor]

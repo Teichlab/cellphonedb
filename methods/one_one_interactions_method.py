@@ -96,8 +96,8 @@ def one_one_human_interactions_permutations(all_interactions, cluster_pairs, clu
     return [all_means, df_percent]
 
 
-all_interactions = pd.read_table('methods/in/one_one_interactions_filtered.txt',
-                                 index_col=0)  ######   the dataframe of interaction pairs queried from the database and filtered
+# all_interactions = pd.read_table('methods/in/one_one_interactions_filtered.txt',index_col=0)
+all_interactions = pd.read_table('methods/in/MIRJANAS_CODE_one_one_interactions_filtered.txt', index_col=0)
 
 ##### start the analysis from the specific pair and run it on "how_many" pairs
 

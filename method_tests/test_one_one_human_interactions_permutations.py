@@ -15,14 +15,14 @@ from utils import dataframe_functions
 def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
     ensembl_counts = counts.index
     interactions_filtered = interactions[interactions.apply(
-        lambda row: row['ensembl_x'] in ensembl_counts and row['ensembl_y'] in ensembl_counts, axis=1
+        lambda row: row['ensembl_1'] in ensembl_counts and row['ensembl_2'] in ensembl_counts, axis=1
     )]
     return interactions_filtered
 
 
 def filter_counts_by_genes(interactions: pd.DataFrame, counts: pd.DataFrame) -> pd.DataFrame:
-    all_genes = interactions['ensembl_x'].tolist()
-    all_genes.extend(interactions['ensembl_y'].tolist())
+    all_genes = interactions['ensembl_1'].tolist()
+    all_genes.extend(interactions['ensembl_2'].tolist())
     genes_unique = set(all_genes)
 
     counts_filtered = counts.loc[counts.index.isin(genes_unique)]
@@ -65,21 +65,22 @@ def get_cluster_combinations(cluster_names: list) -> list:
 
 def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFrame:
     interactions_filtered = interactions[
-        interactions.apply(lambda interaction: interaction['ensembl_x'] != interaction['ensembl_y'], axis=1)]
+        interactions.apply(lambda interaction: interaction['ensembl_1'] != interaction['ensembl_2'], axis=1)]
 
     return interactions_filtered
 
 
 class TestOneOneHumanInteractionsPermutations(TestCase):
     np.random.seed(0)
-    CPD_TEST = True
+    CPD_TEST = False
     iterations = 10
     how_many_interactions = 10
 
-    all_interactions = pd.read_table('{}/one_one_interactions_filtered.txt'.format(methods_refactor.methods_input_data),
-                                     index_col=0)
+    all_interactions = pd.read_table(
+        '{}/MIRJANAS_CODE_one_one_interactions_filtered.txt'.format(methods_refactor.methods_input_data),
+        index_col=0)
 
-    interactions = filter_interactions_by_range(1, how_many_interactions, all_interactions)
+    interactions = filter_interactions_by_range(0, how_many_interactions, all_interactions)
     print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
 
     if CPD_TEST:
@@ -126,7 +127,7 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
     cell_to_clusters_partials = []
     print('[START] Shuffling the cluster annotation of all cells'.format(start_time))
     #####
-    for count_r in range(1, iterations + 1):
+    for count_r in range(0, iterations + 1):
         start_partial = datetime.datetime.now()
 
         clusters_values = sorted(cells_clusters.values())
