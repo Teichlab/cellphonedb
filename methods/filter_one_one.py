@@ -12,6 +12,7 @@ import time
 
 
 # from cellphonedb.api import create_app
+import methods_refactor
 from cellphonedb import extensions
 # from cellphonedb.extensions import db
 
@@ -86,7 +87,6 @@ def query_interactions():
         receptor_secreted = all_protein_interactions[
             (all_protein_interactions['receptor_x'] == True) & (all_protein_interactions['other_x'] == False) &
             (all_protein_interactions['secreted_highlight_y'] == True)]
-        # & (all_protein_interactions['other_y'] == False)]
         secreted_receptor = all_protein_interactions[
             (all_protein_interactions['receptor_y'] == True) & (all_protein_interactions['other_y'] == False) &
             (all_protein_interactions['secreted_highlight_x'] == True)]
@@ -109,21 +109,31 @@ def query_interactions():
 
 
 all_interactions = query_interactions()
+CPD_TEST = True
 
-counts = pd.read_table('Neil/counts.txt', index_col=0)
-meta = pd.read_table('Neil/meta.txt', index_col=0)
+if CPD_TEST:
+    counts = pd.read_table('Neil/test_counts.txt'.format(methods_refactor.methods_example_data), index_col=0)
+    meta = pd.read_table('Neil/test_meta.txt'.format(methods_refactor.methods_example_data), index_col=0)
+    data_font = 'test'
+else:
+    counts = pd.read_table('Neil/counts.txt'.format(methods_refactor.methods_input_data), index_col=0)
+    meta = pd.read_table('Neil/metadata.txt'.format(methods_refactor.methods_input_data), index_col=0)
+    data_font = 'original'
+
+
 
 all_genes = all_interactions['ensembl_x'].tolist()
 all_genes.extend(all_interactions['ensembl_y'].tolist())
 genes_unique = set(all_genes)
 
 counts_filtered = counts.loc[counts.index.isin(genes_unique)]
-counts_filtered.to_csv('Neil/MIRJANAS_CODE_one_one_filtered_counts.txt', sep="\t")
+counts_filtered.to_csv('Neil/MIRJANAS_CODE_one_one_filtered_counts{}.txt'.format(data_font), sep="\t")
 
 in_x = all_interactions['ensembl_x'].isin(counts_filtered.index)
 all_interactions = all_interactions.loc[in_x]
 
 in_y = all_interactions['ensembl_y'].isin(counts_filtered.index)
 all_interactions = all_interactions.loc[in_y]
-all_interactions.sort_values('id_interaction').to_csv('Neil/MIRJANAS_CODE_filtered_interactions.txt', index=False,
-                                                      sep="\t")
+all_interactions.sort_values('id_interaction').to_csv(
+    'Neil/MIRJANAS_CODE_filtered_interactions_{}.txt'.format(data_font), index=False,
+    sep="\t")

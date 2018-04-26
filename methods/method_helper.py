@@ -41,6 +41,6 @@ def find_noncommon_gene_interactions(dataframe1: pd.DataFrame, dataframe2: pd.Da
 
 if __name__ == '__main__':
     original_means = pd.read_table('../method_tests/data/all_one_one_means.txt', index_col=0)
-    result_means = pd.read_table('../methods/out/test_r_m_means_data-original_it-1000_in-100000.txt', index_col=0)
+    result_means = pd.read_table('../methods/out/core_r_m_means_data-test_it-10_in-10.txt', index_col=0)
 
     find_noncommon_gene_interactions(original_means, result_means)

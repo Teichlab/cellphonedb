@@ -59,10 +59,11 @@ class QueryLauncher():
         multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(string)
         return multidatas
 
-    def human_interactions_permutations(self, meta: pd.DataFrame, counts: pd.DataFrame, iterations: int):
+    def human_interactions_permutations(self, meta: pd.DataFrame, counts: pd.DataFrame, iterations: int,
+                                        start_interaction: int, how_many: int, debug_mode: bool) \
+            -> (pd.DataFrame, pd.DataFrame):
+
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
-        genes = self.database_manager.get_repository('gene').get_all()
 
-        result = human_interactions_permutations.call(meta, counts, interactions, genes, iterations)
-
-        return result
+        return human_interactions_permutations.call(meta, counts, interactions, iterations, start_interaction,
+                                                    how_many, debug_mode)

@@ -1,3 +1,4 @@
+# TODO: remove after refactor
 import datetime
 
 import pandas as pd
@@ -72,16 +73,11 @@ def filter_non_individual_interactions(interactions: pd.DataFrame) -> pd.DataFra
 
 class TestOneOneHumanInteractionsPermutations(TestCase):
     np.random.seed(0)
-    CPD_TEST = False
+    CPD_TEST = True
     iterations = 10
     how_many_interactions = 10
 
-    all_interactions = pd.read_table(
-        '{}/MIRJANAS_CODE_one_one_interactions_filtered.txt'.format(methods_refactor.methods_input_data),
-        index_col=0)
 
-    interactions = filter_interactions_by_range(0, how_many_interactions, all_interactions)
-    print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
 
     if CPD_TEST:
         counts = pd.read_table('{}/test_counts.txt'.format(methods_refactor.methods_example_data), index_col=0)
@@ -91,6 +87,13 @@ class TestOneOneHumanInteractionsPermutations(TestCase):
         counts = pd.read_table('{}/counts.txt'.format(methods_refactor.methods_input_data), index_col=0)
         meta = pd.read_table('{}/metadata.txt'.format(methods_refactor.methods_input_data), index_col=0)
         data_font = 'original'
+    all_interactions = pd.read_table(
+        '{}/MIRJANAS_CODE_one_one_interactions_filtered_{}.txt'.format(methods_refactor.methods_input_data, data_font),
+        index_col=0)
+
+    interactions = filter_interactions_by_range(0, how_many_interactions, all_interactions)
+    print('INTERACTIONS ORIGINAL: {}'.format(len(interactions)))
+
 
     print('[RUNNING][DATA:{}][ITERATIONS:{}][INTERACTIONS:{}]'.format(data_font, iterations, how_many_interactions))
     print('COUNTS ORIGINAL: {}'.format(len(counts)))
