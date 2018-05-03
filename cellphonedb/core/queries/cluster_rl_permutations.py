@@ -13,7 +13,75 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
     print(len(interactions_filtered))
     print(len(counts_filtered))
 
+    clusters = build_clusters(meta, counts_filtered)
+    cluster_interactions = get_cluster_combinations(clusters['names'])
+
+    result_base = build_result_matrix(interactions_filtered, cluster_interactions)
+    cluster_analysis(interactions_filtered, clusters, cluster_interactions, result_base.copy(deep=True))
+
     return (pd.DataFrame(), pd.DataFrame())
+
+
+def cluster_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list, means: pd.DataFrame):
+    for interaction_index, interaction in interactions.iterrows():
+        interaction_string = '{} - {}'.format(interaction['ensembl_receptor'], interaction['ensembl_ligand'])
+        for cluster_interaction in cluster_interactions:
+            cluster_interaction_string = '{} - {}'.format(cluster_interaction[0], cluster_interaction[1])
+
+            counts_receptor = clusters['counts'][cluster_interaction[0]]
+            counts_mean = clusters['means'][cluster_interaction[0]]
+
+            mean_receptor = counts_mean[interaction['ensembl_receptor']]
+            mean_ligand = counts_mean[interaction['ensembl_ligand']]
+
+            if mean_receptor == 0 or mean_ligand == 0:
+                interaction_mean = 0
+            else:
+                interaction_mean = (mean_receptor + mean_ligand) / 2
+
+            print('means[{} - {}][{} - {}] = interaction_mean: {}'.format(interaction['ensembl_receptor'],
+                                                                          interaction['ensembl_ligand'],
+                                                                          cluster_interaction[0],
+                                                                          cluster_interaction[1],
+                                                                          interaction_mean))
+
+            means.set_value(interaction_string, cluster_interaction_string, interaction_mean)
+
+    return means
+
+
+def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) -> pd.DataFrame:
+    columns = []
+    indexes = []
+
+    for cluster_interaction in cluster_interactions:
+        columns.append('{} - {}'.format(cluster_interaction[0], cluster_interaction[1]))
+
+    for index, interaction in interactions.iterrows():
+        indexes.append('{} - {}'.format(interaction['ensembl_receptor'], interaction['ensembl_ligand']))
+
+    result = pd.DataFrame(index=indexes, columns=columns)
+
+    return result
+
+
+def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
+    cluster_names = meta['cell_type'].drop_duplicates().tolist()
+    clusters = {'names': cluster_names, 'counts': {}, 'means': {}}
+
+    cluster_counts = {}
+    cluster_means = {}
+
+    for cluster_name in cluster_names:
+        cells = meta[meta['cell_type'] == cluster_name].index
+        cluster_count = counts.loc[:, cells]
+        cluster_counts[cluster_name] = cluster_count
+        cluster_means[cluster_name] = cluster_count.apply(lambda counts: counts.mean(), axis=1)
+
+    clusters['counts'] = cluster_counts
+    clusters['means'] = cluster_means
+
+    return clusters
 
 
 def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame):
@@ -43,11 +111,6 @@ def filter_empty_cluster_counts(counts: pd.DataFrame) -> pd.DataFrame:
 
 def get_cluster_combinations(cluster_names):
     return list(itertools.product(cluster_names, repeat=2))
-
-
-def cluster_analysis(interactions: pd.DataFrame):
-    for interaction_index, interaction in interactions.iterrows():
-        pass
 
 
 def filter_counts_by_interactions(counts: pd.DataFrame, interactions: pd.DataFrame,
