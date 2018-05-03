@@ -17,37 +17,57 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
     cluster_interactions = get_cluster_combinations(clusters['names'])
 
     result_base = build_result_matrix(interactions_filtered, cluster_interactions)
-    cluster_analysis(interactions_filtered, clusters, cluster_interactions, result_base.copy(deep=True))
+
+    real_result = {'means': result_base.copy(deep=True), 'percents': result_base.copy(deep=True)}
+    cluster_analysis(interactions_filtered, clusters, cluster_interactions, real_result)
 
     return (pd.DataFrame(), pd.DataFrame())
 
 
-def cluster_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list, means: pd.DataFrame):
+def cluster_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list, result: dict):
     for interaction_index, interaction in interactions.iterrows():
         interaction_string = '{} - {}'.format(interaction['ensembl_receptor'], interaction['ensembl_ligand'])
         for cluster_interaction in cluster_interactions:
             cluster_interaction_string = '{} - {}'.format(cluster_interaction[0], cluster_interaction[1])
 
-            counts_receptor = clusters['counts'][cluster_interaction[0]]
-            counts_mean = clusters['means'][cluster_interaction[0]]
+            interaction_mean = cluster_interaction_mean(cluster_interaction, interaction, clusters['means'])
+            interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, clusters['percents'])
 
-            mean_receptor = counts_mean[interaction['ensembl_receptor']]
-            mean_ligand = counts_mean[interaction['ensembl_ligand']]
+            result['means'].set_value(interaction_string, cluster_interaction_string, interaction_mean)
+            result['percents'].set_value(interaction_string, cluster_interaction_string, interaction_percent)
 
-            if mean_receptor == 0 or mean_ligand == 0:
-                interaction_mean = 0
-            else:
-                interaction_mean = (mean_receptor + mean_ligand) / 2
+    return result
 
-            print('means[{} - {}][{} - {}] = interaction_mean: {}'.format(interaction['ensembl_receptor'],
-                                                                          interaction['ensembl_ligand'],
-                                                                          cluster_interaction[0],
-                                                                          cluster_interaction[1],
-                                                                          interaction_mean))
 
-            means.set_value(interaction_string, cluster_interaction_string, interaction_mean)
+def cluster_interaction_mean(cluster_interaction: tuple, interaction: pd.Series, clusters_means: dict) -> float:
+    means_cluster_receptors = clusters_means[cluster_interaction[0]]
+    means_cluster_ligands = clusters_means[cluster_interaction[1]]
 
-    return means
+    mean_receptor = means_cluster_receptors[interaction['ensembl_receptor']]
+    mean_ligand = means_cluster_ligands[interaction['ensembl_ligand']]
+
+    if mean_receptor == 0 or mean_ligand == 0:
+        interaction_mean = 0
+    else:
+        interaction_mean = (mean_receptor + mean_ligand) / 2
+
+    return interaction_mean
+
+
+def cluster_interaction_percent(cluster_interaction: tuple, interaction: pd.Series, clusters_percents: dict) -> int:
+    percent_cluster_receptors = clusters_percents[cluster_interaction[0]]
+    percent_cluster_ligands = clusters_percents[cluster_interaction[1]]
+
+    percent_receptor = percent_cluster_receptors[interaction['ensembl_receptor']]
+    percent_ligand = percent_cluster_ligands[interaction['ensembl_ligand']]
+
+    if percent_receptor == 0 or percent_ligand == 0:
+        interaction_percent = 0
+
+    else:
+        interaction_percent = 1
+
+    return interaction_percent
 
 
 def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) -> pd.DataFrame:
@@ -65,12 +85,13 @@ def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) 
     return result
 
 
-def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
+def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame, threshold: float = 0.3) -> dict:
     cluster_names = meta['cell_type'].drop_duplicates().tolist()
-    clusters = {'names': cluster_names, 'counts': {}, 'means': {}}
+    clusters = {'names': cluster_names, 'counts': {}, 'means': {}, 'percents': {}}
 
     cluster_counts = {}
     cluster_means = {}
+    cluster_percent = {}
 
     for cluster_name in cluster_names:
         cells = meta[meta['cell_type'] == cluster_name].index
@@ -78,8 +99,21 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
         cluster_counts[cluster_name] = cluster_count
         cluster_means[cluster_name] = cluster_count.apply(lambda counts: counts.mean(), axis=1)
 
+        def counts_percent(counts, threshold):
+            total = len(counts)
+            positive = len(counts[counts > 0])
+
+            if positive / total < threshold:
+                return 0
+            else:
+                return 1
+
+        cluster_percent[cluster_name] = cluster_count.apply(lambda counts: counts_percent(counts, threshold),
+                                                            axis=1)
+
     clusters['counts'] = cluster_counts
     clusters['means'] = cluster_means
+    clusters['percents'] = cluster_percent
 
     return clusters
 
