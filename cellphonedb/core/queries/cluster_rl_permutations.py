@@ -6,22 +6,47 @@ from cellphonedb.core.models.interaction import filter_interaction
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000,
-         debug_mode: bool = False) -> (pd.DataFrame, pd.DataFrame):
+         debug_mode: bool = False, threshold: float = 0.3) -> (pd.DataFrame, pd.DataFrame):
     # TODO: Check interactions with multiple genes
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
     print(len(interactions_filtered))
     print(len(counts_filtered))
 
-    clusters = build_clusters(meta, counts_filtered)
+    clusters = build_clusters(meta, counts_filtered, threshold)
     cluster_interactions = get_cluster_combinations(clusters['names'])
 
-    result_base = build_result_matrix(interactions_filtered, cluster_interactions)
+    base_result = build_result_matrix(interactions_filtered, cluster_interactions)
 
-    real_result = {'means': result_base.copy(deep=True), 'percents': result_base.copy(deep=True)}
-    cluster_analysis(interactions_filtered, clusters, cluster_interactions, real_result)
+    real_result = {'means': base_result.copy(deep=True), 'percents': base_result.copy(deep=True)}
+    real_result = cluster_analysis(interactions_filtered, clusters, cluster_interactions, real_result)
+
+    shuffled_cluster_analysis(iterations, threshold, meta, counts_filtered, interactions_filtered, cluster_interactions,
+                              base_result)
 
     return (pd.DataFrame(), pd.DataFrame())
+
+
+def shuffled_cluster_analysis(iterations: int, threshold: float, meta: pd.DataFrame, counts: pd.DataFrame,
+                              interactions: pd.DataFrame, cluster_interactions: list, base_result: pd.DataFrame):
+    shuffled_results = []
+
+    meta = meta.copy()
+    for i in range(iterations):
+        iteration_result = {'means': base_result.copy(deep=True), 'percents': base_result.copy(deep=True)}
+        shuffle_meta(meta)
+        shuffled_clusters = build_clusters(meta, counts, threshold)
+        iteration_result = cluster_analysis(interactions, shuffled_clusters, cluster_interactions, iteration_result)
+
+        shuffled_results.append(iteration_result)
+
+    return shuffled_results
+
+
+def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
+    pd.np.random.shuffle(meta['cell_type'])
+
+    return meta
 
 
 def cluster_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list, result: dict):
@@ -85,7 +110,7 @@ def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) 
     return result
 
 
-def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame, threshold: float = 0.3) -> dict:
+def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame, threshold: float) -> dict:
     cluster_names = meta['cell_type'].drop_duplicates().tolist()
     clusters = {'names': cluster_names, 'counts': {}, 'means': {}, 'percents': {}}
 
