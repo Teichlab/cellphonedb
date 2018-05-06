@@ -12,8 +12,8 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
 
     # TODO: remove after refactor
     def test_real_data(self):
-        iterations = 10
-        data = 'original'
+        iterations = 2
+        data = 'original_prefiltered'
 
         self.query_call(data, iterations)
 
@@ -31,7 +31,7 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
         meta_namefile = 'hi_{}_meta.txt'.format(data)
         counts_namefile = 'hi_{}_counts.txt'.format(data)
 
-        FlaskTerminalQueryLauncher().cluster_rl_permutations(meta_namefile, counts_namefile, '10', data_test_dir,
+        FlaskTerminalQueryLauncher().cluster_rl_permutations(meta_namefile, counts_namefile, iterations, data_test_dir,
                                                              output_test_dir, result_means_namefile,
                                                              result_pvalues_namefile, '0')
 
@@ -46,5 +46,5 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
         # self.assertTrue(dataframe_functions.dataframes_has_same_data(result_means, original_means))
         # self.assertTrue(dataframe_functions.dataframes_has_same_data(result_pvalues, original_pvalues))
         #
-        self.remove_file('{}/{}'.format(output_test_dir, result_means_namefile))
-        self.remove_file('{}/{}'.format(output_test_dir, result_pvalues_namefile))
+        # self.remove_file('{}/{}'.format(output_test_dir, result_means_namefile))
+        # self.remove_file('{}/{}'.format(output_test_dir, result_pvalues_namefile))

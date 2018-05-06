@@ -21,10 +21,40 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
     real_result = {'means': base_result.copy(deep=True), 'percents': base_result.copy(deep=True)}
     real_result = cluster_analysis(interactions_filtered, clusters, cluster_interactions, real_result)
 
-    shuffled_cluster_analysis(iterations, threshold, meta, counts_filtered, interactions_filtered, cluster_interactions,
-                              base_result)
+    shuffled_results = shuffled_cluster_analysis(iterations, threshold, meta, counts_filtered, interactions_filtered,
+                                                 cluster_interactions,
+                                                 base_result)
 
-    return (pd.DataFrame(), pd.DataFrame())
+    result_percent = build_result(real_result, shuffled_results, interactions_filtered, cluster_interactions,
+                                  base_result.copy(deep=True))
+    return real_result['means'], result_percent
+
+
+def build_result(real_result: dict, shuffled_results: list, interactions: pd.DataFrame, cluster_interactions: list,
+                 base_result_percent: pd.DataFrame):
+    for index, interaction in interactions.iterrows():
+        interaction_string = '{} - {}'.format(interaction['ensembl_receptor'], interaction['ensembl_ligand'])
+        for cluster_interaction in cluster_interactions:
+            cluster_interaction_string = '{} - {}'.format(cluster_interaction[0], cluster_interaction[1])
+            real_mean = real_result['means'].get_value(interaction_string, cluster_interaction_string)
+            real_percent = real_result['percents'].get_value(interaction_string, cluster_interaction_string)
+            print('{} - {} {} {}'.format(interaction_string, cluster_interaction_string, real_mean, real_percent))
+
+            if real_percent == 0 or real_mean == 0:
+                result_percent = 1
+
+            else:
+                shuffled_bigger = 0
+
+                for shuffled_result in shuffled_results:
+                    if (shuffled_result['means'].get_value(interaction_string, cluster_interaction_string) > real_mean):
+                        shuffled_bigger += 1
+
+                result_percent = shuffled_bigger / len(shuffled_results)
+
+            base_result_percent.set_value(interaction_string, cluster_interaction_string, result_percent)
+
+    return base_result_percent
 
 
 def shuffled_cluster_analysis(iterations: int, threshold: float, meta: pd.DataFrame, counts: pd.DataFrame,
@@ -152,6 +182,11 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame):
     interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered,
                                                           ('_receptor', '_ligand'))
     interactions_filtered = filter_interactions_non_individual(interactions_filtered, ('_receptor', '_ligand'))
+
+    # TODO: waiting for aproval. What happens when there are duplicated interactions (gene-gene)? Remove duplicates its a temp solution
+    interactions_filtered = interactions_filtered[
+        ~interactions_filtered.duplicated(['ensembl_receptor', 'ensembl_ligand'], keep='first')]
+
     counts_filtered = filter_counts_by_interactions(counts_filtered, interactions_filtered, ('_receptor', '_ligand'))
 
     return interactions_filtered, counts_filtered

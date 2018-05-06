@@ -121,6 +121,7 @@ class FlaskTerminalQueryLauncher(object):
             output_path = output_dir
 
         debug_mode = bool(debug_mode)
+        iterations = int(iterations)
 
         meta = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_namefile), index_column_first=True)
         counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_namefile), index_column_first=True)
