@@ -3,7 +3,7 @@ from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 
-class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
+class TestHumanInteractionsPermutationsComplex(CellphoneFlaskTestCase):
     def create_app(self):
         return create_app(raise_non_defined_vars=False)
 

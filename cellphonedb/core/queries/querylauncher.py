@@ -81,4 +81,9 @@ class QueryLauncher():
                                         debug_mode: bool) -> (pd.DataFrame, pd.DataFrame):
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
-        return cluster_rl_permutations_complex.call(meta, count, interactions, iterations, debug_mode)
+        genes = self.database_manager.get_repository('gene').get_all_expanded()
+        complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
+        complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
+
+        return cluster_rl_permutations_complex.call(meta, count, interactions, genes, complex_expanded,
+                                                    complex_composition, iterations, debug_mode)
