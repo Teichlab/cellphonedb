@@ -1,9 +1,6 @@
-import pandas as pd
-
 from cellphonedb.flask_app import create_app, data_test_dir, output_test_dir
 from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
-from utils import dataframe_functions
 
 
 class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
@@ -18,13 +15,19 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
         self.query_call(data, iterations)
 
     def test_test_data(self):
-        iterations = 10
+        iterations = 500
         data = 'test'
         self.query_call(data, iterations)
 
+    def test_manual_data(self):
+        iterations = 10
+        data = 'manual'
+        self.query_call(data, iterations)
+
+
     def query_call(self, data, iterations):
-        means_base_name = 'means__data-{}_it-{}'.format(data, iterations)
-        pvalues_base_name = 'pvalues__data-{}_it-{}'.format(data, iterations)
+        means_base_name = 'simple_means__data-{}_it-{}'.format(data, iterations)
+        pvalues_base_name = 'simple_pvalues__data-{}_it-{}'.format(data, iterations)
         result_means_namefile = self.get_test_namefile(means_base_name, 'txt')
         result_pvalues_namefile = self.get_test_namefile(pvalues_base_name, 'txt')
 

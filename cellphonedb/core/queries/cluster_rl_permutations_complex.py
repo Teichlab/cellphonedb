@@ -32,14 +32,14 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
     statistical_mean_analysis = shuffled_analysis(iterations, meta, counts_filtered, interactions_processed,
                                                   cluster_interactions, base_result)
 
-    percent_result = build_result(real_mean_analysis, real_percernts_analysis, statistical_mean_analysis,
-                                  interactions_processed, cluster_interactions, base_result)
+    percent_result = build_percent_result(real_mean_analysis, real_percernts_analysis, statistical_mean_analysis,
+                                          interactions_processed, cluster_interactions, base_result)
     return real_mean_analysis, percent_result
 
 
-def build_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.DataFrame,
-                 statistical_mean_analysis: list, interactions: pd.DataFrame, cluster_interactions: list,
-                 base_result: pd.DataFrame) -> pd.DataFrame:
+def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.DataFrame,
+                         statistical_mean_analysis: list, interactions: pd.DataFrame, cluster_interactions: list,
+                         base_result: pd.DataFrame) -> pd.DataFrame:
     percent_result = base_result.copy()
 
     for index, interaction in interactions.iterrows():
@@ -49,14 +49,14 @@ def build_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.D
             real_percent = real_perecents_analysis.get_value(interaction['id_interaction'], cluster_interaction_string)
 
             if real_percent == 0 or real_mean == 0:
-                result_percent = 1
+                result_percent = 1.0
 
             else:
                 shuffled_bigger = 0
 
                 for statistical_mean in statistical_mean_analysis:
-                    if (statistical_mean.get_value(interaction['id_interaction'],
-                                                   cluster_interaction_string) > real_mean):
+                    if (
+                    statistical_mean.get_value(interaction['id_interaction'], cluster_interaction_string)) > real_mean:
                         shuffled_bigger += 1
 
                 result_percent = shuffled_bigger / len(statistical_mean_analysis)
@@ -67,7 +67,7 @@ def build_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.D
 
 
 def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFrame, cluster_interactions: list,
-                     base_result: pd.DataFrame) -> pd.DataFrame:
+                     base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
     result = base_result.copy()
     percents = {}
     for cluster_name in clusters['names']:
@@ -79,18 +79,19 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
         for cluster_interaction in cluster_interactions:
             cluster_interaction_string = '{} - {}'.format(cluster_interaction[0], cluster_interaction[1])
 
-            interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents)
+            interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents, suffixes)
             result.set_value(interaction['id_interaction'], cluster_interaction_string, interaction_percent)
 
     return result
 
 
-def cluster_interaction_percent(cluster_interaction: tuple, interaction: pd.Series, clusters_percents: dict) -> int:
+def cluster_interaction_percent(cluster_interaction: tuple, interaction: pd.Series, clusters_percents: dict,
+                                suffixes: tuple = ('_1', '_2')) -> int:
     percent_cluster_receptors = clusters_percents[cluster_interaction[0]]
     percent_cluster_ligands = clusters_percents[cluster_interaction[1]]
 
-    percent_receptor = percent_cluster_receptors[interaction['ensembl_1']]
-    percent_ligand = percent_cluster_ligands[interaction['ensembl_2']]
+    percent_receptor = percent_cluster_receptors[interaction['ensembl{}'.format(suffixes[0])]]
+    percent_ligand = percent_cluster_ligands[interaction['ensembl{}'.format(suffixes[1])]]
 
     if percent_receptor == 0 or percent_ligand == 0:
         interaction_percent = 0
@@ -112,12 +113,12 @@ def counts_percent(counts: pd.Series, threshold: float) -> int:
 
 
 def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame,
-                      cluster_interactions: list, base_result: pd.DataFrame) -> list:
+                      cluster_interactions: list, base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> list:
     results = []
     for i in range(iterations):
         shuffled_meta = cluster_rl_permutations.shuffle_meta(meta)
         shuffled_clusters = build_clusters(shuffled_meta, counts)
-        results.append(mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result))
+        results.append(mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, suffixes))
 
     return results
 
@@ -261,7 +262,7 @@ def get_complex_significative(complexes: pd.DataFrame, counts: pd.DataFrame, com
     complex_composition_complexes = pd.merge(complexes, complex_composition, on='complex_multidata_id')
 
     complex_counts = pd.merge(counts, complex_composition_complexes, left_on='id_multidata',
-                              right_on='protein_multidata_id', suffixes=['_protein', '_complex'])
+                              right_on='protein_multidata_id', suffixes=('_protein', '_complex'))
 
     complex_more_significative_protein = pd.Series(data='', index=complex_counts['name_complex'].drop_duplicates())
 
@@ -310,14 +311,14 @@ def filter_counts_by_interactions(counts: pd.DataFrame, interactions: pd.DataFra
 
 
 def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list,
-                  base_result: pd.DataFrame) -> pd.DataFrame:
+                  base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
     result = base_result.copy()
 
     for interaction_index, interaction in interactions.iterrows():
         for cluster_interaction in cluster_interactions:
             cluster_interaction_string = '{} - {}'.format(cluster_interaction[0], cluster_interaction[1])
 
-            interaction_mean = cluster_interaction_mean(cluster_interaction, interaction, clusters['means'])
+            interaction_mean = cluster_interaction_mean(cluster_interaction, interaction, clusters['means'], suffixes)
 
             result.set_value(interaction['id_interaction'], cluster_interaction_string, interaction_mean)
 

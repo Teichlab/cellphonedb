@@ -80,7 +80,8 @@ def filter_by_receptor_ligand_integrin(proteins: pd.DataFrame, interactions: pd.
 
 
 def filter_by_receptor_ligand_ligand_receptor(interactions: pd.DataFrame, enable_integrin: bool,
-                                              avoid_duplited: bool = True) -> pd.DataFrame:
+                                              avoid_duplited: bool = True,
+                                              avoid_duplicated_genes: bool = False) -> pd.DataFrame:
     """
     return a table of receptor ligand interactons
     """
@@ -108,7 +109,8 @@ def filter_by_receptor_ligand_ligand_receptor(interactions: pd.DataFrame, enable
 
     interactions_enabled = interactions_enabled.rename(index=str,
                                                        columns={'score_one': 'score_1', 'score_two': 'score_2'})
-    interactions_enabled.drop_duplicates(['id_multidata_receptor', 'id_multidata_ligand'], inplace=True)
+    if avoid_duplicated_genes:
+        interactions_enabled.drop_duplicates(['id_multidata_receptor', 'id_multidata_ligand'], inplace=True)
     if avoid_duplited:
         interactions_enabled.drop_duplicates(['id_interaction'], inplace=True)
     interactions_enabled.reset_index(drop=True, inplace=True)
