@@ -8,6 +8,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
          debug_mode: bool = False, threshold: float = 0.3) -> (pd.DataFrame, pd.DataFrame):
     # TODO: Check interactions with multiple genes
 
+
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
     interactions_filtered.drop_duplicates('id_interaction', inplace=True)
@@ -34,6 +35,27 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
                                                                           statistical_mean_analysis,
                                                                           interactions_filtered,
                                                                           cluster_interactions, base_result)
+
+    interactions_data_result = interactions_filtered[
+        ['id_interaction', 'name_receptor', 'name_ligand', 'ensembl_receptor', 'ensembl_ligand', 'secretion_ligand',
+         'source']].copy()
+
+    interactions_data_result.rename(index=str,
+                                    columns={'name_receptor': 'receptor', 'name_ligand': 'ligand',
+                                             'secretion_ligand': 'secreted_ligand'},
+                                    inplace=True)
+
+    pvalues_result = pd.merge(interactions_data_result, result_percent, left_on='id_interaction', right_index=True)
+    means_result = pd.merge(interactions_data_result, real_mean_analysis, left_on='id_interaction', right_index=True)
+
+    pvalues_means_result = pd.DataFrame(real_mean_analysis.copy())
+
+    min_significant_mean = 0.05
+
+    for index, mean_analysis in real_mean_analysis.iterrows():
+        for cluster_interaction in list(real_percent_analysis.columns):
+            if pvalues_means_result.get_value(index, cluster_interaction) < min_significant_mean:
+                pvalues_means_result.set_value(index, cluster_interaction, pd.np.nan)
 
     return real_mean_analysis, result_percent
 
