@@ -71,7 +71,7 @@ class QueryLauncher():
                                                     how_many, debug_mode)
 
     def cluster_rl_permutations(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int, debug_mode: bool) -> (
-            pd.DataFrame, pd.DataFrame):
+            pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
 

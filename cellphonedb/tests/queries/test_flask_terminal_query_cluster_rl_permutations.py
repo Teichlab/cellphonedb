@@ -15,28 +15,31 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
         self.query_call(data, iterations)
 
     def test_test_data(self):
-        iterations = 500
+        iterations = 10
         data = 'test'
         self.query_call(data, iterations)
 
     def test_manual_data(self):
-        iterations = 10
+        iterations = 1000
         data = 'manual'
-        self.query_call(data, iterations)
 
+        self.query_call(data, iterations)
 
     def query_call(self, data, iterations):
         means_base_name = 'simple_means__data-{}_it-{}'.format(data, iterations)
         pvalues_base_name = 'simple_pvalues__data-{}_it-{}'.format(data, iterations)
+        pvalues_means_base_name = 'simple_pvalues_means__data-{}_it-{}'.format(data, iterations)
         result_means_namefile = self.get_test_namefile(means_base_name, 'txt')
         result_pvalues_namefile = self.get_test_namefile(pvalues_base_name, 'txt')
+        result_pvalues_means_namefile = self.get_test_namefile(pvalues_means_base_name, 'txt')
 
         meta_namefile = 'hi_{}_meta.txt'.format(data)
         counts_namefile = 'hi_{}_counts.txt'.format(data)
 
         FlaskTerminalQueryLauncher().cluster_rl_permutations(meta_namefile, counts_namefile, iterations, data_test_dir,
                                                              output_test_dir, result_means_namefile,
-                                                             result_pvalues_namefile, '0')
+                                                             result_pvalues_namefile, result_pvalues_means_namefile,
+                                                             '0')
 
         # means_test_namefile = 'hi_r_m_means__data-{}_it-{}.txt'.format(data, iterations)
         # original_means = pd.read_table('{}/{}'.format(data_test_dir, means_test_namefile))
