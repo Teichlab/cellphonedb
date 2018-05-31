@@ -6,9 +6,11 @@ from cellphonedb.core.queries import cluster_rl_permutations_complex
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000,
          debug_mode: bool = False, threshold: float = 0.2) -> (pd.DataFrame, pd.DataFrame):
+    # TODO: Hardcoded seed
+    pd.np.random.seed(123)
     # TODO: Check interactions with multiple genes
     # TODO: ONLY FOR TEST REMOVE
-    counts = counts.filter(['ENSG00000182578', 'ENSG00000184371'], axis=0)
+    # counts = counts.filter(['ENSG00000182578', 'ENSG00000184371'], axis=0)
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
     interactions_filtered.reset_index(inplace=True, drop=True)
@@ -105,19 +107,20 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame):
                                                                                          avoid_duplited=False,
                                                                                          avoid_duplicated_genes=False)
 
-    counts_filtered = filter_counts_by_interactions(counts, interactions)
-    counts_filtered = filter_empty_cluster_counts(counts_filtered)
-    interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered,
-                                                          ('_receptor', '_ligand'))
-    interactions_filtered = filter_interactions_non_individual(interactions_filtered, ('_receptor', '_ligand'))
-
-    # TODO: waiting for aproval. What happens when there are duplicated interactions (gene-gene)? Remove duplicates its a temp solution
-    interactions_filtered = interactions_filtered[
-        ~interactions_filtered.duplicated(['ensembl_receptor', 'ensembl_ligand'], keep='first')]
-
     # TODO: temporal solution
     interactions_filtered = interactions[interactions.apply(
         lambda interaction: interaction['id_interaction'] in interactions_filtered['id_interaction'].tolist(), axis=1)]
+
+    counts_filtered = filter_counts_by_interactions(counts, interactions)
+    counts_filtered = filter_empty_cluster_counts(counts_filtered)
+    interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered,
+                                                          ('_1', '_2'))
+    interactions_filtered = filter_interactions_non_individual(interactions_filtered, ('_1', '_2'))
+
+    # TODO: waiting for aproval. What happens when there are duplicated interactions (gene-gene)? Remove duplicates its a temp solution
+    interactions_filtered = interactions_filtered[
+        ~interactions_filtered.duplicated(['ensembl_1', 'ensembl_2'], keep='first')]
+
 
     counts_filtered = filter_counts_by_interactions(counts_filtered, interactions_filtered, ('_1', '_2'))
 
