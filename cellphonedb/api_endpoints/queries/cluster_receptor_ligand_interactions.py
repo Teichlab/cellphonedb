@@ -15,7 +15,9 @@ from cellphonedb.api_endpoints.endpoint_base import EndpointBase
 
 class ReceptorLigandInteractions(EndpointBase):
     def post(self):
-        cells_to_clusters_file = self._read_table(request.files['cell_to_clusters_file'])
+        cells_to_clusters_file = self._read_table(request.files['cell_to_clusters_file'], index_column_first=True)
+        cells_to_clusters_file['gene'] = cells_to_clusters_file.index
+        cells_to_clusters_file.reset_index(inplace=True, drop=True)
 
         if not isinstance(cells_to_clusters_file, pd.DataFrame):
             self.attach_error(

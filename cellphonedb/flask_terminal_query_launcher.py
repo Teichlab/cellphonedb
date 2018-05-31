@@ -39,7 +39,11 @@ class FlaskTerminalQueryLauncher(object):
 
         enable_integrin = bool(int(enable_integrin))
         enable_complex = bool(int(enable_complex))
-        cluster_counts = utils.read_data_table_from_file('{}/{}'.format(data_path, cluster_counts_namefile))
+        cluster_counts = utils.read_data_table_from_file('{}/{}'.format(data_path, cluster_counts_namefile),
+                                                         index_column_first=True)
+        cluster_counts['gene'] = cluster_counts.index
+        cluster_counts.reset_index(inplace=True, drop=True)
+
 
         result_interactions, result_interactions_extended = cellphonedb_flask.cellphonedb.query.cluster_receptor_ligand_interactions(
             cluster_counts, threshold, enable_integrin, enable_complex, clusters)
