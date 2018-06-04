@@ -1,6 +1,7 @@
 import os
 import random
 import string
+import time
 
 from flask_testing import TestCase
 
@@ -35,7 +36,9 @@ class CellphoneFlaskTestCase(TestCase):
 
     @staticmethod
     def get_test_namefile(original_namefile, extension, prefix='TESTING'):
-        namefile = '{}_{}_{}.{}'.format(prefix, original_namefile, CellphoneFlaskTestCase.rand_string(), extension)
+        namefile = '{}_{}_{}_{}.{}'.format(prefix, original_namefile, int(time.time()),
+                                           CellphoneFlaskTestCase.rand_string(),
+                                           extension)
 
         return namefile
 
