@@ -5,16 +5,11 @@ from cellphonedb.core.queries import cluster_rl_permutations_complex
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000,
-         debug_mode: bool = False, threshold: float = 0.2) -> (pd.DataFrame, pd.DataFrame):
-    # TODO: Hardcoded seed
-    pd.np.random.seed(123)
-    # TODO: Check interactions with multiple genes
-    # TODO: ONLY FOR TEST REMOVE
-    # counts = counts.filter(['ENSG00000182578', 'ENSG00000184371'], axis=0)
-    interactions_filtered, counts_filtered = prefilters(counts, interactions)
+         debug_seed=False, threshold: float = 0.2) -> (pd.DataFrame, pd.DataFrame):
+    if debug_seed is not False:
+        pd.np.random.seed(debug_seed)
 
-    interactions_filtered.reset_index(inplace=True, drop=True)
-    # interactions_filtered.drop_duplicates('id_interaction', inplace=True)
+    interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
     clusters = build_clusters(meta, counts_filtered)
     cluster_interactions = cluster_rl_permutations_complex.get_cluster_combinations(clusters['names'])
@@ -39,12 +34,12 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
                                                                           interactions_filtered,
                                                                           cluster_interactions, base_result)
 
-    pvalues_result, means_result, pvalues_means_result, pvalues_real = build_results(interactions_filtered,
-                                                                                     real_mean_analysis,
-                                                                                     real_percent_analysis,
-                                                                                     result_percent)
+    pvalues_result, means_result, pvalues_means_result = build_results(interactions_filtered,
+                                                                       real_mean_analysis,
+                                                                       real_percent_analysis,
+                                                                       result_percent)
 
-    return pvalues_result, means_result, pvalues_means_result, pvalues_real
+    return pvalues_result, means_result, pvalues_means_result
 
 
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, real_percent_analysis: pd.DataFrame,
@@ -70,10 +65,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
             if pvalues_means_result.get_value(index, cluster_interaction) > min_significant_mean:
                 pvalues_means_result.set_value(index, cluster_interaction, pd.np.nan)
 
-    # TODO: DEBUG REMOVE
-    pvalues_real = pd.concat([interactions_data_result, real_percent_analysis], axis=1, join='inner', sort=False)
-
-    return pvalues_result, means_result, pvalues_means_result, pvalues_real
+    return pvalues_result, means_result, pvalues_means_result
 
 
 def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
@@ -121,8 +113,9 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame):
     interactions_filtered = interactions_filtered[
         ~interactions_filtered.duplicated(['ensembl_1', 'ensembl_2'], keep='first')]
 
-
     counts_filtered = filter_counts_by_interactions(counts_filtered, interactions_filtered, ('_1', '_2'))
+
+    interactions_filtered.reset_index(inplace=True, drop=True)
 
     return interactions_filtered, counts_filtered
 

@@ -8,24 +8,31 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
         return create_app(raise_non_defined_vars=False)
 
     # TODO: remove after refactor
-    def test_real_data(self):
-        iterations = 2
-        data = 'original_prefiltered'
-
-        self.query_call(data, iterations)
-
+    # def test_real_data(self):
+    #     iterations = 2
+    #     data = 'original_prefiltered'
+    #
+    #     self.query_call(data, iterations)
+    #
     def test_test_data(self):
-        iterations = 10
+        iterations = '10'
         data = 'test'
-        self.query_call(data, iterations)
+        debug_seed = '0'
+        self.query_call(data, iterations, debug_seed)
 
     def test_manual_data(self):
-        iterations = 1000
+        iterations = '10'
         data = 'manual'
+        debug_seed = '0'
+        self.query_call(data, iterations, debug_seed)
 
-        self.query_call(data, iterations)
+    def test_manual_2_data(self):
+        iterations = '10'
+        data = 'manual_2'
+        debug_seed = '0'
+        self.query_call(data, iterations, debug_seed)
 
-    def query_call(self, data, iterations):
+    def query_call(self, data, iterations, debug_seed: str):
         means_base_name = 'simple_means__data-{}_it-{}'.format(data, iterations)
         pvalues_base_name = 'simple_pvalues__data-{}_it-{}'.format(data, iterations)
         pvalues_means_base_name = 'simple_pvalues_means__data-{}_it-{}'.format(data, iterations)
@@ -39,7 +46,7 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
         FlaskTerminalQueryLauncher().cluster_rl_permutations(meta_namefile, counts_namefile, iterations, data_test_dir,
                                                              output_test_dir, result_means_namefile,
                                                              result_pvalues_namefile, result_pvalues_means_namefile,
-                                                             '0')
+                                                             debug_seed)
 
         # means_test_namefile = 'hi_r_m_means__data-{}_it-{}.txt'.format(data, iterations)
         # original_means = pd.read_table('{}/{}'.format(data_test_dir, means_test_namefile))

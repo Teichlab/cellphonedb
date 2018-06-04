@@ -9,8 +9,11 @@ from cellphonedb.core.queries import cluster_rl_permutations
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
          complexes: pd.DataFrame, complex_compositions: pd.DataFrame, iterations: int = 1000,
-         debug_mode: bool = False,
+         debug_seed=False,
          threshold: float = 0.3, ) -> (pd.DataFrame, pd.DataFrame):
+    if debug_seed is not False:
+        pd.np.random.seed(debug_seed)
+
     cells_names = sorted(counts.columns)
 
     interactions_filtered, counts_filtered, complex_in_counts = prefilters(interactions, counts, genes, complexes,
