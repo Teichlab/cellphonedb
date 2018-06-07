@@ -1,3 +1,5 @@
+import pandas as pd
+
 from cellphonedb.app_logger import app_logger
 from cellphonedb.flask_app import output_dir, query_input_dir
 from cellphonedb.extensions import cellphonedb_flask
@@ -118,48 +120,50 @@ class FlaskTerminalQueryLauncher(object):
                                 output_path: str = '', means_namefile: str = 'means.txt',
                                 pvalues_namefile: str = 'pvalues.txt',
                                 pvalues_means_namefile: str = 'pvalues_means.txt',
-                                debug_mode: str = '0'):
+                                debug_seed: str = '0'):
 
         if not data_path:
             data_path = query_input_dir
         if not output_path:
             output_path = output_dir
 
-        debug_mode = bool(debug_mode)
+        debug_seed = int(debug_seed)
         iterations = int(iterations)
 
-        meta = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_namefile), index_column_first=True)
+        meta_raw = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_namefile), index_column_first=True)
         counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_namefile), index_column_first=True)
 
-        pvalues, means, pvalues_means, pvalues_real = cellphonedb_flask.cellphonedb.query.cluster_rl_permutations(
-            meta, counts, iterations, debug_mode)
-        # TODO: Hardcoded lines for DEBUG (comparing results)
+        meta = pd.DataFrame(index=meta_raw.index)
+        meta['cell_type'] = meta_raw.iloc[:, 0]
+
+        pvalues, means, pvalues_means = cellphonedb_flask.cellphonedb.query.cluster_rl_permutations(
+            meta, counts, iterations, debug_seed)
+
         means.to_csv('{}/{}'.format(output_path, means_namefile), sep='\t', index=False)
         pvalues.to_csv('{}/{}'.format(output_path, pvalues_namefile), sep='\t', index=False)
         pvalues_means.to_csv('{}/{}'.format(output_path, pvalues_means_namefile), sep='\t',
                              index=False)
 
-        ###DEBUG
-        pvalues_real[pvalues_real['gene_interaction'] == 'CSF1R_CSF1'].to_csv(
-            '{}/TEST_pvalues_real.csv'.format(output_path, pvalues_means_namefile), sep='\t', index=False)
-
     def cluster_rl_permutations_complex(self, meta_namefile: str, counts_namefile: str, iterations: str, data_path='',
                                         output_path: str = '', means_namefile: str = 'means.txt',
-                                        pvalues_namefile: str = 'pvalues.txt', debug_mode: str = '0'):
+                                        pvalues_namefile: str = 'pvalues.txt', debug_seed: str = '0'):
 
         if not data_path:
             data_path = query_input_dir
         if not output_path:
             output_path = output_dir
 
-        debug_mode = bool(debug_mode)
+        debug_seed = bool(debug_seed)
         iterations = int(iterations)
 
-        meta = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_namefile), index_column_first=True)
+        meta_raw = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_namefile), index_column_first=True)
         counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_namefile), index_column_first=True)
 
+        meta = pd.DataFrame(index=meta_raw.index)
+        meta['cell_type'] = meta_raw.iloc[:, 0]
+
         means, pvalues = cellphonedb_flask.cellphonedb.query.cluster_rl_permutations_complex(meta, counts, iterations,
-                                                                                             debug_mode)
+                                                                                             debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_namefile), sep='\t')
         pvalues.to_csv('{}/{}'.format(output_path, pvalues_namefile), sep='\t')
