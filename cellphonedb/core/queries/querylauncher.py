@@ -70,15 +70,15 @@ class QueryLauncher():
         return human_interactions_permutations.call(meta, counts, interactions, iterations, start_interaction,
                                                     how_many, debug_mode)
 
-    def cluster_rl_permutations(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int, debug_mode: bool) -> (
+    def cluster_rl_permutations(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int, debug_seed: int) -> (
             pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
 
-        return cluster_rl_permutations.call(meta, count, interactions, iterations, debug_mode)
+        return cluster_rl_permutations.call(meta, count, interactions, iterations, debug_seed)
 
     def cluster_rl_permutations_complex(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int,
-                                        debug_mode: bool) -> (pd.DataFrame, pd.DataFrame):
+                                        debug_seed) -> (pd.DataFrame, pd.DataFrame):
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
         genes = self.database_manager.get_repository('gene').get_all_expanded()
@@ -86,4 +86,4 @@ class QueryLauncher():
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
 
         return cluster_rl_permutations_complex.call(meta, count, interactions, genes, complex_expanded,
-                                                    complex_composition, iterations, debug_mode)
+                                                    complex_composition, iterations, debug_seed)
