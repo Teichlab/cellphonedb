@@ -25,6 +25,8 @@ class TestPropertiesMultidata(TestCase):
 
     def test_is_cellphone_ligand(self):
         multidatas = pd.read_csv('{}/multidata_properties_cellphone_ligand_multidata.csv'.format(data_test_dir))
+        multidatas = multidatas.astype('int64')
+
         interactions_extended = pd.read_csv(
             '{}/multidata_properties_cellphone_ligand_interactions_extended.csv'.format(data_test_dir))
 
