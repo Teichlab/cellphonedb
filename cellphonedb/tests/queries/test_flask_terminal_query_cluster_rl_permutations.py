@@ -11,9 +11,10 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
     # def test_real_data(self):
     #     iterations = 2
     #     data = 'original_prefiltered'
+    #     debug_seed = '0'
     #
-    #     self.query_call(data, iterations)
-    #
+    #     self.query_call(data, iterations, debug_seed)
+
     def test_test_data(self):
         iterations = '10'
         data = 'test'
@@ -47,6 +48,8 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
                                                              output_test_dir, result_means_namefile,
                                                              result_pvalues_namefile, result_pvalues_means_namefile,
                                                              debug_seed)
+
+        # TODO: incomplete
 
         # means_test_namefile = 'hi_r_m_means__data-{}_it-{}.txt'.format(data, iterations)
         # original_means = pd.read_table('{}/{}'.format(data_test_dir, means_test_namefile))

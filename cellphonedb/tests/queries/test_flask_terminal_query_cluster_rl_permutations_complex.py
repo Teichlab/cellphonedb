@@ -8,11 +8,11 @@ class TestHumanInteractionsPermutationsComplex(CellphoneFlaskTestCase):
         return create_app(raise_non_defined_vars=False)
 
     # TODO: remove after refactor
-    def test_real_data(self):
-        iterations = 100
-        data = 'original_prefiltered'
-
-        self.query_call(data, iterations)
+    # def test_real_data(self):
+    #     iterations = 100
+    #     data = 'original_prefiltered'
+    #
+    #     self.query_call(data, iterations)
 
     def test_test_data(self):
         iterations = 10

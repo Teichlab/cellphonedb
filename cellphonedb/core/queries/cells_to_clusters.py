@@ -26,6 +26,7 @@ def _clusters_ratio(counts):
     return result
 
 
+# TODO: move to counts filters
 def _filter_by_cellphone_genes(cluster_counts, genes):
     """
     Merges cluster genes with CellPhoneDB values

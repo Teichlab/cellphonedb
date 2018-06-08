@@ -34,23 +34,21 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
                                                                           interactions_filtered,
                                                                           cluster_interactions, base_result)
 
-    pvalues_result, means_result, pvalues_means_result = build_results(interactions_filtered,
-                                                                       real_mean_analysis,
-                                                                       real_percent_analysis,
+    pvalues_result, means_result, pvalues_means_result = build_results(interactions_filtered, real_mean_analysis,
                                                                        result_percent)
 
     return pvalues_result, means_result, pvalues_means_result
 
 
-def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, real_percent_analysis: pd.DataFrame,
-                  result_percent: pd.DataFrame) -> [pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame) -> [
+    pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     interactions_data_result = pd.DataFrame(interactions[
                                                 ['id_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                  'ensembl_2', 'secretion_2',
                                                  'source']].copy())
     interactions_data_result.rename(
-        columns={'name_1': 'receptor', 'name_2': 'ligand', 'secretion_2': 'secreted_2'},
-        inplace=True)
+        columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b',
+                 'secretion_2': 'secreted_2'}, inplace=True)
 
     interactions_data_result['gene_interaction'] = interactions.apply(
         lambda interaction: '{}_{}'.format(interaction['gene_name_1'], interaction['gene_name_2']), axis=1)

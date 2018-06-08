@@ -2,8 +2,7 @@ import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.queries import cells_to_clusters, cluster_receptor_ligand_interactions, \
-    get_rl_lr_interactions_from_multidata, human_interactions_permutations, cluster_rl_permutations, \
-    cluster_rl_permutations_complex
+    get_rl_lr_interactions_from_multidata, cluster_rl_permutations, cluster_rl_permutations_complex
 
 
 class QueryLauncher():
@@ -59,16 +58,6 @@ class QueryLauncher():
     def get_multidatas_from_string(self, string: str) -> pd.DataFrame:
         multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(string)
         return multidatas
-
-    # TODO: Remove?
-    def human_interactions_permutations(self, meta: pd.DataFrame, counts: pd.DataFrame, iterations: int,
-                                        start_interaction: int, how_many: int, debug_mode: bool) \
-            -> (pd.DataFrame, pd.DataFrame):
-
-        interactions = self.database_manager.get_repository('interaction').get_all_expanded()
-
-        return human_interactions_permutations.call(meta, counts, interactions, iterations, start_interaction,
-                                                    how_many, debug_mode)
 
     def cluster_rl_permutations(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int, debug_seed: int) -> (
             pd.DataFrame, pd.DataFrame, pd.DataFrame):
