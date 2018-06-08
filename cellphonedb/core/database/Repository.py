@@ -74,7 +74,7 @@ class Repository():
                                                  '%s_1_id' % db_table_name: '%s_id' % db_table_name}, inplace=True)
 
         if not quiet and not_existent_proteins:
-            core_logger.debug('WARNING | BLENDING: THIS %s DIDNT EXIST IN %s' % (db_column_name, db_table_name))
-            core_logger.debug(not_existent_proteins)
+            core_logger.warning('WARNING | BLENDING: THIS %s DIDNT EXIST IN %s' % (db_column_name, db_table_name))
+            core_logger.warning(not_existent_proteins)
 
         return result_df
