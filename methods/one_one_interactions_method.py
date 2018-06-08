@@ -202,7 +202,7 @@ for key, value in all_pairs_means.items():
 
             final_means.at[key, "_".join([str(new_clusters[cluster]), str(new_clusters[cluster2])])] = p_val
 
-file1 = 'methods/out/r_m_pvalues_data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many)
+file1 = 'methods/out/r_m_pvalues__data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many)
 final_means.sort_index().to_csv(file1, sep="\t")
-file2 = 'methods/out/r_m_means_data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many)
+file2 = 'methods/out/r_m_means__data-{}_it-{}_in-{}.txt'.format(data_font, iterations, how_many)
 real_pvalues.to_csv(file2, sep="\t")
