@@ -12,4 +12,4 @@ def remove_genes_in_file(base_genes: pd.DataFrame, genes_to_remove: pd.DataFrame
         print(
             genes_filtered[genes_filtered.duplicated('ensembl', keep=False)].sort_values('ensembl').to_csv(index=False))
 
-    return genes_filtered
+    return genes_filtered[list(base_genes.columns.values)]
