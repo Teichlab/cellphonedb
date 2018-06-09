@@ -638,7 +638,7 @@ interaction_entries = [
 ]
 
 
-class DatabaseRandomEntries(TestCase):
+class TestValidatorDatabaseRandomEntries(TestCase):
     def test_interaction(self):
 
         interaction_df = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(

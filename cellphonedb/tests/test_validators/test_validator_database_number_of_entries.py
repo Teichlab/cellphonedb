@@ -3,7 +3,7 @@ from cellphonedb.flask_app import create_app
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 
-class TestDatabaseNumberOfEntries(CellphoneFlaskTestCase):
+class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def create_app(self):
         return create_app(raise_non_defined_vars=False)
 
