@@ -3,6 +3,8 @@ import os
 import pandas as pd
 
 from flask.cli import FlaskGroup
+
+from tools.actions import gene_actions
 from tools.app import create_app, data_dir, output_dir
 from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_proteins
 from tools.generate_data.mergers.add_curated import add_curated
@@ -27,7 +29,6 @@ def cli():
 @click.argument('filename', default='protein.csv')
 def merge_duplicated_proteins(filename):
     merge_proteins(filename)
-
 
 
 @cli.command()
@@ -131,6 +132,13 @@ def generate_interactions(imex_original_namefile, database_proteins_namefile, da
     interactions_with_curated = add_curated(clean_interactions, interaction_curated)
 
     interactions_with_curated.to_csv('%s/interaction.csv' % output_dir, index=False)
+
+
+@cli.command()
+@click.argument('gene_base_filename')
+@click.argument('remove_genes_filename')
+def generate_genes(gene_base_filename: str, remove_genes_filename: str):
+    gene_actions.generate_genes_action(gene_base_filename, remove_genes_filename)
 
 
 def _open_file(interaction_namefile):
