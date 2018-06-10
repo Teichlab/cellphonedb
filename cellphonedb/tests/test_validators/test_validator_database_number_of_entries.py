@@ -22,7 +22,7 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
 
     def test_multidata(self):
         multidatas = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('multidata').get_all()
-        self.assertEqual(5516, len(multidatas), 'Number of Multidata entries are different')
+        self.assertEqual(5529, len(multidatas), 'Number of Multidata entries are different')
 
     def test_protein_complex(self):
         multidatas = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('multidata').get_all()
