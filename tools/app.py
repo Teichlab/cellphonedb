@@ -3,8 +3,8 @@ import os
 from flask import Flask, abort
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
-data_dir = '%s/data/' % current_dir
-output_dir = '%s/out/' % current_dir
+data_dir = '%s/data' % current_dir
+output_dir = '%s/out' % current_dir
 
 
 def create_app():

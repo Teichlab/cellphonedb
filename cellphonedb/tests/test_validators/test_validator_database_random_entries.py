@@ -621,12 +621,12 @@ interaction_entries = [
         "source": "MolCon"
     },
     {
-        "score_1": 0.44,
-        "score_2": 0.44,
+        "score_1": 1.0,
+        "score_2": 1.0,
         "name_1": "Q03167",
         "name_2": "P01137",
-        "comments_interaction": None,
-        "source": "I2D-IMEx"
+        "comments_interaction": "uniprot",
+        "source": "curated"
     },
     {
         "score_1": 0.0,

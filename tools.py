@@ -74,7 +74,7 @@ def merge_interactions(interactions_filename_1, interactions_filename_2):
 @cli.command()
 @click.argument('interactions_filename')
 @click.argument('database_complex_filename', default='complex.csv')
-def noncomplex_interactions(interactions_filename, database_complex_filename):
+def remove_complex_interactions(interactions_filename, database_complex_filename):
     interactions = pd.read_csv(_open_file(interactions_filename))
     complexes = pd.read_csv(_open_file(database_complex_filename))
     result = only_noncomplex_interactions(interactions, complexes)
