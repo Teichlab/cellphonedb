@@ -2,6 +2,7 @@ import pandas as pd
 from flask_testing import TestCase
 
 from cellphonedb import extensions
+from cellphonedb.app_logger import app_logger
 from cellphonedb.flask_app import create_app
 
 complex_entries = [
@@ -22,7 +23,7 @@ complex_entries = [
             "peripheral": False,
             "iuhpar_ligand": False,
             "cytoplasm": False,
-            "pdb_structure": "FALSE",
+            "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "Note: Presumably retained within the endoplasmic reticulum unless complexed with HTR3A.",
@@ -48,7 +49,7 @@ complex_entries = [
             "peripheral": False,
             "iuhpar_ligand": False,
             "cytoplasm": False,
-            "pdb_structure": "TRUE",
+            "pdb_structure": "True",
             "pdb_id": "1kup",
             "stoichiometry": "ITGA2B;ITGB3",
             "comments_complex": "Well known integrin combination",
@@ -102,7 +103,7 @@ complex_entries = [
             "peripheral": False,
             "iuhpar_ligand": False,
             "cytoplasm": False,
-            "pdb_structure": "FALSE",
+            "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "Membrane-bound IgM molecules are non-covalently associated with heterodimer of CD79A and CD79B",
@@ -114,7 +115,7 @@ complex_entries = [
     },
     {
         'data': {
-            "name": "BMPR1B complex",
+            "name": "BMPR1B_BMPR2",
             "receptor": True,
             "receptor_highlight": True,
             "receptor_desc": "TGFBeta_receptor_add",
@@ -129,7 +130,7 @@ complex_entries = [
             "peripheral": False,
             "iuhpar_ligand": False,
             "cytoplasm": False,
-            "pdb_structure": "FALSE",
+            "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "Serine/threonine kinase heterodimer upon ligand binding",
@@ -156,7 +157,7 @@ complex_entries = [
             "peripheral": False,
             "iuhpar_ligand": False,
             "cytoplasm": False,
-            "pdb_structure": "TRUE",
+            "pdb_structure": "True",
             "pdb_id": "1onq",
             "stoichiometry": "B2M;CD1A",
             "comments_complex": "Heterodimer with B2M (beta-2-microglobulin).",
@@ -183,7 +184,7 @@ complex_entries = [
             "peripheral": False,
             "iuhpar_ligand": True,
             "cytoplasm": False,
-            "pdb_structure": "FALSE",
+            "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": None,
@@ -210,7 +211,7 @@ complex_entries = [
             "peripheral": False,
             "iuhpar_ligand": False,
             "cytoplasm": False,
-            "pdb_structure": "FALSE",
+            "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "NA; the heterodimer binds IL17AF",
@@ -658,11 +659,11 @@ class TestValidatorDatabaseRandomEntries(TestCase):
                 if len(db_interaction) < 1:
                     non_match_properties.append(column_name)
             if (len(db_interaction) < 1):
-                print('Failed cheking Interaction:')
-                print('Expected data:')
-                print(interaction)
-                print('Non Match properties')
-                print(non_match_properties)
+                app_logger.warning('Failed cheking Interaction:')
+                app_logger.warning('Expected data:')
+                app_logger.warning(interaction)
+                app_logger.warning('Non Match properties')
+                app_logger.warning(non_match_properties)
                 data_not_match = True
 
         self.assertFalse(data_not_match, 'Some Interactions doesnt match')
@@ -684,9 +685,9 @@ class TestValidatorDatabaseRandomEntries(TestCase):
                     db_gene = db_gene[db_gene[column_name] == gene[column_name]]
 
             if (len(db_gene) < 1):
-                print('Failed cheking Gene:')
-                print('Expected data:')
-                print(gene)
+                app_logger.warning('Failed cheking Gene:')
+                app_logger.warning('Expected data:')
+                app_logger.warning(gene)
                 data_not_match = True
 
         self.assertFalse(data_not_match, 'Some Gene doesnt match')
@@ -703,11 +704,11 @@ class TestValidatorDatabaseRandomEntries(TestCase):
 
             for column_name in protein:
                 if db_protein[column_name].iloc[0] != protein[column_name]:
-                    print('Failed checking column \'%s\' of multidata/protein with name \'%s\'' % (
+                    app_logger.warning('Failed checking column \'%s\' of multidata/protein with name \'%s\'' % (
                         column_name, protein['name']))
-                    print('Expected value: %s' % protein[column_name])
-                    print('Database value: %s' % db_protein[column_name].iloc[0])
-                    print('---')
+                    app_logger.warning('Expected value: %s' % protein[column_name])
+                    app_logger.warning('Database value: %s' % db_protein[column_name].iloc[0])
+                    app_logger.warning('---')
                     data_not_match = True
 
         self.assertFalse(data_not_match, 'Some proteins doesnt match')
@@ -726,12 +727,12 @@ class TestValidatorDatabaseRandomEntries(TestCase):
 
             if len(df_complex_composition[df_complex_composition['complex_multidata_id'] != db_complex_id]) == len(
                     complex['composition']):
-                print('Failed checking number of complex_composition with name \'%s\'' % (
+                app_logger.warning('Failed checking number of complex_composition with name \'%s\'' % (
                     complex['data']['name']))
-                print('Expected value: %s' % len(
+                app_logger.warning('Expected value: %s' % len(
                     df_complex_composition[df_complex_composition['complex_multidata_id'] == db_complex_id]))
-                print('Database value: %s' % len(complex['composition']))
-                print('---')
+                app_logger.warning('Database value: %s' % len(complex['composition']))
+                app_logger.warning('---')
                 number_compositions_not_match = True
 
             for protein_name in complex['composition']:
@@ -742,13 +743,13 @@ class TestValidatorDatabaseRandomEntries(TestCase):
                 composition_multidata_id = df_multidata[df_multidata['name'] == protein_name]['id_multidata']
 
                 if not len(composition_multidata_id):
-                    print('Failed finding protein \'%s\' in multidata from complex name \'%s\'' % (
+                    app_logger.warning('Failed finding protein \'%s\' in multidata from complex name \'%s\'' % (
                         protein_name, complex['data']['name']))
                     some_protein_didnt_exists = True
                     continue
 
                 if composition_multidata_id.iloc[0] not in db_complex_composition_ids:
-                    print('Failed finding protein \'%s\' in composition from complex name \'%s\'' % (
+                    app_logger.warning('Failed finding protein \'%s\' in composition from complex name \'%s\'' % (
                         protein_name, complex['data']['name']))
                     some_protein_not_part_of_complex = True
 
@@ -768,11 +769,11 @@ class TestValidatorDatabaseRandomEntries(TestCase):
 
             for complex_data in complex['data']:
                 if db_complex[complex_data].iloc[0] != complex['data'][complex_data]:
-                    print('Failed checking column \'%s\' of multidata/complex with name \'%s\'' % (
+                    app_logger.warning('Failed checking column \'%s\' of multidata/complex with name \'%s\'' % (
                         complex_data, complex['data']['name']))
-                    print('Expected value: %s' % complex['data'][complex_data])
-                    print('Database value: %s' % db_complex[complex_data].iloc[0])
-                    print('---')
+                    app_logger.warning('Expected value: %s' % complex['data'][complex_data])
+                    app_logger.warning('Database value: %s' % db_complex[complex_data].iloc[0])
+                    app_logger.warning('---')
                     data_not_match = True
 
         self.assertFalse(data_not_match, 'Some complex doesnt match')
