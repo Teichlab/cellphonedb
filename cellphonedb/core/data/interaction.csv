@@ -1,800 +1,800 @@
-DLRP,IUHPAR,comments_interaction,entry_name_1,entry_name_2,family,multidata_name_1,multidata_name_2,score_1,score_2,source
-,,"3tgx, PDB partially, uniprot",,IL21_HUMAN,,IL21 receptor,Q9HBE4,1.0,1.0,curated
-True,,uniprot,,IL9_HUMAN,cytokine,IL9 receptor,P15248,1.0,1.0,curated
-,,"Induces NK Cell Activation. Reviewed in PMID: 24223577. 4s0u, PDB partially",,RET1L_HUMAN,,NKG2D II receptor,Q5VY80,1.0,1.0,curated
-True,,"1pvh, PDB partially",,LIF_HUMAN,cytokine,LIFR,P15018,1.0,1.0,curated
-,,to check,,IL1FA_HUMAN,,IL36 receptor,Q8WWZ1,1.0,1.0,curated
-True,,uniprot,,IL3_HUMAN,cytokine,IL3 receptor,P08700,1.0,1.0,curated
-,,uniprot,,,,IL35 receptor,IL35,1.0,1.0,curated
-True,,"low affinity, uniprot",,IL1A_HUMAN,cytokine,IL1 receptor inhibitor,P01583,1.0,1.0,curated
-,,uniprot,,IL33_HUMAN,,IL33 receptor,O95760,1.0,1.0,curated
-,,uniprot,,,,IL27 receptor,IL27,1.0,1.0,curated
-,,uniprot,,,,IL23 receptor,IL23,1.0,1.0,curated
-True,,"4nkq, PDB",,CSF2_HUMAN,cytokine,GMCSFR,P04141,1.0,1.0,curated
-,,uniprot,,IL1A_HUMAN,,IL1 receptor,P01583,1.0,1.0,curated
-True,,"3di2, PDB partially",,IL7_HUMAN,cytokine,IL7 receptor,P13232,1.0,1.0,curated
-,,"1hyr, PDB partially",,THRB_HUMAN,,Glycoprotein Ib  complex,P00734,1.0,1.0,curated
-True,,uniprot,,ONCM_HUMAN,cytokine,OSMR,P13725,1.0,1.0,curated
-,,uniprot,,ONCM_HUMAN,cytokine,LIFR,P13725,1.0,1.0,curated
-True,,"3wo3, PDB partially",,IL18_HUMAN,cytokine,IL18 receptor,Q14116,1.0,1.0,curated
-,,uniprot,,,,IL17 receptor AC,IL17 AF,1.0,1.0,curated
-True,,uniprot,,,cytokine,IL12 receptor,IL12,1.0,1.0,curated
-,,"5t5w, PDB",,IFNL3_HUMAN,,IL28 receptor,Q8IZI9,1.0,1.0,curated
-,,"2jjs, PDB partially",,CD47_HUMAN,,SIRB1 complex,Q08722,1.0,1.0,curated
-,,"3dgc, PDB",,IL22_HUMAN,,IL22 receptor,Q9GZX6,1.0,1.0,curated
-,,"5ffo, PDB",,TGFB1_HUMAN,,aVb6 complex,P01137,1.0,1.0,curated
-,,"1hyr, PDB partially, Induces NK Cell Activation. Reviewed in PMID: 24223577",,MICA_HUMAN,,NKG2D II receptor,Q29983,1.0,1.0,curated
-,,Induces NK Cell Activation. Reviewed in PMID: 24223577,,MICB_HUMAN,,NKG2D II receptor,Q29980,1.0,1.0,curated
-,,uniprot,,CLCF1_HUMAN,,CNTF-1R,Q9UBD9,1.0,1.0,curated
-,,"4dep, PDB",,IL1B_HUMAN,,IL1 receptor,P01584,1.0,1.0,curated
-,,"3o4o, PDB",,IL1B_HUMAN,,IL1 receptor inhibitor,P01584,1.0,1.0,curated
-,,"4n0u, PDB & 4k71, PDB",,ALBU_HUMAN,,FcRn complex,P02768,1.0,1.0,curated
-True,,"1j7v, PDB partially",,IL10_HUMAN,cytokine,IL10 receptor,P22301,1.0,1.0,curated
-,,"5j11, PDB",,TSLP_HUMAN,,TSLPR,Q969D9,1.0,1.0,curated
-,,"Induces NK Cell Activation. Reviewed in PMID: 24223577. 1kcg, PDB partially",,N2DL3_HUMAN,,NKG2D II receptor,Q9BZM4,1.0,1.0,curated
-True,,"1p9m, PDB",,IL6_HUMAN,cytokine,IL6 receptor,P05231,1.0,1.0,curated
-,,uniprot,,IL17_HUMAN,,IL17 receptor AC,Q16552,1.0,1.0,curated
-True,,"3qt2, PDB partially",,IL5_HUMAN,cytokine,IL5 receptor,P05113,1.0,1.0,curated
-True,,"3qb7, PDB",,IL4_HUMAN,cytokine,IL4 receptor,P05112,1.0,1.0,curated
-True,,"3bpn, PDB",,IL4_HUMAN,cytokine,IL13 receptor,P05112,1.0,1.0,curated
-,,"3evs,  PDB complex higher affinity",,BMR1A_HUMAN,,BMPR1B_BMPR2,P36894,1.0,1.0,curated
-,,DOI  10.1038/ncomms14937,,CRLF2_HUMAN,,TSLPR,Q9HC73,1.0,1.0,curated
-,,low affinity,,IL1RA_HUMAN,,IL1 receptor inhibitor,P18510,1.0,1.0,curated
-,,"1ira, PDB partially",,IL1RA_HUMAN,,IL1 receptor,P18510,1.0,1.0,curated
-True,,"3se3, PDB",,IFNA2_HUMAN,IFN,Type I IFNR,P01563,1.0,1.0,curated
-,,uniprot,,IL36G_HUMAN,,IL36 receptor,Q9NZH8,1.0,1.0,curated
-,,"1q69, PDB partially",,LCK_HUMAN,,CD8 receptor,P06239,1.0,1.0,curated
-,,uniprot,,IL24_HUMAN,,IL20 receptor Type II,Q13007,1.0,1.0,curated
-True,,uniprot,,CNTF_HUMAN,cytokine,CNTF-1R,P26441,1.0,1.0,curated
-,,uniprot,,I36RA_HUMAN,,IL36 receptor,Q9UBH0,1.0,1.0,curated
-,,uniprot,,IL19_HUMAN,,IL20 receptor Type I,Q9UHD0,1.0,1.0,curated
-,,uniprot,,IL20_HUMAN,,IL20 receptor Type II,Q9NYY1,1.0,1.0,curated
-,,uniprot,,IL20_HUMAN,,IL20 receptor Type I,Q9NYY1,1.0,1.0,curated
-,,"See paper Nold-Petry et al., 2015",,IL37_HUMAN,,IL37 receptor,Q9NZH6,1.0,1.0,curated
-,,"3bpo, PDB",,IL13_HUMAN,,IL13 receptor,P35225,1.0,1.0,curated
-,,uniprot,,IL17C_HUMAN,,IL17 receptor AE,Q9P0M4,1.0,1.0,curated
-True,,"Need expression of IL15RA (Q13261) in other cells. 2z3q, PDB partially",,IL15_HUMAN,cytokine,IL15 receptor,P40933,1.0,1.0,curated
-,,uniprot,,IL17F_HUMAN,,IL17 receptor AC,Q96PD4,1.0,1.0,curated
-True,,"3qaz, PDB",,IL2_HUMAN,cytokine,IL2 receptor_I,P60568,1.0,1.0,curated
-,,"2b5i, PDB",,IL2_HUMAN,,IL2 receptor_HA,P60568,1.0,1.0,curated
-,,NA IL17E called IL25,,IL25_HUMAN,,IL17 receptor AB,Q9H293,1.0,1.0,curated
-,,uniprot,,IL36A_HUMAN,,IL36 receptor,Q9UHA7,1.0,1.0,curated
-,,uniprot,,IL36B_HUMAN,,IL36 receptor,Q9NZH7,1.0,1.0,curated
-,,"1m10, PDB partially . Platets needed for its activation.",,VWF_HUMAN,,Glycoprotein Ib  complex,P04275,1.0,1.0,curated
-,,"Rutz et al., Nat Rev. 2014",,IL26_HUMAN,,IL26 receptor,Q9NPH9,1.0,1.0,curated
-,,uniprot,,IL24_HUMAN,,IL20 receptor Type I,Q13007,1.0,1.0,curated
-,,Induces NK Cell Inhibition. Reviewed in PMID: 24223577,KLRB1_HUMAN,CLC2D_HUMAN,,Q12918,Q9UHP7,1.0,1.0,curated
-,,Induces NK Cell Activation. Reviewed in PMID: 24223577,CLC2B_HUMAN,KLRF1_HUMAN,,Q92478,Q9NZS2,1.0,1.0,curated
-,,Induces NK Cell Activation. Reviewed in PMID: 24223577,KLRF2_HUMAN,CLC2A_HUMAN,,D3W0D1,Q6UVW9,1.0,1.0,curated
-,,Induces NK Cell Activation. Reviewed in PMID: 24223577,,N2DL1_HUMAN,,NKG2D II receptor,Q9BZM6,1.0,1.0,curated
-,,Induces NK Cell Activation. Reviewed in PMID: 24223577,,N2DL2_HUMAN,,NKG2D II receptor,Q9BZM5,1.0,1.0,curated
-,,Induces NK Cell Activation. Reviewed in PMID: 24223577,,N2DL4_HUMAN,,NKG2D II receptor,Q8TD07,1.0,1.0,curated
-,,Induces NK Cell Activation. Reviewed in PMID: 24223577,,RET1G_HUMAN,,NKG2D II receptor,Q6H3X3,1.0,1.0,curated
-,,Induces NK Cell Inhibition. Reviewed in PMID: 24223577,HLAE_HUMAN,NKG2A_HUMAN,,P13747,P26715,1.0,1.0,curated
-,,Induces NK Cell Activation. Reviewed in PMID: 24223577,HLAE_HUMAN,NKG2D_HUMAN,,P13747,P26718,1.0,1.0,curated
-,,Induces NK Cell Inhibition. Reviewed in PMID:24987108,CEAM5_HUMAN,CEAM1_HUMAN,,P06731,P13688,1.0,1.0,curated
-,,antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,CD28_HUMAN,CD80_HUMAN,,P10747,P33681,1.0,1.0,curated
-,,antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,CD28_HUMAN,CD86_HUMAN,,P10747,P42081,1.0,1.0,curated
-,,antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143,CTLA4_HUMAN,CD80_HUMAN,,P16410,P33681,1.0,1.0,curated
-,,antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143,CTLA4_HUMAN,CD86_HUMAN,,P16410,P42081,1.0,1.0,curated
-,,important for T follicular helper cells (Tfh) and type 2 T helper cell (Th2) responses. Reviewed in PMID: 23954143,ICOS_HUMAN,ICOSL_HUMAN,,Q9Y6W8,O75144,1.0,1.0,curated
-,,antigen-stimulated T cells become anergic. PMID: 23954143,PDCD1_HUMAN,PD1L1_HUMAN,,Q15116,Q9NZQ7,1.0,1.0,curated
-,,antigen-stimulated T cells become anergic. PMID: 23954143,PDCD1_HUMAN,PD1L2_HUMAN,,Q15116,Q9BQ51,1.0,1.0,curated
-,,Reviewed in PMID: 27192565,HAVR2_HUMAN,LEG9_HUMAN,,Q8TDQ0,O00182,1.0,1.0,curated
-,,Reviewed in PMID: 23602662,CD47_HUMAN,SHPS1_HUMAN,,Q08722,P78324,1.0,1.0,curated
-,,Reviewed in PMID: 23602662,CD2_HUMAN,LFA3_HUMAN,,P06729,P19256,1.0,1.0,curated
-True,,Reviewed in PMID: 23602662,CD40L_HUMAN,TNR5_HUMAN,TNF,P29965,P25942,1.0,1.0,curated
-,,Reviewed in PMID: 23602662,CD6_HUMAN,CD166_HUMAN,,P30203,Q13740,1.0,1.0,curated
-,,Reviewed in PMID: 23602662,ICAM1_HUMAN,ITAL_HUMAN,,P05362,P20701,1.0,1.0,curated
-,,activating interaction from uniprot,NCTR3_HUMAN,BAG6_HUMAN,,O14931,P46379,1.0,1.0,curated
-,,activating interaction from uniprot,NCTR3_HUMAN,NR3L1_HUMAN,,O14931,Q68D85,1.0,1.0,curated
-,,"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149",CD226_HUMAN,NECT2_HUMAN,,Q15762,Q92692,1.0,1.0,curated
-,,"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149",CD226_HUMAN,PVR_HUMAN,,Q15762,P15151,1.0,1.0,curated
-,,activating interaction. uniprot & PMID: 26697006,NKG2C_HUMAN,HLAE_HUMAN,,P26717,P13747,1.0,1.0,curated
-,,activating interaction. uniprot & PMID: 26697006,CD244_HUMAN,CD48_HUMAN,,Q9BZW8,P09326,1.0,1.0,curated
-True,,activating interaction for NK and T cells. uniprot & PMID: 26697006,CD27_HUMAN,CD70_HUMAN,TNF. Also called TNFSF7/TNFRSF7,P26842,P32970,1.0,1.0,curated
-,,uniprot,CRTAM_HUMAN,CADM1_HUMAN,,O95727,Q9BY67,1.0,1.0,curated
-,,uniprot,TACT_HUMAN,PVR_HUMAN,,P40200,P15151,1.0,1.0,curated
-,,PMID: 24658051,TACT_HUMAN,NECT1_HUMAN,,P40200,Q15223,1.0,1.0,curated
-,,"PMID: 19815499, Induces NK Cell Inhibition. Reviewed in PMID:24987108",TIGIT_HUMAN,PVR_HUMAN,,Q495A1,P15151,1.0,1.0,curated
-,,"PMID: 1313846, Induces NK Cell Inhibition. Reviewed in PMID:24987108",TIGIT_HUMAN,NECT2_HUMAN,,Q495A1,Q92692,1.0,1.0,curated
-,,PMID: 1313846,TIGIT_HUMAN,NECT3_HUMAN,,Q495A1,Q9NQS3,1.0,1.0,curated
-,,"uniprot, Induces NK Cell Inhibition. Reviewed in PMID:24987108",LIRB1_HUMAN,HLAG_HUMAN,,Q8NHL6,P17693,1.0,1.0,curated
-,,uniprot,LIRB2_HUMAN,HLAG_HUMAN,,Q8N423,P17693,1.0,1.0,curated
-,,uniprot,,VEGFA_HUMAN,,FLT1 complex,P15692,1.0,1.0,curated
-,,uniprot,,VEGFB_HUMAN,,FLT1 complex,P49765,1.0,1.0,curated
-True,,uniprot,,PLGF_HUMAN,,FLT1 complex,P49763,1.0,1.0,curated
-,,uniprot,,PDGFB_HUMAN,,PDGFR complex,P01127,1.0,1.0,curated
-,,uniprot,,PDGFD_HUMAN,,PDGFR complex,Q9GZP0,1.0,1.0,curated
-,,uniprot,,ICAM1_HUMAN,,aLb2 complex,P05362,1.0,1.0,curated
-,,uniprot,,ICAM2_HUMAN,,aLb2 complex,P13598,1.0,1.0,curated
-,,uniprot,,ICAM3_HUMAN,,aLb2 complex,P32942,1.0,1.0,curated
-,,uniprot,,ICAM4_HUMAN,,aLb2 complex,Q14773,1.0,1.0,curated
-,,"(PubMed:11812992, PubMed:15528364)",,JAM1_HUMAN,,aLb2 complex,Q9Y624,1.0,1.0,curated
-,,uniprot,,CO3_HUMAN,,aMb2 complex,P01024,1.0,1.0,curated
-,,uniprot,,,,aMb2 complex,fibrinogen,1.0,1.0,curated
-,,uniprot,,FA10_HUMAN,,aMb2 complex,P00742,1.0,1.0,curated
-,,uniprot,,ICAM1_HUMAN,,aMb2 complex,P05362,1.0,1.0,curated
-,,uniprot,,,,aXb2 complex,fibrinogen,1.0,1.0,curated
-,,uniprot,,ICAM3_HUMAN,,aDb2 complex,P32942,1.0,1.0,curated
-,,uniprot,,VCAM1_HUMAN,,aDb2 complex,P19320,1.0,1.0,curated
-,,uniprot,,CADH1_HUMAN,,aEb7 complex,P12830,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a2b1 complex,P02751,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a3b1 complex,P02751,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a4b1 complex,P02751,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a8b1 complex,P02751,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a10b1 complex,P02751,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a11b1 complex,P02751,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,aVb1 complex,P02751,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a5b1 complex,P02751,1.0,1.0,curated
-,,uniprot,,LAMC1_HUMAN,,a2b1 complex,P11047,1.0,1.0,curated
-,,uniprot,,LAMC1_HUMAN,,a6b1 complex,P11047,1.0,1.0,curated
-,,uniprot,,LAMC1_HUMAN,,a7b1 complex,P11047,1.0,1.0,curated
-,,uniprot,,TSP1_HUMAN,,a3b1 complex,P07996,1.0,1.0,curated
-,,uniprot,,CSPG4_HUMAN,,a3b1 complex,Q6UVK1,1.0,1.0,curated
-,,uniprot,,VTNC_HUMAN,,aVb1 complex,P04004,1.0,1.0,curated
-,,uniprot,,PA2GA_HUMAN,,a4b1 complex,P14555,1.0,1.0,curated
-,,uniprot,,PA2GA_HUMAN,,a5b1 complex,P14555,1.0,1.0,curated
-,,uniprot,,FBN1_HUMAN,,a5b1 complex,P35555,1.0,1.0,curated
-,,uniprot,,VCAM1_HUMAN,,a9b1 complex,P19320,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,aVb3 complex,P02751,1.0,1.0,curated
-,,uniprot,,LAMC1_HUMAN,,aVb3 complex,P11047,1.0,1.0,curated
-,,uniprot,,MMP2_HUMAN,,aVb3 complex,P08253,1.0,1.0,curated
-,,uniprot,,OMD_HUMAN,,aVb3 complex,Q99983,1.0,1.0,curated
-,,uniprot,,THRB_HUMAN,,aVb3 complex,P00734,1.0,1.0,curated
-,,uniprot,,TSP1_HUMAN,,aVb3 complex,P07996,1.0,1.0,curated
-,,uniprot,,VTNC_HUMAN,,aVb3 complex,P04004,1.0,1.0,curated
-,,uniprot,,VWF_HUMAN,,aVb3 complex,P04275,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a2Bb3 complex,P02751,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a2Bb3 complex,fibrinogen,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a2Bb3 complex,P00747,1.0,1.0,curated
-,,uniprot,,THRB_HUMAN,,a2Bb3 complex,P00734,1.0,1.0,curated
-,,uniprot,,TSP1_HUMAN,,a2Bb3 complex,P07996,1.0,1.0,curated
-,,uniprot,,VTNC_HUMAN,,a2Bb3 complex,P04004,1.0,1.0,curated
-,,uniprot,,TENA_HUMAN,,a8b1 complex,P24821,1.0,1.0,curated
-,,uniprot,,TENA_HUMAN,,aVb6 complex,P24821,1.0,1.0,curated
-,,uniprot,,MADCA_HUMAN,,a4b7 complex,Q13477,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,aVb5 complex,P02751,1.0,1.0,curated
-,,uniprot,,VCAM1_HUMAN,,a4b7 complex,P19320,1.0,1.0,curated
-,,uniprot,,FINC_HUMAN,,a4b7 complex,P02751,1.0,1.0,curated
-,,uniprot,,TENA_HUMAN,,a4b1 complex,P24821,1.0,1.0,curated
-,,uniprot,,LAMA3_HUMAN,,a3b1 complex,Q16787,1.0,1.0,curated
-,,uniprot,,TENA_HUMAN,,a9b1 complex,P24821,1.0,1.0,curated
-,,uniprot,,TENA_HUMAN,,aVb3 complex,P24821,1.0,1.0,curated
-,,uniprot,,CO1A1_HUMAN,,a1b1 complex,P02452,1.0,1.0,curated
-,,uniprot,,CO2A1_HUMAN,,a1b1 complex,P02458,1.0,1.0,curated
-,,uniprot,,CO3A1_HUMAN,,a1b1 complex,P02461,1.0,1.0,curated
-,,uniprot,,CO4A1_HUMAN,,a1b1 complex,P02462,1.0,1.0,curated
-,,uniprot,,CO6A6_HUMAN,,a1b1 complex,A6NMZ7,1.0,1.0,curated
-,,uniprot,,CO6A5_HUMAN,,a1b1 complex,A8TX70,1.0,1.0,curated
-,,uniprot,,CO5A2_HUMAN,,a1b1 complex,P05997,1.0,1.0,curated
-,,uniprot,,CO1A2_HUMAN,,a1b1 complex,P08123,1.0,1.0,curated
-,,uniprot,,CO4A2_HUMAN,,a1b1 complex,P08572,1.0,1.0,curated
-,,uniprot,,COBA1_HUMAN,,a1b1 complex,P12107,1.0,1.0,curated
-,,uniprot,,CO6A1_HUMAN,,a1b1 complex,P12109,1.0,1.0,curated
-,,uniprot,,CO6A2_HUMAN,,a1b1 complex,P12110,1.0,1.0,curated
-,,uniprot,,CO6A3_HUMAN,,a1b1 complex,P12111,1.0,1.0,curated
-,,uniprot,,COBA2_HUMAN,,a1b1 complex,P13942,1.0,1.0,curated
-,,uniprot,,CO9A1_HUMAN,,a1b1 complex,P20849,1.0,1.0,curated
-,,uniprot,,CO5A1_HUMAN,,a1b1 complex,P20908,1.0,1.0,curated
-,,uniprot,,CO8A2_HUMAN,,a1b1 complex,P25067,1.0,1.0,curated
-,,uniprot,,CO5A3_HUMAN,,a1b1 complex,P25940,1.0,1.0,curated
-,,uniprot,,CO8A1_HUMAN,,a1b1 complex,P27658,1.0,1.0,curated
-,,uniprot,,CO4A5_HUMAN,,a1b1 complex,P29400,1.0,1.0,curated
-,,uniprot,,COFA1_HUMAN,,a1b1 complex,P39059,1.0,1.0,curated
-,,uniprot,,COIA1_HUMAN,,a1b1 complex,P39060,1.0,1.0,curated
-,,uniprot,,CO4A4_HUMAN,,a1b1 complex,P53420,1.0,1.0,curated
-,,uniprot,,CO4A3_HUMAN,,a1b1 complex,Q01955,1.0,1.0,curated
-,,uniprot,,CO7A1_HUMAN,,a1b1 complex,Q02388,1.0,1.0,curated
-,,uniprot,,COAA1_HUMAN,,a1b1 complex,Q03692,1.0,1.0,curated
-,,uniprot,,COEA1_HUMAN,,a1b1 complex,Q05707,1.0,1.0,curated
-,,uniprot,,COGA1_HUMAN,,a1b1 complex,Q07092,1.0,1.0,curated
-,,uniprot,,CO4A6_HUMAN,,a1b1 complex,Q14031,1.0,1.0,curated
-,,uniprot,,CO9A3_HUMAN,,a1b1 complex,Q14050,1.0,1.0,curated
-,,uniprot,,CO9A2_HUMAN,,a1b1 complex,Q14055,1.0,1.0,curated
-,,uniprot,,COJA1_HUMAN,,a1b1 complex,Q14993,1.0,1.0,curated
-,,uniprot,,COOA1_HUMAN,,a1b1 complex,Q17RW2,1.0,1.0,curated
-,,uniprot,,COSA1_HUMAN,,a1b1 complex,Q2UY09,1.0,1.0,curated
-,,uniprot,,CODA1_HUMAN,,a1b1 complex,Q5TAT6,1.0,1.0,curated
-,,uniprot,,CORA1_HUMAN,,a1b1 complex,Q8IZC6,1.0,1.0,curated
-,,uniprot,,COMA1_HUMAN,,a1b1 complex,Q8NFW1,1.0,1.0,curated
-,,uniprot,,COQA1_HUMAN,,a1b1 complex,Q96A83,1.0,1.0,curated
-,,uniprot,,COLA1_HUMAN,,a1b1 complex,Q96P44,1.0,1.0,curated
-,,uniprot,,COCA1_HUMAN,,a1b1 complex,Q99715,1.0,1.0,curated
-,,uniprot,,COKA1_HUMAN,,a1b1 complex,Q9P218,1.0,1.0,curated
-,,uniprot,,COHA1_HUMAN,,a1b1 complex,Q9UMD9,1.0,1.0,curated
-,,uniprot,,CO1A1_HUMAN,,a2b1 complex,P02452,1.0,1.0,curated
-,,uniprot,,CO2A1_HUMAN,,a2b1 complex,P02458,1.0,1.0,curated
-,,uniprot,,CO3A1_HUMAN,,a2b1 complex,P02461,1.0,1.0,curated
-,,uniprot,,CO4A1_HUMAN,,a2b1 complex,P02462,1.0,1.0,curated
-,,uniprot,,CO6A6_HUMAN,,a2b1 complex,A6NMZ7,1.0,1.0,curated
-,,uniprot,,CO6A5_HUMAN,,a2b1 complex,A8TX70,1.0,1.0,curated
-,,uniprot,,CO5A2_HUMAN,,a2b1 complex,P05997,1.0,1.0,curated
-,,uniprot,,CO1A2_HUMAN,,a2b1 complex,P08123,1.0,1.0,curated
-,,uniprot,,CO4A2_HUMAN,,a2b1 complex,P08572,1.0,1.0,curated
-,,uniprot,,COBA1_HUMAN,,a2b1 complex,P12107,1.0,1.0,curated
-,,uniprot,,CO6A1_HUMAN,,a2b1 complex,P12109,1.0,1.0,curated
-,,uniprot,,CO6A2_HUMAN,,a2b1 complex,P12110,1.0,1.0,curated
-,,uniprot,,CO6A3_HUMAN,,a2b1 complex,P12111,1.0,1.0,curated
-,,uniprot,,COBA2_HUMAN,,a2b1 complex,P13942,1.0,1.0,curated
-,,uniprot,,CO9A1_HUMAN,,a2b1 complex,P20849,1.0,1.0,curated
-,,uniprot,,CO5A1_HUMAN,,a2b1 complex,P20908,1.0,1.0,curated
-,,uniprot,,CO8A2_HUMAN,,a2b1 complex,P25067,1.0,1.0,curated
-,,uniprot,,CO5A3_HUMAN,,a2b1 complex,P25940,1.0,1.0,curated
-,,uniprot,,CO8A1_HUMAN,,a2b1 complex,P27658,1.0,1.0,curated
-,,uniprot,,CO4A5_HUMAN,,a2b1 complex,P29400,1.0,1.0,curated
-,,uniprot,,COFA1_HUMAN,,a2b1 complex,P39059,1.0,1.0,curated
-,,uniprot,,COIA1_HUMAN,,a2b1 complex,P39060,1.0,1.0,curated
-,,uniprot,,CO4A4_HUMAN,,a2b1 complex,P53420,1.0,1.0,curated
-,,uniprot,,CO4A3_HUMAN,,a2b1 complex,Q01955,1.0,1.0,curated
-,,uniprot,,CO7A1_HUMAN,,a2b1 complex,Q02388,1.0,1.0,curated
-,,uniprot,,COAA1_HUMAN,,a2b1 complex,Q03692,1.0,1.0,curated
-,,uniprot,,COEA1_HUMAN,,a2b1 complex,Q05707,1.0,1.0,curated
-,,uniprot,,COGA1_HUMAN,,a2b1 complex,Q07092,1.0,1.0,curated
-,,uniprot,,CO4A6_HUMAN,,a2b1 complex,Q14031,1.0,1.0,curated
-,,uniprot,,CO9A3_HUMAN,,a2b1 complex,Q14050,1.0,1.0,curated
-,,uniprot,,CO9A2_HUMAN,,a2b1 complex,Q14055,1.0,1.0,curated
-,,uniprot,,COJA1_HUMAN,,a2b1 complex,Q14993,1.0,1.0,curated
-,,uniprot,,COOA1_HUMAN,,a2b1 complex,Q17RW2,1.0,1.0,curated
-,,uniprot,,COSA1_HUMAN,,a2b1 complex,Q2UY09,1.0,1.0,curated
-,,uniprot,,CODA1_HUMAN,,a2b1 complex,Q5TAT6,1.0,1.0,curated
-,,uniprot,,CORA1_HUMAN,,a2b1 complex,Q8IZC6,1.0,1.0,curated
-,,uniprot,,COMA1_HUMAN,,a2b1 complex,Q8NFW1,1.0,1.0,curated
-,,uniprot,,COQA1_HUMAN,,a2b1 complex,Q96A83,1.0,1.0,curated
-,,uniprot,,COLA1_HUMAN,,a2b1 complex,Q96P44,1.0,1.0,curated
-,,uniprot,,COCA1_HUMAN,,a2b1 complex,Q99715,1.0,1.0,curated
-,,uniprot,,COKA1_HUMAN,,a2b1 complex,Q9P218,1.0,1.0,curated
-,,uniprot,,COHA1_HUMAN,,a2b1 complex,Q9UMD9,1.0,1.0,curated
-,,uniprot,,CO1A1_HUMAN,,a10b1 complex,P02452,1.0,1.0,curated
-,,uniprot,,CO2A1_HUMAN,,a10b1 complex,P02458,1.0,1.0,curated
-,,uniprot,,CO3A1_HUMAN,,a10b1 complex,P02461,1.0,1.0,curated
-,,uniprot,,CO4A1_HUMAN,,a10b1 complex,P02462,1.0,1.0,curated
-,,uniprot,,CO6A6_HUMAN,,a10b1 complex,A6NMZ7,1.0,1.0,curated
-,,uniprot,,CO6A5_HUMAN,,a10b1 complex,A8TX70,1.0,1.0,curated
-,,uniprot,,CO5A2_HUMAN,,a10b1 complex,P05997,1.0,1.0,curated
-,,uniprot,,CO1A2_HUMAN,,a10b1 complex,P08123,1.0,1.0,curated
-,,uniprot,,CO4A2_HUMAN,,a10b1 complex,P08572,1.0,1.0,curated
-,,uniprot,,COBA1_HUMAN,,a10b1 complex,P12107,1.0,1.0,curated
-,,uniprot,,CO6A1_HUMAN,,a10b1 complex,P12109,1.0,1.0,curated
-,,uniprot,,CO6A2_HUMAN,,a10b1 complex,P12110,1.0,1.0,curated
-,,uniprot,,CO6A3_HUMAN,,a10b1 complex,P12111,1.0,1.0,curated
-,,uniprot,,COBA2_HUMAN,,a10b1 complex,P13942,1.0,1.0,curated
-,,uniprot,,CO9A1_HUMAN,,a10b1 complex,P20849,1.0,1.0,curated
-,,uniprot,,CO5A1_HUMAN,,a10b1 complex,P20908,1.0,1.0,curated
-,,uniprot,,CO8A2_HUMAN,,a10b1 complex,P25067,1.0,1.0,curated
-,,uniprot,,CO5A3_HUMAN,,a10b1 complex,P25940,1.0,1.0,curated
-,,uniprot,,CO8A1_HUMAN,,a10b1 complex,P27658,1.0,1.0,curated
-,,uniprot,,CO4A5_HUMAN,,a10b1 complex,P29400,1.0,1.0,curated
-,,uniprot,,COFA1_HUMAN,,a10b1 complex,P39059,1.0,1.0,curated
-,,uniprot,,COIA1_HUMAN,,a10b1 complex,P39060,1.0,1.0,curated
-,,uniprot,,CO4A4_HUMAN,,a10b1 complex,P53420,1.0,1.0,curated
-,,uniprot,,CO4A3_HUMAN,,a10b1 complex,Q01955,1.0,1.0,curated
-,,uniprot,,CO7A1_HUMAN,,a10b1 complex,Q02388,1.0,1.0,curated
-,,uniprot,,COAA1_HUMAN,,a10b1 complex,Q03692,1.0,1.0,curated
-,,uniprot,,COEA1_HUMAN,,a10b1 complex,Q05707,1.0,1.0,curated
-,,uniprot,,COGA1_HUMAN,,a10b1 complex,Q07092,1.0,1.0,curated
-,,uniprot,,CO4A6_HUMAN,,a10b1 complex,Q14031,1.0,1.0,curated
-,,uniprot,,CO9A3_HUMAN,,a10b1 complex,Q14050,1.0,1.0,curated
-,,uniprot,,CO9A2_HUMAN,,a10b1 complex,Q14055,1.0,1.0,curated
-,,uniprot,,COJA1_HUMAN,,a10b1 complex,Q14993,1.0,1.0,curated
-,,uniprot,,COOA1_HUMAN,,a10b1 complex,Q17RW2,1.0,1.0,curated
-,,uniprot,,COSA1_HUMAN,,a10b1 complex,Q2UY09,1.0,1.0,curated
-,,uniprot,,CODA1_HUMAN,,a10b1 complex,Q5TAT6,1.0,1.0,curated
-,,uniprot,,CORA1_HUMAN,,a10b1 complex,Q8IZC6,1.0,1.0,curated
-,,uniprot,,COMA1_HUMAN,,a10b1 complex,Q8NFW1,1.0,1.0,curated
-,,uniprot,,COQA1_HUMAN,,a10b1 complex,Q96A83,1.0,1.0,curated
-,,uniprot,,COLA1_HUMAN,,a10b1 complex,Q96P44,1.0,1.0,curated
-,,uniprot,,COCA1_HUMAN,,a10b1 complex,Q99715,1.0,1.0,curated
-,,uniprot,,COKA1_HUMAN,,a10b1 complex,Q9P218,1.0,1.0,curated
-,,uniprot,,COHA1_HUMAN,,a10b1 complex,Q9UMD9,1.0,1.0,curated
-,,uniprot,,CO1A1_HUMAN,,a11b1 complex,P02452,1.0,1.0,curated
-,,uniprot,,CO2A1_HUMAN,,a11b1 complex,P02458,1.0,1.0,curated
-,,uniprot,,CO3A1_HUMAN,,a11b1 complex,P02461,1.0,1.0,curated
-,,uniprot,,CO4A1_HUMAN,,a11b1 complex,P02462,1.0,1.0,curated
-,,uniprot,,CO6A6_HUMAN,,a11b1 complex,A6NMZ7,1.0,1.0,curated
-,,uniprot,,CO6A5_HUMAN,,a11b1 complex,A8TX70,1.0,1.0,curated
-,,uniprot,,CO5A2_HUMAN,,a11b1 complex,P05997,1.0,1.0,curated
-,,uniprot,,CO1A2_HUMAN,,a11b1 complex,P08123,1.0,1.0,curated
-,,uniprot,,CO4A2_HUMAN,,a11b1 complex,P08572,1.0,1.0,curated
-,,uniprot,,COBA1_HUMAN,,a11b1 complex,P12107,1.0,1.0,curated
-,,uniprot,,CO6A1_HUMAN,,a11b1 complex,P12109,1.0,1.0,curated
-,,uniprot,,CO6A2_HUMAN,,a11b1 complex,P12110,1.0,1.0,curated
-,,uniprot,,CO6A3_HUMAN,,a11b1 complex,P12111,1.0,1.0,curated
-,,uniprot,,COBA2_HUMAN,,a11b1 complex,P13942,1.0,1.0,curated
-,,uniprot,,CO9A1_HUMAN,,a11b1 complex,P20849,1.0,1.0,curated
-,,uniprot,,CO5A1_HUMAN,,a11b1 complex,P20908,1.0,1.0,curated
-,,uniprot,,CO8A2_HUMAN,,a11b1 complex,P25067,1.0,1.0,curated
-,,uniprot,,CO5A3_HUMAN,,a11b1 complex,P25940,1.0,1.0,curated
-,,uniprot,,CO8A1_HUMAN,,a11b1 complex,P27658,1.0,1.0,curated
-,,uniprot,,CO4A5_HUMAN,,a11b1 complex,P29400,1.0,1.0,curated
-,,uniprot,,COFA1_HUMAN,,a11b1 complex,P39059,1.0,1.0,curated
-,,uniprot,,COIA1_HUMAN,,a11b1 complex,P39060,1.0,1.0,curated
-,,uniprot,,CO4A4_HUMAN,,a11b1 complex,P53420,1.0,1.0,curated
-,,uniprot,,CO4A3_HUMAN,,a11b1 complex,Q01955,1.0,1.0,curated
-,,uniprot,,CO7A1_HUMAN,,a11b1 complex,Q02388,1.0,1.0,curated
-,,uniprot,,COAA1_HUMAN,,a11b1 complex,Q03692,1.0,1.0,curated
-,,uniprot,,COEA1_HUMAN,,a11b1 complex,Q05707,1.0,1.0,curated
-,,uniprot,,COGA1_HUMAN,,a11b1 complex,Q07092,1.0,1.0,curated
-,,uniprot,,CO4A6_HUMAN,,a11b1 complex,Q14031,1.0,1.0,curated
-,,uniprot,,CO9A3_HUMAN,,a11b1 complex,Q14050,1.0,1.0,curated
-,,uniprot,,CO9A2_HUMAN,,a11b1 complex,Q14055,1.0,1.0,curated
-,,uniprot,,COJA1_HUMAN,,a11b1 complex,Q14993,1.0,1.0,curated
-,,uniprot,,COOA1_HUMAN,,a11b1 complex,Q17RW2,1.0,1.0,curated
-,,uniprot,,COSA1_HUMAN,,a11b1 complex,Q2UY09,1.0,1.0,curated
-,,uniprot,,CODA1_HUMAN,,a11b1 complex,Q5TAT6,1.0,1.0,curated
-,,uniprot,,CORA1_HUMAN,,a11b1 complex,Q8IZC6,1.0,1.0,curated
-,,uniprot,,COMA1_HUMAN,,a11b1 complex,Q8NFW1,1.0,1.0,curated
-,,uniprot,,COQA1_HUMAN,,a11b1 complex,Q96A83,1.0,1.0,curated
-,,uniprot,,COLA1_HUMAN,,a11b1 complex,Q96P44,1.0,1.0,curated
-,,uniprot,,COCA1_HUMAN,,a11b1 complex,Q99715,1.0,1.0,curated
-,,uniprot,,COKA1_HUMAN,,a11b1 complex,Q9P218,1.0,1.0,curated
-,,uniprot,,COHA1_HUMAN,,a11b1 complex,Q9UMD9,1.0,1.0,curated
-,,PMID: 28484462,KI2L1_HUMAN,HLAC,,P43626,HLAC,1.0,1.0,curated
-,,PMID: 28484462,KI2L3_HUMAN,HLAC,,P43628,HLAC,1.0,1.0,curated
-,,uniprot,KI3L1_HUMAN,HLAA,,P43629,HLAA,1.0,1.0,curated
-,,uniprot,KI3L2_HUMAN,HLAB,,P43630,HLAB,1.0,1.0,curated
-,,PMID: 28484462,,HLAE_HUMAN,,CD94:NKG2A,P13747,1.0,1.0,curated
-,,PMID: 28484462,,HLAE_HUMAN,,CD94:NKG2C,P13747,1.0,1.0,curated
-,,PMID: 28484462,,HLAE_HUMAN,,CD94:NKG2E,P13747,1.0,1.0,curated
-,,"PMID: 1830891, PMID: 8970045",,OSTP_HUMAN,,a4b1 complex,P10451,1.0,1.0,curated
-,,"PMID: 1830891, PMID: 8970045",,OSTP_HUMAN,,a9b1 complex,P10451,1.0,1.0,curated
-,,PMID: 24442579,,OSTP_HUMAN,,aVb3 complex,P10451,1.0,1.0,curated
-,,uniprot,,IGF1_HUMAN,,a6b4 complex,P05019,1.0,1.0,curated
-,,uniprot,,NRG1_HUMAN,,a6b4 complex,Q02297,1.0,1.0,curated
-,,"PMID: 22020332, also called CD200-CD200R",OX2G_HUMAN,MO2R1_HUMAN,,P41217,Q8TD46,1.0,1.0,curated
-,,PMID: 24032637,WNT1_HUMAN,FZD1_HUMAN,,P04628,Q9UP38,1.0,1.0,curated
-,,PMID: 24032637,WNT2_HUMAN,FZD2_HUMAN,,P09544,Q14332,1.0,1.0,curated
-,,PMID: 24032637,WNT2_HUMAN,FZD3_HUMAN,,P09544,Q9NPG1,1.0,1.0,curated
-,,PMID: 24032637,WNT2_HUMAN,FZD4_HUMAN,,P09544,Q9ULV1,1.0,1.0,curated
-,,PMID: 24032637,WNT2_HUMAN,FZD9_HUMAN,,P09544,O00144,1.0,1.0,curated
-,,PMID: 24032637,WNT2B_HUMAN,FZD4_HUMAN,,Q93097,Q9ULV1,1.0,1.0,curated
-,,PMID: 24032637,WNT3_HUMAN,FZD7_HUMAN,,P56703,O75084,1.0,1.0,curated
-,,PMID: 24032637,WNT4_HUMAN,FZD6_HUMAN,,P56705,O60353,1.0,1.0,curated
-,,PMID: 24032637,WNT5A_HUMAN,FZD1_HUMAN,,P41221,Q9UP38,1.0,1.0,curated
-,,PMID: 24032637,WNT5A_HUMAN,FZD2_HUMAN,,P41221,Q14332,1.0,1.0,curated
-,,PMID: 24032637,WNT5A_HUMAN,FZD3_HUMAN,,P41221,Q9NPG1,1.0,1.0,curated
-,,PMID: 24032637,WNT5A_HUMAN,FZD5_HUMAN,,P41221,Q13467,1.0,1.0,curated
-,,PMID: 24032637,WNT5A_HUMAN,FZD6_HUMAN,,P41221,O60353,1.0,1.0,curated
-,,PMID: 24032637,WNT7A_HUMAN,FZD5_HUMAN,,O00755,Q13467,1.0,1.0,curated
-,,PMID: 24032637,WNT7B_HUMAN,FZD1_HUMAN,,P56706,Q9UP38,1.0,1.0,curated
-,,PMID: 24032637,WNT7B_HUMAN,FZD4_HUMAN,,P56706,Q9ULV1,1.0,1.0,curated
-,,PMID: 24032637,WNT7B_HUMAN,FZD10_HUMAN,,P56706,Q9ULW2,1.0,1.0,curated
-,,PMID: 22325954,SEM3A_HUMAN,,,Q14563,PlexinA1_complex3,1.0,1.0,curated
-,,PMID: 22325954,SEM3A_HUMAN,,,Q14563,PlexinA2_complex1,1.0,1.0,curated
-,,PMID: 22325954,SEM3A_HUMAN,,,Q14563,PlexinA3_complex1,1.0,1.0,curated
-,,PMID: 22325954,SEM3A_HUMAN,,,Q14563,PlexinA4_complex1,1.0,1.0,curated
-,,PMID: 22325954,SEM3E_HUMAN,PLXD1_HUMAN,,O15041,Q9Y4D7,1.0,1.0,curated
-,,PMID: 22325954,SEM4A_HUMAN,PLXD1_HUMAN,,Q9H3S1,Q9Y4D7,1.0,1.0,curated
-,,PMID: 22325954,SEM4D_HUMAN,PLXB1_HUMAN,,Q92854,O43157,1.0,1.0,curated
-,,PMID: 22325954,SEM4D_HUMAN,PLXB2_HUMAN,,Q92854,O15031,1.0,1.0,curated
-,,PMID: 22325954,SEM4D_HUMAN,CD72_HUMAN,,Q92854,P21854,1.0,1.0,curated
-,,PMID: 22325954,SEM6D_HUMAN,,,Q8NFY4,PlexinA1_complex1,1.0,1.0,curated
-,,PMID: 22325954,SEM6D_HUMAN,,,Q8NFY4,PlexinA1_complex2,1.0,1.0,curated
-,,PMID: 22325954,SEM7A_HUMAN,,,O75326,a1b1 complex,1.0,1.0,curated
-,,PMID: 22325954,SEM7A_HUMAN,PLXC1_HUMAN,,O75326,O60486,1.0,1.0,curated
-True,,PMID: 9208871,IFNA1_HUMAN,,cytokine,P01562,Type I IFNR,1.0,1.0,curated
-,,PMID: 9208871,IFNB_HUMAN,,,P01574,Type I IFNR,1.0,1.0,curated
-,,PMID: 9208871,IFNE_HUMAN,,,Q86WN2,Type I IFNR,1.0,1.0,curated
-,,PMID: 9208871,IFNK_HUMAN,,,Q9P0W0,Type I IFNR,1.0,1.0,curated
-True,,PMID: 9208871,IFNW1_HUMAN,,IFN,P05000,Type I IFNR,1.0,1.0,curated
-True,,PMID: 9208871,IFNG_HUMAN,,IFN,P01579,Type II IFNR,1.0,1.0,curated
-,,PMID: 9208871,IFNL1_HUMAN,,,Q8IU54,Type III IFNR,1.0,1.0,curated
-,,PMID: 9208871,IFNL2_HUMAN,,,Q8IZJ0,Type III IFNR,1.0,1.0,curated
-,,PMID: 9208871,IFNL3_HUMAN,,,Q8IZI9,Type III IFNR,1.0,1.0,curated
-True,,uniprot,VGFR2_HUMAN,VEGFA_HUMAN,,P35968,P15692,1.0,1.0,curated
-True,,uniprot,VGFR2_HUMAN,VEGFC_HUMAN,,P35968,P49767,1.0,1.0,curated
-True,,uniprot,VGFR2_HUMAN,VEGFD_HUMAN,,P35968,O43915,1.0,1.0,curated
-,,uniprot,VGFR1_HUMAN,VEGFA_HUMAN,,P17948,P15692,1.0,1.0,curated
-,,uniprot,VGFR1_HUMAN,VEGFB_HUMAN,,P17948,P49765,1.0,1.0,curated
-,,uniprot,VGFR1_HUMAN,PLGF_HUMAN,,P17948,P49763,1.0,1.0,curated
-True,,uniprot,VGFR3_HUMAN,VEGFC_HUMAN,,P35916,P49767,1.0,1.0,curated
-True,,uniprot,VGFR3_HUMAN,VEGFD_HUMAN,,P35916,O43915,1.0,1.0,curated
-,,uniprot,SEM4C_HUMAN,PLXB2_HUMAN,,Q9C0C4,O15031,1.0,1.0,curated
-,,uniprot,SEM4G_HUMAN,PLXB2_HUMAN,,Q9NTN9,O15031,1.0,1.0,curated
-,,uniprot,SEM5A_HUMAN,PLXB3_HUMAN,,Q13591,Q9ULL4,1.0,1.0,curated
-True,,PMID: 24218476,CCR2_HUMAN,CCL2_HUMAN,,P41597,P13500,1.0,1.0,curated
-True,,PMID: 24218476,ACKR2_HUMAN,CCL2_HUMAN,,O00590,P13500,1.0,1.0,curated
-True,,PMID: 24218476,ACKR1_HUMAN,CCL2_HUMAN,,Q16570,P13500,1.0,1.0,curated
-,,PMID: 24218476,CX3C1_HUMAN,X3CL1_HUMAN,,P49238,P78423,1.0,1.0,curated
-,,PMID: 24218476,CXCR3_HUMAN,PLF4_HUMAN,,P49682,P02776,1.0,1.0,curated
-True,,PMID: 24218476,CCR3_HUMAN,CCL5_HUMAN,,P51677,P13501,1.0,1.0,curated
-True,,PMID: 24218476,CCR1_HUMAN,CCL5_HUMAN,,P32246,P13501,1.0,1.0,curated
-,,PMID: 24218476,ACKR1_HUMAN,CCL5_HUMAN,,Q16570,P13501,1.0,1.0,curated
-True,,PMID: 24218476,ACKR1_HUMAN,IL8_HUMAN,,Q16570,P10145,1.0,1.0,curated
-True,,PMID: 24218476,CXCR1_HUMAN,IL8_HUMAN,,P25024,P10145,1.0,1.0,curated
-,,PMID: 24218476,CXCR1_HUMAN,CXCL7_HUMAN,,P25024,P02775,1.0,1.0,curated
-,,PMID: 24218476,CXCR2_HUMAN,CXCL2_HUMAN,,P25025,P19875,1.0,1.0,curated
-True,,PMID: 24218476,CCR2_HUMAN,CCL7_HUMAN,,P41597,P80098,1.0,1.0,curated
-True,,PMID: 24218476,CCR3_HUMAN,CCL7_HUMAN,,P51677,P80098,1.0,1.0,curated
-True,,PMID: 24218476,CCR1_HUMAN,CCL7_HUMAN,,P32246,P80098,1.0,1.0,curated
-True,,PMID: 24218476,ACKR1_HUMAN,GROA_HUMAN,,Q16570,P09341,1.0,1.0,curated
-,,PMID: 24218476,ACKR4_HUMAN,CCL19_HUMAN,,Q9NPB9,Q99731,1.0,1.0,curated
-True,,PMID: 24218476,CCR7_HUMAN,CCL19_HUMAN,,P32248,Q99731,1.0,1.0,curated
-,,PMID: 24218476,ACKR4_HUMAN,CCL21_HUMAN,,Q9NPB9,O00585,1.0,1.0,curated
-,,PMID: 24218476,CCR7_HUMAN,CCL21_HUMAN,,P32248,O00585,1.0,1.0,curated
-True,,PMID: 24218476,CCR9_HUMAN,CCL25_HUMAN,,P51686,O15444,1.0,1.0,curated
-True,,PMID: 24218476,CCR4_HUMAN,CCL17_HUMAN,,P51679,Q92583,1.0,1.0,curated
-True,,PMID: 24218476,CCR2_HUMAN,CCL8_HUMAN,,P41597,P80075,1.0,1.0,curated
-,,PMID: 24218476,CCR1_HUMAN,CCL8_HUMAN,,P32246,P80075,1.0,1.0,curated
-True,,PMID: 24218476,CXCR3_HUMAN,CXCL9_HUMAN,,P49682,Q07325,1.0,1.0,curated
-,,PMID: 24218476,CCR3_HUMAN,CCL11_HUMAN,,P51677,P51671,1.0,1.0,curated
-,,PMID: 24218476,ACKR2_HUMAN,CCL11_HUMAN,,O00590,P51671,1.0,1.0,curated
-True,,PMID: 24218476,CXCR3_HUMAN,CXL11_HUMAN,,P49682,O14625,1.0,1.0,curated
-True,,PMID: 24218476,CXCR3_HUMAN,CXL10_HUMAN,,P49682,P02778,1.0,1.0,curated
-,,PMID: 24218476,CCR3_HUMAN,CCL3_HUMAN,,P51677,P10147,1.0,1.0,curated
-True,,PMID: 24218476,CCR1_HUMAN,CCL3_HUMAN,,P32246,P10147,1.0,1.0,curated
-,,PMID: 24218476,CCR3_HUMAN,CL3L1_HUMAN,,P51677,P16619,1.0,1.0,curated
-,,PMID: 24218476,CCR1_HUMAN,CL3L1_HUMAN,,P32246,P16619,1.0,1.0,curated
-True,,PMID: 24218476,CXCR2_HUMAN,CXCL3_HUMAN,,P25025,P19876,1.0,1.0,curated
-,,PMID: 24218476,CCR1_HUMAN,CCL16_HUMAN,,P32246,O15467,1.0,1.0,curated
-True,,PMID: 24218476,CCR8_HUMAN,CCL1_HUMAN,,P51685,P22362,1.0,1.0,curated
-True,,PMID: 24218476,CCR1_HUMAN,CCL23_HUMAN,,P32246,P55773,1.0,1.0,curated
-,,PMID: 24218476,CCR8_HUMAN,CCL18_HUMAN,,P51685,P55774,1.0,1.0,curated
-,,PMID: 24218476,XCR1_HUMAN,XCL1_HUMAN,,P46094,P47992,1.0,1.0,curated
-True,,PMID: 24218476,CXCR4_HUMAN,SDF1_HUMAN,,P61073,P48061,1.0,1.0,curated
-,,PMID: 24218476,ACKR2_HUMAN,CCL5_HUMAN,,O00590,P13501,1.0,1.0,curated
-True,,PMID: 24218476,ACKR2_HUMAN,CCL7_HUMAN,,O00590,P80098,1.0,1.0,curated
-True,,PMID: 24218476,ACKR2_HUMAN,CCL13_HUMAN,,O00590,Q99616,1.0,1.0,curated
-True,,PMID: 24218476,ACKR2_HUMAN,CCL8_HUMAN,,O00590,P80075,1.0,1.0,curated
-,,PMID: 24218476,ACKR2_HUMAN,CCL14_HUMAN,,O00590,Q16627,1.0,1.0,curated
-,,PMID: 24218476,ACKR2_HUMAN,CCL3_HUMAN,,O00590,P10147,1.0,1.0,curated
-True,,PMID: 24218476,ACKR2_HUMAN,CCL4_HUMAN,,O00590,P13236,1.0,1.0,curated
-True,,PMID: 24218476,CXCR2_HUMAN,CXCL7_HUMAN,,P25025,P02775,1.0,1.0,curated
-True,,PMID: 24218476,CXCR2_HUMAN,IL8_HUMAN,,P25025,P10145,1.0,1.0,curated
-True,,PMID: 24218476,CXCR2_HUMAN,GROA_HUMAN,,P25025,P09341,1.0,1.0,curated
-True,,PMID: 24218476,CXCR2_HUMAN,CXCL5_HUMAN,,P25025,P42830,1.0,1.0,curated
-True,,PMID: 24218476,CXCR2_HUMAN,CXCL6_HUMAN,,P25025,P80162,1.0,1.0,curated
-,,PMID: 24218476,CXCR1_HUMAN,GROA_HUMAN,,P25024,P09341,1.0,1.0,curated
-True,,PMID: 24218476,CXCR1_HUMAN,CXCL5_HUMAN,,P25024,P42830,1.0,1.0,curated
-True,,PMID: 24218476,CXCR1_HUMAN,CXCL6_HUMAN,,P25024,P80162,1.0,1.0,curated
-True,,PMID: 24218476,CCR4_HUMAN,CCL22_HUMAN,,P51679,O00626,1.0,1.0,curated
-,,PMID: 24218476,DPP4_HUMAN,CCL22_HUMAN,,P27487,O00626,1.0,1.0,curated
-,,PMID: 24218476,DPP4_HUMAN,SDF1_HUMAN,,P27487,P48061,1.0,1.0,curated
-,,PMID: 24218476,DPP4_HUMAN,CXCL2_HUMAN,,P27487,P19875,1.0,1.0,curated
-,,PMID: 24218476,DPP4_HUMAN,CCL11_HUMAN,,P27487,P51671,1.0,1.0,curated
-,,PMID: 24218476,DPP4_HUMAN,CXL11_HUMAN,,P27487,O14625,1.0,1.0,curated
-,,PMID: 24218476,DPP4_HUMAN,CXCL9_HUMAN,,P27487,Q07325,1.0,1.0,curated
-,,PMID: 24218476,DPP4_HUMAN,CXL10_HUMAN,,P27487,P02778,1.0,1.0,curated
-True,,PMID: 24218476,CXCR5_HUMAN,CXL13_HUMAN,,P32302,O43927,1.0,1.0,curated
-True,,PMID: 24218476,CCR2_HUMAN,CCL13_HUMAN,,P41597,Q99616,1.0,1.0,curated
-,,PMID: 24218476,CCR2_HUMAN,CCL16_HUMAN,,P41597,O15467,1.0,1.0,curated
-,,PMID: 24218476,CCR2_HUMAN,CCL26_HUMAN,,P41597,Q9Y258,1.0,1.0,curated
-True,,PMID: 24218476,CCR10_HUMAN,CCL27_HUMAN,,P46092,Q9Y4X3,1.0,1.0,curated
-,,PMID: 24218476,ACKR4_HUMAN,CXL13_HUMAN,,Q9NPB9,O43927,1.0,1.0,curated
-,,PMID: 24218476,ACKR4_HUMAN,CCL25_HUMAN,,Q9NPB9,O15444,1.0,1.0,curated
-True,,PMID: 24218476,CCR3_HUMAN,CCL13_HUMAN,,P51677,Q99616,1.0,1.0,curated
-True,,PMID: 24218476,CCR3_HUMAN,CCL26_HUMAN,,P51677,Q9Y258,1.0,1.0,curated
-,,PMID: 24218476,CCR3_HUMAN,CCL14_HUMAN,,P51677,Q16627,1.0,1.0,curated
-True,,PMID: 24218476,CCR3_HUMAN,CCL24_HUMAN,,P51677,O00175,1.0,1.0,curated
-,,PMID: 24218476,CCR1_HUMAN,CCL26_HUMAN,,P32246,Q9Y258,1.0,1.0,curated
-True,,PMID: 24218476,CCR1_HUMAN,CCL14_HUMAN,,P32246,Q16627,1.0,1.0,curated
-True,,PMID: 24218476,CCR6_HUMAN,CCL20_HUMAN,,P51684,P78556,1.0,1.0,curated
-True,,uniprot,CCR5_HUMAN,CCL4_HUMAN,,P51681,P13236,1.0,1.0,curated
-,,uniprot,ENTP1_HUMAN,AA2AR_HUMAN,,P49961,P29274,1.0,1.0,curated
-,,uniprot,ENTP1_HUMAN,AA1R_HUMAN,,P49961,P30542,1.0,1.0,curated
-,,uniprot,ENTP1_HUMAN,AA2BR_HUMAN,,P49961,P29275,1.0,1.0,curated
-,,uniprot,ENTP1_HUMAN,AA3R_HUMAN,,P49961,P0DMS8,1.0,1.0,curated
-True,,PMID: 22353464,DLK1_HUMAN,NOTC1_HUMAN,NOTCH,P80370,P46531,1.0,1.0,curated
-True,,PMID: 22353464,DLK1_HUMAN,NOTC2_HUMAN,NOTCH,P80370,Q04721,1.0,1.0,curated
-True,,PMID: 22353464,DLK1_HUMAN,NOTC3_HUMAN,NOTCH,P80370,Q9UM47,1.0,1.0,curated
-True,,PMID: 22353464,DLK1_HUMAN,NOTC4_HUMAN,NOTCH,P80370,Q99466,1.0,1.0,curated
-True,,PMID: 22353464,JAG1_HUMAN,NOTC1_HUMAN,NOTCH,P78504,P46531,1.0,1.0,curated
-True,,PMID: 22353464,JAG1_HUMAN,NOTC2_HUMAN,NOTCH,P78504,Q04721,1.0,1.0,curated
-True,,PMID: 22353464,JAG1_HUMAN,NOTC3_HUMAN,NOTCH,P78504,Q9UM47,1.0,1.0,curated
-True,,PMID: 22353464,JAG1_HUMAN,NOTC4_HUMAN,NOTCH,P78504,Q99466,1.0,1.0,curated
-True,,PMID: 22353464,JAG2_HUMAN,NOTC1_HUMAN,NOTCH,Q9Y219,P46531,1.0,1.0,curated
-True,,PMID: 22353464,JAG2_HUMAN,NOTC2_HUMAN,NOTCH,Q9Y219,Q04721,1.0,1.0,curated
-True,,PMID: 22353464,JAG2_HUMAN,NOTC3_HUMAN,NOTCH,Q9Y219,Q9UM47,1.0,1.0,curated
-True,,PMID: 22353464,JAG2_HUMAN,NOTC4_HUMAN,NOTCH,Q9Y219,Q99466,1.0,1.0,curated
-True,,PMID: 22353464,DLL1_HUMAN,NOTC1_HUMAN,NOTCH,Q61483,P46531,1.0,1.0,curated
-True,,PMID: 22353464,DLL1_HUMAN,NOTC2_HUMAN,NOTCH,Q61483,Q04721,1.0,1.0,curated
-True,,PMID: 22353464,DLL1_HUMAN,NOTC3_HUMAN,NOTCH,Q61483,Q9UM47,1.0,1.0,curated
-True,,PMID: 22353464,DLL1_HUMAN,NOTC4_HUMAN,NOTCH,Q61483,Q99466,1.0,1.0,curated
-True,,PMID: 22353464,DLL3_HUMAN,NOTC1_HUMAN,NOTCH,Q9NYJ7,P46531,1.0,1.0,curated
-True,,PMID: 22353464,DLL3_HUMAN,NOTC2_HUMAN,NOTCH,Q9NYJ7,Q04721,1.0,1.0,curated
-True,,PMID: 22353464,DLL3_HUMAN,NOTC3_HUMAN,NOTCH,Q9NYJ7,Q9UM47,1.0,1.0,curated
-True,,PMID: 22353464,DLL3_HUMAN,NOTC4_HUMAN,NOTCH,Q9NYJ7,Q99466,1.0,1.0,curated
-True,,PMID: 22353464,DLL4_HUMAN,NOTC1_HUMAN,NOTCH,Q9NR61,P46531,1.0,1.0,curated
-True,,PMID: 22353464,DLL4_HUMAN,NOTC2_HUMAN,NOTCH,Q9NR61,Q04721,1.0,1.0,curated
-True,,PMID: 22353464,DLL4_HUMAN,NOTC3_HUMAN,NOTCH,Q9NR61,Q9UM47,1.0,1.0,curated
-True,,PMID: 22353464,DLL4_HUMAN,NOTC4_HUMAN,NOTCH,Q9NR61,Q99466,1.0,1.0,curated
-,,PMID:15107857; PMID: 15114347,EPHB2_HUMAN,EFNA5_HUMAN,Eph-ephrin,P29323,P52803,1.0,1.0,curated
-True,,PMID: 15114347,EFNA1_HUMAN,EPHA1_HUMAN,Eph-ephrin,P20827,P21709,1.0,1.0,curated
-True,,PMID: 15114347,EFNA1_HUMAN,EPHA2_HUMAN,Eph-ephrin,P20827,P29317,1.0,1.0,curated
-True,,PMID: 15114347,EFNA1_HUMAN,EPHA3_HUMAN,Eph-ephrin,P20827,P29320,1.0,1.0,curated
-True,,PMID: 15114347,EFNA1_HUMAN,EPHA4_HUMAN,Eph-ephrin,P20827,P54764,1.0,1.0,curated
-True,,PMID: 15114347,EFNA1_HUMAN,EPHA5_HUMAN,Eph-ephrin,P20827,P54756,1.0,1.0,curated
-True,,PMID: 15114347,EFNA1_HUMAN,EPHA7_HUMAN,Eph-ephrin,P20827,Q15375,1.0,1.0,curated
-True,,PMID: 15114347,EFNA1_HUMAN,EPHA8_HUMAN,Eph-ephrin,P20827,P29322,1.0,1.0,curated
-True,,PMID: 15114347,EFNA2_HUMAN,EPHA1_HUMAN,Eph-ephrin,O43921,P21709,1.0,1.0,curated
-True,,PMID: 15114347,EFNA2_HUMAN,EPHA2_HUMAN,Eph-ephrin,O43921,P29317,1.0,1.0,curated
-True,,PMID: 15114347,EFNA2_HUMAN,EPHA3_HUMAN,Eph-ephrin,O43921,P29320,1.0,1.0,curated
-True,,PMID: 15114347,EFNA2_HUMAN,EPHA4_HUMAN,Eph-ephrin,O43921,P54764,1.0,1.0,curated
-True,,PMID: 15114347,EFNA2_HUMAN,EPHA5_HUMAN,Eph-ephrin,O43921,P54756,1.0,1.0,curated
-True,,PMID: 15114347,EFNA2_HUMAN,EPHA7_HUMAN,Eph-ephrin,O43921,Q15375,1.0,1.0,curated
-True,,PMID: 15114347,EFNA2_HUMAN,EPHA8_HUMAN,Eph-ephrin,O43921,P29322,1.0,1.0,curated
-True,,PMID: 15114347,EFNA3_HUMAN,EPHA1_HUMAN,Eph-ephrin,P52797,P21709,1.0,1.0,curated
-True,,PMID: 15114347,EFNA3_HUMAN,EPHA2_HUMAN,Eph-ephrin,P52797,P29317,1.0,1.0,curated
-True,,PMID: 15114347,EFNA3_HUMAN,EPHA3_HUMAN,Eph-ephrin,P52797,P29320,1.0,1.0,curated
-True,,PMID: 15114347,EFNA3_HUMAN,EPHA4_HUMAN,Eph-ephrin,P52797,P54764,1.0,1.0,curated
-True,,PMID: 15114347,EFNA3_HUMAN,EPHA5_HUMAN,Eph-ephrin,P52797,P54756,1.0,1.0,curated
-True,,PMID: 15114347,EFNA3_HUMAN,EPHA7_HUMAN,Eph-ephrin,P52797,Q15375,1.0,1.0,curated
-True,,PMID: 15114347,EFNA3_HUMAN,EPHA8_HUMAN,Eph-ephrin,P52797,P29322,1.0,1.0,curated
-True,,PMID: 15114347,EFNA4_HUMAN,EPHA1_HUMAN,Eph-ephrin,P52798,P21709,1.0,1.0,curated
-True,,PMID: 15114347,EFNA4_HUMAN,EPHA2_HUMAN,Eph-ephrin,P52798,P29317,1.0,1.0,curated
-True,,PMID: 15114347,EFNA4_HUMAN,EPHA3_HUMAN,Eph-ephrin,P52798,P29320,1.0,1.0,curated
-True,,PMID: 15114347,EFNA4_HUMAN,EPHA4_HUMAN,Eph-ephrin,P52798,P54764,1.0,1.0,curated
-True,,PMID: 15114347,EFNA4_HUMAN,EPHA5_HUMAN,Eph-ephrin,P52798,P54756,1.0,1.0,curated
-True,,PMID: 15114347,EFNA4_HUMAN,EPHA7_HUMAN,Eph-ephrin,P52798,Q15375,1.0,1.0,curated
-True,,PMID: 15114347,EFNA4_HUMAN,EPHA8_HUMAN,Eph-ephrin,P52798,P29322,1.0,1.0,curated
-True,,PMID: 15114347,EFNA5_HUMAN,EPHA1_HUMAN,Eph-ephrin,P52803,P21709,1.0,1.0,curated
-True,,PMID: 15114347,EFNA5_HUMAN,EPHA2_HUMAN,Eph-ephrin,P52803,P29317,1.0,1.0,curated
-True,,PMID: 15114347,EFNA5_HUMAN,EPHA3_HUMAN,Eph-ephrin,P52803,P29320,1.0,1.0,curated
-True,,PMID: 15114347,EFNA5_HUMAN,EPHA4_HUMAN,Eph-ephrin,P52803,P54764,1.0,1.0,curated
-True,,PMID: 15114347,EFNA5_HUMAN,EPHA5_HUMAN,Eph-ephrin,P52803,P54756,1.0,1.0,curated
-True,,PMID: 15114347,EFNA5_HUMAN,EPHA7_HUMAN,Eph-ephrin,P52803,Q15375,1.0,1.0,curated
-True,,PMID: 15114347,EFNA5_HUMAN,EPHA8_HUMAN,Eph-ephrin,P52803,P29322,1.0,1.0,curated
-True,,PMID: 15114347,EFNB1_HUMAN,EPHB1_HUMAN,Eph-ephrin,P98172,P54762,1.0,1.0,curated
-True,,PMID: 15114347,EFNB1_HUMAN,EPHB2_HUMAN,Eph-ephrin,P98172,P29323,1.0,1.0,curated
-True,,PMID: 15114347,EFNB1_HUMAN,EPHB3_HUMAN,Eph-ephrin,P98172,P54753,1.0,1.0,curated
-True,,PMID: 15114347,EFNB1_HUMAN,EPHB4_HUMAN,Eph-ephrin,P98172,P54760,1.0,1.0,curated
-True,,PMID: 15114347,EFNB1_HUMAN,EPHB6_HUMAN,Eph-ephrin,P98172,O15197,1.0,1.0,curated
-True,,PMID: 15114347,EFNB1_HUMAN,EPHA4_HUMAN,Eph-ephrin,P98172,P54764,1.0,1.0,curated
-True,,PMID: 15114347,EFNB2_HUMAN,EPHB1_HUMAN,Eph-ephrin,P52799,P54762,1.0,1.0,curated
-True,,PMID: 15114347,EFNB2_HUMAN,EPHB2_HUMAN,Eph-ephrin,P52799,P29323,1.0,1.0,curated
-True,,PMID: 15114347,EFNB2_HUMAN,EPHB3_HUMAN,Eph-ephrin,P52799,P54753,1.0,1.0,curated
-True,,PMID: 15114347,EFNB2_HUMAN,EPHB4_HUMAN,Eph-ephrin,P52799,P54760,1.0,1.0,curated
-True,,PMID: 15114347,EFNB2_HUMAN,EPHB6_HUMAN,Eph-ephrin,P52799,O15197,1.0,1.0,curated
-True,,PMID: 15114347,EFNB2_HUMAN,EPHA4_HUMAN,Eph-ephrin,P52799,P54764,1.0,1.0,curated
-True,,PMID: 15114347,EFNB3_HUMAN,EPHB1_HUMAN,Eph-ephrin,Q15768,P54762,1.0,1.0,curated
-True,,PMID: 15114347,EFNB3_HUMAN,EPHB2_HUMAN,Eph-ephrin,Q15768,P29323,1.0,1.0,curated
-True,,PMID: 15114347,EFNB3_HUMAN,EPHB3_HUMAN,Eph-ephrin,Q15768,P54753,1.0,1.0,curated
-True,,PMID: 15114347,EFNB3_HUMAN,EPHB4_HUMAN,Eph-ephrin,Q15768,P54760,1.0,1.0,curated
-True,,PMID: 15114347,EFNB3_HUMAN,EPHB6_HUMAN,Eph-ephrin,Q15768,O15197,1.0,1.0,curated
-True,,PMID: 15114347,EFNB3_HUMAN,EPHA4_HUMAN,Eph-ephrin,Q15768,P54764,1.0,1.0,curated
-True,,uniprot,TNFA_HUMAN,TNR1A_HUMAN,TNF,P01375,P19438,1.0,1.0,curated
-True,,uniprot,TNFA_HUMAN,TNR1B_HUMAN,TNF,P01375,P20333,1.0,1.0,curated
-True,,uniprot,TNFB_HUMAN,TNR1A_HUMAN,TNF,P01374,P19438,1.0,1.0,curated
-True,,uniprot,TNFB_HUMAN,TNR1B_HUMAN,TNF,P01374,P20333,1.0,1.0,curated
-True,,uniprot,TNFB_HUMAN,TNR14_HUMAN,TNF,P01374,Q92956,1.0,1.0,curated
-True,,uniprot,TNFL8_HUMAN,TNR8_HUMAN,TNF,P32971,P28908,1.0,1.0,curated
-True,,uniprot,TNFC_HUMAN,TNR3_HUMAN,TNF,Q06643,P36941,1.0,1.0,curated
-True,,uniprot,TNFL6_HUMAN,TNR6_HUMAN,TNF,P48023,P25445,1.0,1.0,curated
-True,,uniprot,TNFL6_HUMAN,TNF6B_HUMAN,TNF,P48023,O95407,1.0,1.0,curated
-,,uniprot,TNF15_HUMAN,TNF6B_HUMAN,TNF,O95150,O95407,1.0,1.0,curated
-,,uniprot,TNF13_HUMAN,TR13B_HUMAN,TNF,O75888,O14836,1.0,1.0,curated
-,,uniprot,TNF13_HUMAN,TNR17_HUMAN,TNF,O75888,Q02223,1.0,1.0,curated
-,,uniprot,TN13B_HUMAN,TR13B_HUMAN,TNF,Q9Y275,O14836,1.0,1.0,curated
-,,uniprot,TN13B_HUMAN,TNR17_HUMAN,TNF,Q9Y275,Q02223,1.0,1.0,curated
-True,,uniprot,TNF10_HUMAN,TR10A_HUMAN,TNF,P50591,O00220,1.0,1.0,curated
-True,,uniprot,TNF10_HUMAN,TR10B_HUMAN,TNF,P50591,O14763,1.0,1.0,curated
-True,,uniprot,TNF10_HUMAN,TR10C_HUMAN,TNF,P50591,O14798,1.0,1.0,curated
-True,,uniprot,TNF10_HUMAN,TR10D_HUMAN,TNF,P50591,Q9UBN6,1.0,1.0,curated
-True,,uniprot,TNF10_HUMAN,TR11B_HUMAN,TNF,P50591,O00300,1.0,1.0,curated
-True,,uniprot,TNF11_HUMAN,TR11B_HUMAN,TNF,O14788,O00300,1.0,1.0,curated
-True,,uniprot,TNF11_HUMAN,TNR11_HUMAN,TNF,O14788,Q9Y6Q6,1.0,1.0,curated
-True,,uniprot,TNFL9_HUMAN,TNR9_HUMAN,TNF,P41273,Q07011,1.0,1.0,curated
-True,,uniprot,TNR4_HUMAN,TNFL4_HUMAN,TNF,P43489,P23510,1.0,1.0,curated
-True,,uniprot,TNF14_HUMAN,TNFRSF3,TNF,O43557,P36941,1.0,1.0,curated
-True,,uniprot,TNF14_HUMAN,TNFRSF6B,TNF,O43557,O95407,1.0,1.0,curated
-True,,uniprot,TNF14_HUMAN,TNFSF14,TNF,O43557,O43557,1.0,1.0,curated
-,,uniprot,TNF12_HUMAN,TNR12_HUMAN,TNF,O43508,Q9NP84,1.0,1.0,curated
-True,,uniprot,TNF12_HUMAN,TNF12_HUMAN,TNF,O43508,O43508,1.0,1.0,curated
-True,,uniprot,TNF18_HUMAN,TNR18_HUMAN,TNF,Q9UNG2,Q9Y5U5,1.0,1.0,curated
-True,,PMID: 26471366,I13R2_HUMAN,IL13_HUMAN,cytokine,Q14627,P35225,1.0,1.0,curated
-True,,uniprot,IGF1R_HUMAN,IGF1_HUMAN,,P08069,P05019,1.0,1.0,curated
-True,,uniprot,MPRI_HUMAN,IGF2_HUMAN,,P11717,P01344,1.0,1.0,curated
-,,PMID: 27102148,IGF1R_HUMAN,IGF2_HUMAN,,P08069,P01344,1.0,1.0,curated
-True,,uniprot,INSR_HUMAN,INS_HUMAN,,P06213,P01308,1.0,1.0,curated
-True,,uniprot,HGF_HUMAN,MET_HUMAN,,P14210,P08581,1.0,1.0,curated
-True,,PMID: 23792360,HGFL_HUMAN,RON_HUMAN,,P26927,Q04912,1.0,1.0,curated
-True,,uniprot,FGF1_HUMAN,FGFR1_HUMAN,,P05230,P11362,1.0,1.0,curated
-,,uniprot,FGF1_HUMAN,,,P05230,aVb3 complex,1.0,1.0,curated
-,,uniprot,FGF2_HUMAN,,,P09038,aVb3 complex,1.0,1.0,curated
-True,,uniprot,FGF2_HUMAN,FGFR1_HUMAN,,P09038,P11362,1.0,1.0,curated
-True,,uniprot,FGF2_HUMAN,FGFR2_HUMAN,,P09038,P21802,1.0,1.0,curated
-True,,uniprot,FGF2_HUMAN,FGFR3_HUMAN,,P09038,P22607,1.0,1.0,curated
-True,,uniprot,FGF2_HUMAN,FGFR4_HUMAN,,P09038,P22455,1.0,1.0,curated
-True,,uniprot,NGF_HUMAN,NTRK1_HUMAN,,P01138,P04629,1.0,1.0,curated
-True,,uniprot,NGF_HUMAN,TNR16_HUMAN,,P01138,P08138,1.0,1.0,curated
-,,uniprot,TNR16_HUMAN,NGF,,P08138,,1.0,1.0,curated
-True,,uniprot,TNR16_HUMAN,BDNF_HUMAN,,P08138,P23560,1.0,1.0,curated
-True,,uniprot,TNR16_HUMAN,NTF3_HUMAN,,P08138,P20783,1.0,1.0,curated
-,,uniprot,TNR16_HUMAN,NTF4_HUMAN,,P08138,P34130,1.0,1.0,curated
-True,,uniprot,NTRK2_HUMAN,BDNF_HUMAN,,Q16620,P23560,1.0,1.0,curated
-True,,uniprot,NTRK1_HUMAN,NTF3_HUMAN,,P04629,P20783,1.0,1.0,curated
-True,,uniprot,NTRK2_HUMAN,NTF3_HUMAN,,Q16620,P20783,1.0,1.0,curated
-True,,uniprot,NTRK3_HUMAN,NTF3_HUMAN,,Q16288,P20783,1.0,1.0,curated
-True,,uniprot,TPO_HUMAN,TPOR_HUMAN,,P40225,P40238,1.0,1.0,curated
-True,,uniprot,EPOR_HUMAN,EPO_HUMAN,,P19235,P01588,1.0,1.0,curated
-True,,uniprot,ANGP1_HUMAN,TIE2_HUMAN,,Q15389,Q02763,1.0,1.0,curated
-,,uniprot,ANGP2_HUMAN,TIE2_HUMAN,,O15123,Q02763,1.0,1.0,curated
-,,uniprot,ANGP4_HUMAN,TIE2_HUMAN,,Q9Y264,Q02763,1.0,1.0,curated
-True,,uniprot,PDGFA_HUMAN,PGFRA_HUMAN,,P04085,P16234,1.0,1.0,curated
-True,,uniprot,PDGFB_HUMAN,PGFRA_HUMAN,,P01127,P16234,1.0,1.0,curated
-,,uniprot,PDGFC_HUMAN,PGFRA_HUMAN,,Q9NRA1,P16234,1.0,1.0,curated
-,,uniprot,PDGFD_HUMAN,PGFRB_HUMAN,,Q9GZP0,P09619,1.0,1.0,curated
-True,,uniprot,PDGFB_HUMAN,PGFRB_HUMAN,,P01127,P09619,1.0,1.0,curated
-,,uniprot,NRP1_HUMAN,SEM3A_HUMAN,,O14786,Q14563,1.0,1.0,curated
-True,,uniprot,NRP1_HUMAN,PLGF_HUMAN,,O14786,P49763,1.0,1.0,curated
-True,,uniprot,NRP1_HUMAN,VEGFA_HUMAN,,O14786,P15692,1.0,1.0,curated
-True,,uniprot,NRP1_HUMAN,VEGFB_HUMAN,,O14786,P49765,1.0,1.0,curated
-,,uniprot,NRP2_HUMAN,SEM3C_HUMAN,,O60462,Q99985,1.0,1.0,curated
-,,uniprot,NRP2_HUMAN,SEM3F_HUMAN,,O60462,Q13275,1.0,1.0,curated
-True,,uniprot,NRP2_HUMAN,VEGFA_HUMAN,,O60462,P15692,1.0,1.0,curated
-,,uniprot,NRP2_HUMAN,PLGF_HUMAN,,O60462,P49763,1.0,1.0,curated
-True,,uniprot,EGF_HUMAN,EGFR_HUMAN,,P01133,P00533,1.0,1.0,curated
-True,,uniprot,TGFA_HUMAN,EGFR_HUMAN,,P01135,P00533,1.0,1.0,curated
-True,,uniprot,AREG_HUMAN,EGFR_HUMAN,,P15514,P00533,1.0,1.0,curated
-,,uniprot,EPGN_HUMAN,EGFR_HUMAN,,Q6UW88,P00533,1.0,1.0,curated
-True,,uniprot,BTC_HUMAN,EGFR_HUMAN,,P35070,P00533,1.0,1.0,curated
-True,,uniprot,EREG_HUMAN,EGFR_HUMAN,,O14944,P00533,1.0,1.0,curated
-True,,uniprot,HBEGF_HUMAN,EGFR_HUMAN,,Q99075,P00533,1.0,1.0,curated
-True,,uniprot,BTC_HUMAN,ERBB4_HUMAN,,P35070,Q15303,1.0,1.0,curated
-True,,uniprot,BTC_HUMAN,ERBB3_HUMAN,,P35070,P21860,1.0,1.0,curated
-True,,uniprot,NRG1_HUMAN,ERBB4_HUMAN,,Q02297,Q15303,1.0,1.0,curated
-,,uniprot,NRG2_HUMAN,ERBB4_HUMAN,,O14511,Q15303,1.0,1.0,curated
-,,uniprot,NRG3_HUMAN,ERBB4_HUMAN,,P56975,Q15303,1.0,1.0,curated
-,,uniprot,NRG4_HUMAN,ERBB4_HUMAN,,Q8WWG1,Q15303,1.0,1.0,curated
-True,,uniprot,EREG_HUMAN,ERBB4_HUMAN,,O14944,Q15303,1.0,1.0,curated
-True,,uniprot,HBEGF_HUMAN,ERBB4_HUMAN,,Q99075,Q15303,1.0,1.0,curated
-True,,uniprot,NRG1_HUMAN,ERBB3_HUMAN,,Q02297,P21860,1.0,1.0,curated
-,,uniprot,NRG2_HUMAN,ERBB3_HUMAN,,O14511,P21860,1.0,1.0,curated
-True,,uniprot,,IL11_HUMAN,cytokine,IL11 receptor,P20809,1.0,1.0,curated
-True,,uniprot,CSF3_HUMAN,CSF3R_HUMAN,,P09919,Q99062,1.0,1.0,curated
-True,,uniprot,LEPR_HUMAN,LEP_HUMAN,,P48357,P41159,1.0,1.0,curated
-True,,uniprot,SCF_HUMAN,KIT_HUMAN,,P21583,P10721,1.0,1.0,curated
-True,,uniprot,FLT3L_HUMAN,FLT3_HUMAN,,P49771,P36888,1.0,1.0,curated
-True,,uniprot,CSF1R_HUMAN,CSF1_HUMAN,,P07333,P09603,1.0,1.0,curated
-,,uniprot,CSF1R_HUMAN,IL34_HUMAN,,P07333,Q6ZMJ4,1.0,1.0,curated
-,,uniprot,MK_HUMAN,ALK_HUMAN,,P21741,Q9UM73,1.0,1.0,curated
-True,,PMID: 10212223,MK_HUMAN,PTPRZ_HUMAN,,P21741,P23471,1.0,1.0,curated
-,,uniprot,PTN_HUMAN,ALK_HUMAN,,P21246,Q9UM73,1.0,1.0,curated
-True,,PMID: 25644401,PTN_HUMAN,PTPRZ_HUMAN,,P21246,P23471,1.0,1.0,curated
-True,,uniprot,,TGFB1_HUMAN,TGF family,TGFbeta receptor1,P01137,1.0,1.0,curated
-True,,uniprot,,TGFB2_HUMAN,TGF family,TGFbeta receptor1,P61812,1.0,1.0,curated
-True,,uniprot,,TGFB3_HUMAN,TGF family,TGFbeta receptor1,P10600,1.0,1.0,curated
-True,,uniprot,TGBR3_HUMAN,TGFB1_HUMAN,TGF family,Q03167,P01137,1.0,1.0,curated
-True,,uniprot,TGBR3_HUMAN,TGFB2_HUMAN,TGF family,Q03167,P61812,1.0,1.0,curated
-True,,uniprot,TGBR3_HUMAN,TGFB3_HUMAN,TGF family,Q03167,P10600,1.0,1.0,curated
-,,uniprot,,TGFB1_HUMAN,TGF family,TGFbeta receptor2,P01137,1.0,1.0,curated
-,,uniprot,,TGFB2_HUMAN,TGF family,TGFbeta receptor2,P61812,1.0,1.0,curated
-,,uniprot,,TGFB3_HUMAN,TGF family,TGFbeta receptor2,P10600,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,INHBA_HUMAN,TGF family,ACVR_1B2B receptor,P08476,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,INHBA_HUMAN,TGF family,ACVR_1B2A receptor,P08476,1.0,1.0,curated
-,,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,INHBA_HUMAN,TGF family,ACVR_1A2A receptor,P08476,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,INHBA_HUMAN,TGF family,ACVR_1C2A receptor,P08476,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,INHBA_HUMAN,TGF family,ACVR_1C2B receptor,P08476,1.0,1.0,curated
-,,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,INHBA_HUMAN,TGF family,ACVR_1A2B receptor,P08476,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,INHBB_HUMAN,TGF family,ACVR_1B2B receptor,P09529,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,INHBB_HUMAN,TGF family,ACVR_1B2A receptor,P09529,1.0,1.0,curated
-,,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,INHBB_HUMAN,TGF family,ACVR_1A2A receptor,P09529,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,INHBB_HUMAN,TGF family,ACVR_1C2A receptor,P09529,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,INHBB_HUMAN,TGF family,ACVR_1C2B receptor,P09529,1.0,1.0,curated
-,,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,INHBB_HUMAN,TGF family,ACVR_1A2B receptor,P09529,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,TGF family,ACVR_1B2B receptor,Activin ligand ab,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,TGF family,ACVR_1B2A receptor,Activin ligand ab,1.0,1.0,curated
-,,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,,TGF family,ACVR_1A2A receptor,Activin ligand ab,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,TGF family,ACVR_1C2A receptor,Activin ligand ab,1.0,1.0,curated
-,,PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,TGF family,ACVR_1C2B receptor,Activin ligand ab,1.0,1.0,curated
-,,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,,TGF family,ACVR_1A2B receptor,Activin ligand ab,1.0,1.0,curated
-,,PMID: 22710174,AVR2B_HUMAN,INHBC_HUMAN,TGF family,Q13705,P55103,1.0,1.0,curated
-,,PMID: 22710174,AVR2A_HUMAN,INHBC_HUMAN,TGF family,P27037,P55103,1.0,1.0,curated
-,,PMID: 22710174,AVR2B_HUMAN,INHBE_HUMAN,TGF family,Q13705,P58166,1.0,1.0,curated
-,,PMID: 22710174,AVR2A_HUMAN,INHBE_HUMAN,TGF family,P27037,P58166,1.0,1.0,curated
-,,PMID: 22710174,BMP2_HUMAN,,TGF family,P12643,BMPR1A_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP4_HUMAN,,TGF family,P12644,BMPR1A_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP2_HUMAN,,TGF family,P12643,BMR1A_ACR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP4_HUMAN,,TGF family,P12644,BMR1A_ACR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP2_HUMAN,,TGF family,P12643,BMR1A_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP4_HUMAN,,TGF family,P12644,BMR1A_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP2_HUMAN,,TGF family,P12643,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP4_HUMAN,,TGF family,P12644,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP2_HUMAN,,TGF family,P12643,BMR1B_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP4_HUMAN,,TGF family,P12644,BMR1B_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP2_HUMAN,,TGF family,P12643,BMR1B_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP4_HUMAN,,TGF family,P12644,BMR1B_AVR2B,1.0,1.0,curated
-,,PMID: 22610094,ANXA1_HUMAN,FPR2_HUMAN,,P04083,P25090,1.0,1.0,curated
-,,uniprot,IFNA4_HUMAN,,,P05014,Type I IFNR,1.0,1.0,curated
-,,uniprot,IFNA5_HUMAN,,,P01569,Type I IFNR,1.0,1.0,curated
-,,uniprot,IFN16_HUMAN,,,P05015,Type I IFNR,1.0,1.0,curated
-,,uniprot,IFNA8_HUMAN,,,P32881,Type I IFNR,1.0,1.0,curated
-,,uniprot,IFN14_HUMAN,,,P01570,Type I IFNR,1.0,1.0,curated
-,,uniprot,IFN21_HUMAN,,,P01568,Type I IFNR,1.0,1.0,curated
-,,uniprot,IFNA6_HUMAN,,,P05013,Type I IFNR,1.0,1.0,curated
-,,uniprot,IFNA7_HUMAN,,,P01567,Type I IFNR,1.0,1.0,curated
-,,uniprot,IFN10_HUMAN,,,P01566,Type I IFNR,1.0,1.0,curated
-,,uniprot,IFN17_HUMAN,,,P01571,Type I IFNR,1.0,1.0,curated
-,,PMID: 22710174,BMP5_HUMAN,,TGF family,P22003,BMPR1A_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP6_HUMAN,,TGF family,P22004,BMPR1A_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP7_HUMAN,,TGF family,P18075,BMPR1A_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP8A_HUMAN,,TGF family,Q7Z5Y6,BMPR1A_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP5_HUMAN,,TGF family,P22003,BMR1A_ACR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP6_HUMAN,,TGF family,P22004,BMR1A_ACR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP7_HUMAN,,TGF family,P18075,BMR1A_ACR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP8A_HUMAN,,TGF family,Q7Z5Y6,BMR1A_ACR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP5_HUMAN,,TGF family,P22003,BMR1A_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP6_HUMAN,,TGF family,P22004,BMR1A_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP7_HUMAN,,TGF family,P18075,BMR1A_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP8A_HUMAN,,TGF family,Q7Z5Y6,BMR1A_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP5_HUMAN,,TGF family,P22003,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP6_HUMAN,,TGF family,P22004,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP7_HUMAN,,TGF family,P18075,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP8A_HUMAN,,TGF family,Q7Z5Y6,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP5_HUMAN,,TGF family,P22003,BMR1B_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP6_HUMAN,,TGF family,P22004,BMR1B_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP7_HUMAN,,TGF family,P18075,BMR1B_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP8A_HUMAN,,TGF family,Q7Z5Y6,BMR1B_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,BMP5_HUMAN,,TGF family,P22003,BMR1B_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP6_HUMAN,,TGF family,P22004,BMR1B_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP7_HUMAN,,TGF family,P18075,BMR1B_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP8A_HUMAN,,TGF family,Q7Z5Y6,BMR1B_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,BMP5_HUMAN,,TGF family,P22003,ACVR1_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP6_HUMAN,,TGF family,P22004,ACVR1_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP7_HUMAN,,TGF family,P18075,ACVR1_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP8A_HUMAN,,TGF family,Q7Z5Y6,ACVR1_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP5_HUMAN,,TGF family,P22003,ACVR_1A2B receptor,1.0,1.0,curated
-,,PMID: 22710174,BMP6_HUMAN,,TGF family,P22004,ACVR_1A2B receptor,1.0,1.0,curated
-,,PMID: 22710174,BMP7_HUMAN,,TGF family,P18075,ACVR_1A2B receptor,1.0,1.0,curated
-,,PMID: 22710174,BMP8A_HUMAN,,TGF family,Q7Z5Y6,ACVR_1A2B receptor,1.0,1.0,curated
-,,PMID: 22710174,BMP5_HUMAN,,TGF family,P22003,ACVR_1A2A receptor,1.0,1.0,curated
-,,PMID: 22710174,BMP6_HUMAN,,TGF family,P22004,ACVR_1A2A receptor,1.0,1.0,curated
-,,PMID: 22710174,BMP7_HUMAN,,TGF family,P18075,ACVR_1A2A receptor,1.0,1.0,curated
-,,PMID: 22710174,BMP8A_HUMAN,,TGF family,Q7Z5Y6,ACVR_1A2A receptor,1.0,1.0,curated
-,,PMID: 22710174,GDF5_HUMAN,,TGF family,P43026,BMPR1A_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,GDF6_HUMAN,,TGF family,Q6KF10,BMPR1A_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,GDF7_HUMAN,,TGF family,Q7Z4P5,BMPR1A_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,GDF5_HUMAN,,TGF family,P43026,BMR1A_ACR2A,1.0,1.0,curated
-,,PMID: 22710174,GDF6_HUMAN,,TGF family,Q6KF10,BMR1A_ACR2A,1.0,1.0,curated
-,,PMID: 22710174,GDF7_HUMAN,,TGF family,Q7Z4P5,BMR1A_ACR2A,1.0,1.0,curated
-,,PMID: 22710174,GDF5_HUMAN,,TGF family,P43026,BMR1A_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,GDF6_HUMAN,,TGF family,Q6KF10,BMR1A_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,GDF7_HUMAN,,TGF family,Q7Z4P5,BMR1A_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,GDF5_HUMAN,,TGF family,P43026,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,GDF6_HUMAN,,TGF family,Q6KF10,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,GDF7_HUMAN,,TGF family,Q7Z4P5,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,GDF5_HUMAN,,TGF family,P43026,BMR1B_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,GDF6_HUMAN,,TGF family,Q6KF10,BMR1B_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,GDF7_HUMAN,,TGF family,Q7Z4P5,BMR1B_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,GDF5_HUMAN,,TGF family,P43026,BMR1B_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,GDF6_HUMAN,,TGF family,Q6KF10,BMR1B_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,GDF7_HUMAN,,TGF family,Q7Z4P5,BMR1B_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,GDF2_HUMAN,,TGF family,Q9UK05,ACVL1_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,BMP10_HUMAN,,TGF family,O95393,ACVL1_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,GDF1_HUMAN,,TGF family,P27539,ACVR_1B2B receptor,1.0,1.0,curated
-,,PMID: 22710174,GDF3_HUMAN,,TGF family,Q9NR23,ACVR_1B2B receptor,1.0,1.0,curated
-,,PMID: 22710174,BMP3_HUMAN,,TGF family,P12645,ACVR_1B2A receptor,1.0,1.0,curated
-,,PMID: 22710174,GDF10_HUMAN,,TGF family,P55107,ACVR_1B2B receptor,1.0,1.0,curated
-,,PMID: 22710174,NODAL_HUMAN,,TGF family,Q96S42,NODAL receptor,1.0,1.0,curated
-,,PMID: 22710174,BMP15_HUMAN,,TGF family,O95972,BMPR1B_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,GDF9_HUMAN,,TGF family,O60383,TGFR_BMPR2,1.0,1.0,curated
-,,PMID: 22710174,GDF11_HUMAN,,TGF family,O95390,ACVR_1B2B receptor,1.0,1.0,curated
-,,PMID: 22710174,GDF11_HUMAN,,TGF family,O95390,ACVR_1B2A receptor,1.0,1.0,curated
-,,PMID: 22710174,GDF11_HUMAN,,TGF family,O95390,TGFR_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,GDF11_HUMAN,,TGF family,O95390,TGFR_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,GDF8_HUMAN,,TGF family,O14793,ACVR_1B2B receptor,1.0,1.0,curated
-,,PMID: 22710174,GDF8_HUMAN,,TGF family,O14793,ACVR_1B2A receptor,1.0,1.0,curated
-,,PMID: 22710174,GDF8_HUMAN,,TGF family,O14793,TGFR_AVR2A,1.0,1.0,curated
-,,PMID: 22710174,GDF8_HUMAN,,TGF family,O14793,TGFR_AVR2B,1.0,1.0,curated
-,,PMID: 22710174,MIS_HUMAN,,TGF family,P03971,MIS receptor 1,1.0,1.0,curated
-,,PMID: 22710174,MIS_HUMAN,,TGF family,P03971,MIS receptor 2,1.0,1.0,curated
-,,PMID: 22710174,MIS_HUMAN,,TGF family,P03971,MIS receptor 3,1.0,1.0,curated
-,,PMID: 22710174,LFTY1_HUMAN,TDGF1_HUMAN,TGF family,O75610,P13385,1.0,1.0,curated
-,,PMID: 22710174,LFTY2_HUMAN,TDGF1_HUMAN,TGF family,O00292,P13385,1.0,1.0,curated
-,,uniprot,GDNF_HUMAN,,TGF family,P39905,RET receptor,1.0,1.0,curated
-,,uniprot,NRTN_HUMAN,,TGF family,Q99748,RET receptor 2,1.0,1.0,curated
-,,uniprot,ARTN_HUMAN,,TGF family,Q5T4W7,RET receptor,1.0,1.0,curated
-,,uniprot,ARTN_HUMAN,,TGF family,Q5T4W7,RET receptor 3,1.0,1.0,curated
-,,uniprot,PSPN_HUMAN,,TGF family,O60542,RET receptor 4,1.0,1.0,curated
-True,,uniprot,XCL2_HUMAN,XCR1_HUMAN,,Q9UBD3,P46094,1.0,1.0,curated
-True,,PMID: 15251452,CCL3_HUMAN,CCR5_HUMAN,,P10147,P51681,1.0,1.0,curated
-True,,uniprot,CCL15_HUMAN,CCR1_HUMAN,,Q16663,P32246,1.0,1.0,curated
-True,,uniprot,CCL15_HUMAN,CCR3_HUMAN,,Q16663,P51677,1.0,1.0,curated
-True,,PMID: 24218476,CCL5_HUMAN,CCR4_HUMAN,,P13501,P51679,1.0,1.0,curated
-True,,PMID: 24218476,CCL5_HUMAN,CCR5_HUMAN,,P13501,P51681,1.0,1.0,curated
-True,,PMID: 24218476,CCL8_HUMAN,CCR3_HUMAN,,P80075,P51677,1.0,1.0,curated
-True,,PMID: 24218476,CCL8_HUMAN,CCR5_HUMAN,,P80075,P51681,1.0,1.0,curated
-True,,PMID: 24218476,CCL7_HUMAN,CCR5_HUMAN,,P80098,P51681,1.0,1.0,curated
+comments_interaction,dlrp,entry_name_1,entry_name_2,family,iuhpar,multidata_name_1,multidata_name_2,score_1,score_2,source
+"3tgx, PDB partially, uniprot",,,IL21_HUMAN,,,IL21 receptor,Q9HBE4,1.0,1.0,curated
+uniprot,True,,IL9_HUMAN,cytokine,,IL9 receptor,P15248,1.0,1.0,curated
+"Induces NK Cell Activation. Reviewed in PMID: 24223577. 4s0u, PDB partially",,,RET1L_HUMAN,,,NKG2D II receptor,Q5VY80,1.0,1.0,curated
+"1pvh, PDB partially",True,,LIF_HUMAN,cytokine,,LIFR,P15018,1.0,1.0,curated
+to check,,,IL1FA_HUMAN,,,IL36 receptor,Q8WWZ1,1.0,1.0,curated
+uniprot,True,,IL3_HUMAN,cytokine,,IL3 receptor,P08700,1.0,1.0,curated
+uniprot,,,,,,IL35 receptor,IL35,1.0,1.0,curated
+"low affinity, uniprot",True,,IL1A_HUMAN,cytokine,,IL1 receptor inhibitor,P01583,1.0,1.0,curated
+uniprot,,,IL33_HUMAN,,,IL33 receptor,O95760,1.0,1.0,curated
+uniprot,,,,,,IL27 receptor,IL27,1.0,1.0,curated
+uniprot,,,,,,IL23 receptor,IL23,1.0,1.0,curated
+"4nkq, PDB",True,,CSF2_HUMAN,cytokine,,GMCSFR,P04141,1.0,1.0,curated
+uniprot,,,IL1A_HUMAN,,,IL1 receptor,P01583,1.0,1.0,curated
+"3di2, PDB partially",True,,IL7_HUMAN,cytokine,,IL7 receptor,P13232,1.0,1.0,curated
+"1hyr, PDB partially",,,THRB_HUMAN,,,Glycoprotein Ib  complex,P00734,1.0,1.0,curated
+uniprot,True,,ONCM_HUMAN,cytokine,,OSMR,P13725,1.0,1.0,curated
+uniprot,,,ONCM_HUMAN,cytokine,,LIFR,P13725,1.0,1.0,curated
+"3wo3, PDB partially",True,,IL18_HUMAN,cytokine,,IL18 receptor,Q14116,1.0,1.0,curated
+uniprot,,,,,,IL17 receptor AC,IL17 AF,1.0,1.0,curated
+uniprot,True,,,cytokine,,IL12 receptor,IL12,1.0,1.0,curated
+"5t5w, PDB",,,IFNL3_HUMAN,,,IL28 receptor,Q8IZI9,1.0,1.0,curated
+"2jjs, PDB partially",,,CD47_HUMAN,,,SIRB1 complex,Q08722,1.0,1.0,curated
+"3dgc, PDB",,,IL22_HUMAN,,,IL22 receptor,Q9GZX6,1.0,1.0,curated
+"5ffo, PDB",,,TGFB1_HUMAN,,,aVb6 complex,P01137,1.0,1.0,curated
+"1hyr, PDB partially, Induces NK Cell Activation. Reviewed in PMID: 24223577",,,MICA_HUMAN,,,NKG2D II receptor,Q29983,1.0,1.0,curated
+Induces NK Cell Activation. Reviewed in PMID: 24223577,,,MICB_HUMAN,,,NKG2D II receptor,Q29980,1.0,1.0,curated
+uniprot,,,CLCF1_HUMAN,,,CNTF-1R,Q9UBD9,1.0,1.0,curated
+"4dep, PDB",,,IL1B_HUMAN,,,IL1 receptor,P01584,1.0,1.0,curated
+"3o4o, PDB",,,IL1B_HUMAN,,,IL1 receptor inhibitor,P01584,1.0,1.0,curated
+"4n0u, PDB & 4k71, PDB",,,ALBU_HUMAN,,,FcRn complex,P02768,1.0,1.0,curated
+"1j7v, PDB partially",True,,IL10_HUMAN,cytokine,,IL10 receptor,P22301,1.0,1.0,curated
+"5j11, PDB",,,TSLP_HUMAN,,,TSLPR,Q969D9,1.0,1.0,curated
+"Induces NK Cell Activation. Reviewed in PMID: 24223577. 1kcg, PDB partially",,,N2DL3_HUMAN,,,NKG2D II receptor,Q9BZM4,1.0,1.0,curated
+"1p9m, PDB",True,,IL6_HUMAN,cytokine,,IL6 receptor,P05231,1.0,1.0,curated
+uniprot,,,IL17_HUMAN,,,IL17 receptor AC,Q16552,1.0,1.0,curated
+"3qt2, PDB partially",True,,IL5_HUMAN,cytokine,,IL5 receptor,P05113,1.0,1.0,curated
+"3qb7, PDB",True,,IL4_HUMAN,cytokine,,IL4 receptor,P05112,1.0,1.0,curated
+"3bpn, PDB",True,,IL4_HUMAN,cytokine,,IL13 receptor,P05112,1.0,1.0,curated
+"3evs,  PDB complex higher affinity",,,BMR1A_HUMAN,,,BMPR1B_BMPR2,P36894,1.0,1.0,curated
+DOI  10.1038/ncomms14937,,,CRLF2_HUMAN,,,TSLPR,Q9HC73,1.0,1.0,curated
+low affinity,,,IL1RA_HUMAN,,,IL1 receptor inhibitor,P18510,1.0,1.0,curated
+"1ira, PDB partially",,,IL1RA_HUMAN,,,IL1 receptor,P18510,1.0,1.0,curated
+"3se3, PDB",True,,IFNA2_HUMAN,IFN,,Type I IFNR,P01563,1.0,1.0,curated
+uniprot,,,IL36G_HUMAN,,,IL36 receptor,Q9NZH8,1.0,1.0,curated
+"1q69, PDB partially",,,LCK_HUMAN,,,CD8 receptor,P06239,1.0,1.0,curated
+uniprot,,,IL24_HUMAN,,,IL20 receptor Type II,Q13007,1.0,1.0,curated
+uniprot,True,,CNTF_HUMAN,cytokine,,CNTF-1R,P26441,1.0,1.0,curated
+uniprot,,,I36RA_HUMAN,,,IL36 receptor,Q9UBH0,1.0,1.0,curated
+uniprot,,,IL19_HUMAN,,,IL20 receptor Type I,Q9UHD0,1.0,1.0,curated
+uniprot,,,IL20_HUMAN,,,IL20 receptor Type II,Q9NYY1,1.0,1.0,curated
+uniprot,,,IL20_HUMAN,,,IL20 receptor Type I,Q9NYY1,1.0,1.0,curated
+"See paper Nold-Petry et al., 2015",,,IL37_HUMAN,,,IL37 receptor,Q9NZH6,1.0,1.0,curated
+"3bpo, PDB",,,IL13_HUMAN,,,IL13 receptor,P35225,1.0,1.0,curated
+uniprot,,,IL17C_HUMAN,,,IL17 receptor AE,Q9P0M4,1.0,1.0,curated
+"Need expression of IL15RA (Q13261) in other cells. 2z3q, PDB partially",True,,IL15_HUMAN,cytokine,,IL15 receptor,P40933,1.0,1.0,curated
+uniprot,,,IL17F_HUMAN,,,IL17 receptor AC,Q96PD4,1.0,1.0,curated
+"3qaz, PDB",True,,IL2_HUMAN,cytokine,,IL2 receptor_I,P60568,1.0,1.0,curated
+"2b5i, PDB",,,IL2_HUMAN,,,IL2 receptor_HA,P60568,1.0,1.0,curated
+NA IL17E called IL25,,,IL25_HUMAN,,,IL17 receptor AB,Q9H293,1.0,1.0,curated
+uniprot,,,IL36A_HUMAN,,,IL36 receptor,Q9UHA7,1.0,1.0,curated
+uniprot,,,IL36B_HUMAN,,,IL36 receptor,Q9NZH7,1.0,1.0,curated
+"1m10, PDB partially . Platets needed for its activation.",,,VWF_HUMAN,,,Glycoprotein Ib  complex,P04275,1.0,1.0,curated
+"Rutz et al., Nat Rev. 2014",,,IL26_HUMAN,,,IL26 receptor,Q9NPH9,1.0,1.0,curated
+uniprot,,,IL24_HUMAN,,,IL20 receptor Type I,Q13007,1.0,1.0,curated
+Induces NK Cell Inhibition. Reviewed in PMID: 24223577,,KLRB1_HUMAN,CLC2D_HUMAN,,,Q12918,Q9UHP7,1.0,1.0,curated
+Induces NK Cell Activation. Reviewed in PMID: 24223577,,CLC2B_HUMAN,KLRF1_HUMAN,,,Q92478,Q9NZS2,1.0,1.0,curated
+Induces NK Cell Activation. Reviewed in PMID: 24223577,,KLRF2_HUMAN,CLC2A_HUMAN,,,D3W0D1,Q6UVW9,1.0,1.0,curated
+Induces NK Cell Activation. Reviewed in PMID: 24223577,,,N2DL1_HUMAN,,,NKG2D II receptor,Q9BZM6,1.0,1.0,curated
+Induces NK Cell Activation. Reviewed in PMID: 24223577,,,N2DL2_HUMAN,,,NKG2D II receptor,Q9BZM5,1.0,1.0,curated
+Induces NK Cell Activation. Reviewed in PMID: 24223577,,,N2DL4_HUMAN,,,NKG2D II receptor,Q8TD07,1.0,1.0,curated
+Induces NK Cell Activation. Reviewed in PMID: 24223577,,,RET1G_HUMAN,,,NKG2D II receptor,Q6H3X3,1.0,1.0,curated
+Induces NK Cell Inhibition. Reviewed in PMID: 24223577,,HLAE_HUMAN,NKG2A_HUMAN,,,P13747,P26715,1.0,1.0,curated
+Induces NK Cell Activation. Reviewed in PMID: 24223577,,HLAE_HUMAN,NKG2D_HUMAN,,,P13747,P26718,1.0,1.0,curated
+Induces NK Cell Inhibition. Reviewed in PMID:24987108,,CEAM5_HUMAN,CEAM1_HUMAN,,,P06731,P13688,1.0,1.0,curated
+antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,,CD28_HUMAN,CD80_HUMAN,,,P10747,P33681,1.0,1.0,curated
+antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,,CD28_HUMAN,CD86_HUMAN,,,P10747,P42081,1.0,1.0,curated
+antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143,,CTLA4_HUMAN,CD80_HUMAN,,,P16410,P33681,1.0,1.0,curated
+antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143,,CTLA4_HUMAN,CD86_HUMAN,,,P16410,P42081,1.0,1.0,curated
+important for T follicular helper cells (Tfh) and type 2 T helper cell (Th2) responses. Reviewed in PMID: 23954143,,ICOS_HUMAN,ICOSL_HUMAN,,,Q9Y6W8,O75144,1.0,1.0,curated
+antigen-stimulated T cells become anergic. PMID: 23954143,,PDCD1_HUMAN,PD1L1_HUMAN,,,Q15116,Q9NZQ7,1.0,1.0,curated
+antigen-stimulated T cells become anergic. PMID: 23954143,,PDCD1_HUMAN,PD1L2_HUMAN,,,Q15116,Q9BQ51,1.0,1.0,curated
+Reviewed in PMID: 27192565,,HAVR2_HUMAN,LEG9_HUMAN,,,Q8TDQ0,O00182,1.0,1.0,curated
+Reviewed in PMID: 23602662,,CD47_HUMAN,SHPS1_HUMAN,,,Q08722,P78324,1.0,1.0,curated
+Reviewed in PMID: 23602662,,CD2_HUMAN,LFA3_HUMAN,,,P06729,P19256,1.0,1.0,curated
+Reviewed in PMID: 23602662,True,CD40L_HUMAN,TNR5_HUMAN,TNF,,P29965,P25942,1.0,1.0,curated
+Reviewed in PMID: 23602662,,CD6_HUMAN,CD166_HUMAN,,,P30203,Q13740,1.0,1.0,curated
+Reviewed in PMID: 23602662,,ICAM1_HUMAN,ITAL_HUMAN,,,P05362,P20701,1.0,1.0,curated
+activating interaction from uniprot,,NCTR3_HUMAN,BAG6_HUMAN,,,O14931,P46379,1.0,1.0,curated
+activating interaction from uniprot,,NCTR3_HUMAN,NR3L1_HUMAN,,,O14931,Q68D85,1.0,1.0,curated
+"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149",,CD226_HUMAN,NECT2_HUMAN,,,Q15762,Q92692,1.0,1.0,curated
+"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149",,CD226_HUMAN,PVR_HUMAN,,,Q15762,P15151,1.0,1.0,curated
+activating interaction. uniprot & PMID: 26697006,,NKG2C_HUMAN,HLAE_HUMAN,,,P26717,P13747,1.0,1.0,curated
+activating interaction. uniprot & PMID: 26697006,,CD244_HUMAN,CD48_HUMAN,,,Q9BZW8,P09326,1.0,1.0,curated
+activating interaction for NK and T cells. uniprot & PMID: 26697006,True,CD27_HUMAN,CD70_HUMAN,TNF. Also called TNFSF7/TNFRSF7,,P26842,P32970,1.0,1.0,curated
+uniprot,,CRTAM_HUMAN,CADM1_HUMAN,,,O95727,Q9BY67,1.0,1.0,curated
+uniprot,,TACT_HUMAN,PVR_HUMAN,,,P40200,P15151,1.0,1.0,curated
+PMID: 24658051,,TACT_HUMAN,NECT1_HUMAN,,,P40200,Q15223,1.0,1.0,curated
+"PMID: 19815499, Induces NK Cell Inhibition. Reviewed in PMID:24987108",,TIGIT_HUMAN,PVR_HUMAN,,,Q495A1,P15151,1.0,1.0,curated
+"PMID: 1313846, Induces NK Cell Inhibition. Reviewed in PMID:24987108",,TIGIT_HUMAN,NECT2_HUMAN,,,Q495A1,Q92692,1.0,1.0,curated
+PMID: 1313846,,TIGIT_HUMAN,NECT3_HUMAN,,,Q495A1,Q9NQS3,1.0,1.0,curated
+"uniprot, Induces NK Cell Inhibition. Reviewed in PMID:24987108",,LIRB1_HUMAN,HLAG_HUMAN,,,Q8NHL6,P17693,1.0,1.0,curated
+uniprot,,LIRB2_HUMAN,HLAG_HUMAN,,,Q8N423,P17693,1.0,1.0,curated
+uniprot,,,VEGFA_HUMAN,,,FLT1 complex,P15692,1.0,1.0,curated
+uniprot,,,VEGFB_HUMAN,,,FLT1 complex,P49765,1.0,1.0,curated
+uniprot,True,,PLGF_HUMAN,,,FLT1 complex,P49763,1.0,1.0,curated
+uniprot,,,PDGFB_HUMAN,,,PDGFR complex,P01127,1.0,1.0,curated
+uniprot,,,PDGFD_HUMAN,,,PDGFR complex,Q9GZP0,1.0,1.0,curated
+uniprot,,,ICAM1_HUMAN,,,aLb2 complex,P05362,1.0,1.0,curated
+uniprot,,,ICAM2_HUMAN,,,aLb2 complex,P13598,1.0,1.0,curated
+uniprot,,,ICAM3_HUMAN,,,aLb2 complex,P32942,1.0,1.0,curated
+uniprot,,,ICAM4_HUMAN,,,aLb2 complex,Q14773,1.0,1.0,curated
+"(PubMed:11812992, PubMed:15528364)",,,JAM1_HUMAN,,,aLb2 complex,Q9Y624,1.0,1.0,curated
+uniprot,,,CO3_HUMAN,,,aMb2 complex,P01024,1.0,1.0,curated
+uniprot,,,,,,aMb2 complex,fibrinogen,1.0,1.0,curated
+uniprot,,,FA10_HUMAN,,,aMb2 complex,P00742,1.0,1.0,curated
+uniprot,,,ICAM1_HUMAN,,,aMb2 complex,P05362,1.0,1.0,curated
+uniprot,,,,,,aXb2 complex,fibrinogen,1.0,1.0,curated
+uniprot,,,ICAM3_HUMAN,,,aDb2 complex,P32942,1.0,1.0,curated
+uniprot,,,VCAM1_HUMAN,,,aDb2 complex,P19320,1.0,1.0,curated
+uniprot,,,CADH1_HUMAN,,,aEb7 complex,P12830,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a2b1 complex,P02751,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a3b1 complex,P02751,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a4b1 complex,P02751,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a8b1 complex,P02751,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a10b1 complex,P02751,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a11b1 complex,P02751,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,aVb1 complex,P02751,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a5b1 complex,P02751,1.0,1.0,curated
+uniprot,,,LAMC1_HUMAN,,,a2b1 complex,P11047,1.0,1.0,curated
+uniprot,,,LAMC1_HUMAN,,,a6b1 complex,P11047,1.0,1.0,curated
+uniprot,,,LAMC1_HUMAN,,,a7b1 complex,P11047,1.0,1.0,curated
+uniprot,,,TSP1_HUMAN,,,a3b1 complex,P07996,1.0,1.0,curated
+uniprot,,,CSPG4_HUMAN,,,a3b1 complex,Q6UVK1,1.0,1.0,curated
+uniprot,,,VTNC_HUMAN,,,aVb1 complex,P04004,1.0,1.0,curated
+uniprot,,,PA2GA_HUMAN,,,a4b1 complex,P14555,1.0,1.0,curated
+uniprot,,,PA2GA_HUMAN,,,a5b1 complex,P14555,1.0,1.0,curated
+uniprot,,,FBN1_HUMAN,,,a5b1 complex,P35555,1.0,1.0,curated
+uniprot,,,VCAM1_HUMAN,,,a9b1 complex,P19320,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,aVb3 complex,P02751,1.0,1.0,curated
+uniprot,,,LAMC1_HUMAN,,,aVb3 complex,P11047,1.0,1.0,curated
+uniprot,,,MMP2_HUMAN,,,aVb3 complex,P08253,1.0,1.0,curated
+uniprot,,,OMD_HUMAN,,,aVb3 complex,Q99983,1.0,1.0,curated
+uniprot,,,THRB_HUMAN,,,aVb3 complex,P00734,1.0,1.0,curated
+uniprot,,,TSP1_HUMAN,,,aVb3 complex,P07996,1.0,1.0,curated
+uniprot,,,VTNC_HUMAN,,,aVb3 complex,P04004,1.0,1.0,curated
+uniprot,,,VWF_HUMAN,,,aVb3 complex,P04275,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a2Bb3 complex,P02751,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a2Bb3 complex,fibrinogen,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a2Bb3 complex,P00747,1.0,1.0,curated
+uniprot,,,THRB_HUMAN,,,a2Bb3 complex,P00734,1.0,1.0,curated
+uniprot,,,TSP1_HUMAN,,,a2Bb3 complex,P07996,1.0,1.0,curated
+uniprot,,,VTNC_HUMAN,,,a2Bb3 complex,P04004,1.0,1.0,curated
+uniprot,,,TENA_HUMAN,,,a8b1 complex,P24821,1.0,1.0,curated
+uniprot,,,TENA_HUMAN,,,aVb6 complex,P24821,1.0,1.0,curated
+uniprot,,,MADCA_HUMAN,,,a4b7 complex,Q13477,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,aVb5 complex,P02751,1.0,1.0,curated
+uniprot,,,VCAM1_HUMAN,,,a4b7 complex,P19320,1.0,1.0,curated
+uniprot,,,FINC_HUMAN,,,a4b7 complex,P02751,1.0,1.0,curated
+uniprot,,,TENA_HUMAN,,,a4b1 complex,P24821,1.0,1.0,curated
+uniprot,,,LAMA3_HUMAN,,,a3b1 complex,Q16787,1.0,1.0,curated
+uniprot,,,TENA_HUMAN,,,a9b1 complex,P24821,1.0,1.0,curated
+uniprot,,,TENA_HUMAN,,,aVb3 complex,P24821,1.0,1.0,curated
+uniprot,,,CO1A1_HUMAN,,,a1b1 complex,P02452,1.0,1.0,curated
+uniprot,,,CO2A1_HUMAN,,,a1b1 complex,P02458,1.0,1.0,curated
+uniprot,,,CO3A1_HUMAN,,,a1b1 complex,P02461,1.0,1.0,curated
+uniprot,,,CO4A1_HUMAN,,,a1b1 complex,P02462,1.0,1.0,curated
+uniprot,,,CO6A6_HUMAN,,,a1b1 complex,A6NMZ7,1.0,1.0,curated
+uniprot,,,CO6A5_HUMAN,,,a1b1 complex,A8TX70,1.0,1.0,curated
+uniprot,,,CO5A2_HUMAN,,,a1b1 complex,P05997,1.0,1.0,curated
+uniprot,,,CO1A2_HUMAN,,,a1b1 complex,P08123,1.0,1.0,curated
+uniprot,,,CO4A2_HUMAN,,,a1b1 complex,P08572,1.0,1.0,curated
+uniprot,,,COBA1_HUMAN,,,a1b1 complex,P12107,1.0,1.0,curated
+uniprot,,,CO6A1_HUMAN,,,a1b1 complex,P12109,1.0,1.0,curated
+uniprot,,,CO6A2_HUMAN,,,a1b1 complex,P12110,1.0,1.0,curated
+uniprot,,,CO6A3_HUMAN,,,a1b1 complex,P12111,1.0,1.0,curated
+uniprot,,,COBA2_HUMAN,,,a1b1 complex,P13942,1.0,1.0,curated
+uniprot,,,CO9A1_HUMAN,,,a1b1 complex,P20849,1.0,1.0,curated
+uniprot,,,CO5A1_HUMAN,,,a1b1 complex,P20908,1.0,1.0,curated
+uniprot,,,CO8A2_HUMAN,,,a1b1 complex,P25067,1.0,1.0,curated
+uniprot,,,CO5A3_HUMAN,,,a1b1 complex,P25940,1.0,1.0,curated
+uniprot,,,CO8A1_HUMAN,,,a1b1 complex,P27658,1.0,1.0,curated
+uniprot,,,CO4A5_HUMAN,,,a1b1 complex,P29400,1.0,1.0,curated
+uniprot,,,COFA1_HUMAN,,,a1b1 complex,P39059,1.0,1.0,curated
+uniprot,,,COIA1_HUMAN,,,a1b1 complex,P39060,1.0,1.0,curated
+uniprot,,,CO4A4_HUMAN,,,a1b1 complex,P53420,1.0,1.0,curated
+uniprot,,,CO4A3_HUMAN,,,a1b1 complex,Q01955,1.0,1.0,curated
+uniprot,,,CO7A1_HUMAN,,,a1b1 complex,Q02388,1.0,1.0,curated
+uniprot,,,COAA1_HUMAN,,,a1b1 complex,Q03692,1.0,1.0,curated
+uniprot,,,COEA1_HUMAN,,,a1b1 complex,Q05707,1.0,1.0,curated
+uniprot,,,COGA1_HUMAN,,,a1b1 complex,Q07092,1.0,1.0,curated
+uniprot,,,CO4A6_HUMAN,,,a1b1 complex,Q14031,1.0,1.0,curated
+uniprot,,,CO9A3_HUMAN,,,a1b1 complex,Q14050,1.0,1.0,curated
+uniprot,,,CO9A2_HUMAN,,,a1b1 complex,Q14055,1.0,1.0,curated
+uniprot,,,COJA1_HUMAN,,,a1b1 complex,Q14993,1.0,1.0,curated
+uniprot,,,COOA1_HUMAN,,,a1b1 complex,Q17RW2,1.0,1.0,curated
+uniprot,,,COSA1_HUMAN,,,a1b1 complex,Q2UY09,1.0,1.0,curated
+uniprot,,,CODA1_HUMAN,,,a1b1 complex,Q5TAT6,1.0,1.0,curated
+uniprot,,,CORA1_HUMAN,,,a1b1 complex,Q8IZC6,1.0,1.0,curated
+uniprot,,,COMA1_HUMAN,,,a1b1 complex,Q8NFW1,1.0,1.0,curated
+uniprot,,,COQA1_HUMAN,,,a1b1 complex,Q96A83,1.0,1.0,curated
+uniprot,,,COLA1_HUMAN,,,a1b1 complex,Q96P44,1.0,1.0,curated
+uniprot,,,COCA1_HUMAN,,,a1b1 complex,Q99715,1.0,1.0,curated
+uniprot,,,COKA1_HUMAN,,,a1b1 complex,Q9P218,1.0,1.0,curated
+uniprot,,,COHA1_HUMAN,,,a1b1 complex,Q9UMD9,1.0,1.0,curated
+uniprot,,,CO1A1_HUMAN,,,a2b1 complex,P02452,1.0,1.0,curated
+uniprot,,,CO2A1_HUMAN,,,a2b1 complex,P02458,1.0,1.0,curated
+uniprot,,,CO3A1_HUMAN,,,a2b1 complex,P02461,1.0,1.0,curated
+uniprot,,,CO4A1_HUMAN,,,a2b1 complex,P02462,1.0,1.0,curated
+uniprot,,,CO6A6_HUMAN,,,a2b1 complex,A6NMZ7,1.0,1.0,curated
+uniprot,,,CO6A5_HUMAN,,,a2b1 complex,A8TX70,1.0,1.0,curated
+uniprot,,,CO5A2_HUMAN,,,a2b1 complex,P05997,1.0,1.0,curated
+uniprot,,,CO1A2_HUMAN,,,a2b1 complex,P08123,1.0,1.0,curated
+uniprot,,,CO4A2_HUMAN,,,a2b1 complex,P08572,1.0,1.0,curated
+uniprot,,,COBA1_HUMAN,,,a2b1 complex,P12107,1.0,1.0,curated
+uniprot,,,CO6A1_HUMAN,,,a2b1 complex,P12109,1.0,1.0,curated
+uniprot,,,CO6A2_HUMAN,,,a2b1 complex,P12110,1.0,1.0,curated
+uniprot,,,CO6A3_HUMAN,,,a2b1 complex,P12111,1.0,1.0,curated
+uniprot,,,COBA2_HUMAN,,,a2b1 complex,P13942,1.0,1.0,curated
+uniprot,,,CO9A1_HUMAN,,,a2b1 complex,P20849,1.0,1.0,curated
+uniprot,,,CO5A1_HUMAN,,,a2b1 complex,P20908,1.0,1.0,curated
+uniprot,,,CO8A2_HUMAN,,,a2b1 complex,P25067,1.0,1.0,curated
+uniprot,,,CO5A3_HUMAN,,,a2b1 complex,P25940,1.0,1.0,curated
+uniprot,,,CO8A1_HUMAN,,,a2b1 complex,P27658,1.0,1.0,curated
+uniprot,,,CO4A5_HUMAN,,,a2b1 complex,P29400,1.0,1.0,curated
+uniprot,,,COFA1_HUMAN,,,a2b1 complex,P39059,1.0,1.0,curated
+uniprot,,,COIA1_HUMAN,,,a2b1 complex,P39060,1.0,1.0,curated
+uniprot,,,CO4A4_HUMAN,,,a2b1 complex,P53420,1.0,1.0,curated
+uniprot,,,CO4A3_HUMAN,,,a2b1 complex,Q01955,1.0,1.0,curated
+uniprot,,,CO7A1_HUMAN,,,a2b1 complex,Q02388,1.0,1.0,curated
+uniprot,,,COAA1_HUMAN,,,a2b1 complex,Q03692,1.0,1.0,curated
+uniprot,,,COEA1_HUMAN,,,a2b1 complex,Q05707,1.0,1.0,curated
+uniprot,,,COGA1_HUMAN,,,a2b1 complex,Q07092,1.0,1.0,curated
+uniprot,,,CO4A6_HUMAN,,,a2b1 complex,Q14031,1.0,1.0,curated
+uniprot,,,CO9A3_HUMAN,,,a2b1 complex,Q14050,1.0,1.0,curated
+uniprot,,,CO9A2_HUMAN,,,a2b1 complex,Q14055,1.0,1.0,curated
+uniprot,,,COJA1_HUMAN,,,a2b1 complex,Q14993,1.0,1.0,curated
+uniprot,,,COOA1_HUMAN,,,a2b1 complex,Q17RW2,1.0,1.0,curated
+uniprot,,,COSA1_HUMAN,,,a2b1 complex,Q2UY09,1.0,1.0,curated
+uniprot,,,CODA1_HUMAN,,,a2b1 complex,Q5TAT6,1.0,1.0,curated
+uniprot,,,CORA1_HUMAN,,,a2b1 complex,Q8IZC6,1.0,1.0,curated
+uniprot,,,COMA1_HUMAN,,,a2b1 complex,Q8NFW1,1.0,1.0,curated
+uniprot,,,COQA1_HUMAN,,,a2b1 complex,Q96A83,1.0,1.0,curated
+uniprot,,,COLA1_HUMAN,,,a2b1 complex,Q96P44,1.0,1.0,curated
+uniprot,,,COCA1_HUMAN,,,a2b1 complex,Q99715,1.0,1.0,curated
+uniprot,,,COKA1_HUMAN,,,a2b1 complex,Q9P218,1.0,1.0,curated
+uniprot,,,COHA1_HUMAN,,,a2b1 complex,Q9UMD9,1.0,1.0,curated
+uniprot,,,CO1A1_HUMAN,,,a10b1 complex,P02452,1.0,1.0,curated
+uniprot,,,CO2A1_HUMAN,,,a10b1 complex,P02458,1.0,1.0,curated
+uniprot,,,CO3A1_HUMAN,,,a10b1 complex,P02461,1.0,1.0,curated
+uniprot,,,CO4A1_HUMAN,,,a10b1 complex,P02462,1.0,1.0,curated
+uniprot,,,CO6A6_HUMAN,,,a10b1 complex,A6NMZ7,1.0,1.0,curated
+uniprot,,,CO6A5_HUMAN,,,a10b1 complex,A8TX70,1.0,1.0,curated
+uniprot,,,CO5A2_HUMAN,,,a10b1 complex,P05997,1.0,1.0,curated
+uniprot,,,CO1A2_HUMAN,,,a10b1 complex,P08123,1.0,1.0,curated
+uniprot,,,CO4A2_HUMAN,,,a10b1 complex,P08572,1.0,1.0,curated
+uniprot,,,COBA1_HUMAN,,,a10b1 complex,P12107,1.0,1.0,curated
+uniprot,,,CO6A1_HUMAN,,,a10b1 complex,P12109,1.0,1.0,curated
+uniprot,,,CO6A2_HUMAN,,,a10b1 complex,P12110,1.0,1.0,curated
+uniprot,,,CO6A3_HUMAN,,,a10b1 complex,P12111,1.0,1.0,curated
+uniprot,,,COBA2_HUMAN,,,a10b1 complex,P13942,1.0,1.0,curated
+uniprot,,,CO9A1_HUMAN,,,a10b1 complex,P20849,1.0,1.0,curated
+uniprot,,,CO5A1_HUMAN,,,a10b1 complex,P20908,1.0,1.0,curated
+uniprot,,,CO8A2_HUMAN,,,a10b1 complex,P25067,1.0,1.0,curated
+uniprot,,,CO5A3_HUMAN,,,a10b1 complex,P25940,1.0,1.0,curated
+uniprot,,,CO8A1_HUMAN,,,a10b1 complex,P27658,1.0,1.0,curated
+uniprot,,,CO4A5_HUMAN,,,a10b1 complex,P29400,1.0,1.0,curated
+uniprot,,,COFA1_HUMAN,,,a10b1 complex,P39059,1.0,1.0,curated
+uniprot,,,COIA1_HUMAN,,,a10b1 complex,P39060,1.0,1.0,curated
+uniprot,,,CO4A4_HUMAN,,,a10b1 complex,P53420,1.0,1.0,curated
+uniprot,,,CO4A3_HUMAN,,,a10b1 complex,Q01955,1.0,1.0,curated
+uniprot,,,CO7A1_HUMAN,,,a10b1 complex,Q02388,1.0,1.0,curated
+uniprot,,,COAA1_HUMAN,,,a10b1 complex,Q03692,1.0,1.0,curated
+uniprot,,,COEA1_HUMAN,,,a10b1 complex,Q05707,1.0,1.0,curated
+uniprot,,,COGA1_HUMAN,,,a10b1 complex,Q07092,1.0,1.0,curated
+uniprot,,,CO4A6_HUMAN,,,a10b1 complex,Q14031,1.0,1.0,curated
+uniprot,,,CO9A3_HUMAN,,,a10b1 complex,Q14050,1.0,1.0,curated
+uniprot,,,CO9A2_HUMAN,,,a10b1 complex,Q14055,1.0,1.0,curated
+uniprot,,,COJA1_HUMAN,,,a10b1 complex,Q14993,1.0,1.0,curated
+uniprot,,,COOA1_HUMAN,,,a10b1 complex,Q17RW2,1.0,1.0,curated
+uniprot,,,COSA1_HUMAN,,,a10b1 complex,Q2UY09,1.0,1.0,curated
+uniprot,,,CODA1_HUMAN,,,a10b1 complex,Q5TAT6,1.0,1.0,curated
+uniprot,,,CORA1_HUMAN,,,a10b1 complex,Q8IZC6,1.0,1.0,curated
+uniprot,,,COMA1_HUMAN,,,a10b1 complex,Q8NFW1,1.0,1.0,curated
+uniprot,,,COQA1_HUMAN,,,a10b1 complex,Q96A83,1.0,1.0,curated
+uniprot,,,COLA1_HUMAN,,,a10b1 complex,Q96P44,1.0,1.0,curated
+uniprot,,,COCA1_HUMAN,,,a10b1 complex,Q99715,1.0,1.0,curated
+uniprot,,,COKA1_HUMAN,,,a10b1 complex,Q9P218,1.0,1.0,curated
+uniprot,,,COHA1_HUMAN,,,a10b1 complex,Q9UMD9,1.0,1.0,curated
+uniprot,,,CO1A1_HUMAN,,,a11b1 complex,P02452,1.0,1.0,curated
+uniprot,,,CO2A1_HUMAN,,,a11b1 complex,P02458,1.0,1.0,curated
+uniprot,,,CO3A1_HUMAN,,,a11b1 complex,P02461,1.0,1.0,curated
+uniprot,,,CO4A1_HUMAN,,,a11b1 complex,P02462,1.0,1.0,curated
+uniprot,,,CO6A6_HUMAN,,,a11b1 complex,A6NMZ7,1.0,1.0,curated
+uniprot,,,CO6A5_HUMAN,,,a11b1 complex,A8TX70,1.0,1.0,curated
+uniprot,,,CO5A2_HUMAN,,,a11b1 complex,P05997,1.0,1.0,curated
+uniprot,,,CO1A2_HUMAN,,,a11b1 complex,P08123,1.0,1.0,curated
+uniprot,,,CO4A2_HUMAN,,,a11b1 complex,P08572,1.0,1.0,curated
+uniprot,,,COBA1_HUMAN,,,a11b1 complex,P12107,1.0,1.0,curated
+uniprot,,,CO6A1_HUMAN,,,a11b1 complex,P12109,1.0,1.0,curated
+uniprot,,,CO6A2_HUMAN,,,a11b1 complex,P12110,1.0,1.0,curated
+uniprot,,,CO6A3_HUMAN,,,a11b1 complex,P12111,1.0,1.0,curated
+uniprot,,,COBA2_HUMAN,,,a11b1 complex,P13942,1.0,1.0,curated
+uniprot,,,CO9A1_HUMAN,,,a11b1 complex,P20849,1.0,1.0,curated
+uniprot,,,CO5A1_HUMAN,,,a11b1 complex,P20908,1.0,1.0,curated
+uniprot,,,CO8A2_HUMAN,,,a11b1 complex,P25067,1.0,1.0,curated
+uniprot,,,CO5A3_HUMAN,,,a11b1 complex,P25940,1.0,1.0,curated
+uniprot,,,CO8A1_HUMAN,,,a11b1 complex,P27658,1.0,1.0,curated
+uniprot,,,CO4A5_HUMAN,,,a11b1 complex,P29400,1.0,1.0,curated
+uniprot,,,COFA1_HUMAN,,,a11b1 complex,P39059,1.0,1.0,curated
+uniprot,,,COIA1_HUMAN,,,a11b1 complex,P39060,1.0,1.0,curated
+uniprot,,,CO4A4_HUMAN,,,a11b1 complex,P53420,1.0,1.0,curated
+uniprot,,,CO4A3_HUMAN,,,a11b1 complex,Q01955,1.0,1.0,curated
+uniprot,,,CO7A1_HUMAN,,,a11b1 complex,Q02388,1.0,1.0,curated
+uniprot,,,COAA1_HUMAN,,,a11b1 complex,Q03692,1.0,1.0,curated
+uniprot,,,COEA1_HUMAN,,,a11b1 complex,Q05707,1.0,1.0,curated
+uniprot,,,COGA1_HUMAN,,,a11b1 complex,Q07092,1.0,1.0,curated
+uniprot,,,CO4A6_HUMAN,,,a11b1 complex,Q14031,1.0,1.0,curated
+uniprot,,,CO9A3_HUMAN,,,a11b1 complex,Q14050,1.0,1.0,curated
+uniprot,,,CO9A2_HUMAN,,,a11b1 complex,Q14055,1.0,1.0,curated
+uniprot,,,COJA1_HUMAN,,,a11b1 complex,Q14993,1.0,1.0,curated
+uniprot,,,COOA1_HUMAN,,,a11b1 complex,Q17RW2,1.0,1.0,curated
+uniprot,,,COSA1_HUMAN,,,a11b1 complex,Q2UY09,1.0,1.0,curated
+uniprot,,,CODA1_HUMAN,,,a11b1 complex,Q5TAT6,1.0,1.0,curated
+uniprot,,,CORA1_HUMAN,,,a11b1 complex,Q8IZC6,1.0,1.0,curated
+uniprot,,,COMA1_HUMAN,,,a11b1 complex,Q8NFW1,1.0,1.0,curated
+uniprot,,,COQA1_HUMAN,,,a11b1 complex,Q96A83,1.0,1.0,curated
+uniprot,,,COLA1_HUMAN,,,a11b1 complex,Q96P44,1.0,1.0,curated
+uniprot,,,COCA1_HUMAN,,,a11b1 complex,Q99715,1.0,1.0,curated
+uniprot,,,COKA1_HUMAN,,,a11b1 complex,Q9P218,1.0,1.0,curated
+uniprot,,,COHA1_HUMAN,,,a11b1 complex,Q9UMD9,1.0,1.0,curated
+PMID: 28484462,,KI2L1_HUMAN,HLAC,,,P43626,HLAC,1.0,1.0,curated
+PMID: 28484462,,KI2L3_HUMAN,HLAC,,,P43628,HLAC,1.0,1.0,curated
+uniprot,,KI3L1_HUMAN,HLAA,,,P43629,HLAA,1.0,1.0,curated
+uniprot,,KI3L2_HUMAN,HLAB,,,P43630,HLAB,1.0,1.0,curated
+PMID: 28484462,,,HLAE_HUMAN,,,CD94:NKG2A,P13747,1.0,1.0,curated
+PMID: 28484462,,,HLAE_HUMAN,,,CD94:NKG2C,P13747,1.0,1.0,curated
+PMID: 28484462,,,HLAE_HUMAN,,,CD94:NKG2E,P13747,1.0,1.0,curated
+"PMID: 1830891, PMID: 8970045",,,OSTP_HUMAN,,,a4b1 complex,P10451,1.0,1.0,curated
+"PMID: 1830891, PMID: 8970045",,,OSTP_HUMAN,,,a9b1 complex,P10451,1.0,1.0,curated
+PMID: 24442579,,,OSTP_HUMAN,,,aVb3 complex,P10451,1.0,1.0,curated
+uniprot,,,IGF1_HUMAN,,,a6b4 complex,P05019,1.0,1.0,curated
+uniprot,,,NRG1_HUMAN,,,a6b4 complex,Q02297,1.0,1.0,curated
+"PMID: 22020332, also called CD200-CD200R",,OX2G_HUMAN,MO2R1_HUMAN,,,P41217,Q8TD46,1.0,1.0,curated
+PMID: 24032637,,WNT1_HUMAN,FZD1_HUMAN,,,P04628,Q9UP38,1.0,1.0,curated
+PMID: 24032637,,WNT2_HUMAN,FZD2_HUMAN,,,P09544,Q14332,1.0,1.0,curated
+PMID: 24032637,,WNT2_HUMAN,FZD3_HUMAN,,,P09544,Q9NPG1,1.0,1.0,curated
+PMID: 24032637,,WNT2_HUMAN,FZD4_HUMAN,,,P09544,Q9ULV1,1.0,1.0,curated
+PMID: 24032637,,WNT2_HUMAN,FZD9_HUMAN,,,P09544,O00144,1.0,1.0,curated
+PMID: 24032637,,WNT2B_HUMAN,FZD4_HUMAN,,,Q93097,Q9ULV1,1.0,1.0,curated
+PMID: 24032637,,WNT3_HUMAN,FZD7_HUMAN,,,P56703,O75084,1.0,1.0,curated
+PMID: 24032637,,WNT4_HUMAN,FZD6_HUMAN,,,P56705,O60353,1.0,1.0,curated
+PMID: 24032637,,WNT5A_HUMAN,FZD1_HUMAN,,,P41221,Q9UP38,1.0,1.0,curated
+PMID: 24032637,,WNT5A_HUMAN,FZD2_HUMAN,,,P41221,Q14332,1.0,1.0,curated
+PMID: 24032637,,WNT5A_HUMAN,FZD3_HUMAN,,,P41221,Q9NPG1,1.0,1.0,curated
+PMID: 24032637,,WNT5A_HUMAN,FZD5_HUMAN,,,P41221,Q13467,1.0,1.0,curated
+PMID: 24032637,,WNT5A_HUMAN,FZD6_HUMAN,,,P41221,O60353,1.0,1.0,curated
+PMID: 24032637,,WNT7A_HUMAN,FZD5_HUMAN,,,O00755,Q13467,1.0,1.0,curated
+PMID: 24032637,,WNT7B_HUMAN,FZD1_HUMAN,,,P56706,Q9UP38,1.0,1.0,curated
+PMID: 24032637,,WNT7B_HUMAN,FZD4_HUMAN,,,P56706,Q9ULV1,1.0,1.0,curated
+PMID: 24032637,,WNT7B_HUMAN,FZD10_HUMAN,,,P56706,Q9ULW2,1.0,1.0,curated
+PMID: 22325954,,SEM3A_HUMAN,,,,Q14563,PlexinA1_complex3,1.0,1.0,curated
+PMID: 22325954,,SEM3A_HUMAN,,,,Q14563,PlexinA2_complex1,1.0,1.0,curated
+PMID: 22325954,,SEM3A_HUMAN,,,,Q14563,PlexinA3_complex1,1.0,1.0,curated
+PMID: 22325954,,SEM3A_HUMAN,,,,Q14563,PlexinA4_complex1,1.0,1.0,curated
+PMID: 22325954,,SEM3E_HUMAN,PLXD1_HUMAN,,,O15041,Q9Y4D7,1.0,1.0,curated
+PMID: 22325954,,SEM4A_HUMAN,PLXD1_HUMAN,,,Q9H3S1,Q9Y4D7,1.0,1.0,curated
+PMID: 22325954,,SEM4D_HUMAN,PLXB1_HUMAN,,,Q92854,O43157,1.0,1.0,curated
+PMID: 22325954,,SEM4D_HUMAN,PLXB2_HUMAN,,,Q92854,O15031,1.0,1.0,curated
+PMID: 22325954,,SEM4D_HUMAN,CD72_HUMAN,,,Q92854,P21854,1.0,1.0,curated
+PMID: 22325954,,SEM6D_HUMAN,,,,Q8NFY4,PlexinA1_complex1,1.0,1.0,curated
+PMID: 22325954,,SEM6D_HUMAN,,,,Q8NFY4,PlexinA1_complex2,1.0,1.0,curated
+PMID: 22325954,,SEM7A_HUMAN,,,,O75326,a1b1 complex,1.0,1.0,curated
+PMID: 22325954,,SEM7A_HUMAN,PLXC1_HUMAN,,,O75326,O60486,1.0,1.0,curated
+PMID: 9208871,True,IFNA1_HUMAN,,cytokine,,P01562,Type I IFNR,1.0,1.0,curated
+PMID: 9208871,,IFNB_HUMAN,,,,P01574,Type I IFNR,1.0,1.0,curated
+PMID: 9208871,,IFNE_HUMAN,,,,Q86WN2,Type I IFNR,1.0,1.0,curated
+PMID: 9208871,,IFNK_HUMAN,,,,Q9P0W0,Type I IFNR,1.0,1.0,curated
+PMID: 9208871,True,IFNW1_HUMAN,,IFN,,P05000,Type I IFNR,1.0,1.0,curated
+PMID: 9208871,True,IFNG_HUMAN,,IFN,,P01579,Type II IFNR,1.0,1.0,curated
+PMID: 9208871,,IFNL1_HUMAN,,,,Q8IU54,Type III IFNR,1.0,1.0,curated
+PMID: 9208871,,IFNL2_HUMAN,,,,Q8IZJ0,Type III IFNR,1.0,1.0,curated
+PMID: 9208871,,IFNL3_HUMAN,,,,Q8IZI9,Type III IFNR,1.0,1.0,curated
+uniprot,True,VGFR2_HUMAN,VEGFA_HUMAN,,,P35968,P15692,1.0,1.0,curated
+uniprot,True,VGFR2_HUMAN,VEGFC_HUMAN,,,P35968,P49767,1.0,1.0,curated
+uniprot,True,VGFR2_HUMAN,VEGFD_HUMAN,,,P35968,O43915,1.0,1.0,curated
+uniprot,,VGFR1_HUMAN,VEGFA_HUMAN,,,P17948,P15692,1.0,1.0,curated
+uniprot,,VGFR1_HUMAN,VEGFB_HUMAN,,,P17948,P49765,1.0,1.0,curated
+uniprot,,VGFR1_HUMAN,PLGF_HUMAN,,,P17948,P49763,1.0,1.0,curated
+uniprot,True,VGFR3_HUMAN,VEGFC_HUMAN,,,P35916,P49767,1.0,1.0,curated
+uniprot,True,VGFR3_HUMAN,VEGFD_HUMAN,,,P35916,O43915,1.0,1.0,curated
+uniprot,,SEM4C_HUMAN,PLXB2_HUMAN,,,Q9C0C4,O15031,1.0,1.0,curated
+uniprot,,SEM4G_HUMAN,PLXB2_HUMAN,,,Q9NTN9,O15031,1.0,1.0,curated
+uniprot,,SEM5A_HUMAN,PLXB3_HUMAN,,,Q13591,Q9ULL4,1.0,1.0,curated
+PMID: 24218476,True,CCR2_HUMAN,CCL2_HUMAN,,,P41597,P13500,1.0,1.0,curated
+PMID: 24218476,True,ACKR2_HUMAN,CCL2_HUMAN,,,O00590,P13500,1.0,1.0,curated
+PMID: 24218476,True,ACKR1_HUMAN,CCL2_HUMAN,,,Q16570,P13500,1.0,1.0,curated
+PMID: 24218476,,CX3C1_HUMAN,X3CL1_HUMAN,,,P49238,P78423,1.0,1.0,curated
+PMID: 24218476,,CXCR3_HUMAN,PLF4_HUMAN,,,P49682,P02776,1.0,1.0,curated
+PMID: 24218476,True,CCR3_HUMAN,CCL5_HUMAN,,,P51677,P13501,1.0,1.0,curated
+PMID: 24218476,True,CCR1_HUMAN,CCL5_HUMAN,,,P32246,P13501,1.0,1.0,curated
+PMID: 24218476,,ACKR1_HUMAN,CCL5_HUMAN,,,Q16570,P13501,1.0,1.0,curated
+PMID: 24218476,True,ACKR1_HUMAN,IL8_HUMAN,,,Q16570,P10145,1.0,1.0,curated
+PMID: 24218476,True,CXCR1_HUMAN,IL8_HUMAN,,,P25024,P10145,1.0,1.0,curated
+PMID: 24218476,,CXCR1_HUMAN,CXCL7_HUMAN,,,P25024,P02775,1.0,1.0,curated
+PMID: 24218476,,CXCR2_HUMAN,CXCL2_HUMAN,,,P25025,P19875,1.0,1.0,curated
+PMID: 24218476,True,CCR2_HUMAN,CCL7_HUMAN,,,P41597,P80098,1.0,1.0,curated
+PMID: 24218476,True,CCR3_HUMAN,CCL7_HUMAN,,,P51677,P80098,1.0,1.0,curated
+PMID: 24218476,True,CCR1_HUMAN,CCL7_HUMAN,,,P32246,P80098,1.0,1.0,curated
+PMID: 24218476,True,ACKR1_HUMAN,GROA_HUMAN,,,Q16570,P09341,1.0,1.0,curated
+PMID: 24218476,,ACKR4_HUMAN,CCL19_HUMAN,,,Q9NPB9,Q99731,1.0,1.0,curated
+PMID: 24218476,True,CCR7_HUMAN,CCL19_HUMAN,,,P32248,Q99731,1.0,1.0,curated
+PMID: 24218476,,ACKR4_HUMAN,CCL21_HUMAN,,,Q9NPB9,O00585,1.0,1.0,curated
+PMID: 24218476,,CCR7_HUMAN,CCL21_HUMAN,,,P32248,O00585,1.0,1.0,curated
+PMID: 24218476,True,CCR9_HUMAN,CCL25_HUMAN,,,P51686,O15444,1.0,1.0,curated
+PMID: 24218476,True,CCR4_HUMAN,CCL17_HUMAN,,,P51679,Q92583,1.0,1.0,curated
+PMID: 24218476,True,CCR2_HUMAN,CCL8_HUMAN,,,P41597,P80075,1.0,1.0,curated
+PMID: 24218476,,CCR1_HUMAN,CCL8_HUMAN,,,P32246,P80075,1.0,1.0,curated
+PMID: 24218476,True,CXCR3_HUMAN,CXCL9_HUMAN,,,P49682,Q07325,1.0,1.0,curated
+PMID: 24218476,,CCR3_HUMAN,CCL11_HUMAN,,,P51677,P51671,1.0,1.0,curated
+PMID: 24218476,,ACKR2_HUMAN,CCL11_HUMAN,,,O00590,P51671,1.0,1.0,curated
+PMID: 24218476,True,CXCR3_HUMAN,CXL11_HUMAN,,,P49682,O14625,1.0,1.0,curated
+PMID: 24218476,True,CXCR3_HUMAN,CXL10_HUMAN,,,P49682,P02778,1.0,1.0,curated
+PMID: 24218476,,CCR3_HUMAN,CCL3_HUMAN,,,P51677,P10147,1.0,1.0,curated
+PMID: 24218476,True,CCR1_HUMAN,CCL3_HUMAN,,,P32246,P10147,1.0,1.0,curated
+PMID: 24218476,,CCR3_HUMAN,CL3L1_HUMAN,,,P51677,P16619,1.0,1.0,curated
+PMID: 24218476,,CCR1_HUMAN,CL3L1_HUMAN,,,P32246,P16619,1.0,1.0,curated
+PMID: 24218476,True,CXCR2_HUMAN,CXCL3_HUMAN,,,P25025,P19876,1.0,1.0,curated
+PMID: 24218476,,CCR1_HUMAN,CCL16_HUMAN,,,P32246,O15467,1.0,1.0,curated
+PMID: 24218476,True,CCR8_HUMAN,CCL1_HUMAN,,,P51685,P22362,1.0,1.0,curated
+PMID: 24218476,True,CCR1_HUMAN,CCL23_HUMAN,,,P32246,P55773,1.0,1.0,curated
+PMID: 24218476,,CCR8_HUMAN,CCL18_HUMAN,,,P51685,P55774,1.0,1.0,curated
+PMID: 24218476,,XCR1_HUMAN,XCL1_HUMAN,,,P46094,P47992,1.0,1.0,curated
+PMID: 24218476,True,CXCR4_HUMAN,SDF1_HUMAN,,,P61073,P48061,1.0,1.0,curated
+PMID: 24218476,,ACKR2_HUMAN,CCL5_HUMAN,,,O00590,P13501,1.0,1.0,curated
+PMID: 24218476,True,ACKR2_HUMAN,CCL7_HUMAN,,,O00590,P80098,1.0,1.0,curated
+PMID: 24218476,True,ACKR2_HUMAN,CCL13_HUMAN,,,O00590,Q99616,1.0,1.0,curated
+PMID: 24218476,True,ACKR2_HUMAN,CCL8_HUMAN,,,O00590,P80075,1.0,1.0,curated
+PMID: 24218476,,ACKR2_HUMAN,CCL14_HUMAN,,,O00590,Q16627,1.0,1.0,curated
+PMID: 24218476,,ACKR2_HUMAN,CCL3_HUMAN,,,O00590,P10147,1.0,1.0,curated
+PMID: 24218476,True,ACKR2_HUMAN,CCL4_HUMAN,,,O00590,P13236,1.0,1.0,curated
+PMID: 24218476,True,CXCR2_HUMAN,CXCL7_HUMAN,,,P25025,P02775,1.0,1.0,curated
+PMID: 24218476,True,CXCR2_HUMAN,IL8_HUMAN,,,P25025,P10145,1.0,1.0,curated
+PMID: 24218476,True,CXCR2_HUMAN,GROA_HUMAN,,,P25025,P09341,1.0,1.0,curated
+PMID: 24218476,True,CXCR2_HUMAN,CXCL5_HUMAN,,,P25025,P42830,1.0,1.0,curated
+PMID: 24218476,True,CXCR2_HUMAN,CXCL6_HUMAN,,,P25025,P80162,1.0,1.0,curated
+PMID: 24218476,,CXCR1_HUMAN,GROA_HUMAN,,,P25024,P09341,1.0,1.0,curated
+PMID: 24218476,True,CXCR1_HUMAN,CXCL5_HUMAN,,,P25024,P42830,1.0,1.0,curated
+PMID: 24218476,True,CXCR1_HUMAN,CXCL6_HUMAN,,,P25024,P80162,1.0,1.0,curated
+PMID: 24218476,True,CCR4_HUMAN,CCL22_HUMAN,,,P51679,O00626,1.0,1.0,curated
+PMID: 24218476,,DPP4_HUMAN,CCL22_HUMAN,,,P27487,O00626,1.0,1.0,curated
+PMID: 24218476,,DPP4_HUMAN,SDF1_HUMAN,,,P27487,P48061,1.0,1.0,curated
+PMID: 24218476,,DPP4_HUMAN,CXCL2_HUMAN,,,P27487,P19875,1.0,1.0,curated
+PMID: 24218476,,DPP4_HUMAN,CCL11_HUMAN,,,P27487,P51671,1.0,1.0,curated
+PMID: 24218476,,DPP4_HUMAN,CXL11_HUMAN,,,P27487,O14625,1.0,1.0,curated
+PMID: 24218476,,DPP4_HUMAN,CXCL9_HUMAN,,,P27487,Q07325,1.0,1.0,curated
+PMID: 24218476,,DPP4_HUMAN,CXL10_HUMAN,,,P27487,P02778,1.0,1.0,curated
+PMID: 24218476,True,CXCR5_HUMAN,CXL13_HUMAN,,,P32302,O43927,1.0,1.0,curated
+PMID: 24218476,True,CCR2_HUMAN,CCL13_HUMAN,,,P41597,Q99616,1.0,1.0,curated
+PMID: 24218476,,CCR2_HUMAN,CCL16_HUMAN,,,P41597,O15467,1.0,1.0,curated
+PMID: 24218476,,CCR2_HUMAN,CCL26_HUMAN,,,P41597,Q9Y258,1.0,1.0,curated
+PMID: 24218476,True,CCR10_HUMAN,CCL27_HUMAN,,,P46092,Q9Y4X3,1.0,1.0,curated
+PMID: 24218476,,ACKR4_HUMAN,CXL13_HUMAN,,,Q9NPB9,O43927,1.0,1.0,curated
+PMID: 24218476,,ACKR4_HUMAN,CCL25_HUMAN,,,Q9NPB9,O15444,1.0,1.0,curated
+PMID: 24218476,True,CCR3_HUMAN,CCL13_HUMAN,,,P51677,Q99616,1.0,1.0,curated
+PMID: 24218476,True,CCR3_HUMAN,CCL26_HUMAN,,,P51677,Q9Y258,1.0,1.0,curated
+PMID: 24218476,,CCR3_HUMAN,CCL14_HUMAN,,,P51677,Q16627,1.0,1.0,curated
+PMID: 24218476,True,CCR3_HUMAN,CCL24_HUMAN,,,P51677,O00175,1.0,1.0,curated
+PMID: 24218476,,CCR1_HUMAN,CCL26_HUMAN,,,P32246,Q9Y258,1.0,1.0,curated
+PMID: 24218476,True,CCR1_HUMAN,CCL14_HUMAN,,,P32246,Q16627,1.0,1.0,curated
+PMID: 24218476,True,CCR6_HUMAN,CCL20_HUMAN,,,P51684,P78556,1.0,1.0,curated
+uniprot,True,CCR5_HUMAN,CCL4_HUMAN,,,P51681,P13236,1.0,1.0,curated
+uniprot,,ENTP1_HUMAN,AA2AR_HUMAN,,,P49961,P29274,1.0,1.0,curated
+uniprot,,ENTP1_HUMAN,AA1R_HUMAN,,,P49961,P30542,1.0,1.0,curated
+uniprot,,ENTP1_HUMAN,AA2BR_HUMAN,,,P49961,P29275,1.0,1.0,curated
+uniprot,,ENTP1_HUMAN,AA3R_HUMAN,,,P49961,P0DMS8,1.0,1.0,curated
+PMID: 22353464,True,DLK1_HUMAN,NOTC1_HUMAN,NOTCH,,P80370,P46531,1.0,1.0,curated
+PMID: 22353464,True,DLK1_HUMAN,NOTC2_HUMAN,NOTCH,,P80370,Q04721,1.0,1.0,curated
+PMID: 22353464,True,DLK1_HUMAN,NOTC3_HUMAN,NOTCH,,P80370,Q9UM47,1.0,1.0,curated
+PMID: 22353464,True,DLK1_HUMAN,NOTC4_HUMAN,NOTCH,,P80370,Q99466,1.0,1.0,curated
+PMID: 22353464,True,JAG1_HUMAN,NOTC1_HUMAN,NOTCH,,P78504,P46531,1.0,1.0,curated
+PMID: 22353464,True,JAG1_HUMAN,NOTC2_HUMAN,NOTCH,,P78504,Q04721,1.0,1.0,curated
+PMID: 22353464,True,JAG1_HUMAN,NOTC3_HUMAN,NOTCH,,P78504,Q9UM47,1.0,1.0,curated
+PMID: 22353464,True,JAG1_HUMAN,NOTC4_HUMAN,NOTCH,,P78504,Q99466,1.0,1.0,curated
+PMID: 22353464,True,JAG2_HUMAN,NOTC1_HUMAN,NOTCH,,Q9Y219,P46531,1.0,1.0,curated
+PMID: 22353464,True,JAG2_HUMAN,NOTC2_HUMAN,NOTCH,,Q9Y219,Q04721,1.0,1.0,curated
+PMID: 22353464,True,JAG2_HUMAN,NOTC3_HUMAN,NOTCH,,Q9Y219,Q9UM47,1.0,1.0,curated
+PMID: 22353464,True,JAG2_HUMAN,NOTC4_HUMAN,NOTCH,,Q9Y219,Q99466,1.0,1.0,curated
+PMID: 22353464,True,DLL1_HUMAN,NOTC1_HUMAN,NOTCH,,Q61483,P46531,1.0,1.0,curated
+PMID: 22353464,True,DLL1_HUMAN,NOTC2_HUMAN,NOTCH,,Q61483,Q04721,1.0,1.0,curated
+PMID: 22353464,True,DLL1_HUMAN,NOTC3_HUMAN,NOTCH,,Q61483,Q9UM47,1.0,1.0,curated
+PMID: 22353464,True,DLL1_HUMAN,NOTC4_HUMAN,NOTCH,,Q61483,Q99466,1.0,1.0,curated
+PMID: 22353464,True,DLL3_HUMAN,NOTC1_HUMAN,NOTCH,,Q9NYJ7,P46531,1.0,1.0,curated
+PMID: 22353464,True,DLL3_HUMAN,NOTC2_HUMAN,NOTCH,,Q9NYJ7,Q04721,1.0,1.0,curated
+PMID: 22353464,True,DLL3_HUMAN,NOTC3_HUMAN,NOTCH,,Q9NYJ7,Q9UM47,1.0,1.0,curated
+PMID: 22353464,True,DLL3_HUMAN,NOTC4_HUMAN,NOTCH,,Q9NYJ7,Q99466,1.0,1.0,curated
+PMID: 22353464,True,DLL4_HUMAN,NOTC1_HUMAN,NOTCH,,Q9NR61,P46531,1.0,1.0,curated
+PMID: 22353464,True,DLL4_HUMAN,NOTC2_HUMAN,NOTCH,,Q9NR61,Q04721,1.0,1.0,curated
+PMID: 22353464,True,DLL4_HUMAN,NOTC3_HUMAN,NOTCH,,Q9NR61,Q9UM47,1.0,1.0,curated
+PMID: 22353464,True,DLL4_HUMAN,NOTC4_HUMAN,NOTCH,,Q9NR61,Q99466,1.0,1.0,curated
+PMID:15107857; PMID: 15114347,,EPHB2_HUMAN,EFNA5_HUMAN,Eph-ephrin,,P29323,P52803,1.0,1.0,curated
+PMID: 15114347,True,EFNA1_HUMAN,EPHA1_HUMAN,Eph-ephrin,,P20827,P21709,1.0,1.0,curated
+PMID: 15114347,True,EFNA1_HUMAN,EPHA2_HUMAN,Eph-ephrin,,P20827,P29317,1.0,1.0,curated
+PMID: 15114347,True,EFNA1_HUMAN,EPHA3_HUMAN,Eph-ephrin,,P20827,P29320,1.0,1.0,curated
+PMID: 15114347,True,EFNA1_HUMAN,EPHA4_HUMAN,Eph-ephrin,,P20827,P54764,1.0,1.0,curated
+PMID: 15114347,True,EFNA1_HUMAN,EPHA5_HUMAN,Eph-ephrin,,P20827,P54756,1.0,1.0,curated
+PMID: 15114347,True,EFNA1_HUMAN,EPHA7_HUMAN,Eph-ephrin,,P20827,Q15375,1.0,1.0,curated
+PMID: 15114347,True,EFNA1_HUMAN,EPHA8_HUMAN,Eph-ephrin,,P20827,P29322,1.0,1.0,curated
+PMID: 15114347,True,EFNA2_HUMAN,EPHA1_HUMAN,Eph-ephrin,,O43921,P21709,1.0,1.0,curated
+PMID: 15114347,True,EFNA2_HUMAN,EPHA2_HUMAN,Eph-ephrin,,O43921,P29317,1.0,1.0,curated
+PMID: 15114347,True,EFNA2_HUMAN,EPHA3_HUMAN,Eph-ephrin,,O43921,P29320,1.0,1.0,curated
+PMID: 15114347,True,EFNA2_HUMAN,EPHA4_HUMAN,Eph-ephrin,,O43921,P54764,1.0,1.0,curated
+PMID: 15114347,True,EFNA2_HUMAN,EPHA5_HUMAN,Eph-ephrin,,O43921,P54756,1.0,1.0,curated
+PMID: 15114347,True,EFNA2_HUMAN,EPHA7_HUMAN,Eph-ephrin,,O43921,Q15375,1.0,1.0,curated
+PMID: 15114347,True,EFNA2_HUMAN,EPHA8_HUMAN,Eph-ephrin,,O43921,P29322,1.0,1.0,curated
+PMID: 15114347,True,EFNA3_HUMAN,EPHA1_HUMAN,Eph-ephrin,,P52797,P21709,1.0,1.0,curated
+PMID: 15114347,True,EFNA3_HUMAN,EPHA2_HUMAN,Eph-ephrin,,P52797,P29317,1.0,1.0,curated
+PMID: 15114347,True,EFNA3_HUMAN,EPHA3_HUMAN,Eph-ephrin,,P52797,P29320,1.0,1.0,curated
+PMID: 15114347,True,EFNA3_HUMAN,EPHA4_HUMAN,Eph-ephrin,,P52797,P54764,1.0,1.0,curated
+PMID: 15114347,True,EFNA3_HUMAN,EPHA5_HUMAN,Eph-ephrin,,P52797,P54756,1.0,1.0,curated
+PMID: 15114347,True,EFNA3_HUMAN,EPHA7_HUMAN,Eph-ephrin,,P52797,Q15375,1.0,1.0,curated
+PMID: 15114347,True,EFNA3_HUMAN,EPHA8_HUMAN,Eph-ephrin,,P52797,P29322,1.0,1.0,curated
+PMID: 15114347,True,EFNA4_HUMAN,EPHA1_HUMAN,Eph-ephrin,,P52798,P21709,1.0,1.0,curated
+PMID: 15114347,True,EFNA4_HUMAN,EPHA2_HUMAN,Eph-ephrin,,P52798,P29317,1.0,1.0,curated
+PMID: 15114347,True,EFNA4_HUMAN,EPHA3_HUMAN,Eph-ephrin,,P52798,P29320,1.0,1.0,curated
+PMID: 15114347,True,EFNA4_HUMAN,EPHA4_HUMAN,Eph-ephrin,,P52798,P54764,1.0,1.0,curated
+PMID: 15114347,True,EFNA4_HUMAN,EPHA5_HUMAN,Eph-ephrin,,P52798,P54756,1.0,1.0,curated
+PMID: 15114347,True,EFNA4_HUMAN,EPHA7_HUMAN,Eph-ephrin,,P52798,Q15375,1.0,1.0,curated
+PMID: 15114347,True,EFNA4_HUMAN,EPHA8_HUMAN,Eph-ephrin,,P52798,P29322,1.0,1.0,curated
+PMID: 15114347,True,EFNA5_HUMAN,EPHA1_HUMAN,Eph-ephrin,,P52803,P21709,1.0,1.0,curated
+PMID: 15114347,True,EFNA5_HUMAN,EPHA2_HUMAN,Eph-ephrin,,P52803,P29317,1.0,1.0,curated
+PMID: 15114347,True,EFNA5_HUMAN,EPHA3_HUMAN,Eph-ephrin,,P52803,P29320,1.0,1.0,curated
+PMID: 15114347,True,EFNA5_HUMAN,EPHA4_HUMAN,Eph-ephrin,,P52803,P54764,1.0,1.0,curated
+PMID: 15114347,True,EFNA5_HUMAN,EPHA5_HUMAN,Eph-ephrin,,P52803,P54756,1.0,1.0,curated
+PMID: 15114347,True,EFNA5_HUMAN,EPHA7_HUMAN,Eph-ephrin,,P52803,Q15375,1.0,1.0,curated
+PMID: 15114347,True,EFNA5_HUMAN,EPHA8_HUMAN,Eph-ephrin,,P52803,P29322,1.0,1.0,curated
+PMID: 15114347,True,EFNB1_HUMAN,EPHB1_HUMAN,Eph-ephrin,,P98172,P54762,1.0,1.0,curated
+PMID: 15114347,True,EFNB1_HUMAN,EPHB2_HUMAN,Eph-ephrin,,P98172,P29323,1.0,1.0,curated
+PMID: 15114347,True,EFNB1_HUMAN,EPHB3_HUMAN,Eph-ephrin,,P98172,P54753,1.0,1.0,curated
+PMID: 15114347,True,EFNB1_HUMAN,EPHB4_HUMAN,Eph-ephrin,,P98172,P54760,1.0,1.0,curated
+PMID: 15114347,True,EFNB1_HUMAN,EPHB6_HUMAN,Eph-ephrin,,P98172,O15197,1.0,1.0,curated
+PMID: 15114347,True,EFNB1_HUMAN,EPHA4_HUMAN,Eph-ephrin,,P98172,P54764,1.0,1.0,curated
+PMID: 15114347,True,EFNB2_HUMAN,EPHB1_HUMAN,Eph-ephrin,,P52799,P54762,1.0,1.0,curated
+PMID: 15114347,True,EFNB2_HUMAN,EPHB2_HUMAN,Eph-ephrin,,P52799,P29323,1.0,1.0,curated
+PMID: 15114347,True,EFNB2_HUMAN,EPHB3_HUMAN,Eph-ephrin,,P52799,P54753,1.0,1.0,curated
+PMID: 15114347,True,EFNB2_HUMAN,EPHB4_HUMAN,Eph-ephrin,,P52799,P54760,1.0,1.0,curated
+PMID: 15114347,True,EFNB2_HUMAN,EPHB6_HUMAN,Eph-ephrin,,P52799,O15197,1.0,1.0,curated
+PMID: 15114347,True,EFNB2_HUMAN,EPHA4_HUMAN,Eph-ephrin,,P52799,P54764,1.0,1.0,curated
+PMID: 15114347,True,EFNB3_HUMAN,EPHB1_HUMAN,Eph-ephrin,,Q15768,P54762,1.0,1.0,curated
+PMID: 15114347,True,EFNB3_HUMAN,EPHB2_HUMAN,Eph-ephrin,,Q15768,P29323,1.0,1.0,curated
+PMID: 15114347,True,EFNB3_HUMAN,EPHB3_HUMAN,Eph-ephrin,,Q15768,P54753,1.0,1.0,curated
+PMID: 15114347,True,EFNB3_HUMAN,EPHB4_HUMAN,Eph-ephrin,,Q15768,P54760,1.0,1.0,curated
+PMID: 15114347,True,EFNB3_HUMAN,EPHB6_HUMAN,Eph-ephrin,,Q15768,O15197,1.0,1.0,curated
+PMID: 15114347,True,EFNB3_HUMAN,EPHA4_HUMAN,Eph-ephrin,,Q15768,P54764,1.0,1.0,curated
+uniprot,True,TNFA_HUMAN,TNR1A_HUMAN,TNF,,P01375,P19438,1.0,1.0,curated
+uniprot,True,TNFA_HUMAN,TNR1B_HUMAN,TNF,,P01375,P20333,1.0,1.0,curated
+uniprot,True,TNFB_HUMAN,TNR1A_HUMAN,TNF,,P01374,P19438,1.0,1.0,curated
+uniprot,True,TNFB_HUMAN,TNR1B_HUMAN,TNF,,P01374,P20333,1.0,1.0,curated
+uniprot,True,TNFB_HUMAN,TNR14_HUMAN,TNF,,P01374,Q92956,1.0,1.0,curated
+uniprot,True,TNFL8_HUMAN,TNR8_HUMAN,TNF,,P32971,P28908,1.0,1.0,curated
+uniprot,True,TNFC_HUMAN,TNR3_HUMAN,TNF,,Q06643,P36941,1.0,1.0,curated
+uniprot,True,TNFL6_HUMAN,TNR6_HUMAN,TNF,,P48023,P25445,1.0,1.0,curated
+uniprot,True,TNFL6_HUMAN,TNF6B_HUMAN,TNF,,P48023,O95407,1.0,1.0,curated
+uniprot,,TNF15_HUMAN,TNF6B_HUMAN,TNF,,O95150,O95407,1.0,1.0,curated
+uniprot,,TNF13_HUMAN,TR13B_HUMAN,TNF,,O75888,O14836,1.0,1.0,curated
+uniprot,,TNF13_HUMAN,TNR17_HUMAN,TNF,,O75888,Q02223,1.0,1.0,curated
+uniprot,,TN13B_HUMAN,TR13B_HUMAN,TNF,,Q9Y275,O14836,1.0,1.0,curated
+uniprot,,TN13B_HUMAN,TNR17_HUMAN,TNF,,Q9Y275,Q02223,1.0,1.0,curated
+uniprot,True,TNF10_HUMAN,TR10A_HUMAN,TNF,,P50591,O00220,1.0,1.0,curated
+uniprot,True,TNF10_HUMAN,TR10B_HUMAN,TNF,,P50591,O14763,1.0,1.0,curated
+uniprot,True,TNF10_HUMAN,TR10C_HUMAN,TNF,,P50591,O14798,1.0,1.0,curated
+uniprot,True,TNF10_HUMAN,TR10D_HUMAN,TNF,,P50591,Q9UBN6,1.0,1.0,curated
+uniprot,True,TNF10_HUMAN,TR11B_HUMAN,TNF,,P50591,O00300,1.0,1.0,curated
+uniprot,True,TNF11_HUMAN,TR11B_HUMAN,TNF,,O14788,O00300,1.0,1.0,curated
+uniprot,True,TNF11_HUMAN,TNR11_HUMAN,TNF,,O14788,Q9Y6Q6,1.0,1.0,curated
+uniprot,True,TNFL9_HUMAN,TNR9_HUMAN,TNF,,P41273,Q07011,1.0,1.0,curated
+uniprot,True,TNR4_HUMAN,TNFL4_HUMAN,TNF,,P43489,P23510,1.0,1.0,curated
+uniprot,True,TNF14_HUMAN,TNFRSF3,TNF,,O43557,P36941,1.0,1.0,curated
+uniprot,True,TNF14_HUMAN,TNFRSF6B,TNF,,O43557,O95407,1.0,1.0,curated
+uniprot,True,TNF14_HUMAN,TNFSF14,TNF,,O43557,O43557,1.0,1.0,curated
+uniprot,,TNF12_HUMAN,TNR12_HUMAN,TNF,,O43508,Q9NP84,1.0,1.0,curated
+uniprot,True,TNF12_HUMAN,TNF12_HUMAN,TNF,,O43508,O43508,1.0,1.0,curated
+uniprot,True,TNF18_HUMAN,TNR18_HUMAN,TNF,,Q9UNG2,Q9Y5U5,1.0,1.0,curated
+PMID: 26471366,True,I13R2_HUMAN,IL13_HUMAN,cytokine,,Q14627,P35225,1.0,1.0,curated
+uniprot,True,IGF1R_HUMAN,IGF1_HUMAN,,,P08069,P05019,1.0,1.0,curated
+uniprot,True,MPRI_HUMAN,IGF2_HUMAN,,,P11717,P01344,1.0,1.0,curated
+PMID: 27102148,,IGF1R_HUMAN,IGF2_HUMAN,,,P08069,P01344,1.0,1.0,curated
+uniprot,True,INSR_HUMAN,INS_HUMAN,,,P06213,P01308,1.0,1.0,curated
+uniprot,True,HGF_HUMAN,MET_HUMAN,,,P14210,P08581,1.0,1.0,curated
+PMID: 23792360,True,HGFL_HUMAN,RON_HUMAN,,,P26927,Q04912,1.0,1.0,curated
+uniprot,True,FGF1_HUMAN,FGFR1_HUMAN,,,P05230,P11362,1.0,1.0,curated
+uniprot,,FGF1_HUMAN,,,,P05230,aVb3 complex,1.0,1.0,curated
+uniprot,,FGF2_HUMAN,,,,P09038,aVb3 complex,1.0,1.0,curated
+uniprot,True,FGF2_HUMAN,FGFR1_HUMAN,,,P09038,P11362,1.0,1.0,curated
+uniprot,True,FGF2_HUMAN,FGFR2_HUMAN,,,P09038,P21802,1.0,1.0,curated
+uniprot,True,FGF2_HUMAN,FGFR3_HUMAN,,,P09038,P22607,1.0,1.0,curated
+uniprot,True,FGF2_HUMAN,FGFR4_HUMAN,,,P09038,P22455,1.0,1.0,curated
+uniprot,True,NGF_HUMAN,NTRK1_HUMAN,,,P01138,P04629,1.0,1.0,curated
+uniprot,True,NGF_HUMAN,TNR16_HUMAN,,,P01138,P08138,1.0,1.0,curated
+uniprot,,TNR16_HUMAN,NGF,,,P08138,,1.0,1.0,curated
+uniprot,True,TNR16_HUMAN,BDNF_HUMAN,,,P08138,P23560,1.0,1.0,curated
+uniprot,True,TNR16_HUMAN,NTF3_HUMAN,,,P08138,P20783,1.0,1.0,curated
+uniprot,,TNR16_HUMAN,NTF4_HUMAN,,,P08138,P34130,1.0,1.0,curated
+uniprot,True,NTRK2_HUMAN,BDNF_HUMAN,,,Q16620,P23560,1.0,1.0,curated
+uniprot,True,NTRK1_HUMAN,NTF3_HUMAN,,,P04629,P20783,1.0,1.0,curated
+uniprot,True,NTRK2_HUMAN,NTF3_HUMAN,,,Q16620,P20783,1.0,1.0,curated
+uniprot,True,NTRK3_HUMAN,NTF3_HUMAN,,,Q16288,P20783,1.0,1.0,curated
+uniprot,True,TPO_HUMAN,TPOR_HUMAN,,,P40225,P40238,1.0,1.0,curated
+uniprot,True,EPOR_HUMAN,EPO_HUMAN,,,P19235,P01588,1.0,1.0,curated
+uniprot,True,ANGP1_HUMAN,TIE2_HUMAN,,,Q15389,Q02763,1.0,1.0,curated
+uniprot,,ANGP2_HUMAN,TIE2_HUMAN,,,O15123,Q02763,1.0,1.0,curated
+uniprot,,ANGP4_HUMAN,TIE2_HUMAN,,,Q9Y264,Q02763,1.0,1.0,curated
+uniprot,True,PDGFA_HUMAN,PGFRA_HUMAN,,,P04085,P16234,1.0,1.0,curated
+uniprot,True,PDGFB_HUMAN,PGFRA_HUMAN,,,P01127,P16234,1.0,1.0,curated
+uniprot,,PDGFC_HUMAN,PGFRA_HUMAN,,,Q9NRA1,P16234,1.0,1.0,curated
+uniprot,,PDGFD_HUMAN,PGFRB_HUMAN,,,Q9GZP0,P09619,1.0,1.0,curated
+uniprot,True,PDGFB_HUMAN,PGFRB_HUMAN,,,P01127,P09619,1.0,1.0,curated
+uniprot,,NRP1_HUMAN,SEM3A_HUMAN,,,O14786,Q14563,1.0,1.0,curated
+uniprot,True,NRP1_HUMAN,PLGF_HUMAN,,,O14786,P49763,1.0,1.0,curated
+uniprot,True,NRP1_HUMAN,VEGFA_HUMAN,,,O14786,P15692,1.0,1.0,curated
+uniprot,True,NRP1_HUMAN,VEGFB_HUMAN,,,O14786,P49765,1.0,1.0,curated
+uniprot,,NRP2_HUMAN,SEM3C_HUMAN,,,O60462,Q99985,1.0,1.0,curated
+uniprot,,NRP2_HUMAN,SEM3F_HUMAN,,,O60462,Q13275,1.0,1.0,curated
+uniprot,True,NRP2_HUMAN,VEGFA_HUMAN,,,O60462,P15692,1.0,1.0,curated
+uniprot,,NRP2_HUMAN,PLGF_HUMAN,,,O60462,P49763,1.0,1.0,curated
+uniprot,True,EGF_HUMAN,EGFR_HUMAN,,,P01133,P00533,1.0,1.0,curated
+uniprot,True,TGFA_HUMAN,EGFR_HUMAN,,,P01135,P00533,1.0,1.0,curated
+uniprot,True,AREG_HUMAN,EGFR_HUMAN,,,P15514,P00533,1.0,1.0,curated
+uniprot,,EPGN_HUMAN,EGFR_HUMAN,,,Q6UW88,P00533,1.0,1.0,curated
+uniprot,True,BTC_HUMAN,EGFR_HUMAN,,,P35070,P00533,1.0,1.0,curated
+uniprot,True,EREG_HUMAN,EGFR_HUMAN,,,O14944,P00533,1.0,1.0,curated
+uniprot,True,HBEGF_HUMAN,EGFR_HUMAN,,,Q99075,P00533,1.0,1.0,curated
+uniprot,True,BTC_HUMAN,ERBB4_HUMAN,,,P35070,Q15303,1.0,1.0,curated
+uniprot,True,BTC_HUMAN,ERBB3_HUMAN,,,P35070,P21860,1.0,1.0,curated
+uniprot,True,NRG1_HUMAN,ERBB4_HUMAN,,,Q02297,Q15303,1.0,1.0,curated
+uniprot,,NRG2_HUMAN,ERBB4_HUMAN,,,O14511,Q15303,1.0,1.0,curated
+uniprot,,NRG3_HUMAN,ERBB4_HUMAN,,,P56975,Q15303,1.0,1.0,curated
+uniprot,,NRG4_HUMAN,ERBB4_HUMAN,,,Q8WWG1,Q15303,1.0,1.0,curated
+uniprot,True,EREG_HUMAN,ERBB4_HUMAN,,,O14944,Q15303,1.0,1.0,curated
+uniprot,True,HBEGF_HUMAN,ERBB4_HUMAN,,,Q99075,Q15303,1.0,1.0,curated
+uniprot,True,NRG1_HUMAN,ERBB3_HUMAN,,,Q02297,P21860,1.0,1.0,curated
+uniprot,,NRG2_HUMAN,ERBB3_HUMAN,,,O14511,P21860,1.0,1.0,curated
+uniprot,True,,IL11_HUMAN,cytokine,,IL11 receptor,P20809,1.0,1.0,curated
+uniprot,True,CSF3_HUMAN,CSF3R_HUMAN,,,P09919,Q99062,1.0,1.0,curated
+uniprot,True,LEPR_HUMAN,LEP_HUMAN,,,P48357,P41159,1.0,1.0,curated
+uniprot,True,SCF_HUMAN,KIT_HUMAN,,,P21583,P10721,1.0,1.0,curated
+uniprot,True,FLT3L_HUMAN,FLT3_HUMAN,,,P49771,P36888,1.0,1.0,curated
+uniprot,True,CSF1R_HUMAN,CSF1_HUMAN,,,P07333,P09603,1.0,1.0,curated
+uniprot,,CSF1R_HUMAN,IL34_HUMAN,,,P07333,Q6ZMJ4,1.0,1.0,curated
+uniprot,,MK_HUMAN,ALK_HUMAN,,,P21741,Q9UM73,1.0,1.0,curated
+PMID: 10212223,True,MK_HUMAN,PTPRZ_HUMAN,,,P21741,P23471,1.0,1.0,curated
+uniprot,,PTN_HUMAN,ALK_HUMAN,,,P21246,Q9UM73,1.0,1.0,curated
+PMID: 25644401,True,PTN_HUMAN,PTPRZ_HUMAN,,,P21246,P23471,1.0,1.0,curated
+uniprot,True,,TGFB1_HUMAN,TGF family,,TGFbeta receptor1,P01137,1.0,1.0,curated
+uniprot,True,,TGFB2_HUMAN,TGF family,,TGFbeta receptor1,P61812,1.0,1.0,curated
+uniprot,True,,TGFB3_HUMAN,TGF family,,TGFbeta receptor1,P10600,1.0,1.0,curated
+uniprot,True,TGBR3_HUMAN,TGFB1_HUMAN,TGF family,,Q03167,P01137,1.0,1.0,curated
+uniprot,True,TGBR3_HUMAN,TGFB2_HUMAN,TGF family,,Q03167,P61812,1.0,1.0,curated
+uniprot,True,TGBR3_HUMAN,TGFB3_HUMAN,TGF family,,Q03167,P10600,1.0,1.0,curated
+uniprot,,,TGFB1_HUMAN,TGF family,,TGFbeta receptor2,P01137,1.0,1.0,curated
+uniprot,,,TGFB2_HUMAN,TGF family,,TGFbeta receptor2,P61812,1.0,1.0,curated
+uniprot,,,TGFB3_HUMAN,TGF family,,TGFbeta receptor2,P10600,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,INHBA_HUMAN,TGF family,,ACVR_1B2B receptor,P08476,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,INHBA_HUMAN,TGF family,,ACVR_1B2A receptor,P08476,1.0,1.0,curated
+less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,,INHBA_HUMAN,TGF family,,ACVR_1A2A receptor,P08476,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,INHBA_HUMAN,TGF family,,ACVR_1C2A receptor,P08476,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,INHBA_HUMAN,TGF family,,ACVR_1C2B receptor,P08476,1.0,1.0,curated
+less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,,INHBA_HUMAN,TGF family,,ACVR_1A2B receptor,P08476,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,INHBB_HUMAN,TGF family,,ACVR_1B2B receptor,P09529,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,INHBB_HUMAN,TGF family,,ACVR_1B2A receptor,P09529,1.0,1.0,curated
+less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,,INHBB_HUMAN,TGF family,,ACVR_1A2A receptor,P09529,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,INHBB_HUMAN,TGF family,,ACVR_1C2A receptor,P09529,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,INHBB_HUMAN,TGF family,,ACVR_1C2B receptor,P09529,1.0,1.0,curated
+less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,,INHBB_HUMAN,TGF family,,ACVR_1A2B receptor,P09529,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,,TGF family,,ACVR_1B2B receptor,Activin ligand ab,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,,TGF family,,ACVR_1B2A receptor,Activin ligand ab,1.0,1.0,curated
+less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,,,TGF family,,ACVR_1A2A receptor,Activin ligand ab,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,,TGF family,,ACVR_1C2A receptor,Activin ligand ab,1.0,1.0,curated
+PMID: 22710174 & rndsystem webpage; PMID: 22991378,,,,TGF family,,ACVR_1C2B receptor,Activin ligand ab,1.0,1.0,curated
+less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage,,,,TGF family,,ACVR_1A2B receptor,Activin ligand ab,1.0,1.0,curated
+PMID: 22710174,,AVR2B_HUMAN,INHBC_HUMAN,TGF family,,Q13705,P55103,1.0,1.0,curated
+PMID: 22710174,,AVR2A_HUMAN,INHBC_HUMAN,TGF family,,P27037,P55103,1.0,1.0,curated
+PMID: 22710174,,AVR2B_HUMAN,INHBE_HUMAN,TGF family,,Q13705,P58166,1.0,1.0,curated
+PMID: 22710174,,AVR2A_HUMAN,INHBE_HUMAN,TGF family,,P27037,P58166,1.0,1.0,curated
+PMID: 22710174,,BMP2_HUMAN,,TGF family,,P12643,BMPR1A_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP4_HUMAN,,TGF family,,P12644,BMPR1A_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP2_HUMAN,,TGF family,,P12643,BMR1A_ACR2A,1.0,1.0,curated
+PMID: 22710174,,BMP4_HUMAN,,TGF family,,P12644,BMR1A_ACR2A,1.0,1.0,curated
+PMID: 22710174,,BMP2_HUMAN,,TGF family,,P12643,BMR1A_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP4_HUMAN,,TGF family,,P12644,BMR1A_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP2_HUMAN,,TGF family,,P12643,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP4_HUMAN,,TGF family,,P12644,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP2_HUMAN,,TGF family,,P12643,BMR1B_AVR2A,1.0,1.0,curated
+PMID: 22710174,,BMP4_HUMAN,,TGF family,,P12644,BMR1B_AVR2A,1.0,1.0,curated
+PMID: 22710174,,BMP2_HUMAN,,TGF family,,P12643,BMR1B_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP4_HUMAN,,TGF family,,P12644,BMR1B_AVR2B,1.0,1.0,curated
+PMID: 22610094,,ANXA1_HUMAN,FPR2_HUMAN,,,P04083,P25090,1.0,1.0,curated
+uniprot,,IFNA4_HUMAN,,,,P05014,Type I IFNR,1.0,1.0,curated
+uniprot,,IFNA5_HUMAN,,,,P01569,Type I IFNR,1.0,1.0,curated
+uniprot,,IFN16_HUMAN,,,,P05015,Type I IFNR,1.0,1.0,curated
+uniprot,,IFNA8_HUMAN,,,,P32881,Type I IFNR,1.0,1.0,curated
+uniprot,,IFN14_HUMAN,,,,P01570,Type I IFNR,1.0,1.0,curated
+uniprot,,IFN21_HUMAN,,,,P01568,Type I IFNR,1.0,1.0,curated
+uniprot,,IFNA6_HUMAN,,,,P05013,Type I IFNR,1.0,1.0,curated
+uniprot,,IFNA7_HUMAN,,,,P01567,Type I IFNR,1.0,1.0,curated
+uniprot,,IFN10_HUMAN,,,,P01566,Type I IFNR,1.0,1.0,curated
+uniprot,,IFN17_HUMAN,,,,P01571,Type I IFNR,1.0,1.0,curated
+PMID: 22710174,,BMP5_HUMAN,,TGF family,,P22003,BMPR1A_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP6_HUMAN,,TGF family,,P22004,BMPR1A_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP7_HUMAN,,TGF family,,P18075,BMPR1A_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP8A_HUMAN,,TGF family,,Q7Z5Y6,BMPR1A_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP5_HUMAN,,TGF family,,P22003,BMR1A_ACR2A,1.0,1.0,curated
+PMID: 22710174,,BMP6_HUMAN,,TGF family,,P22004,BMR1A_ACR2A,1.0,1.0,curated
+PMID: 22710174,,BMP7_HUMAN,,TGF family,,P18075,BMR1A_ACR2A,1.0,1.0,curated
+PMID: 22710174,,BMP8A_HUMAN,,TGF family,,Q7Z5Y6,BMR1A_ACR2A,1.0,1.0,curated
+PMID: 22710174,,BMP5_HUMAN,,TGF family,,P22003,BMR1A_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP6_HUMAN,,TGF family,,P22004,BMR1A_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP7_HUMAN,,TGF family,,P18075,BMR1A_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP8A_HUMAN,,TGF family,,Q7Z5Y6,BMR1A_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP5_HUMAN,,TGF family,,P22003,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP6_HUMAN,,TGF family,,P22004,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP7_HUMAN,,TGF family,,P18075,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP8A_HUMAN,,TGF family,,Q7Z5Y6,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP5_HUMAN,,TGF family,,P22003,BMR1B_AVR2A,1.0,1.0,curated
+PMID: 22710174,,BMP6_HUMAN,,TGF family,,P22004,BMR1B_AVR2A,1.0,1.0,curated
+PMID: 22710174,,BMP7_HUMAN,,TGF family,,P18075,BMR1B_AVR2A,1.0,1.0,curated
+PMID: 22710174,,BMP8A_HUMAN,,TGF family,,Q7Z5Y6,BMR1B_AVR2A,1.0,1.0,curated
+PMID: 22710174,,BMP5_HUMAN,,TGF family,,P22003,BMR1B_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP6_HUMAN,,TGF family,,P22004,BMR1B_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP7_HUMAN,,TGF family,,P18075,BMR1B_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP8A_HUMAN,,TGF family,,Q7Z5Y6,BMR1B_AVR2B,1.0,1.0,curated
+PMID: 22710174,,BMP5_HUMAN,,TGF family,,P22003,ACVR1_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP6_HUMAN,,TGF family,,P22004,ACVR1_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP7_HUMAN,,TGF family,,P18075,ACVR1_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP8A_HUMAN,,TGF family,,Q7Z5Y6,ACVR1_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP5_HUMAN,,TGF family,,P22003,ACVR_1A2B receptor,1.0,1.0,curated
+PMID: 22710174,,BMP6_HUMAN,,TGF family,,P22004,ACVR_1A2B receptor,1.0,1.0,curated
+PMID: 22710174,,BMP7_HUMAN,,TGF family,,P18075,ACVR_1A2B receptor,1.0,1.0,curated
+PMID: 22710174,,BMP8A_HUMAN,,TGF family,,Q7Z5Y6,ACVR_1A2B receptor,1.0,1.0,curated
+PMID: 22710174,,BMP5_HUMAN,,TGF family,,P22003,ACVR_1A2A receptor,1.0,1.0,curated
+PMID: 22710174,,BMP6_HUMAN,,TGF family,,P22004,ACVR_1A2A receptor,1.0,1.0,curated
+PMID: 22710174,,BMP7_HUMAN,,TGF family,,P18075,ACVR_1A2A receptor,1.0,1.0,curated
+PMID: 22710174,,BMP8A_HUMAN,,TGF family,,Q7Z5Y6,ACVR_1A2A receptor,1.0,1.0,curated
+PMID: 22710174,,GDF5_HUMAN,,TGF family,,P43026,BMPR1A_BMPR2,1.0,1.0,curated
+PMID: 22710174,,GDF6_HUMAN,,TGF family,,Q6KF10,BMPR1A_BMPR2,1.0,1.0,curated
+PMID: 22710174,,GDF7_HUMAN,,TGF family,,Q7Z4P5,BMPR1A_BMPR2,1.0,1.0,curated
+PMID: 22710174,,GDF5_HUMAN,,TGF family,,P43026,BMR1A_ACR2A,1.0,1.0,curated
+PMID: 22710174,,GDF6_HUMAN,,TGF family,,Q6KF10,BMR1A_ACR2A,1.0,1.0,curated
+PMID: 22710174,,GDF7_HUMAN,,TGF family,,Q7Z4P5,BMR1A_ACR2A,1.0,1.0,curated
+PMID: 22710174,,GDF5_HUMAN,,TGF family,,P43026,BMR1A_AVR2B,1.0,1.0,curated
+PMID: 22710174,,GDF6_HUMAN,,TGF family,,Q6KF10,BMR1A_AVR2B,1.0,1.0,curated
+PMID: 22710174,,GDF7_HUMAN,,TGF family,,Q7Z4P5,BMR1A_AVR2B,1.0,1.0,curated
+PMID: 22710174,,GDF5_HUMAN,,TGF family,,P43026,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,GDF6_HUMAN,,TGF family,,Q6KF10,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,GDF7_HUMAN,,TGF family,,Q7Z4P5,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,GDF5_HUMAN,,TGF family,,P43026,BMR1B_AVR2A,1.0,1.0,curated
+PMID: 22710174,,GDF6_HUMAN,,TGF family,,Q6KF10,BMR1B_AVR2A,1.0,1.0,curated
+PMID: 22710174,,GDF7_HUMAN,,TGF family,,Q7Z4P5,BMR1B_AVR2A,1.0,1.0,curated
+PMID: 22710174,,GDF5_HUMAN,,TGF family,,P43026,BMR1B_AVR2B,1.0,1.0,curated
+PMID: 22710174,,GDF6_HUMAN,,TGF family,,Q6KF10,BMR1B_AVR2B,1.0,1.0,curated
+PMID: 22710174,,GDF7_HUMAN,,TGF family,,Q7Z4P5,BMR1B_AVR2B,1.0,1.0,curated
+PMID: 22710174,,GDF2_HUMAN,,TGF family,,Q9UK05,ACVL1_BMPR2,1.0,1.0,curated
+PMID: 22710174,,BMP10_HUMAN,,TGF family,,O95393,ACVL1_BMPR2,1.0,1.0,curated
+PMID: 22710174,,GDF1_HUMAN,,TGF family,,P27539,ACVR_1B2B receptor,1.0,1.0,curated
+PMID: 22710174,,GDF3_HUMAN,,TGF family,,Q9NR23,ACVR_1B2B receptor,1.0,1.0,curated
+PMID: 22710174,,BMP3_HUMAN,,TGF family,,P12645,ACVR_1B2A receptor,1.0,1.0,curated
+PMID: 22710174,,GDF10_HUMAN,,TGF family,,P55107,ACVR_1B2B receptor,1.0,1.0,curated
+PMID: 22710174,,NODAL_HUMAN,,TGF family,,Q96S42,NODAL receptor,1.0,1.0,curated
+PMID: 22710174,,BMP15_HUMAN,,TGF family,,O95972,BMPR1B_BMPR2,1.0,1.0,curated
+PMID: 22710174,,GDF9_HUMAN,,TGF family,,O60383,TGFR_BMPR2,1.0,1.0,curated
+PMID: 22710174,,GDF11_HUMAN,,TGF family,,O95390,ACVR_1B2B receptor,1.0,1.0,curated
+PMID: 22710174,,GDF11_HUMAN,,TGF family,,O95390,ACVR_1B2A receptor,1.0,1.0,curated
+PMID: 22710174,,GDF11_HUMAN,,TGF family,,O95390,TGFR_AVR2A,1.0,1.0,curated
+PMID: 22710174,,GDF11_HUMAN,,TGF family,,O95390,TGFR_AVR2B,1.0,1.0,curated
+PMID: 22710174,,GDF8_HUMAN,,TGF family,,O14793,ACVR_1B2B receptor,1.0,1.0,curated
+PMID: 22710174,,GDF8_HUMAN,,TGF family,,O14793,ACVR_1B2A receptor,1.0,1.0,curated
+PMID: 22710174,,GDF8_HUMAN,,TGF family,,O14793,TGFR_AVR2A,1.0,1.0,curated
+PMID: 22710174,,GDF8_HUMAN,,TGF family,,O14793,TGFR_AVR2B,1.0,1.0,curated
+PMID: 22710174,,MIS_HUMAN,,TGF family,,P03971,MIS receptor 1,1.0,1.0,curated
+PMID: 22710174,,MIS_HUMAN,,TGF family,,P03971,MIS receptor 2,1.0,1.0,curated
+PMID: 22710174,,MIS_HUMAN,,TGF family,,P03971,MIS receptor 3,1.0,1.0,curated
+PMID: 22710174,,LFTY1_HUMAN,TDGF1_HUMAN,TGF family,,O75610,P13385,1.0,1.0,curated
+PMID: 22710174,,LFTY2_HUMAN,TDGF1_HUMAN,TGF family,,O00292,P13385,1.0,1.0,curated
+uniprot,,GDNF_HUMAN,,TGF family,,P39905,RET receptor,1.0,1.0,curated
+uniprot,,NRTN_HUMAN,,TGF family,,Q99748,RET receptor 2,1.0,1.0,curated
+uniprot,,ARTN_HUMAN,,TGF family,,Q5T4W7,RET receptor,1.0,1.0,curated
+uniprot,,ARTN_HUMAN,,TGF family,,Q5T4W7,RET receptor 3,1.0,1.0,curated
+uniprot,,PSPN_HUMAN,,TGF family,,O60542,RET receptor 4,1.0,1.0,curated
+uniprot,True,XCL2_HUMAN,XCR1_HUMAN,,,Q9UBD3,P46094,1.0,1.0,curated
+PMID: 15251452,True,CCL3_HUMAN,CCR5_HUMAN,,,P10147,P51681,1.0,1.0,curated
+uniprot,True,CCL15_HUMAN,CCR1_HUMAN,,,Q16663,P32246,1.0,1.0,curated
+uniprot,True,CCL15_HUMAN,CCR3_HUMAN,,,Q16663,P51677,1.0,1.0,curated
+PMID: 24218476,True,CCL5_HUMAN,CCR4_HUMAN,,,P13501,P51679,1.0,1.0,curated
+PMID: 24218476,True,CCL5_HUMAN,CCR5_HUMAN,,,P13501,P51681,1.0,1.0,curated
+PMID: 24218476,True,CCL8_HUMAN,CCR3_HUMAN,,,P80075,P51677,1.0,1.0,curated
+PMID: 24218476,True,CCL8_HUMAN,CCR5_HUMAN,,,P80075,P51681,1.0,1.0,curated
+PMID: 24218476,True,CCL7_HUMAN,CCR5_HUMAN,,,P80098,P51681,1.0,1.0,curated
 ,,,,,,Q04900,P25106,0.35,0.35,MolCon
 ,,,,,,P29033,P25106,0.35,0.35,IntAct
 ,,,,,,Q04900,P61073,0.5,0.5,MolCon

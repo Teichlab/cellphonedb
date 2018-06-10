@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, String, ForeignKey
+from sqlalchemy import Column, Integer, Float, String, ForeignKey, Boolean
 
 from cellphonedb.core.models import Base
 
@@ -16,3 +16,6 @@ class Interaction(Base):
 
     source = Column(String)
     comments_interaction = Column(String)
+    family = Column(String)
+    dlrp = Column(Boolean)
+    iuhpar = Column(Boolean)

@@ -1,4 +1,4 @@
-multidata_name_1,entry_name_1,multidata_name_2,entry_name_2,score_1,score_2,source,comments_interaction,family,DLRP,IUHPAR
+multidata_name_1,entry_name_1,multidata_name_2,entry_name_2,score_1,score_2,source,comments_interaction,family,dlrp,iuhpar
 IL21 receptor,,Q9HBE4,IL21_HUMAN,1,1,curated,"3tgx, PDB partially, uniprot",,,
 IL9 receptor,,P15248,IL9_HUMAN,1,1,curated,uniprot,cytokine,TRUE,
 NKG2D II receptor,,Q5VY80,RET1L_HUMAN,1,1,curated,"Induces NK Cell Activation. Reviewed in PMID: 24223577. 4s0u, PDB partially",,,
