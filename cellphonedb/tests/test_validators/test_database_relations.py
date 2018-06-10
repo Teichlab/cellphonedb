@@ -61,6 +61,26 @@ class TestDatabaseRelationsChecks(TestCase):
                          'There are %s duplicated genes in database. Please check WARNING_duplicated_genes.csv file' % len(
                              duplicated_genes))
 
+    def test_duplicated_gene_ensembl_is_not_in_interaction(self):
+        all_genes = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('gene').get_all_expanded()
+        all_interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+            'interaction').get_all()
+
+        genes_duplicated_ensembl = all_genes[all_genes.duplicated('ensembl', keep=False)]
+
+        all_interactions_multidata_ids = all_interactions['multidata_1_id'].tolist() + all_interactions[
+            'multidata_2_id'].tolist()
+
+        duplicated_gene_ensembls_in_interactions = genes_duplicated_ensembl[
+            genes_duplicated_ensembl['id_multidata'].apply(lambda id: id in all_interactions_multidata_ids)]
+
+        if not duplicated_gene_ensembls_in_interactions.empty:
+            app_logger.warning('Some duplicated ensembls apears in interactions')
+            app_logger.warning(duplicated_gene_ensembls_in_interactions.to_csv(index=False))
+
+        self.assertTrue(duplicated_gene_ensembls_in_interactions.empty,
+                        'Some duplicated ensembl gene apears in interactions')
+
     def create_app(self):
         return create_app(raise_non_defined_vars=False)
 
