@@ -20,7 +20,7 @@ class TestHumanInteractionsPermutationsComplex(CellphoneFlaskTestCase):
         self.query_call(data, iterations)
 
     def test_manual_data(self):
-        iterations = 1000
+        iterations = 10
         data = 'manual'
         self.query_call(data, iterations)
 
