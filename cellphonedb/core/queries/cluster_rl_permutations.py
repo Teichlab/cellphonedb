@@ -91,11 +91,8 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
     return clusters
 
 
-def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame):
-    interactions_filtered = filter_interaction.filter_by_receptor_ligand_ligand_receptor(interactions,
-                                                                                         enable_integrin=False,
-                                                                                         avoid_duplited=False,
-                                                                                         avoid_duplicated_genes=False)
+def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
+    interactions_filtered = filter_interaction.filter_by_is_interactor(interactions)
 
     # TODO: temporal solution
     interactions_filtered = interactions[interactions.apply(

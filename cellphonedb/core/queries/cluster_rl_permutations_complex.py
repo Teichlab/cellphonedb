@@ -177,7 +177,6 @@ def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataF
 
     interactions_filtered = filter_interactions_by_genes(interactions, counts['gene'].tolist())
     interactions_filtered = filter_interactions_by_complexes(interactions_filtered, complex_in_counts)
-    interactions_filtered = filter_interactions_by_non_integrin(interactions_filtered)
 
     counts_simple = filter_counts_by_interactions(counts_multidata, interactions_filtered)
 
