@@ -3,7 +3,7 @@ import pandas as pd
 from cellphonedb.core.models.multidata import properties_multidata
 
 
-def is_cellphone_interactor(interaction: pd.Series, suffixes=('_1', '_2')) -> bool:
+def is_cellphonedb_interactor(interaction: pd.Series, suffixes=('_1', '_2')) -> bool:
     if interaction['source'] == 'curated':
         return True
 

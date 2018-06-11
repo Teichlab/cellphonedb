@@ -20,4 +20,4 @@ class Interaction(Base):
     dlrp = Column(Boolean)
     iuhpar = Column(Boolean)
 
-    is_cellphone_interactor = Column(Boolean)
+    is_cellphonedb_interactor = Column(Boolean)

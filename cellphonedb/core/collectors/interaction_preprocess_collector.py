@@ -18,7 +18,7 @@ def _set_interactor_property(interactions_processed: pd.DataFrame,
     interactions_processed_expanded = pd.merge(interactions_processed_expanded, multidatas,
                                                left_on=['multidata_name_2'], right_on=['name'],
                                                suffixes=['_x', '_y'])
-    interactions_processed_expanded['is_cellphone_interactor'] = interactions_processed_expanded.apply(
-        lambda interaction: properties_interaction.is_cellphone_interactor(interaction, ('_x', '_y')), axis=1)
+    interactions_processed_expanded['is_cellphonedb_interactor'] = interactions_processed_expanded.apply(
+        lambda interaction: properties_interaction.is_cellphonedb_interactor(interaction, ('_x', '_y')), axis=1)
 
     return interactions_processed_expanded
