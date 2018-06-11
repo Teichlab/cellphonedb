@@ -19,3 +19,5 @@ class Interaction(Base):
     family = Column(String)
     dlrp = Column(Boolean)
     iuhpar = Column(Boolean)
+
+    is_cellphone_interactor = Column(Boolean)

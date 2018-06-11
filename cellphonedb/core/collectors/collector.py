@@ -35,7 +35,8 @@ class Collector(object):
         self.database_manager.get_repository('complex').add(complexes_processed)
 
     def interaction(self, interactions: pd.DataFrame):
-        interactions_processed = interaction_preprocess_collector.call(interactions)
+        multidatas = self.database_manager.get_repository('multidata').get_all_expanded(include_gene=False)
+        interactions_processed = interaction_preprocess_collector.call(interactions, multidatas)
         self.database_manager.get_repository('interaction').add(interactions_processed)
 
     def all(self, proteins: pd.DataFrame, genes: pd.DataFrame, complexes: pd.DataFrame, interactions: pd.DataFrame):

@@ -1,6 +1,21 @@
 import pandas as pd
 
 
+def can_be_receptor(multidata: pd.Series, suffix: str = '') -> bool:
+    if multidata['receptor{}'.format(suffix)] and \
+            not multidata['other{}'.format(suffix)] and \
+            not multidata['transporter{}'.format(suffix)]:
+        return True
+    return False
+
+
+def can_be_ligand(multidata: pd.Series, suffix: str = '') -> bool:
+    if multidata['secreted_highlight{}'.format(suffix)]:
+        return True
+    return False
+
+
+# TODO: Remove
 def is_receptor(multidata: pd.Series, suffix: str = '') -> bool:
     if multidata['receptor%s' % suffix] and \
             multidata['transmembrane%s' % suffix] and \
@@ -10,6 +25,7 @@ def is_receptor(multidata: pd.Series, suffix: str = '') -> bool:
     return False
 
 
+# TODO: Remove
 def is_secreted_ligand(multidata: pd.Series, suffix: str = ''):
     if multidata['secreted_highlight{}'.format(suffix)]:
         return True
@@ -17,12 +33,14 @@ def is_secreted_ligand(multidata: pd.Series, suffix: str = ''):
     return False
 
 
+# TODO: Remove
 def is_transmembrane_ligand(multidata: pd.Series, suffix: str = ''):
     if multidata['transmembrane{}'.format(suffix)]:
         return True
     return False
 
 
+# TODO: Remove
 def is_cellphone_ligand(multidata: pd.Series, interactions_extended: pd.DataFrame) -> bool:
     multidata = multidata.to_frame().transpose()
     receptor_is_2 = pd.merge(multidata, interactions_extended, left_on='id_multidata', right_on='multidata_1_id')
