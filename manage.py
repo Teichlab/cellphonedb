@@ -2,7 +2,6 @@ import click
 from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
 from cellphonedb.flask_app import create_app
 from cellphonedb.extensions import cellphonedb_flask
-from cellphonedb.flask_terminal_optimiezer_launcher import FlaskTerminalOptimizerLauncher
 from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
 from cellphonedb.flask_terminal_exporter_launcher import FlaskTerminalExporterLauncher
 
@@ -24,12 +23,6 @@ def reset_db():
     database = cellphonedb_flask.cellphonedb.database_manager.database
     database.drop_everything()
     database.create_all()
-
-
-@app.cli.command()
-@click.argument('table')
-def optimize(table):
-    getattr(FlaskTerminalOptimizerLauncher(), table)()
 
 
 @app.cli.command()

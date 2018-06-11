@@ -1,10 +1,8 @@
 import os
 
 from cellphonedb.core.collectors.collector import Collector
-from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.exporters.exporterlauncher import ExporterLauncher
 from cellphonedb.core.queries.querylauncher import QueryLauncher
-from cellphonedb.core.optimizer.optimizer import Optimizer
 from cellphonedb.core.database import DatabaseManager
 
 cellphone_core_dir = os.path.dirname(os.path.realpath(__file__))
@@ -19,4 +17,3 @@ class Cellphonedb(object):
         self.export = ExporterLauncher(self.database_manager)
         self.collect = Collector(self.database_manager)
         self.query = QueryLauncher(self.database_manager)
-        self.optimizer = Optimizer(self.database_manager)
