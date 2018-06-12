@@ -34,7 +34,7 @@ def _get_rl_lr_interactions(multidatas: pd.DataFrame, min_score_2: float, enable
 
 
 def _result_interactions_table(enabled_interactions: pd.DataFrame) -> pd.DataFrame:
-    output_colums = ['id_interaction', 'receptor', 'iuhpar_ligand', 'secreted_ligand', 'source']
+    output_colums = ['id_interaction', 'receptor', 'secreted_ligand', 'source']
     if enabled_interactions.empty:
         return pd.DataFrame(
             columns=output_colums)
@@ -70,7 +70,6 @@ def _result_interactions_table(enabled_interactions: pd.DataFrame) -> pd.DataFra
     result['ligand_ensembl'] = enabled_interactions.apply(
         lambda interaction: set_ensembl_value(interaction, '_ligand'), axis=1)
 
-    result['iuhpar_ligand'] = enabled_interactions['iuhpar_ligand_ligand']
     result['secreted_ligand'] = enabled_interactions['secretion_ligand']
 
     result['source'] = enabled_interactions['source']

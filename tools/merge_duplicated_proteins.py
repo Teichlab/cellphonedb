@@ -6,9 +6,8 @@ from tools.app import current_dir
 
 
 def merge_duplicated_proteins(protein_file):
-    bools = ['transmembrane', 'secretion', 'peripheral', 'receptor',
-             'receptor_highlight', 'adhesion', 'other', 'transporter',
-             'secreted_highlight', 'iuhpar_ligand', 'cytoplasm', 'extracellular']
+    bools = ['transmembrane', 'secretion', 'peripheral', 'receptor', 'adhesion', 'other', 'transporter',
+             'secreted_highlight', 'cytoplasm', 'extracellular']
 
     csv_proteins_df = pd.read_csv('%s/data/%s' % (current_dir, protein_file))
 

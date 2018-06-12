@@ -147,10 +147,8 @@ class ComplexRepository(Repository):
             complexes = complexes.iloc[complete_indices, :]
 
             # Convert ints to bool
-            bools = ['receptor', 'receptor_highlight', 'adhesion', 'other',
-                     'transporter', 'secreted_highlight', 'transmembrane', 'secretion', 'peripheral',
-                     'iuhpar_ligand',
-                     'extracellular', 'cytoplasm']
+            bools = ['receptor', 'adhesion', 'other', 'transporter', 'secreted_highlight', 'transmembrane', 'secretion',
+                     'peripheral', 'extracellular', 'cytoplasm']
             complexes[bools] = complexes[bools].astype(bool)
 
             # Drop existing complexes
@@ -198,8 +196,5 @@ class ComplexRepository(Repository):
 
     def _add_complex_optimitzations(self, multidatas):
         multidatas['is_complex'] = True
-        multidatas['is_cellphone_receptor'] = multidatas.apply(
-            lambda protein: properties_multidata.is_receptor(protein),
-            axis=1)
 
         return multidatas

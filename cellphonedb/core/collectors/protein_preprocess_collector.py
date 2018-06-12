@@ -5,9 +5,8 @@ from cellphonedb.core.utils import filters
 
 
 def call(proteins: pd.DataFrame, multidata_colums, protein_columns):
-    bools = ['transmembrane', 'secretion', 'peripheral', 'receptor',
-             'receptor_highlight', 'adhesion', 'other', 'transporter',
-             'secreted_highlight', 'iuhpar_ligand', 'cytoplasm', 'extracellular']
+    bools = ['transmembrane', 'secretion', 'peripheral', 'receptor', 'adhesion', 'other', 'transporter',
+             'secreted_highlight', 'cytoplasm', 'extracellular']
 
     proteins.rename(index=str, columns={'uniprot': 'name'}, inplace=True)
     proteins[bools] = proteins[bools].astype(bool)
@@ -21,8 +20,6 @@ def call(proteins: pd.DataFrame, multidata_colums, protein_columns):
 
 def _optimizations(proteins):
     proteins['is_complex'] = False
-    proteins['is_cellphone_receptor'] = proteins.apply(lambda protein: properties_multidata.is_receptor(protein),
-                                                       axis=1)
     return proteins
 
 

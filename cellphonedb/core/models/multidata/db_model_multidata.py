@@ -11,7 +11,6 @@ class Multidata(Base):
     name = Column(String, nullable=False, unique=True)
 
     receptor = Column(Boolean)
-    receptor_highlight = Column(Boolean)
     receptor_desc = Column(String)
     adhesion = Column(Boolean)
     other = Column(Boolean)
@@ -22,14 +21,10 @@ class Multidata(Base):
     transmembrane = Column(Boolean)
     secretion = Column(Boolean)
     peripheral = Column(Boolean)
-    iuhpar_ligand = Column(Boolean)
     cytoplasm = Column(Boolean)
     extracellular = Column(Boolean)
     integrin_interaction = Column(Boolean)
     is_complex = Column(Boolean)
-    is_cellphone_receptor = Column(Boolean)
-    is_cellphone_ligand = Column(Boolean, nullable=True)
-
 
     protein = relationship('Protein', backref='protein', lazy='subquery')
     complex = relationship('Complex', backref='complex', lazy='subquery')
