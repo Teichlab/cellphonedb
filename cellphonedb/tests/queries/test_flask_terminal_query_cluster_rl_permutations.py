@@ -36,9 +36,11 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
     def query_call(self, data, iterations, debug_seed: str):
         means_base_name = 'simple_means__data-{}_it-{}'.format(data, iterations)
         pvalues_base_name = 'simple_pvalues__data-{}_it-{}'.format(data, iterations)
+        significant_means_base_name = 'simple_significant_mean__data-{}_it-{}'.format(data, iterations)
         pvalues_means_base_name = 'simple_pvalues_means__data-{}_it-{}'.format(data, iterations)
         result_means_namefile = self.get_test_namefile(means_base_name, 'txt')
         result_pvalues_namefile = self.get_test_namefile(pvalues_base_name, 'txt')
+        result_significant_means_namefile = self.get_test_namefile(significant_means_base_name, 'txt')
         result_pvalues_means_namefile = self.get_test_namefile(pvalues_means_base_name, 'txt')
 
         meta_namefile = 'hi_{}_meta.txt'.format(data)
@@ -46,8 +48,8 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
 
         FlaskTerminalQueryLauncher().cluster_rl_permutations(meta_namefile, counts_namefile, iterations, data_test_dir,
                                                              output_test_dir, result_means_namefile,
-                                                             result_pvalues_namefile, result_pvalues_means_namefile,
-                                                             debug_seed)
+                                                             result_pvalues_namefile, result_significant_means_namefile,
+                                                             result_pvalues_means_namefile, debug_seed)
 
         # TODO: incomplete
 

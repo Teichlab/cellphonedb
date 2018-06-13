@@ -5,7 +5,7 @@ from cellphonedb.core.queries import cluster_rl_permutations_complex
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000,
-         debug_seed=False, threshold: float = 0.2) -> (pd.DataFrame, pd.DataFrame):
+         debug_seed=False, threshold: float = 0.2) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     if debug_seed is not False:
         pd.np.random.seed(debug_seed)
 
@@ -34,36 +34,62 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
                                                                           interactions_filtered,
                                                                           cluster_interactions, base_result)
 
-    pvalues_result, means_result, pvalues_means_result = build_results(interactions_filtered, real_mean_analysis,
-                                                                       result_percent)
-
-    return pvalues_result, means_result, pvalues_means_result
+    pvalues_result, means_result, significant_means, mean_pvalue_result = build_results(interactions_filtered,
+                                                                                        real_mean_analysis,
+                                                                                        result_percent)
+    return pvalues_result, means_result, significant_means, mean_pvalue_result
 
 
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame) -> [
     pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     interactions_data_result = pd.DataFrame(interactions[
                                                 ['id_interaction', 'name_1', 'name_2', 'ensembl_1',
-                                                 'ensembl_2', 'secretion_2',
-                                                 'source']].copy())
+                                                 'ensembl_2', 'source']].copy())
+
+    interactions_data_result['secreted'] = (interactions['secretion_1'] | interactions['secretion_2'])
+    interactions_data_result['is_integrin'] = (
+            interactions['integrin_interaction_1'] | interactions['integrin_interaction_2'])
+
     interactions_data_result.rename(
-        columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b',
-                 'secretion_2': 'secreted_2'}, inplace=True)
+        columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
+        inplace=True)
 
     interactions_data_result['gene_interaction'] = interactions.apply(
         lambda interaction: '{}_{}'.format(interaction['gene_name_1'], interaction['gene_name_2']), axis=1)
 
+    # Document 1
     pvalues_result = pd.concat([interactions_data_result, result_percent], axis=1, join='inner', sort=False)
-    means_result = pd.concat([interactions_data_result, real_mean_analysis], axis=1, join='inner', sort=False)
-    pvalues_means_result = pd.concat([interactions_data_result, real_mean_analysis], axis=1, join='inner', sort=False)
 
+    # Document 2
+    means_result = pd.concat([interactions_data_result, real_mean_analysis], axis=1, join='inner', sort=False)
+
+    # Document 3
+    significant_mean_result = significament_mean_build(interactions_data_result, real_mean_analysis, result_percent)
+
+    # Document 4
+    mean_pvalue_result = mean_pvalue_result_build(real_mean_analysis, result_percent)
+
+    return pvalues_result, means_result, significant_mean_result, mean_pvalue_result
+
+
+def mean_pvalue_result_build(real_mean_analysis, result_percent):
+    mean_pvalue_result = pd.DataFrame(index=real_mean_analysis.index)
+    for interaction_cluster in real_mean_analysis.columns.values:
+        mean_pvalue_result[interaction_cluster] = real_mean_analysis[interaction_cluster].astype(str).str.cat(
+            result_percent[interaction_cluster].astype(str), sep=' | ')
+
+    return mean_pvalue_result
+
+
+def significament_mean_build(interactions_data_result: pd.DataFrame, real_mean_analysis: pd.DataFrame,
+                             result_percent: pd.DataFrame) -> pd.DataFrame:
+    pvalues_means_result = pd.concat([interactions_data_result, real_mean_analysis], axis=1, join='inner', sort=False)
     min_significant_mean = 0.05
     for index, mean_analysis in real_mean_analysis.iterrows():
         for cluster_interaction in list(result_percent.columns):
             if pvalues_means_result.get_value(index, cluster_interaction) > min_significant_mean:
                 pvalues_means_result.set_value(index, cluster_interaction, pd.np.nan)
-
-    return pvalues_result, means_result, pvalues_means_result
+    return pvalues_means_result
 
 
 def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:

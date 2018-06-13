@@ -14,24 +14,25 @@ class FlaskTerminalQueryLauncher(object):
 
         return method
 
-    def cells_to_clusters(self, meta_namefile, counts_namefile, data_path='', output_path='',
-                          result_namefile='cells_to_clusters.csv'):
+    def cells_to_clusters(self, meta_filename, counts_filename, data_path='', output_path='',
+                          result_filename='cells_to_clusters.csv'):
         if not data_path:
             data_path = query_input_dir
         if not output_path:
             output_path = output_dir
 
-        meta = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_namefile), index_column_first=True)
-        counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_namefile), index_column_first=True)
+        meta = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_filename), index_column_first=True)
+        counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_filename), index_column_first=True)
 
         result = cellphonedb_flask.cellphonedb.query.cells_to_clusters(meta, counts)
 
-        result.to_csv('{}/{}'.format(output_path, result_namefile))
+        result.to_csv('{}/{}'.format(output_path, result_filename))
 
-    def cluster_rl_permutations(self, meta_namefile: str, counts_namefile: str, iterations: str, data_path='',
-                                output_path: str = '', means_namefile: str = 'means.txt',
-                                pvalues_namefile: str = 'pvalues.txt',
-                                pvalues_means_namefile: str = 'pvalues_means.txt',
+    def cluster_rl_permutations(self, meta_filename: str, counts_filename: str, iterations: str, data_path='',
+                                output_path: str = '', means_filename: str = 'means.txt',
+                                pvalues_filename: str = 'pvalues.txt',
+                                significant_mean_filename: str = 'significant_means.txt',
+                                means_pvalues_filename: str = 'pvalues_means.txt',
                                 debug_seed: str = '0'):
 
         if not data_path:
@@ -42,23 +43,23 @@ class FlaskTerminalQueryLauncher(object):
         debug_seed = int(debug_seed)
         iterations = int(iterations)
 
-        meta_raw = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_namefile), index_column_first=True)
-        counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_namefile), index_column_first=True)
+        meta_raw = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_filename), index_column_first=True)
+        counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_filename), index_column_first=True)
 
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, pvalues_means = cellphonedb_flask.cellphonedb.query.cluster_rl_permutations(
+        pvalues, means, significant_means, means_pvalues = cellphonedb_flask.cellphonedb.query.cluster_rl_permutations(
             meta, counts, iterations, debug_seed)
 
-        means.to_csv('{}/{}'.format(output_path, means_namefile), sep='\t', index=False)
-        pvalues.to_csv('{}/{}'.format(output_path, pvalues_namefile), sep='\t', index=False)
-        pvalues_means.to_csv('{}/{}'.format(output_path, pvalues_means_namefile), sep='\t',
-                             index=False)
+        means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
+        pvalues.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)
+        significant_means.to_csv('{}/{}'.format(output_path, significant_mean_filename), sep='\t', index=False)
+        means_pvalues.to_csv('{}/{}'.format(output_path, means_pvalues_filename), sep='\t', index=False)
 
-    def cluster_rl_permutations_complex(self, meta_namefile: str, counts_namefile: str, iterations: str, data_path='',
-                                        output_path: str = '', means_namefile: str = 'means.txt',
-                                        pvalues_namefile: str = 'pvalues.txt', debug_seed: str = '0'):
+    def cluster_rl_permutations_complex(self, meta_filename: str, counts_filename: str, iterations: str, data_path='',
+                                        output_path: str = '', means_filename: str = 'means.txt',
+                                        pvalues_filename: str = 'pvalues.txt', debug_seed: str = '0'):
 
         if not data_path:
             data_path = query_input_dir
@@ -68,8 +69,8 @@ class FlaskTerminalQueryLauncher(object):
         debug_seed = bool(debug_seed)
         iterations = int(iterations)
 
-        meta_raw = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_namefile), index_column_first=True)
-        counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_namefile), index_column_first=True)
+        meta_raw = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_filename), index_column_first=True)
+        counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_filename), index_column_first=True)
 
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
@@ -77,7 +78,7 @@ class FlaskTerminalQueryLauncher(object):
         means, pvalues = cellphonedb_flask.cellphonedb.query.cluster_rl_permutations_complex(meta, counts, iterations,
                                                                                              debug_seed)
 
-        means.to_csv('{}/{}'.format(output_path, means_namefile), sep='\t')
-        pvalues.to_csv('{}/{}'.format(output_path, pvalues_namefile), sep='\t')
+        means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t')
+        pvalues.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t')
 
         # TODO: Add asserts
