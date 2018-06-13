@@ -1,3 +1,5 @@
+import os
+
 from cellphonedb.core.Cellphonedb import Cellphonedb
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database.Database import Database
@@ -17,7 +19,12 @@ class CellphonedbSqlalchemy(Cellphonedb):
     def __init__(self, config: dict):
         core_logger.setLevel(config['logger']['level'])
         core_logger.info('Initializing SqlAlchemy CellPhoneDB Core')
-        engine = create_engine(config['sqlalchemy']['uri'], echo=config['sqlalchemy']['echo'])
+
+        uri = self._build_uri(config)
+
+        core_logger.info('Database Uri: {}'.format(uri))
+
+        engine = create_engine(uri)
         database = Database(engine)
         database.base_model = Base
         database_manager = DatabaseManager(None, database)
@@ -28,3 +35,16 @@ class CellphonedbSqlalchemy(Cellphonedb):
         database_manager.add_repository(MultidataRepository)
         database_manager.add_repository(ProteinRepository)
         Cellphonedb.__init__(self, database_manager)
+
+    def _build_uri(self, config):
+        if config['sqlalchemy']['db_core']:
+            file_path = os.path.dirname(os.path.realpath(__file__))
+
+            if not config['sqlalchemy']['uri']:
+                return 'sqlite:///{}/cellphone.db'.format(file_path)
+
+            return 'sqlite:///{}/{}'.format(file_path, config['sqlalchemy']['uri'])
+
+
+        else:
+            return config['sqlalchemy']['uri']
