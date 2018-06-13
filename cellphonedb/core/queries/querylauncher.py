@@ -1,8 +1,7 @@
 import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
-from cellphonedb.core.queries import cells_to_clusters, cluster_receptor_ligand_interactions, \
-    get_rl_lr_interactions_from_multidata, cluster_rl_permutations, cluster_rl_permutations_complex
+from cellphonedb.core.queries import cells_to_clusters, cluster_rl_permutations, cluster_rl_permutations_complex
 
 
 class QueryLauncher():

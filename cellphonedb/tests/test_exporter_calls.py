@@ -1,7 +1,7 @@
 from cellphonedb.flask_app import create_app, output_test_dir
 from cellphonedb.flask_terminal_exporter_launcher import FlaskTerminalExporterLauncher
 
-import os.path
+import os
 
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
@@ -9,8 +9,7 @@ from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 class TestExporterCalls(CellphoneFlaskTestCase):
 
     def test_all_exporter_generators(self):
-        exporters = ['complex', 'complex_web', 'interaction', 'protein', 'gene', 's4_multidata', 's5_heterodimer',
-                     's6_interaction']
+        exporters = ['complex', 'complex_web', 'interaction', 'protein', 'gene', 's4_multidata', 's5_heterodimer']
 
         for exporter in exporters:
             self.assert_file_exist(exporter)

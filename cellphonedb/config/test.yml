@@ -3,6 +3,7 @@ database:
   host: localhost
   adapter: sqlite
   path: ":memory:"
+  db_core: false
 
 app:
   debug: true

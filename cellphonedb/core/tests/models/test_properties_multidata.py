@@ -2,7 +2,6 @@ from unittest import TestCase
 
 import pandas as pd
 
-from cellphonedb.core.Cellphonedb import data_test_dir
 from cellphonedb.core.models.multidata import properties_multidata
 
 

@@ -1,7 +1,7 @@
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.exporters import complex_exporter, complex_web_exporter, \
     interaction_exporter, protein_exporter, gene_exporter, s4_multidata_exporter, \
-    s5_heterodimer_exporter, s6_interaction_exporter
+    s5_heterodimer_exporter
 
 
 class ExporterLauncher(object):
@@ -26,10 +26,6 @@ class ExporterLauncher(object):
         proteins = self.database_manager.get_repository('protein').get_all_expanded()
 
         return s5_heterodimer_exporter.call(complexes, multidatas, complex_compositions, proteins)
-
-    def s6_interaction(self):
-        interactions_expanded = self.database_manager.get_repository('interaction').get_all_expanded(include_gene=False)
-        return s6_interaction_exporter.call(interactions_expanded)
 
     def complex(self):
         complexes = self.database_manager.get_repository('complex').get_all()
