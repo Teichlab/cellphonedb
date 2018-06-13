@@ -60,4 +60,4 @@ class InteractionRepository(Repository):
         filters.remove_not_defined_columns(interaction_df, self.database_manager.get_column_table_names('interaction'))
 
         interaction_df.to_sql(name='interaction', if_exists='append', con=self.database_manager.database.engine,
-                              index=False)
+                              index=False, chunksize=50)

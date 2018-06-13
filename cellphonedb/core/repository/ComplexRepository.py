@@ -161,7 +161,7 @@ class ComplexRepository(Repository):
 
             multidata_df = self._add_complex_optimitzations(multidata_df)
             multidata_df.to_sql(name='multidata', if_exists='append', con=self.database_manager.database.engine,
-                                index=False)
+                                index=False, chunksize=50)
 
         # Now find id's of new complex rows
         new_complexes = self.database_manager.database.session.query(Multidata.name, Multidata.id_multidata).all()
@@ -188,11 +188,11 @@ class ComplexRepository(Repository):
 
         complex_table_df.to_sql(
             name='complex', if_exists='append',
-            con=self.database_manager.database.engine, index=False)
+            con=self.database_manager.database.engine, index=False, chunksize=50)
 
         complex_set_df.to_sql(
             name='complex_composition', if_exists='append',
-            con=self.database_manager.database.engine, index=False)
+            con=self.database_manager.database.engine, index=False, chunksize=50)
 
     def _add_complex_optimitzations(self, multidatas):
         multidatas['is_complex'] = True

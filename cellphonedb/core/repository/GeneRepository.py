@@ -33,7 +33,8 @@ class GeneRepository(Repository):
         genes.rename(index=str, columns={'id_protein': 'protein_id'}, inplace=True)
         genes = filters.remove_not_defined_columns(genes, self.database_manager.get_column_table_names('gene'))
 
-        genes.to_sql(name='gene', if_exists='append', con=self.database_manager.database.engine, index=False)
+        genes.to_sql(name='gene', if_exists='append', con=self.database_manager.database.engine, index=False,
+                     chunksize=50)
 
     @staticmethod
     def _blend_multidata(original_data: pd.DataFrame, original_column_names: list, multidatas: pd.DataFrame,

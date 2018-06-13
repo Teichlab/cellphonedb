@@ -2,13 +2,15 @@ api:
   prefix: /api
 cellphone: {}
 database:
-  adapter: postgresql+psycopg2
+  adapter: sqlite
   db_name:
   host: localhost
   password:
   port: 5432
   user:
   echo: false
+  db_core: true
+  path:
 flask:
   debug: false
   sqlalchemy_track_modifications: false

@@ -16,6 +16,7 @@ class AppConfig():
 
         self._set_app_logger_config(self.config['app']['debug'])
         self.sqlalchemy_config = {'uri': self._build_sqlalchemy_database_uri(self.config['database']),
+                                  'db_core': self.config['database']['db_core'],
                                   'echo': self.config['database']['echo']}
 
         self.logger_config = self._get_core_logger_config(self.config['app']['debug'])
@@ -40,7 +41,7 @@ class AppConfig():
 
     def _get_config_parameters(self, environment=None, support=None, load_defaults=None, raise_non_defined_vars=True):
         config_parameters = {}
-        config_keys = [{'env_key': 'APP_ENV', 'default': 'local', 'dict_key': 'environment'},
+        config_keys = [{'env_key': 'APP_ENV', 'default': 'core', 'dict_key': 'environment'},
                        {'env_key': 'APP_CONF_SUPPORT', 'default': 'yaml', 'dict_key': 'support'},
                        {'env_key': 'APP_LOAD_DEFAULTS', 'default': 'true', 'dict_key': 'load_defaults'}]
 
@@ -84,6 +85,9 @@ class AppConfig():
         return config
 
     def _build_sqlalchemy_database_uri(self, database_config):
+
+        if database_config['adapter'] == 'sqlite' and database_config['db_core']:
+            return ''
 
         if database_config['adapter'] == 'sqlite':
             return '{}:///{}'.format(database_config['adapter'], database_config['path'])
