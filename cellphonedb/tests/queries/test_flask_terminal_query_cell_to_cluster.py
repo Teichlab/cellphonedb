@@ -13,7 +13,7 @@ class TestFlaskTerminalQueryCalls(CellphoneFlaskTestCase):
         return create_app(environment='test', raise_non_defined_vars=False)
 
     def test_cell_to_cluster(self):
-        namefile = self.get_test_namefile('cells_to_clusters', 'csv')
+        namefile = self.get_test_filename('cells_to_clusters', 'csv')
         FlaskTerminalQueryLauncher().cells_to_clusters('query_meta.csv', 'query_counts.csv', data_test_dir,
                                                        output_test_dir, result_namefile=namefile)
 

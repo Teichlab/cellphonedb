@@ -18,7 +18,7 @@ class TestExporterCalls(CellphoneFlaskTestCase):
         if not expected_namefile:
             expected_namefile = '{}'.format(method_name)
 
-        namefile = self.get_test_namefile(expected_namefile, expected_extension)
+        namefile = self.get_test_filename(expected_namefile, expected_extension)
         if not message:
             message = 'File {} didnt exist'.format(namefile)
 

@@ -17,7 +17,7 @@ class TestQueryLauncherReal(CellphoneFlaskTestCase):
         self.cellphonedb = CellphonedbSqlalchemy(cellphone_config)
 
     def test_cell_to_cluster_real_data(self):
-        result_namefile = self.get_test_namefile('cells_to_clusters', 'csv')
+        result_namefile = self.get_test_filename('cells_to_clusters', 'csv')
         FlaskTerminalQueryLauncher().cells_to_clusters('real_meta.csv', 'real_counts.csv', data_test_dir,
                                                        output_test_dir, result_namefile)
 

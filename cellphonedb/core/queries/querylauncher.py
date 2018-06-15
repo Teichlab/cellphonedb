@@ -24,7 +24,7 @@ class QueryLauncher():
         return multidatas
 
     def cluster_rl_permutations(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int, debug_seed: int) -> (
-            pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+            pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
 
         return cluster_rl_permutations.call(meta, count, interactions, iterations, debug_seed)

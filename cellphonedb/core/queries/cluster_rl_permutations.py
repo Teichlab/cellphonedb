@@ -4,8 +4,8 @@ from cellphonedb.core.models.interaction import filter_interaction
 from cellphonedb.core.queries import cluster_rl_permutations_complex
 
 
-def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000,
-         debug_seed=False, threshold: float = 0.2) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000, debug_seed=False,
+         threshold: float = 0.2) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     if debug_seed is not False:
         pd.np.random.seed(debug_seed)
 
@@ -34,14 +34,16 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
                                                                           interactions_filtered,
                                                                           cluster_interactions, base_result)
 
-    pvalues_result, means_result, significant_means, mean_pvalue_result = build_results(interactions_filtered,
-                                                                                        real_mean_analysis,
-                                                                                        result_percent)
-    return pvalues_result, means_result, significant_means, mean_pvalue_result
+    pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result = build_results(
+        interactions_filtered,
+        real_mean_analysis,
+        result_percent,
+        counts)
+    return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
 
 
-def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame) -> [
-    pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
+                  counts: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     interactions_data_result = pd.DataFrame(interactions[
                                                 ['id_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                  'ensembl_2', 'source']].copy())
@@ -67,16 +69,34 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     significant_mean_result = significament_mean_build(interactions_data_result, real_mean_analysis, result_percent)
 
     # Document 4
-    mean_pvalue_result = mean_pvalue_result_build(real_mean_analysis, result_percent)
+    mean_pvalue_result = mean_pvalue_result_build(real_mean_analysis, result_percent, interactions_data_result)
 
-    return pvalues_result, means_result, significant_mean_result, mean_pvalue_result
+    # Document 5
+    deconvoluted_result = deconvoluted_result_build(counts, interactions)
+
+    return pvalues_result, means_result, significant_mean_result, mean_pvalue_result, deconvoluted_result
 
 
-def mean_pvalue_result_build(real_mean_analysis, result_percent):
+def deconvoluted_result_build(counts: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
+    deconvoluted_result_1 = pd.DataFrame()
+    deconvoluted_result_2 = pd.DataFrame()
+    deconvoluted_result_1[['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_interaction']] = \
+        interactions[['ensembl_1', 'entry_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_interaction']]
+    deconvoluted_result_2[['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_interaction']] = \
+        interactions[['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_interaction']]
+    deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
+    deconvoluted_result = deconvoluted_result.merge(counts, left_on='ensembl', right_index=True)
+    return deconvoluted_result
+
+
+def mean_pvalue_result_build(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
+                             interactions_data_result: pd.DataFrame) -> pd.DataFrame:
     mean_pvalue_result = pd.DataFrame(index=real_mean_analysis.index)
     for interaction_cluster in real_mean_analysis.columns.values:
         mean_pvalue_result[interaction_cluster] = real_mean_analysis[interaction_cluster].astype(str).str.cat(
             result_percent[interaction_cluster].astype(str), sep=' | ')
+
+    mean_pvalue_result = pd.concat([interactions_data_result, mean_pvalue_result], axis=1, join='inner', sort=False)
 
     return mean_pvalue_result
 

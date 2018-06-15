@@ -35,7 +35,7 @@ class CellphoneFlaskTestCase(TestCase):
         return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(digits))
 
     @staticmethod
-    def get_test_namefile(original_namefile, extension, prefix='TESTING'):
+    def get_test_filename(original_namefile, extension, prefix='TESTING'):
         namefile = '{}_{}_{}_{}.{}'.format(prefix, original_namefile, int(time.time()),
                                            CellphoneFlaskTestCase.rand_string(),
                                            extension)
