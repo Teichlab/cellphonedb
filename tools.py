@@ -4,7 +4,7 @@ import pandas as pd
 
 from flask.cli import FlaskGroup
 
-from tools.actions import gene_actions
+from tools.actions import gene_actions, interaction_actions
 from tools.app import create_app, data_dir, output_dir
 from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_proteins
 from tools.generate_data.mergers.add_curated import add_curated
@@ -139,6 +139,14 @@ def generate_interactions(imex_original_filename, database_proteins_filename, da
 @click.argument('remove_genes_filename')
 def generate_genes(gene_base_filename: str, remove_genes_filename: str):
     gene_actions.generate_genes_action(gene_base_filename, remove_genes_filename)
+
+
+@cli.command()
+@click.argument('iuphar_filename')
+@click.argument('gene_filename')
+@click.argument('protein_filename')
+def generate_iuphar(iuphar_filename: str, gene_filename: str, protein_filename: str):
+    interaction_actions.generate_iuphar_action(iuphar_filename, gene_filename, protein_filename)
 
 
 def _open_file(interaction_filename):
