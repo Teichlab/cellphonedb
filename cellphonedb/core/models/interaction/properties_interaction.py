@@ -4,6 +4,9 @@ from cellphonedb.core.models.multidata import properties_multidata
 
 
 def is_cellphonedb_interactor(interaction: pd.Series, suffixes=('_1', '_2')) -> bool:
+    if interaction['multidata_1_id'] == interaction['multidata_2_id']:
+        return False
+
     if interaction['source'] == 'curated':
         return True
 
