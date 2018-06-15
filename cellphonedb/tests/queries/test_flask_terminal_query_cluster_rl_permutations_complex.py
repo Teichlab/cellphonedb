@@ -27,8 +27,8 @@ class TestHumanInteractionsPermutationsComplex(CellphoneFlaskTestCase):
     def query_call(self, data, iterations):
         means_base_name = 'complex_means__data-{}_it-{}'.format(data, iterations)
         pvalues_base_name = 'complex_pvalues__data-{}_it-{}'.format(data, iterations)
-        result_means_namefile = self.get_test_namefile(means_base_name, 'txt')
-        result_pvalues_namefile = self.get_test_namefile(pvalues_base_name, 'txt')
+        result_means_namefile = self.get_test_filename(means_base_name, 'txt')
+        result_pvalues_namefile = self.get_test_filename(pvalues_base_name, 'txt')
 
         meta_namefile = 'hi_{}_meta.txt'.format(data)
         counts_namefile = 'hi_{}_counts.txt'.format(data)
