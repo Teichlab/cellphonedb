@@ -44,9 +44,16 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
 
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
                   clusters_means: dict) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+    interacting_pair = interactions.apply(
+        lambda interaction: '{}_{}'.format(interaction['gene_name_1'], interaction['gene_name_2']), axis=1)
+
+    interacting_pair.rename('interacting_pair', inplace=True)
+
     interactions_data_result = pd.DataFrame(interactions[
                                                 ['id_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                  'ensembl_2', 'source']].copy())
+
+    interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1)
 
     interactions_data_result['secreted'] = (interactions['secretion_1'] | interactions['secretion_2'])
     interactions_data_result['is_integrin'] = (
@@ -55,9 +62,6 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     interactions_data_result.rename(
         columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
         inplace=True)
-
-    interactions_data_result['gene_interaction'] = interactions.apply(
-        lambda interaction: '{}_{}'.format(interaction['gene_name_1'], interaction['gene_name_2']), axis=1)
 
     # Document 1
     pvalues_result = pd.concat([interactions_data_result, result_percent], axis=1, join='inner', sort=False)
