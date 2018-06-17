@@ -38,12 +38,12 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
         interactions_filtered,
         real_mean_analysis,
         result_percent,
-        counts)
+        clusters['means'])
     return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
 
 
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
-                  counts: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+                  clusters_means: dict) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     interactions_data_result = pd.DataFrame(interactions[
                                                 ['id_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                  'ensembl_2', 'source']].copy())
@@ -72,12 +72,12 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     mean_pvalue_result = mean_pvalue_result_build(real_mean_analysis, result_percent, interactions_data_result)
 
     # Document 5
-    deconvoluted_result = deconvoluted_result_build(counts, interactions)
+    deconvoluted_result = deconvoluted_result_build(clusters_means, interactions)
 
     return pvalues_result, means_result, significant_mean_result, mean_pvalue_result, deconvoluted_result
 
 
-def deconvoluted_result_build(counts: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
+def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) -> pd.DataFrame:
     deconvoluted_result_1 = pd.DataFrame()
     deconvoluted_result_2 = pd.DataFrame()
     deconvoluted_result_1[['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_interaction']] = \
@@ -85,7 +85,13 @@ def deconvoluted_result_build(counts: pd.DataFrame, interactions: pd.DataFrame) 
     deconvoluted_result_2[['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_interaction']] = \
         interactions[['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_interaction']]
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
-    deconvoluted_result = deconvoluted_result.merge(counts, left_on='ensembl', right_index=True)
+
+    deconvoluted_result.set_index('ensembl', inplace=True)
+
+    for key, cluster_means in clusters_means.items():
+        deconvoluted_result[key] = cluster_means
+
+    deconvoluted_result.reset_index(inplace=True)
     return deconvoluted_result
 
 
@@ -120,7 +126,7 @@ def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
 
 def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
     cluster_names = meta['cell_type'].drop_duplicates().tolist()
-    clusters = {'names': cluster_names, 'counts': {}, 'means': {}, 'percents': {}}
+    clusters = {'names': cluster_names, 'counts': {}, 'means': {}}
 
     cluster_counts = {}
     cluster_means = {}
