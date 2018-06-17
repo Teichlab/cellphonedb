@@ -107,7 +107,7 @@ def significament_mean_build(interactions_data_result: pd.DataFrame, real_mean_a
     min_significant_mean = 0.05
     for index, mean_analysis in real_mean_analysis.iterrows():
         for cluster_interaction in list(result_percent.columns):
-            if pvalues_means_result.get_value(index, cluster_interaction) > min_significant_mean:
+            if result_percent.get_value(index, cluster_interaction) > min_significant_mean:
                 pvalues_means_result.set_value(index, cluster_interaction, pd.np.nan)
     return pvalues_means_result
 
