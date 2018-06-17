@@ -18,3 +18,7 @@ def merge_interactions(interactions_1, interactions_2, interaction_1_key='protei
     interactions = interactions_1.append(interactions_2_not_in_1)
 
     return interactions
+
+
+def merge_iuphar_interactions(interactions_base: pd.DataFrame, iuphar_interactions: pd.DataFrame) -> pd.DataFrame():
+    return merge_interactions(iuphar_interactions, interactions_base, 'uniprot_1', 'uniprot_2')

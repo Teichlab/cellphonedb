@@ -145,8 +145,9 @@ def generate_genes(gene_base_filename: str, remove_genes_filename: str):
 @click.argument('iuphar_filename')
 @click.argument('gene_filename')
 @click.argument('protein_filename')
-def generate_iuphar(iuphar_filename: str, gene_filename: str, protein_filename: str):
-    interaction_actions.generate_iuphar_action(iuphar_filename, gene_filename, protein_filename)
+@click.argument('interaction_filename')
+def merge_iuphar(iuphar_filename: str, gene_filename: str, protein_filename: str, interaction_filename: str):
+    interaction_actions.merge_iuphar_action(iuphar_filename, gene_filename, protein_filename, interaction_filename)
 
 
 def _open_file(interaction_filename):

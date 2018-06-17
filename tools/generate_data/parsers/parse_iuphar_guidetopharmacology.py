@@ -31,7 +31,7 @@ def call(iuphar_guidepharmacology: pd.DataFrame, genes: pd.DataFrame, proteins: 
 
     iuphar_filtered = pd.merge(iuphar_filtered, genes, left_on='ligand_gene_symbol', right_on='gene_name')
     iuphar_filtered_cellphone_format = pd.DataFrame()
-    iuphar_filtered_cellphone_format[['multidata_name_1', 'multidata_name_2']] = iuphar_filtered[
+    iuphar_filtered_cellphone_format[['uniprot_1', 'uniprot_2']] = iuphar_filtered[
         ['uniprot', 'target_uniprot']]
 
     iuphar_filtered_cellphone_format['source'] = 'guidetopharmacology.org'
