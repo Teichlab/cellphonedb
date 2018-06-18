@@ -44,14 +44,11 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
 
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
                   clusters_means: dict) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    interacting_pair = interactions.apply(
-        lambda interaction: '{}_{}'.format(interaction['gene_name_1'], interaction['gene_name_2']), axis=1)
+    interacting_pair = cluster_rl_permutations_complex.interacting_pair_build(interactions)
 
-    interacting_pair.rename('interacting_pair', inplace=True)
-
-    interactions_data_result = pd.DataFrame(interactions[
-                                                ['id_interaction', 'name_1', 'name_2', 'ensembl_1',
-                                                 'ensembl_2', 'source']].copy())
+    interactions_data_result = pd.DataFrame(interactions[['id_interaction', 'name_1', 'name_2', 'ensembl_1',
+                                                          'ensembl_2', 'stoichiometry_1', 'stoichiometry_2',
+                                                          'source']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1)
 
@@ -84,10 +81,14 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
 def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) -> pd.DataFrame:
     deconvoluted_result_1 = pd.DataFrame()
     deconvoluted_result_2 = pd.DataFrame()
-    deconvoluted_result_1[['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_interaction']] = \
-        interactions[['ensembl_1', 'entry_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_interaction']]
-    deconvoluted_result_2[['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_interaction']] = \
-        interactions[['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_interaction']]
+    deconvoluted_result_1[
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_interaction']] = \
+        interactions[
+            ['ensembl_1', 'entry_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'stoichiometry_1', 'id_interaction']]
+    deconvoluted_result_2[
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_interaction']] = \
+        interactions[
+            ['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'stoichiometry_2', 'id_interaction']]
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
 
     deconvoluted_result.set_index('ensembl', inplace=True)
@@ -139,7 +140,7 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
         cells = meta[meta['cell_type'] == cluster_name].index
         cluster_count = counts.loc[:, cells]
         cluster_counts[cluster_name] = cluster_count
-        cluster_means[cluster_name] = cluster_count.apply(lambda counts: counts.mean(), axis=1)
+        cluster_means[cluster_name] = cluster_count.apply(lambda count: count.mean(), axis=1)
 
     clusters['counts'] = cluster_counts
     clusters['means'] = cluster_means
@@ -150,19 +151,10 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
 def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
     interactions_filtered = filter_interaction.filter_by_is_interactor(interactions)
 
-    # TODO: temporal solution
-    interactions_filtered = interactions[interactions.apply(
-        lambda interaction: interaction['id_interaction'] in interactions_filtered['id_interaction'].tolist(), axis=1)]
-
     counts_filtered = filter_counts_by_interactions(counts, interactions)
     counts_filtered = filter_empty_cluster_counts(counts_filtered)
-    interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered,
-                                                          ('_1', '_2'))
+    interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered, ('_1', '_2'))
     interactions_filtered = filter_interactions_non_individual(interactions_filtered, ('_1', '_2'))
-
-    # TODO: waiting for aproval. What happens when there are duplicated interactions (gene-gene)? Remove duplicates its a temp solution
-    interactions_filtered = interactions_filtered[
-        ~interactions_filtered.duplicated(['ensembl_1', 'ensembl_2'], keep='first')]
 
     counts_filtered = filter_counts_by_interactions(counts_filtered, interactions_filtered, ('_1', '_2'))
 
