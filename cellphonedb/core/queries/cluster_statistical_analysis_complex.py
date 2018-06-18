@@ -4,7 +4,7 @@ import pandas as pd
 
 from cellphonedb.core.models.cluster_counts import helper_cluster_counts, filter_cluster_counts
 from cellphonedb.core.models.complex import complex_helper
-from cellphonedb.core.queries import cluster_rl_permutations
+from cellphonedb.core.queries import cluster_statistical_analysis_simple
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
@@ -22,7 +22,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
     complex_significative_protein = get_complex_significative(complex_in_counts, counts_filtered, complex_compositions,
                                                               cells_names)
 
-    clusters = cluster_rl_permutations.build_clusters(meta, counts_filtered)
+    clusters = cluster_statistical_analysis_simple.build_clusters(meta, counts_filtered)
 
     cluster_interactions = get_cluster_combinations(clusters['names'])
     interactions_processed = get_interactions_processed(interactions_filtered, complex_significative_protein)
@@ -78,12 +78,13 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     means_result = pd.concat([interactions_data_result, real_mean_analysis], axis=1, join='inner', sort=False)
 
     # Document 3
-    significant_mean_result = cluster_rl_permutations.significament_mean_build(interactions_data_result,
-                                                                               real_mean_analysis, result_percent)
+    significant_mean_result = cluster_statistical_analysis_simple.significament_mean_build(interactions_data_result,
+                                                                                           real_mean_analysis, result_percent)
 
     # Document 4
-    mean_pvalue_result = cluster_rl_permutations.mean_pvalue_result_build(real_mean_analysis, result_percent,
-                                                                          interactions_data_result)
+    mean_pvalue_result = cluster_statistical_analysis_simple.mean_pvalue_result_build(real_mean_analysis,
+                                                                                      result_percent,
+                                                                                      interactions_data_result)
 
     # Document 5
     deconvoluted_result = deconvoluted_complex_result_build(clusters_means, interactions, complex_compositions, counts,
@@ -252,8 +253,8 @@ def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame,
                       cluster_interactions: list, base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> list:
     results = []
     for i in range(iterations):
-        shuffled_meta = cluster_rl_permutations.shuffle_meta(meta)
-        shuffled_clusters = cluster_rl_permutations.build_clusters(shuffled_meta, counts)
+        shuffled_meta = cluster_statistical_analysis_simple.shuffle_meta(meta)
+        shuffled_clusters = cluster_statistical_analysis_simple.build_clusters(shuffled_meta, counts)
         results.append(mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, suffixes))
 
     return results

@@ -3,7 +3,7 @@ from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 
-class TestHumanInteractionsPermutationsComplex(CellphoneFlaskTestCase):
+class TestFlaskTerminalQueryClusterStatisticalAnalysisComplex(CellphoneFlaskTestCase):
     def create_app(self):
         return create_app(raise_non_defined_vars=False)
 
@@ -40,11 +40,11 @@ class TestHumanInteractionsPermutationsComplex(CellphoneFlaskTestCase):
         meta_filename = 'hi_{}_meta.txt'.format(data)
         counts_filename = 'hi_{}_counts.txt'.format(data)
 
-        FlaskTerminalQueryLauncher().cluster_rl_permutations_complex(meta_filename, counts_filename, iterations,
-                                                                     data_test_dir,
-                                                                     output_test_dir, result_means_filename,
-                                                                     result_pvalues_filename,
-                                                                     result_significant_means_filename,
-                                                                     result_pvalues_means_filename,
-                                                                     deconvoluted_filename,
-                                                                     debug_seed)
+        FlaskTerminalQueryLauncher().cluster_statistical_analysis_complex(meta_filename, counts_filename, iterations,
+                                                                          data_test_dir,
+                                                                          output_test_dir, result_means_filename,
+                                                                          result_pvalues_filename,
+                                                                          result_significant_means_filename,
+                                                                          result_pvalues_means_filename,
+                                                                          deconvoluted_filename,
+                                                                          debug_seed)

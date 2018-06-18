@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellphonedb.core.models.interaction import filter_interaction
-from cellphonedb.core.queries import cluster_rl_permutations_complex
+from cellphonedb.core.queries import cluster_statistical_analysis_complex
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000, debug_seed=False,
@@ -12,27 +12,30 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
     clusters = build_clusters(meta, counts_filtered)
-    cluster_interactions = cluster_rl_permutations_complex.get_cluster_combinations(clusters['names'])
+    cluster_interactions = cluster_statistical_analysis_complex.get_cluster_combinations(clusters['names'])
 
-    base_result = cluster_rl_permutations_complex.build_result_matrix(interactions_filtered, cluster_interactions)
+    base_result = cluster_statistical_analysis_complex.build_result_matrix(interactions_filtered, cluster_interactions)
 
-    real_mean_analysis = cluster_rl_permutations_complex.mean_analysis(interactions_filtered, clusters,
+    real_mean_analysis = cluster_statistical_analysis_complex.mean_analysis(interactions_filtered, clusters,
                                                                        cluster_interactions, base_result,
                                                                        suffixes=('_1', '_2'))
 
-    real_percent_analysis = cluster_rl_permutations_complex.percent_analysis(clusters, threshold, interactions_filtered,
-                                                                             cluster_interactions, base_result,
-                                                                             suffixes=('_1', '_2'))
-
-    statistical_mean_analysis = cluster_rl_permutations_complex.shuffled_analysis(iterations, meta, counts_filtered,
+    real_percent_analysis = cluster_statistical_analysis_complex.percent_analysis(clusters, threshold,
                                                                                   interactions_filtered,
                                                                                   cluster_interactions, base_result,
                                                                                   suffixes=('_1', '_2'))
 
-    result_percent = cluster_rl_permutations_complex.build_percent_result(real_mean_analysis, real_percent_analysis,
-                                                                          statistical_mean_analysis,
-                                                                          interactions_filtered,
-                                                                          cluster_interactions, base_result)
+    statistical_mean_analysis = cluster_statistical_analysis_complex.shuffled_analysis(iterations, meta,
+                                                                                       counts_filtered,
+                                                                                       interactions_filtered,
+                                                                                       cluster_interactions, base_result,
+                                                                                       suffixes=('_1', '_2'))
+
+    result_percent = cluster_statistical_analysis_complex.build_percent_result(real_mean_analysis,
+                                                                               real_percent_analysis,
+                                                                               statistical_mean_analysis,
+                                                                               interactions_filtered,
+                                                                               cluster_interactions, base_result)
 
     pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result = build_results(
         interactions_filtered,
@@ -44,7 +47,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
 
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
                   clusters_means: dict) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    interacting_pair = cluster_rl_permutations_complex.interacting_pair_build(interactions)
+    interacting_pair = cluster_statistical_analysis_complex.interacting_pair_build(interactions)
 
     interactions_data_result = pd.DataFrame(interactions[['id_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                           'ensembl_2', 'stoichiometry_1', 'stoichiometry_2',

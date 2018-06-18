@@ -14,7 +14,8 @@ class FlaskTerminalQueryLauncher(object):
 
         return method
 
-    def cells_to_clusters(self, meta_filename, counts_filename, data_path='', output_path='',
+    @staticmethod
+    def cells_to_clusters(meta_filename, counts_filename, data_path='', output_path='',
                           result_filename='cells_to_clusters.csv'):
         if not data_path:
             data_path = query_input_dir
@@ -28,13 +29,14 @@ class FlaskTerminalQueryLauncher(object):
 
         result.to_csv('{}/{}'.format(output_path, result_filename))
 
-    def cluster_rl_permutations(self, meta_filename: str, counts_filename: str, iterations: str, data_path='',
-                                output_path: str = '', means_filename: str = 'means.txt',
-                                pvalues_filename: str = 'pvalues.txt',
-                                significant_mean_filename: str = 'significant_means.txt',
-                                means_pvalues_filename: str = 'pvalues_means.txt',
-                                deconvoluted_filename='deconvoluted.txt',
-                                debug_seed: str = '0'):
+    @staticmethod
+    def cluster_statistical_analysis_simple(meta_filename: str, counts_filename: str, iterations: str, data_path='',
+                                            output_path: str = '', means_filename: str = 'means.txt',
+                                            pvalues_filename: str = 'pvalues.txt',
+                                            significant_mean_filename: str = 'significant_means.txt',
+                                            means_pvalues_filename: str = 'pvalues_means.txt',
+                                            deconvoluted_filename='deconvoluted.txt',
+                                            debug_seed: str = '0'):
 
         if not data_path:
             data_path = query_input_dir
@@ -50,7 +52,7 @@ class FlaskTerminalQueryLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.query.cluster_rl_permutations(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.query.cluster_statistical_analysis_simple(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
@@ -59,13 +61,14 @@ class FlaskTerminalQueryLauncher(object):
         means_pvalues.to_csv('{}/{}'.format(output_path, means_pvalues_filename), sep='\t', index=False)
         deconvoluted.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
 
-    def cluster_rl_permutations_complex(self, meta_filename: str, counts_filename: str, iterations: str, data_path='',
-                                        output_path: str = '', means_filename: str = 'means.txt',
-                                        pvalues_filename: str = 'pvalues.txt',
-                                        significant_mean_filename: str = 'significant_means.txt',
-                                        means_pvalues_filename: str = 'pvalues_means.txt',
-                                        deconvoluted_filename='deconvoluted.txt',
-                                        debug_seed: str = '0'):
+    @staticmethod
+    def cluster_statistical_analysis_complex(meta_filename: str, counts_filename: str, iterations: str, data_path='',
+                                             output_path: str = '', means_filename: str = 'means.txt',
+                                             pvalues_filename: str = 'pvalues.txt',
+                                             significant_mean_filename: str = 'significant_means.txt',
+                                             means_pvalues_filename: str = 'pvalues_means.txt',
+                                             deconvoluted_filename='deconvoluted.txt',
+                                             debug_seed: str = '0'):
 
         if not data_path:
             data_path = query_input_dir
@@ -81,7 +84,7 @@ class FlaskTerminalQueryLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.query.cluster_rl_permutations_complex(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.query.cluster_statistical_analysis_complex(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
