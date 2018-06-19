@@ -20,7 +20,7 @@ env/
 build/
 develop-eggs/
 dist/
-downloads/
+/downloads/
 eggs/
 .eggs/
 lib/
@@ -98,3 +98,4 @@ ENV/
 
 .idea
 .DS_Store
+proteins_in_curated.py

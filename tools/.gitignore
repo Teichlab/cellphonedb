@@ -1,2 +1,4 @@
 /out/
 /temp/
+data/downloads/*
+!data/downloads/.gitkeep

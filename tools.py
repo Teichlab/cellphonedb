@@ -145,9 +145,18 @@ def generate_genes(gene_base_filename: str, remove_genes_filename: str):
 @click.argument('iuphar_filename')
 @click.argument('gene_filename')
 @click.argument('protein_filename')
-@click.argument('interaction_filename')
-def merge_iuphar(iuphar_filename: str, gene_filename: str, protein_filename: str, interaction_filename: str):
-    interaction_actions.merge_iuphar_action(iuphar_filename, gene_filename, protein_filename, interaction_filename)
+@click.argument('imex_interactions_filename')
+@click.argument('data_path', default='')
+@click.argument('result_filename', default='iuphar_imex_interactions.csv')
+@click.argument('result_path', default='')
+@click.argument('download_original_path', default='')
+@click.argument('default_download_response', default='')
+def merge_iuphar_imex(iuphar_filename: str, gene_filename: str, protein_filename: str, imex_interactions_filename: str,
+                      data_path: str, result_filename: str, result_path: str, download_original_path: str,
+                      default_download_response):
+    interaction_actions.merge_iuphar_imex_action(iuphar_filename, gene_filename, protein_filename,
+                                                 imex_interactions_filename, data_path, result_filename, result_path,
+                                                 download_original_path, default_download_response)
 
 
 def _open_file(interaction_filename):

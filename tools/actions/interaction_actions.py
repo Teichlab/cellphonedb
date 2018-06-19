@@ -5,32 +5,32 @@ from tools.generate_data.parsers import parse_iuphar_guidetopharmacology
 from utils.utils import read_data_table_from_file
 
 
-def merge_iuphar_action(iuphar_filename: str, gene_filename: str, protein_filename: str, interactions_filename: str):
-    # get_iuphar_guidetopharmacology.call('interaction_iuphar_guidetopharmacology__20180616.csv', 'tools/data/downloads')
-    #
-    # return
+def merge_iuphar_imex_action(iuphar_filename: str, gene_filename: str, protein_filename: str,
+                             imex_interactions_filename: str, data_path: str = '',
+                             result_filename: str = 'iuphar_imex_interactions.csv', result_path: str = '',
+                             download_original_path: str = '', default_download_response: str = ''):
+    if not result_path:
+        result_path = app.output_dir
 
-    iuphar_original = read_data_table_from_file('{}/{}'.format(app.data_dir, iuphar_filename), dtype=str)
+    if not data_path:
+        data_path = app.data_dir
 
-    genes = read_data_table_from_file('{}/{}'.format(app.data_dir, gene_filename), dtype=str)
-    proteins = read_data_table_from_file('{}/{}'.format(app.data_dir, protein_filename), dtype=str)
-    original_interactions = read_data_table_from_file('{}/{}'.format(app.data_dir, interactions_filename), dtype=str)
+    if not download_original_path:
+        download_original_path = app.downloads_dir
+
+    if not default_download_response:
+        default_download_response = None
+
+    iuphar_original = get_iuphar_guidetopharmacology.call(iuphar_filename, data_path,
+                                                          download_original_path, default_download_response)
+
+    genes = read_data_table_from_file('{}/{}'.format(data_path, gene_filename), dtype=str)
+    proteins = read_data_table_from_file('{}/{}'.format(data_path, protein_filename), dtype=str)
+    imex_interactions = read_data_table_from_file('{}/{}'.format(data_path, imex_interactions_filename), dtype=str)
 
     iuphar_interactions = parse_iuphar_guidetopharmacology.call(iuphar_original, genes, proteins)
 
-    from tools.repository.interaction import interaction_exist
-    curated_interactions = read_data_table_from_file(
-        '{}/interaction_curated_20180614.csv'.format(app.data_dir, iuphar_filename), dtype=str)
-    curated_interactions.rename(columns={'multidata_name_1': 'uniprot_1', 'multidata_name_2': 'uniprot_2'}, index=str,
-                                inplace=True)
+    merged_interactions = merge_interactions.merge_iuphar_imex_interactions(iuphar_interactions, imex_interactions)
 
-    iuphar_interactions_not_in_1 = iuphar_interactions[
-        ~iuphar_interactions.apply(lambda row: interaction_exist(row, curated_interactions, 'uniprot_1', 'uniprot_2'),
-                                   axis=1) == False]
-
-    print(iuphar_interactions_not_in_1)
-
-    print(len(original_interactions))
-    print(len(iuphar_interactions))
-    merged = merge_interactions.merge_iuphar_interactions(original_interactions, iuphar_interactions)
-    print(len(merged))
+    merged_interactions.sort_values(['source', 'uniprot_1', 'uniprot_2']).to_csv(
+        '{}/{}'.format(result_path, result_filename), index=False)
