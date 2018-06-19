@@ -61,8 +61,8 @@ class FlaskTerminalQueryLauncher(object):
         deconvoluted_simple.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
 
     @staticmethod
-    def cluster_statistical_analysis_simple(meta_filename: str, counts_filename: str, iterations: str, data_path='',
-                                            output_path: str = '', means_filename: str = 'means.txt',
+    def cluster_statistical_analysis_simple(meta_filename: str, counts_filename: str, iterations: str = '1000',
+                                            data_path='', output_path: str = '', means_filename: str = 'means.txt',
                                             pvalues_filename: str = 'pvalues.txt',
                                             significant_mean_filename: str = 'significant_means.txt',
                                             means_pvalues_filename: str = 'pvalues_means.txt',
