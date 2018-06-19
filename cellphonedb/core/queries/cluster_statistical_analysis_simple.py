@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellphonedb.core.models.interaction import filter_interaction
-from cellphonedb.core.queries import cluster_rl_permutations_complex
+from cellphonedb.core.queries import cluster_statistical_analysis_complex
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000, debug_seed=False,
@@ -12,41 +12,48 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
     clusters = build_clusters(meta, counts_filtered)
-    cluster_interactions = cluster_rl_permutations_complex.get_cluster_combinations(clusters['names'])
+    cluster_interactions = cluster_statistical_analysis_complex.get_cluster_combinations(clusters['names'])
 
-    base_result = cluster_rl_permutations_complex.build_result_matrix(interactions_filtered, cluster_interactions)
+    base_result = cluster_statistical_analysis_complex.build_result_matrix(interactions_filtered, cluster_interactions)
 
-    real_mean_analysis = cluster_rl_permutations_complex.mean_analysis(interactions_filtered, clusters,
+    real_mean_analysis = cluster_statistical_analysis_complex.mean_analysis(interactions_filtered, clusters,
                                                                        cluster_interactions, base_result,
                                                                        suffixes=('_1', '_2'))
 
-    real_percent_analysis = cluster_rl_permutations_complex.percent_analysis(clusters, threshold, interactions_filtered,
-                                                                             cluster_interactions, base_result,
-                                                                             suffixes=('_1', '_2'))
-
-    statistical_mean_analysis = cluster_rl_permutations_complex.shuffled_analysis(iterations, meta, counts_filtered,
+    real_percent_analysis = cluster_statistical_analysis_complex.percent_analysis(clusters, threshold,
                                                                                   interactions_filtered,
                                                                                   cluster_interactions, base_result,
                                                                                   suffixes=('_1', '_2'))
 
-    result_percent = cluster_rl_permutations_complex.build_percent_result(real_mean_analysis, real_percent_analysis,
-                                                                          statistical_mean_analysis,
-                                                                          interactions_filtered,
-                                                                          cluster_interactions, base_result)
+    statistical_mean_analysis = cluster_statistical_analysis_complex.shuffled_analysis(iterations, meta,
+                                                                                       counts_filtered,
+                                                                                       interactions_filtered,
+                                                                                       cluster_interactions, base_result,
+                                                                                       suffixes=('_1', '_2'))
+
+    result_percent = cluster_statistical_analysis_complex.build_percent_result(real_mean_analysis,
+                                                                               real_percent_analysis,
+                                                                               statistical_mean_analysis,
+                                                                               interactions_filtered,
+                                                                               cluster_interactions, base_result)
 
     pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result = build_results(
         interactions_filtered,
         real_mean_analysis,
         result_percent,
-        counts)
+        clusters['means'])
     return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
 
 
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
-                  counts: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    interactions_data_result = pd.DataFrame(interactions[
-                                                ['id_interaction', 'name_1', 'name_2', 'ensembl_1',
-                                                 'ensembl_2', 'source']].copy())
+                  clusters_means: dict) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+    interacting_pair = cluster_statistical_analysis_complex.interacting_pair_build(interactions)
+
+    interactions_data_result = pd.DataFrame(interactions[['id_interaction', 'name_1', 'name_2', 'ensembl_1',
+                                                          'ensembl_2', 'stoichiometry_1', 'stoichiometry_2',
+                                                          'source']].copy())
+
+    interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1)
 
     interactions_data_result['secreted'] = (interactions['secretion_1'] | interactions['secretion_2'])
     interactions_data_result['is_integrin'] = (
@@ -55,9 +62,6 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     interactions_data_result.rename(
         columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
         inplace=True)
-
-    interactions_data_result['gene_interaction'] = interactions.apply(
-        lambda interaction: '{}_{}'.format(interaction['gene_name_1'], interaction['gene_name_2']), axis=1)
 
     # Document 1
     pvalues_result = pd.concat([interactions_data_result, result_percent], axis=1, join='inner', sort=False)
@@ -72,20 +76,30 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     mean_pvalue_result = mean_pvalue_result_build(real_mean_analysis, result_percent, interactions_data_result)
 
     # Document 5
-    deconvoluted_result = deconvoluted_result_build(counts, interactions)
+    deconvoluted_result = deconvoluted_result_build(clusters_means, interactions)
 
     return pvalues_result, means_result, significant_mean_result, mean_pvalue_result, deconvoluted_result
 
 
-def deconvoluted_result_build(counts: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
+def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) -> pd.DataFrame:
     deconvoluted_result_1 = pd.DataFrame()
     deconvoluted_result_2 = pd.DataFrame()
-    deconvoluted_result_1[['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_interaction']] = \
-        interactions[['ensembl_1', 'entry_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_interaction']]
-    deconvoluted_result_2[['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_interaction']] = \
-        interactions[['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_interaction']]
+    deconvoluted_result_1[
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_interaction']] = \
+        interactions[
+            ['ensembl_1', 'entry_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'stoichiometry_1', 'id_interaction']]
+    deconvoluted_result_2[
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_interaction']] = \
+        interactions[
+            ['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'stoichiometry_2', 'id_interaction']]
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
-    deconvoluted_result = deconvoluted_result.merge(counts, left_on='ensembl', right_index=True)
+
+    deconvoluted_result.set_index('ensembl', inplace=True)
+
+    for key, cluster_means in clusters_means.items():
+        deconvoluted_result[key] = cluster_means
+
+    deconvoluted_result.reset_index(inplace=True)
     return deconvoluted_result
 
 
@@ -107,7 +121,7 @@ def significament_mean_build(interactions_data_result: pd.DataFrame, real_mean_a
     min_significant_mean = 0.05
     for index, mean_analysis in real_mean_analysis.iterrows():
         for cluster_interaction in list(result_percent.columns):
-            if pvalues_means_result.get_value(index, cluster_interaction) > min_significant_mean:
+            if result_percent.get_value(index, cluster_interaction) > min_significant_mean:
                 pvalues_means_result.set_value(index, cluster_interaction, pd.np.nan)
     return pvalues_means_result
 
@@ -120,7 +134,7 @@ def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
 
 def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
     cluster_names = meta['cell_type'].drop_duplicates().tolist()
-    clusters = {'names': cluster_names, 'counts': {}, 'means': {}, 'percents': {}}
+    clusters = {'names': cluster_names, 'counts': {}, 'means': {}}
 
     cluster_counts = {}
     cluster_means = {}
@@ -129,7 +143,7 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
         cells = meta[meta['cell_type'] == cluster_name].index
         cluster_count = counts.loc[:, cells]
         cluster_counts[cluster_name] = cluster_count
-        cluster_means[cluster_name] = cluster_count.apply(lambda counts: counts.mean(), axis=1)
+        cluster_means[cluster_name] = cluster_count.apply(lambda count: count.mean(), axis=1)
 
     clusters['counts'] = cluster_counts
     clusters['means'] = cluster_means
@@ -140,19 +154,10 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
 def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
     interactions_filtered = filter_interaction.filter_by_is_interactor(interactions)
 
-    # TODO: temporal solution
-    interactions_filtered = interactions[interactions.apply(
-        lambda interaction: interaction['id_interaction'] in interactions_filtered['id_interaction'].tolist(), axis=1)]
-
     counts_filtered = filter_counts_by_interactions(counts, interactions)
     counts_filtered = filter_empty_cluster_counts(counts_filtered)
-    interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered,
-                                                          ('_1', '_2'))
+    interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered, ('_1', '_2'))
     interactions_filtered = filter_interactions_non_individual(interactions_filtered, ('_1', '_2'))
-
-    # TODO: waiting for aproval. What happens when there are duplicated interactions (gene-gene)? Remove duplicates its a temp solution
-    interactions_filtered = interactions_filtered[
-        ~interactions_filtered.duplicated(['ensembl_1', 'ensembl_2'], keep='first')]
 
     counts_filtered = filter_counts_by_interactions(counts_filtered, interactions_filtered, ('_1', '_2'))
 

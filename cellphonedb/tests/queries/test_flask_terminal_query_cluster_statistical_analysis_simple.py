@@ -3,7 +3,7 @@ from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 
-class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
+class TestFlaskTerminalQueryClusterStatisticalAnalysisSimple(CellphoneFlaskTestCase):
     def create_app(self):
         return create_app(raise_non_defined_vars=False)
 
@@ -28,7 +28,7 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
         self.query_call(data, iterations, debug_seed)
 
     def test_manual_2_data(self):
-        iterations = '1000'
+        iterations = '2'
         data = 'manual_2'
         debug_seed = '0'
         self.query_call(data, iterations, debug_seed)
@@ -49,11 +49,12 @@ class TestHumanInteractionsPermutations(CellphoneFlaskTestCase):
         meta_filename = 'hi_{}_meta.txt'.format(data)
         counts_filename = 'hi_{}_counts.txt'.format(data)
 
-        FlaskTerminalQueryLauncher().cluster_rl_permutations(meta_filename, counts_filename, iterations, data_test_dir,
-                                                             output_test_dir, result_means_filename,
-                                                             result_pvalues_filename, result_significant_means_filename,
-                                                             result_pvalues_means_filename, deconvoluted_filename,
-                                                             debug_seed)
+        FlaskTerminalQueryLauncher().cluster_statistical_analysis_simple(meta_filename, counts_filename, iterations,
+                                                                         data_test_dir, output_test_dir,
+                                                                         result_means_filename, result_pvalues_filename,
+                                                                         result_significant_means_filename,
+                                                                         result_pvalues_means_filename,
+                                                                         deconvoluted_filename, debug_seed)
 
         # TODO: incomplete
 

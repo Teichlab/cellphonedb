@@ -1,0 +1,6 @@
+include QuickStart.md
+include manage.py
+include cellphonedb/core/cellphone.db
+include cellphonedb/config/*.yml
+include in/example_data/*
+include out/
