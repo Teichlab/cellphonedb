@@ -1,10 +1,12 @@
 0. Requisites:
 - Python3
 - Pip3
+- python3-venv
 
 
-1. Download and unpack CellPhoneDb manager
+1. Download and unpack CellPhoneDb manager (you need the basic_auth server password)
 '''shell
+curl 172.27.17.241:8000/downloads/CellPhoneDB-0.0.1.tar.gz -u teichlab --output CellPhoneDB-0.0.1.tar.gz
 tar -xzf CellPhoneDB-0.0.1.tar.gz
 cd CellPhoneDB-0.0.1
 '''

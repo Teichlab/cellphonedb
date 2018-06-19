@@ -22,6 +22,5 @@ setup(
         'Flask-Testing>=0.7.1',
         'SQLAlchemy==1.2.8',
         'PyYAML==3.12',
-        'psycopg2-binary==2.7.5',
     ],
 )
