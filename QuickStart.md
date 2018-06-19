@@ -13,8 +13,8 @@ cd CellPhoneDB-0.0.1
 
 2. Create Virual Env (optional)
 '''shell
-python3 -m venv cpdb-env
-source cpdb-env/bin/activate
+python3 -m venv cpdb-env &&
+source cpdb-env/bin/activate &&
 python setup.py install
 '''
 
