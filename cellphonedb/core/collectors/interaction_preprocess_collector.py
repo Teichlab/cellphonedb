@@ -4,7 +4,7 @@ from cellphonedb.core.models.interaction import properties_interaction
 
 
 def call(interactions: pd.DataFrame, multidatas: pd.DataFrame) -> pd.DataFrame:
-    interactions_processed = interactions.fillna({'dlrp': False, 'iuhpar': False})
+    interactions_processed = interactions.fillna({'dlrp': False, 'iuphar': False})
 
     interactions_processed = _set_interactor_property(interactions_processed, multidatas)
 
