@@ -1,4 +1,4 @@
-comments,multidata_name_1,multidata_name_2,score_1,score_2,source,dlrp,iuhpar
+comments,multidata_name_1,multidata_name_2,score_1,score_2,source,dlrp,iuphar
 comment_1,uniprot_1,uniprot_2,0.0,0.0,something_1,False,False
 comment_2,uniprot_1,complex_1,0.1,0.1,something_2,False,False
 comment_3,uniprot_3,uniprot_3,0.2,0.3,something_3,False,False

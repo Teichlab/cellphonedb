@@ -541,52 +541,61 @@ gene_entries = [
 ]
 interaction_entries = [
     {
-        "score_1": 1.0,
-        "score_2": 1.0,
         "name_1": "CD8 receptor",
         "name_2": "P06239",
         "comments_interaction": "1q69, PDB partially",
-        "source": "curated"
+        "source": "curated",
+        "iuphar": False
     },
     {
-        "score_1": 0.35,
-        "score_2": 0.35,
         "name_1": "P25106",
         "name_2": "P25705",
         "comments_interaction": None,
-        "source": "IntAct"
+        "source": "IntAct",
+        "iuphar": False
+
     },
     {
-        "score_1": 0.35,
-        "score_2": 0.35,
         "name_1": "P01023",
         "name_2": "P25705",
         "comments_interaction": None,
-        "source": "MINT"
+        "source": "MINT",
+        "iuphar": False
     },
     {
-        "score_1": 0.92,
-        "score_2": 0.92,
         "name_1": "Q05397",
         "name_2": "P12931",
         "comments_interaction": None,
-        "source": "MolCon"
+        "source": "MolCon",
+        "iuphar": False
     },
     {
-        "score_1": 1.0,
-        "score_2": 1.0,
         "name_1": "Q03167",
         "name_2": "P01137",
         "comments_interaction": "uniprot",
-        "source": "curated"
+        "source": "curated",
+        "iuphar": False
     },
     {
-        "score_1": 0.0,
-        "score_2": 1.0,
-        "name_1": "O00421",
-        "name_2": "Q99731",
+        "name_1": "Q99731",
+        "name_2": "O00421",
         "comments_interaction": None,
-        "source": "InnateDB"
+        "source": "guidetopharmacology.org",
+        "iuphar": True
+    },
+    {
+        "name_1": "O00590",
+        "name_2": "P13500",
+        "comments_interaction": "PMID: 24218476",
+        "source": "curated",
+        "iuphar": False
+    },
+    {
+        "name_1": "P49767",
+        "name_2": "P35916",
+        "comments_interaction": "uniprot",
+        "source": "curated",
+        "iuphar": True
     },
 ]
 

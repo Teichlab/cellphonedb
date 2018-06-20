@@ -18,6 +18,6 @@ class Interaction(Base):
     comments_interaction = Column(String)
     family = Column(String)
     dlrp = Column(Boolean)
-    iuhpar = Column(Boolean)
+    iuphar = Column(Boolean)
 
     is_cellphonedb_interactor = Column(Boolean)

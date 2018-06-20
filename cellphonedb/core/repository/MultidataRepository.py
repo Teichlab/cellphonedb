@@ -29,7 +29,7 @@ class MultidataRepository(Repository):
         query_complex = self.database_manager.database.session.query(Multidata, Complex).join(Complex)
         multidata_complex = pd.read_sql(query_complex.statement, self.database_manager.database.engine)
 
-        multidata_expanded = multidata_simple.append(multidata_complex, ignore_index=True)
+        multidata_expanded = multidata_simple.append(multidata_complex, ignore_index=True, sort=True)
 
         return multidata_expanded
 

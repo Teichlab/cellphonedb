@@ -40,12 +40,16 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def test_interaction(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
 
-        self.assertEqual(10637, len(interactions), 'Number of interactions are not equal')
+        self.assertEqual(10735, len(interactions), 'Number of interactions are not equal')
 
     def test_interaction_curated(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
         self.assertEqual(795, len(interactions[interactions['source'] == 'curated']),
                          'Number of curated interactions not equal')
+
+    def test_interaction_iuphar(self):
+        interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
+        self.assertEqual(243, len(interactions[interactions['iuphar']]))
 
     def test_complex_composition(self):
         complex_compositions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(

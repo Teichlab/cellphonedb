@@ -10,7 +10,7 @@ def is_cellphonedb_interactor(interaction: pd.Series, suffixes=('_1', '_2')) -> 
     if interaction['source'] == 'curated':
         return True
 
-    if interaction['iuhpar']:
+    if interaction['iuphar']:
         return True
 
     if properties_multidata.can_be_receptor(interaction, suffixes[0]) and \
