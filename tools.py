@@ -97,8 +97,8 @@ def remove_interactions(interaction_filename, interaction_to_remove_filename):
 @click.argument('interaction_filename', default='clean_interactions.csv')
 @click.argument('interaction_curated_filename', default='interaction_curated.csv')
 def add_curated_interactions(interaction_filename, interaction_curated_filename):
-    interaction = pd.read_csv(_open_file(interaction_filename))
-    interaction_curated = pd.read_csv(_open_file(interaction_curated_filename))
+    interaction = pd.read_csv(_open_file(interaction_filename), dtype={'iuphar': pd.np.bool})
+    interaction_curated = pd.read_csv(_open_file(interaction_curated_filename), dtype={'iuphar': pd.np.bool})
 
     result = add_curated(interaction, interaction_curated)
     result.to_csv('%s/interaction.csv' % output_dir, index=False)

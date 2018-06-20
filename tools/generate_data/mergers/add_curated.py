@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tools.generate_data.mergers.merge_interactions import merge_interactions
+from tools.generate_data.mergers import merge_interactions
 from tools.repository.interaction import normalize_interactions
 
 
@@ -22,7 +22,7 @@ def add_curated(interactions: pd.DataFrame, interaction_curated: pd.DataFrame) -
     interactions.rename(index=str, columns={'protein_1': 'multidata_name_1', 'protein_2': 'multidata_name_2'},
                         inplace=True)
 
-    interaction_curated = merge_interactions(interactions_curated_normalized, interactions, 'multidata_name_1',
-                                             'multidata_name_2')
+    interaction_curated_result = merge_interactions.merge_iuphar_other_and_curated_interactions(interactions,
+                                                                                                interaction_curated)
 
-    return interaction_curated
+    return interaction_curated_result
