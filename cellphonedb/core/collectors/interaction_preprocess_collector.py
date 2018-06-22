@@ -1,6 +1,7 @@
 import pandas as pd
 
 from cellphonedb.core.models.interaction import properties_interaction
+from utils import unique_id_generator
 
 
 def call(interactions: pd.DataFrame, multidatas: pd.DataFrame) -> pd.DataFrame:
@@ -20,5 +21,8 @@ def _set_interactor_property(interactions_processed: pd.DataFrame,
                                                suffixes=['_x', '_y'])
     interactions_processed_expanded['is_cellphonedb_interactor'] = interactions_processed_expanded.apply(
         lambda interaction: properties_interaction.is_cellphonedb_interactor(interaction, ('_x', '_y')), axis=1)
+
+    interactions_processed_expanded['id_cp_interaction'] = interactions_processed_expanded.apply(
+        lambda interaction: unique_id_generator.interaction(interaction, ('_x', '_y')), axis=1)
 
     return interactions_processed_expanded

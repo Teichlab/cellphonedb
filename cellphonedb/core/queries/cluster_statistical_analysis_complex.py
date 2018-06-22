@@ -123,11 +123,11 @@ def deconvolute_interaction_component(interactions, suffix):
     interactions = interactions[~interactions['is_complex{}'.format(suffix)]]
     deconvoluted_result = pd.DataFrame()
     deconvoluted_result[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_interaction']] = \
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_cp_interaction']] = \
         interactions[
             ['ensembl{}'.format(suffix), 'entry_name{}'.format(suffix), 'gene_name{}'.format(suffix),
              'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'stoichiometry{}'.format(suffix),
-             'id_interaction']]
+             'id_cp_interaction']]
 
     return deconvoluted_result
 
@@ -136,11 +136,12 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvoluted_result = pd.DataFrame()
     component = pd.DataFrame()
     component[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_interaction',
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_cp_interaction',
          'id_multidata']] = \
         interactions[
             ['ensembl{}'.format(suffix), 'entry_name{}'.format(suffix), 'gene_name{}'.format(suffix),
-             'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'stoichiometry{}'.format(suffix), 'id_interaction',
+             'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'stoichiometry{}'.format(suffix),
+             'id_cp_interaction',
              'id_multidata{}'.format(suffix)]]
 
     deconvolution_complex = pd.merge(complex_compositions, component, left_on='complex_multidata_id',
@@ -149,11 +150,11 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
                                      right_on='protein_multidata_id', suffixes=['_complex', '_simple'])
     deconvoluted_result[
         ['ensembl', 'total_proteins', 'entry_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'stoichiometry',
-         'id_interaction']] = \
+         'id_cp_interaction']] = \
         deconvolution_complex[
             ['ensembl_simple', 'total_protein', 'entry_name_simple', 'gene_name_simple', 'name_simple',
              'is_complex_complex',
-             'name_complex', 'stoichiometry', 'id_interaction']]
+             'name_complex', 'stoichiometry', 'id_cp_interaction']]
 
     return deconvoluted_result
 
@@ -343,7 +344,7 @@ def filter_interactions_by_complexes(interactions: pd.DataFrame, complexes: pd.D
                             (interaction['multidata_2_id'] in complex_ids),
         axis=1)]
 
-    interactions_filtered.drop_duplicates('id_interaction', inplace=True)
+    interactions_filtered.drop_duplicates('id_cp_interaction', inplace=True)
 
     return interactions_filtered
 
