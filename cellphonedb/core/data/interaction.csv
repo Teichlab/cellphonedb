@@ -5513,6 +5513,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,,,False,P01892,P07900,0.4,0.4,IntAct
 ,,,False,P01892,P30511,0.4,0.4,IntAct
 ,,,False,P01892,Q8NHL6,0.4,0.4,IntAct
+,,,False,P01909,O43612,0.4,0.4,IntAct
 ,,,False,P02458,Q12794,0.37,0.37,IntAct
 ,,,False,P02462,P02462,0.44,0.44,IntAct
 ,,,False,P02462,Q92876,0.44,0.44,IntAct
@@ -7762,6 +7763,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,,,False,Q8IVT5,Q9BSJ8,0.35,0.35,IntAct
 ,,,False,Q8IVT5,Q9BUL8,0.35,0.35,IntAct
 ,,,False,Q8IVT5,Q9GZZ8,0.35,0.35,IntAct
+,,,False,Q8IVT5,Q9NRV9,0.35,0.35,IntAct
 ,,,False,Q8IVT5,Q9UM47,0.35,0.35,IntAct
 ,,,False,Q8IVT5,Q9Y2J2,0.35,0.35,IntAct
 ,,,False,Q8IVT5,Q9Y4C2,0.35,0.35,IntAct
@@ -9801,6 +9803,8 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,,,True,O15467,Q9H3N8,,,guidetopharmacology.org
 ,,,True,O43555,P30968,,,guidetopharmacology.org
 ,,,True,O43557,Q92956,,,guidetopharmacology.org
+,,,True,O43612,O43613,,,guidetopharmacology.org
+,,,True,O43612,O43614,,,guidetopharmacology.org
 ,,,True,O95150,Q93038,,,guidetopharmacology.org
 ,,,True,O95399,Q9UKP6,,,guidetopharmacology.org
 ,,,True,P01019,P30556,,,guidetopharmacology.org
@@ -9921,6 +9925,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,,,True,Q99731,P49682,,,guidetopharmacology.org
 ,,,True,Q99969,P46091,,,guidetopharmacology.org
 ,,,True,Q99969,Q99788,,,guidetopharmacology.org
+,,,True,Q99988,Q6UXV0,,,guidetopharmacology.org
 ,,,True,Q9BXY4,O75473,,,guidetopharmacology.org
 ,,,True,Q9BXY4,Q9BXB1,,,guidetopharmacology.org
 ,,,True,Q9BXY4,Q9HBX8,,,guidetopharmacology.org
@@ -9931,6 +9936,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,,,True,Q9NRA1,P35916,,,guidetopharmacology.org
 ,,,True,Q9NRJ3,P46092,,,guidetopharmacology.org
 ,,,True,Q9NRJ3,P51677,,,guidetopharmacology.org
+,,,True,Q9NRV9,P25089,,,guidetopharmacology.org
 ,,,True,Q9UBC7,O43603,,,guidetopharmacology.org
 ,,,True,Q9UBC7,O60755,,,guidetopharmacology.org
 ,,,True,Q9UBC7,P47211,,,guidetopharmacology.org
