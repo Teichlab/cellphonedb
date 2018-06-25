@@ -1,7 +1,8 @@
-click
-pandas>=0.23
-flask>=1.0
-Flask-RESTful>=0.3.6
-Flask-Testing>=0.7.1
-SQLAlchemy==1.2.8
+click==6.7
+pandas==0.23
+flask==1.0
+Flask-RESTful==0.3
+Flask-Testing==0.7
+SQLAlchemy==1.2
 PyYAML==3.12
+requests==2.19
