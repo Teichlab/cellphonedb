@@ -57,6 +57,17 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     interacting_pair = interacting_pair_build(interactions)
 
+    interactions = interactions.copy()
+
+    def simple_complex_indicator(interaction: pd.Series, suffix: str) -> str:
+        if interaction['is_complex{}'.format(suffix)]:
+            return 'complex:{}'.format(interaction['name{}'.format(suffix)])
+
+        return 'simple:{}'.format(interaction['name{}'.format(suffix)])
+
+    interactions['name_1'] = interactions.apply(lambda interaction: simple_complex_indicator(interaction, '_1'), axis=1)
+    interactions['name_2'] = interactions.apply(lambda interaction: simple_complex_indicator(interaction, '_2'), axis=1)
+
     interactions_data_result = pd.DataFrame(interactions[
                                                 ['id_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                  'ensembl_2', 'stoichiometry_1', 'stoichiometry_2', 'source']].copy())
@@ -79,7 +90,8 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
 
     # Document 3
     significant_mean_result = cluster_statistical_analysis_simple.significament_mean_build(interactions_data_result,
-                                                                                           real_mean_analysis, result_percent)
+                                                                                           real_mean_analysis,
+                                                                                           result_percent)
 
     # Document 4
     mean_pvalue_result = cluster_statistical_analysis_simple.mean_pvalue_result_build(real_mean_analysis,

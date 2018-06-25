@@ -64,6 +64,11 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
         columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
         inplace=True)
 
+    interactions_data_result['partner_a'] = interactions_data_result['partner_a'].apply(
+        lambda name: 'simple:{}'.format(name))
+    interactions_data_result['partner_b'] = interactions_data_result['partner_b'].apply(
+        lambda name: 'simple:{}'.format(name))
+
     # Document 1
     pvalues_result = pd.concat([interactions_data_result, result_percent], axis=1, join='inner', sort=False)
 
@@ -95,6 +100,7 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) 
         interactions[
             ['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'stoichiometry_2',
              'id_cp_interaction']]
+
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
 
     deconvoluted_result.set_index('ensembl', inplace=True)
