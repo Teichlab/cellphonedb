@@ -32,11 +32,11 @@ class QueryLauncher():
         pvalues_complex, means_complex, significant_means_complex, mean_pvalue_complex, deconvoluted_complex = self.cluster_statistical_analysis_complex(
             meta, count, iterations, debug_seed)
 
-        pvalues = pvalues_simple.append(pvalues_complex)
-        means = means_simple.append(means_complex)
-        significant_means = significant_means_simple.append(significant_means_complex)
-        mean_pvalue = mean_pvalue_simple.append(mean_pvalue_complex)
-        deconvoluted = deconvoluted_simple.append(deconvoluted_complex)
+        pvalues = pvalues_simple.append(pvalues_complex, sort=False)
+        means = means_simple.append(means_complex, sort=False)
+        significant_means = significant_means_simple.append(significant_means_complex, sort=False)
+        mean_pvalue = mean_pvalue_simple.append(mean_pvalue_complex, sort=False)
+        deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
 
         return pvalues, means, significant_means, mean_pvalue, deconvoluted
 
