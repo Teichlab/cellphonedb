@@ -5096,7 +5096,7 @@ Q9NYV7,False,False,T2R16_HUMAN,False,False,True,Taste receptor,,,False,False,,,F
 Q9NYW5,False,False,TA2R4_HUMAN,False,False,True,Taste receptor,,,False,False,,,False,False,,Taste receptor,True,False,,
 P59537,False,False,T2R43_HUMAN,False,False,True,Taste receptor,,,False,False,,,False,False,,Taste receptor,True,False,,
 P59540,False,False,T2R46_HUMAN,False,False,True,Taste receptor,,,False,False,,,False,False,,Taste receptor,True,False,,
-Q9N2J8,False,False,f,False,False,True,Virus,,,False,False,,,False,False,,Virus,True,False,,
+Q9N2J8,False,False,ENH3_HUMAN,False,False,True,Virus,,,False,False,,,False,False,,Virus,True,False,,
 Q9N2K0,False,False,ENH1_HUMAN,False,False,True,Virus,,,False,False,,,False,False,,Virus,True,False,,
 A0A0B4J1V1,False,False,HV321_HUMAN,False,False,True,Ig chain,,,False,True,,,False,False,,Ig chain,True,False,,
 A0A0A0MS15,False,False,HV349_HUMAN,False,False,True,Ig chain,,,False,True,,,False,False,,Ig chain,True,False,,
@@ -5280,3 +5280,6 @@ P78504,False,False,JAG1_HUMAN,True,False,False,,,,False,False,,,False,False,,,Tr
 P98172,False,False,EFNB1_HUMAN,True,False,False,,,,False,False,,,False,False,,Uniprot: Binds to the receptor tyrosine kinases EPHB1 and EPHA1.,True,False,To_add | To_comment,transmembrane_add | extracellular_add
 P14210,False,False,HGF_HUMAN,True,False,False,,,,False,False,,Growthfactor,True,True,,"Uniprot: Potent mitogen for mature parenchymal hepatocyte cells, seems to be a hepatotrophic factor, and acts as a growth factor for a broad spectrum of tissues and cell types.",False,False,To_add | To_comment,secreted_add | secreted_high | extracellular_add
 P08581,False,False,MET_HUMAN,True,False,False,,,,False,True,,,False,False,,,True,False,To_add | To_comment,transmembrane_add | receptor_add | extracellular_add
+Q6UXV0,False,False,GFRAL_HUMAN,True,False,False,,,,False,True,,,False,False,,Uniprot:Brainstem-restricted receptor for GDF15,True,False,To_add | To_comment,transmembrane_add | receptor_add | extracellular_add
+Q9NRV9,False,False,HEBP1_HUMAN,True,False,False,,,,False,False,,,False,False,,"Genecards: This protein includes a natural chemoattractant peptide of 21 amino acids at the N-terminus, which is a natural ligand for formyl peptide receptor-like receptor 2 (FPRL2) ",True,False,To_add | To_comment,transmembrane_add | extracellular_add
+O43612,False,False,OREX_HUMAN,True,False,False,,,,False,False,,,False,True,,Genecards: hypothalamic neuropeptide precursor protein,False,False,To_add | To_comment,secreted_add | extracellular_add
