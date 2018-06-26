@@ -23,5 +23,6 @@ setup(
         'SQLAlchemy==1.2',
         'PyYAML==3.12',
         'requests==2.19',
+        'uWSGI==2.0',
     ],
 )
