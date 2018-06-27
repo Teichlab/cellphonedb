@@ -29,6 +29,7 @@ def _get_separator(mime_type_or_extension: str) -> str:
         '.csv': ',',
         '.tsv': '\t',
         '.txt': '\t',
+        '.tab': '\t',
         'text/csv': ',',
         'text/tab-separated-values': '\t',
     }

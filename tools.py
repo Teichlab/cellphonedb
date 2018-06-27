@@ -135,13 +135,6 @@ def generate_interactions(imex_original_filename, database_proteins_filename, da
 
 
 @cli.command()
-@click.argument('gene_base_filename')
-@click.argument('remove_genes_filename')
-def generate_genes(gene_base_filename: str, remove_genes_filename: str):
-    gene_actions.generate_genes_action(gene_base_filename, remove_genes_filename)
-
-
-@cli.command()
 @click.argument('iuphar_filename')
 @click.argument('gene_filename')
 @click.argument('protein_filename')
@@ -166,6 +159,24 @@ def merge_iuphar_imex(iuphar_filename: str,
                                                  imex_interactions_filename, data_path,
                                                  processed_iuphar_result_filename, result_filename, result_path,
                                                  download_original_path, default_download_response)
+
+
+@cli.command()
+@click.argument('gene_base_filename')
+@click.argument('remove_genes_filename')
+def generate_genes(gene_base_filename: str,
+                   remove_genes_filename: str):
+    gene_actions.generate_genes_action(gene_base_filename, remove_genes_filename)
+
+
+@cli.command()
+@click.argument('uniprot_db_filename')
+@click.argument('ensembl_db_filename')
+@click.argument('proteins_filename')
+def generate_genes_from_uniprot_ensembl_db(uniprot_db_filename: str,
+                                           ensembl_db_filename: str,
+                                           proteins_filename: str):
+    gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename, ensembl_db_filename, proteins_filename)
 
 
 def _open_file(interaction_filename):
