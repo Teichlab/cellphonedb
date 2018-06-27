@@ -4,7 +4,8 @@ from tools.generate_data.mergers import mergers_genes
 from utils import utils
 
 
-def generate_genes_action(gene_base_filename: str, remove_genes_filename: str):
+def remove_genes_in_file(gene_base_filename: str, remove_genes_filename: str,
+                         result_filename: str = 'gene_filtered.csv') -> None:
     gene_base_filename = '{}/{}'.format(app.data_dir, gene_base_filename)
     remove_genes_filename = '{}/{}'.format(app.data_dir, remove_genes_filename)
 
@@ -13,7 +14,7 @@ def generate_genes_action(gene_base_filename: str, remove_genes_filename: str):
 
     genes_filtered = remove_genes.remove_genes_in_file(gene_base_data, remove_genes_data)
 
-    genes_filtered.to_csv('{}/{}'.format(app.output_dir, 'gene_filtered.csv'), index=False)
+    genes_filtered.to_csv('{}/{}'.format(app.output_dir, result_filename), index=False)
 
 
 def generate_genes_from_uniprot_ensembl_db(uniprot_db_filename: str, ensembl_db_filename: str, proteins_filename: str,

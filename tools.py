@@ -162,21 +162,50 @@ def merge_iuphar_imex(iuphar_filename: str,
 
 
 @cli.command()
-@click.argument('gene_base_filename')
+@click.argument('uniprot_db_filename')
+@click.argument('ensembl_db_filename')
+@click.argument('proteins_filename')
 @click.argument('remove_genes_filename')
-def generate_genes(gene_base_filename: str,
-                   remove_genes_filename: str):
-    gene_actions.generate_genes_action(gene_base_filename, remove_genes_filename)
+@click.argument('result_filename', default='gene.csv')
+@click.argument('result_path', default='')
+@click.argument('gene_uniprot_ensembl_merged_result_filename', default='gene_uniprot_ensembl_merged.csv')
+def generate_genes(
+        uniprot_db_filename: str,
+        ensembl_db_filename: str,
+        proteins_filename: str,
+        remove_genes_filename: str,
+        result_filename: str,
+        result_path: str,
+        gene_uniprot_ensembl_merged_result_filename: str) -> None:
+    remove_genes_result_filename = '{}/{}'.format('../out', gene_uniprot_ensembl_merged_result_filename)
+    gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename, ensembl_db_filename, proteins_filename,
+                                                        gene_uniprot_ensembl_merged_result_filename, result_path)
+    gene_actions.remove_genes_in_file(remove_genes_result_filename, remove_genes_filename, result_filename)
+
+
+@cli.command()
+@click.argument('gene_base_filename')
+@click.argument('remove_genes_filename', default='')
+@click.argument('result_filename', default='gene.csv')
+def remove_genes_in_file(gene_base_filename: str,
+                         remove_genes_filename: str,
+                         result_filename: str):
+    gene_actions.remove_genes_in_file(gene_base_filename, remove_genes_filename, result_filename)
 
 
 @cli.command()
 @click.argument('uniprot_db_filename')
 @click.argument('ensembl_db_filename')
 @click.argument('proteins_filename')
+@click.argument('result_filename', default='gene_uniprot_ensembl_merged.csv')
+@click.argument('result_path', default='')
 def generate_genes_from_uniprot_ensembl_db(uniprot_db_filename: str,
                                            ensembl_db_filename: str,
-                                           proteins_filename: str):
-    gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename, ensembl_db_filename, proteins_filename)
+                                           proteins_filename: str,
+                                           result_filename: str,
+                                           result_path: str):
+    gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename, ensembl_db_filename, proteins_filename,
+                                                        result_filename, result_path)
 
 
 def _open_file(interaction_filename):
