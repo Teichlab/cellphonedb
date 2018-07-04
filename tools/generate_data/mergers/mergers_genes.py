@@ -10,6 +10,7 @@ def merge_genes_from_uniprot_ensembl_db(ensembls: pd.DataFrame, proteins: pd.Dat
     result = result[~result['gene_name'].str.contains('HLA')]
     result = result[result['uniprot'].apply(lambda uniprot: uniprot in proteins['uniprot'].tolist())]
     result = result.sort_values(by=list(result.columns.values))
+
     return result
 
 
@@ -28,6 +29,9 @@ def _merge_ensembl_uniprots(merged_genes: pd.DataFrame) -> pd.DataFrame:
     result.dropna(subset=['ensembl', 'uniprot', 'gene_name'], inplace=True)
 
     check_empty_hgnc(result)
+
+    result['hgnc_symbol'] = result.apply(
+        lambda gene: gene['hgnc_symbol'] if gene['hgnc_symbol'] == '' else gene['gene_name'], axis=1)
 
     result = result.drop_duplicates().reset_index(drop=True)
     return result
