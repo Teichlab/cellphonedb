@@ -4,6 +4,7 @@ import pandas as pd
 
 from flask.cli import FlaskGroup
 
+from tools import app
 from tools.actions import gene_actions, interaction_actions
 from tools.app import create_app, data_dir, output_dir
 from tools.merge_duplicated_proteins import merge_duplicated_proteins as merge_proteins
@@ -135,13 +136,6 @@ def generate_interactions(imex_original_filename, database_proteins_filename, da
 
 
 @cli.command()
-@click.argument('gene_base_filename')
-@click.argument('remove_genes_filename')
-def generate_genes(gene_base_filename: str, remove_genes_filename: str):
-    gene_actions.generate_genes_action(gene_base_filename, remove_genes_filename)
-
-
-@cli.command()
 @click.argument('iuphar_filename')
 @click.argument('gene_filename')
 @click.argument('protein_filename')
@@ -166,6 +160,67 @@ def merge_iuphar_imex(iuphar_filename: str,
                                                  imex_interactions_filename, data_path,
                                                  processed_iuphar_result_filename, result_filename, result_path,
                                                  download_original_path, default_download_response)
+
+
+@cli.command()
+@click.argument('uniprot_db_filename')
+@click.argument('ensembl_db_filename')
+@click.argument('proteins_filename')
+@click.argument('remove_genes_filename')
+@click.argument('hla_genes_filename')
+@click.argument('result_filename', default='gene.csv')
+@click.argument('result_path', default='')
+@click.argument('gene_uniprot_ensembl_merged_result_filename', default='gene_uniprot_ensembl_merged.csv')
+@click.argument('add_hla_result_filename', default='gene_hla_added.csv')
+def generate_genes(
+        uniprot_db_filename: str,
+        ensembl_db_filename: str,
+        proteins_filename: str,
+        remove_genes_filename: str,
+        hla_genes_filename: str,
+        result_filename: str,
+        result_path: str,
+        gene_uniprot_ensembl_merged_result_filename: str,
+        add_hla_result_filename: str) -> None:
+    if not result_path:
+        result_path = app.output_dir
+
+    gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename, ensembl_db_filename, proteins_filename,
+                                                        gene_uniprot_ensembl_merged_result_filename, result_path)
+
+    merge_result_filename = '{}/{}'.format('../out', gene_uniprot_ensembl_merged_result_filename)
+    gene_actions.add_hla_genes(merge_result_filename, hla_genes_filename, '', add_hla_result_filename,
+                               result_path)
+
+    add_hla_result_filename = '{}/{}'.format('../out', add_hla_result_filename)
+    gene_actions.remove_genes_in_file(add_hla_result_filename, remove_genes_filename, result_filename)
+
+    gene_actions.validate_gene_list(result_filename, result_path)
+
+
+@cli.command()
+@click.argument('gene_base_filename')
+@click.argument('remove_genes_filename', default='')
+@click.argument('result_filename', default='gene.csv')
+def remove_genes_in_file(gene_base_filename: str,
+                         remove_genes_filename: str,
+                         result_filename: str):
+    gene_actions.remove_genes_in_file(gene_base_filename, remove_genes_filename, result_filename)
+
+
+@cli.command()
+@click.argument('uniprot_db_filename')
+@click.argument('ensembl_db_filename')
+@click.argument('proteins_filename')
+@click.argument('result_filename', default='gene_uniprot_ensembl_merged.csv')
+@click.argument('result_path', default='')
+def generate_genes_from_uniprot_ensembl_db(uniprot_db_filename: str,
+                                           ensembl_db_filename: str,
+                                           proteins_filename: str,
+                                           result_filename: str,
+                                           result_path: str):
+    gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename, ensembl_db_filename, proteins_filename,
+                                                        result_filename, result_path)
 
 
 def _open_file(interaction_filename):

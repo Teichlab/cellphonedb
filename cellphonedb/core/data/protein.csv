@@ -283,7 +283,6 @@ P40200,True,True,TACT_HUMAN,True,False,False,,,,False,True,,,False,False,,Iglike
 P78324,False,False,SHPS1_HUMAN,True,False,False,,,,False,True,,,False,False,,Iglike | Receptor_add,True,False,To_add | To_comment,Receptor_add | Extracellular_add
 Q01151,False,False,CD83_HUMAN,False,False,False,,,,False,True,,,False,False,,Iglike | Receptor_add,True,False,To_add | To_comment,Receptor_add
 Q5TFQ8,False,False,SIRBL_HUMAN,False,False,False,,,,False,True,,,False,False,,Iglike | Receptor_add,True,False,To_add | To_comment,Receptor_add
-Q5VU13,False,False,VSIG8_HUMAN,False,False,False,,,,False,True,,,False,False,,Iglike | Receptor_add,True,False,To_add | To_comment,Receptor_add
 Q6DN72,False,False,FCRL6_HUMAN,False,False,False,,,,False,True,,,False,False,,Iglike | Receptor_add,True,False,To_add | To_comment,Receptor_add
 Q6UXN2,False,False,TRML4_HUMAN,True,False,False,,,,False,True,,,False,True,,Iglike | Receptor_add,True,False,To_add | To_comment,Receptor_add
 Q96A28,False,False,SLAF9_HUMAN,False,False,False,,,,False,True,,,False,False,,Iglike | Receptor_add,True,False,To_add | To_comment,Receptor_add
@@ -2454,7 +2453,6 @@ Q30201,False,True,HFE_HUMAN,True,False,True,HLA,,,False,False,,,False,False,,HLA
 Q30KP8,False,False,DB136_HUMAN,True,False,False,,,,False,False,,,False,True,,,False,False,,
 Q30KP9,False,False,DB135_HUMAN,True,False,False,,,,False,False,,,False,True,,,False,False,,
 Q30KQ1,False,False,DB133_HUMAN,True,False,False,,,,False,False,,,False,True,,,False,False,,
-Q30KQ2,False,False,DB130_HUMAN,False,False,False,,,,False,False,,,False,True,,,False,False,,
 Q30KQ4,False,False,DB116_HUMAN,True,False,False,,,,False,False,,,False,True,,,False,False,,
 Q30KQ5,False,False,DB115_HUMAN,True,False,False,,,,False,False,,,False,True,,,False,False,,
 Q30KQ6,False,False,DB114_HUMAN,True,False,False,,,,False,False,,,False,True,,,False,False,,
@@ -3466,7 +3464,6 @@ Q9BYZ8,False,True,REG4_HUMAN,True,False,False,,,,False,False,,,False,True,,,Fals
 Q9BZ76,True,False,CNTP3_HUMAN,True,False,False,,,,False,False,,,False,True,,,True,False,,
 Q9BZA7,True,False,PC11X_HUMAN,False,False,False,,,,False,False,,,False,False,,Protocadherin,True,False,,
 Q9BZA8,True,False,PC11Y_HUMAN,False,False,False,,,,False,False,,,False,False,,Protocadherin,True,False,,
-Q9BZG9,False,False,LYNX1_HUMAN,False,False,False,,,,False,False,,,False,True,,,True,False,,
 Q9BZJ3,False,False,TRYD_HUMAN,True,False,False,,,,False,False,,,False,True,,,False,False,,
 Q9BZJ6,False,True,GPR63_HUMAN,False,False,False,,,,False,True,,,False,False,,,True,False,,
 Q9BZJ7,False,False,GPR62_HUMAN,False,False,False,,,,False,True,,,False,False,,,True,False,,
@@ -4150,7 +4147,6 @@ Q7RTY9,False,False,PRS41_HUMAN,True,False,False,,,,False,False,,,False,False,,no
 Q9Y6D0,False,False,SELK_HUMAN,False,False,False,,,,False,False,,,False,False,,no ensembl,True,False,To_remove,
 Q9NPR2,False,False,SEM4B_HUMAN,True,False,False,,,,False,False,,,False,False,,no ensembl,True,False,To_remove,
 O14492,False,True,SH2B2_HUMAN,False,False,False,,,,False,False,,,False,False,,no ensembl,True,False,To_remove,
-A8MVG2,False,False,SKIT1_HUMAN,False,False,False,,,,False,False,,,False,False,,no ensembl,True,False,To_remove,
 P51864,False,False,TDGF3_HUMAN,False,False,False,,,,False,False,,,False,False,,no ensembl,True,False,To_remove,
 Q9H208,False,False,O10A2_HUMAN,False,False,True,Olfactory receptor,,,False,False,,,False,False,,Olfactory receptor,True,False,,
 P58181,False,False,O10A3_HUMAN,False,False,True,Olfactory receptor,,,False,False,,,False,False,,Olfactory receptor,True,False,,
@@ -5121,7 +5117,6 @@ Q8TDU5,False,False,VNRL4_HUMAN,False,False,False,,,,False,True,,,False,False,,no
 Q7Z5H4,False,False,VN1R5_HUMAN,False,False,False,,,,False,True,,,False,False,,no ensembl,True,False,To_remove,
 Q86SQ3,True,False,AGRE4_HUMAN,True,False,True,pseudogene,,,False,True,,,False,True,,pseudogene,True,False,,
 Q9BXE9,False,False,VN1R3_HUMAN,False,False,True,pseudogene,,,False,True,,,False,False,,pseudogene,True,False,,
-A6NKC4,False,False,FCGRC_HUMAN,False,False,True,,,,False,True,,,False,False,,no ensembl | Receptor_add,True,False,To_comment,
 Q4G0T1,False,True,SRCRM_HUMAN,False,False,True,,,,False,True,,,False,False,,no ensembl | Receptor_add,True,False,To_comment,
 Q96TA0,True,False,PCDBI_HUMAN,False,False,False,,,,False,False,,,False,False,,no ensembl,True,False,To_remove,
 Q9Y5G9,True,False,PCDG4_HUMAN,False,False,False,,,,False,False,,,False,False,,no ensembl,True,False,To_remove,
@@ -5156,8 +5151,6 @@ P01857,False,False,IGHG1_HUMAN,True,False,True,Ig chain,,,False,False,,,False,Tr
 P01859,False,False,IGHG2_HUMAN,True,False,True,Ig chain,,,False,False,,,False,True,,Ig chain,False,False,,
 P01860,False,False,IGHG3_HUMAN,True,False,True,Ig chain,,,False,False,,,False,True,,Ig chain,False,False,,
 P01861,False,False,IGHG4_HUMAN,True,False,True,Ig chain,,,False,False,,,False,True,,Ig chain,False,False,,
-A6NJS3,False,False,IV1U1_HUMAN,True,False,True,Ig chain,,,False,False,,,False,True,,Ig chain,False,False,,
-A6NJ16,False,False,IV4F8_HUMAN,True,False,True,Ig chain,,,False,False,,,False,True,,Ig chain,False,False,,
 P15814,False,False,IGLL1_HUMAN,True,False,True,Ig chain,,,False,False,,,False,True,,Ig chain,False,False,,
 B9A064,False,False,IGLL5_HUMAN,True,False,True,Ig chain,,,False,False,,,False,True,,Ig chain,False,False,,
 Q6WRI0,False,False,IGS10_HUMAN,True,False,True,Ig chain,,,False,False,,,False,True,,Ig chain,False,False,,
@@ -5182,7 +5175,6 @@ Q8N7Q2,False,False,CEAS1_HUMAN,True,False,True,,,,False,False,,,False,True,,no e
 Q9UKY3,False,False,CES1P_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
 Q9Y6N3,True,False,CLCA3_HUMAN,True,False,True,,,,True,False,,,False,True,,no ensembl,False,False,To_remove,
 O75596,False,False,CLC3A_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
-Q96LR1,False,False,CRIT1_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
 Q5W188,False,False,CST9P_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
 A8MXU0,False,False,D108A_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
 Q9Y6C2,True,False,EMIL1_HUMAN,True,False,True,,,,True,False,,,False,True,,no ensembl,False,False,To_remove,
@@ -5191,7 +5183,6 @@ Q71RG6,False,False,YH006_HUMAN,True,False,True,,,,False,False,,,False,True,,no e
 E2RYF7,False,False,PBMU2_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
 Q86UX2,False,False,ITIH5_HUMAN,True,False,True,,,,True,False,,,False,True,,no ensembl,False,False,To_remove,
 Q6ZWJ8,False,False,KCP_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
-A8MWS1,False,False,KI3P1_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
 Q5VSP4,False,False,LC1L1_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
 Q7Z4B0,False,False,CR020_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,
 Q16609,False,False,LPAL2_HUMAN,True,False,True,,,,False,False,,,False,True,,no ensembl,False,False,To_remove,

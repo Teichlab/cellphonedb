@@ -55,14 +55,3 @@ class EndpointBase(Resource):
 
         for attach in self._attachments:
             self._msg.attach(attach)
-
-    # TODO: use function in root utils
-    def _read_table(self, file, index_column_first=False):
-
-        if file.content_type == 'text/csv':
-            return pd.read_csv(file.stream, index_col=0 if index_column_first else None)
-
-        if file.content_type == 'text/tab-separated-values':
-            return pd.read_table(file.stream, index_col=0 if index_column_first else None)
-
-        return None

@@ -665,6 +665,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,,,False,Q9UKP5,Q13424,0.0,1.0,InnateDB
 ,,,False,Q9UKR3,Q9NQ38,0.0,1.0,InnateDB
 ,,,False,Q9UMX0,O00206,0.0,1.0,InnateDB
+,,,False,Q9UP52,Q30201,0.0,1.0,InnateDB
 ,,,False,Q9Y275,P25942,0.0,1.0,InnateDB
 ,,,False,Q9Y2C9,Q06187,0.0,1.0,InnateDB
 ,,,False,Q9Y337,Q9NQ38,0.0,1.0,InnateDB
@@ -4055,6 +4056,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,,,False,Q2MKA7,Q2I0M5,0.0,1.0,InnateDB-All
 ,,,False,Q2MKA7,Q6UXX9,0.0,1.0,InnateDB-All
 ,,,False,Q2MKA7,Q9BXY4,0.0,1.0,InnateDB-All
+,,,False,Q30201,Q30201,0.0,1.0,InnateDB-All
 ,,,False,Q32P28,O15294,0.0,1.0,InnateDB-All
 ,,,False,Q32P28,P07237,0.0,1.0,InnateDB-All
 ,,,False,Q32P28,P14672,0.0,1.0,InnateDB-All
@@ -9905,8 +9907,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,,,True,Q6UXX9,Q9HBX8,,,guidetopharmacology.org
 ,,,True,Q7Z4H4,P30988,,,guidetopharmacology.org
 ,,,True,Q7Z6A9,Q92956,,,guidetopharmacology.org
-,,,True,Q8IVG9,P25089,,,guidetopharmacology.org
-,,,True,Q8IVG9,P25090,,,guidetopharmacology.org
 ,,,True,Q8N729,P48145,,,guidetopharmacology.org
 ,,,True,Q8N729,P48146,,,guidetopharmacology.org
 ,,,True,Q8NG41,P48145,,,guidetopharmacology.org
@@ -10304,6 +10304,8 @@ uniprot,,,False,P17948,P49763,1.0,1.0,curated
 uniprot,,,False,Q9C0C4,O15031,1.0,1.0,curated
 uniprot,,,False,Q9NTN9,O15031,1.0,1.0,curated
 uniprot,,,False,Q13591,Q9ULL4,1.0,1.0,curated
+PMID: 24218476,,,False,P51677,P16619,1.0,1.0,curated
+PMID: 24218476,,,False,P32246,P16619,1.0,1.0,curated
 uniprot,True,,False,P51681,P13236,1.0,1.0,curated
 uniprot,,,False,P49961,P29274,1.0,1.0,curated
 uniprot,,,False,P49961,P30542,1.0,1.0,curated
@@ -10558,12 +10560,10 @@ PMID: 25644401,True,,False,P23471,P21246,1.0,1.0,curated
 PMID: 10212223,True,,False,P23471,P21741,1.0,1.0,curated
 uniprot,True,,False,P23560,Q16620,1.0,1.0,curated
 PMID: 24218476,,,False,P25024,P02775,1.0,1.0,curated
-PMID: 24218476,,,False,P32246,P16619,1.0,1.0,curated
 uniprot,True,,False,P41159,P48357,1.0,1.0,curated
 PMID: 24032637,,,False,P41221,Q14332,1.0,1.0,curated
 PMID: 24218476,,,False,P49682,P02776,1.0,1.0,curated
 PMID: 24218476,,,False,P51677,P10147,1.0,1.0,curated
-PMID: 24218476,,,False,P51677,P16619,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P52797,P29317,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P52797,P29320,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P52797,P54756,1.0,1.0,curated
