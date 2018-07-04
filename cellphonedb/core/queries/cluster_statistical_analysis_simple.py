@@ -43,6 +43,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
         real_mean_analysis,
         result_percent,
         clusters['means'])
+
     return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
 
 
@@ -163,7 +164,8 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
 def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
     interactions_filtered = filter_interaction.filter_by_is_interactor(interactions)
 
-    counts_filtered = filter_counts_by_interactions(counts, interactions)
+    counts_filtered = counts[~counts.index.duplicated()]
+    counts_filtered = filter_counts_by_interactions(counts_filtered, interactions)
     counts_filtered = filter_empty_cluster_counts(counts_filtered)
     interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered, ('_1', '_2'))
     interactions_filtered = filter_interactions_non_individual(interactions_filtered, ('_1', '_2'))

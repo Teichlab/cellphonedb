@@ -69,7 +69,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     interactions['name_2'] = interactions.apply(lambda interaction: simple_complex_indicator(interaction, '_2'), axis=1)
 
     interactions_data_result = pd.DataFrame(interactions[
-                                                ['id_interaction', 'name_1', 'name_2', 'ensembl_1',
+                                                ['id_cp_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                  'ensembl_2', 'stoichiometry_1', 'stoichiometry_2', 'source']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1)
@@ -327,6 +327,9 @@ def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataF
     counts_simple = filter_counts_by_interactions(counts_multidata, interactions_filtered)
 
     counts_filtered = counts_simple.append(counts_multidata_complex)
+
+    # TODO: we need to add it to query log
+    counts_filtered.drop_duplicates(['gene'], inplace=True)
 
     counts_filtered.set_index(counts_filtered['gene'], inplace=True)
 
