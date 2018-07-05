@@ -59,6 +59,7 @@ FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt y
 
 
 ~ **Optional parameters**:
+`--project-name`: Name of the project. It creates a subfolder in output folder
 `--iterations`: Number of pvalues analysis iterations [1000]
 `--data-path`: Directory where is allocated input data [in]
 `--output-path`: Directory where the results will be allocated (the directory must exist) [out]
@@ -69,10 +70,14 @@ FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt y
 `--deconvoluted-result-name`: Deconvoluted result namefile [deconvoluted.txt]
 `--debug-seed`: Debug random seed 0 for disable it. >=0 to set it [-1]
 
-
 **Usage Examples**:
 
-set output path
+Set project subfolder
+```shell
+FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt --project-name=new_project
+```
+
+Set output path
 ```shell
 mkdir custom_folder
 FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt --output-path=custom_folder

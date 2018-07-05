@@ -6,6 +6,7 @@ from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
 @click.command()
 @click.argument('meta-filename')
 @click.argument('counts-filename')
+@click.option('--project-name', default='', help='Name of the project. It creates a subfolder in output folder')
 @click.option('--iterations', default=1000, help='Number of pvalues analysis iterations [1000]')
 @click.option('--data-path', default='', help='Directory where is allocated input data [in]')
 @click.option('--output-path', default='',
@@ -21,6 +22,7 @@ from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
 @click.option('--debug-seed', default='-1', help='Debug random seed 0 for disable it. >=0 to set it [-1]')
 def cluster_statistical_analysis(meta_filename: str,
                                  counts_filename: str,
+                                 project_name: str,
                                  iterations: str,
                                  data_path: str,
                                  output_path: str,
@@ -30,13 +32,15 @@ def cluster_statistical_analysis(meta_filename: str,
                                  means_pvalues_result_name: str,
                                  deconvoluted_result_name: str,
                                  debug_seed: str):
-    getattr(FlaskTerminalQueryLauncher(), 'cluster_statistical_analysis')(meta_filename,
-                                                                          counts_filename,
-                                                                          iterations, data_path,
-                                                                          output_path,
-                                                                          means_result_name,
-                                                                          pvalues_result_name,
-                                                                          significant_mean_result_name,
-                                                                          means_pvalues_result_name,
-                                                                          deconvoluted_result_name,
-                                                                          debug_seed)
+    FlaskTerminalQueryLauncher().cluster_statistical_analysis(meta_filename,
+                                                              counts_filename,
+                                                              project_name,
+                                                              iterations,
+                                                              data_path,
+                                                              output_path,
+                                                              means_result_name,
+                                                              pvalues_result_name,
+                                                              significant_mean_result_name,
+                                                              means_pvalues_result_name,
+                                                              deconvoluted_result_name,
+                                                              debug_seed)

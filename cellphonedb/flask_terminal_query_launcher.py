@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 
 from cellphonedb.app_logger import app_logger
@@ -32,6 +34,7 @@ class FlaskTerminalQueryLauncher(object):
     @staticmethod
     def cluster_statistical_analysis(meta_filename: str,
                                      counts_filename: str,
+                                     project_name: str = '',
                                      iterations: str = '1000',
                                      data_path='',
                                      output_path: str = '',
@@ -45,6 +48,15 @@ class FlaskTerminalQueryLauncher(object):
             data_path = query_input_dir
         if not output_path:
             output_path = output_dir
+        if project_name:
+            output_path = '{}/{}'.format(output_path, project_name)
+
+            if not os.path.exists(output_path):
+                os.makedirs(output_path)
+
+        if FlaskTerminalQueryLauncher._path_is_empty(output_path):
+            app_logger.warning(
+                'Output directory ({}) exist and is not empty. Result can overwrite old results'.format(output_path))
 
         debug_seed = int(debug_seed)
         iterations = int(iterations)
@@ -128,3 +140,7 @@ class FlaskTerminalQueryLauncher(object):
         significant_means.to_csv('{}/{}'.format(output_path, significant_mean_filename), sep='\t', index=False)
         means_pvalues.to_csv('{}/{}'.format(output_path, means_pvalues_filename), sep='\t', index=False)
         deconvoluted.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
+
+    @staticmethod
+    def _path_is_empty(path):
+        return bool([f for f in os.listdir(path) if not f.startswith('.')])
