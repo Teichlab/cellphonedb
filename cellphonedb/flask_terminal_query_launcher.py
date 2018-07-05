@@ -36,6 +36,7 @@ class FlaskTerminalQueryLauncher(object):
                                      counts_filename: str,
                                      project_name: str = '',
                                      iterations: str = '1000',
+                                     threshold: float = 0.1,
                                      data_path='',
                                      output_path: str = '',
                                      means_filename: str = 'means.txt',
@@ -68,7 +69,7 @@ class FlaskTerminalQueryLauncher(object):
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
         pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = cellphonedb_flask.cellphonedb.query.cluster_statistical_analysis(
-            meta, counts, iterations, debug_seed)
+            meta, counts, iterations, threshold, debug_seed)
 
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
         pvalues_simple.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)

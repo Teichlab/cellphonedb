@@ -8,6 +8,7 @@ from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
 @click.argument('counts-filename')
 @click.option('--project-name', default='', help='Name of the project. It creates a subfolder in output folder')
 @click.option('--iterations', default=1000, help='Number of pvalues analysis iterations [1000]')
+@click.option('--threshold', default=0.1, help='% of cells expressing a gene')
 @click.option('--data-path', default='', help='Directory where is allocated input data [in]')
 @click.option('--output-path', default='',
               help='Directory where the results will be allocated (the directory must exist) [out]')
@@ -24,6 +25,7 @@ def cluster_statistical_analysis(meta_filename: str,
                                  counts_filename: str,
                                  project_name: str,
                                  iterations: str,
+                                 threshold: float,
                                  data_path: str,
                                  output_path: str,
                                  means_result_name: str,
@@ -36,6 +38,7 @@ def cluster_statistical_analysis(meta_filename: str,
                                                               counts_filename,
                                                               project_name,
                                                               iterations,
+                                                              threshold,
                                                               data_path,
                                                               output_path,
                                                               means_result_name,

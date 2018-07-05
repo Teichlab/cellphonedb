@@ -61,6 +61,7 @@ FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt y
 ~ **Optional parameters**:
 `--project-name`: Name of the project. It creates a subfolder in output folder
 `--iterations`: Number of pvalues analysis iterations [1000]
+`--threshold`: % of cells expressing a gene
 `--data-path`: Directory where is allocated input data [in]
 `--output-path`: Directory where the results will be allocated (the directory must exist) [out]
 `--means-result-name`: Means result namefile [means.txt]

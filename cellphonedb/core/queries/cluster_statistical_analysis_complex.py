@@ -9,9 +9,10 @@ from cellphonedb.core.queries import cluster_statistical_analysis_simple
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
-         complexes: pd.DataFrame, complex_compositions: pd.DataFrame, iterations: int = 1000,
-         debug_seed=False,
-         threshold: float = 0.1) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+         complexes: pd.DataFrame, complex_compositions: pd.DataFrame, iterations: int = 1000, threshold: float = 0.1,
+         debug_seed=False) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+    core_logger.info('[Cluster Statistical Analysis Simple] Threshold: {} Debug-seed: {}'.format(threshold, debug_seed))
+
     if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
         core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
