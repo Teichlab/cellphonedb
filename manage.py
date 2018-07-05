@@ -2,8 +2,8 @@ import click
 from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
 from cellphonedb.flask_app import create_app
 from cellphonedb.extensions import cellphonedb_flask
-from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
 from cellphonedb.flask_terminal_exporter_launcher import FlaskTerminalExporterLauncher
+from cellphonedb.api_endpoints.terminal.queries_terminal_endpoints import queries_terminal_commands
 
 app = create_app()
 
@@ -38,12 +38,12 @@ def export(table):
     getattr(FlaskTerminalExporterLauncher(), table)()
 
 
-@app.cli.command()
-@click.argument('queryname')
-@click.argument('files', nargs=-1)
-def call_query(queryname, files):
-    getattr(FlaskTerminalQueryLauncher(), queryname)(*files)
+@app.cli.group()
+def method():
+    pass
 
+
+method.add_command(queries_terminal_commands.cluster_statistical_analysis)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

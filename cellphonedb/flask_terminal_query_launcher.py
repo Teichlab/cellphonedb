@@ -30,13 +30,17 @@ class FlaskTerminalQueryLauncher(object):
         result.to_csv('{}/{}'.format(output_path, result_filename))
 
     @staticmethod
-    def cluster_statistical_analysis(meta_filename: str, counts_filename: str, iterations: str = '1000', data_path='',
-                                     output_path: str = '', means_filename: str = 'means.txt',
+    def cluster_statistical_analysis(meta_filename: str,
+                                     counts_filename: str,
+                                     iterations: str = '1000',
+                                     data_path='',
+                                     output_path: str = '',
+                                     means_filename: str = 'means.txt',
                                      pvalues_filename: str = 'pvalues.txt',
                                      significant_mean_filename: str = 'significant_means.txt',
                                      means_pvalues_filename: str = 'pvalues_means.txt',
                                      deconvoluted_filename='deconvoluted.txt',
-                                     debug_seed: str = '0'):
+                                     debug_seed: str = '-1'):
         if not data_path:
             data_path = query_input_dir
         if not output_path:
@@ -67,7 +71,7 @@ class FlaskTerminalQueryLauncher(object):
                                             significant_mean_filename: str = 'significant_means.txt',
                                             means_pvalues_filename: str = 'pvalues_means.txt',
                                             deconvoluted_filename='deconvoluted.txt',
-                                            debug_seed: str = '0'):
+                                            debug_seed: str = '-1'):
 
         if not data_path:
             data_path = query_input_dir
@@ -100,7 +104,7 @@ class FlaskTerminalQueryLauncher(object):
                                              significant_mean_filename: str = 'significant_means.txt',
                                              means_pvalues_filename: str = 'pvalues_means.txt',
                                              deconvoluted_filename='deconvoluted.txt',
-                                             debug_seed: str = '0'):
+                                             debug_seed: str = '-1'):
 
         if not data_path:
             data_path = query_input_dir
@@ -124,5 +128,3 @@ class FlaskTerminalQueryLauncher(object):
         significant_means.to_csv('{}/{}'.format(output_path, significant_mean_filename), sep='\t', index=False)
         means_pvalues.to_csv('{}/{}'.format(output_path, means_pvalues_filename), sep='\t', index=False)
         deconvoluted.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
-
-        # TODO: Add asserts

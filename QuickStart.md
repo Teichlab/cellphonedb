@@ -8,15 +8,15 @@
 
 
 
-1. **Download** CellPhoneDB-0.0.2.tar.gz.
+1. **Download** CellPhoneDB-0.0.3.tar.gz.
 
-2. Go to the directory where CellPhoneDB-0.0.1.tar.gz is stored (**ie**: _~/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.1.tar.gz).
+2. Go to the directory where CellPhoneDB-0.0.3.tar.gz is stored (**ie**: _~/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.3.tar.gz).
 
 Code:
 ```shell
 cd ~/Downloads
-tar -xzf CellPhoneDB-0.0.2.tar.gz
-cd CellPhoneDB-0.0.2
+tar -xzf CellPhoneDB-0.0.3.tar.gz
+cd CellPhoneDB-0.0.3
 ```
 
 3. **Create Virual Env**.
@@ -29,7 +29,7 @@ python setup.py install
 ```
 
 
-## Run Queries
+## Run Methods
 0. You need to activate the Virtual Env (if is the first time or you closed the terminal)
 
 ```shell
@@ -39,31 +39,41 @@ source cpdb-env/bin/activate
 
 1. [Example] **Execute method with example data**.
 
+Basic usage
 Code:
 ```shell
-FLASK_APP=manage.py flask call_query cluster_statistical_analysis example_data/test_meta.txt example_data/test_counts.txt
+FLASK_APP=manage.py flask method cluster_statistical_analysis example_data/test_meta.txt example_data/test_counts.txt
 ```
 
 2. **Running your inputs**
-Input files (meta and counts) shoud be allocated in 'in' folder. 'in' folder is found in CellPhoneDB-0.0.1
-Files format: **.txt/.tsv** for tab separated format or **.csv** for comma separated format.
+Input files (meta and counts) shoud be allocated in  folder is found in CellPhoneDB-0.0.3
+Files format: **.txt/.tsv/.tab** for tab separated format or **.csv** for comma separated format.
 
 
-Results will be saved in 'out' folder in .csv format.
+Results will be saved in  folder in .csv format.
 
 Code:
 ```shell
-FLASK_APP=manage.py flask call_query cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt
+FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt
 ```
 
 
-~ **Optional parameters** (are cumulative):
-- iterations (1000): number of iterations for statistical script
-- data_path (empty): if you need to change the data path
-- output_path (empty): if you need to change the results path
-- means_result_filename (means.txt): result filename for means data
-- pvalues_result_filename (pvalues.txt): result filename for pvalues data
-- significant_mean_result_filename (significant_means.txt): result filename for significant means data
-- means_pvalues_result_filename ('pvalues_means.txt'): result filename for pvalues_means data
-- deconvoluted_result_filename ('deconvoluted.txt'): result filename for deconvoluted
-- debug_seed (0): set the seed of rand generate data (for debug proposals)
+~ **Optional parameters**:
+`--iterations`: Number of pvalues analysis iterations [1000]
+`--data-path`: Directory where is allocated input data [in]
+`--output-path`: Directory where the results will be allocated (the directory must exist) [out]
+`--means-result-name`: Means result namefile [means.txt]
+`--pvalues-result-name`: Pvalues result namefile [pvalues.txt]
+`--significant-mean-result-name`: Significant result namefile [significant_means.txt]
+`--means-pvalues-result-name`: Pvalues-means result namefile [pvalues_means.txt]
+`--deconvoluted-result-name`: Deconvoluted result namefile [deconvoluted.txt]
+`--debug-seed`: Debug random seed 0 for disable it. >=0 to set it [-1]
+
+
+**Usage Examples**:
+
+set output path
+```shell
+mkdir custom_folder
+FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt --output-path=custom_folder
+```
