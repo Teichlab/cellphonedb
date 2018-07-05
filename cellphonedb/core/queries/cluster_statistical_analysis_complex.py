@@ -10,7 +10,7 @@ from cellphonedb.core.queries import cluster_statistical_analysis_simple
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
          complexes: pd.DataFrame, complex_compositions: pd.DataFrame, iterations: int = 1000,
          debug_seed=False,
-         threshold: float = 0.3, ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+         threshold: float = 0.1, ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     if debug_seed is not False:
         pd.np.random.seed(debug_seed)
 
