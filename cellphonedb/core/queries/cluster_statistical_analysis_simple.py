@@ -1,13 +1,15 @@
 import pandas as pd
 
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.models.interaction import filter_interaction
 from cellphonedb.core.queries import cluster_statistical_analysis_complex
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000, debug_seed=False,
          threshold: float = 0.1) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    if debug_seed is not False:
+    if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
+        core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
 
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 

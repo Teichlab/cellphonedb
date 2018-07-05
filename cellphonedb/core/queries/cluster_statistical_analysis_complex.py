@@ -2,6 +2,7 @@ import itertools
 
 import pandas as pd
 
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.models.cluster_counts import helper_cluster_counts, filter_cluster_counts
 from cellphonedb.core.models.complex import complex_helper
 from cellphonedb.core.queries import cluster_statistical_analysis_simple
@@ -10,9 +11,10 @@ from cellphonedb.core.queries import cluster_statistical_analysis_simple
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
          complexes: pd.DataFrame, complex_compositions: pd.DataFrame, iterations: int = 1000,
          debug_seed=False,
-         threshold: float = 0.1, ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    if debug_seed is not False:
+         threshold: float = 0.1) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+    if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
+        core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
 
     cells_names = sorted(counts.columns)
 
