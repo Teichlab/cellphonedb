@@ -8,28 +8,13 @@ from cellphonedb.extensions import cellphonedb_flask
 from utils import utils
 
 
-class FlaskTerminalQueryLauncher(object):
+class FlaskTerminalMethodLauncher(object):
     def __getattribute__(self, name):
         method = object.__getattribute__(self, name)
         if hasattr(method, '__call__'):
-            app_logger.info('Launching Query {}'.format(name))
+            app_logger.info('Launching Method {}'.format(name))
 
         return method
-
-    @staticmethod
-    def cells_to_clusters(meta_filename, counts_filename, data_path='', output_path='',
-                          result_filename='cells_to_clusters.csv'):
-        if not data_path:
-            data_path = query_input_dir
-        if not output_path:
-            output_path = output_dir
-
-        meta = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_filename), index_column_first=True)
-        counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_filename), index_column_first=True)
-
-        result = cellphonedb_flask.cellphonedb.query.cells_to_clusters(meta, counts)
-
-        result.to_csv('{}/{}'.format(output_path, result_filename))
 
     @staticmethod
     def cluster_statistical_analysis(meta_filename: str,
@@ -55,7 +40,7 @@ class FlaskTerminalQueryLauncher(object):
             if not os.path.exists(output_path):
                 os.makedirs(output_path)
 
-        if FlaskTerminalQueryLauncher._path_is_empty(output_path):
+        if FlaskTerminalMethodLauncher._path_is_empty(output_path):
             app_logger.warning(
                 'Output directory ({}) exist and is not empty. Result can overwrite old results'.format(output_path))
 
@@ -68,7 +53,7 @@ class FlaskTerminalQueryLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = cellphonedb_flask.cellphonedb.query.cluster_statistical_analysis(
+        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis(
             meta, counts, iterations, threshold, debug_seed)
 
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
@@ -100,7 +85,7 @@ class FlaskTerminalQueryLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.query.cluster_statistical_analysis_simple(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis_simple(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
@@ -133,7 +118,7 @@ class FlaskTerminalQueryLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.query.cluster_statistical_analysis_complex(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis_complex(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)

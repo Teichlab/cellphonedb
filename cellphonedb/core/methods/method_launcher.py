@@ -5,14 +5,14 @@ from cellphonedb.core.methods import cells_to_clusters, cluster_statistical_anal
     cluster_statistical_analysis_complex
 
 
-class QueryLauncher():
+class MethodLauncher():
     def __init__(self, database_manager):
         self.database_manager = database_manager
 
     def __getattribute__(self, name):
         method = object.__getattribute__(self, name)
         if hasattr(method, '__call__'):
-            core_logger.info('Launching Query {}'.format(name))
+            core_logger.info('Launching Method {}'.format(name))
 
         return method
 

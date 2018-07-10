@@ -1,9 +1,9 @@
 from cellphonedb.flask_app import create_app, data_test_dir, output_test_dir
-from cellphonedb.flask_terminal_query_launcher import FlaskTerminalQueryLauncher
+from cellphonedb.flask_terminal_method_launcher import FlaskTerminalMethodLauncher
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 
 
-class TestFlaskTerminalQueryClusterStatisticalAnalysisSimple(CellphoneFlaskTestCase):
+class TestFlaskTerminalMethodClusterStatisticalAnalysisSimple(CellphoneFlaskTestCase):
     def create_app(self):
         return create_app(raise_non_defined_vars=False)
 
@@ -13,7 +13,7 @@ class TestFlaskTerminalQueryClusterStatisticalAnalysisSimple(CellphoneFlaskTestC
     #     data = 'original_prefiltered'
     #     debug_seed = '0'
     #
-    #     self.query_call(data, iterations, debug_seed)
+    #     self.method_call(data, iterations, debug_seed)
 
     def test_test_data(self):
         iterations = '2'
@@ -21,7 +21,7 @@ class TestFlaskTerminalQueryClusterStatisticalAnalysisSimple(CellphoneFlaskTestC
         debug_seed = '0'
         project_name = 'test_data'
         threshold = 0.1
-        self.query_call(data, iterations, project_name, threshold, debug_seed)
+        self.method_call(data, iterations, project_name, threshold, debug_seed)
 
     def test_manual_data(self):
         iterations = '10'
@@ -29,7 +29,7 @@ class TestFlaskTerminalQueryClusterStatisticalAnalysisSimple(CellphoneFlaskTestC
         debug_seed = '0'
         project_name = 'manual_data'
         threshold = 0.1
-        self.query_call(data, iterations, project_name, threshold, debug_seed)
+        self.method_call(data, iterations, project_name, threshold, debug_seed)
 
     def test_manual_2_data(self):
         iterations = '2'
@@ -37,9 +37,9 @@ class TestFlaskTerminalQueryClusterStatisticalAnalysisSimple(CellphoneFlaskTestC
         debug_seed = '0'
         project_name = 'manual_2_data'
         threshold = 0.1
-        self.query_call(data, iterations, project_name, threshold, debug_seed)
+        self.method_call(data, iterations, project_name, threshold, debug_seed)
 
-    def query_call(self, data, iterations, project_name, threshold, debug_seed: str):
+    def method_call(self, data, iterations, project_name, threshold, debug_seed: str):
         means_base_name = 'means__data-{}_it-{}'.format(data, iterations)
         pvalues_base_name = 'pvalues__data-{}_it-{}'.format(data, iterations)
         significant_means_base_name = 'significant_mean__data-{}_it-{}'.format(data, iterations)
@@ -55,12 +55,13 @@ class TestFlaskTerminalQueryClusterStatisticalAnalysisSimple(CellphoneFlaskTestC
         meta_filename = 'hi_{}_meta.txt'.format(data)
         counts_filename = 'hi_{}_counts.txt'.format(data)
 
-        FlaskTerminalQueryLauncher().cluster_statistical_analysis(meta_filename, counts_filename, project_name,
-                                                                  iterations, threshold, data_test_dir, output_test_dir,
-                                                                  result_means_filename, result_pvalues_filename,
-                                                                  result_significant_means_filename,
-                                                                  result_pvalues_means_filename,
-                                                                  deconvoluted_filename, debug_seed)
+        FlaskTerminalMethodLauncher().cluster_statistical_analysis(meta_filename, counts_filename, project_name,
+                                                                   iterations, threshold, data_test_dir,
+                                                                   output_test_dir,
+                                                                   result_means_filename, result_pvalues_filename,
+                                                                   result_significant_means_filename,
+                                                                   result_pvalues_means_filename,
+                                                                   deconvoluted_filename, debug_seed)
 
         # TODO: incomplete
 

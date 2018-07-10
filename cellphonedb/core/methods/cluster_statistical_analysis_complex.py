@@ -331,7 +331,7 @@ def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataF
 
     counts_filtered = counts_simple.append(counts_multidata_complex)
 
-    # TODO: we need to add it to query log
+    # TODO: we need to add it to method log
     counts_filtered.drop_duplicates(['gene'], inplace=True)
 
     counts_filtered.set_index(counts_filtered['gene'], inplace=True)
