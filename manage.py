@@ -3,7 +3,7 @@ from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollector
 from cellphonedb.flask_app import create_app
 from cellphonedb.extensions import cellphonedb_flask
 from cellphonedb.flask_terminal_exporter_launcher import FlaskTerminalExporterLauncher
-from cellphonedb.api_endpoints.terminal.queries_terminal_endpoints import queries_terminal_commands
+from cellphonedb.api_endpoints.terminal_api.queries_terminal_api_endpoints import queries_terminal_commands
 
 app = create_app()
 

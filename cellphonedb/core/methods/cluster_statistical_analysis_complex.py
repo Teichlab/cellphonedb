@@ -5,7 +5,7 @@ import pandas as pd
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.models.cluster_counts import helper_cluster_counts, filter_cluster_counts
 from cellphonedb.core.models.complex import complex_helper
-from cellphonedb.core.queries import cluster_statistical_analysis_simple
+from cellphonedb.core.methods import cluster_statistical_analysis_simple
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
@@ -164,10 +164,10 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvolution_complex = pd.merge(deconvolution_complex, genes_filtered, left_on='protein_multidata_id',
                                      right_on='protein_multidata_id', suffixes=['_complex', '_simple'])
     deconvoluted_result[
-        ['ensembl', 'total_proteins', 'entry_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'stoichiometry',
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'stoichiometry',
          'id_cp_interaction']] = \
         deconvolution_complex[
-            ['ensembl_simple', 'total_protein', 'entry_name_simple', 'gene_name_simple', 'name_simple',
+            ['ensembl_simple', 'entry_name_simple', 'gene_name_simple', 'name_simple',
              'is_complex_complex',
              'name_complex', 'stoichiometry', 'id_cp_interaction']]
 

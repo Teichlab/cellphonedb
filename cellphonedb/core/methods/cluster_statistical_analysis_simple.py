@@ -2,7 +2,7 @@ import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.models.interaction import filter_interaction
-from cellphonedb.core.queries import cluster_statistical_analysis_complex
+from cellphonedb.core.methods import cluster_statistical_analysis_complex
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000,

@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from flask_restful import Api
 
-from cellphonedb.api_endpoints import routes
+from cellphonedb.api_endpoints.web_api import routes
 from cellphonedb.app import import_config
 from cellphonedb.extensions import cellphonedb_flask
 
@@ -31,6 +31,6 @@ def create_app(environment=None, support=None, load_defaults=None, raise_non_def
 
     api = Api(app, prefix=flask_config['API_PREFIX'])
 
-    routes.add(api)
+    routes.add(api, '/v1')
 
     return app

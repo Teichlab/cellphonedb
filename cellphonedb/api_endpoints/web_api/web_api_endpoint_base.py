@@ -7,7 +7,7 @@ from flask_restful import Resource
 import json
 
 
-class EndpointBase(Resource):
+class WebApiEndpointBase(Resource):
     def __init__(self):
         self._msg = MIMEMultipart('form-data')
         self._errors = []

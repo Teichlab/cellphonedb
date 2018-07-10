@@ -2,7 +2,7 @@ import os
 
 from cellphonedb.core.collectors.collector import Collector
 from cellphonedb.core.exporters.exporterlauncher import ExporterLauncher
-from cellphonedb.core.queries.querylauncher import QueryLauncher
+from cellphonedb.core.methods.querylauncher import QueryLauncher
 from cellphonedb.core.database import DatabaseManager
 
 cellphone_core_dir = os.path.dirname(os.path.realpath(__file__))

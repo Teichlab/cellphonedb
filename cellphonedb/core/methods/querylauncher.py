@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
-from cellphonedb.core.queries import cells_to_clusters, cluster_statistical_analysis_simple, \
+from cellphonedb.core.methods import cells_to_clusters, cluster_statistical_analysis_simple, \
     cluster_statistical_analysis_complex
 
 
