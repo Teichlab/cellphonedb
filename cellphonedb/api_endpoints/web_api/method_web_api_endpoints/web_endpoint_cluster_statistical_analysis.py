@@ -1,3 +1,5 @@
+import json
+
 import pandas as pd
 from flask import request, Response
 
@@ -10,6 +12,8 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
     def post(self):
         counts = utils.read_data_from_content_type(request.files['counts_file'], index_column_first=True)
         meta = utils.read_data_from_content_type(request.files['meta_file'], index_column_first=True)
+        parameters = json.loads(request.form['parameters'])
+        iterations = parameters['iterations']
 
         if not isinstance(counts, pd.DataFrame):
             self.attach_error(
@@ -19,11 +23,15 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
             self.attach_error(
                 {'code': 'parsing_error', 'title': 'Error parsing meta file', 'detail': 'Error parsing meta file'})
 
+        iterations = int(iterations)
+
+        print(iterations)
+
         if not self._errors:
             pvalues, means, significant_means, mean_pvalue, deconvoluted = \
                 extensions.cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis(meta,
                                                                                              counts,
-                                                                                             iterations=1000,
+                                                                                             iterations=iterations,
                                                                                              threshold=0.1,
                                                                                              debug_seed=-1)
 
