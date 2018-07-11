@@ -25,7 +25,10 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
 
         iterations = int(iterations)
 
-        print(iterations)
+        max_iterations = 1000
+        min_iterations = 10
+        iterations = max_iterations if iterations > max_iterations else iterations
+        iterations = min_iterations if iterations < min_iterations else iterations
 
         if not self._errors:
             pvalues, means, significant_means, mean_pvalue, deconvoluted = \
