@@ -1,4 +1,6 @@
 import click
+
+from cellphonedb.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
 from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
 from cellphonedb.flask_app import create_app
 from cellphonedb.extensions import cellphonedb_flask
@@ -43,7 +45,13 @@ def method():
     pass
 
 
+@app.cli.group()
+def query():
+    pass
+
+
 method.add_command(method_terminal_commands.cluster_statistical_analysis)
+query.add_command(query_terminal_commands.search_interactions)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
