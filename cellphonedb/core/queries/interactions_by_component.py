@@ -9,6 +9,9 @@ def call(input: str, interactions: pd.DataFrame) -> pd.DataFrame:
                                          (interactions['ensembl_1'] == input) |
                                          (interactions['ensembl_2'] == input)]
 
+    if interactions_filtered.empty:
+        return interactions_filtered
+
     def simple_complex_indicator(interaction: pd.Series, suffix: str) -> str:
         if interaction['is_complex{}'.format(suffix)]:
             return 'complex:{}'.format(interaction['name{}'.format(suffix)])
