@@ -1,6 +1,6 @@
 # Documents for the user:
 ## Document 1: p-value (pvalues.csv)
-* **Id_interaction**: internal CellPhoneDB id
+* **Id_cp_interaction**: CellPhoneDB interaction id
 * **Interacting_pair**: Intercating pairs
 * **Partner A**: Uniprot id for the first interacting partner
 * **Partner B**: Uniprot id for the second interacting partner
@@ -18,7 +18,7 @@
 - clusterA_clusterB and clusterB_clusterA  values will be different.
 
 ## Document 2: mean (mean.csv)
-* **Id_interaction**: internal CellPhoneDB id
+* **Id_cp_interaction**: CellPhoneDB interaction id
 * **Interacting_pair**: Intercating pairs
 * **Partner A**: Uniprot id for the first interacting partner
 * **Partner B**: Uniprot id for the second interacting partner
@@ -35,7 +35,7 @@
 * clusterA_clusterB and clusterB_clusterA  values will be different.
 
 ## Document 3: significant mean. (significant_mean.csv)
-* **Id_interaction**: internal CellPhoneDB id
+* **Id_cp_interaction**: CellPhoneDB interaction id
 * **Interacting_pair**: Intercating pairs
 * **Partner A**: Uniprot id for the first interacting partner
 * **Partner B**: Uniprot id for the second interacting partner
@@ -53,7 +53,7 @@
 * clusterA_clusterB and clusterB_clusterA  values will be different.
 
 ## Document 4: p.value_means (pvalues_means.csv)
-* **Id_interaction**: internal CellPhoneDB id
+* **Id_cp_interaction**: CellPhoneDB interaction id
 * **Interacting_pair**: Intercating pairs
 * **Partner A**: Uniprot id for the first interacting partner
 * **Partner B**: Uniprot id for the second interacting partner
@@ -76,6 +76,6 @@
 * **name**: Uniprot id
 * **is_complex**: i) single- homodimer; ii) complex- heterodimer
 * **complex_name**: name of  the complex
-* **id_interaction**: internal CellPhoneDB id
+* **Id_cp_interaction**: CellPhoneDB interaction id
 * **values for each cluster**: Mean of the value.
 

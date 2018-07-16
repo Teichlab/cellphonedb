@@ -1,48 +1,41 @@
-# CellPhoneDB  manager doc for Unix systems (Linux/macOS) for windows please check QuickStartWindows doc
+# CellPhoneDB  manager doc for Windows Systems
 
-## First time
+## Installing
 0. **Requisites**:
-- Python3
-- Pip3
-- python3-venv
+- [Python3.6](https://www.python.org/downloads/release/python-366/)
+- [Microsoft Build Tools 2015] (https://visualstudio.microsoft.com/vs/older-downloads/) (You can get it at the end of the page)
 
+**IMPORTANT**:
+If you have installed newer Microsoft Build Tools versions, you can have problems during installing process.
 
 
 1. **Download** CellPhoneDB-0.0.3.tar.gz.
 
-2. Go to the directory where CellPhoneDB-0.0.3.tar.gz is stored (**ie**: _~/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.3.tar.gz).
+2. Go to the directory where CellPhoneDB-0.0.3.tar.gz is stored (**ie**: _%userprofile%/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.3.tar.gz) using Winrar/7z or other software
 
-Code:
-```shell
-cd ~/Downloads
-tar -xzf CellPhoneDB-0.0.3.tar.gz
-cd CellPhoneDB-0.0.3
+3. Go to unpacked folder and install CellPhoneDB:
+
 ```
-
-3. **Create Virual Env**.
-
-Code:
-```shell
-python3 -m venv cpdb-env &&
-source cpdb-env/bin/activate &&
+cd %userprofile%/Downloads/CellPhoneDB-0.0.3
 python setup.py install
 ```
 
 
 ## Run Methods
-0. You need to activate the Virtual Env (if is the first time or you closed the terminal)
+0. In Command Prompt, go to Installation folder (ie. ~/Downloads/CellPhoneDB-0.0.3/) and set flask app variable
 
-```shell
-source cpdb-env/bin/activate
+Code:
+```
+cd %userprofile%/Downloads/CellphoneDB-0.0.3
+set FLASK_APP=manage.py
 ```
 
 
 1. [Example] **Execute method with example data**.
-
 Basic usage
 Code:
-```shell
-FLASK_APP=manage.py flask method cluster_statistical_analysis example_data/test_meta.txt example_data/test_counts.txt
+```
+flask method cluster_statistical_analysis example_data/test_meta.txt example_data/test_counts.txt
 ```
 
 2. **Running your inputs**
@@ -54,7 +47,7 @@ Results will be saved in  folder in .csv format.
 
 Code:
 ```shell
-FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt
+flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt
 ```
 
 
@@ -75,11 +68,11 @@ FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt y
 
 Set project subfolder
 ```shell
-FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt --project-name=new_project
+flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt --project-name=new_project
 ```
 
 Set output path
 ```shell
 mkdir custom_folder
-FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt --output-path=custom_folder
+flask method cluster_statistical_analysis yourmetafile.txt yourcountsfile.txt --output-path=custom_folder
 ```
