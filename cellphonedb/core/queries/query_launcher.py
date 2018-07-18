@@ -3,6 +3,7 @@ import pandas as pd
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database import DatabaseManager
 from cellphonedb.core.queries import interactions_by_component
+from cellphonedb.core.queries.interaction.interaction_gene_get import call
 
 
 class QueryLauncher:
@@ -19,3 +20,10 @@ class QueryLauncher:
     def search_interactions(self, input: str) -> pd.DataFrame:
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
         return interactions_by_component.call(input, interactions)
+
+    def get_interaction_gene(self, columns: list = None) -> pd.DataFrame:
+        interactions = self.database_manager.get_repository('interaction').get_all_expanded()
+
+        genes = call(columns, interactions)
+
+        return genes
