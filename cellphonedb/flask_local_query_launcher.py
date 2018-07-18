@@ -12,11 +12,11 @@ class FlaskLocalQueryLauncher:
 
     @staticmethod
     def search_interactions(input: str) -> None:
-        print(cellphonedb_flask.cellphonedb.query.search_interactions(input))
+        print(cellphonedb_flask.cellphonedb.query.search_interactions(input).to_csv(index=False))
 
     @staticmethod
     def get_interaction_gene(columns: str) -> None:
         if columns:
             columns = columns.split(',')
 
-        print(cellphonedb_flask.cellphonedb.query.get_interaction_gene(columns))
+        print(cellphonedb_flask.cellphonedb.query.get_interaction_gene(columns).to_csv(index=False))
