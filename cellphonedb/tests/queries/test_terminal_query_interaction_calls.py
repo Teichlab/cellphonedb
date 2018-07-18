@@ -15,9 +15,9 @@ class TestTerminalQueryInteractionCalls(CellphoneFlaskTestCase):
         result = runner.invoke(get_interaction_gene)
 
         self.assertEqual(0, result.exit_code, 'terminal call get interactions gene error')
-        self.assertTrue('ensembl' in result.output)
-        self.assertTrue('hgnc_symbol' in result.output)
-        self.assertTrue('gene_name' in result.output)
+        self.assertTrue('ensembl' in str(result.output), 'ensembl column should be present in response')
+        self.assertTrue('gene_name' in str(result.output), 'gene_name column shoud be present in response')
+        self.assertTrue('hgnc_symbol' in str(result.output), 'hgnc_symbol should be present in response')
 
 
     def test_call_get_interactions_gene_withparam(self):
@@ -25,6 +25,6 @@ class TestTerminalQueryInteractionCalls(CellphoneFlaskTestCase):
         result = runner.invoke(get_interaction_gene, ['--columns=ensembl,gene_name'])
 
         self.assertEqual(0, result.exit_code, 'terminal call get interactions gene error')
-        self.assertTrue('ensembl' in result.output)
-        self.assertTrue('gene_name' in result.output)
-        self.assertTrue('hgnc_symbol' not in result.output)
+        self.assertTrue('ensembl' in str(result.output), 'ensembl column should be present in response')
+        self.assertTrue('gene_name' in str(result.output), 'gene_name column shoud be present in response')
+        self.assertTrue('hgnc_symbol' not in str(result.output), 'hgnc_symbol shouldnt be present in response')
