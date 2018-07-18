@@ -16,12 +16,15 @@ class TestTerminalQueryInteractionCalls(CellphoneFlaskTestCase):
 
         self.assertEqual(0, result.exit_code, 'terminal call get interactions gene error')
         self.assertTrue('ensembl' in result.output)
+        self.assertTrue('hgnc_symbol' in result.output)
         self.assertTrue('gene_name' in result.output)
+
 
     def test_call_get_interactions_gene_withparam(self):
         runner = CliRunner()
-        result = runner.invoke(get_interaction_gene, ['--columns=ensembl'])
+        result = runner.invoke(get_interaction_gene, ['--columns=ensembl,gene_name'])
 
         self.assertEqual(0, result.exit_code, 'terminal call get interactions gene error')
         self.assertTrue('ensembl' in result.output)
-        self.assertTrue('gene_name' not in result.output)
+        self.assertTrue('gene_name' in result.output)
+        self.assertTrue('hgnc_symbol' not in result.output)
