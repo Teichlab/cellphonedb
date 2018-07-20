@@ -4,7 +4,7 @@ from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database.Repository import Repository
 from cellphonedb.core.models.complex.db_model_complex import Complex
 from cellphonedb.core.models.complex_composition.db_model_complex_composition import ComplexComposition
-from cellphonedb.core.models.multidata import properties_multidata
+from cellphonedb.core.models.gene.db_model_gene import Gene
 from cellphonedb.core.models.multidata.db_model_multidata import Multidata
 from cellphonedb.core.models.protein.db_model_protein import Protein
 from cellphonedb.core.utils import filters
@@ -31,22 +31,31 @@ class ComplexRepository(Repository):
 
         return result
 
-    def get_all_compositions_expanded(self, suffixes=None) -> pd.DataFrame:
-        if not suffixes:
-            suffixes = ['_complex', '_protein']
-
+    def get_all_compositions_expanded(self, include_gene: bool = True) -> pd.DataFrame:
         query = self.database_manager.database.session.query(ComplexComposition)
         complex_composition = pd.read_sql(query.statement, self.database_manager.database.engine)
 
-        multidata_query = self.database_manager.database.session.query(Multidata)
-        multidatas = pd.read_sql(multidata_query.statement, self.database_manager.database.engine)
+        if include_gene:
+            multidatas_proteins_query = self.database_manager.database.session.query(Gene, Protein, Multidata).join(
+                Protein).join(Multidata)
+        else:
+            multidatas_proteins_query = self.database_manager.database.session.query(Protein, Multidata).join(
+                Multidata)
 
-        complex_composition_expanded = pd.merge(complex_composition, multidatas, left_on='complex_multidata_id',
-                                                right_on='id_multidata')
+        multidatas_proteins = pd.read_sql(multidatas_proteins_query.statement, self.database_manager.database.engine)
+        multidatas_proteins.columns = multidatas_proteins.columns.map(lambda column: column + '_protein')
 
-        complex_composition_expanded = pd.merge(complex_composition_expanded, multidatas,
+        multidatas_complexes_query = self.database_manager.database.session.query(Multidata)
+        multidatas_complexes = pd.read_sql(multidatas_complexes_query.statement, self.database_manager.database.engine)
+        multidatas_complexes.columns = multidatas_complexes.columns.map(lambda column: column + '_complex')
+
+        complex_composition_expanded = pd.merge(complex_composition, multidatas_complexes,
+                                                left_on='complex_multidata_id',
+                                                right_on='id_multidata_complex')
+
+        complex_composition_expanded = pd.merge(complex_composition_expanded, multidatas_proteins,
                                                 left_on='protein_multidata_id',
-                                                right_on='id_multidata', suffixes=suffixes)
+                                                right_on='id_multidata_protein')
 
         return complex_composition_expanded
 

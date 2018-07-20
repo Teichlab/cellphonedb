@@ -19,7 +19,6 @@ class TestTerminalQueryInteractionCalls(CellphoneFlaskTestCase):
         self.assertTrue('gene_name' in str(result.output), 'gene_name column shoud be present in response')
         self.assertTrue('hgnc_symbol' in str(result.output), 'hgnc_symbol should be present in response')
 
-
     def test_call_get_interactions_gene_withparam(self):
         runner = CliRunner()
         result = runner.invoke(get_interaction_gene, ['--columns=ensembl,gene_name'])

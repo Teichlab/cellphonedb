@@ -3,7 +3,7 @@ import pandas as pd
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database import DatabaseManager
 from cellphonedb.core.queries import interactions_by_component
-from cellphonedb.core.queries.interaction.interaction_gene_get import call
+from cellphonedb.core.queries.interaction import interaction_gene_get
 
 
 class QueryLauncher:
@@ -23,7 +23,8 @@ class QueryLauncher:
 
     def get_interaction_gene(self, columns: list = None) -> pd.DataFrame:
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()
+        complex_composition = self.database_manager.get_repository('complex').get_all_compositions_expanded()
 
-        genes = call(columns, interactions)
+        genes = interaction_gene_get.call(columns, interactions, complex_composition)
 
         return genes
