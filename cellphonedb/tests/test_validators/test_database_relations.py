@@ -12,7 +12,7 @@ from cellphonedb.core.models.protein.db_model_protein import Protein
 class TestDatabaseRelationsChecks(TestCase):
     def test_all_protein_have_gen(self):
 
-        expected_protein_without_gene = 167
+        expected_protein_without_gene = 235
         protein_query = extensions.cellphonedb_flask.cellphonedb.database_manager.database.session.query(Protein,
                                                                                                          Multidata.name).join(
             Multidata)

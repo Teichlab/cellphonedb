@@ -10,11 +10,11 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def test_protein(self):
         proteins = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('protein').get_all()
 
-        self.assertEqual(5272, len(proteins), 'Number of Protein entries are different')
+        self.assertEqual(5275, len(proteins), 'Number of Protein entries are different')
 
     def test_gene(self):
         genes = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('gene').get_all()
-        self.assertEqual(6186, len(genes), 'Number of Gene entries are different')
+        self.assertEqual(6190, len(genes), 'Number of Gene entries are different')
 
     def test_complex(self):
         complex = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('complex').get_all()
@@ -22,7 +22,7 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
 
     def test_multidata(self):
         multidatas = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('multidata').get_all()
-        self.assertEqual(5532, len(multidatas), 'Number of Multidata entries are different')
+        self.assertEqual(5535, len(multidatas), 'Number of Multidata entries are different')
 
     def test_protein_complex(self):
         multidatas = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('multidata').get_all()
@@ -40,7 +40,7 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def test_interaction(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
 
-        self.assertEqual(10735, len(interactions), 'Number of interactions are not equal')
+        self.assertEqual(10741, len(interactions), 'Number of interactions are not equal')
 
     def test_interaction_curated(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
@@ -49,7 +49,7 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
 
     def test_interaction_iuphar(self):
         interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('interaction').get_all()
-        self.assertEqual(241, len(interactions[interactions['iuphar']]))
+        self.assertEqual(245, len(interactions[interactions['iuphar']]))
 
     def test_complex_composition(self):
         complex_compositions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
