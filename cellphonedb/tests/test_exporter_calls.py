@@ -9,7 +9,8 @@ from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 class TestExporterCalls(CellphoneFlaskTestCase):
 
     def test_all_exporter_generators(self):
-        exporters = ['complex', 'complex_web', 'interaction', 'protein', 'gene', 's4_multidata', 's5_heterodimer']
+        exporters = ['complex', 'complex_web', 'interaction', 'protein', 'gene', 'interactions_cellphonedb',
+                     'heterodimers', 'protein_complex_cellphonedb']
 
         for exporter in exporters:
             self.assert_file_exist(exporter)
