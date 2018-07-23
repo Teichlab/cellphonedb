@@ -11,7 +11,8 @@ from cellphonedb.core.methods import cluster_statistical_analysis_simple
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
          complexes: pd.DataFrame, complex_compositions: pd.DataFrame, iterations: int = 1000, threshold: float = 0.1,
          debug_seed=False) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    core_logger.info('[Cluster Statistical Analysis Simple] Threshold: {} Debug-seed: {}'.format(threshold, debug_seed))
+    core_logger.info(
+        '[Cluster Statistical Analysis Complex] Threshold: {} Debug-seed: {}'.format(threshold, debug_seed))
 
     if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
@@ -21,6 +22,9 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
 
     interactions_filtered, counts_filtered, complex_in_counts = prefilters(interactions, counts, genes, complexes,
                                                                            complex_compositions)
+
+    if interactions_filtered.empty:
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
     complex_significative_protein = get_complex_significative(complex_in_counts, counts_filtered, complex_compositions,
                                                               cells_names)
@@ -68,11 +72,13 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
 
         return 'simple:{}'.format(interaction['name{}'.format(suffix)])
 
-    interactions['name_1'] = interactions.apply(lambda interaction: simple_complex_indicator(interaction, '_1'), axis=1)
-    interactions['name_2'] = interactions.apply(lambda interaction: simple_complex_indicator(interaction, '_2'), axis=1)
+    interactions['partner_a'] = interactions.apply(lambda interaction: simple_complex_indicator(interaction, '_1'),
+                                                   axis=1)
+    interactions['partner_b'] = interactions.apply(lambda interaction: simple_complex_indicator(interaction, '_2'),
+                                                   axis=1)
 
     interactions_data_result = pd.DataFrame(interactions[
-                                                ['id_cp_interaction', 'name_1', 'name_2', 'ensembl_1',
+                                                ['id_cp_interaction', 'partner_a', 'partner_b', 'ensembl_1',
                                                  'ensembl_2', 'stoichiometry_1', 'stoichiometry_2', 'source']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1)
@@ -82,7 +88,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
             interactions['integrin_interaction_1'] | interactions['integrin_interaction_2'])
 
     interactions_data_result.rename(
-        columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
+        columns={'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
         inplace=True)
 
     # Document 1
@@ -324,6 +330,9 @@ def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataF
     complex_in_counts, counts_multidata_complex = get_involved_complex_from_counts(counts_multidata, clusters_names,
                                                                                    complexes, complex_compositions)
 
+    if complex_in_counts.empty:
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+
     interactions_filtered = filter_interactions_by_genes(interactions, counts['gene'].tolist())
     interactions_filtered = filter_interactions_by_complexes(interactions_filtered, complex_in_counts)
 
@@ -392,6 +401,9 @@ def get_involved_complex_from_counts(multidatas_counts: pd.DataFrame, clusters_n
                                                                                   complex_expanded,
                                                                                   complex_composition,
                                                                                   drop_duplicates=False)
+
+    if complex_composition_counts.empty:
+        return pd.DataFrame(), pd.DataFrame()
 
     multidatas_counts_filtered = filter_counts_by_genes(multidatas_counts_filtered,
                                                         complex_composition_counts['gene'].tolist())
