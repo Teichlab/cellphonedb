@@ -6,10 +6,10 @@ from cellphonedb.core.methods import cluster_statistical_analysis_complex
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000,
-         threshold: float = 0.1, debug_seed=False) -> (
+         threshold: float = 0.1, debug_seed=False, round_decimals: int = 1) -> (
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info('[Cluster Statistical Analysis Simple] Threshold: {} Debug-seed: {}'.format(threshold, debug_seed))
-    
+
     if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
         core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
@@ -47,13 +47,15 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
         interactions_filtered,
         real_mean_analysis,
         result_percent,
-        clusters['means'])
+        clusters['means'],
+        round_decimals)
 
     return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
 
 
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
-                  clusters_means: dict) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+                  clusters_means: dict, round_decimals: int) -> (
+        pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     interacting_pair = cluster_statistical_analysis_complex.interacting_pair_build(interactions)
 
     interactions_data_result = pd.DataFrame(interactions[['id_cp_interaction', 'name_1', 'name_2', 'ensembl_1',
@@ -75,6 +77,14 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     interactions_data_result['partner_b'] = interactions_data_result['partner_b'].apply(
         lambda name: 'simple:{}'.format(name))
 
+    significant_means = get_significant_means(real_mean_analysis, result_percent)
+
+    result_percent = result_percent.round(round_decimals)
+    real_mean_analysis = real_mean_analysis.round(round_decimals)
+    significant_means = significant_means.round(round_decimals)
+    for key, cluster_means in clusters_means.items():
+        clusters_means[key] = cluster_means.round(round_decimals)
+
     # Document 1
     pvalues_result = pd.concat([interactions_data_result, result_percent], axis=1, join='inner', sort=False)
 
@@ -82,7 +92,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     means_result = pd.concat([interactions_data_result, real_mean_analysis], axis=1, join='inner', sort=False)
 
     # Document 3
-    significant_mean_result = significament_mean_build(interactions_data_result, real_mean_analysis, result_percent)
+    significant_mean_result = pd.concat([interactions_data_result, significant_means], axis=1, join='inner', sort=False)
 
     # Document 4
     mean_pvalue_result = mean_pvalue_result_build(real_mean_analysis, result_percent, interactions_data_result)
@@ -139,6 +149,16 @@ def significament_mean_build(interactions_data_result: pd.DataFrame, real_mean_a
             if result_percent.get_value(index, cluster_interaction) > min_significant_mean:
                 pvalues_means_result.set_value(index, cluster_interaction, pd.np.nan)
     return pvalues_means_result
+
+
+def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame) -> pd.DataFrame:
+    significant_means = real_mean_analysis.copy()
+    min_significant_mean = 0.05
+    for index, mean_analysis in real_mean_analysis.iterrows():
+        for cluster_interaction in list(result_percent.columns):
+            if result_percent.get_value(index, cluster_interaction) > min_significant_mean:
+                significant_means.set_value(index, cluster_interaction, pd.np.nan)
+    return significant_means
 
 
 def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
