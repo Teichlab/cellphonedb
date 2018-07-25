@@ -37,6 +37,8 @@ class MethodLauncher():
         significant_means = significant_means_simple.append(significant_means_complex, sort=False)
         mean_pvalue = mean_pvalue_simple.append(mean_pvalue_complex, sort=False)
         deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
+        if not 'complex_name' in deconvoluted:
+            deconvoluted['complex_name'] = ''
 
         return pvalues, means, significant_means, mean_pvalue, deconvoluted
 
