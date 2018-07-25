@@ -59,8 +59,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     interacting_pair = cluster_statistical_analysis_complex.interacting_pair_build(interactions)
 
     interactions_data_result = pd.DataFrame(interactions[['id_cp_interaction', 'name_1', 'name_2', 'ensembl_1',
-                                                          'ensembl_2', 'stoichiometry_1', 'stoichiometry_2',
-                                                          'source']].copy())
+                                                          'ensembl_2', 'source']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1)
 
@@ -107,15 +106,13 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) 
     deconvoluted_result_1 = pd.DataFrame()
     deconvoluted_result_2 = pd.DataFrame()
     deconvoluted_result_1[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_cp_interaction']] = \
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
         interactions[
-            ['ensembl_1', 'entry_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'stoichiometry_1',
-             'id_cp_interaction']]
+            ['ensembl_1', 'entry_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_cp_interaction']]
     deconvoluted_result_2[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_cp_interaction']] = \
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
         interactions[
-            ['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'stoichiometry_2',
-             'id_cp_interaction']]
+            ['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_cp_interaction']]
 
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
 

@@ -11,7 +11,7 @@ from cellphonedb.core.methods import cluster_statistical_analysis_simple
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
          complexes: pd.DataFrame, complex_compositions: pd.DataFrame, iterations: int = 1000, threshold: float = 0.1,
          debug_seed=False, round_decimals: int = 1) -> (
-pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+        pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
         '[Cluster Statistical Analysis Complex] Threshold: {} Debug-seed: {}'.format(threshold, debug_seed))
 
@@ -81,7 +81,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
 
     interactions_data_result = pd.DataFrame(interactions[
                                                 ['id_cp_interaction', 'partner_a', 'partner_b', 'ensembl_1',
-                                                 'ensembl_2', 'stoichiometry_1', 'stoichiometry_2', 'source']].copy())
+                                                 'ensembl_2', 'source']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1)
 
@@ -152,11 +152,10 @@ def deconvolute_interaction_component(interactions, suffix):
     interactions = interactions[~interactions['is_complex{}'.format(suffix)]]
     deconvoluted_result = pd.DataFrame()
     deconvoluted_result[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_cp_interaction']] = \
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
         interactions[
             ['ensembl{}'.format(suffix), 'entry_name{}'.format(suffix), 'gene_name{}'.format(suffix),
-             'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'stoichiometry{}'.format(suffix),
-             'id_cp_interaction']]
+             'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction']]
 
     return deconvoluted_result
 
@@ -165,12 +164,11 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvoluted_result = pd.DataFrame()
     component = pd.DataFrame()
     component[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'stoichiometry', 'id_cp_interaction',
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction',
          'id_multidata']] = \
         interactions[
             ['ensembl{}'.format(suffix), 'entry_name{}'.format(suffix), 'gene_name{}'.format(suffix),
-             'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'stoichiometry{}'.format(suffix),
-             'id_cp_interaction',
+             'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction',
              'id_multidata{}'.format(suffix)]]
 
     deconvolution_complex = pd.merge(complex_compositions, component, left_on='complex_multidata_id',
@@ -178,12 +176,9 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvolution_complex = pd.merge(deconvolution_complex, genes_filtered, left_on='protein_multidata_id',
                                      right_on='protein_multidata_id', suffixes=['_complex', '_simple'])
     deconvoluted_result[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'stoichiometry',
-         'id_cp_interaction']] = \
-        deconvolution_complex[
-            ['ensembl_simple', 'entry_name_simple', 'gene_name_simple', 'name_simple',
-             'is_complex_complex',
-             'name_complex', 'stoichiometry', 'id_cp_interaction']]
+        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'id_cp_interaction']] = \
+        deconvolution_complex[['ensembl_simple', 'entry_name_simple', 'gene_name_simple', 'name_simple',
+                               'is_complex_complex', 'name_complex', 'id_cp_interaction']]
 
     return deconvoluted_result
 
