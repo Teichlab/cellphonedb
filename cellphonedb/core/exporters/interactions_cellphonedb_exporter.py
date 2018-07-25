@@ -23,4 +23,4 @@ def call(interactions: pd.DataFrame()) -> pd.DataFrame():
 
     return interactions_filtered[
         ['id_cp_interaction', 'source', 'partner_a', 'partner_b', 'entry_name_a', 'entry_name_b', 'secreted',
-         'is_integrin', 'comments_interaction']]
+         'is_integrin', 'comments_interaction', 'dlrp', 'iuphar']]

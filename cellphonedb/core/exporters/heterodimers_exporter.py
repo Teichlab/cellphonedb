@@ -13,4 +13,4 @@ def call(complexes: pd.DataFrame, multidatas: pd.DataFrame, complex_compositions
                    'entry_name_2', 'uniprot_2', 'tags_2', 'tags_description_2', 'tags_reason_2',
                    'entry_name_3', 'uniprot_3', 'tags_3', 'tags_description_3', 'tags_reason_3',
                    'entry_name_4', 'uniprot_4', 'tags_4', 'tags_description_4', 'tags_reason_4',
-                   ]]
+                   'pdb_structure', 'pdb_id', 'stoichiometry', 'comments_complex']]
