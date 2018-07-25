@@ -13,7 +13,9 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
         counts = utils.read_data_from_content_type(request.files['counts_file'], index_column_first=True)
         meta = utils.read_data_from_content_type(request.files['meta_file'], index_column_first=True)
         parameters = json.loads(request.form['parameters'])
+
         iterations = parameters['iterations']
+        threshold = int(parameters['threshold']) / 100
 
         if not isinstance(counts, pd.DataFrame):
             self.attach_error(
@@ -35,7 +37,7 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
                 extensions.cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis(meta,
                                                                                              counts,
                                                                                              iterations=iterations,
-                                                                                             threshold=0.1,
+                                                                                             threshold=threshold,
                                                                                              debug_seed=-1)
 
             self._attach_csv(pvalues.to_csv(index=False), 'pvalues.csv')
