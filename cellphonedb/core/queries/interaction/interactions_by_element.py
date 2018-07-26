@@ -2,6 +2,8 @@ import pandas as pd
 
 
 def call(element: str, interactions: pd.DataFrame, complex_composition: pd.DataFrame) -> pd.DataFrame:
+    interactions = interactions[interactions['is_cellphonedb_interactor']]
+
     related_complexes = _find_complex_by_element(element, complex_composition)
 
     complex_names = related_complexes['name_complex'].drop_duplicates().tolist()
