@@ -4,9 +4,9 @@ from cellphonedb.flask_local_query_launcher import FlaskLocalQueryLauncher
 
 
 @click.command()
-@click.argument('input')
-def search_interactions(input: str):
-    FlaskLocalQueryLauncher.search_interactions(input)
+@click.argument('element')
+def find_interactions_by_element(element: str):
+    FlaskLocalQueryLauncher.find_interactions_by_element(element)
 
 
 @click.command()

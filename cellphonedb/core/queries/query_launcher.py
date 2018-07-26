@@ -2,8 +2,7 @@ import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database import DatabaseManager
-from cellphonedb.core.queries import interactions_by_component
-from cellphonedb.core.queries.interaction import interaction_gene_get
+from cellphonedb.core.queries.interaction import interaction_gene_get, interactions_by_element
 
 
 class QueryLauncher:
@@ -17,9 +16,11 @@ class QueryLauncher:
 
         return method
 
-    def search_interactions(self, input: str) -> pd.DataFrame:
-        interactions = self.database_manager.get_repository('interaction').get_all_expanded()
-        return interactions_by_component.call(input, interactions)
+    def find_interactions_by_element(self, element: str) -> pd.DataFrame:
+        interactions = self.database_manager.get_repository('interaction').get_all_expanded(suffixes=('_a', '_b'))
+        complexes_composition = self.database_manager.get_repository('complex').get_all_compositions_expanded()
+
+        return interactions_by_element.call(element, interactions, complexes_composition)
 
     def get_interaction_gene(self, columns: list = None) -> pd.DataFrame:
         interactions = self.database_manager.get_repository('interaction').get_all_expanded()

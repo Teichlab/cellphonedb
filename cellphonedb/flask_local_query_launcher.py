@@ -11,8 +11,8 @@ class FlaskLocalQueryLauncher:
         return method
 
     @staticmethod
-    def search_interactions(input: str) -> None:
-        print(cellphonedb_flask.cellphonedb.query.search_interactions(input).to_csv(index=False))
+    def find_interactions_by_element(element: str) -> None:
+        print(cellphonedb_flask.cellphonedb.query.find_interactions_by_element(element).to_csv(index=False))
 
     @staticmethod
     def get_interaction_gene(columns: str) -> None:

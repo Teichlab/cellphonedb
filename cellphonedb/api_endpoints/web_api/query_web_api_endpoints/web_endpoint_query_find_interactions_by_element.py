@@ -6,13 +6,13 @@ from cellphonedb import extensions
 from cellphonedb.api_endpoints.web_api.web_api_endpoint_base import WebApiEndpointBase
 
 
-class WebEndpointQuerySearchInteractions(WebApiEndpointBase):
+class WebEndpointQueryFindInteractionsByElement(WebApiEndpointBase):
     def post(self):
         parameters = json.loads(request.get_data(as_text=True))
 
         receptor = parameters['receptor']
 
-        interactions = extensions.cellphonedb_flask.cellphonedb.query.search_interactions(receptor)
+        interactions = extensions.cellphonedb_flask.cellphonedb.query.find_interactions_by_element(receptor)
 
         if interactions.empty:
             self.attach_error(
