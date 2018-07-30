@@ -327,7 +327,8 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P11362,P35222,0.59,0.59,IntAct
 ,True,,False,P05161,P35222,0.0,1.0,InnateDB-All
 ,True,,False,P31749,P35222,0.0,1.0,InnateDB
-,True,,False,O75398,P35222,0.0,1.0,InnateDB
+,True,,False,P08575,P35222,0.61,0.61,IntAct
+,True,,False,P16150,P35222,0.0,1.0,InnateDB
 ,True,,False,P25054,P35222,0.95,0.95,bhf-ucl
 ,True,,False,Q9NP95,P35222,0.0,1.0,InnateDB
 ,True,,False,Q86UP0,P35222,0.0,1.0,InnateDB
@@ -725,6 +726,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q12913,P22681,0.44,0.44,IntAct
 ,True,,False,P29317,P22681,0.0,1.0,InnateDB-All
 ,True,,False,P63165,P22681,0.0,1.0,InnateDB-All
+,True,,False,P08575,P22681,0.44,0.44,IntAct
 ,True,,False,Q92729,P22681,0.0,1.0,InnateDB-All
 ,True,,False,Q05397,P22681,0.0,1.0,InnateDB-All
 ,True,,False,P12814,P22681,0.0,1.0,InnateDB-All
@@ -1110,14 +1112,11 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q8N3V7,P80723,0.35,0.35,IntAct
 ,True,,False,P46940,Q02413,0.35,0.35,IntAct
 ,True,,False,P13569,Q02413,0.35,0.35,IntAct
-,True,,False,Q02487,Q02413,0.0,1.0,InnateDB-All
-,True,,False,Q08554,Q02413,0.0,1.0,InnateDB-All
 ,True,,False,Q6SPF0,Q02413,0.35,0.35,IntAct
 ,True,,False,P46940,Q14126,0.35,0.35,IntAct
 ,True,,False,P49768,Q14126,0.0,1.0,InnateDB-All
 ,True,,False,P07550,Q14126,0.0,1.0,InnateDB
 ,True,,False,Q8IVT5,Q14126,0.35,0.35,IntAct
-,True,,False,Q02487,Q14126,0.4,0.4,IntAct
 ,True,,False,Q86X19,Q14126,0.35,0.35,IntAct
 ,True,,False,Q8N3V7,Q14126,0.35,0.35,IntAct
 ,True,,False,P46940,Q9ULV4,0.35,0.35,IntAct
@@ -1340,6 +1339,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P00533,P00533,0.98,0.98,IntAct
 ,True,,False,Q12913,P00533,0.44,0.44,IntAct
 ,True,,False,P17931,P00533,0.4,0.4,I2D-IMEx
+,True,,False,P08575,P00533,0.44,0.44,IntAct
 ,True,,False,P15941,P00533,0.77,0.77,IntAct
 ,True,,False,O60716,P00533,0.66,0.66,IntAct
 ,True,,False,P19438,P00533,0.37,0.37,IntAct
@@ -1429,7 +1429,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P49841,P49841,0.44,0.44,MINT
 ,True,,False,P49768,P49841,0.4,0.4,MINT
 ,True,,False,P31749,P49841,0.78,0.78,I2D-IMEx
-,True,,False,O75398,P49841,0.52,0.52,IntAct
 ,True,,False,P25054,P49841,0.71,0.71,bhf-ucl
 ,True,,False,O15169,P49841,0.97,0.97,bhf-ucl
 ,True,,False,P15941,P49841,0.0,1.0,InnateDB-All
@@ -1453,6 +1452,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P48740,P49841,0.37,0.37,MINT
 ,True,,False,O43194,P49841,0.37,0.37,MINT
 ,True,,False,O75354,P49841,0.37,0.37,MINT
+,True,,False,O75398,P49841,0.52,0.52,IntAct
 ,True,,False,Q13467,P49841,0.37,0.37,MINT
 ,True,,False,O95278,P49841,0.0,1.0,InnateDB-All
 ,True,,False,P05452,P49841,0.37,0.37,MINT
@@ -1782,6 +1782,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,HLADMA,HLADRB1,0.0,1.0,InnateDB
 ,True,,False,HLADRB1,HLADRB1,0.0,1.0,InnateDB-All
 ,True,,False,Q12913,P04629,0.44,0.44,IntAct
+,True,,False,P08575,P04629,0.44,0.44,IntAct
 ,True,,False,Q07912,P04629,0.0,1.0,InnateDB-All
 ,True,,False,P46934,P04629,0.0,1.0,InnateDB-All
 ,True,,False,P04629,P04629,0.49,0.49,MINT
@@ -1876,6 +1877,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P07948,P06239,0.35,0.35,MINT
 ,True,,False,Q12913,P06239,0.44,0.44,IntAct
 ,True,,False,P25445,P06239,0.0,1.0,InnateDB-All
+,True,,False,P08575,P06239,0.85,0.85,IntAct
 ,True,,False,P46531,P06239,0.0,1.0,InnateDB-All
 ,True,,False,O75955,P06239,0.0,1.0,InnateDB
 ,True,,False,P48023,P06239,0.0,1.0,InnateDB-All
@@ -2062,6 +2064,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q7Z7G0,P34947,0.0,1.0,InnateDB-All
 ,True,,False,Q7L5Y9,P34947,0.0,1.0,InnateDB-All
 ,True,,False,Q14678,P34947,0.0,1.0,InnateDB-All
+,True,,False,Q92896,P34947,0.0,1.0,InnateDB-All
 ,True,,False,P48426,P34947,0.0,1.0,InnateDB-All
 ,True,,False,P43405,O43318,0.0,1.0,InnateDB-All
 ,True,,False,P11142,O43318,0.4,0.4,IntAct
@@ -2086,6 +2089,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q9H8T0,O43318,0.37,0.37,IntAct
 ,True,,False,P07948,Q07912,0.0,1.0,InnateDB-All
 ,True,,False,Q12913,Q07912,0.44,0.44,IntAct
+,True,,False,P08575,Q07912,0.44,0.44,IntAct
 ,True,,False,Q07912,Q07912,0.59,0.59,IntAct
 ,True,,False,P46934,Q07912,0.0,1.0,InnateDB-All
 ,True,,False,Q9Y5X1,Q07912,0.54,0.54,MINT
@@ -2485,6 +2489,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q99519,O00206,0.0,1.0,InnateDB
 ,True,,False,P43405,P07948,0.0,1.0,InnateDB
 ,True,,False,P07948,P07948,0.44,0.44,IntAct
+,True,,False,P08575,P07948,0.0,1.0,InnateDB-All
 ,True,,False,P15941,P07948,0.0,1.0,InnateDB
 ,True,,False,P24071,P07948,0.0,1.0,InnateDB-All
 ,True,,False,P48023,P07948,0.4,0.4,IntAct
@@ -2515,6 +2520,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P12931,P19235,0.0,1.0,InnateDB-All
 ,True,,False,P22681,P19235,0.0,1.0,InnateDB-All
 ,True,,False,Q12913,P19235,0.44,0.44,IntAct
+,True,,False,P08575,P19235,0.44,0.44,IntAct
 ,True,,False,Q92729,P19235,0.0,1.0,InnateDB-All
 ,True,,False,P63096,P19235,0.0,1.0,InnateDB-All
 ,True,,False,Q92835,P19235,0.55,0.55,IntAct
@@ -2592,7 +2598,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P18206,P26038,0.0,1.0,InnateDB-All
 ,True,,False,P60568,P26038,0.0,1.0,InnateDB
 ,True,,False,P05161,P26038,0.0,1.0,InnateDB
-,True,,False,O75398,P26038,0.0,1.0,InnateDB-All
+,True,,False,P16150,P26038,0.0,1.0,InnateDB-All
 ,True,,False,P19438,P26038,0.0,1.0,InnateDB-All
 ,True,,False,P48023,P26038,0.0,1.0,InnateDB-All
 ,True,,False,P16070,P26038,0.46,0.46,MolCon
@@ -3739,7 +3745,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P15529,P15529,0.0,1.0,InnateDB-All
 ,True,,False,P48509,P15529,0.0,1.0,InnateDB-All
 ,True,,False,Q9HD26,P15529,0.0,1.0,InnateDB
-,True,,False,P78504,P15529,0.63,0.63,InnateDB-IMEx
 ,True,,False,P07947,P15529,0.0,1.0,InnateDB-All
 ,True,,False,P01024,P15529,0.44,0.44,InnateDB-IMEx
 ,True,,False,P05156,P15529,0.0,1.0,InnateDB
@@ -3750,6 +3755,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P36952,P05161,0.0,1.0,InnateDB-All
 ,True,,False,P06241,P16070,0.0,1.0,InnateDB-All
 ,True,,False,P13611,P16070,0.0,1.0,InnateDB
+,True,,False,P08575,P16070,0.0,1.0,InnateDB-All
 ,True,,False,Q99075,P16070,0.0,1.0,InnateDB-All
 ,True,,False,Q03135,P16070,0.0,1.0,InnateDB-All
 ,True,,False,P02751,P16070,0.0,1.0,InnateDB-All
@@ -3758,7 +3764,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,O00182,P16070,0.0,1.0,InnateDB
 ,True,,False,Q9Y2J2,P16070,0.0,1.0,InnateDB-All
 ,True,,False,P10451,P16070,0.62,0.62,IntAct
-,True,,False,P16581,P16070,0.0,1.0,InnateDB-All
 ,True,,False,Q8N3V7,P16070,0.35,0.35,IntAct
 ,True,,False,P26038,P17655,0.0,1.0,InnateDB-All
 ,True,,False,P04632,P17655,0.61,0.61,MINT
@@ -3805,15 +3810,12 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q8TAX7,P14151,0.0,1.0,InnateDB-All
 ,True,,False,Q9ULC0,P14151,0.0,1.0,InnateDB-All
 ,True,,False,P05067,P32942,0.0,1.0,InnateDB-All
-,True,,False,P09382,O75398,0.0,1.0,InnateDB
-,True,,False,P15311,O75398,0.0,1.0,InnateDB-All
-,True,,False,P17931,O75398,0.0,1.0,InnateDB
-,True,,False,O75398,O75398,0.0,1.0,InnateDB-All
-,True,,False,P01116,O75398,0.37,0.37,MINT
+,True,,False,P09382,P16150,0.0,1.0,InnateDB
+,True,,False,P15311,P16150,0.0,1.0,InnateDB-All
+,True,,False,P17931,P16150,0.0,1.0,InnateDB
 ,True,,False,P13611,Q14242,0.0,1.0,InnateDB
 ,True,,False,Q14254,Q14242,0.46,0.46,IntAct
 ,True,,False,Q14242,Q14242,0.0,1.0,InnateDB-All
-,True,,False,P16109,Q14242,0.72,0.72,IntAct
 ,True,,False,Q7Z614,Q14242,0.61,0.61,UniProt
 ,True,,False,P26038,Q9NPY3,0.0,1.0,InnateDB-All
 ,True,,False,P46379,Q9NPY3,0.37,0.37,IntAct
@@ -3823,6 +3825,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P06127,P06729,0.0,1.0,InnateDB-All
 ,True,,False,P09382,P09382,0.0,1.0,InnateDB
 ,True,,False,P18206,P09382,0.0,1.0,InnateDB-All
+,True,,False,P08575,P09382,0.56,0.56,MINT
 ,True,,False,P01112,P09382,0.0,1.0,InnateDB-All
 ,True,,False,P09564,P09382,0.0,1.0,InnateDB-All
 ,True,,False,P30203,P09382,0.56,0.56,MINT
@@ -3839,10 +3842,10 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P00533,Q13740,0.35,0.35,IntAct
 ,True,,False,P17931,Q13740,0.56,0.56,MINT
 ,True,,False,P22681,P01112,0.0,1.0,InnateDB-All
-,True,,False,O75398,P01112,0.0,1.0,InnateDB-All
 ,True,,False,P35221,P01112,0.37,0.37,MINT
 ,True,,False,P01112,P01112,0.0,1.0,InnateDB-All
 ,True,,False,O43597,P01112,0.0,1.0,InnateDB-All
+,True,,False,O75398,P01112,0.0,1.0,InnateDB-All
 ,True,,False,Q13007,P01112,0.37,0.37,MINT
 ,True,,False,O43566,P01112,0.0,1.0,InnateDB
 ,True,,False,P11233,P01112,0.44,0.44,MINT
@@ -3852,6 +3855,20 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q15198,P01112,0.37,0.37,MINT
 ,True,,False,P09382,Q9UGT4,0.4,0.4,IntAct
 ,True,,False,Q63HR2,Q9UGT4,0.49,0.49,IntAct
+,True,,False,P17931,P08575,0.0,1.0,InnateDB
+,True,,False,Q99569,P08575,0.44,0.44,IntAct
+,True,,False,P19022,P08575,0.44,0.44,IntAct
+,True,,False,O75955,P08575,0.0,1.0,InnateDB
+,True,,False,P41240,P08575,0.62,0.62,MINT
+,True,,False,P42680,P08575,0.44,0.44,IntAct
+,True,,False,P06729,P08575,0.0,1.0,InnateDB-All
+,True,,False,O15530,P08575,0.44,0.44,IntAct
+,True,,False,Q86WV1,P08575,0.0,1.0,InnateDB-All
+,True,,False,Q13224,P08575,0.44,0.44,IntAct
+,True,,False,P10912,P08575,0.44,0.44,IntAct
+,True,,False,P48357,P08575,0.44,0.44,IntAct
+,True,,False,P09466,P08575,0.0,1.0,InnateDB-All
+,True,,False,Q92854,P08575,0.4,0.4,MINT
 ,True,,False,P09382,P17931,0.0,1.0,InnateDB
 ,True,,False,Q8WUM4,P17931,0.0,1.0,InnateDB-All
 ,True,,False,P05067,P17931,0.0,1.0,InnateDB-All
@@ -4653,6 +4670,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,O00626,Q99731,0.0,1.0,InnateDB
 ,True,,False,P27487,P27487,0.61,0.61,MINT
 ,True,,False,O94907,P27487,0.37,0.37,IntAct
+,True,,False,P08575,P27487,0.0,1.0,InnateDB-All
 ,True,,False,P16860,P27487,0.44,0.44,MINT
 ,True,,False,P01275,P27487,0.44,0.44,MINT
 ,True,,False,P09681,P27487,0.44,0.44,MINT
@@ -4877,7 +4895,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P05067,P49703,0.0,1.0,InnateDB
 ,True,,False,Q9HCE7,P49703,0.0,1.0,InnateDB-All
 ,True,,False,Q8N129,P49703,0.37,0.37,IntAct
-,True,,False,P05067,P04233,0.0,1.0,InnateDB
 ,True,,False,Q8N907,P04233,0.0,1.0,InnateDB-All
 ,True,,False,P04233,P04233,0.0,1.0,InnateDB-All
 ,True,,False,HLADPA1,P04233,0.0,1.0,InnateDB-All
@@ -4899,7 +4916,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P29622,Q92956,0.37,0.37,MINT
 ,True,,False,Q92956,Q92956,0.0,1.0,InnateDB-All
 ,True,,False,O75888,Q92956,0.0,1.0,InnateDB-All
-,True,,False,O95971,Q92956,0.4,0.4,IntAct
 ,True,,False,Q8TB96,Q92956,0.37,0.37,MINT
 ,True,,False,P49841,Q9HAU4,0.0,1.0,InnateDB-All
 ,True,,False,O15169,Q9HAU4,0.0,1.0,InnateDB-All
@@ -5226,8 +5242,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P07550,P13688,0.0,1.0,InnateDB-All
 ,True,,False,Q9H2X3,P13688,0.4,0.4,MINT
 ,True,,False,P13688,P13688,0.4,0.4,IntAct
-,True,,False,P40199,P13688,0.4,0.4,IntAct
-,True,,False,P31997,P13688,0.4,0.4,IntAct
 ,True,,False,Q16568,P13688,0.54,0.54,IntAct
 ,True,,False,Q14002,P13688,0.4,0.4,IntAct
 ,True,,False,Q8TDQ0,P13688,0.0,1.0,InnateDB
@@ -5831,6 +5845,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P12931,P07333,0.0,1.0,InnateDB-All
 ,True,,False,P07947,P07333,0.0,1.0,InnateDB-All
 ,True,,False,P06241,Q13291,0.0,1.0,InnateDB-All
+,True,,False,P08575,Q13291,0.0,1.0,InnateDB-All
 ,True,,False,P09769,Q13291,0.0,1.0,InnateDB-All
 ,True,,False,Q13291,Q13291,0.61,0.61,IntAct
 ,True,,False,P00533,Q16620,0.37,0.37,IntAct
@@ -5908,6 +5923,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P12318,O43561,0.0,1.0,InnateDB-All
 ,True,,False,Q9UJU6,O43561,0.0,1.0,InnateDB-All
 ,True,,False,P06241,Q9BZW8,0.35,0.35,IntAct
+,True,,False,P08575,Q9BZW8,0.35,0.35,IntAct
 ,True,,False,P06241,Q9UJM3,0.49,0.49,IntAct
 ,True,,False,P06241,Q6PIZ9,0.0,1.0,InnateDB-All
 ,True,,False,P07948,Q6PIZ9,0.0,1.0,InnateDB-All
@@ -6216,7 +6232,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,O95832,O15551,0.0,1.0,InnateDB-All
 ,True,,False,O00501,O15551,0.0,1.0,InnateDB-All
 ,True,,False,P05067,P40199,0.0,1.0,InnateDB-All
-,True,,False,P40199,P40199,0.4,0.4,IntAct
 ,True,,False,Q16568,P40199,0.54,0.54,IntAct
 ,True,,False,P05067,P56880,0.0,1.0,InnateDB-All
 ,True,,False,P05067,Q9Y5I7,0.0,1.0,InnateDB-All
@@ -6535,7 +6550,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P05534,P43629,0.4,0.4,IntAct
 ,True,,False,P18465,P43629,0.84,0.84,IntAct
 ,True,,False,P30460,P43629,0.4,0.4,IntAct
-,True,,False,P30511,P43629,0.4,0.4,IntAct
 ,True,,False,Q8N907,P22455,0.0,1.0,InnateDB-All
 ,True,,False,Q9UJM3,P22455,0.37,0.37,MINT
 ,True,,False,Q96S79,P22455,0.37,0.37,MINT
@@ -6632,7 +6646,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q9NRA1,Q9NRA1,0.44,0.44,IntAct
 ,True,,False,Q8N907,P16109,0.0,1.0,InnateDB-All
 ,True,,False,P13611,P16109,0.0,1.0,InnateDB
-,True,,False,P25063,P16109,0.0,1.0,InnateDB-All
 ,True,,False,P16109,P16109,0.0,1.0,InnateDB-All
 ,True,,False,P26022,P16109,0.0,1.0,InnateDB
 ,True,,False,Q8N907,P19397,0.0,1.0,InnateDB-All
@@ -7345,6 +7358,8 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,O43164,P13861,0.4,0.4,MolCon
 ,True,,False,P31323,P13861,0.35,0.35,IntAct
 ,True,,False,O43687,P13861,0.0,1.0,InnateDB-All
+,True,,False,O75398,O75398,0.0,1.0,InnateDB-All
+,True,,False,P01116,O75398,0.37,0.37,MINT
 ,True,,False,Q7Z7G0,Q13467,0.37,0.37,IntAct
 ,True,,False,Q86X19,Q13467,0.35,0.35,IntAct
 ,True,,False,P49841,Q6UXH1,0.37,0.37,MINT
@@ -7356,13 +7371,8 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P01112,Q5VWQ8,0.0,1.0,InnateDB-All
 ,True,,False,Q5VWQ8,Q5VWQ8,0.44,0.44,UniProt
 ,True,,False,P49841,Q9UP38,0.0,1.0,InnateDB-All
-,True,,False,P57087,Q9BX67,0.4,0.4,IntAct
-,True,,False,Q9BX67,Q9BX67,0.4,0.4,IntAct
 ,True,,False,Q8TEW0,Q9NQS3,0.0,1.0,InnateDB-All
 ,True,,False,Q96P20,Q9NQS3,0.35,0.35,IntAct
-,True,,False,Q92692,Q9NQS3,0.61,0.61,IntAct
-,True,,False,P15151,Q9NQS3,0.0,1.0,InnateDB-All
-,True,,False,Q15223,Q9NQS3,0.59,0.59,IntAct
 ,True,,False,Q9NQS3,Q9NQS3,0.0,1.0,InnateDB-All
 ,True,,False,Q92887,Q9NQS3,0.0,1.0,InnateDB-All
 ,True,,False,P57087,P57087,0.4,0.4,IntAct
@@ -7590,7 +7600,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P10600,Q6EMK4,0.0,1.0,InnateDB-All
 ,True,,False,Q7Z3S9,Q6EMK4,0.49,0.49,IntAct
 ,True,,False,Q2TAL6,Q6EMK4,0.49,0.49,IntAct
-,True,,False,P11362,P13591,0.0,1.0,InnateDB-All
 ,True,,False,P21802,P23352,0.44,0.44,IntAct
 ,True,,False,P98160,P05230,0.0,1.0,InnateDB-All
 ,True,,False,P05230,P05230,0.44,0.44,UniProt
@@ -7636,11 +7645,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q9NQC7,Q96DZ5,0.0,1.0,InnateDB-All
 ,True,,False,O75509,Q96DZ5,0.0,1.0,InnateDB-All
 ,True,,False,P31749,Q8IYJ3,0.0,1.0,InnateDB
-,True,,False,O75398,P36941,0.4,0.4,IntAct
-,True,,False,Q9BUZ4,P36941,0.0,1.0,InnateDB-All
-,True,,False,P49286,P36941,0.37,0.37,IntAct
-,True,,False,P36941,P36941,0.51,0.51,IntAct
-,True,,False,P01375,P36941,0.0,1.0,InnateDB-All
+,True,,False,Q92854,Q92854,0.0,1.0,InnateDB-All
 ,True,,False,P25054,Q14114,0.0,1.0,InnateDB-All
 ,True,,False,O14713,Q14114,0.0,1.0,InnateDB-All
 ,True,,False,P78509,Q14114,0.0,1.0,InnateDB-All
@@ -7776,7 +7781,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P02787,Q9BXS9,0.49,0.49,IntAct
 ,True,,False,P41181,Q9BXS9,0.49,0.49,IntAct
 ,True,,False,Q8IUH5,Q15517,0.37,0.37,IntAct
-,True,,False,P06734,P20023,0.0,1.0,InnateDB-All
 ,True,,False,P01024,P20023,0.0,1.0,InnateDB
 ,True,,False,P13164,P20023,0.0,1.0,InnateDB-All
 ,True,,False,P27701,Q9P2B2,0.0,1.0,InnateDB-All
@@ -8069,7 +8073,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P30483,Q14943,0.4,0.4,IntAct
 ,True,,False,P30493,Q14943,0.4,0.4,IntAct
 ,True,,False,P30508,Q14943,0.4,0.4,IntAct
-,True,,False,P30511,Q14943,0.52,0.52,IntAct
 ,True,,False,P30685,Q14943,0.4,0.4,IntAct
 ,True,,False,P01892,Q8NHL6,0.4,0.4,IntAct
 ,True,,False,P03989,Q8NHL6,0.4,0.4,IntAct
@@ -8151,7 +8154,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P15924,P61020,0.0,1.0,InnateDB-All
 ,True,,False,Q86X19,P61020,0.35,0.35,IntAct
 ,True,,False,P15924,Q08554,0.0,1.0,InnateDB-All
-,True,,False,Q14126,Q08554,0.0,1.0,InnateDB-All
 ,True,,False,P15924,Q8IWL2,0.0,1.0,InnateDB
 ,True,,False,O60603,Q8IWL2,0.0,1.0,InnateDB
 ,True,,False,P59665,Q8IWL2,0.0,1.0,InnateDB
@@ -8228,7 +8230,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P12643,Q12841,0.54,0.54,MINT
 ,True,,False,P12644,Q12841,0.44,0.44,MINT
 ,True,,False,P35052,Q12841,0.37,0.37,MINT
-,True,,False,Q92854,Q92854,0.0,1.0,InnateDB-All
 ,True,,False,P46108,Q9UN73,0.4,0.4,IntAct
 ,True,,False,P46108,Q9UN75,0.4,0.4,IntAct
 ,True,,False,P46108,Q9Y5H5,0.4,0.4,IntAct
@@ -8649,6 +8650,11 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,O00187,O00602,0.0,1.0,InnateDB
 ,True,,False,P48740,P06681,0.0,1.0,InnateDB
 ,True,,False,O00187,P06681,0.0,1.0,InnateDB
+,True,,False,O75398,P36941,0.4,0.4,IntAct
+,True,,False,Q9BUZ4,P36941,0.0,1.0,InnateDB-All
+,True,,False,P49286,P36941,0.37,0.37,IntAct
+,True,,False,P36941,P36941,0.51,0.51,IntAct
+,True,,False,P01375,P36941,0.0,1.0,InnateDB-All
 ,True,,False,Q96ID5,P49903,0.37,0.37,IntAct
 ,True,,False,P49903,P49903,0.78,0.78,IntAct
 ,True,,False,Q96ID5,Q9UN74,0.37,0.37,IntAct
@@ -9309,7 +9315,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q8TCQ1,P42081,0.0,1.0,InnateDB-All
 ,True,,False,P33681,P42081,0.4,0.4,IntAct
 ,True,,False,P33681,P33681,0.0,1.0,InnateDB-All
-,True,,False,Q9NZQ7,P33681,0.61,0.61,IntAct
 ,True,,False,Q92859,O95631,0.0,1.0,InnateDB-All
 ,True,,False,P23469,P02808,0.35,0.35,IntAct
 ,True,,False,Q8TAX7,P02808,0.51,0.51,IntAct
@@ -9325,7 +9330,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P33527,P25311,0.37,0.37,IntAct
 ,True,,False,P04278,P25311,0.0,1.0,InnateDB-All
 ,True,,False,P25311,P25311,0.0,1.0,InnateDB-All
-,True,,False,P40199,P31997,0.4,0.4,IntAct
 ,True,,False,P60201,Q9HAV5,0.49,0.49,IntAct
 ,True,,False,Q16617,Q9HAV5,0.49,0.49,IntAct
 ,True,,False,Q9H4E7,Q494U1,0.49,0.49,IntAct
@@ -9379,6 +9383,7 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P06307,P32238,0.0,1.0,InnateDB-All
 ,True,,False,Q96SB3,P18825,0.0,1.0,InnateDB-All
 ,True,,False,Q96SB3,P18089,0.0,1.0,InnateDB-All
+,True,,False,Q8NB16,Q92896,0.35,0.35,IntAct
 ,True,,False,HLADQA1,HLADQB1,0.0,1.0,InnateDB-All
 ,True,,False,Q9BXB1,A3KMH1,0.0,1.0,InnateDB-All
 ,True,,False,Q9BXB1,P50993,0.0,1.0,InnateDB-All
@@ -9499,7 +9504,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q8N608,Q8N608,0.0,1.0,InnateDB
 ,True,,False,P42658,Q8N608,0.0,1.0,InnateDB
 ,True,,False,P15151,Q15223,0.0,1.0,InnateDB-All
-,True,,False,Q15223,Q15223,0.78,0.78,IntAct
 ,True,,False,Q01484,Q9H223,0.4,0.4,UniProt
 ,True,,False,P52824,Q9H223,0.0,1.0,InnateDB-All
 ,True,,False,Q9H4M9,Q9H223,0.0,1.0,InnateDB-All
@@ -9649,7 +9653,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P48059,Q9P2N4,0.37,0.37,IntAct
 ,True,,False,Q9Y5V3,P23415,0.49,0.49,IntAct
 ,True,,False,Q9Y6Q6,O00300,0.54,0.54,IntAct
-,True,,False,Q10589,P59901,0.54,0.54,IntAct
 ,True,,False,P01266,P01266,0.0,1.0,InnateDB-All
 ,True,,False,Q14BN4,Q9NXC2,0.35,0.35,IntAct
 ,True,,False,Q9NXC2,Q9NXC2,0.37,0.37,IntAct
@@ -9749,7 +9752,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,P13760,P01903,0.69,0.69,IntAct
 ,True,,False,P28067,P01911,0.35,0.35,InnateDB-IMEx
 ,True,,False,P30447,P30450,0.4,0.4,IntAct
-,True,,False,Q08722,Q9P1W8,0.4,0.4,IntAct
 ,True,,False,Q01453,P40198,0.49,0.49,IntAct
 ,True,,False,Q01453,Q2HXU8,0.49,0.49,IntAct
 ,True,,False,Q01453,P25189,0.0,1.0,InnateDB-All
@@ -9898,7 +9900,6 @@ comments_interaction,dlrp,family,iuphar,multidata_name_1,multidata_name_2,score_
 ,True,,False,Q8IVJ1,Q9H7V2,0.49,0.49,IntAct
 ,True,,False,Q9NZD1,Q9H7V2,0.49,0.49,IntAct
 ,True,,False,Q9UF72,Q8TDS5,0.49,0.49,IntAct
-,True,,False,Q96AP7,Q96AP7,0.4,0.4,IntAct
 ,True,,False,Q9HBW1,Q96CW9,0.62,0.62,MINT
 ,True,,False,Q96FL8,Q6UWT2,0.49,0.49,IntAct
 ,True,,False,Q96LB9,Q96LB8,0.0,1.0,InnateDB
@@ -10519,6 +10520,53 @@ PMID: 24218476,True,,False,P13501,P51679,1.0,1.0,curated
 PMID: 24218476,True,,False,P13501,P51681,1.0,1.0,curated
 PMID: 24218476,True,,False,P80075,P51681,1.0,1.0,curated
 PMID: 24218476,True,,False,P80098,P51681,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2431087/,https://www.ncbi.nlm.nih.gov/pubmed/8892633,https://www.ncbi.nlm.nih.gov/pubmed/8896607",True,,False,P14151,Q14242,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/22814396,True,,False,P14151,O00592,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11875495,True,,False,P29965,a2Bb3 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3365732/,True,,False,P29965,a5b1 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4368157/,True,,False,P19320,a4b1 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/16252253,True,,False,P05362,aXb2 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/17580308,True,,False,Q8N6Q3,P16284,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/27455421,True,,False,P30511,P43630,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/19283782/,True,,False,Q8NHJ6,Q6GTX8,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/24104458,True,,False,P06731,P01732,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/24104458,True,,False,P06731,P15813,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11169396,True,,False,P30511,Q8NHL6,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11169396,True,,False,P30511,Q8N423,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/16118203,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2194005/",True,,False,Q9BX67,aMb2 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2194217/,True,,False,P07359,aMb2 complex,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/7621072,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2143337/",True,,False,P06734,aMb2 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/10037797/,True,,False,P06734,aVb3 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/7621072,True,,False,P06734,aXb2 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/15850796,True,,False,P04216,aXb2 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/15850796,True,,False,P04216,aMb2 complex,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/9551996,https://www.ncbi.nlm.nih.gov/pubmed/26407101",True,,False,P16284,P28907,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/1683685,True,,False,P16150,P05362,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11238599,True,,False,P16150,Q9BZZ2,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/27601670,https://www.ncbi.nlm.nih.gov/pubmed/10575006",True,,False,P08575,P22897,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/18234675,True,,False,P14209,Q9UKJ1,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3030123/,True,,False,Q96E93,P12830,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/19124746/,True,,False,P15813,Q8N423,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/12070135/,True,,False,P57087,a4b1 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/18606703,True,,False,P28906,P16109,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/24503895,True,,False,Q9BY67,Q9BY67,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11297558,True,,False,P48960,P08174,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/12392763,True,,False,P12830,a2b1 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/15795245,True,,False,Q9NNX6,P32942,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/15795245,True,,False,Q9H2X3,P32942,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2132622/,https://www.ncbi.nlm.nih.gov/pubmed/8636223,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5190064/",True,,False,P32004,aVb3 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2120661/,True,,False,P32004,a5b1 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/18701456/,True,,False,P32004,P32004,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/23685786,True,,False,P31358,Q96LC7,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4571854/,True,,False,Q14242,P16581,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/7692600,https://www.ncbi.nlm.nih.gov/pubmed/8977216",True,,False,P14151,P28906,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/16282604,https://www.ncbi.nlm.nih.gov/pubmed/16246332",True,,False,P13688,Q9NNX6,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/1378450,True,,False,P13688,P16581,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11053440,True,,False,Q03405,a4b1 complex,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/11053440,https://www.ncbi.nlm.nih.gov/pubmed/15863511",True,,False,Q03405,aVb3 complex,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/29212879,https://www.ncbi.nlm.nih.gov/pubmed/18346467/,https://www.ncbi.nlm.nih.gov/pubmed/11470407/,https://www.ncbi.nlm.nih.gov/pubmed/15897908/",True,,False,P04216,aVb3 complex,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/27298358,True,,False,Q02413,Q14574,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/27298358,True,,False,Q14126,Q14574,1.0,1.0,curated
 uniprot,True,TNF,True,P41273,Q07011,1.0,1.0,curated
 PMID: 24218476,True,,True,P48061,P61073,1.0,1.0,curated
 PMID: 24218476,True,,True,O14625,P49682,1.0,1.0,curated
@@ -10615,6 +10663,9 @@ uniprot,True,TNF,True,O43508,Q9NP84,1.0,1.0,curated
 PMID: 24218476,True,,True,P47992,P46094,1.0,1.0,curated
 uniprot,True,,True,Q9UBD3,P46094,1.0,1.0,curated
 uniprot,True,TNF,False,P50591,Q9UBN6,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/27298358,True,,False,Q02487,Q02413,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/27298358,True,,False,Q08554,Q02413,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/27298358,True,,False,Q02487,Q14126,1.0,1.0,curated
 uniprot,True,,False,O60462,P15692,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P20827,P29317,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P52798,P29317,1.0,1.0,curated
@@ -10622,9 +10673,13 @@ PMID: 15114347,True,Eph-ephrin,False,P52797,P29317,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P52803,P29317,1.0,1.0,curated
 uniprot,True,,False,P01138,P04629,1.0,1.0,curated
 uniprot,True,,False,P21246,Q9UM73,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/12115612/,True,,False,P08575,P20273,1.0,1.0,curated
 uniprot,True,TGF family,False,Q03167,P01137,1.0,1.0,curated
 PMID: 24032637,True,,False,P56703,O75084,1.0,1.0,curated
 Reviewed in PMID: 23602662,True,,False,Q13740,P30203,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/23086448,True,,False,P78504,P15529,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4571854/,True,,False,P16581,P16070,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/19118202,https://www.ncbi.nlm.nih.gov/pubmed/9829984,https://www.ncbi.nlm.nih.gov/pubmed/12393589",True,,False,P16109,Q14242,1.0,1.0,curated
 Reviewed in PMID: 23602662,True,,False,P19256,P06729,1.0,1.0,curated
 uniprot,True,,False,P01344,P11717,1.0,1.0,curated
 PMID: 24218476,True,,False,O00626,P27487,1.0,1.0,curated
@@ -10638,9 +10693,13 @@ PMID: 22353464,True,NOTCH,False,P78504,P46531,1.0,1.0,curated
 PMID: 22353464,True,NOTCH,False,O00548,P46531,1.0,1.0,curated
 PMID: 22353464,True,NOTCH,False,Q9Y219,P46531,1.0,1.0,curated
 PMID: 22353464,True,NOTCH,False,Q04721,O00548,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/19849849,True,,False,P05067,P04233,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/21959263,True,,False,O95971,Q92956,1.0,1.0,curated
 PMID: 22325954,True,,False,Q9H3S1,Q9Y4D7,1.0,1.0,curated
 PMID: 22325954,True,,False,O15041,Q9Y4D7,1.0,1.0,curated
 PMID: 22325954,True,,False,Q92854,O43157,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/21982860,True,,False,P40199,P13688,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/24743304,True,,False,P31997,P13688,1.0,1.0,curated
 Reviewed in PMID: 23602662,True,,False,P78324,Q08722,1.0,1.0,curated
 antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143,True,,False,P33681,P16410,1.0,1.0,curated
 antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143,True,,False,P42081,P16410,1.0,1.0,curated
@@ -10661,6 +10720,7 @@ activating interaction. uniprot & PMID: 26697006,True,,False,P09326,Q9BZW8,1.0,1
 "activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149",True,,False,Q92692,Q15762,1.0,1.0,curated
 "activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149",True,,False,P15151,Q15762,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P52799,P54760,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11590190,True,,False,P40199,P40199,1.0,1.0,curated
 Reviewed in PMID: 27192565,True,,False,O00182,Q8TDQ0,1.0,1.0,curated
 uniprot,True,TNF,False,O95407,O43557,1.0,1.0,curated
 PMID: 24218476,True,,False,P80098,O00590,1.0,1.0,curated
@@ -10673,9 +10733,11 @@ PMID: 24218476,True,,False,Q16627,O00590,1.0,1.0,curated
 PMID: 28484462,True,,False,HLAC,P43628,1.0,1.0,curated
 PMID: 24218476,True,,False,Q16570,P13500,1.0,1.0,curated
 PMID: 24218476,True,,False,O00590,P13500,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/27455421,True,,False,P30511,P43629,1.0,1.0,curated
 uniprot,True,,False,P09038,P22455,1.0,1.0,curated
 uniprot,True,TNF,False,O14798,P50591,1.0,1.0,curated
 uniprot,True,,False,P22607,P09038,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/9129046,True,,False,P25063,P16109,1.0,1.0,curated
 PMID: 24218476,True,,False,P51677,P10147,1.0,1.0,curated
 PMID: 24218476,True,,False,P32246,O15467,1.0,1.0,curated
 PMID: 24218476,True,,False,P25024,P02775,1.0,1.0,curated
@@ -10704,7 +10766,12 @@ uniprot,True,,False,P41159,P48357,1.0,1.0,curated
 PMID: 22353464,True,NOTCH,False,P78504,Q04721,1.0,1.0,curated
 PMID: 22353464,True,NOTCH,False,Q9Y219,Q04721,1.0,1.0,curated
 PMID: 24032637,True,,False,P41221,Q13467,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1237098/,https://www.ncbi.nlm.nih.gov/pubmed/11590146",True,,False,P57087,Q9BX67,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/16118203,True,,False,Q9BX67,Q9BX67,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/19011627,https://www.ncbi.nlm.nih.gov/pubmed/12740392/",True,,False,Q92692,Q9NQS3,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/19011627,https://www.ncbi.nlm.nih.gov/pubmed/12740392/",True,,False,P15151,Q9NQS3,1.0,1.0,curated
 PMID: 1313846,True,,False,Q495A1,Q9NQS3,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/12740392/,True,,False,Q15223,Q9NQS3,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P20827,Q15375,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P52798,Q15375,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P52797,Q15375,1.0,1.0,curated
@@ -10713,10 +10780,14 @@ uniprot,True,TGF family,False,Q03167,P10600,1.0,1.0,curated
 uniprot,True,TGF family,False,P61812,Q03167,1.0,1.0,curated
 PMID: 24218476,True,,False,P42830,P25024,1.0,1.0,curated
 PMID: 24218476,True,,False,P49682,P02776,1.0,1.0,curated
-uniprot,True,TNF,False,Q06643,P36941,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/12791257,True,,False,P11362,P13591,1.0,1.0,curated
 uniprot,True,,False,P17693,Q8N423,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/16785534,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2212946/",True,,False,P06734,P20023,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/27455421,True,,False,P30511,Q14943,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/27298358,True,,False,Q14126,Q08554,1.0,1.0,curated
 PMID: 10212223,True,,False,P23471,P21741,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,P20827,P21709,1.0,1.0,curated
+uniprot,True,TNF,False,Q06643,P36941,1.0,1.0,curated
 uniprot,True,,False,O60462,Q13275,1.0,1.0,curated
 PMID: 15114347,True,Eph-ephrin,False,Q15768,P54753,1.0,1.0,curated
 uniprot,True,,False,P04629,P20783,1.0,1.0,curated
@@ -10732,11 +10803,18 @@ antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,True,,Fa
 PMID: 24032637,True,,False,Q9UP38,P41221,1.0,1.0,curated
 uniprot,True,TNF,False,O95407,O95150,1.0,1.0,curated
 antigen-stimulated T cells become activated. Reviewed in PMID: 23954143,True,,False,P10747,P42081,1.0,1.0,curated
+"https://www.ncbi.nlm.nih.gov/pubmed/17629517,https://www.ncbi.nlm.nih.gov/pubmed/18585785,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3168865/",True,,False,Q9NZQ7,P33681,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11590190,True,,False,P40199,P31997,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11404363/,True,,False,P16581,Q92896,1.0,1.0,curated
 PMID: 24032637,True,,False,P41221,Q14332,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/22902367,True,,False,Q15223,Q15223,1.0,1.0,curated
 uniprot,True,TNF,False,O14788,O00300,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/19564354/,True,,False,Q10589,P59901,1.0,1.0,curated
 antigen-stimulated T cells become anergic. PMID: 23954143,True,,False,Q9BQ51,Q15116,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/15294972,True,,False,Q08722,Q9P1W8,1.0,1.0,curated
 uniprot,True,TNF,False,O75888,O14836,1.0,1.0,curated
 important for T follicular helper cells (Tfh) and type 2 T helper cell (Th2) responses. Reviewed in PMID: 23954143,True,,False,Q9Y6W8,O75144,1.0,1.0,curated
 "PMID: 22020332, also called CD200-CD200R",True,,False,P41217,Q8TD46,1.0,1.0,curated
+https://www.ncbi.nlm.nih.gov/pubmed/11279107,True,,False,Q96AP7,Q96AP7,1.0,1.0,curated
 PMID: 24218476,True,,False,P51685,P55774,1.0,1.0,curated
 Induces NK Cell Activation. Reviewed in PMID: 24223577,True,,False,Q6UVW9,D3W0D1,1.0,1.0,curated
