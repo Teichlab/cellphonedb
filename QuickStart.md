@@ -8,15 +8,15 @@
 
 
 
-1. **Download** CellPhoneDB-0.0.3.tar.gz.
+1. **Download** CellPhoneDB-0.0.5.tar.gz.
 
-2. Go to the directory where CellPhoneDB-0.0.3.tar.gz is stored (**ie**: _~/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.3.tar.gz).
+2. Go to the directory where CellPhoneDB-0.0.5.tar.gz is stored (**ie**: _~/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.5.tar.gz).
 
 Code:
 ```shell
 cd ~/Downloads
-tar -xzf CellPhoneDB-0.0.3.tar.gz
-cd CellPhoneDB-0.0.3
+tar -xzf CellPhoneDB-0.0.5.tar.gz
+cd CellPhoneDB-0.0.5
 ```
 
 3. **Create Virual Env**.
@@ -46,7 +46,7 @@ FLASK_APP=manage.py flask method cluster_statistical_analysis example_data/test_
 ```
 
 2. **Running your inputs**
-Input files (meta and counts) shoud be allocated in  folder is found in CellPhoneDB-0.0.3
+Input files (meta and counts) shoud be allocated in  folder is found in CellPhoneDB-0.0.5
 Files format: **.txt/.tsv/.tab** for tab separated format or **.csv** for comma separated format.
 
 

@@ -9,24 +9,24 @@
 If you have installed newer Microsoft Build Tools versions, you can have problems during installing process.
 
 
-1. **Download** CellPhoneDB-0.0.3.tar.gz.
+1. **Download** CellPhoneDB-0.0.5.tar.gz.
 
-2. Go to the directory where CellPhoneDB-0.0.3.tar.gz is stored (**ie**: _%userprofile%/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.3.tar.gz) using Winrar/7z or other software
+2. Go to the directory where CellPhoneDB-0.0.5.tar.gz is stored (**ie**: _%userprofile%/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.5.tar.gz) using Winrar/7z or other software
 
 3. Go to unpacked folder and install CellPhoneDB:
 
 ```
-cd %userprofile%/Downloads/CellPhoneDB-0.0.3
+cd %userprofile%/Downloads/CellPhoneDB-0.0.5
 python setup.py install
 ```
 
 
 ## Run Methods
-0. In Command Prompt, go to Installation folder (ie. ~/Downloads/CellPhoneDB-0.0.3/) and set flask app variable
+0. In Command Prompt, go to Installation folder (ie. ~/Downloads/CellPhoneDB-0.0.5/) and set flask app variable
 
 Code:
 ```
-cd %userprofile%/Downloads/CellphoneDB-0.0.3
+cd %userprofile%/Downloads/CellphoneDB-0.0.5
 set FLASK_APP=manage.py
 ```
 
@@ -39,7 +39,7 @@ flask method cluster_statistical_analysis example_data/test_meta.txt example_dat
 ```
 
 2. **Running your inputs**
-Input files (meta and counts) shoud be allocated in  folder is found in CellPhoneDB-0.0.3
+Input files (meta and counts) shoud be allocated in  folder is found in CellPhoneDB-0.0.5
 Files format: **.txt/.tsv/.tab** for tab separated format or **.csv** for comma separated format.
 
 

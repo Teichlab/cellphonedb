@@ -20,5 +20,5 @@ This create a CellPhoneDB package ready to be distributed in dist folder.
 
 ie:
 ```
-dist/CellPhoneDB-0.0.3.tar.gz
+dist/CellPhoneDB-0.0.5.tar.gz
 ```

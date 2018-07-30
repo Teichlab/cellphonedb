@@ -32,7 +32,9 @@ In addition, you need to provide:
 3. Remove genes from list and make some checks to validate the final result
 
 #### Command:
+```shell
 python3 tools.py generate_genes uniprot_db_filename ensembl_db_filename proteins_filename remove_genes_filename hla_genes_filename \[\-\-result_filename] \[\-\-result_path] \[\-\-gene_uniprot_ensembl_merged_result_filename] \[\-\-add_hla_result_filename]
+```
 
 
 #### Execution example: 
@@ -83,7 +85,7 @@ python3 tools.py generate_interactions imex_raw_filename iuphar_raw_filename pro
 
 #### Execution example:
 ```shell
-python3 tools.py generate_interactions interactionsMirjana.txt interaction_iuphar_guidetopharmacology__20180619.csv ../../cellphonedb/core/data/protein.csv ../../cellphonedb/core/data/gene.csv ../../cellphonedb/core/data/complex.csv remove_interactions_20180330.csv interaction_curated_20180620.csv
+python3 tools.py generate_interactions interactionsMirjana.txt interaction_iuphar_guidetopharmacology__20180619.csv ../../cellphonedb/core/data/protein.csv ../../cellphonedb/core/data/gene.csv ../../cellphonedb/core/data/complex.csv remove_interactions_20180330.csv interaction_curated_20180729.csv
 ```
 
 
