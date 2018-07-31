@@ -141,8 +141,14 @@ def deconvoluted_complex_result_build(clusters_means: dict, interactions: pd.Dat
 
     deconvoluted_result.set_index('ensembl', inplace=True)
 
+    cluster_counts = pd.DataFrame(index=deconvoluted_result.index)
+
     for key, cluster_means in clusters_means.items():
-        deconvoluted_result[key] = cluster_means
+        cluster_counts[key] = cluster_means
+
+    cluster_counts = cluster_counts.reindex_axis(sorted(cluster_counts.columns), axis=1)
+
+    deconvoluted_result = pd.concat([deconvoluted_result, cluster_counts], axis=1, join='inner', sort=False)
 
     deconvoluted_result.reset_index(inplace=True)
     return deconvoluted_result
@@ -363,7 +369,7 @@ def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) 
 
 
 def get_cluster_combinations(cluster_names):
-    return list(itertools.product(cluster_names, repeat=2))
+    return sorted(itertools.product(cluster_names, repeat=2))
 
 
 def filter_interactions_by_complexes(interactions: pd.DataFrame, complexes: pd.DataFrame) -> pd.DataFrame:

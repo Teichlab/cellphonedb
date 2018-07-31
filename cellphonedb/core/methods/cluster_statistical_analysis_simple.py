@@ -118,8 +118,14 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) 
 
     deconvoluted_result.set_index('ensembl', inplace=True)
 
+    cluster_counts = pd.DataFrame(index=deconvoluted_result.index)
     for key, cluster_means in clusters_means.items():
-        deconvoluted_result[key] = cluster_means
+        cluster_counts[key] = cluster_means
+
+    cluster_counts = cluster_counts.reindex_axis(sorted(cluster_counts.columns), axis=1)
+
+    deconvoluted_result = pd.concat([deconvoluted_result, cluster_counts], axis=1, join='inner', sort=False)
+
 
     deconvoluted_result.reset_index(inplace=True)
     return deconvoluted_result
