@@ -83,7 +83,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
                                                 ['id_cp_interaction', 'partner_a', 'partner_b', 'ensembl_1',
                                                  'ensembl_2', 'source']].copy())
 
-    interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1)
+    interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
     interactions_data_result['secreted'] = (interactions['secretion_1'] | interactions['secretion_2'])
     interactions_data_result['is_integrin'] = (
@@ -137,7 +137,7 @@ def deconvoluted_complex_result_build(clusters_means: dict, interactions: pd.Dat
     deconvoluted_simple_result_2 = deconvolute_interaction_component(interactions, '_2')
 
     deconvoluted_result = deconvoluted_complex_result_1.append(
-        [deconvoluted_simple_result_1, deconvoluted_complex_result_2, deconvoluted_simple_result_2])
+        [deconvoluted_simple_result_1, deconvoluted_complex_result_2, deconvoluted_simple_result_2], sort=False)
 
     deconvoluted_result.set_index('ensembl', inplace=True)
 
@@ -146,7 +146,7 @@ def deconvoluted_complex_result_build(clusters_means: dict, interactions: pd.Dat
     for key, cluster_means in clusters_means.items():
         cluster_counts[key] = cluster_means
 
-    cluster_counts = cluster_counts.reindex_axis(sorted(cluster_counts.columns), axis=1)
+    cluster_counts = cluster_counts.reindex(sorted(cluster_counts.columns), axis=1)
 
     deconvoluted_result = pd.concat([deconvoluted_result, cluster_counts], axis=1, join='inner', sort=False)
 
@@ -213,8 +213,8 @@ def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analys
     for interaction_index, interaction in interactions.iterrows():
         for cluster_interaction in cluster_interactions:
             cluster_interaction_string = '{}_{}'.format(cluster_interaction[0], cluster_interaction[1])
-            real_mean = real_mean_analysis.get_value(interaction_index, cluster_interaction_string)
-            real_percent = real_perecents_analysis.get_value(interaction_index, cluster_interaction_string)
+            real_mean = real_mean_analysis.at[interaction_index, cluster_interaction_string]
+            real_percent = real_perecents_analysis.at[interaction_index, cluster_interaction_string]
 
             if int(real_percent) == 0 or real_mean == 0:
                 result_percent = 1.0
@@ -223,13 +223,13 @@ def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analys
                 shuffled_bigger = 0
 
                 for statistical_mean in statistical_mean_analysis:
-                    mean = statistical_mean.get_value(interaction_index, cluster_interaction_string)
+                    mean = statistical_mean.at[interaction_index, cluster_interaction_string]
                     if mean > real_mean:
                         shuffled_bigger += 1
 
                 result_percent = shuffled_bigger / len(statistical_mean_analysis)
 
-            percent_result.set_value(interaction_index, cluster_interaction_string, result_percent)
+            percent_result.at[interaction_index, cluster_interaction_string] = result_percent
 
     return percent_result
 
@@ -248,7 +248,7 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
             cluster_interaction_string = '{}_{}'.format(cluster_interaction[0], cluster_interaction[1])
 
             interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents, suffixes)
-            result.set_value(interaction_index, cluster_interaction_string, interaction_percent)
+            result.at[interaction_index, cluster_interaction_string] = interaction_percent
 
     return result
 
@@ -347,7 +347,7 @@ def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataF
 
     counts_simple = filter_counts_by_interactions(counts_multidata, interactions_filtered)
 
-    counts_filtered = counts_simple.append(counts_multidata_complex)
+    counts_filtered = counts_simple.append(counts_multidata_complex, sort=False)
 
     # TODO: we need to add it to method log
     counts_filtered.drop_duplicates(['gene'], inplace=True)
@@ -378,7 +378,7 @@ def filter_interactions_by_complexes(interactions: pd.DataFrame, complexes: pd.D
     interactions_filtered = interactions[interactions.apply(
         lambda interaction: (interaction['multidata_1_id'] in complex_ids) or
                             (interaction['multidata_2_id'] in complex_ids),
-        axis=1)]
+        axis=1)].copy()
 
     interactions_filtered.drop_duplicates('id_cp_interaction', inplace=True)
 
@@ -447,7 +447,7 @@ def get_complex_significative(complexes: pd.DataFrame, counts: pd.DataFrame, com
 
         min_mean = means.idxmin()
 
-        complex_more_significative_protein.set_value(complex['name'], min_mean)
+        complex_more_significative_protein.at[complex['name']] = min_mean
 
     return complex_more_significative_protein
 
@@ -472,7 +472,7 @@ def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactio
 
             interaction_mean = cluster_interaction_mean(cluster_interaction, interaction, clusters['means'], suffixes)
 
-            result.set_value(interaction_index, cluster_interaction_string, interaction_mean)
+            result.at[interaction_index, cluster_interaction_string] = interaction_mean
 
     return result
 

@@ -61,7 +61,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     interactions_data_result = pd.DataFrame(interactions[['id_cp_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                           'ensembl_2', 'source']].copy())
 
-    interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1)
+    interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
     interactions_data_result['secreted'] = (interactions['secretion_1'] | interactions['secretion_2'])
     interactions_data_result['is_integrin'] = (
@@ -122,7 +122,7 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) 
     for key, cluster_means in clusters_means.items():
         cluster_counts[key] = cluster_means
 
-    cluster_counts = cluster_counts.reindex_axis(sorted(cluster_counts.columns), axis=1)
+    cluster_counts = cluster_counts.reindex(sorted(cluster_counts.columns), axis=1)
 
     deconvoluted_result = pd.concat([deconvoluted_result, cluster_counts], axis=1, join='inner', sort=False)
 
@@ -159,8 +159,8 @@ def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.D
     min_significant_mean = 0.05
     for index, mean_analysis in real_mean_analysis.iterrows():
         for cluster_interaction in list(result_percent.columns):
-            if result_percent.get_value(index, cluster_interaction) > min_significant_mean:
-                significant_means.set_value(index, cluster_interaction, pd.np.nan)
+            if result_percent.at[index, cluster_interaction] > min_significant_mean:
+                significant_means.at[index, cluster_interaction] = pd.np.nan
     return significant_means
 
 
