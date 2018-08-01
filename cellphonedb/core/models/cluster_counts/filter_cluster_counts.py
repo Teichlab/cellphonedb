@@ -15,11 +15,12 @@ def filter_by_gene(cluster_counts: pd.DataFrame, genes: pd.DataFrame) -> pd.Data
     return clusters_filtered
 
 
-def filter_empty_cluster_counts(cluster_counts: pd.DataFrame, clusters_names: list) -> pd.DataFrame:
+def filter_empty_cluster_counts(counts: pd.DataFrame, clusters_names: list) -> pd.DataFrame:
     """
     Removes counts with all values to zero
     """
-    if cluster_counts.empty:
-        return cluster_counts
-    filetered_cluster_counts = cluster_counts[cluster_counts[clusters_names].apply(lambda row: row.sum() > 0, axis=1)]
-    return filetered_cluster_counts
+    if counts.empty:
+        return counts
+
+    filtered_counts = counts[counts[clusters_names].apply(lambda row: row.sum() > 0, axis=1)]
+    return filtered_counts
