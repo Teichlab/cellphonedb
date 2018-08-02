@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from cellphonedb.core.models import Base
+from cellphonedb.core.database.sqlalchemy_models import Base
 
 
 class Protein(Base):

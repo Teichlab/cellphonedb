@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey
 
-from cellphonedb.core.models import Base
+from cellphonedb.core.database.sqlalchemy_models import Base
 
 
 class ComplexComposition(Base):

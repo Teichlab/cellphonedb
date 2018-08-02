@@ -1,8 +1,8 @@
 import pandas as pd
 
 from cellphonedb.core.database.Repository import Repository
-from cellphonedb.core.models.multidata.db_model_multidata import Multidata
-from cellphonedb.core.models.protein.db_model_protein import Protein
+from cellphonedb.core.database.sqlalchemy_models.db_model_multidata import Multidata
+from cellphonedb.core.database.sqlalchemy_models.db_model_protein import Protein
 
 
 class ProteinRepository(Repository):

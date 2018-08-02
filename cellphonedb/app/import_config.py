@@ -76,10 +76,10 @@ class AppConfig():
     def _load_config(self) -> dict:
         config = {}
         if self.config_parameters['load_defaults']:
-            config = self._load_yaml('{}/../config/{}.yml'.format(self._current_dir, 'base_config'))
+            config = self._load_yaml('{}/config/{}.yml'.format(self._current_dir, 'base_config'))
         if self.config_parameters['environment']:
             custom_config = self._load_yaml(
-                '{}/../config/{}.yml'.format(self._current_dir, self.config_parameters['environment']))
+                '{}/config/{}.yml'.format(self._current_dir, self.config_parameters['environment']))
             config = self._merge_configs(config, custom_config)
 
         return config

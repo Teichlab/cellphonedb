@@ -7,12 +7,12 @@ from cellphonedb.core.database.DatabaseManager import DatabaseManager
 
 from sqlalchemy import create_engine
 
-from cellphonedb.core.models import Base
-from cellphonedb.core.repository.ComplexRepository import ComplexRepository
-from cellphonedb.core.repository.InteractionRepository import InteractionRepository
-from cellphonedb.core.repository.MultidataRepository import MultidataRepository
-from cellphonedb.core.repository.ProteinRepository import ProteinRepository
-from cellphonedb.core.repository.GeneRepository import GeneRepository
+from cellphonedb.core.database.sqlalchemy_models import Base
+from cellphonedb.core.database.sqlalchemy_repository.ComplexRepository import ComplexRepository
+from cellphonedb.core.database.sqlalchemy_repository.InteractionRepository import InteractionRepository
+from cellphonedb.core.database.sqlalchemy_repository.MultidataRepository import MultidataRepository
+from cellphonedb.core.database.sqlalchemy_repository.ProteinRepository import ProteinRepository
+from cellphonedb.core.database.sqlalchemy_repository.GeneRepository import GeneRepository
 
 
 class CellphonedbSqlalchemy(Cellphonedb):
