@@ -24,7 +24,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
     interactions_filtered, counts_filtered, complex_in_counts = prefilters(interactions, counts, genes, complexes,
                                                                            complex_compositions)
     TIME_prefilters = time.time()
-    print('\n[TIME]PREFILTERS: %s' % (TIME_prefilters - start))
+    print('\n[TIME] PREFILTERS: %s' % (TIME_prefilters - start))
 
     if interactions_filtered.empty:
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
