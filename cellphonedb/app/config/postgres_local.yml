@@ -7,4 +7,4 @@ database:
   user: root
   db_core: false
 app:
-  debug: false
+  debug: true
