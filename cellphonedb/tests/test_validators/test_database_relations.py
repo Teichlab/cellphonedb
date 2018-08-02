@@ -4,9 +4,9 @@ from flask_testing import TestCase
 from cellphonedb import extensions
 from cellphonedb.app_logger import app_logger
 from cellphonedb.flask_app import create_app
-from cellphonedb.core.models.gene.db_model_gene import Gene
-from cellphonedb.core.models.multidata.db_model_multidata import Multidata
-from cellphonedb.core.models.protein.db_model_protein import Protein
+from cellphonedb.core.database.sqlalchemy_models.db_model_gene import Gene
+from cellphonedb.core.database.sqlalchemy_models.db_model_multidata import Multidata
+from cellphonedb.core.database.sqlalchemy_models.db_model_protein import Protein
 
 
 class TestDatabaseRelationsChecks(TestCase):

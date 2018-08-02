@@ -7,7 +7,7 @@ from cellphonedb.core.database.DatabaseManager import DatabaseManager
 
 from sqlalchemy import create_engine
 
-from cellphonedb.core.models import Base
+from cellphonedb.core.database.sqlalchemy_models import Base
 from cellphonedb.core.database.sqlalchemy_repository.ComplexRepository import ComplexRepository
 from cellphonedb.core.database.sqlalchemy_repository.InteractionRepository import InteractionRepository
 from cellphonedb.core.database.sqlalchemy_repository.MultidataRepository import MultidataRepository

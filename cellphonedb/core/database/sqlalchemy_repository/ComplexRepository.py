@@ -2,11 +2,11 @@ import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database.Repository import Repository
-from cellphonedb.core.models.complex.db_model_complex import Complex
-from cellphonedb.core.models.complex_composition.db_model_complex_composition import ComplexComposition
-from cellphonedb.core.models.gene.db_model_gene import Gene
-from cellphonedb.core.models.multidata.db_model_multidata import Multidata
-from cellphonedb.core.models.protein.db_model_protein import Protein
+from cellphonedb.core.database.sqlalchemy_models.db_model_complex import Complex
+from cellphonedb.core.database.sqlalchemy_models.db_model_complex_composition import ComplexComposition
+from cellphonedb.core.database.sqlalchemy_models.db_model_gene import Gene
+from cellphonedb.core.database.sqlalchemy_models.db_model_multidata import Multidata
+from cellphonedb.core.database.sqlalchemy_models.db_model_protein import Protein
 from cellphonedb.core.utils import filters
 
 
