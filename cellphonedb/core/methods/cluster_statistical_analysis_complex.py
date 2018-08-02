@@ -53,9 +53,9 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
     TIME_real_mean_analysis = time.time()
     print('\n[TIME] REAL MEAN ANALYSIS: %s' % (TIME_real_mean_analysis - TIME_base_result))
     real_percents_analysis = cluster_statistical_analysis_helper.percent_analysis(clusters, threshold,
-                                                                                   interactions_processed,
-                                                                                   cluster_interactions,
-                                                                                   base_result)
+                                                                                  interactions_processed,
+                                                                                  cluster_interactions,
+                                                                                  base_result)
     TIME_real_percent_analysis = time.time()
     print('\n[TIME] REAL PERCENT ANALYSIS: %s' % (TIME_real_percent_analysis - TIME_real_mean_analysis))
 
@@ -266,6 +266,7 @@ def get_interactions_processed(interactions: pd.DataFrame, complex_significative
     return processed_interactions
 
 
+# TODO: Needs refactor too slow
 def filter_interactions_by_genes(interactions: pd.DataFrame, genes: list) -> pd.DataFrame:
     def filter_by_non_complex_element(interaction: pd.Series) -> bool:
         if not interaction['is_complex_1']:
@@ -289,13 +290,19 @@ def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataF
 
     counts_multidata = filter_cluster_counts.filter_by_gene(counts, genes)
 
+    TIME_pre_get_involved = time.time()
     complex_in_counts, counts_multidata_complex = get_involved_complex_from_counts(counts_multidata, clusters_names,
                                                                                    complexes, complex_compositions)
+    TIME_get_involved = time.time()
+    print('\n[TIME] [FILTER] GET INVOLVED COMPLEX: %s' % (TIME_get_involved - TIME_pre_get_involved))
 
     if complex_in_counts.empty:
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
     interactions_filtered = filter_interactions_by_genes(interactions, counts['gene'].tolist())
+    TIME_filter_by_genes = time.time()
+    print('\n[TIME] [FILTER] FILTER BY GENES: %s' % (TIME_filter_by_genes - TIME_get_involved))
+
     interactions_filtered = filter_interactions_by_complexes(interactions_filtered, complex_in_counts)
 
     counts_simple = filter_counts_by_interactions(counts_multidata, interactions_filtered)
