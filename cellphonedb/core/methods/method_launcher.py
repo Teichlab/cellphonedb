@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
-from cellphonedb.core.methods import cells_to_clusters, cluster_statistical_analysis_simple, \
+from cellphonedb.core.methods import cluster_statistical_analysis_simple, \
     cluster_statistical_analysis_complex
 
 
@@ -15,10 +15,6 @@ class MethodLauncher():
             core_logger.info('Launching Method {}'.format(name))
 
         return method
-
-    def cells_to_clusters(self, meta, counts):
-        genes = self.database_manager.get_repository('gene').get_all()
-        return cells_to_clusters.call(meta, counts, genes)
 
     def get_multidatas_from_string(self, string: str) -> pd.DataFrame:
         multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(string)
