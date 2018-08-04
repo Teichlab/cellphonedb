@@ -30,7 +30,7 @@ class FlaskTerminalMethodLauncher(object):
                                      means_pvalues_filename: str = 'pvalues_means.txt',
                                      deconvoluted_filename='deconvoluted.txt',
                                      debug_seed: str = '-1',
-                                     threads: int = 4):
+                                     threads: int = -1):
         if not data_path:
             data_path = query_input_dir
         if not output_path:

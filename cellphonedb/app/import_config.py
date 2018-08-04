@@ -20,12 +20,17 @@ class AppConfig():
                                   'echo': self.config['database']['echo']}
 
         self.logger_config = self._get_core_logger_config(self.config['app']['debug'])
+        self.threads_config = self._get_threads_config(self.config['app'])
 
     def get_cellphone_core_config(self):
         return {
             'sqlalchemy': self.sqlalchemy_config,
-            'logger': self.logger_config
+            'logger': self.logger_config,
+            'threads': self.threads_config
         }
+
+    def _get_threads_config(self, app_config: dict):
+        return app_config['threads']
 
     def _set_app_logger_config(self, enable_debug: str):
         if enable_debug:
