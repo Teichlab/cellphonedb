@@ -1,5 +1,3 @@
-import time
-
 import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
@@ -13,68 +11,47 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
          threads: int = 4, debug_seed=False, round_decimals: int = 1) -> (
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
-        '[Cluster Statistical Analysis Complex] Threshold: {} Debug-seed: {} Threads: {}'.format(threshold, debug_seed,
-                                                                                                 threads))
+        '[Cluster Statistical Analysis Complex] Threshold:{} Iterations:{} Debug-seed:{} Threads:{}'.format(
+            threshold, iterations, debug_seed, threads))
     if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
         core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
 
-    start = time.time()
     cells_names = sorted(counts.columns)
 
     interactions_filtered, counts_filtered, complex_in_counts = prefilters(interactions, counts, genes, complexes,
                                                                            complex_compositions)
-    TIME_prefilters = time.time()
-    print('\n[TIME] PREFILTERS: %s' % (TIME_prefilters - start))
-
     if interactions_filtered.empty:
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
     complex_significative_protein = get_complex_significative(complex_in_counts, counts_filtered, complex_compositions,
                                                               cells_names)
 
-    TIME_complex_significative = time.time()
-    print('\n[TIME] COMPLEX SIGNIFICATIVE: %s' % (TIME_complex_significative - TIME_prefilters))
-
     clusters = cluster_statistical_analysis_helper.build_clusters(meta, counts_filtered)
 
     cluster_interactions = cluster_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
     interactions_processed = get_interactions_processed(interactions_filtered, complex_significative_protein)
 
-    TIME_cluster_combinations_statistical_processed = time.time()
-    print('\n[TIME] CLUSTER_COMBINATIONS + STATISTICAL + INTERACTIONS PROCESSED: %s' % (
-            TIME_cluster_combinations_statistical_processed - TIME_complex_significative))
     base_result = cluster_statistical_analysis_helper.build_result_matrix(interactions_processed, cluster_interactions)
 
-    TIME_base_result = time.time()
-    print('\n[TIME] BUILD BASE RESULT: %s' % (TIME_base_result - TIME_cluster_combinations_statistical_processed))
     real_mean_analysis = cluster_statistical_analysis_helper.mean_analysis(interactions_processed, clusters,
                                                                            cluster_interactions, base_result)
 
-    TIME_real_mean_analysis = time.time()
-    print('\n[TIME] REAL MEAN ANALYSIS: %s' % (TIME_real_mean_analysis - TIME_base_result))
     real_percents_analysis = cluster_statistical_analysis_helper.percent_analysis(clusters, threshold,
                                                                                   interactions_processed,
                                                                                   cluster_interactions,
                                                                                   base_result)
-    TIME_real_percent_analysis = time.time()
-    print('\n[TIME] REAL PERCENT ANALYSIS: %s' % (TIME_real_percent_analysis - TIME_real_mean_analysis))
 
     statistical_mean_analysis = cluster_statistical_analysis_helper.shuffled_analysis(iterations, meta, counts_filtered,
                                                                                       interactions_processed,
                                                                                       cluster_interactions, base_result,
                                                                                       threads)
 
-    TIME_statistical_analysis = time.time()
-    print('\n[TIME] STATISTICAL ANALYSIS: %s' % (TIME_statistical_analysis - TIME_real_percent_analysis))
-
     result_percent = cluster_statistical_analysis_helper.build_percent_result(real_mean_analysis,
                                                                               real_percents_analysis,
                                                                               statistical_mean_analysis,
                                                                               interactions_processed,
                                                                               cluster_interactions, base_result)
-    TIME_build_percent_result = time.time()
-    print('\n[TIME] BUILD PERCENT RESULT: %s' % (TIME_build_percent_result - TIME_statistical_analysis))
     pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result = build_results(
         interactions_filtered,
         real_mean_analysis,
@@ -85,8 +62,6 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
         genes,
         round_decimals
     )
-    TIME_build_result = time.time()
-    print('\n[TIME] BUILD RESULT: %s' % (TIME_build_result - TIME_build_percent_result))
     return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
 
 
@@ -292,18 +267,13 @@ def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataF
 
     counts_multidata = filter_cluster_counts.filter_by_gene(counts, genes)
 
-    TIME_pre_get_involved = time.time()
     complex_in_counts, counts_multidata_complex = get_involved_complex_from_counts(counts_multidata, clusters_names,
                                                                                    complexes, complex_compositions)
-    TIME_get_involved = time.time()
-    print('\n[TIME] [FILTER] GET INVOLVED COMPLEX: %s' % (TIME_get_involved - TIME_pre_get_involved))
 
     if complex_in_counts.empty:
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
     interactions_filtered = filter_interactions_by_genes(interactions, counts['gene'].tolist())
-    TIME_filter_by_genes = time.time()
-    print('\n[TIME] [FILTER] FILTER BY GENES: %s' % (TIME_filter_by_genes - TIME_get_involved))
 
     interactions_filtered = filter_interactions_by_complexes(interactions_filtered, complex_in_counts)
 

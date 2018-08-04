@@ -27,6 +27,7 @@ class MethodLauncher():
             pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         if threads < 1:
+            core_logger.info('Using Default thread number: %s' % self.default_threads)
             threads = self.default_threads
 
         pvalues_simple, means_simple, significant_means_simple, mean_pvalue_simple, deconvoluted_simple = self.cluster_statistical_analysis_simple(

@@ -1,5 +1,3 @@
-import time
-
 import pandas as pd
 
 from cellphonedb.core.methods import cluster_statistical_analysis_helper
@@ -12,19 +10,14 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
          threads: int = 4, debug_seed=False, round_decimals: int = 1) -> (
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
-        '[Cluster Statistical Analysis Simple] Threshold: {} Debug-seed: {} Threads: {}'.format(threshold, debug_seed,
-                                                                                                threads))
+        '[Cluster Statistical Analysis Simple] Threshold:{} Iterations:{} Debug-seed:{} Threads:{}'.format(
+            threshold, iterations, debug_seed, threads))
 
     if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
         core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
 
-    start = time.time()
-
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
-
-    TIME_prefilters = time.time()
-    print('\n[TIME] PREFILTERS: %s' % (TIME_prefilters - start))
 
     clusters = cluster_statistical_analysis_helper.build_clusters(meta, counts_filtered)
 
@@ -32,20 +25,14 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
 
     base_result = cluster_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions)
 
-    TIME_pre_real_mean_analysis = time.time()
     real_mean_analysis = cluster_statistical_analysis_helper.mean_analysis(interactions_filtered, clusters,
                                                                            cluster_interactions, base_result,
                                                                            suffixes=('_1', '_2'))
-
-    TIME_real_mean_analysis = time.time()
-    print('\n[TIME] REAL MEAN ANALYSIS: %s' % (TIME_real_mean_analysis - TIME_pre_real_mean_analysis))
 
     real_percent_analysis = cluster_statistical_analysis_helper.percent_analysis(clusters, threshold,
                                                                                  interactions_filtered,
                                                                                  cluster_interactions, base_result,
                                                                                  suffixes=('_1', '_2'))
-    TIME_real_percent_analysis = time.time()
-    print('\n[TIME] REAL PERCENT ANALYSIS: %s' % (TIME_real_percent_analysis - TIME_real_mean_analysis))
 
     statistical_mean_analysis = cluster_statistical_analysis_helper.shuffled_analysis(iterations, meta,
                                                                                       counts_filtered,
@@ -54,8 +41,6 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
                                                                                       base_result,
                                                                                       threads,
                                                                                       suffixes=('_1', '_2'))
-    TIME_statistical_analysis = time.time()
-    print('\n[TIME] STATISTICAL ANALYSIS: %s' % (TIME_statistical_analysis - TIME_real_percent_analysis))
 
     result_percent = cluster_statistical_analysis_helper.build_percent_result(real_mean_analysis,
                                                                               real_percent_analysis,
@@ -63,18 +48,12 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
                                                                               interactions_filtered,
                                                                               cluster_interactions, base_result)
 
-    TIME_build_percent_result = time.time()
-    print('\n[TIME] BUILD PERCENT RESULT: %s' % (TIME_build_percent_result - TIME_statistical_analysis))
-
     pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result = build_results(
         interactions_filtered,
         real_mean_analysis,
         result_percent,
         clusters['means'],
         round_decimals)
-
-    TIME_build_result = time.time()
-    print('\n[TIME] BUILD RESULT: %s' % (TIME_build_result - TIME_build_percent_result))
 
     return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
 
