@@ -6,4 +6,4 @@ database:
   db_core: false
 
 app:
-  debug: true
+  debug: false
