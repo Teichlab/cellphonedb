@@ -1,4 +1,5 @@
 include QuickStart.md
+include ppi-resources.md
 include RESULTS-DOCUMENTATION.md
 include manage.py
 include cellphonedb/core/cellphone.db
