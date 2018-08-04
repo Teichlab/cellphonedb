@@ -128,27 +128,17 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
 def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame,
                       cluster_interactions: list, base_result: pd.DataFrame, threads: int,
                       suffixes: tuple = ('_1', '_2')) -> list:
-    results = []
-
-    shuffled_metas = [shuffle_meta(meta)]
-
-    for i in range(iterations):
-        shuffled_metas.append(shuffle_meta(meta))
-
     with Pool(processes=threads) as pool:
-        asd_mult = partial(_statistical_analysis, shuffled_metas, base_result, cluster_interactions, counts,
-                           interactions, iterations,
-                           meta, results, suffixes)
-
+        asd_mult = partial(_statistical_analysis, base_result, cluster_interactions, counts, interactions, meta,
+                           suffixes)
         results = pool.map(asd_mult, range(iterations))
 
     return results
 
 
-def _statistical_analysis(shuffled_metas, base_result, cluster_interactions, counts, interactions, iterations, meta,
-                          results, suffixes,
-                          asd):
-    shuffled_clusters = build_clusters(shuffled_metas[asd], counts)
+def _statistical_analysis(base_result, cluster_interactions, counts, interactions, meta, suffixes, iteration_number):
+    shuffled_meta = shuffle_meta(meta)
+    shuffled_clusters = build_clusters(shuffled_meta, counts)
     return mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, suffixes)
 
 
