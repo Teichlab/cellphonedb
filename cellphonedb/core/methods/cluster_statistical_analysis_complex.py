@@ -10,10 +10,11 @@ from cellphonedb.core.models.complex import complex_helper
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
          complexes: pd.DataFrame, complex_compositions: pd.DataFrame, iterations: int = 1000, threshold: float = 0.1,
-         debug_seed=False, round_decimals: int = 1) -> (
+         threads: int = 4, debug_seed=False, round_decimals: int = 1) -> (
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
-        '[Cluster Statistical Analysis Complex] Threshold: {} Debug-seed: {}'.format(threshold, debug_seed))
+        '[Cluster Statistical Analysis Complex] Threshold: {} Debug-seed: {} Threads: {}'.format(threshold, debug_seed,
+                                                                                                 threads))
     if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
         core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
@@ -61,7 +62,8 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
 
     statistical_mean_analysis = cluster_statistical_analysis_helper.shuffled_analysis(iterations, meta, counts_filtered,
                                                                                       interactions_processed,
-                                                                                      cluster_interactions, base_result)
+                                                                                      cluster_interactions, base_result,
+                                                                                      threads)
 
     TIME_statistical_analysis = time.time()
     print('\n[TIME] STATISTICAL ANALYSIS: %s' % (TIME_statistical_analysis - TIME_real_percent_analysis))

@@ -29,7 +29,8 @@ class FlaskTerminalMethodLauncher(object):
                                      significant_mean_filename: str = 'significant_means.txt',
                                      means_pvalues_filename: str = 'pvalues_means.txt',
                                      deconvoluted_filename='deconvoluted.txt',
-                                     debug_seed: str = '-1'):
+                                     debug_seed: str = '-1',
+                                     threads: int = 4):
         if not data_path:
             data_path = query_input_dir
         if not output_path:
@@ -46,6 +47,7 @@ class FlaskTerminalMethodLauncher(object):
 
         debug_seed = int(debug_seed)
         iterations = int(iterations)
+        threads = int(threads)
 
         meta_raw = utils.read_data_table_from_file('{}/{}'.format(data_path, meta_filename), index_column_first=True)
         counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_filename), index_column_first=True)
@@ -54,7 +56,7 @@ class FlaskTerminalMethodLauncher(object):
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
         pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis(
-            meta, counts, iterations, threshold, debug_seed)
+            meta, counts, iterations, threshold, threads, debug_seed)
 
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
         pvalues_simple.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)

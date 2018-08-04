@@ -8,9 +8,12 @@ from cellphonedb.core.models.interaction import filter_interaction
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000,
-         threshold: float = 0.1, debug_seed=False, round_decimals: int = 1) -> (
+         threshold: float = 0.1,
+         threads: int = 4, debug_seed=False, round_decimals: int = 1) -> (
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    core_logger.info('[Cluster Statistical Analysis Simple] Threshold: {} Debug-seed: {}'.format(threshold, debug_seed))
+    core_logger.info(
+        '[Cluster Statistical Analysis Simple] Threshold: {} Debug-seed: {} Threads: {}'.format(threshold, debug_seed,
+                                                                                                threads))
 
     if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
@@ -49,6 +52,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
                                                                                       interactions_filtered,
                                                                                       cluster_interactions,
                                                                                       base_result,
+                                                                                      threads,
                                                                                       suffixes=('_1', '_2'))
     TIME_statistical_analysis = time.time()
     print('\n[TIME] STATISTICAL ANALYSIS: %s' % (TIME_statistical_analysis - TIME_real_percent_analysis))

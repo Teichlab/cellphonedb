@@ -1,8 +1,9 @@
 import itertools
+from functools import partial
+from multiprocessing.pool import Pool
 
 import pandas as pd
 
-import cellphonedb.core
 from cellphonedb.core.methods.cluster_statistical_analysis_complex import cluster_interaction_mean, counts_percent, \
     cluster_interaction_percent
 
@@ -18,7 +19,7 @@ def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.D
 
 
 def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
-    pd.np.random.shuffle(meta['cell_type'])
+    pd.np.random.shuffle(meta['cell_type'].copy())
 
     return meta
 
@@ -125,15 +126,30 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
 
 
 def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame,
-                      cluster_interactions: list, base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> list:
+                      cluster_interactions: list, base_result: pd.DataFrame, threads: int,
+                      suffixes: tuple = ('_1', '_2')) -> list:
     results = []
+
+    shuffled_metas = [shuffle_meta(meta)]
+
     for i in range(iterations):
-        shuffled_meta = cellphonedb.core.methods.cluster_statistical_analysis_helper.shuffle_meta(meta)
-        shuffled_clusters = cellphonedb.core.methods.cluster_statistical_analysis_helper.build_clusters(shuffled_meta,
-                                                                                                        counts)
-        results.append(mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, suffixes))
+        shuffled_metas.append(shuffle_meta(meta))
+
+    with Pool(processes=threads) as pool:
+        asd_mult = partial(_statistical_analysis, shuffled_metas, base_result, cluster_interactions, counts,
+                           interactions, iterations,
+                           meta, results, suffixes)
+
+        results = pool.map(asd_mult, range(iterations))
 
     return results
+
+
+def _statistical_analysis(shuffled_metas, base_result, cluster_interactions, counts, interactions, iterations, meta,
+                          results, suffixes,
+                          asd):
+    shuffled_clusters = build_clusters(shuffled_metas[asd], counts)
+    return mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, suffixes)
 
 
 def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.DataFrame,

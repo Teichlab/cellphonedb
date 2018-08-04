@@ -21,6 +21,7 @@ from cellphonedb.flask_terminal_method_launcher import FlaskTerminalMethodLaunch
 @click.option('--deconvoluted-result-name', default='deconvoluted.txt',
               help='Deconvoluted result namefile [deconvoluted.txt]')
 @click.option('--debug-seed', default='-1', help='Debug random seed 0 for disable it. >=0 to set it [-1]')
+@click.option('--threads', default=4, help='Max of threads to process the data [4]')
 def cluster_statistical_analysis(meta_filename: str,
                                  counts_filename: str,
                                  project_name: str,
@@ -33,7 +34,8 @@ def cluster_statistical_analysis(meta_filename: str,
                                  significant_mean_result_name: str,
                                  means_pvalues_result_name: str,
                                  deconvoluted_result_name: str,
-                                 debug_seed: str):
+                                 debug_seed: str,
+                                 threads: int):
     FlaskTerminalMethodLauncher().cluster_statistical_analysis(meta_filename,
                                                                counts_filename,
                                                                project_name,
@@ -46,4 +48,5 @@ def cluster_statistical_analysis(meta_filename: str,
                                                                significant_mean_result_name,
                                                                means_pvalues_result_name,
                                                                deconvoluted_result_name,
-                                                               debug_seed)
+                                                               debug_seed,
+                                                               threads)

@@ -38,6 +38,7 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
                                                                                              counts,
                                                                                              iterations=iterations,
                                                                                              threshold=threshold,
+                                                                                             threads=2,
                                                                                              debug_seed=-1)
 
             self._attach_csv(pvalues.to_csv(index=False), 'pvalues.csv')
