@@ -38,6 +38,7 @@ class MethodLauncher():
         pvalues = pvalues_simple.append(pvalues_complex, sort=False)
         means = means_simple.append(means_complex, sort=False)
         significant_means = significant_means_simple.append(significant_means_complex, sort=False)
+        significant_means.sort_values('rank', inplace=True)
         mean_pvalue = mean_pvalue_simple.append(mean_pvalue_complex, sort=False)
         deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
         if not 'complex_name' in deconvoluted:

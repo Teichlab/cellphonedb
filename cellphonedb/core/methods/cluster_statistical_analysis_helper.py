@@ -185,3 +185,14 @@ def interacting_pair_build(interactions: pd.DataFrame) -> pd.Series:
     interacting_pair.rename('interacting_pair', inplace=True)
 
     return interacting_pair
+
+
+def build_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame) -> (
+        pd.Series, pd.DataFrame):
+    significant_means = get_significant_means(real_mean_analysis, result_percent)
+    significant_mean_rank = significant_means.count(axis=1)  # type: pd.Series
+    number_of_clusters = len(significant_means.columns)
+    significant_mean_rank = significant_mean_rank.apply(lambda rank: rank / number_of_clusters)
+    significant_mean_rank = significant_mean_rank.round(3)
+    significant_mean_rank.name = 'rank'
+    return significant_mean_rank, significant_means

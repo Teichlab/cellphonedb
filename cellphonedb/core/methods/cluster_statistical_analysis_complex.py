@@ -98,7 +98,8 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
         columns={'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
         inplace=True)
 
-    significant_means = cluster_statistical_analysis_helper.get_significant_means(real_mean_analysis, result_percent)
+    significant_mean_rank, significant_means = cluster_statistical_analysis_helper.build_significant_means(
+        real_mean_analysis, result_percent)
 
     result_percent = result_percent.round(round_decimals)
     real_mean_analysis = real_mean_analysis.round(round_decimals)
@@ -113,7 +114,8 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     means_result = pd.concat([interactions_data_result, real_mean_analysis], axis=1, join='inner', sort=False)
 
     # Document 3
-    significant_mean_result = pd.concat([interactions_data_result, significant_means], axis=1, join='inner', sort=False)
+    significant_mean_result = pd.concat([interactions_data_result, significant_mean_rank, significant_means], axis=1,
+                                        join='inner', sort=False)
 
     # Document 4
     mean_pvalue_result = cluster_statistical_analysis_helper.mean_pvalue_result_build(real_mean_analysis,
