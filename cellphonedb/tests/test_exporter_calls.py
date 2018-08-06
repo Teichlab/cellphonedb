@@ -1,4 +1,4 @@
-from cellphonedb.flask_app import create_app, output_test_dir
+from cellphonedb.app.flask.flask_app import create_app, output_test_dir
 from cellphonedb.flask_terminal_exporter_launcher import FlaskTerminalExporterLauncher
 
 import os

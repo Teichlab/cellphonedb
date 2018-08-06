@@ -2,7 +2,7 @@ import os
 
 import yaml
 
-from cellphonedb import app_logger
+from cellphonedb.app import app_logger
 
 
 class AppConfig():

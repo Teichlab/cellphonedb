@@ -1,9 +1,9 @@
 import pandas as pd
 from flask_testing import TestCase
 
-from cellphonedb import extensions
-from cellphonedb.app_logger import app_logger
-from cellphonedb.flask_app import create_app
+from cellphonedb.app.flask import flask_extensions
+from cellphonedb.app.app_logger import app_logger
+from cellphonedb.app.flask.flask_app import create_app
 
 complex_entries = [
     {
@@ -603,7 +603,7 @@ interaction_entries = [
 class TestValidatorDatabaseRandomEntries(TestCase):
     def test_interaction(self):
 
-        interaction_df = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+        interaction_df = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
             'interaction').get_all_expanded()
 
         data_not_match = False
@@ -631,7 +631,7 @@ class TestValidatorDatabaseRandomEntries(TestCase):
 
     def test_gene(self):
 
-        dataframe = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+        dataframe = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
             'gene').get_all_expanded()
 
         data_not_match = False
@@ -655,7 +655,7 @@ class TestValidatorDatabaseRandomEntries(TestCase):
 
     def test_protein(self):
 
-        dataframe = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+        dataframe = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
             'protein').get_all_expanded()
 
         data_not_match = False
@@ -675,8 +675,9 @@ class TestValidatorDatabaseRandomEntries(TestCase):
         self.assertFalse(data_not_match, 'Some proteins doesnt match')
 
     def test_complex_composition_table(self):
-        df_multidata = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('multidata').get_all()
-        df_complex_composition = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+        df_multidata = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+            'multidata').get_all()
+        df_complex_composition = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
             'complex').get_all_compositions()
 
         number_compositions_not_match = False
@@ -720,7 +721,7 @@ class TestValidatorDatabaseRandomEntries(TestCase):
 
     def test_complex(self):
 
-        dataframe = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+        dataframe = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
             'complex').get_all_expanded()
 
         data_not_match = False

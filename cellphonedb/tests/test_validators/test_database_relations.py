@@ -1,9 +1,9 @@
 import pandas as pd
 from flask_testing import TestCase
 
-from cellphonedb import extensions
-from cellphonedb.app_logger import app_logger
-from cellphonedb.flask_app import create_app
+from cellphonedb.app.flask import flask_extensions
+from cellphonedb.app.app_logger import app_logger
+from cellphonedb.app.flask.flask_app import create_app
 from cellphonedb.core.database.sqlalchemy_models.db_model_gene import Gene
 from cellphonedb.core.database.sqlalchemy_models.db_model_multidata import Multidata
 from cellphonedb.core.database.sqlalchemy_models.db_model_protein import Protein
@@ -13,18 +13,19 @@ class TestDatabaseRelationsChecks(TestCase):
     def test_all_protein_have_gen(self):
 
         expected_protein_without_gene = 235
-        protein_query = extensions.cellphonedb_flask.cellphonedb.database_manager.database.session.query(Protein,
-                                                                                                         Multidata.name).join(
+        protein_query = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.database.session.query(Protein,
+                                                                                                               Multidata.name).join(
             Multidata)
 
         protein_df = pd.read_sql(protein_query.statement,
-                                 extensions.cellphonedb_flask.cellphonedb.database_manager.database.engine)
+                                 flask_extensions.cellphonedb_flask.cellphonedb.database_manager.database.engine)
         protein_ids = protein_df['id_protein'].tolist()
 
-        gene_query = extensions.cellphonedb_flask.cellphonedb.database_manager.database.session.query(Gene.protein_id)
+        gene_query = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.database.session.query(
+            Gene.protein_id)
         gene_protein_ids = \
             pd.read_sql(gene_query.statement,
-                        extensions.cellphonedb_flask.cellphonedb.database_manager.database.engine)[
+                        flask_extensions.cellphonedb_flask.cellphonedb.database_manager.database.engine)[
                 'protein_id'].tolist()
 
         protein_without_gene = []
@@ -49,9 +50,9 @@ class TestDatabaseRelationsChecks(TestCase):
         self.assertEqual(expected_protein_without_gene, len(protein_without_gene), 'There are Proteins without Gene.')
 
     def test_gene_are_not_duplicated(self):
-        query = extensions.cellphonedb_flask.cellphonedb.database_manager.database.session.query(Gene)
+        query = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.database.session.query(Gene)
         dataframe = pd.read_sql(query.statement,
-                                extensions.cellphonedb_flask.cellphonedb.database_manager.database.engine)
+                                flask_extensions.cellphonedb_flask.cellphonedb.database_manager.database.engine)
 
         duplicated_genes = dataframe[dataframe.duplicated(keep=False)]
         if len(duplicated_genes):
@@ -62,8 +63,9 @@ class TestDatabaseRelationsChecks(TestCase):
                              duplicated_genes))
 
     def test_duplicated_gene_ensembl_is_not_in_interaction(self):
-        all_genes = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository('gene').get_all_expanded()
-        all_interactions = extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+        all_genes = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
+            'gene').get_all_expanded()
+        all_interactions = flask_extensions.cellphonedb_flask.cellphonedb.database_manager.get_repository(
             'interaction').get_all()
 
         genes_duplicated_ensembl = all_genes[all_genes.duplicated('ensembl', keep=False)]

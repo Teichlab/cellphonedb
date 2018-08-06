@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.flask_app import create_app, data_test_dir, output_test_dir
+from cellphonedb.app.flask.flask_app import create_app, data_test_dir, output_test_dir
 from cellphonedb.flask_terminal_method_launcher import FlaskTerminalMethodLauncher
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 from utils import dataframe_functions

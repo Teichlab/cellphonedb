@@ -1,7 +1,7 @@
 import pandas as pd
 
-from cellphonedb.flask_app import create_app
-from cellphonedb.extensions import cellphonedb_flask
+from cellphonedb.app.flask.flask_app import create_app
+from cellphonedb.app.flask.flask_extensions import cellphonedb_flask
 from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 

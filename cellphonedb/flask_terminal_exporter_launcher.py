@@ -1,6 +1,6 @@
-from cellphonedb.app_logger import app_logger
-from cellphonedb.flask_app import output_dir
-from cellphonedb.extensions import cellphonedb_flask
+from cellphonedb.app.app_logger import app_logger
+from cellphonedb.app.flask.flask_app import output_dir
+from cellphonedb.app.flask.flask_extensions import cellphonedb_flask
 
 
 class FlaskTerminalExporterLauncher(object):

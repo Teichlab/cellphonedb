@@ -5,7 +5,7 @@ import time
 
 from flask_testing import TestCase
 
-from cellphonedb.extensions import cellphonedb_flask
+from cellphonedb.app.flask.flask_extensions import cellphonedb_flask
 from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
 from utils import utils
 

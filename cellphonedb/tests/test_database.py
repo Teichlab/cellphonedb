@@ -1,6 +1,6 @@
 from flask_testing import TestCase
 
-from cellphonedb.flask_app import create_app
+from cellphonedb.app.flask.flask_app import create_app
 
 
 class TestDatabase(TestCase):

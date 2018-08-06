@@ -1,6 +1,6 @@
-from flask import request, make_response, Response
+from flask import request, Response
 
-from cellphonedb import extensions
+from cellphonedb.app.flask import flask_extensions
 from cellphonedb.api_endpoints.web_api.web_api_endpoint_base import WebApiEndpointBase
 
 
@@ -10,7 +10,7 @@ class WebEndpointQueryInteractionGene(WebApiEndpointBase):
 
         columns = columns.split(',') if columns else None
 
-        genes = extensions.cellphonedb_flask.cellphonedb.query.get_interaction_gene(columns)
+        genes = flask_extensions.cellphonedb_flask.cellphonedb.query.get_interaction_gene(columns)
         genes = genes.to_json(orient='records')
 
         response = Response(genes, content_type='application/json')

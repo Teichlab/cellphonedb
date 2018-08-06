@@ -2,8 +2,8 @@ import click
 
 from cellphonedb.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
 from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
-from cellphonedb.flask_app import create_app
-from cellphonedb.extensions import cellphonedb_flask
+from cellphonedb.app.flask.flask_app import create_app
+from cellphonedb.app.flask.flask_extensions import cellphonedb_flask
 from cellphonedb.flask_terminal_exporter_launcher import FlaskTerminalExporterLauncher
 from cellphonedb.api_endpoints.terminal_api.method_terminal_api_endpoints import method_terminal_commands
 

@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from cellphonedb.flask_app import current_dir
+from cellphonedb.app.flask.flask_app import current_dir
 
 
 def set_protein_type(protein_file):
