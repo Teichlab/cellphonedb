@@ -3,7 +3,7 @@ from unittest import TestCase
 import pandas as pd
 
 from cellphonedb.core.Cellphonedb import data_test_dir
-from cellphonedb.core.models.cluster_counts import filter_cluster_counts
+from cellphonedb.core.models.cluster_counts import cluster_counts_filter
 from utils import dataframe_functions
 
 
@@ -20,7 +20,7 @@ class TestFilterClusterCounts(TestCase):
         cluster_names = list(cluster_counts.columns.values)
         cluster_names.remove(gene_column_name)
 
-        result = filter_cluster_counts.filter_empty_cluster_counts(
+        result = cluster_counts_filter.filter_empty_cluster_counts(
             cluster_counts, cluster_names)
 
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result, expected_result))

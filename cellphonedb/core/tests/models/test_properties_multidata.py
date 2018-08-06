@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import pandas as pd
 
-from cellphonedb.core.models.multidata import properties_multidata
+from cellphonedb.core.models.multidata import multidata_properties
 
 
 class TestPropertiesMultidata(TestCase):
@@ -10,13 +10,13 @@ class TestPropertiesMultidata(TestCase):
         multidatas = pd.DataFrame(multidatas_fixtures)
 
         for index, multidata in multidatas.iterrows():
-            self.assertEqual(properties_multidata.can_be_ligand(multidata), multidata['can_be_ligand'],
+            self.assertEqual(multidata_properties.can_be_ligand(multidata), multidata['can_be_ligand'],
                              'Multidata {} cant be ligand didnt match'.format(multidata['id']))
 
     def test_can_be_receptor(self):
         multidatas = pd.DataFrame(multidatas_fixtures)
         for index, multidata in multidatas.iterrows():
-            self.assertEqual(properties_multidata.can_be_receptor(multidata), multidata['can_be_receptor'],
+            self.assertEqual(multidata_properties.can_be_receptor(multidata), multidata['can_be_receptor'],
                              'Multidata {} can be receptor didnt match')
 
 

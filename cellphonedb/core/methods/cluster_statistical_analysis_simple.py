@@ -2,7 +2,7 @@ import pandas as pd
 
 from cellphonedb.core.methods import cluster_statistical_analysis_helper
 from cellphonedb.core.core_logger import core_logger
-from cellphonedb.core.models.interaction import filter_interaction
+from cellphonedb.core.models.interaction import interaction_filter
 
 
 def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, iterations: int = 1000,
@@ -140,7 +140,7 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) 
 
 
 def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
-    interactions_filtered = filter_interaction.filter_by_is_interactor(interactions)
+    interactions_filtered = interaction_filter.filter_by_is_interactor(interactions)
 
     counts_filtered = counts[~counts.index.duplicated()]
     counts_filtered = cluster_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered, interactions)

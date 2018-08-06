@@ -3,7 +3,7 @@ from sqlalchemy import or_
 
 from cellphonedb.core.database.Repository import Repository
 from cellphonedb.core.database.sqlalchemy_models.db_model_interaction import Interaction
-from cellphonedb.core.models.interaction.functions_interaction import expand_interactions_multidatas
+from cellphonedb.core.models.interaction.interaction_helper import expand_interactions_multidatas
 from cellphonedb.core.utils import filters
 
 

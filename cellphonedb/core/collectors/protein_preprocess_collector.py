@@ -1,6 +1,5 @@
 import pandas as pd
 
-from cellphonedb.core.models.multidata import properties_multidata
 from cellphonedb.core.utils import filters
 
 

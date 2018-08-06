@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.core.models.multidata import properties_multidata
+from cellphonedb.core.models.multidata import multidata_properties
 
 
 def is_cellphonedb_interactor(interaction: pd.Series, suffixes=('_1', '_2')) -> bool:
@@ -13,12 +13,12 @@ def is_cellphonedb_interactor(interaction: pd.Series, suffixes=('_1', '_2')) -> 
     if interaction['iuphar']:
         return True
 
-    if properties_multidata.can_be_receptor(interaction, suffixes[0]) and \
-            properties_multidata.can_be_ligand(interaction, suffixes[1]):
+    if multidata_properties.can_be_receptor(interaction, suffixes[0]) and \
+            multidata_properties.can_be_ligand(interaction, suffixes[1]):
         return True
 
-    if properties_multidata.can_be_receptor(interaction, suffixes[1]) and \
-            properties_multidata.can_be_ligand(interaction, suffixes[0]):
+    if multidata_properties.can_be_receptor(interaction, suffixes[1]) and \
+            multidata_properties.can_be_ligand(interaction, suffixes[0]):
         return True
 
     return False

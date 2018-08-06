@@ -3,7 +3,7 @@ from unittest import TestCase
 import pandas as pd
 
 from cellphonedb.core.Cellphonedb import data_test_dir
-from cellphonedb.core.models.interaction import filter_interaction
+from cellphonedb.core.models.interaction import interaction_filter
 from utils import dataframe_functions
 
 
@@ -14,7 +14,7 @@ class TestInteractionFilters(TestCase):
         expected_result = pd.read_csv(
             '{}/filter_interaction/filter_interaction_interactions_filtered.csv'.format(data_test_dir))
 
-        result = filter_interaction.filter_by_receptor_ligand_integrin(proteins, interactions)
+        result = interaction_filter.filter_by_receptor_ligand_integrin(proteins, interactions)
 
         self.assertEqual(len(result), len(expected_result[expected_result['enabled']]))
         result_matches = True
@@ -34,7 +34,7 @@ class TestInteractionFilters(TestCase):
         interactions = pd.read_csv(
             '{}/filter_interaction/filter_interaction_multidatas_interaction.csv'.format(data_test_dir))
 
-        result = filter_interaction.filter_by_multidatas(multidatas, interactions)
+        result = interaction_filter.filter_by_multidatas(multidatas, interactions)
         expected_result = interactions[interactions['test_both_enabled']]
 
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result, expected_result))
@@ -46,7 +46,7 @@ class TestInteractionFilters(TestCase):
         interactions = pd.read_csv(
             '{}/filter_interaction/filter_interaction_multidatas_interaction.csv'.format(data_test_dir))
 
-        result = filter_interaction.filter_by_any_multidatas(multidatas, interactions)
+        result = interaction_filter.filter_by_any_multidatas(multidatas, interactions)
         expected_result = interactions[interactions['test_any_enabled']]
 
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result, expected_result))

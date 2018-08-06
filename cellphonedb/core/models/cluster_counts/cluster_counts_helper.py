@@ -3,7 +3,7 @@ import itertools
 import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
-from cellphonedb.core.models.cluster_counts.filter_cluster_counts import filter_empty_cluster_counts
+from cellphonedb.core.models.cluster_counts.cluster_counts_filter import filter_empty_cluster_counts
 from cellphonedb.core.models.complex import complex_helper
 
 

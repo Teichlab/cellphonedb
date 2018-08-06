@@ -2,10 +2,8 @@ from unittest import TestCase
 
 import pandas as pd
 
-import cellphonedb.core.models.cluster_counts.filter_cluster_counts
-import cellphonedb.core.models.cluster_counts.helper_cluster_counts
 from cellphonedb.core.Cellphonedb import data_test_dir
-from cellphonedb.core.models.cluster_counts import helper_cluster_counts
+from cellphonedb.core.models.cluster_counts import cluster_counts_helper
 from utils import dataframe_functions
 
 
@@ -21,9 +19,7 @@ class TestHelperClusterCounts(TestCase):
         cluster_names = list(cluster_counts.columns.values)
         cluster_names.remove(gene_column_name)
 
-        result = cellphonedb.core.models.cluster_counts.helper_cluster_counts.apply_threshold(cluster_counts,
-                                                                                              cluster_names,
-                                                                                              threshold=0.2)
+        result = cluster_counts_helper.apply_threshold(cluster_counts, cluster_names, threshold=0.2)
 
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result, expected_result))
 
@@ -38,7 +34,7 @@ class TestHelperClusterCounts(TestCase):
         cluster_names = ['cluster_1', 'cluster_2', 'cluster_3']
         complex_column_names = ['complex_multidata_id']
 
-        result = helper_cluster_counts.merge_complex_cluster_counts(cluster_names, complex_counts_composition,
+        result = cluster_counts_helper.merge_complex_cluster_counts(cluster_names, complex_counts_composition,
                                                                     complex_column_names)
 
         # Need to set equal 1 to 1.0000
@@ -56,7 +52,7 @@ class TestHelperClusterCounts(TestCase):
         cluster_names = ['cluster_1', 'cluster_2', 'cluster_3']
         complex_column_names = ['complex_multidata_id']
 
-        result = helper_cluster_counts.merge_complex_cluster_counts(cluster_names, complex_counts_composition,
+        result = cluster_counts_helper.merge_complex_cluster_counts(cluster_names, complex_counts_composition,
                                                                     complex_column_names)
 
         self.assertTrue(result.empty)
@@ -76,7 +72,7 @@ class TestHelperClusterCounts(TestCase):
         result_expected = pd.read_csv(
             '{}/cluster_counts_helper_get_complex_involved_in_counts_result.csv'.format(self.FIXTURES_SUBPATH))
 
-        result = helper_cluster_counts.get_complex_involved_in_counts(multidatas_counts, cluster_names,
+        result = cluster_counts_helper.get_complex_involved_in_counts(multidatas_counts, cluster_names,
                                                                       complex_composition, complex_expanded)
 
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result, result_expected),

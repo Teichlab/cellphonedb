@@ -2,7 +2,7 @@ import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.methods import cluster_statistical_analysis_helper
-from cellphonedb.core.models.cluster_counts import helper_cluster_counts, filter_cluster_counts
+from cellphonedb.core.models.cluster_counts import cluster_counts_helper, cluster_counts_filter
 from cellphonedb.core.models.complex import complex_helper
 
 
@@ -267,7 +267,7 @@ def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataF
     clusters_names = sorted(counts.columns.values)
     counts['gene'] = counts.index
 
-    counts_multidata = filter_cluster_counts.filter_by_gene(counts, genes)
+    counts_multidata = cluster_counts_filter.filter_by_gene(counts, genes)
 
     complex_in_counts, counts_multidata_complex = get_involved_complex_from_counts(counts_multidata, clusters_names,
                                                                                    complexes, complex_compositions)
@@ -336,11 +336,10 @@ def get_involved_complex_from_counts(multidatas_counts: pd.DataFrame, clusters_n
     multidatas_counts_filtered = filter_counts_by_genes(multidatas_counts_filtered,
                                                         complex_composition_counts['gene'].tolist())
 
-    complex_counts = helper_cluster_counts.merge_complex_cluster_counts(clusters_names, complex_composition_counts,
+    complex_counts = cluster_counts_helper.merge_complex_cluster_counts(clusters_names, complex_composition_counts,
                                                                         list(complex_expanded.columns.values))
 
-    complex_counts = helper_cluster_counts.complex_counts = helper_cluster_counts.filter_empty_cluster_counts(
-        complex_counts, clusters_names)
+    complex_counts = cluster_counts_filter.filter_empty_cluster_counts(complex_counts, clusters_names)
 
     complex_counts.drop(clusters_names, axis=1, inplace=True)
 
