@@ -26,12 +26,6 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
                 Get maximum score value.
                 Intact-score prevails over innatedb score (step 3).
 
-
-
-    :type interactions_base_df: pd.DataFrame()
-    :typetype protein_df: pd.DataFrame()
-    :type gene_df: pd.DataFrame()
-    :rtype: pd.DataFrame()
     """
     interactions_base_df.dropna(how='any', subset=['A', 'B'], inplace=True)
 

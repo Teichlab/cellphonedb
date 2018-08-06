@@ -4,9 +4,6 @@ import pandas as pd
 def interaction_exist(interaction, interactions, interaction_1_key='uniprot_1', interaction_2_key='uniprot_2'):
     """
     Checks if interaction already exists in first dataframe.
-    :type interaction: pd.Series
-    :type interaction: pd.DataFrame
-    :rtype: bool
     """
 
     if len(interactions[(interactions[interaction_1_key] == interaction[interaction_1_key]) & (
@@ -30,8 +27,6 @@ def normalize_interactions(interactions, interaction_1_key='protein_1', interact
     A->B        A->B
     B->A        A->B
 
-    :type interactions: pd.DataFrame
-    :rtype: pd.DataFrame
     """
     interactions_normalized = interactions.apply(
         lambda interaction: normalize_interaction(interactions, interaction, interaction_1_key, interaction_2_key),
@@ -44,8 +39,6 @@ def normalize_interaction(custom_interactions, interaction, interaction_1_key='u
                           interaction_2_key='uniprot_2'):
     """
     Permute interaction if is it necessary.
-    :type interaction: pd.Series()
-    :rtype: pd.Series()
     """
     if interaction[interaction_2_key] != interaction[interaction_1_key]:
         duplicated_inversed = custom_interactions[
