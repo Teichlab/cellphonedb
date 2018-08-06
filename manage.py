@@ -1,10 +1,10 @@
 import click
 
 from cellphonedb.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
-from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
+from cellphonedb.local_launchers.local_collector_launcher import LocalCollectorLauncher
 from cellphonedb.app.flask.flask_app import create_app
-from cellphonedb.app.flask.flask_extensions import cellphonedb_flask
-from cellphonedb.flask_terminal_exporter_launcher import FlaskTerminalExporterLauncher
+from cellphonedb.app.cellphonedb_app import cellphonedb_app
+from cellphonedb.local_launchers.local_exporter_launcher import LocalExporterLauncher
 from cellphonedb.api_endpoints.terminal_api.method_terminal_api_endpoints import method_terminal_commands
 
 app = create_app()
@@ -17,12 +17,12 @@ def run():
 
 @app.cli.command()
 def create_db():
-    cellphonedb_flask.cellphonedb.database_manager.database.create_all()
+    cellphonedb_app.cellphonedb.database_manager.database.create_all()
 
 
 @app.cli.command()
 def reset_db():
-    database = cellphonedb_flask.cellphonedb.database_manager.database
+    database = cellphonedb_app.cellphonedb.database_manager.database
     database.drop_everything()
     database.create_all()
 
@@ -31,13 +31,13 @@ def reset_db():
 @click.argument('table')
 @click.argument('file', default='')
 def collect(table, file):
-    getattr(FlaskTerminalCollectorLauncher(), table)(file)
+    getattr(LocalCollectorLauncher(), table)(file)
 
 
 @app.cli.command()
 @click.argument('table')
 def export(table):
-    getattr(FlaskTerminalExporterLauncher(), table)()
+    getattr(LocalExporterLauncher(), table)()
 
 
 @app.cli.group()

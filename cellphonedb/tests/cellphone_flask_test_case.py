@@ -5,8 +5,8 @@ import time
 
 from flask_testing import TestCase
 
-from cellphonedb.app.flask.flask_extensions import cellphonedb_flask
-from cellphonedb.flask_terminal_collector_launcher import FlaskTerminalCollectorLauncher
+from cellphonedb.app.cellphonedb_app import cellphonedb_app
+from cellphonedb.local_launchers.local_collector_launcher import LocalCollectorLauncher
 from utils import utils
 
 
@@ -18,12 +18,13 @@ class CellphoneFlaskTestCase(TestCase):
 
         return fixtures_dir
 
-    def reset_db(self):
-        cellphonedb_flask.cellphonedb.database_manager.database.drop_everything()
-        cellphonedb_flask.cellphonedb.database_manager.database.create_all()
+    @staticmethod
+    def reset_db():
+        cellphonedb_app.cellphonedb.database_manager.database.drop_everything()
+        cellphonedb_app.cellphonedb.database_manager.database.create_all()
 
     def populate_db(self):
-        FlaskTerminalCollectorLauncher().all('collect_protein.csv', 'collect_gene.csv', 'collect_complex.csv',
+        LocalCollectorLauncher().all('collect_protein.csv', 'collect_gene.csv', 'collect_complex.csv',
                                              'collect_interaction.csv', self.fixtures_dir())
 
     @staticmethod

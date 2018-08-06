@@ -101,8 +101,6 @@ class ComplexRepository(Repository):
         - Creates new complexes in Multidata table
         - Creates reference in Complex table
         - Creates complex composition to define complexes.
-        :param complex_file:
-        :return:
         """
         existing_complexes = self.database_manager.database.session.query(Multidata.name).all()
         existing_complexes = [c[0] for c in existing_complexes]
@@ -203,7 +201,8 @@ class ComplexRepository(Repository):
             name='complex_composition', if_exists='append',
             con=self.database_manager.database.engine, index=False, chunksize=50)
 
-    def _add_complex_optimitzations(self, multidatas):
+    @staticmethod
+    def _add_complex_optimitzations(multidatas):
         multidatas['is_complex'] = True
 
         return multidatas

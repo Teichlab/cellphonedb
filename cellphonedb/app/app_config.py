@@ -29,14 +29,17 @@ class AppConfig():
             'threads': self.threads_config
         }
 
-    def _get_threads_config(self, app_config: dict):
+    @staticmethod
+    def _get_threads_config(app_config: dict):
         return app_config['threads']
 
-    def _set_app_logger_config(self, enable_debug: str):
+    @staticmethod
+    def _set_app_logger_config(enable_debug: str):
         if enable_debug:
             app_logger.setLevel('DEBUG')
 
-    def _get_core_logger_config(self, enable_debug):
+    @staticmethod
+    def _get_core_logger_config(enable_debug):
         config = {'level': 'WARNING'}
 
         if enable_debug:
@@ -44,7 +47,8 @@ class AppConfig():
 
         return config
 
-    def _get_config_parameters(self, environment=None, support=None, load_defaults=None, raise_non_defined_vars=True):
+    @staticmethod
+    def _get_config_parameters(environment=None, support=None, load_defaults=None, raise_non_defined_vars=True):
         config_parameters = {}
         config_keys = [{'env_key': 'APP_ENV', 'default': 'core', 'dict_key': 'environment'},
                        {'env_key': 'APP_CONF_SUPPORT', 'default': 'yaml', 'dict_key': 'support'},
@@ -63,7 +67,8 @@ class AppConfig():
 
         return config_parameters
 
-    def _load_yaml(self, yaml_name):
+    @staticmethod
+    def _load_yaml(yaml_name):
         with open(yaml_name, 'r') as stream:
             try:
                 return yaml.load(stream)
@@ -89,7 +94,8 @@ class AppConfig():
 
         return config
 
-    def _build_sqlalchemy_database_uri(self, database_config):
+    @staticmethod
+    def _build_sqlalchemy_database_uri(database_config):
 
         if database_config['adapter'] == 'sqlite' and database_config['db_core']:
             return ''

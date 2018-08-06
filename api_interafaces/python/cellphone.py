@@ -39,14 +39,6 @@ def cells_to_clusters(meta, counts):
 
 def receptor_ligands_interactions_request(cells_clusters, threshold=0.1, enable_integrin=True, enable_complex=True,
                                           clusters=None):
-    """
-
-    :type cells_clusters: pd.DataFrame
-    :type threshold: float
-    :type enable_integrin: bool
-    :rtype: (pd.DataFrame, pd.DataFrame)
-
-    """
     url = 'http://localhost:5000/api/receptor_ligands_interactions'
 
     files = {'cell_to_clusters_file': (

@@ -36,7 +36,8 @@ class CellphonedbSqlalchemy(Cellphonedb):
         database_manager.add_repository(ProteinRepository)
         Cellphonedb.__init__(self, database_manager, config['threads'])
 
-    def _build_uri(self, config):
+    @staticmethod
+    def _build_uri(config):
         if config['sqlalchemy']['db_core']:
             file_path = os.path.dirname(os.path.realpath(__file__))
 

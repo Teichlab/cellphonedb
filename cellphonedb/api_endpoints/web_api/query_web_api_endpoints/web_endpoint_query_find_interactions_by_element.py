@@ -2,7 +2,7 @@ import json
 
 from flask import request, Response
 
-from cellphonedb.app.flask import flask_extensions
+from cellphonedb.app.cellphonedb_app import cellphonedb_app
 from cellphonedb.api_endpoints.web_api.web_api_endpoint_base import WebApiEndpointBase
 
 
@@ -12,7 +12,7 @@ class WebEndpointQueryFindInteractionsByElement(WebApiEndpointBase):
 
         receptor = parameters['receptor']
 
-        interactions = flask_extensions.cellphonedb_flask.cellphonedb.query.find_interactions_by_element(receptor)
+        interactions = cellphonedb_app.cellphonedb.query.find_interactions_by_element(receptor)
 
         if interactions.empty:
             self.attach_error(

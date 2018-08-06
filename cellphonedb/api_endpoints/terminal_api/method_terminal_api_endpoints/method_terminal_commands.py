@@ -1,6 +1,6 @@
 import click
 
-from cellphonedb.flask_terminal_method_launcher import FlaskTerminalMethodLauncher
+from cellphonedb.local_launchers.local_method_launcher import LocalMethodLauncher
 
 
 @click.command()
@@ -36,17 +36,17 @@ def cluster_statistical_analysis(meta_filename: str,
                                  deconvoluted_result_name: str,
                                  debug_seed: str,
                                  threads: int):
-    FlaskTerminalMethodLauncher().cluster_statistical_analysis(meta_filename,
-                                                               counts_filename,
-                                                               project_name,
-                                                               iterations,
-                                                               threshold,
-                                                               data_path,
-                                                               output_path,
-                                                               means_result_name,
-                                                               pvalues_result_name,
-                                                               significant_mean_result_name,
-                                                               means_pvalues_result_name,
-                                                               deconvoluted_result_name,
-                                                               debug_seed,
-                                                               threads)
+    LocalMethodLauncher().cluster_statistical_analysis(meta_filename,
+                                                       counts_filename,
+                                                       project_name,
+                                                       iterations,
+                                                       threshold,
+                                                       data_path,
+                                                       output_path,
+                                                       means_result_name,
+                                                       pvalues_result_name,
+                                                       significant_mean_result_name,
+                                                       means_pvalues_result_name,
+                                                       deconvoluted_result_name,
+                                                       debug_seed,
+                                                       threads)

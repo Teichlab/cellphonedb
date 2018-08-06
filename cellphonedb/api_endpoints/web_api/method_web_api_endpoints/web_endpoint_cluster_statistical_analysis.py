@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from flask import request, Response
 
-from cellphonedb.app.flask import flask_extensions
+from cellphonedb.app.cellphonedb_app import cellphonedb_app
 from cellphonedb.api_endpoints.web_api.web_api_endpoint_base import WebApiEndpointBase
 from utils import utils
 
@@ -34,12 +34,12 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
 
         if not self._errors:
             pvalues, means, significant_means, mean_pvalue, deconvoluted = \
-                flask_extensions.cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis(meta,
-                                                                                                   counts,
-                                                                                                   iterations=iterations,
-                                                                                                   threshold=threshold,
-                                                                                                   threads=-1,
-                                                                                                   debug_seed=-1)
+                cellphonedb_app.cellphonedb.method.cluster_statistical_analysis(meta,
+                                                                                counts,
+                                                                                iterations=iterations,
+                                                                                threshold=threshold,
+                                                                                threads=-1,
+                                                                                debug_seed=-1)
 
             self._attach_csv(pvalues.to_csv(index=False), 'pvalues.csv')
             self._attach_csv(means.to_csv(index=False), 'means.csv')

@@ -1,11 +1,10 @@
 import pandas as pd
 
 from cellphonedb.app.app_logger import app_logger
-from cellphonedb.app.flask.flask_app import data_dir
-from cellphonedb.app.flask.flask_extensions import cellphonedb_flask
+from cellphonedb.app.cellphonedb_app import cellphonedb_app, data_dir
 
 
-class FlaskTerminalCollectorLauncher(object):
+class LocalCollectorLauncher(object):
     def __getattr__(self, method_name):
         def wrapper(namefile='', data_path=''):
             app_logger.info('Collecting {}'.format(method_name))
@@ -17,7 +16,7 @@ class FlaskTerminalCollectorLauncher(object):
 
             data = pd.read_csv('{}/{}'.format(data_path, namefile))
 
-            getattr(cellphonedb_flask.cellphonedb.collect, method_name)(data)
+            getattr(cellphonedb_app.cellphonedb.collect, method_name)(data)
 
         return wrapper
 

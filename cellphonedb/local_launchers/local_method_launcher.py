@@ -3,12 +3,11 @@ import os
 import pandas as pd
 
 from cellphonedb.app.app_logger import app_logger
-from cellphonedb.app.flask.flask_app import output_dir, query_input_dir
-from cellphonedb.app.flask.flask_extensions import cellphonedb_flask
+from cellphonedb.app.cellphonedb_app import cellphonedb_app, output_dir, query_input_dir
 from utils import utils
 
 
-class FlaskTerminalMethodLauncher(object):
+class LocalMethodLauncher(object):
     def __getattribute__(self, name):
         method = object.__getattribute__(self, name)
         if hasattr(method, '__call__'):
@@ -41,7 +40,7 @@ class FlaskTerminalMethodLauncher(object):
             if not os.path.exists(output_path):
                 os.makedirs(output_path)
 
-        if FlaskTerminalMethodLauncher._path_is_empty(output_path):
+        if LocalMethodLauncher._path_is_empty(output_path):
             app_logger.warning(
                 'Output directory ({}) exist and is not empty. Result can overwrite old results'.format(output_path))
 
@@ -55,7 +54,7 @@ class FlaskTerminalMethodLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis(
+        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis(
             meta, counts, iterations, threshold, threads, debug_seed)
 
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
@@ -87,7 +86,7 @@ class FlaskTerminalMethodLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis_simple(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_simple(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
@@ -120,7 +119,7 @@ class FlaskTerminalMethodLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_flask.cellphonedb.method.cluster_statistical_analysis_complex(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_complex(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
