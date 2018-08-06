@@ -5,7 +5,7 @@ import pandas as pd
 import requests
 
 from tools.app import current_dir, output_dir
-from tools.interaction_actions import _only_uniprots_in_df
+from tools.interactions_helper import _only_uniprots_in_df
 
 
 def generate_interactions_inweb(inweb_inbiomap_namefile, database_proteins_namefile):

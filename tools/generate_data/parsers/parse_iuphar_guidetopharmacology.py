@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tools.repository.interaction import normalize_interactions
+from tools.tools_helper import normalize_interactions
 
 
 def call(iuphar_guidepharmacology: pd.DataFrame, genes: pd.DataFrame, proteins: pd.DataFrame) -> pd.DataFrame:

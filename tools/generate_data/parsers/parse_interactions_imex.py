@@ -1,8 +1,8 @@
 import math
 import pandas as pd
 
-from tools.interaction_actions import _only_uniprots_in_df
-from tools.repository.interaction import normalize_interactions
+from tools.interactions_helper import _only_uniprots_in_df
+from tools.tools_helper import normalize_interactions
 
 
 def parse_interactions_imex(interactions_base_df, protein_df, gene_df):

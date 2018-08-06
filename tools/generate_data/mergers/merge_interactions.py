@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tools.repository.interaction import interaction_exist, normalize_interactions
+from tools.tools_helper import interaction_exist, normalize_interactions
 
 
 def merge_interactions(interactions_1, interactions_2, interaction_1_key='protein_1', interaction_2_key='protein_2'):
