@@ -4,7 +4,8 @@ from multiprocessing.pool import Pool
 
 import pandas as pd
 
-from cellphonedb.core.methods.cluster_statistical_analysis_complex import cluster_interaction_mean, counts_percent, \
+from cellphonedb.core.methods.cluster_statistical_analysis_complex_method import cluster_interaction_mean, \
+    counts_percent, \
     cluster_interaction_percent
 
 

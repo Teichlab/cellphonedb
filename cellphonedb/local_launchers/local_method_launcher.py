@@ -54,7 +54,7 @@ class LocalMethodLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis(
+        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_launcher(
             meta, counts, iterations, threshold, threads, debug_seed)
 
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
@@ -86,7 +86,7 @@ class LocalMethodLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_simple(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_simple_launcher(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
@@ -119,7 +119,7 @@ class LocalMethodLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_complex(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_complex_launcher(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)

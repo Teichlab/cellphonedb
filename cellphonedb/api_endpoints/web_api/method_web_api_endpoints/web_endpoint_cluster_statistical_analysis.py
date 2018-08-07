@@ -34,12 +34,12 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
 
         if not self._errors:
             pvalues, means, significant_means, mean_pvalue, deconvoluted = \
-                cellphonedb_app.cellphonedb.method.cluster_statistical_analysis(meta,
-                                                                                counts,
-                                                                                iterations=iterations,
-                                                                                threshold=threshold,
-                                                                                threads=-1,
-                                                                                debug_seed=-1)
+                cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_launcher(meta,
+                                                                                         counts,
+                                                                                         iterations=iterations,
+                                                                                         threshold=threshold,
+                                                                                         threads=-1,
+                                                                                         debug_seed=-1)
 
             self._attach_csv(pvalues.to_csv(index=False), 'pvalues.csv')
             self._attach_csv(means.to_csv(index=False), 'means.csv')
