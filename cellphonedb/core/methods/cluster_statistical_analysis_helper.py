@@ -20,9 +20,10 @@ def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.D
 
 
 def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
-    pd.np.random.shuffle(meta['cell_type'])
+    meta_copy = meta.copy()
+    pd.np.random.shuffle(meta_copy['cell_type'])
 
-    return meta
+    return meta_copy
 
 
 def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
@@ -131,7 +132,7 @@ def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame,
                       suffixes: tuple = ('_1', '_2')) -> list:
     shuffled_metas = []
     for i in range(iterations):
-        shuffled_metas.append(shuffle_meta(meta).copy())
+        shuffled_metas.append(shuffle_meta(meta))
 
     with Pool(processes=threads) as pool:
         asd_mult = partial(_statistical_analysis, base_result, cluster_interactions, counts, interactions,
