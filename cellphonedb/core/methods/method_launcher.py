@@ -32,9 +32,9 @@ class MethodLauncher():
             threads = self.default_threads
 
         pvalues_simple, means_simple, significant_means_simple, mean_pvalue_simple, deconvoluted_simple = self.cluster_statistical_analysis_simple_launcher(
-            meta, count, iterations, threshold, threads, debug_seed)
+            meta.copy(), count, iterations, threshold, threads, debug_seed)
         pvalues_complex, means_complex, significant_means_complex, mean_pvalue_complex, deconvoluted_complex = self.cluster_statistical_analysis_complex_launcher(
-            meta, count, iterations, threshold, threads, debug_seed)
+            meta.copy(), count, iterations, threshold, threads, debug_seed)
 
         pvalues = pvalues_simple.append(pvalues_complex, sort=False)
         means = means_simple.append(means_complex, sort=False)
