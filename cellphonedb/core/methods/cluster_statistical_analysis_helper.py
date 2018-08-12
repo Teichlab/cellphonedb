@@ -5,12 +5,37 @@ from multiprocessing.pool import Pool
 import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
-from cellphonedb.core.methods.cluster_statistical_analysis_complex_method import cluster_interaction_mean, \
-    counts_percent, \
-    cluster_interaction_percent
 
 
 def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame) -> pd.DataFrame:
+    """
+    If the result_percent value is > min_significant_mean, sets the value to NaN, else, sets the mean value.
+
+    EXAMPLE:
+    INPUT:
+
+    real mean
+                cluster1    cluster2    cluster
+    ensembl1    0.1         1.0         2.0
+    ensembl2    2.0         0.1         0.2
+    ensembl3    0.3         0.0         0.5
+
+    result percent
+
+                cluster1    cluster2    cluster
+    ensembl1    0.0         1.0         1.0
+    ensembl2    0.04        0.03        0.62
+    ensembl3    0.3         0.55        0.02
+
+    min_significant_mean = 0.05
+
+    RESULT:
+
+                cluster1    cluster2    cluster
+    ensembl1    0.1         NaN         NaN
+    ensembl2    2.0         0.1         NaN
+    ensembl3    NaN         NaN         0.5
+    """
     significant_means = real_mean_analysis.copy()
     min_significant_mean = 0.05
     for index, mean_analysis in real_mean_analysis.iterrows():
@@ -21,6 +46,9 @@ def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.D
 
 
 def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
+    """
+    Permutates the meta values aleatory generating a new meta file
+    """
     meta_copy = meta.copy()
     pd.np.random.shuffle(meta_copy['cell_type'])
 
@@ -28,6 +56,9 @@ def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
+    """
+    Builds a cluster structure and calculates the means values
+    """
     cluster_names = meta['cell_type'].drop_duplicates().tolist()
     clusters = {'names': cluster_names, 'counts': {}, 'means': {}}
 
@@ -72,6 +103,9 @@ def filter_empty_cluster_counts(counts: pd.DataFrame) -> pd.DataFrame:
 
 def mean_pvalue_result_build(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
                              interactions_data_result: pd.DataFrame) -> pd.DataFrame:
+    """
+    Merges the pvalues and means in one table
+    """
     mean_pvalue_result = pd.DataFrame(index=real_mean_analysis.index)
     for interaction_cluster in real_mean_analysis.columns.values:
         mean_pvalue_result[interaction_cluster] = real_mean_analysis[interaction_cluster].astype(str).str.cat(
@@ -82,11 +116,28 @@ def mean_pvalue_result_build(real_mean_analysis: pd.DataFrame, result_percent: p
     return mean_pvalue_result
 
 
-def get_cluster_combinations(cluster_names):
+def get_cluster_combinations(cluster_names: list) -> list:
+    """
+    Calculates and sort combinations including itself
+
+    ie
+
+    INPUT
+    cluster_names = ['cluster1', 'cluster2', 'cluster3']
+
+    RESULT
+    [('cluster1','cluster1'),('cluster1','cluster1'),('cluster1','cluster1'),
+     ('cluster2','cluster1'),('cluster2','cluster2'),('cluster2','cluster3'),
+     ('cluster3','cluster1'),('cluster3','cluster2'),('cluster3','cluster3')]
+
+    """
     return sorted(itertools.product(cluster_names, repeat=2))
 
 
 def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) -> pd.DataFrame:
+    """
+    builds an empty cluster matrix to fill it later
+    """
     columns = []
 
     for cluster_interaction in cluster_interactions:
@@ -99,6 +150,27 @@ def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) 
 
 def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list,
                   base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+    """
+    Calculates the mean for cluster interactions and counts
+
+    sets 0 if one of both is 0
+
+    EXAMPLE:
+        INPUT:
+                   cluster1    cluster2    cluster3
+        count1     0.0         0.2         0.3
+        count2     0.4         0.5         0.6
+        count3     0.7         0.0         0.9
+
+        RESULT:
+
+                   cluster1_cluster1   cluster1_cluster2   ... cluster3_cluster2   cluster3_cluster3
+        count1     0.0                 0.0                     0.25                0.3
+        count2     0.4                 0.45                    0.55                0.6
+        count3     0.7                 0.0                     0.0                 0.9
+
+
+    """
     result = base_result.copy()
 
     for interaction_index, interaction in interactions.iterrows():
@@ -114,6 +186,39 @@ def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactio
 
 def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFrame, cluster_interactions: list,
                      base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+    """
+    Calculates the percents for cluster interactions and counts.
+
+    Sets 0
+
+    EXAMPLE:
+        INPUT:
+
+        threshold = 0.1
+        cluster1 = cell1,cell2
+        cluster2 = cell3
+
+                   cell1       cell2      cell3
+        count1     0.0         0.6         0.3
+        count2     0.1         0.05         0.06
+        count3     0.0         0.0         0.9
+
+
+        (after percents calculation)
+
+                   cluster1    cluster2
+        count1     0           0
+        count2     1           1
+        count3     1           0
+
+        RESULT:
+
+                   cluster1_cluster1   cluster1_cluster2   cluster2_cluster1   cluster2_cluster2
+        count1     1                   1                   1                   1
+        count2     0                   0                   0                   0
+        count3     0                   0                   0                   1
+
+    """
     result = base_result.copy()
     percents = {}
     for cluster_name in clusters['names']:
@@ -135,7 +240,9 @@ def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame,
                       cluster_interactions: list, base_result: pd.DataFrame, threads: int,
                       suffixes: tuple = ('_1', '_2')) -> list:
     """
-    Shuffles meta and calculates the means for each.
+    Shuffles meta and calculates the means for each and saves it in a list.
+
+    Runs it in a multiple threads to run it fasters
     """
     core_logger.info('Running Statistical Analysis')
     with Pool(processes=threads) as pool:
@@ -147,7 +254,10 @@ def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame,
 
 
 def _statistical_analysis(base_result, cluster_interactions, counts, interactions, meta, suffixes,
-                          iteration_number):
+                          iteration_number) -> pd.DataFrame:
+    """
+    Shuffles meta dataset and calculates calculates the means
+    """
     shuffled_meta = shuffle_meta(meta)
     shuffled_clusters = build_clusters(shuffled_meta, counts)
     return mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, suffixes)
@@ -156,6 +266,52 @@ def _statistical_analysis(base_result, cluster_interactions, counts, interaction
 def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.DataFrame,
                          statistical_mean_analysis: list, interactions: pd.DataFrame, cluster_interactions: list,
                          base_result: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculates the pvalues after statistical analysis.
+
+    If real_percent or real_mean are zero, result_percent is 1
+
+    If not:
+    Calculates how many shuffled means are bigger than real mean and divides it for the number of
+    the total iterations
+
+    EXAMPLE:
+        INPUT:
+
+        real_mean_analysis:
+                cluster1_cluster1   cluster1_cluster2 ...
+        count1  0.5                 0.4
+        count1  0.0                 0.2
+
+
+        real_percents_analysis:
+                cluster1_cluster1   cluster1_cluster2 ...
+        count1  1                   0
+        count1  0                   1
+
+        statistical means:
+        [
+               cluster1_cluster1   cluster1_cluster2 ...
+        count1  0.6                 0.1
+        count1  0.0                 0.2
+
+        ,
+               cluster1_cluster1   cluster1_cluster2 ...
+        count1  0.5                 0.4
+        count1  0.0                 0.6
+        ]
+
+        iterations = 2
+
+
+        RESULT:
+
+                cluster1_cluster1   cluster1_cluster2 ...
+        count1  1                   1
+        count1  1                   0.5
+
+
+    """
     core_logger.info('Building Pvalues result')
     percent_result = base_result.copy()
 
@@ -184,6 +340,9 @@ def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analys
 
 
 def interacting_pair_build(interactions: pd.DataFrame) -> pd.Series:
+    """
+    Returns the interaction result formated with prefixes
+    """
     def get_interactor_name(interaction: pd.Series, suffix: str) -> str:
         if interaction['is_complex{}'.format(suffix)]:
             return interaction['name{}'.format(suffix)]
@@ -201,6 +360,9 @@ def interacting_pair_build(interactions: pd.DataFrame) -> pd.Series:
 
 def build_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame) -> (
         pd.Series, pd.DataFrame):
+    """
+    Calculates the significant means and add rank (number of non empty entries divided by total entries)
+    """
     significant_means = get_significant_means(real_mean_analysis, result_percent)
     significant_mean_rank = significant_means.count(axis=1)  # type: pd.Series
     number_of_clusters = len(significant_means.columns)
@@ -208,3 +370,72 @@ def build_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd
     significant_mean_rank = significant_mean_rank.round(3)
     significant_mean_rank.name = 'rank'
     return significant_mean_rank, significant_means
+
+
+def cluster_interaction_percent(cluster_interaction: tuple, interaction: pd.Series, clusters_percents: dict,
+                                suffixes: tuple = ('_1', '_2')) -> int:
+    """
+    If one of both is 1 the result was 0
+    other cases are 1
+    """
+
+    percent_cluster_receptors = clusters_percents[cluster_interaction[0]]
+    percent_cluster_ligands = clusters_percents[cluster_interaction[1]]
+
+    percent_receptor = percent_cluster_receptors[interaction['ensembl{}'.format(suffixes[0])]]
+    percent_ligand = percent_cluster_ligands[interaction['ensembl{}'.format(suffixes[1])]]
+
+    if percent_receptor or percent_ligand:
+        interaction_percent = 0
+
+    else:
+        interaction_percent = 1
+
+    return interaction_percent
+
+
+def counts_percent(counts: pd.Series, threshold: float) -> int:
+    """
+    Calculates the number of positive values and divides it for the total.
+    If this value is < threshold, returns 1, else, returns 0
+
+
+    EXAMPLE:
+        INPUT:
+        counts = [0.1, 0.2, 0.3, 0.0]
+        threshold = 0.1
+
+        RESULT:
+
+        # 3/4 -> 0.75 not minor than 0.1
+        result = 0
+    """
+    total = len(counts)
+    positive = len(counts[counts > 0])
+
+    if positive / total < threshold:
+        return 1
+    else:
+        return 0
+
+
+def cluster_interaction_mean(cluster_interaction: tuple, interaction: pd.Series, clusters_means: dict,
+                             suffixes: tuple = ('_1', '_2')) -> float:
+    """
+    Calculates the mean value for two clusters.
+
+    Set 0 if one of both is 0
+    """
+
+    means_cluster_receptors = clusters_means[cluster_interaction[0]]
+    means_cluster_ligands = clusters_means[cluster_interaction[1]]
+
+    mean_receptor = means_cluster_receptors[interaction['ensembl{}'.format(suffixes[0])]]
+    mean_ligand = means_cluster_ligands[interaction['ensembl{}'.format(suffixes[1])]]
+
+    if mean_receptor == 0 or mean_ligand == 0:
+        interaction_mean = 0
+    else:
+        interaction_mean = (mean_receptor + mean_ligand) / 2
+
+    return interaction_mean

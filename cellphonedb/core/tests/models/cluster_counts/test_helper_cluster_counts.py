@@ -34,8 +34,8 @@ class TestHelperClusterCounts(TestCase):
         cluster_names = ['cluster_1', 'cluster_2', 'cluster_3']
         complex_column_names = ['complex_multidata_id']
 
-        result = cluster_counts_helper.merge_complex_cluster_counts(cluster_names, complex_counts_composition,
-                                                                    complex_column_names)
+        result = cluster_counts_helper.merge_complex_counts(cluster_names, complex_counts_composition,
+                                                            complex_column_names)
 
         # Need to set equal 1 to 1.0000
         result[complex_column_names] = result[complex_column_names].astype(dtype='int32')
@@ -52,8 +52,8 @@ class TestHelperClusterCounts(TestCase):
         cluster_names = ['cluster_1', 'cluster_2', 'cluster_3']
         complex_column_names = ['complex_multidata_id']
 
-        result = cluster_counts_helper.merge_complex_cluster_counts(cluster_names, complex_counts_composition,
-                                                                    complex_column_names)
+        result = cluster_counts_helper.merge_complex_counts(cluster_names, complex_counts_composition,
+                                                            complex_column_names)
 
         self.assertTrue(result.empty)
 

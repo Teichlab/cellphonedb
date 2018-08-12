@@ -7,11 +7,23 @@ from cellphonedb.core.models.cluster_counts.cluster_counts_filter import filter_
 from cellphonedb.core.models.complex import complex_helper
 
 
-def merge_complex_cluster_counts(clusters_names: list, complex_counts_composition: pd.DataFrame,
-                                 complex_columns_names: list) -> pd.DataFrame:
+def merge_complex_counts(clusters_names: list, complex_counts_composition: pd.DataFrame,
+                         complex_columns_names: list) -> pd.DataFrame:
     """
     Merges the counts values of multiple components of complex.
     Sets the minimum cluster value for the components of a complex.
+    ie:
+
+    input matrix:
+                        cell1   cell2   cell3   cell4
+    count1  complex_1   0.1     0.2     0.2     0.1
+    count2  complex_2   0.2     0.1     0.5     0.0
+
+    output matrix:
+                        cell1   cell2   cell3   cell4
+    count1  complex_1   0.1     0.1     0.2     0.0
+    count2  complex_2   0.1     0.1     0.2     0.0
+
     """
 
     if complex_counts_composition.empty:
@@ -46,8 +58,8 @@ def get_complex_involved_in_counts(multidatas_counts: pd.DataFrame, clusters_nam
                                                                                   complex_composition,
                                                                                   drop_duplicates=False)
 
-    complex_counts = merge_complex_cluster_counts(clusters_names, complex_counts_composition,
-                                                  list(complex_expanded.columns.values))
+    complex_counts = merge_complex_counts(clusters_names, complex_counts_composition,
+                                          list(complex_expanded.columns.values))
     complex_counts = filter_empty_cluster_counts(complex_counts, clusters_names)
 
     complex_counts.reset_index(drop=True, inplace=True)
