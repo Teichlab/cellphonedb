@@ -4,6 +4,7 @@ from multiprocessing.pool import Pool
 
 import pandas as pd
 
+from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.methods.cluster_statistical_analysis_complex_method import cluster_interaction_mean, \
     counts_percent, \
     cluster_interaction_percent
@@ -47,6 +48,9 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
 
 def filter_counts_by_interactions(counts: pd.DataFrame, interactions: pd.DataFrame,
                                   suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+    """
+    Removes count if is not in interaction component
+    """
     genes = interactions['ensembl{}'.format(suffixes[0])].append(
         interactions['ensembl{}'.format(suffixes[1])]).drop_duplicates()
 
@@ -57,7 +61,7 @@ def filter_counts_by_interactions(counts: pd.DataFrame, interactions: pd.DataFra
 
 def filter_empty_cluster_counts(counts: pd.DataFrame) -> pd.DataFrame:
     """
-    Removes counts with all values to zero
+    Remove count with all values to zero
     """
     if counts.empty:
         return counts
@@ -130,6 +134,10 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
 def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame,
                       cluster_interactions: list, base_result: pd.DataFrame, threads: int,
                       suffixes: tuple = ('_1', '_2')) -> list:
+    """
+    Shuffles meta and calculates the means for each.
+    """
+    core_logger.info('Running Statistical Analysis')
     with Pool(processes=threads) as pool:
         asd_mult = partial(_statistical_analysis, base_result, cluster_interactions, counts, interactions, meta,
                            suffixes)
@@ -148,6 +156,7 @@ def _statistical_analysis(base_result, cluster_interactions, counts, interaction
 def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.DataFrame,
                          statistical_mean_analysis: list, interactions: pd.DataFrame, cluster_interactions: list,
                          base_result: pd.DataFrame) -> pd.DataFrame:
+    core_logger.info('Building Pvalues result')
     percent_result = base_result.copy()
 
     for interaction_index, interaction in interactions.iterrows():

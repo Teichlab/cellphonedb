@@ -28,6 +28,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
                                                               cells_names)
 
     clusters = cluster_statistical_analysis_helper.build_clusters(meta, counts_filtered)
+    core_logger.info('Running Real Complex Analysis')
 
     cluster_interactions = cluster_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
     interactions_processed = get_interactions_processed(interactions_filtered, complex_significative_protein)
@@ -69,6 +70,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
                   clusters_means: dict, complex_compositions: pd.DataFrame, counts: pd.DataFrame,
                   genes: pd.DataFrame, round_decimals: int) -> (
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+    core_logger.info('Building Complex results')
     interacting_pair = cluster_statistical_analysis_helper.interacting_pair_build(interactions)
 
     interactions = interactions.copy()
@@ -264,6 +266,7 @@ def filter_interactions_by_genes(interactions: pd.DataFrame, genes: list) -> pd.
 
 def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataFrame, complexes: pd.DataFrame,
                complex_compositions: pd.DataFrame):
+    core_logger.info('Running Complex Prefilters')
     clusters_names = sorted(counts.columns.values)
     counts['gene'] = counts.index
 

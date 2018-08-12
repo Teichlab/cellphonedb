@@ -20,7 +20,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
     clusters = cluster_statistical_analysis_helper.build_clusters(meta, counts_filtered)
-
+    core_logger.info('Running Real Simple Analysis')
     cluster_interactions = cluster_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
 
     base_result = cluster_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions)
@@ -61,6 +61,7 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
                   clusters_means: dict, round_decimals: int) -> (
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+    core_logger.info('Building Simple results')
     interacting_pair = cluster_statistical_analysis_helper.interacting_pair_build(interactions)
 
     interactions_data_result = pd.DataFrame(interactions[['id_cp_interaction', 'name_1', 'name_2', 'ensembl_1',
@@ -140,6 +141,16 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) 
 
 
 def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
+    """
+    This is where _counts_ input and interactions are filtrated. We remove
+        - Duplicated ensembl: Keep the first.
+        - If ensembl is not in CellPhoneDB interactions.
+        - Empty counts: Remove counts if all row values are 0.
+        - Interactions without two components in counts.
+        - Orphan ensembls: if the ensembl is only on one interaction component
+
+    """
+    core_logger.info('Running Simple Prefilters')
     interactions_filtered = interaction_filter.filter_by_is_interactor(interactions)
 
     counts_filtered = counts[~counts.index.duplicated()]
@@ -158,6 +169,9 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFram
 
 def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame,
                                   suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+    """
+    Remove interaction if both components are not in counts lists
+    """
     ensembl_counts = list(counts.index)
     interactions_filtered = interactions[interactions.apply(
         lambda row: row['ensembl{}'.format(suffixes[0])] in ensembl_counts and row[
