@@ -51,6 +51,13 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
         self.assertEqual(872, len(interactions[interactions['source'] == 'curated']),
                          'Number of curated interactions not equal')
 
+    def test_interaction_cpdb_interactor(self):
+        interactions = cellphonedb_app.cellphonedb.database_manager.get_repository(
+            'interaction').get_all()
+
+        self.assertEqual(1144, len(interactions[interactions['is_cellphonedb_interactor']]),
+                         'number of cellphonedb interaction interactors different that expected')
+
     def test_interaction_iuphar(self):
         interactions = cellphonedb_app.cellphonedb.database_manager.get_repository(
             'interaction').get_all()

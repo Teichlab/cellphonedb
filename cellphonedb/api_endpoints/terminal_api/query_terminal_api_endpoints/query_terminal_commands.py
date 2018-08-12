@@ -13,3 +13,8 @@ def find_interactions_by_element(element: str):
 @click.option('--columns', default=None, help='Columns to set in the result')
 def get_interaction_gene(columns: str):
     LocalQueryLauncher.get_interaction_gene(columns)
+
+
+@click.command()
+def cpdb_data_report():
+    LocalQueryLauncher.cpdb_data_report()

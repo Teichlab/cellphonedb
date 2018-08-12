@@ -3,6 +3,7 @@ import pandas as pd
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database import DatabaseManager
 from cellphonedb.core.queries.interaction import interaction_gene_get, interactions_by_element
+from cellphonedb.core.queries.reports.cpdb_data_report_query import call
 
 
 class QueryLauncher:
@@ -29,3 +30,12 @@ class QueryLauncher:
         genes = interaction_gene_get.call(columns, interactions, complex_composition)
 
         return genes
+
+    def cpdb_data_report_launcher(self) -> {}:
+        proteins = self.database_manager.get_repository('protein').get_all_expanded()
+        interactions = self.database_manager.get_repository('interaction').get_all_expanded(include_gene=False)
+        complex_compositions = self.database_manager.get_repository('complex').get_all_compositions()
+
+        report = call(complex_compositions, interactions, proteins)
+
+        return report
