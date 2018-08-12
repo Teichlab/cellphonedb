@@ -40,8 +40,13 @@ class InteractionRepository(Repository):
         interactions_expanded = expand_interactions_multidatas(interactions, multidatas_expanded)
         return interactions_expanded
 
-    def get_all_expanded(self, include_gene=True, suffixes=('_1', '_2')):
-        interactions_query = self.database_manager.database.session.query(Interaction)
+    def get_all_expanded(self, include_gene=True, only_cellphonedb_interactor=False, suffixes=('_1', '_2')):
+        if only_cellphonedb_interactor == True:
+            interactions_query = self.database_manager.database.session.query(Interaction).filter_by(
+                is_cellphonedb_interactor=True)
+        else:
+            interactions_query = self.database_manager.database.session.query(Interaction)
+
         interactions = pd.read_sql(interactions_query.statement, self.database_manager.database.engine)
 
         multidata_expanded = self.database_manager.get_repository('multidata').get_all_expanded(include_gene)

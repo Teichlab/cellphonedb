@@ -146,7 +146,6 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFram
     counts_filtered = cluster_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered, interactions)
     counts_filtered = cluster_statistical_analysis_helper.filter_empty_cluster_counts(counts_filtered)
     interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered, ('_1', '_2'))
-    interactions_filtered = filter_interactions_non_individual(interactions_filtered, ('_1', '_2'))
 
     counts_filtered = cluster_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
                                                                                         interactions_filtered,
@@ -164,12 +163,4 @@ def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFra
         lambda row: row['ensembl{}'.format(suffixes[0])] in ensembl_counts and row[
             'ensembl{}'.format(suffixes[1])] in ensembl_counts, axis=1
     )]
-    return interactions_filtered
-
-
-def filter_interactions_non_individual(interactions: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
-    interactions_filtered = interactions[
-        interactions.apply(lambda interaction: interaction['ensembl{}'.format(suffixes[0])] != interaction[
-            'ensembl{}'.format(suffixes[1])], axis=1)]
-
     return interactions_filtered

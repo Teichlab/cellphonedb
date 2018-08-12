@@ -50,7 +50,8 @@ class MethodLauncher():
     def cluster_statistical_analysis_simple_launcher(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int,
                                                      threshold: float, threads: int, debug_seed: int) -> (
             pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-        interactions = self.database_manager.get_repository('interaction').get_all_expanded()
+        interactions = self.database_manager.get_repository('interaction').get_all_expanded(
+            only_cellphonedb_interactor=True)
 
         return cluster_statistical_analysis_simple_method.call(meta, count, interactions, iterations, threshold,
                                                                threads,
@@ -59,7 +60,8 @@ class MethodLauncher():
     def cluster_statistical_analysis_complex_launcher(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int,
                                                       threshold: float, threads: int, debug_seed: int) -> (
             pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-        interactions = self.database_manager.get_repository('interaction').get_all_expanded()
+        interactions = self.database_manager.get_repository('interaction').get_all_expanded(
+            only_cellphonedb_interactor=True)
         genes = self.database_manager.get_repository('gene').get_all_expanded()
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
