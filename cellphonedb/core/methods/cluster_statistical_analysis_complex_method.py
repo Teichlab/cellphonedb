@@ -206,18 +206,46 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     return deconvoluted_result
 
 
-def get_interactions_processed(interactions: pd.DataFrame, complex_significative_gen: pd.Series) -> pd.DataFrame:
+def get_interactions_processed(interactions: pd.DataFrame, complex_significative_gene: pd.Series) -> pd.DataFrame:
+    """
+    Returns a interaction dataframe [ensembl_1/ensembl_2] with complex data changed to complex_significative_gene.
+    Interactions index don't changes
+
+    EXAMPLE:
+        INPUT:
+        interactions
+                ensembl_1   ensembl_2   name_1      name_2      is_complex_1    is_complex_2
+        1       ensembla                uniprota    complex1    false           true
+        2                   ensemblb    complex2    uniprotb    true            false
+        3       ensemblc    ensembld    complex3    complex4    true            true
+
+        complex_significative_gene
+
+        name        ensembl
+        complex1    ensemblw
+        complex2    ensemblx
+        complex3    ensembly
+        complex4    ensemblz
+
+        RESULT:
+
+            ensembl_1   ensembl_2
+        1   ensembla    ensemblw
+        2   ensemblx    ensemblb
+        3   ensembly    ensemblz
+    """
+
     def interaction_processed_builder(interaction: pd.Series) -> pd.Series:
 
         built = pd.Series()
 
         if interaction['is_complex_1']:
-            built['ensembl_1'] = complex_significative_gen[interaction['name_1']]
+            built['ensembl_1'] = complex_significative_gene[interaction['name_1']]
         else:
             built['ensembl_1'] = interaction['ensembl_1']
 
         if interaction['is_complex_2']:
-            built['ensembl_2'] = complex_significative_gen[interaction['name_2']]
+            built['ensembl_2'] = complex_significative_gene[interaction['name_2']]
         else:
             built['ensembl_2'] = interaction['ensembl_2']
 
@@ -351,6 +379,14 @@ def get_involved_complex_from_counts(multidatas_counts: pd.DataFrame, clusters_n
 
 def get_complex_significative(complexes: pd.DataFrame, counts: pd.DataFrame, complex_composition: pd.DataFrame,
                               cells_names: list) -> pd.Series:
+    """
+    Returns a table with the most significant ensembl count for one complex.
+
+    The most significative count is the lower mean of the components.
+
+
+
+    """
     complex_composition_complexes = pd.merge(complexes, complex_composition, on='complex_multidata_id')
 
     complex_counts = pd.merge(counts, complex_composition_complexes, left_on='id_multidata',

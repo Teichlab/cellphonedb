@@ -151,25 +151,29 @@ def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) 
 def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list,
                   base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
     """
-    Calculates the mean for cluster interactions and counts
+    Calculates the mean for the list of interactions and for each cluster
 
     sets 0 if one of both is 0
 
     EXAMPLE:
-        INPUT:
+        cluster_means
                    cluster1    cluster2    cluster3
-        count1     0.0         0.2         0.3
-        count2     0.4         0.5         0.6
-        count3     0.7         0.0         0.9
+        ensembl1     0.0         0.2         0.3
+        ensembl2     0.4         0.5         0.6
+        ensembl3     0.7         0.0         0.9
+
+        interactions:
+
+        ensembl1,ensembl2
+        ensembl2,ensembl3
 
         RESULT:
-
-                   cluster1_cluster1   cluster1_cluster2   ... cluster3_cluster2   cluster3_cluster3
-        count1     0.0                 0.0                     0.25                0.3
-        count2     0.4                 0.45                    0.55                0.6
-        count3     0.7                 0.0                     0.0                 0.9
+                              cluster1_cluster1   cluster1_cluster2   ...   cluster3_cluster2   cluster3_cluster3
+        ensembl1_ensembl2     mean(0.0,0.4)*      mean(0.0,0.5)*            mean(0.3,0.5)       mean(0.3,0.6)
+        ensembl2_ensembl3     mean(0.4,0.7)       mean(0.4,0.0)*            mean(0.6,0.0)*      mean(0.6,0.9)
 
 
+        results with * are 0 because one of both components is 0.
     """
     result = base_result.copy()
 
@@ -187,9 +191,9 @@ def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactio
 def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFrame, cluster_interactions: list,
                      base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
     """
-    Calculates the percents for cluster interactions and counts.
+    Calculates the percents for cluster interactions and foreach gene interaction
 
-    Sets 0
+    If one of both is not 0 sets the value to 0. Else sets 1
 
     EXAMPLE:
         INPUT:
@@ -198,29 +202,34 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
         cluster1 = cell1,cell2
         cluster2 = cell3
 
-                   cell1       cell2      cell3
-        count1     0.0         0.6         0.3
-        count2     0.1         0.05         0.06
-        count3     0.0         0.0         0.9
+                     cell1       cell2      cell3
+        ensembl1     0.0         0.6         0.3
+        ensembl2     0.1         0.05         0.06
+        ensembl3     0.0         0.0         0.9
+
+        interactions:
+
+        ensembl1,ensembl2
+        ensembl1,ensembl3
 
 
         (after percents calculation)
 
-                   cluster1    cluster2
-        count1     0           0
-        count2     1           1
-        count3     1           0
+                     cluster1    cluster2
+        ensembl1     0           0
+        ensembl2     1           1
+        ensembl3     1           0
 
         RESULT:
+                            cluster1_cluster1   cluster1_cluster2   cluster2_cluster1   cluster2_cluster2
+        ensembl1_ensembl2   (0,1)-> 0           (0,1)-> 0           (0,1)->0            (0,1)->0
+        ensembl1_ensembl3   (0,1)-> 0           (0,0)-> 1           (0,1)->0            (0,0)->1
 
-                   cluster1_cluster1   cluster1_cluster2   cluster2_cluster1   cluster2_cluster2
-        count1     1                   1                   1                   1
-        count2     0                   0                   0                   0
-        count3     0                   0                   0                   1
 
     """
     result = base_result.copy()
     percents = {}
+    # percents calculation
     for cluster_name in clusters['names']:
         counts = clusters['counts'][cluster_name]
 
@@ -279,26 +288,26 @@ def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analys
         INPUT:
 
         real_mean_analysis:
-                cluster1_cluster1   cluster1_cluster2 ...
-        count1  0.5                 0.4
-        count1  0.0                 0.2
+                      cluster1_cluster1   cluster1_cluster2 ...
+        interaction1  0.5                 0.4
+        interaction2  0.0                 0.2
 
 
         real_percents_analysis:
-                cluster1_cluster1   cluster1_cluster2 ...
-        count1  1                   0
-        count1  0                   1
+                      cluster1_cluster1   cluster1_cluster2 ...
+        interaction1  1                   0
+        interaction2  0                   1
 
         statistical means:
         [
-               cluster1_cluster1   cluster1_cluster2 ...
-        count1  0.6                 0.1
-        count1  0.0                 0.2
+                        cluster1_cluster1   cluster1_cluster2 ...
+        interaction1    0.6                 0.1
+        interaction2    0.0                 0.2
 
         ,
-               cluster1_cluster1   cluster1_cluster2 ...
-        count1  0.5                 0.4
-        count1  0.0                 0.6
+                      cluster1_cluster1   cluster1_cluster2 ...
+        interaction1  0.5                 0.4
+        interaction2  0.0                 0.6
         ]
 
         iterations = 2
@@ -306,9 +315,9 @@ def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analys
 
         RESULT:
 
-                cluster1_cluster1   cluster1_cluster2 ...
-        count1  1                   1
-        count1  1                   0.5
+                        cluster1_cluster1   cluster1_cluster2 ...
+        interaction1    1                   1
+        interaction2    1                   0.5
 
 
     """
@@ -343,6 +352,7 @@ def interacting_pair_build(interactions: pd.DataFrame) -> pd.Series:
     """
     Returns the interaction result formated with prefixes
     """
+
     def get_interactor_name(interaction: pd.Series, suffix: str) -> str:
         if interaction['is_complex{}'.format(suffix)]:
             return interaction['name{}'.format(suffix)]
@@ -375,8 +385,7 @@ def build_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd
 def cluster_interaction_percent(cluster_interaction: tuple, interaction: pd.Series, clusters_percents: dict,
                                 suffixes: tuple = ('_1', '_2')) -> int:
     """
-    If one of both is 1 the result was 0
-    other cases are 1
+    If one of both is not 0 the result is 0 other cases are 1
     """
 
     percent_cluster_receptors = clusters_percents[cluster_interaction[0]]
