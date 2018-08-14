@@ -2,21 +2,21 @@
 
 ## First time
 0. **Requisites**:
-- Python3
+- Python >= 3.5
 - Pip3
 - python3-venv
 
 
 
-1. **Download** CellPhoneDB-0.0.5.tar.gz.
+1. **Download** CellPhoneDB-0.0.6.tar.gz.
 
-2. Go to the directory where CellPhoneDB-0.0.5.tar.gz is stored (**ie**: _~/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.5.tar.gz).
+2. Go to the directory where CellPhoneDB-0.0.6.tar.gz is stored (**ie**: _~/Downloads_ folder) & **unpack** CellPhoneDB manager (CellPhoneDB-0.0.6.tar.gz).
 
 Code:
 ```shell
 cd ~/Downloads
-tar -xzf CellPhoneDB-0.0.5.tar.gz
-cd CellPhoneDB-0.0.5
+tar -xzf CellPhoneDB-0.0.6.tar.gz
+cd CellPhoneDB-0.0.6
 ```
 
 3. **Create Virual Env**.
@@ -46,7 +46,7 @@ FLASK_APP=manage.py flask method cluster_statistical_analysis example_data/test_
 ```
 
 2. **Running your inputs**
-Input files (meta and counts) shoud be allocated in  folder is found in CellPhoneDB-0.0.5
+Input files (meta and counts) shoud be allocated in  folder is found in CellPhoneDB-0.0.6
 Files format: **.txt/.tsv/.tab** for tab separated format or **.csv** for comma separated format.
 
 
@@ -69,7 +69,8 @@ FLASK_APP=manage.py flask method cluster_statistical_analysis yourmetafile.txt y
 `--significant-mean-result-name`: Significant result namefile [significant_means.txt]
 `--means-pvalues-result-name`: Pvalues-means result namefile [pvalues_means.txt]
 `--deconvoluted-result-name`: Deconvoluted result namefile [deconvoluted.txt]
-`--debug-seed`: Debug random seed 0 for disable it. >=0 to set it [-1]
+`--debug-seed`: Debug random seed -1 for disable it. >=0 [-1]
+`--threads`: Number of threads to use. >=1 [-1]
 
 **Usage Examples**:
 

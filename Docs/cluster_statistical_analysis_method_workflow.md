@@ -235,7 +235,6 @@ RESULT:
 ensembl1_ensembl2    0.1         NaN         NaN
 ensembl2_ensembl3    2.0         0.1         NaN
 ensembl1_ensembl3    NaN         NaN         0.5
-"""
 ```
 
 
