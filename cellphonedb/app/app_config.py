@@ -20,14 +20,17 @@ class AppConfig():
                                   'echo': self.config['database']['echo']}
 
         self.logger_config = self._get_core_logger_config(self.config['app']['debug'])
-        self.threads_config = self._get_threads_config(self.config['app'])
+        self.core_config = self._build_core_config()
+
+    def _build_core_config(self):
+        core_config = self.config['app']
+        core_config['sqlalchemy'] = self.sqlalchemy_config
+        core_config['logger'] = self.logger_config
+
+        return core_config
 
     def get_cellphone_core_config(self):
-        return {
-            'sqlalchemy': self.sqlalchemy_config,
-            'logger': self.logger_config,
-            'threads': self.threads_config
-        }
+        return self.core_config
 
     @staticmethod
     def _get_threads_config(app_config: dict):

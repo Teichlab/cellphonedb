@@ -34,7 +34,7 @@ class CellphonedbSqlalchemy(Cellphonedb):
         database_manager.add_repository(InteractionRepository)
         database_manager.add_repository(MultidataRepository)
         database_manager.add_repository(ProteinRepository)
-        Cellphonedb.__init__(self, database_manager, config['threads'])
+        Cellphonedb.__init__(self, database_manager, config)
 
     @staticmethod
     def _build_uri(config):
