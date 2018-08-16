@@ -1,13 +1,16 @@
 import os
-
 import pandas as pd
 
 from cellphonedb.app.app_logger import app_logger
-from cellphonedb.app.cellphonedb_app import cellphonedb_app, output_dir, query_input_dir
+from cellphonedb.app.cellphonedb_app import output_dir, query_input_dir
 from utils import utils
 
 
 class LocalMethodLauncher(object):
+    def __init__(self, cellphonedb_app):
+
+        self.cellphonedb_app = cellphonedb_app
+
     def __getattribute__(self, name):
         method = object.__getattribute__(self, name)
         if hasattr(method, '__call__'):
@@ -15,8 +18,7 @@ class LocalMethodLauncher(object):
 
         return method
 
-    @staticmethod
-    def cluster_statistical_analysis(meta_filename: str,
+    def cluster_statistical_analysis(self, meta_filename: str,
                                      counts_filename: str,
                                      project_name: str = '',
                                      iterations: str = '1000',
@@ -54,7 +56,7 @@ class LocalMethodLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_launcher(
+        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = self.cellphonedb_app.method.cluster_statistical_analysis_launcher(
             meta, counts, iterations, threshold, threads, debug_seed)
 
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
@@ -63,8 +65,7 @@ class LocalMethodLauncher(object):
         means_pvalues_simple.to_csv('{}/{}'.format(output_path, means_pvalues_filename), sep='\t', index=False)
         deconvoluted_simple.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
 
-    @staticmethod
-    def cluster_statistical_analysis_simple(meta_filename: str, counts_filename: str, iterations: str = '1000',
+    def cluster_statistical_analysis_simple(self, meta_filename: str, counts_filename: str, iterations: str = '1000',
                                             data_path='', output_path: str = '', means_filename: str = 'means.txt',
                                             pvalues_filename: str = 'pvalues.txt',
                                             significant_mean_filename: str = 'significant_means.txt',
@@ -86,7 +87,7 @@ class LocalMethodLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_simple_launcher(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = self.cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_simple_launcher(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
@@ -95,8 +96,7 @@ class LocalMethodLauncher(object):
         means_pvalues.to_csv('{}/{}'.format(output_path, means_pvalues_filename), sep='\t', index=False)
         deconvoluted.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
 
-    @staticmethod
-    def cluster_statistical_analysis_complex(meta_filename: str, counts_filename: str, iterations: str = '1000',
+    def cluster_statistical_analysis_complex(self, meta_filename: str, counts_filename: str, iterations: str = '1000',
                                              data_path='',
                                              output_path: str = '', means_filename: str = 'means.txt',
                                              pvalues_filename: str = 'pvalues.txt',
@@ -119,7 +119,7 @@ class LocalMethodLauncher(object):
         meta = pd.DataFrame(index=meta_raw.index)
         meta['cell_type'] = meta_raw.iloc[:, 0]
 
-        pvalues, means, significant_means, means_pvalues, deconvoluted = cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_complex_launcher(
+        pvalues, means, significant_means, means_pvalues, deconvoluted = self.cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_complex_launcher(
             meta, counts, iterations, debug_seed)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)

@@ -1,7 +1,7 @@
 import pandas as pd
 
 from cellphonedb.app.flask.flask_app import create_app
-from cellphonedb.app.cellphonedb_app import output_test_dir, data_test_dir
+from cellphonedb.app.cellphonedb_app import output_test_dir, data_test_dir, cellphonedb_app
 from cellphonedb.local_launchers.local_method_launcher import LocalMethodLauncher
 from cellphonedb.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 from utils import dataframe_functions
@@ -29,13 +29,14 @@ class TestFlaskTerminalMethodClusterStatisticalAnalysis(CellphoneFlaskTestCase):
         meta_filename = 'hi_{}_meta.txt'.format(data)
         counts_filename = 'hi_{}_counts.txt'.format(data)
 
-        LocalMethodLauncher().cluster_statistical_analysis(meta_filename, counts_filename, project_name,
-                                                           iterations, threshold, data_test_dir,
-                                                           output_test_dir,
-                                                           result_means_filename, result_pvalues_filename,
-                                                           result_significant_means_filename,
-                                                           result_pvalues_means_filename,
-                                                           result_deconvoluted_filename, debug_seed)
+        LocalMethodLauncher(cellphonedb_app.cellphonedb).cluster_statistical_analysis(meta_filename, counts_filename,
+                                                                                      project_name,
+                                                                                      iterations, threshold, data_test_dir,
+                                                                                      output_test_dir,
+                                                                                      result_means_filename, result_pvalues_filename,
+                                                                                      result_significant_means_filename,
+                                                                                      result_pvalues_means_filename,
+                                                                                      result_deconvoluted_filename, debug_seed)
 
         self._assert_result('means', data, iterations, project_name, result_means_filename)
         self._assert_result('pvalues', data, iterations, project_name, result_pvalues_filename)

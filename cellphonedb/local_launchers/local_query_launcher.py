@@ -1,5 +1,4 @@
 from cellphonedb.app.app_logger import app_logger
-from cellphonedb.app.cellphonedb_app import cellphonedb_app
 
 
 class LocalQueryLauncher:
@@ -10,20 +9,21 @@ class LocalQueryLauncher:
 
         return method
 
-    @staticmethod
-    def find_interactions_by_element(element: str) -> None:
-        print(cellphonedb_app.cellphonedb.query.find_interactions_by_element(element).to_csv(index=False))
+    def __init__(self, cellphonedb_app):
 
-    @staticmethod
-    def get_interaction_gene(columns: str) -> None:
+        self.cellphonedb_app = cellphonedb_app
+
+    def find_interactions_by_element(self, element: str) -> None:
+        print(self.cellphonedb_app.cellphonedb.query.find_interactions_by_element(element).to_csv(index=False))
+
+    def get_interaction_gene(self, columns: str) -> None:
         if columns:
             columns = columns.split(',')
 
-        print(cellphonedb_app.cellphonedb.query.get_interaction_gene(columns).to_csv(index=False))
+        print(self.cellphonedb_app.cellphonedb.query.get_interaction_gene(columns).to_csv(index=False))
 
-    @staticmethod
-    def cpdb_data_report() -> None:
-        report = cellphonedb_app.cellphonedb.query.cpdb_data_report_launcher()
+    def cpdb_data_report(self, ) -> None:
+        report = self.cellphonedb_app.cellphonedb.query.cpdb_data_report_launcher()
 
         print('PROTEINS')
         print('========')
