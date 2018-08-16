@@ -33,19 +33,23 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
         iterations = min_iterations if iterations < min_iterations else iterations
 
         if not self._errors:
-            pvalues, means, significant_means, mean_pvalue, deconvoluted = \
-                cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_launcher(meta,
-                                                                                         counts,
-                                                                                         iterations=iterations,
-                                                                                         threshold=threshold,
-                                                                                         threads=-1,
-                                                                                         debug_seed=-1)
+            try:
+                pvalues, means, significant_means, mean_pvalue, deconvoluted = \
+                    cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_launcher(meta,
+                                                                                             counts,
+                                                                                             iterations=iterations,
+                                                                                             threshold=threshold,
+                                                                                             threads=-1,
+                                                                                             debug_seed=-1)
 
-            self._attach_csv(pvalues.to_csv(index=False), 'pvalues.csv')
-            self._attach_csv(means.to_csv(index=False), 'means.csv')
-            self._attach_csv(significant_means.to_csv(index=False), 'significant_means.csv')
-            self._attach_csv(mean_pvalue.to_csv(index=False), 'mean_pvalue.csv')
-            self._attach_csv(deconvoluted.to_csv(index=False), 'deconvoluted.csv')
+                self._attach_csv(pvalues.to_csv(index=False), 'pvalues.csv')
+                self._attach_csv(means.to_csv(index=False), 'means.csv')
+                self._attach_csv(significant_means.to_csv(index=False), 'significant_means.csv')
+                self._attach_csv(mean_pvalue.to_csv(index=False), 'mean_pvalue.csv')
+                self._attach_csv(deconvoluted.to_csv(index=False), 'deconvoluted.csv')
+            except:
+                self.attach_error(
+                    {'code': 'method_excution', 'title': 'Error executing the method', 'detail': ''})
 
         self._commit_attachments()
 

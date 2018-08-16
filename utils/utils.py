@@ -4,14 +4,21 @@ from typing import TextIO
 import pandas as pd
 from werkzeug.datastructures import FileStorage
 
+from cellphonedb.cpdb_exceptions.ReadFileException import ReadFileException
+
 
 def read_data_table_from_file(file: str, index_column_first: bool = False, separator: str = '',
                               dtype=None, na_values=None) -> pd.DataFrame:
     filename, file_extension = os.path.splitext(file)
     if not separator:
         separator = _get_separator(file_extension)
-    with open(file) as f:
-        return _read_data(f, separator, index_column_first, dtype, na_values)
+    try:
+        f = open(file)
+    except Exception:
+        raise ReadFileException
+    else:
+        with f:
+            return _read_data(f, separator, index_column_first, dtype, na_values)
 
 
 def read_data_from_content_type(file: FileStorage, index_column_first: bool = False, separator: str = '',
