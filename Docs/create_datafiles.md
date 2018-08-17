@@ -10,7 +10,7 @@ CellPhoneDB database needs this input tables:
 3. **interaction.csv**
 4. **protein.csv**
 
-The recreation order is important because they have data dependences.
+The order is important because they have data dependences.
 
 ## Using tools.py
 Tools.py is the provided tool to preprocesate the CellPhoneDB database input data.
@@ -33,7 +33,7 @@ In addition, you need to provide:
 
 #### Command:
 ```shell
-python3 tools.py generate_genes uniprot_db_filename ensembl_db_filename proteins_filename remove_genes_filename hla_genes_filename \[\-\-result_filename] \[\-\-result_path] \[\-\-gene_uniprot_ensembl_merged_result_filename] \[\-\-add_hla_result_filename]
+python3 tools.py generate_genes uniprot_db_filename ensembl_db_filename proteins_filename remove_genes_filename hla_genes_filename [--result_filename] [--result_path] [--gene_uniprot_ensembl_merged_result_filename] [--add_hla_result_filename]
 ```
 
 
@@ -88,6 +88,17 @@ python3 tools.py generate_interactions imex_raw_filename iuphar_raw_filename pro
 python3 tools.py generate_interactions interactionsMirjana.txt interaction_iuphar_guidetopharmacology__20180619.csv ../../cellphonedb/core/data/protein.csv ../../cellphonedb/core/data/gene.csv ../../cellphonedb/core/data/complex.csv remove_interactions_20180330.csv interaction_curated_20180729.csv
 ```
 
+## Loading the new data in CellPhoneDB 
 
+Once the data is builded, you need to move the `interaction.csv` file and the `gene.csv` file from `tools/out` folder to
+`cellphonedb/core/data` replacing the old files. 
 
+Aftewards, please upgrade the database using the following code:
 
+```
+FLASK_APP=manage.py flask reset_db
+FLASK_APP=manage.py flask collect all 
+```
+
+This commands removes the actual database (allocated by default in `cellphonedb/code/cellphone.db` using sqlite) and 
+creates the new one with the updated data.
