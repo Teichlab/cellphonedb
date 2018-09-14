@@ -1,3 +1,4 @@
+import os
 import io
 import json
 import time
@@ -9,13 +10,30 @@ import pika
 
 from cellphonedb.app import app_config
 from cellphonedb.core.CellphonedbSqlalchemy import CellphonedbSqlalchemy
+from cellphonedb.app.app_logger import app_logger
+
+try:
+    s3_access_key = os.environ['S3_ACCESS_KEY']
+    s3_secret_key = os.environ['S3_SECRET_KEY']
+    s3_bucket_name = os.environ['S3_BUCKET_NAME']
+    s3_endpoint = os.environ['S3_ENDPOINT']
+    jobs_queue_name = os.environ['RABBIT_JOB_QUEUE']
+    result_queue_name = os.environ['RABBIT_RESULT_QUEUE']
+
+
+except KeyError as e:
+    app_logger.error('ENVIRONMENT VARIABLE {} not defined. Please set it'.format(e))
+    exit(1)
 
 config = app_config.AppConfig()
 app = CellphonedbSqlalchemy(config.get_cellphone_core_config())
-s3_resource = boto3.resource('s3')
-s3_client = boto3.client('s3')
 
-s3_bucket_name = 'cpdb-test'
+s3_resource = boto3.resource('s3', aws_access_key_id=s3_access_key,
+                             aws_secret_access_key=s3_secret_key,
+                             endpoint_url=s3_endpoint)
+s3_client = boto3.client('s3', aws_access_key_id=s3_access_key,
+                         aws_secret_access_key=s3_secret_key,
+                         endpoint_url=s3_endpoint)
 
 
 def read_data_from_s3(filename: str, s3_bucket_name: str):
@@ -26,7 +44,7 @@ def read_data_from_s3(filename: str, s3_bucket_name: str):
 
 def write_data_in_s3(data: pd.DataFrame, filename: str):
     result_buffer = io.StringIO()
-    data.to_csv(result_buffer, index=False)
+    data.to_csv(result_buffer, index=False, sep='\t')
     result_buffer.seek(0)
 
     encoding = result_buffer
@@ -34,16 +52,16 @@ def write_data_in_s3(data: pd.DataFrame, filename: str):
 
 
 def process_job(method, properties, body) -> dict:
-    print(body.decode('utf-8'))
     metadata = json.loads(body.decode('utf-8'))
 
     meta = read_data_from_s3(metadata['file_meta'], s3_bucket_name)
     counts = read_data_from_s3(metadata['file_counts'], s3_bucket_name)
+    counts = counts.astype(dtype=pd.np.float64, copy=False)
 
     pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = \
         app.method.cluster_statistical_analysis_launcher(meta,
                                                          counts,
-                                                         threshold=float(metadata['threshold']),
+                                                         threshold=float(metadata['threshold'] / 100),
                                                          iterations=int(metadata['iterations']),
                                                          debug_seed=-1,
                                                          threads=4)
@@ -70,13 +88,6 @@ def process_job(method, properties, body) -> dict:
     return response
 
 
-def print_all_files():
-    for bucket in s3_resource.buckets.all():
-        print(bucket.name)
-        for object in bucket.objects.all():
-            print(object)
-
-
 credentials = pika.PlainCredentials('guest', 'guest')
 connection = pika.BlockingConnection(pika.ConnectionParameters(
     host='localhost',
@@ -88,29 +99,27 @@ channel = connection.channel()
 channel.basic_qos(prefetch_count=1)
 
 while True:
-    job = channel.basic_get(queue='jobs-to-process', no_ack=True)
+    job = channel.basic_get(queue=jobs_queue_name, no_ack=True)
 
     if all(job):
         try:
             job_response = process_job(*job)
-            channel.basic_publish(exchange='', routing_key='cpdb-method-results', body=json.dumps(job_response))
-            print('[x] JOB %s PROCESSED' % job_response['job_id'])
-            print_all_files()
-        except:
+            channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
+            app_logger.info('[x] JOB %s PROCESSED' % job_response['job_id'])
+        except Exception as e:
             error_response = {
                 'job_id': json.loads(job[2].decode('utf-8'))['job_id'],
                 'success': False,
                 'error': {
                     'id': 'unknown_error',
-                    'message': ''
+                    'message': 'mensage '
                 }
             }
-            print('[-] ERROR DURING PROCESSING JOB %s' % error_response['job_id'])
-            channel.basic_publish(exchange='', routing_key='cpdb-method-results', body=json.dumps(error_response))
-
-
+            app_logger.error('[-] ERROR DURING PROCESSING JOB %s' % error_response['job_id'])
+            channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(error_response))
+            app_logger.error(e)
 
     else:
-        print('[ ] Empty queue')
+        app_logger.info('[ ] Empty queue')
 
     time.sleep(2)
