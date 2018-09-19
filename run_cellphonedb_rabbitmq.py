@@ -17,6 +17,8 @@ try:
     s3_secret_key = os.environ['S3_SECRET_KEY']
     s3_bucket_name = os.environ['S3_BUCKET_NAME']
     s3_endpoint = os.environ['S3_ENDPOINT']
+    rabbit_host = os.environ['RABBIT_HOST']
+    rabbit_port = os.environ['RABBIT_PORT']
     jobs_queue_name = os.environ['RABBIT_JOB_QUEUE']
     result_queue_name = os.environ['RABBIT_RESULT_QUEUE']
 
@@ -90,8 +92,8 @@ def process_job(method, properties, body) -> dict:
 
 credentials = pika.PlainCredentials('guest', 'guest')
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-    host='localhost',
-    port=5672,
+    host=rabbit_host,
+    port=rabbit_port,
     virtual_host='/',
     credentials=credentials
 ))
@@ -105,7 +107,7 @@ while True:
         try:
             job_response = process_job(*job)
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
-            app_logger.info('[x] JOB %s PROCESSED' % job_response['job_id'])
+            app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
         except Exception as e:
             error_response = {
                 'job_id': json.loads(job[2].decode('utf-8'))['job_id'],
@@ -120,6 +122,6 @@ while True:
             app_logger.error(e)
 
     else:
-        app_logger.info('[ ] Empty queue')
+        app_logger.info('Empty queue')
 
     time.sleep(2)
