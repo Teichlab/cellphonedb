@@ -19,6 +19,8 @@ try:
     s3_endpoint = os.environ['S3_ENDPOINT']
     rabbit_host = os.environ['RABBIT_HOST']
     rabbit_port = os.environ['RABBIT_PORT']
+    rabbit_user = os.environ['RABBIT_USER']
+    rabbit_password = os.environ['RABBIT_PASSWORD']
     jobs_queue_name = os.environ['RABBIT_JOB_QUEUE']
     result_queue_name = os.environ['RABBIT_RESULT_QUEUE']
 
@@ -90,7 +92,7 @@ def process_job(method, properties, body) -> dict:
     return response
 
 
-credentials = pika.PlainCredentials('guest', 'guest')
+credentials = pika.PlainCredentials(rabbit_user, rabbit_password)
 connection = pika.BlockingConnection(pika.ConnectionParameters(
     host=rabbit_host,
     port=rabbit_port,
