@@ -124,6 +124,6 @@ while True:
             app_logger.error(e)
 
     else:
-        app_logger.info('Empty queue')
+        app_logger.debug('Empty queue')
 
     time.sleep(2)

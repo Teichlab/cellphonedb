@@ -40,10 +40,12 @@ class AppConfig():
     def _set_app_logger_config(enable_debug: str):
         if enable_debug:
             app_logger.setLevel('DEBUG')
+        else:
+            app_logger.setLevel('INFO')
 
     @staticmethod
     def _get_core_logger_config(enable_debug):
-        config = {'level': 'WARNING'}
+        config = {'level': 'INFO'}
 
         if enable_debug:
             config['level'] = 'DEBUG'

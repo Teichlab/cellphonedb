@@ -22,7 +22,7 @@ class CellphonedbSqlalchemy(Cellphonedb):
 
         uri = self._build_uri(config)
 
-        core_logger.info('Database Uri: {}'.format(uri))
+        core_logger.debug('Database Uri: {}'.format(uri))
 
         engine = create_engine(uri)
         database = Database(engine)
