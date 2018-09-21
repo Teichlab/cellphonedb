@@ -29,6 +29,16 @@ except KeyError as e:
     app_logger.error('ENVIRONMENT VARIABLE {} not defined. Please set it'.format(e))
     exit(1)
 
+
+def create_rabbit_connection():
+    return pika.BlockingConnection(pika.ConnectionParameters(
+        host=rabbit_host,
+        port=rabbit_port,
+        virtual_host='/',
+        credentials=credentials
+    ))
+
+
 config = app_config.AppConfig()
 app = CellphonedbSqlalchemy(config.get_cellphone_core_config())
 
@@ -93,21 +103,22 @@ def process_job(method, properties, body) -> dict:
 
 
 credentials = pika.PlainCredentials(rabbit_user, rabbit_password)
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-    host=rabbit_host,
-    port=rabbit_port,
-    virtual_host='/',
-    credentials=credentials
-))
+connection = create_rabbit_connection()
 channel = connection.channel()
 channel.basic_qos(prefetch_count=1)
 
-while True:
+jobs_runned = 0
+
+while jobs_runned < 3:
     job = channel.basic_get(queue=jobs_queue_name, no_ack=True)
 
     if all(job):
         try:
             job_response = process_job(*job)
+
+            if connection.is_closed:
+                connection = create_rabbit_connection()
+
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
             app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
         except Exception as e:
@@ -120,10 +131,14 @@ while True:
                 }
             }
             app_logger.error('[-] ERROR DURING PROCESSING JOB %s' % error_response['job_id'])
+            if connection.is_closed:
+                connection = create_rabbit_connection()
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(error_response))
             app_logger.error(e)
+
+        jobs_runned += 1
 
     else:
         app_logger.debug('Empty queue')
 
-    time.sleep(2)
+    time.sleep(1)
