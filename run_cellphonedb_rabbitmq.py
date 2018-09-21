@@ -118,6 +118,8 @@ while jobs_runned < 3:
 
             if connection.is_closed:
                 connection = create_rabbit_connection()
+                channel = connection.channel()
+                channel.basic_qos(prefetch_count=1)
 
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
             app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
@@ -133,6 +135,8 @@ while jobs_runned < 3:
             app_logger.error('[-] ERROR DURING PROCESSING JOB %s' % error_response['job_id'])
             if connection.is_closed:
                 connection = create_rabbit_connection()
+                channel = connection.channel()
+                channel.basic_qos(prefetch_count=1)
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(error_response))
             app_logger.error(e)
 
