@@ -1,7 +1,9 @@
 import os
 import io
 import json
+import sys
 import time
+import traceback
 
 import pandas as pd
 
@@ -61,18 +63,24 @@ def write_data_in_s3(data: pd.DataFrame, filename: str):
     data.to_csv(result_buffer, index=False, sep='\t')
     result_buffer.seek(0)
 
+    # TODO: Find more elegant solution
+    s3_client = boto3.client('s3', aws_access_key_id=s3_access_key,
+                             aws_secret_access_key=s3_secret_key,
+                             endpoint_url=s3_endpoint)
+
     encoding = result_buffer
     s3_client.put_object(Body=encoding.getvalue().encode('utf-8'), Bucket=s3_bucket_name, Key=filename)
 
 
 def process_job(method, properties, body) -> dict:
     metadata = json.loads(body.decode('utf-8'))
-
+    job_id = metadata['job_id']
+    app_logger.info('New Job Queued: {}'.format(job_id))
     meta = read_data_from_s3(metadata['file_meta'], s3_bucket_name)
     counts = read_data_from_s3(metadata['file_counts'], s3_bucket_name)
     counts = counts.astype(dtype=pd.np.float64, copy=False)
 
-    pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = \
+    pvalues, means, significant_means, means_pvalues, deconvoluted = \
         app.method.cluster_statistical_analysis_launcher(meta,
                                                          counts,
                                                          threshold=float(metadata['threshold'] / 100),
@@ -80,24 +88,23 @@ def process_job(method, properties, body) -> dict:
                                                          debug_seed=-1,
                                                          threads=4)
 
-    job_id = metadata['job_id']
     response = {
         'job_id': job_id,
         'files': {
-            'pvalues_simple': 'pvalues_simple_{}.txt'.format(job_id),
-            'means_simple': 'means_simple_{}.txt'.format(job_id),
-            'significant_means_simple': 'significant_means_simple_{}.txt'.format(job_id),
-            'means_pvalues_simple': 'means_pvalues_simple_{}.txt'.format(job_id),
-            'deconvoluted_simple': 'deconvoluted_simple_{}.txt'.format(job_id),
+            'pvalues': 'pvalues_simple_{}.txt'.format(job_id),
+            'means': 'means_simple_{}.txt'.format(job_id),
+            'significant_means': 'significant_means_simple_{}.txt'.format(job_id),
+            'means_pvalues': 'means_pvalues_simple_{}.txt'.format(job_id),
+            'deconvoluted': 'deconvoluted_simple_{}.txt'.format(job_id),
         },
         'success': True
     }
 
-    write_data_in_s3(pvalues_simple, response['files']['pvalues_simple'])
-    write_data_in_s3(means_simple, response['files']['means_simple'])
-    write_data_in_s3(significant_means_simple, response['files']['significant_means_simple'])
-    write_data_in_s3(means_pvalues_simple, response['files']['means_pvalues_simple'])
-    write_data_in_s3(deconvoluted_simple, response['files']['deconvoluted_simple'])
+    write_data_in_s3(pvalues, response['files']['pvalues'])
+    write_data_in_s3(means, response['files']['means'])
+    write_data_in_s3(significant_means, response['files']['significant_means'])
+    write_data_in_s3(means_pvalues, response['files']['means_pvalues'])
+    write_data_in_s3(deconvoluted, response['files']['deconvoluted'])
 
     return response
 
@@ -115,11 +122,10 @@ while jobs_runned < 3:
     if all(job):
         try:
             job_response = process_job(*job)
-
-            if connection.is_closed:
-                connection = create_rabbit_connection()
-                channel = connection.channel()
-                channel.basic_qos(prefetch_count=1)
+            # TODO: Find more elegant solution
+            connection = create_rabbit_connection()
+            channel = connection.channel()
+            channel.basic_qos(prefetch_count=1)
 
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
             app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
@@ -132,6 +138,7 @@ while jobs_runned < 3:
                     'message': 'mensage '
                 }
             }
+            print(traceback.print_exc(file=sys.stdout))
             app_logger.error('[-] ERROR DURING PROCESSING JOB %s' % error_response['job_id'])
             if connection.is_closed:
                 connection = create_rabbit_connection()
