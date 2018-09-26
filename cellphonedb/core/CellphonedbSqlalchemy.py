@@ -22,7 +22,7 @@ class CellphonedbSqlalchemy(Cellphonedb):
 
         uri = self._build_uri(config)
 
-        core_logger.info('Database Uri: {}'.format(uri))
+        core_logger.debug('Database Uri: {}'.format(uri))
 
         engine = create_engine(uri)
         database = Database(engine)
@@ -34,7 +34,7 @@ class CellphonedbSqlalchemy(Cellphonedb):
         database_manager.add_repository(InteractionRepository)
         database_manager.add_repository(MultidataRepository)
         database_manager.add_repository(ProteinRepository)
-        Cellphonedb.__init__(self, database_manager, config['threads'])
+        Cellphonedb.__init__(self, database_manager, config)
 
     @staticmethod
     def _build_uri(config):

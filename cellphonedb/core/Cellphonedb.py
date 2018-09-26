@@ -13,10 +13,11 @@ data_test_dir = '{}/tests/fixtures'.format(cellphone_core_dir)
 
 
 class Cellphonedb(object):
-    def __init__(self, database_manager: DatabaseManager, threads: int):
-        self.config = {'default_threads': threads}
+    def __init__(self, database_manager: DatabaseManager, config):
+        self.config = {'default_threads': config['threads']}
         self.database_manager = database_manager
         self.export = ExporterLauncher(self.database_manager)
         self.collect = Collector(self.database_manager)
         self.method = MethodLauncher(self.database_manager, self.config['default_threads'])
         self.query = QueryLauncher(self.database_manager)
+        self.debug_mode = config['debug']
