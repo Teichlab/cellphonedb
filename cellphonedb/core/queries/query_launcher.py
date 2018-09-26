@@ -2,8 +2,9 @@ import pandas as pd
 
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database import DatabaseManager
+from cellphonedb.core.queries.complex import complex_deconvoluted
 from cellphonedb.core.queries.interaction import interaction_gene_get, interactions_by_element
-from cellphonedb.core.queries.reports.cpdb_data_report_query import call
+from cellphonedb.core.queries.reports import cpdb_data_report_query
 
 
 class QueryLauncher:
@@ -36,6 +37,12 @@ class QueryLauncher:
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(include_gene=False)
         complex_compositions = self.database_manager.get_repository('complex').get_all_compositions()
 
-        report = call(complex_compositions, interactions, proteins)
+        report = cpdb_data_report_query.call(complex_compositions, interactions, proteins)
 
         return report
+
+    def get_complex_deconvoluted(self, complex_name: str) -> pd.DataFrame:
+        complex_compositions = self.database_manager.get_repository('complex').get_all_compositions_expanded()
+
+        complex_elements = complex_deconvoluted.call(complex_compositions, complex_name)
+        return complex_elements
