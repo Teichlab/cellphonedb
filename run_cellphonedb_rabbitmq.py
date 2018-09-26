@@ -135,7 +135,7 @@ while jobs_runned < 3:
                 'success': False,
                 'error': {
                     'id': 'unknown_error',
-                    'message': 'mensage '
+                    'message': ''
                 }
             }
             print(traceback.print_exc(file=sys.stdout))
