@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.core.utils.filters import remove_not_defined_columns
+from src.core.utils.filters import remove_not_defined_columns
 
 
 def _only_uniprots_in_df(uniprots_df, inweb_interactions):

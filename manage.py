@@ -1,11 +1,11 @@
 import click
 
-from cellphonedb.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
-from cellphonedb.local_launchers.local_collector_launcher import LocalCollectorLauncher
-from cellphonedb.app.flask.flask_app import create_app
-from cellphonedb.app.cellphonedb_app import cellphonedb_app
-from cellphonedb.local_launchers.local_exporter_launcher import LocalExporterLauncher
-from cellphonedb.api_endpoints.terminal_api.method_terminal_api_endpoints import method_terminal_commands
+from src.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
+from src.local_launchers.local_collector_launcher import LocalCollectorLauncher
+from src.app.flask.flask_app import create_app
+from src.app.cellphonedb_app import cellphonedb_app
+from src.local_launchers.local_exporter_launcher import LocalExporterLauncher
+from src.api_endpoints.terminal_api.method_terminal_api_endpoints import method_terminal_commands
 
 app = create_app()
 

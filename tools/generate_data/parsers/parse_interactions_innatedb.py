@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.core.utils.filters import remove_not_defined_columns
+from src.core.utils.filters import remove_not_defined_columns
 from tools.app import data_dir, output_dir
 from tools.interactions_helper import _only_genes_in_df
 

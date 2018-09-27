@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import click
 
-from cellphonedb.api_endpoints.terminal_api.method_terminal_api_endpoints import method_terminal_commands
-from cellphonedb.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
-from cellphonedb.app.flask.flask_app import create_app
+from src.api_endpoints.terminal_api.method_terminal_api_endpoints import method_terminal_commands
+from src.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
+from src.app.flask.flask_app import create_app
 
 app = create_app()
 

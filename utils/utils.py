@@ -4,7 +4,7 @@ from typing import TextIO
 import pandas as pd
 from werkzeug.datastructures import FileStorage
 
-from cellphonedb.cpdb_exceptions.ReadFileException import ReadFileException
+from src.cpdb_exceptions.ReadFileException import ReadFileException
 
 
 def read_data_table_from_file(file: str, index_column_first: bool = False, separator: str = '',

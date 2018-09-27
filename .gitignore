@@ -5,7 +5,7 @@
 /in/*
 !/in/.gitkeep
 !/in/example_data/
-/cellphonedb/data/queries/
+/src/data/queries/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

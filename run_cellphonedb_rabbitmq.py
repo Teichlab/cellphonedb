@@ -10,9 +10,9 @@ import pandas as pd
 import boto3
 import pika
 
-from cellphonedb.app import app_config
-from cellphonedb.core.CellphonedbSqlalchemy import CellphonedbSqlalchemy
-from cellphonedb.app.app_logger import app_logger
+from src.app import app_config
+from src.core.CellphonedbSqlalchemy import CellphonedbSqlalchemy
+from src.app.app_logger import app_logger
 
 try:
     s3_access_key = os.environ['S3_ACCESS_KEY']
