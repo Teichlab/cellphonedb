@@ -4,7 +4,7 @@ setup(
     name='CellPhoneDB',
     author='TeichLab',
     author_email='contact@cellphonedb.org',
-    version='0.0.6',
+    version='0.0.7',
     long_description=__doc__,
     packages=find_packages(),
     include_package_data=True,
@@ -14,6 +14,7 @@ setup(
     url='https://cellphonedb.org',
     license='MIT',
     exclude_package_data={'': ['tools']},
+    scripts=['cellphonedb'],
     install_requires=[
         'click>=6.7,<6.7.99',
         'pandas>=0.23,<0.23.99',

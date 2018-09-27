@@ -4,11 +4,12 @@ from src.app.flask.flask_cellphonedb import CellphonedbFlask
 
 cellphonedb_app = CellphonedbFlask()
 
-current_dir = os.path.dirname(os.path.realpath(__file__))
+file_current_dir = os.path.dirname(os.path.realpath(__file__))
+current_execution_dir = os.getcwd()
 
-data_dir = '%s/../core/data' % current_dir
-output_dir = 'out'
-query_input_dir = 'in'
-temp_dir = '%s/../../temp' % current_dir
-output_test_dir = '{}/../tests/out'.format(current_dir)
-data_test_dir = '{}/../tests/fixtures'.format(current_dir)
+data_dir = '%s/../core/data' % file_current_dir
+output_dir = '%s/out' % current_execution_dir
+query_input_dir = '%s/in' % current_execution_dir
+temp_dir = '%s/../../temp' % file_current_dir
+output_test_dir = '{}/../tests/out'.format(file_current_dir)
+data_test_dir = '{}/../tests/fixtures'.format(file_current_dir)
