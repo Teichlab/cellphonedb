@@ -3,7 +3,7 @@ import pandas as pd
 from cellphonedb.core.core_logger import core_logger
 from cellphonedb.core.database import DatabaseManager
 from cellphonedb.core.methods import cluster_statistical_analysis_simple_method, \
-    cluster_statistical_analysis_complex_method
+    cluster_statistical_analysis_complex_method, cpdb_method_analysis
 
 
 class MethodLauncher():
@@ -69,3 +69,32 @@ class MethodLauncher():
         return cluster_statistical_analysis_complex_method.call(meta, count, interactions, genes, complex_expanded,
                                                                 complex_composition, iterations, threshold, threads,
                                                                 debug_seed)
+
+    def cpdb_method_analysis_launcher(self,
+                                      meta: pd.DataFrame,
+                                      count: pd.DataFrame,
+                                      threshold: float,
+                                      threads: int, debug_seed: int) -> (pd.DataFrame, pd.DataFrame,):
+
+        if threads < 1:
+            core_logger.info('Using Default thread number: %s' % self.default_threads)
+            threads = self.default_threads
+
+        interactions = self.database_manager.get_repository('interaction').get_all_expanded(
+            only_cellphonedb_interactor=True)
+        genes = self.database_manager.get_repository('gene').get_all_expanded()
+        complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
+        complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
+
+        means, deconvoluted = cpdb_method_analysis.call(
+            meta,
+            count,
+            interactions,
+            genes,
+            complex_expanded,
+            complex_composition,
+            threshold,
+            threads,
+            debug_seed)
+
+        return means, deconvoluted

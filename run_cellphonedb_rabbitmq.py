@@ -80,6 +80,15 @@ def process_job(method, properties, body) -> dict:
     counts = read_data_from_s3(metadata['file_counts'], s3_bucket_name)
     counts = counts.astype(dtype=pd.np.float64, copy=False)
 
+    if metadata['iterations']:
+        response = statistical_analysis(meta, counts, job_id, metadata)
+    else:
+        response = non_statistical_analysis(meta, counts, job_id, metadata)
+
+    return response
+
+
+def statistical_analysis(meta, counts, job_id, metadata):
     pvalues, means, significant_means, means_pvalues, deconvoluted = \
         app.method.cluster_statistical_analysis_launcher(meta,
                                                          counts,
@@ -87,7 +96,6 @@ def process_job(method, properties, body) -> dict:
                                                          iterations=int(metadata['iterations']),
                                                          debug_seed=-1,
                                                          threads=4)
-
     response = {
         'job_id': job_id,
         'files': {
@@ -99,13 +107,31 @@ def process_job(method, properties, body) -> dict:
         },
         'success': True
     }
-
     write_data_in_s3(pvalues, response['files']['pvalues'])
     write_data_in_s3(means, response['files']['means'])
     write_data_in_s3(significant_means, response['files']['significant_means'])
     write_data_in_s3(means_pvalues, response['files']['means_pvalues'])
     write_data_in_s3(deconvoluted, response['files']['deconvoluted'])
+    return response
 
+
+def non_statistical_analysis(meta, counts, job_id, metadata):
+    means, deconvoluted = \
+        app.method.cpdb_method_analysis_launcher(meta,
+                                                 counts,
+                                                 threshold=float(metadata['threshold'] / 100),
+                                                 threads=4,
+                                                 debug_seed=-1)
+    response = {
+        'job_id': job_id,
+        'files': {
+            'means': 'means_simple_{}.txt'.format(job_id),
+            'deconvoluted': 'deconvoluted_simple_{}.txt'.format(job_id),
+        },
+        'success': True
+    }
+    write_data_in_s3(means, response['files']['means'])
+    write_data_in_s3(deconvoluted, response['files']['deconvoluted'])
     return response
 
 
