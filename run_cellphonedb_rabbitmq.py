@@ -90,12 +90,12 @@ def process_job(method, properties, body) -> dict:
 
 def statistical_analysis(meta, counts, job_id, metadata):
     pvalues, means, significant_means, means_pvalues, deconvoluted = \
-        app.method.cluster_statistical_analysis_launcher(meta,
-                                                         counts,
-                                                         threshold=float(metadata['threshold'] / 100),
-                                                         iterations=int(metadata['iterations']),
-                                                         debug_seed=-1,
-                                                         threads=4)
+        app.method.cpdb_statistical_analysis_launcher(meta,
+                                                      counts,
+                                                      threshold=float(metadata['threshold'] / 100),
+                                                      iterations=int(metadata['iterations']),
+                                                      debug_seed=-1,
+                                                      threads=4)
     response = {
         'job_id': job_id,
         'files': {
@@ -119,9 +119,7 @@ def non_statistical_analysis(meta, counts, job_id, metadata):
     means, deconvoluted = \
         app.method.cpdb_method_analysis_launcher(meta,
                                                  counts,
-                                                 threshold=float(metadata['threshold'] / 100),
-                                                 threads=4,
-                                                 debug_seed=-1)
+                                                 threshold=float(metadata['threshold'] / 100))
     response = {
         'job_id': job_id,
         'files': {

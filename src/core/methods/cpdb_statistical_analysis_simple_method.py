@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.core.methods import cluster_statistical_analysis_helper
+from src.core.methods import cpdb_statistical_analysis_helper
 from src.core.core_logger import core_logger
 from src.core.models.interaction import interaction_filter
 
@@ -19,34 +19,34 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, i
 
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
-    clusters = cluster_statistical_analysis_helper.build_clusters(meta, counts_filtered)
+    clusters = cpdb_statistical_analysis_helper.build_clusters(meta, counts_filtered)
     core_logger.info('Running Real Simple Analysis')
-    cluster_interactions = cluster_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
+    cluster_interactions = cpdb_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
 
-    base_result = cluster_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions)
+    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions)
 
-    real_mean_analysis = cluster_statistical_analysis_helper.mean_analysis(interactions_filtered, clusters,
-                                                                           cluster_interactions, base_result,
-                                                                           suffixes=('_1', '_2'))
+    real_mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_filtered, clusters,
+                                                                        cluster_interactions, base_result,
+                                                                        suffixes=('_1', '_2'))
 
-    real_percent_analysis = cluster_statistical_analysis_helper.percent_analysis(clusters, threshold,
-                                                                                 interactions_filtered,
-                                                                                 cluster_interactions, base_result,
-                                                                                 suffixes=('_1', '_2'))
-
-    statistical_mean_analysis = cluster_statistical_analysis_helper.shuffled_analysis(iterations, meta,
-                                                                                      counts_filtered,
-                                                                                      interactions_filtered,
-                                                                                      cluster_interactions,
-                                                                                      base_result,
-                                                                                      threads,
-                                                                                      suffixes=('_1', '_2'))
-
-    result_percent = cluster_statistical_analysis_helper.build_percent_result(real_mean_analysis,
-                                                                              real_percent_analysis,
-                                                                              statistical_mean_analysis,
+    real_percent_analysis = cpdb_statistical_analysis_helper.percent_analysis(clusters, threshold,
                                                                               interactions_filtered,
-                                                                              cluster_interactions, base_result)
+                                                                              cluster_interactions, base_result,
+                                                                              suffixes=('_1', '_2'))
+
+    statistical_mean_analysis = cpdb_statistical_analysis_helper.shuffled_analysis(iterations, meta,
+                                                                                   counts_filtered,
+                                                                                   interactions_filtered,
+                                                                                   cluster_interactions,
+                                                                                   base_result,
+                                                                                   threads,
+                                                                                   suffixes=('_1', '_2'))
+
+    result_percent = cpdb_statistical_analysis_helper.build_percent_result(real_mean_analysis,
+                                                                           real_percent_analysis,
+                                                                           statistical_mean_analysis,
+                                                                           interactions_filtered,
+                                                                           cluster_interactions, base_result)
 
     pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result = build_results(
         interactions_filtered,
@@ -62,7 +62,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
                   clusters_means: dict, round_decimals: int) -> (
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info('Building Simple results')
-    interacting_pair = cluster_statistical_analysis_helper.interacting_pair_build(interactions)
+    interacting_pair = cpdb_statistical_analysis_helper.interacting_pair_build(interactions)
 
     interactions_data_result = pd.DataFrame(interactions[['id_cp_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                           'ensembl_2', 'source']].copy())
@@ -82,7 +82,7 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     interactions_data_result['partner_b'] = interactions_data_result['partner_b'].apply(
         lambda name: 'simple:{}'.format(name))
 
-    significant_mean_rank, significant_means = cluster_statistical_analysis_helper.build_significant_means(
+    significant_mean_rank, significant_means = cpdb_statistical_analysis_helper.build_significant_means(
         real_mean_analysis, result_percent)
 
     result_percent = result_percent.round(round_decimals)
@@ -102,9 +102,9 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
                                         join='inner', sort=False)
 
     # Document 4
-    mean_pvalue_result = cluster_statistical_analysis_helper.mean_pvalue_result_build(real_mean_analysis,
-                                                                                      result_percent,
-                                                                                      interactions_data_result)
+    mean_pvalue_result = cpdb_statistical_analysis_helper.mean_pvalue_result_build(real_mean_analysis,
+                                                                                   result_percent,
+                                                                                   interactions_data_result)
 
     # Document 5
     deconvoluted_result = deconvoluted_result_build(clusters_means, interactions)
@@ -154,13 +154,13 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFram
     interactions_filtered = interaction_filter.filter_by_is_interactor(interactions)
 
     counts_filtered = counts[~counts.index.duplicated()]
-    counts_filtered = cluster_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered, interactions)
-    counts_filtered = cluster_statistical_analysis_helper.filter_empty_cluster_counts(counts_filtered)
+    counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered, interactions)
+    counts_filtered = cpdb_statistical_analysis_helper.filter_empty_cluster_counts(counts_filtered)
     interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered, ('_1', '_2'))
 
-    counts_filtered = cluster_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
-                                                                                        interactions_filtered,
-                                                                                        ('_1', '_2'))
+    counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
+                                                                                     interactions_filtered,
+                                                                                     ('_1', '_2'))
 
     interactions_filtered.reset_index(inplace=True, drop=True)
 

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.core.methods import cluster_statistical_analysis_helper
+from src.core.methods import cpdb_statistical_analysis_helper
 from src.core.core_logger import core_logger
 from src.core.models.interaction import interaction_filter
 
@@ -9,29 +9,23 @@ def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
          interactions: pd.DataFrame,
          threshold: float = 0.1,
-         threads: int = 4,
-         debug_seed=False,
          round_decimals: int = 1) -> (
         pd.DataFrame, pd.DataFrame):
     core_logger.info(
-        '[Non Statistical Method] Threshold:{} Debug-seed:{} Threads:{}'.format(
-            threshold, debug_seed, threads))
-
-    if debug_seed >= 0:
-        pd.np.random.seed(debug_seed)
-        core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
+        '[Non Statistical Method] Threshold:{}'.format(
+            threshold))
 
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
-    clusters = cluster_statistical_analysis_helper.build_clusters(meta, counts_filtered)
+    clusters = cpdb_statistical_analysis_helper.build_clusters(meta, counts_filtered)
     core_logger.info('Running Real Simple Analysis')
-    cluster_interactions = cluster_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
+    cluster_interactions = cpdb_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
 
-    base_result = cluster_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions)
+    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions)
 
-    real_mean_analysis = cluster_statistical_analysis_helper.mean_analysis(interactions_filtered, clusters,
-                                                                           cluster_interactions, base_result,
-                                                                           suffixes=('_1', '_2'))
+    real_mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_filtered, clusters,
+                                                                        cluster_interactions, base_result,
+                                                                        suffixes=('_1', '_2'))
 
     means_result, deconvoluted_result = build_results(
         interactions_filtered,
@@ -45,7 +39,7 @@ def call(meta: pd.DataFrame,
 def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, clusters_means: dict,
                   round_decimals: int) -> (pd.DataFrame, pd.DataFrame):
     core_logger.info('Building Simple results')
-    interacting_pair = cluster_statistical_analysis_helper.interacting_pair_build(interactions)
+    interacting_pair = cpdb_statistical_analysis_helper.interacting_pair_build(interactions)
 
     interactions_data_result = pd.DataFrame(interactions[['id_cp_interaction', 'name_1', 'name_2', 'ensembl_1',
                                                           'ensembl_2', 'source']].copy())
@@ -120,13 +114,13 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFram
     interactions_filtered = interaction_filter.filter_by_is_interactor(interactions)
 
     counts_filtered = counts[~counts.index.duplicated()]
-    counts_filtered = cluster_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered, interactions)
-    counts_filtered = cluster_statistical_analysis_helper.filter_empty_cluster_counts(counts_filtered)
+    counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered, interactions)
+    counts_filtered = cpdb_statistical_analysis_helper.filter_empty_cluster_counts(counts_filtered)
     interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered, ('_1', '_2'))
 
-    counts_filtered = cluster_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
-                                                                                        interactions_filtered,
-                                                                                        ('_1', '_2'))
+    counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
+                                                                                     interactions_filtered,
+                                                                                     ('_1', '_2'))
 
     interactions_filtered.reset_index(inplace=True, drop=True)
 

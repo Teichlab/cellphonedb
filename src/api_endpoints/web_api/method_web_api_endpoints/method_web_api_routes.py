@@ -1,6 +1,6 @@
-from src.api_endpoints.web_api.method_web_api_endpoints.web_endpoint_cluster_statistical_analysis import \
-    WebEndpointClusterStatisticalAnalysis
+from src.api_endpoints.web_api.method_web_api_endpoints.web_endpoint_analysis import \
+    WebEndpointAnalysis
 
 
 def add(api, prefix=''):
-    api.add_resource(WebEndpointClusterStatisticalAnalysis, '{}/cluster_statistical_analysis'.format(prefix))
+    api.add_resource(WebEndpointAnalysis, '{}/analysis'.format(prefix))

@@ -15,7 +15,7 @@ def read_data_table_from_file(file: str, index_column_first: bool = False, separ
     try:
         f = open(file)
     except Exception:
-        raise ReadFileException
+        raise ReadFileException(file)
     else:
         with f:
             return _read_data(f, separator, index_column_first, dtype, na_values)

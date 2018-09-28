@@ -8,7 +8,7 @@ from src.api_endpoints.web_api.web_api_endpoint_base import WebApiEndpointBase
 from utils import utils
 
 
-class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
+class WebEndpointAnalysis(WebApiEndpointBase):
     def post(self):
         max_iterations = 1000
         min_iterations = 10
@@ -40,12 +40,12 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
             try:
                 if iterations > 0:
                     pvalues, means, significant_means, mean_pvalue, deconvoluted = \
-                        cellphonedb_app.cellphonedb.method.cluster_statistical_analysis_launcher(meta,
-                                                                                                 counts,
-                                                                                                 iterations=iterations,
-                                                                                                 threshold=threshold,
-                                                                                                 threads=-1,
-                                                                                                 debug_seed=-1)
+                        cellphonedb_app.cellphonedb.method.cpdb_statistical_analysis_launcher(meta,
+                                                                                              counts,
+                                                                                              iterations=iterations,
+                                                                                              threshold=threshold,
+                                                                                              threads=-1,
+                                                                                              debug_seed=-1)
 
                     self._attach_csv(pvalues.to_csv(index=False), 'pvalues.csv')
                     self._attach_csv(means.to_csv(index=False), 'means.csv')
@@ -56,9 +56,7 @@ class WebEndpointClusterStatisticalAnalysis(WebApiEndpointBase):
                 else:
                     means, deconvoluted = cellphonedb_app.cellphonedb.method.cpdb_method_analysis_launcher(meta,
                                                                                                            counts,
-                                                                                                           threshold,
-                                                                                                           threads=-1,
-                                                                                                           debug_seed=-1)
+                                                                                                           threshold)
 
                     self._attach_csv(means.to_csv(index=False), 'means.csv')
                     self._attach_csv(deconvoluted.to_csv(index=False), 'deconvoluted.csv')

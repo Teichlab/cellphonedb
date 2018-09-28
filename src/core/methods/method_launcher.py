@@ -2,8 +2,8 @@ import pandas as pd
 
 from src.core.core_logger import core_logger
 from src.core.database import DatabaseManager
-from src.core.methods import cluster_statistical_analysis_simple_method, \
-    cluster_statistical_analysis_complex_method, cpdb_method_analysis
+from src.core.methods import cpdb_statistical_analysis_simple_method, \
+    cpdb_statistical_analysis_complex_method, cpdb_analysis_method
 
 
 class MethodLauncher():
@@ -22,18 +22,21 @@ class MethodLauncher():
         multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(string)
         return multidatas
 
-    def cluster_statistical_analysis_launcher(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int,
-                                              threshold: float,
-                                              threads: int, debug_seed: int) -> (
+    def cpdb_statistical_analysis_launcher(self,
+                                           meta: pd.DataFrame,
+                                           count: pd.DataFrame,
+                                           iterations: int,
+                                           threshold: float,
+                                           threads: int, debug_seed: int) -> (
             pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         if threads < 1:
             core_logger.info('Using Default thread number: %s' % self.default_threads)
             threads = self.default_threads
 
-        pvalues_simple, means_simple, significant_means_simple, mean_pvalue_simple, deconvoluted_simple = self.cluster_statistical_analysis_simple_launcher(
+        pvalues_simple, means_simple, significant_means_simple, mean_pvalue_simple, deconvoluted_simple = self._statistical_analysis_simple_launcher(
             meta.copy(), count.copy(), iterations, threshold, threads, debug_seed)
-        pvalues_complex, means_complex, significant_means_complex, mean_pvalue_complex, deconvoluted_complex = self.cluster_statistical_analysis_complex_launcher(
+        pvalues_complex, means_complex, significant_means_complex, mean_pvalue_complex, deconvoluted_complex = self._statistical_analysis_complex_launcher(
             meta.copy(), count.copy(), iterations, threshold, threads, debug_seed)
 
         pvalues = pvalues_simple.append(pvalues_complex, sort=False)
@@ -47,18 +50,18 @@ class MethodLauncher():
 
         return pvalues, means, significant_means, mean_pvalue, deconvoluted
 
-    def cluster_statistical_analysis_simple_launcher(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int,
-                                                     threshold: float, threads: int, debug_seed: int) -> (
+    def _statistical_analysis_simple_launcher(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int,
+                                              threshold: float, threads: int, debug_seed: int) -> (
             pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
 
-        return cluster_statistical_analysis_simple_method.call(meta, count, interactions, iterations, threshold,
-                                                               threads,
-                                                               debug_seed)
+        return cpdb_statistical_analysis_simple_method.call(meta, count, interactions, iterations, threshold,
+                                                            threads,
+                                                            debug_seed)
 
-    def cluster_statistical_analysis_complex_launcher(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int,
-                                                      threshold: float, threads: int, debug_seed: int) -> (
+    def _statistical_analysis_complex_launcher(self, meta: pd.DataFrame, count: pd.DataFrame, iterations: int,
+                                               threshold: float, threads: int, debug_seed: int) -> (
             pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
@@ -66,19 +69,14 @@ class MethodLauncher():
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
 
-        return cluster_statistical_analysis_complex_method.call(meta, count, interactions, genes, complex_expanded,
-                                                                complex_composition, iterations, threshold, threads,
-                                                                debug_seed)
+        return cpdb_statistical_analysis_complex_method.call(meta, count, interactions, genes, complex_expanded,
+                                                             complex_composition, iterations, threshold, threads,
+                                                             debug_seed)
 
     def cpdb_method_analysis_launcher(self,
                                       meta: pd.DataFrame,
                                       count: pd.DataFrame,
-                                      threshold: float,
-                                      threads: int, debug_seed: int) -> (pd.DataFrame, pd.DataFrame,):
-
-        if threads < 1:
-            core_logger.info('Using Default thread number: %s' % self.default_threads)
-            threads = self.default_threads
+                                      threshold: float) -> (pd.DataFrame, pd.DataFrame):
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
@@ -86,15 +84,13 @@ class MethodLauncher():
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
 
-        means, deconvoluted = cpdb_method_analysis.call(
+        means, deconvoluted = cpdb_analysis_method.call(
             meta,
             count,
             interactions,
             genes,
             complex_expanded,
             complex_composition,
-            threshold,
-            threads,
-            debug_seed)
+            threshold)
 
         return means, deconvoluted
