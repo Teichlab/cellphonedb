@@ -94,8 +94,8 @@ class LocalMethodLauncher(object):
                                                        index_column_first=True)
             counts = utils.read_data_table_from_file('{}/{}'.format(data_path, counts_filename),
                                                      index_column_first=True)
-        except ReadFileException:
-            app_logger.error()
+        except ReadFileException as e:
+            app_logger.error(e)
             exit(1)
 
         meta = pd.DataFrame(index=meta_raw.index)
