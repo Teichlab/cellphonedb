@@ -10,9 +10,8 @@ import pandas as pd
 import boto3
 import pika
 
-from src.app import app_config
-from src.core.CellphonedbSqlalchemy import CellphonedbSqlalchemy
-from src.app.app_logger import app_logger
+from cellphonedb.src.app import cpdb_app
+from cellphonedb.src.app.app_logger import app_logger
 
 try:
     s3_access_key = os.environ['S3_ACCESS_KEY']
@@ -41,8 +40,7 @@ def create_rabbit_connection():
     ))
 
 
-config = app_config.AppConfig()
-app = CellphonedbSqlalchemy(config.get_cellphone_core_config())
+app = cpdb_app.create_app()
 
 s3_resource = boto3.resource('s3', aws_access_key_id=s3_access_key,
                              aws_secret_access_key=s3_secret_key,

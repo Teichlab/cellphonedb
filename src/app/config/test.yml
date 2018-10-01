@@ -1,9 +1,0 @@
-database: 
-  db_name: cellphonedb_test
-  host: localhost
-  adapter: sqlite
-  path: ":memory:"
-  db_core: false
-
-app:
-  debug: false

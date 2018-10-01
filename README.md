@@ -13,14 +13,83 @@ CellPhoneDB can be used to search for a particular ligand/receptor or interrogat
 To start using CellPhoneDB, you can use our interactive web ([cellphonedb.org](https://www.cellphonedb.org)) and run in the analysis in our private cloud, 
 or just run CellPhoneDB in your computer/cloud/farm. Please, take the second way if you are going to work with big datasets).
 
-This are the use guides to start to work in your system:
 
-- [Quickstart for Linux/macOS systems](Docs/QuickStartLinuxMacos.md)
-- [QuickStart for Windows systems](Docs/QuickStartWindows.md)
+### Installing CellPhoneDB
+We highly recommend to use a virtual env (steps 1 and 2) but you can omite
+1. Create python > 3.5 virtual-env
+```shell
+python -m venv cpdb-venv
+```
 
+2. Activate virtual-env
+```shell
+source cpdb-venv/bin/activate
+```
+
+3. Install cellphonedb
+```shell
+pip install cellphonedb
+```
+
+
+## Running CellPhonDB Methods
+
+Please, run step 0 if you didn't activate the virtua-env previously
+
+0. Activate virtual-env
+```shell
+source cpdb-venv/bin/activate
+```
+
+For run example data, please [download meta/counts test data](https://github.com/Teichlab/cellphonedb/tree/master/in/example_data).
+
+### Running Statistical Method Example
+```shell
+cellphonedb method statistical_analysis test_meta.txt test_counts.txt 
+```
+
+
+### Running Non Statistical Method Example
+```shell
+cellphonedb method analysis test_meta.txt test_counts.txt 
+```
 
 Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underestand the results.
 
+### Method optional parameters
+
+~ **Optional Method parameters**:
+- `--project-name`: Name of the project. It creates a subfolder in output folder
+- `--iterations`: Number of pvalues analysis iterations [1000]
+- `--threshold`: % of cells expressing a gene
+- `--output-path`: Directory where the results will be allocated (the directory must exist) [out]
+- `--means-result-name`: Means result namefile [means.txt]
+- `--deconvoluted-result-name`: Deconvoluted result namefile [deconvoluted.txt]
+- `--verbose/--quiet`: Print or hide cellphonedb logs [verbose]
+
+~ **Optional Method Statistical parameters**
+- `--pvalues-result-name`: Pvalues result namefile [pvalues.txt]
+- `--significant-mean-result-name`: Significant result namefile [significant_means.txt]
+- `--means-pvalues-result-name`: Pvalues-means result namefile [pvalues_means.txt]
+- `--debug-seed`: Debug random seed -1 for disable it. >=0 [-1]
+- `--threads`: Number of threads to use. >=1 [-1]
+
+**Usage Examples**:
+
+Set number of iterations and threads
+```shell
+cellphonedb method statistical_analysis yourmetafile.txt yourcountsfile.txt --iterations=10 --threads=2
+```
+Set project subfolder
+```shell
+cellphonedb method analysis yourmetafile.txt yourcountsfile.txt --project-name=new_project
+```
+
+Set output path
+```shell
+mkdir custom_folder
+cellphonedb method statistical_analysis yourmetafile.txt yourcountsfile.txt --output-path=custom_folder
+```
 
 ## Contributing to CellPhoneDB
 

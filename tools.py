@@ -15,9 +15,8 @@ from tools.generate_data.mergers.merge_interactions import merge_interactions, m
 from tools.generate_data.filters.remove_interactions import remove_interactions_in_file
 from tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from tools.generate_data.parsers.parse_interactions_inweb import generate_interactions_inweb as protein_generate_inweb
-from tools.generate_data.parsers.parse_interactions_innatedb import generate_interactions_innatedb
 from tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
-from utils import utils
+from cellphonedb.utils import utils
 
 
 def create_tools_app(info):

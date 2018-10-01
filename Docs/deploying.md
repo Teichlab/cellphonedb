@@ -8,12 +8,12 @@ Update the CellPhoneDB version editing version line in setup.py.
 
 Make sure you have the latest versions of setuptools and wheel installed:
 ```shell
-python3 -m pip install --user --upgrade setuptools wheel
+python -m pip install --user --upgrade setuptools wheel
 ```
 
 Create new package
 ```shell
-python3 setup.py sdist bdist_wheel
+python setup.py sdist bdist_wheel
 ```
 
 This create a CellPhoneDB package ready to be distributed in dist folder.
