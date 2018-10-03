@@ -41,7 +41,13 @@ Please, run step 0 if you didn't activate the virtua-env previously
 source cpdb-venv/bin/activate
 ```
 
-For run example data, please [download meta/counts test data](https://github.com/Teichlab/cellphonedb/tree/master/in/example_data).
+For run example data, please [download meta/counts test data](https://github.com/Teichlab/cellphonedb/blob/master/in/example_data/cellphonedb_example_data.zip?raw=true).
+
+Hint (if you are in terminal):
+```shell
+curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_data/test_counts.txt --output test_counts.txt
+curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_data/test_meta.txt --output test_meta.txt
+```
 
 ### Running Statistical Method Example
 ```shell
