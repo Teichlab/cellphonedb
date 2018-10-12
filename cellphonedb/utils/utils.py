@@ -1,3 +1,4 @@
+import io
 import os
 from typing import TextIO
 
@@ -26,6 +27,16 @@ def read_data_from_content_type(file: FileStorage, index_column_first: bool = Fa
     if not separator:
         separator = _get_separator(file.content_type)
     return _read_data(file.stream, separator, index_column_first, dtype)
+
+
+def read_data_from_s3_object(s3_object: dict, s3_name: str, index_column_first: bool = False, separator: str = '',
+                             dtype=None, na_values=None) -> pd.DataFrame:
+    filename, file_extension = os.path.splitext(s3_name)
+    if not separator:
+        separator = _get_separator(file_extension)
+        bytestream = io.BytesIO(s3_object['Body'].read())
+
+    return _read_data(bytestream, separator, index_column_first, dtype, na_values)
 
 
 def _read_data(file_stream: TextIO, separator: str, index_column_first: bool, dtype=None,

@@ -12,6 +12,7 @@ import pika
 
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.utils import utils
 
 try:
     s3_access_key = os.environ['S3_ACCESS_KEY']
@@ -51,9 +52,8 @@ s3_client = boto3.client('s3', aws_access_key_id=s3_access_key,
 
 
 def read_data_from_s3(filename: str, s3_bucket_name: str):
-    object = s3_client.get_object(Bucket=s3_bucket_name, Key=filename)
-    bytestream = io.BytesIO(object['Body'].read())
-    return pd.read_csv(bytestream, sep='\t', encoding='utf-8', index_col=0)
+    s3_object = s3_client.get_object(Bucket=s3_bucket_name, Key=filename)
+    return utils.read_data_from_s3_object(s3_object, filename, index_column_first=True)
 
 
 def write_data_in_s3(data: pd.DataFrame, filename: str):
