@@ -12,6 +12,8 @@ import pika
 
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.src.cpdb_exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.utils import utils
 
 try:
@@ -74,7 +76,14 @@ def process_job(method, properties, body) -> dict:
     metadata = json.loads(body.decode('utf-8'))
     job_id = metadata['job_id']
     app_logger.info('New Job Queued: {}'.format(job_id))
-    meta = read_data_from_s3(metadata['file_meta'], s3_bucket_name)
+    meta_raw = read_data_from_s3(metadata['file_meta'], s3_bucket_name)
+    try:
+        meta = pd.DataFrame(index=meta_raw.index)
+        meta['cell_type'] = meta_raw.iloc[:, 0]
+
+    except:
+        raise ParseMetaException
+
     counts = read_data_from_s3(metadata['file_counts'], s3_bucket_name)
     counts = counts.astype(dtype=pd.np.float64, copy=False)
 
@@ -151,6 +160,23 @@ while jobs_runned < 3:
 
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
             app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
+        except (ReadFileException, ParseMetaException) as e:
+            error_response = {
+                'job_id': json.loads(job[2].decode('utf-8'))['job_id'],
+                'success': False,
+                'error': {
+                    'id': str(e),
+                    'message': ''
+                }
+            }
+            print(traceback.print_exc(file=sys.stdout))
+            app_logger.error('[-] ERROR DURING PROCESSING JOB %s' % error_response['job_id'])
+            if connection.is_closed:
+                connection = create_rabbit_connection()
+                channel = connection.channel()
+                channel.basic_qos(prefetch_count=1)
+            channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(error_response))
+            app_logger.error(e)
         except Exception as e:
             error_response = {
                 'job_id': json.loads(job[2].decode('utf-8'))['job_id'],

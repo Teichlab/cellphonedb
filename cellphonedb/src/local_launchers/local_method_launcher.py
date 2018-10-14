@@ -2,8 +2,8 @@ import os
 import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
-from cellphonedb.src.app.cellphonedb_app import output_dir, query_input_dir
-from cellphonedb.src.cpdb_exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.app.cellphonedb_app import output_dir
+from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.utils import utils
 
 
@@ -85,14 +85,18 @@ class LocalMethodLauncher(object):
         return output_path
 
     @staticmethod
-    def _load_meta_counts(counts_filename, meta_filename):
-        try:
-            meta_raw = utils.read_data_table_from_file(os.path.realpath(meta_filename), index_column_first=True)
-            counts = utils.read_data_table_from_file(os.path.realpath(counts_filename), index_column_first=True)
-        except ReadFileException as e:
-            app_logger.error(e)
-            exit(1)
+    def _load_meta_counts(counts_filename: str, meta_filename: str) -> (pd.DataFrame, pd.DataFrame):
+        """
+        :raise ParseMetaException
+        """
+        meta_raw = utils.read_data_table_from_file(os.path.realpath(meta_filename), index_column_first=True)
+        counts = utils.read_data_table_from_file(os.path.realpath(counts_filename), index_column_first=True)
 
-        meta = pd.DataFrame(index=meta_raw.index)
-        meta['cell_type'] = meta_raw.iloc[:, 0]
+        try:
+            meta = pd.DataFrame(index=meta_raw.index)
+            meta['cell_type'] = meta_raw.iloc[:, 0]
+
+        except:
+            raise ParseMetaException
+
         return counts, meta_raw

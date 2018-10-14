@@ -1,6 +1,9 @@
 import click
 
 from cellphonedb.src.app import cpdb_app
+from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.src.cpdb_exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 
 
@@ -38,19 +41,24 @@ def statistical_analysis(meta_filename: str,
                          threads: int,
                          verbose: bool):
     print(verbose)
-    LocalMethodLauncher(cpdb_app.create_app(verbose)).cpdb_statistical_analysis_local_method_launcher(meta_filename,
-                                                                                                     counts_filename,
-                                                                                                     project_name,
-                                                                                                     iterations,
-                                                                                                     threshold,
-                                                                                                     output_path,
-                                                                                                     means_result_name,
-                                                                                                     pvalues_result_name,
-                                                                                                     significant_mean_result_name,
-                                                                                                     means_pvalues_result_name,
-                                                                                                     deconvoluted_result_name,
-                                                                                                     debug_seed,
-                                                                                                     threads)
+    try:
+        LocalMethodLauncher(cpdb_app.create_app(verbose)).cpdb_statistical_analysis_local_method_launcher(meta_filename,
+                                                                                                          counts_filename,
+                                                                                                          project_name,
+                                                                                                          iterations,
+                                                                                                          threshold,
+                                                                                                          output_path,
+                                                                                                          means_result_name,
+                                                                                                          pvalues_result_name,
+                                                                                                          significant_mean_result_name,
+                                                                                                          means_pvalues_result_name,
+                                                                                                          deconvoluted_result_name,
+                                                                                                          debug_seed,
+                                                                                                          threads)
+    except (ReadFileException, ParseMetaException) as e:
+        app_logger.error(e)
+    except:
+        app_logger.error('Unexpected error')
 
 
 @click.command()
@@ -73,11 +81,16 @@ def analysis(meta_filename: str,
              deconvoluted_result_name: str,
              verbose: bool
              ):
-    LocalMethodLauncher(cpdb_app.create_app(verbose)).cpdb_analysis_local_method_launcher(meta_filename,
-                                                                                          counts_filename,
-                                                                                          project_name,
-                                                                                          threshold,
-                                                                                          output_path,
-                                                                                          means_result_name,
-                                                                                          deconvoluted_result_name,
-                                                                                          )
+    try:
+        LocalMethodLauncher(cpdb_app.create_app(verbose)).cpdb_analysis_local_method_launcher(meta_filename,
+                                                                                              counts_filename,
+                                                                                              project_name,
+                                                                                              threshold,
+                                                                                              output_path,
+                                                                                              means_result_name,
+                                                                                              deconvoluted_result_name,
+                                                                                              )
+    except (ReadFileException, ParseMetaException) as e:
+        app_logger.error(e)
+    except:
+        app_logger.error('Unexpected error')
