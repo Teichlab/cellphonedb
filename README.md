@@ -49,13 +49,13 @@ curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_da
 curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_data/test_meta.txt --output test_meta.txt
 ```
 
-### Running Statistical Method Example
+###  Example with running the statistical method
 ```shell
 cellphonedb method statistical_analysis test_meta.txt test_counts.txt 
 ```
 
 
-### Running Non Statistical Method Example
+### Example without using the statistical method
 ```shell
 cellphonedb method analysis test_meta.txt test_counts.txt 
 ```
