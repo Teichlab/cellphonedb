@@ -22,6 +22,9 @@ class LocalQueryLauncher:
 
         print(self.cellphonedb_app.cellphonedb.query.get_interaction_gene(columns).to_csv(index=False))
 
+    def autocomplete_element(self, partial_element: str) -> None:
+        print(self.cellphonedb_app.cellphonedb.query.autocomplete_launcher(partial_element).to_csv(index=False))
+
     def cpdb_data_report(self, ) -> None:
         report = self.cellphonedb_app.cellphonedb.query.cpdb_data_report_launcher()
 

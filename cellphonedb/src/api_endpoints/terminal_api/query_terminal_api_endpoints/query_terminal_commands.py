@@ -17,5 +17,11 @@ def get_interaction_gene(columns: str):
 
 
 @click.command()
+@click.argument('partial_element')
+def autocomplete(partial_element: str) -> None:
+    LocalQueryLauncher(cellphonedb_app).autocomplete_element(partial_element)
+
+
+@click.command()
 def cpdb_data_report():
     LocalQueryLauncher(cellphonedb_app).cpdb_data_report()

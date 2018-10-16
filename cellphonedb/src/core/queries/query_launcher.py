@@ -2,6 +2,7 @@ import pandas as pd
 
 from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.database import DatabaseManager
+from cellphonedb.src.core.queries.autocomplete_queries import autocomplete_query
 from cellphonedb.src.core.queries.complex import complex_deconvoluted
 from cellphonedb.src.core.queries.interaction import interaction_gene_get, interactions_by_element
 from cellphonedb.src.core.queries.reports import cpdb_data_report_query
@@ -17,6 +18,13 @@ class QueryLauncher:
             core_logger.info('Launching Query {}'.format(name))
 
         return method
+
+    def autocomplete_launcher(self, partial_element) -> pd.DataFrame:
+        multidatas = self.database_manager.get_repository('multidata').get_all()
+        genes = self.database_manager.get_repository('gene').get_all_expanded()[
+            ['name', 'ensembl', 'entry_name', 'gene_name']]
+
+        return autocomplete_query(genes, multidatas, partial_element)
 
     def find_interactions_by_element(self, element: str) -> pd.DataFrame:
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(suffixes=('_a', '_b'))
