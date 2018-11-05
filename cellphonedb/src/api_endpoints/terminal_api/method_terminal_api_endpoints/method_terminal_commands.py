@@ -1,3 +1,4 @@
+import sys, traceback
 import click
 
 from cellphonedb.src.app import cpdb_app
@@ -60,6 +61,9 @@ def statistical_analysis(meta_filename: str,
     except:
         app_logger.error('Unexpected error')
 
+        if (verbose):
+            traceback.print_exc(file=sys.stdout)
+
 
 @click.command()
 @click.argument('meta-filename')
@@ -94,3 +98,6 @@ def analysis(meta_filename: str,
         app_logger.error(e)
     except:
         app_logger.error('Unexpected error')
+
+        if (verbose):
+            traceback.print_exc(file=sys.stdout)
