@@ -99,4 +99,4 @@ class LocalMethodLauncher(object):
         except:
             raise ParseMetaException
 
-        return counts, meta_raw
+        return counts, meta
