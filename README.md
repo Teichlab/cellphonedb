@@ -99,7 +99,7 @@ cellphonedb method statistical_analysis yourmetafile.txt yourcountsfile.txt --ou
 
 ## Contributing to CellPhoneDB
 
-CellPhoneDB is Open Source project. If you are interesed to contribute to this project, please let us know in contact@cellphonedb.org.
+CellPhoneDB is Open Source project. If you are interesed to contribute to this project, please let us know.
 
 
 You can check all project documentation in [Docs](Docs) section
