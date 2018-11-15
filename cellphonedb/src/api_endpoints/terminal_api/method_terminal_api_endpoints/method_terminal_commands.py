@@ -41,7 +41,6 @@ def statistical_analysis(meta_filename: str,
                          debug_seed: str,
                          threads: int,
                          verbose: bool):
-    print(verbose)
     try:
         LocalMethodLauncher(cpdb_app.create_app(verbose)).cpdb_statistical_analysis_local_method_launcher(meta_filename,
                                                                                                           counts_filename,
