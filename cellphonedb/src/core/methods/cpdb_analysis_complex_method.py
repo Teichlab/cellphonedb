@@ -14,7 +14,7 @@ def call(meta: pd.DataFrame,
          complex_compositions: pd.DataFrame,
          threshold: float = 0.1,
          round_decimals: int = 1) -> (
-        pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+        pd.DataFrame, pd.DataFrame):
     core_logger.info(
         '[Non Statistical Method] Threshold:{}'.format(threshold))
 
@@ -23,7 +23,7 @@ def call(meta: pd.DataFrame,
     interactions_filtered, counts_filtered, complex_in_counts = prefilters(interactions, counts, genes, complexes,
                                                                            complex_compositions)
     if interactions_filtered.empty:
-        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+        return pd.DataFrame(), pd.DataFrame()
 
     complex_significative_protein = get_complex_significative(complex_in_counts, counts_filtered, complex_compositions,
                                                               cells_names)
