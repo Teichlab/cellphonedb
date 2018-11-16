@@ -15,7 +15,9 @@ or just run CellPhoneDB in your computer/cloud/farm. Please, take the second way
 
 
 ### Installing CellPhoneDB
-We highly recommend to use a virtual env (steps 1 and 2) but you can omite
+NOTE: Works with Python v3.5 or superior. If your default Python interpreter is for v2.x (you can check it with `python --version`), calls to `python`/`pip` should be substituted by `python3`/`pip3`.
+
+We highly recommend to use a virtual env (steps 1 and 2) but you can omit.
 1. Create python > 3.5 virtual-env
 ```shell
 python -m venv cpdb-venv
@@ -32,9 +34,9 @@ pip install cellphonedb
 ```
 
 
-## Running CellPhonDB Methods
+## Running CellPhoneDB Methods
 
-Please, run step 0 if you didn't activate the virtua-env previously
+Please, run step 0 if you didn't activate the virtual-env previously
 
 0. Activate virtual-env
 ```shell
