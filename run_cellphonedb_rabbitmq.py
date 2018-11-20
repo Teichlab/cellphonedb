@@ -147,12 +147,13 @@ consume_more_jobs = True
 
 
 def signal_handler(sig, frame):
-    app_logger.info('SIGINT signal received. No more jobs will be consumed.')
+    app_logger.info('{} signal received. No more jobs will be consumed.'.format(sig))
     global consume_more_jobs
     consume_more_jobs = False
 
 
 signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
 
 credentials = pika.PlainCredentials(rabbit_user, rabbit_password)
 connection = create_rabbit_connection()
