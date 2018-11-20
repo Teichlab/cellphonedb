@@ -3,6 +3,7 @@
 import os
 import io
 import json
+import signal
 import sys
 import time
 import traceback
@@ -142,6 +143,17 @@ def non_statistical_analysis(meta, counts, job_id, metadata):
     return response
 
 
+consume_more_jobs = True
+
+
+def signal_handler(sig, frame):
+    app_logger.info('SIGINT signal received. No more jobs will be consumed.')
+    global consume_more_jobs
+    consume_more_jobs = False
+
+
+signal.signal(signal.SIGINT, signal_handler)
+
 credentials = pika.PlainCredentials(rabbit_user, rabbit_password)
 connection = create_rabbit_connection()
 channel = connection.channel()
@@ -149,7 +161,7 @@ channel.basic_qos(prefetch_count=1)
 
 jobs_runned = 0
 
-while jobs_runned < 3:
+while jobs_runned < 3 and consume_more_jobs:
     job = channel.basic_get(queue=jobs_queue_name, no_ack=True)
 
     if all(job):
