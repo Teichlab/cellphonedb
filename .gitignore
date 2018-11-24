@@ -99,3 +99,5 @@ ENV/
 .idea
 .DS_Store
 proteins_in_curated.py
+
+test/
