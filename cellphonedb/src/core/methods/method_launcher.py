@@ -80,7 +80,7 @@ class MethodLauncher():
     def cpdb_method_analysis_launcher(self,
                                       meta: pd.DataFrame,
                                       count: pd.DataFrame,
-                                      threshold: float) -> (pd.DataFrame, pd.DataFrame):
+                                      threshold: float) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
@@ -88,7 +88,7 @@ class MethodLauncher():
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
 
-        means, deconvoluted = cpdb_analysis_method.call(
+        means, significant_means, deconvoluted = cpdb_analysis_method.call(
             meta,
             count,
             interactions,
@@ -97,4 +97,4 @@ class MethodLauncher():
             complex_composition,
             threshold)
 
-        return means, deconvoluted
+        return means, significant_means, deconvoluted

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
+from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper, cpdb_analysis_helper
 from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.models.interaction import interaction_filter
 
@@ -9,35 +9,46 @@ def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
          interactions: pd.DataFrame,
          threshold: float = 0.1,
-         round_decimals: int = 1) -> (
-        pd.DataFrame, pd.DataFrame):
+         round_decimals: int = 1) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
-        '[Non Statistical Method] Threshold:{}'.format(
-            threshold))
+        '[Non Statistical Method] Threshold:{}'.format(threshold))
 
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
     clusters = cpdb_statistical_analysis_helper.build_clusters(meta, counts_filtered)
-    core_logger.info('Running Real Simple Analysis')
+    core_logger.info('Running Simple Analysis')
     cluster_interactions = cpdb_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
 
     base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions)
 
-    real_mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_filtered, clusters,
-                                                                        cluster_interactions, base_result,
-                                                                        suffixes=('_1', '_2'))
+    mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_filtered,
+                                                                   clusters,
+                                                                   cluster_interactions,
+                                                                   base_result,
+                                                                   suffixes=('_1', '_2'))
 
-    means_result, deconvoluted_result = build_results(
+    percent_analysis = cpdb_analysis_helper.percent_analysis(clusters,
+                                                             threshold,
+                                                             interactions_filtered,
+                                                             cluster_interactions,
+                                                             base_result,
+                                                             suffixes=('_1', '_2'))
+
+    means_result, significant_means, deconvoluted_result = build_results(
         interactions_filtered,
-        real_mean_analysis,
+        mean_analysis,
+        percent_analysis,
         clusters['means'],
         round_decimals)
 
-    return means_result, deconvoluted_result
+    return means_result, significant_means, deconvoluted_result
 
 
-def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, clusters_means: dict,
-                  round_decimals: int) -> (pd.DataFrame, pd.DataFrame):
+def build_results(interactions: pd.DataFrame,
+                  mean_analysis: pd.DataFrame,
+                  percent_analysis: pd.DataFrame,
+                  clusters_means: dict,
+                  round_decimals: int) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info('Building Simple results')
     interacting_pair = cpdb_statistical_analysis_helper.interacting_pair_build(interactions)
 
@@ -59,17 +70,26 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     interactions_data_result['partner_b'] = interactions_data_result['partner_b'].apply(
         lambda name: 'simple:{}'.format(name))
 
-    real_mean_analysis = real_mean_analysis.round(round_decimals)
+    significant_mean_rank, significant_means = cpdb_analysis_helper.build_significant_means(mean_analysis,
+                                                                                            percent_analysis)
+    significant_means = significant_means.round(round_decimals)
+
+    mean_analysis = mean_analysis.round(round_decimals)
     for key, cluster_means in clusters_means.items():
         clusters_means[key] = cluster_means.round(round_decimals)
 
     # Document 2
-    means_result = pd.concat([interactions_data_result, real_mean_analysis], axis=1, join='inner', sort=False)
+    means_result = pd.concat([interactions_data_result, mean_analysis], axis=1, join='inner', sort=False)
+
+    # Document 3
+
+    significant_means_result = pd.concat([interactions_data_result, significant_mean_rank, significant_means], axis=1,
+                                         join='inner', sort=False)
 
     # Document 5
     deconvoluted_result = deconvoluted_result_build(clusters_means, interactions)
 
-    return means_result, deconvoluted_result
+    return means_result, significant_means_result, deconvoluted_result
 
 
 def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) -> pd.DataFrame:

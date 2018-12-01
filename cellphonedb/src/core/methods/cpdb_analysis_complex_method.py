@@ -4,6 +4,7 @@ from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
 from cellphonedb.src.core.models.cluster_counts import cluster_counts_helper, cluster_counts_filter
 from cellphonedb.src.core.models.complex import complex_helper
+from cellphonedb.src.core.methods import cpdb_analysis_helper
 
 
 def call(meta: pd.DataFrame,
@@ -13,8 +14,7 @@ def call(meta: pd.DataFrame,
          complexes: pd.DataFrame,
          complex_compositions: pd.DataFrame,
          threshold: float = 0.1,
-         round_decimals: int = 1) -> (
-        pd.DataFrame, pd.DataFrame):
+         round_decimals: int = 1) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
         '[Non Statistical Method] Threshold:{}'.format(threshold))
 
@@ -23,41 +23,53 @@ def call(meta: pd.DataFrame,
     interactions_filtered, counts_filtered, complex_in_counts = prefilters(interactions, counts, genes, complexes,
                                                                            complex_compositions)
     if interactions_filtered.empty:
-        return pd.DataFrame(), pd.DataFrame()
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
     complex_significative_protein = get_complex_significative(complex_in_counts, counts_filtered, complex_compositions,
                                                               cells_names)
 
     clusters = cpdb_statistical_analysis_helper.build_clusters(meta, counts_filtered)
-    core_logger.info('Running Real Complex Analysis')
+    core_logger.info('Running Complex Analysis')
 
     cluster_interactions = cpdb_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
     interactions_processed = get_interactions_processed(interactions_filtered, complex_significative_protein)
 
     base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_processed, cluster_interactions)
 
-    real_mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_processed, clusters,
-                                                                        cluster_interactions, base_result)
+    mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_processed,
+                                                                   clusters,
+                                                                   cluster_interactions,
+                                                                   base_result,
+                                                                   suffixes=('_1', '_2'))
 
-    means_result, deconvoluted_result = build_results(
+    percent_analysis = cpdb_analysis_helper.percent_analysis(clusters,
+                                                             threshold,
+                                                             interactions_processed,
+                                                             cluster_interactions,
+                                                             base_result.copy(),
+                                                             suffixes=('_1', '_2'))
+
+    means_result, significant_means, deconvoluted_result = build_results(
         interactions_filtered,
-        real_mean_analysis,
+        mean_analysis,
+        percent_analysis,
         clusters['means'],
         complex_compositions,
         counts,
         genes,
         round_decimals
     )
-    return means_result, deconvoluted_result
+    return means_result, significant_means, deconvoluted_result
 
 
 def build_results(interactions: pd.DataFrame,
-                  real_mean_analysis: pd.DataFrame,
+                  mean_analysis: pd.DataFrame,
+                  percent_analysis: pd.DataFrame,
                   clusters_means: dict,
                   complex_compositions: pd.DataFrame,
                   counts: pd.DataFrame,
                   genes: pd.DataFrame,
-                  round_decimals: int) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+                  round_decimals: int) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     """
     Sets the results data structure from method generated data. Results documents are defined by specs.
     """
@@ -79,6 +91,11 @@ def build_results(interactions: pd.DataFrame,
                                                    axis=1)
     interactions['partner_b'] = interactions.apply(lambda interaction: simple_complex_indicator(interaction, '_2'),
                                                    axis=1)
+
+    significant_mean_rank, significant_means = cpdb_analysis_helper.build_significant_means(
+        mean_analysis, percent_analysis)
+    significant_means = significant_means.round(round_decimals)
+
     # Remove useless columns
     interactions_data_result = pd.DataFrame(interactions[
                                                 ['id_cp_interaction', 'partner_a', 'partner_b', 'ensembl_1',
@@ -94,20 +111,24 @@ def build_results(interactions: pd.DataFrame,
         columns={'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
         inplace=True)
 
-    real_mean_analysis = real_mean_analysis.round(round_decimals)
+    mean_analysis = mean_analysis.round(round_decimals)
 
     # Round result decimals
     for key, cluster_means in clusters_means.items():
         clusters_means[key] = cluster_means.round(round_decimals)
 
     # Document 2
-    means_result = pd.concat([interactions_data_result, real_mean_analysis], axis=1, join='inner', sort=False)
+    means_result = pd.concat([interactions_data_result, mean_analysis], axis=1, join='inner', sort=False)
+
+    # Document 3
+    significant_means_result = pd.concat([interactions_data_result, significant_mean_rank, significant_means], axis=1,
+                                         join='inner', sort=False)
 
     # Document 5
     deconvoluted_result = deconvoluted_complex_result_build(clusters_means, interactions, complex_compositions, counts,
                                                             genes)
 
-    return means_result, deconvoluted_result
+    return means_result, significant_means_result, deconvoluted_result
 
 
 def deconvoluted_complex_result_build(clusters_means: dict, interactions: pd.DataFrame,
@@ -248,8 +269,11 @@ def filter_interactions_by_genes(interactions: pd.DataFrame, genes: list) -> pd.
     return interactions_filtered
 
 
-def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataFrame, complexes: pd.DataFrame,
-               complex_compositions: pd.DataFrame):
+def prefilters(interactions: pd.DataFrame,
+               counts: pd.DataFrame,
+               genes: pd.DataFrame,
+               complexes: pd.DataFrame,
+               complex_compositions: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     """
     - Finds the complex defined in counts and calculates their counts values
     - Remove interactions if the simple component ensembl is not in the counts list

@@ -72,6 +72,8 @@ def statistical_analysis(meta_filename: str,
 @click.option('--output-path', default='',
               help='Directory where the results will be allocated (the directory must exist) [out]')
 @click.option('--means-result-name', default='means.txt', help='Means result namefile [means.txt]')
+@click.option('--significant-means-result-name', default='significant_means.txt',
+              help='Significant result namefile [significant_means.txt]')
 @click.option('--deconvoluted-result-name', default='deconvoluted.txt',
               help='Deconvoluted result namefile [deconvoluted.txt]')
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
@@ -81,6 +83,7 @@ def analysis(meta_filename: str,
              threshold: float,
              output_path: str,
              means_result_name: str,
+             significant_means_result_name: str,
              deconvoluted_result_name: str,
              verbose: bool
              ):
@@ -91,6 +94,7 @@ def analysis(meta_filename: str,
                                                                                               threshold,
                                                                                               output_path,
                                                                                               means_result_name,
+                                                                                              significant_means_result_name,
                                                                                               deconvoluted_result_name,
                                                                                               )
     except (ReadFileException, ParseMetaException) as e:

@@ -56,16 +56,19 @@ class LocalMethodLauncher(object):
                                             threshold: float = 0.1,
                                             output_path: str = '',
                                             means_filename: str = 'means.txt',
-                                            deconvoluted_filename='deconvoluted.txt'
-                                            ):
+                                            significant_means_filename: str = 'significant_means.txt',
+                                            deconvoluted_filename='deconvoluted.txt') -> None:
         output_path = self._set_paths(output_path, project_name)
 
         counts, meta = self._load_meta_counts(counts_filename, meta_filename)
 
-        means, deconvoluted = self.cellphonedb_app.method.cpdb_method_analysis_launcher(
-            meta, counts, threshold)
+        means, significant_means, deconvoluted = \
+            self.cellphonedb_app.method.cpdb_method_analysis_launcher(meta,
+                                                                      counts,
+                                                                      threshold)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
+        significant_means.to_csv('{}/{}'.format(output_path, significant_means_filename), sep='\t', index=False)
         deconvoluted.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
 
     @staticmethod
