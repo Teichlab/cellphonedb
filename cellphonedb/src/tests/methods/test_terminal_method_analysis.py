@@ -21,6 +21,7 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
 
     def _method_call(self, data: str, project_name: str, threshold: float):
         result_means_filename = self._get_result_filename('means', data)
+        result_significant_means_filename = self._get_result_filename('significant_means', data)
         result_deconvoluted_filename = self._get_result_filename('deconvoluted', data)
 
         meta_filename = os.path.realpath('{}/hi_{}_meta.txt'.format(data_test_dir, data))
@@ -32,15 +33,17 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
                                                                                              threshold,
                                                                                              output_test_dir,
                                                                                              result_means_filename,
+                                                                                             result_significant_means_filename,
                                                                                              result_deconvoluted_filename)
 
         self._assert_result('means', data, project_name, result_means_filename)
+        self._assert_result('significant_means', data, project_name, result_significant_means_filename)
         self._assert_result('deconvoluted', data, project_name, result_deconvoluted_filename)
 
     def _assert_result(self, namefile: str, data: str, project_name: str,
                        result_means_filename: str) -> None:
-        means_test_filename = 'analysis_{}_result__data-{}.txt'.format(namefile, data)
-        original_means = pd.read_table('{}/{}'.format(data_test_dir, means_test_filename))
+        test_filename = 'analysis_{}_result__data-{}.txt'.format(namefile, data)
+        original_means = pd.read_table('{}/{}'.format(data_test_dir, test_filename))
         result_means = pd.read_table('{}/{}/{}'.format(output_test_dir, project_name, result_means_filename))
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result_means, original_means))
         self.remove_file('{}/{}/{}'.format(output_test_dir, project_name, result_means_filename))
