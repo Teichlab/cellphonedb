@@ -70,12 +70,12 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 - `--threshold`: % of cells expressing a gene
 - `--output-path`: Directory where the results will be allocated (the directory must exist) [out]
 - `--means-result-name`: Means result namefile [means.txt]
+- `--significant-mean-result-name`: Significant result namefile [significant_means.txt]
 - `--deconvoluted-result-name`: Deconvoluted result namefile [deconvoluted.txt]
 - `--verbose/--quiet`: Print or hide cellphonedb logs [verbose]
 
 ~ **Optional Method Statistical parameters**
 - `--pvalues-result-name`: Pvalues result namefile [pvalues.txt]
-- `--significant-mean-result-name`: Significant result namefile [significant_means.txt]
 - `--means-pvalues-result-name`: Pvalues-means result namefile [pvalues_means.txt]
 - `--debug-seed`: Debug random seed -1 for disable it. >=0 [-1]
 - `--threads`: Number of threads to use. >=1 [-1]
