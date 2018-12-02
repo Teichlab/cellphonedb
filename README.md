@@ -70,6 +70,7 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 - `--project-name`: Name of the project. It creates a subfolder in output folder
 - `--iterations`: Number of pvalues analysis iterations [1000]
 - `--threshold`: % of cells expressing a gene
+- `--result-precision`: Number of decimal digits in results [3]
 - `--output-path`: Directory where the results will be allocated (the directory must exist) [out]
 - `--means-result-name`: Means result namefile [means.txt]
 - `--significant-mean-result-name`: Significant result namefile [significant_means.txt]
