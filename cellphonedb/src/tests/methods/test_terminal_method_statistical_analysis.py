@@ -11,9 +11,9 @@ from cellphonedb.utils import dataframe_functions
 
 class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
     def create_app(self):
-        return create_app(raise_non_defined_vars=False, verbose=True)
+        return create_app(raise_non_defined_vars=False, verbose=False)
 
-    def test_test_data__it_10__seed_0__threshold__01__precision_1(self):
+    def test_statistical_method__data_test__it_10__seed_0__threshold__01__precision_1(self):
         iterations = 10
         data = 'test'
         debug_seed = 0
@@ -22,7 +22,7 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
         result_precision = 1
         self._method_call(data, iterations, project_name, threshold, debug_seed, result_precision)
 
-    def test_test_data__it_10__seed_0__threshold__01__precision_3(self):
+    def test_statistical_method__data_test__it_10__seed_0__threshold__01__precision_3(self):
         iterations = 10
         data = 'test'
         debug_seed = 0
