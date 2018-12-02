@@ -9,7 +9,8 @@ def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
          interactions: pd.DataFrame,
          threshold: float = 0.1,
-         round_decimals: int = 1) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
+         result_precision: int = 3
+         ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
         '[Non Statistical Method] Threshold:{}'.format(threshold))
 
@@ -39,7 +40,7 @@ def call(meta: pd.DataFrame,
         mean_analysis,
         percent_analysis,
         clusters['means'],
-        round_decimals)
+        result_precision)
 
     return means_result, significant_means, deconvoluted_result
 
@@ -48,7 +49,7 @@ def build_results(interactions: pd.DataFrame,
                   mean_analysis: pd.DataFrame,
                   percent_analysis: pd.DataFrame,
                   clusters_means: dict,
-                  round_decimals: int) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
+                  result_precision: int) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info('Building Simple results')
     interacting_pair = cpdb_statistical_analysis_helper.interacting_pair_build(interactions)
 
@@ -72,11 +73,11 @@ def build_results(interactions: pd.DataFrame,
 
     significant_mean_rank, significant_means = cpdb_analysis_helper.build_significant_means(mean_analysis,
                                                                                             percent_analysis)
-    significant_means = significant_means.round(round_decimals)
+    significant_means = significant_means.round(result_precision)
 
-    mean_analysis = mean_analysis.round(round_decimals)
+    mean_analysis = mean_analysis.round(result_precision)
     for key, cluster_means in clusters_means.items():
-        clusters_means[key] = cluster_means.round(round_decimals)
+        clusters_means[key] = cluster_means.round(result_precision)
 
     # Document 2
     means_result = pd.concat([interactions_data_result, mean_analysis], axis=1, join='inner', sort=False)

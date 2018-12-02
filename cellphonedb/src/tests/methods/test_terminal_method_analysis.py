@@ -13,16 +13,25 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
     def create_app(self):
         return create_app(raise_non_defined_vars=False, verbose=False)
 
-    def test_test_data(self):
+    def test_non_statistical_method__data_test__threshold__01__precision_1(self):
         data = 'test'
         project_name = 'test_data'
         threshold = 0.1
-        self._method_call(data, project_name, threshold)
+        result_precision = 1
+        self._method_call(data, project_name, threshold, result_precision)
 
-    def _method_call(self, data: str, project_name: str, threshold: float):
-        result_means_filename = self._get_result_filename('means', data)
-        result_significant_means_filename = self._get_result_filename('significant_means', data)
-        result_deconvoluted_filename = self._get_result_filename('deconvoluted', data)
+    def test_non_statistical_method__data_test__threshold__01__precision_3(self):
+        data = 'test'
+        project_name = 'test_data'
+        threshold = 0.1
+        result_precision = 3
+        self._method_call(data, project_name, threshold, result_precision)
+
+    def _method_call(self, data: str, project_name: str, threshold: float, result_precision: int):
+        result_means_filename = self._get_result_filename('means', data, threshold, result_precision)
+        result_significant_means_filename = self._get_result_filename('significant_means', data, threshold,
+                                                                      result_precision)
+        result_deconvoluted_filename = self._get_result_filename('deconvoluted', data, threshold, result_precision)
 
         meta_filename = os.path.realpath('{}/hi_{}_meta.txt'.format(data_test_dir, data))
         counts_filename = os.path.realpath('{}/hi_{}_counts.txt'.format(data_test_dir, data))
@@ -34,22 +43,36 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
                                                                                              output_test_dir,
                                                                                              result_means_filename,
                                                                                              result_significant_means_filename,
-                                                                                             result_deconvoluted_filename)
+                                                                                             result_deconvoluted_filename,
+                                                                                             result_precision)
 
-        self._assert_result('means', data, project_name, result_means_filename)
-        self._assert_result('significant_means', data, project_name, result_significant_means_filename)
-        self._assert_result('deconvoluted', data, project_name, result_deconvoluted_filename)
+        self._assert_result('means', data, project_name, result_means_filename, threshold, result_precision)
+        self._assert_result('significant_means', data, project_name, result_significant_means_filename, threshold,
+                            result_precision)
+        self._assert_result('deconvoluted', data, project_name, result_deconvoluted_filename, threshold,
+                            result_precision)
 
-    def _assert_result(self, namefile: str, data: str, project_name: str,
-                       result_means_filename: str) -> None:
-        test_filename = 'analysis_{}_result__data-{}.txt'.format(namefile, data)
+    def _assert_result(self,
+                       namefile: str,
+                       data: str,
+                       project_name: str,
+                       result_means_filename: str,
+                       threshold: float,
+                       result_precision: int,
+                       ) -> None:
+        str_threshold = ''.join(str(threshold).split('.'))
+        test_filename = 'analysis__{}_result__data-{}_threshold-{}_precision-{}.txt'.format(namefile,
+                                                                                            data,
+                                                                                            str_threshold,
+                                                                                            result_precision)
         original_means = pd.read_table('{}/{}'.format(data_test_dir, test_filename))
         result_means = pd.read_table('{}/{}/{}'.format(output_test_dir, project_name, result_means_filename))
         self.assertTrue(dataframe_functions.dataframes_has_same_data(result_means, original_means))
         self.remove_file('{}/{}/{}'.format(output_test_dir, project_name, result_means_filename))
 
-    def _get_result_filename(self, base_name, data: str) -> str:
-        base_filename = '{}__data-{}'.format(base_name, data)
+    def _get_result_filename(self, base_name, data: str, threshold: float, precision: int) -> str:
+        str_threshold = ''.join(str(threshold).split('.'))
+        base_filename = '{}__data-{}_threshold-{}_precision-{}'.format(base_name, data, str_threshold, precision)
         random_filename = self.get_test_filename(base_filename, 'txt')
 
         return random_filename

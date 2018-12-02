@@ -10,13 +10,13 @@ def call(meta: pd.DataFrame,
          complexes: pd.DataFrame,
          complex_compositions: pd.DataFrame,
          threshold: float = 0.1,
-         round_decimals: int = 1) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
+         result_precision: int = 3) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     means_simple, significant_means_simple, deconvoluted_simple = \
         cpdb_analysis_simple_method.call(meta.copy(),
                                          counts.copy(),
                                          interactions.copy(),
                                          threshold,
-                                         round_decimals)
+                                         result_precision)
     means_complex, significant_means_complex, deconvoluted_complex = \
         cpdb_analysis_complex_method.call(meta.copy(),
                                           counts.copy(),
@@ -25,7 +25,7 @@ def call(meta: pd.DataFrame,
                                           complexes,
                                           complex_compositions,
                                           threshold,
-                                          round_decimals)
+                                          result_precision)
 
     means = means_simple.append(means_complex, sort=False)
     significant_means = significant_means_simple.append(significant_means_complex, sort=False)
