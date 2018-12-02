@@ -3,6 +3,7 @@ import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir
+from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.utils import utils
 
@@ -105,6 +106,11 @@ class LocalMethodLauncher(object):
         """
         meta_raw = utils.read_data_table_from_file(os.path.realpath(meta_filename), index_column_first=True)
         counts = utils.read_data_table_from_file(os.path.realpath(counts_filename), index_column_first=True)
+
+        try:
+            counts.astype(pd.np.float)
+        except:
+            raise ParseCountsException
 
         try:
             meta = pd.DataFrame(index=meta_raw.index)

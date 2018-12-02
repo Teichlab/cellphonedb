@@ -4,6 +4,7 @@ import click
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.cpdb_exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 
@@ -61,7 +62,7 @@ def statistical_analysis(meta_filename: str,
                                                             threads,
                                                             result_precision
                                                             )
-    except (ReadFileException, ParseMetaException) as e:
+    except (ReadFileException, ParseMetaException, ParseCountsException) as e:
         app_logger.error(e)
     except:
         app_logger.error('Unexpected error')
@@ -106,7 +107,7 @@ def analysis(meta_filename: str,
                                                                                               deconvoluted_result_name,
                                                                                               result_precision,
                                                                                               )
-    except (ReadFileException, ParseMetaException) as e:
+    except (ReadFileException, ParseMetaException, ParseCountsException) as e:
         app_logger.error(e)
     except:
         app_logger.error('Unexpected error')
