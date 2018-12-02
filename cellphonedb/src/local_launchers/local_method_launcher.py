@@ -22,7 +22,7 @@ class LocalMethodLauncher(object):
     def cpdb_statistical_analysis_local_method_launcher(self, meta_filename: str,
                                                         counts_filename: str,
                                                         project_name: str = '',
-                                                        iterations: str = '1000',
+                                                        iterations: int = 1000,
                                                         threshold: float = 0.1,
                                                         output_path: str = '',
                                                         means_filename: str = 'means.txt',
@@ -30,19 +30,27 @@ class LocalMethodLauncher(object):
                                                         significant_mean_filename: str = 'significant_means.txt',
                                                         means_pvalues_filename: str = 'pvalues_means.txt',
                                                         deconvoluted_filename='deconvoluted.txt',
-                                                        debug_seed: str = '-1',
-                                                        threads: int = -1
-                                                        ):
+                                                        debug_seed: int = -1,
+                                                        threads: int = -1,
+                                                        result_precision: int = 3) -> None:
         output_path = self._set_paths(output_path, project_name)
 
         debug_seed = int(debug_seed)
         iterations = int(iterations)
         threads = int(threads)
+        result_precision = int(result_precision)
 
         counts, meta = self._load_meta_counts(counts_filename, meta_filename)
 
-        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = self.cellphonedb_app.method.cpdb_statistical_analysis_launcher(
-            meta, counts, iterations, threshold, threads, debug_seed)
+        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = \
+            self.cellphonedb_app.method.cpdb_statistical_analysis_launcher(
+                meta,
+                counts,
+                iterations,
+                threshold,
+                threads,
+                debug_seed,
+                result_precision)
 
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
         pvalues_simple.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)
