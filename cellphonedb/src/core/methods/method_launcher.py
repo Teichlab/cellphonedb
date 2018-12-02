@@ -2,6 +2,7 @@ import pandas as pd
 
 from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.database import DatabaseManager
+from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.core.methods import cpdb_analysis_method, cpdb_statistical_analysis_method
 
 
@@ -35,6 +36,9 @@ class MethodLauncher():
             core_logger.info('Using Default thread number: %s' % self.default_threads)
             threads = self.default_threads
 
+        if threshold < 0 or threshold > 1:
+            raise ThresholdValueException(threshold)
+
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
         genes = self.database_manager.get_repository('gene').get_all_expanded()
@@ -62,6 +66,9 @@ class MethodLauncher():
                                       threshold: float,
                                       result_precision: int,
                                       ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
+
+        if threshold < 0 or threshold > 1:
+            raise ThresholdValueException(threshold)
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)

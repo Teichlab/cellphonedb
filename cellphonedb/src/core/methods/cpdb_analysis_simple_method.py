@@ -12,7 +12,7 @@ def call(meta: pd.DataFrame,
          result_precision: int = 3
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
-        '[Non Statistical Method] Threshold:{}'.format(threshold))
+        '[Non Statistical Method] Threshold:{} Precission:{}'.format(threshold, result_precision))
 
     interactions_filtered, counts_filtered = prefilters(counts, interactions)
 
