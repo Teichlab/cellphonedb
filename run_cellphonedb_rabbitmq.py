@@ -16,6 +16,7 @@ import pika
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.cpdb_exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.utils import utils
 
@@ -176,7 +177,7 @@ while jobs_runned < 3 and consume_more_jobs:
 
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
             app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
-        except (ReadFileException, ParseMetaException) as e:
+        except (ReadFileException, ParseMetaException, ParseCountsException) as e:
             error_response = {
                 'job_id': json.loads(job[2].decode('utf-8'))['job_id'],
                 'success': False,

@@ -6,13 +6,25 @@ from cellphonedb.src.core.models.cluster_counts import cluster_counts_helper, cl
 from cellphonedb.src.core.models.complex import complex_helper
 
 
-def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, genes: pd.DataFrame,
-         complexes: pd.DataFrame, complex_compositions: pd.DataFrame, iterations: int = 1000, threshold: float = 0.1,
-         threads: int = 4, debug_seed=False, round_decimals: int = 1) -> (
-        pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+def call(meta: pd.DataFrame,
+         counts: pd.DataFrame,
+         interactions: pd.DataFrame,
+         genes: pd.DataFrame,
+         complexes: pd.DataFrame,
+         complex_compositions: pd.DataFrame,
+         iterations: int = 1000,
+         threshold: float = 0.1,
+         threads: int = 4,
+         debug_seed: int = -1,
+         result_precision: int = 3
+         ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
-        '[Cluster Statistical Analysis Complex] Threshold:{} Iterations:{} Debug-seed:{} Threads:{}'.format(
-            threshold, iterations, debug_seed, threads))
+        '[Cluster Statistical Analysis Complex] '
+        'Threshold:{} Iterations:{} Debug-seed:{} Threads:{} Precision:{}'.format(threshold,
+                                                                                  iterations,
+                                                                                  debug_seed,
+                                                                                  threads,
+                                                                                  result_precision))
     if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
         core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
@@ -61,14 +73,19 @@ def call(meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame, g
         complex_compositions,
         counts,
         genes,
-        round_decimals
+        result_precision
     )
     return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
 
 
-def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
-                  clusters_means: dict, complex_compositions: pd.DataFrame, counts: pd.DataFrame,
-                  genes: pd.DataFrame, round_decimals: int) -> (
+def build_results(interactions: pd.DataFrame,
+                  real_mean_analysis: pd.DataFrame,
+                  result_percent: pd.DataFrame,
+                  clusters_means: dict,
+                  complex_compositions: pd.DataFrame,
+                  counts: pd.DataFrame,
+                  genes: pd.DataFrame,
+                  result_precision: int) -> (
         pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     """
     Sets the results data structure from method generated data. Results documents are defined by specs.
@@ -109,13 +126,13 @@ def build_results(interactions: pd.DataFrame, real_mean_analysis: pd.DataFrame, 
     significant_mean_rank, significant_means = cpdb_statistical_analysis_helper.build_significant_means(
         real_mean_analysis, result_percent)
 
-    result_percent = result_percent.round(round_decimals)
-    real_mean_analysis = real_mean_analysis.round(round_decimals)
-    significant_means = significant_means.round(round_decimals)
+    result_percent = result_percent.round(result_precision)
+    real_mean_analysis = real_mean_analysis.round(result_precision)
+    significant_means = significant_means.round(result_precision)
 
     # Round result decimals
     for key, cluster_means in clusters_means.items():
-        clusters_means[key] = cluster_means.round(round_decimals)
+        clusters_means[key] = cluster_means.round(result_precision)
 
     # Document 1
     pvalues_result = pd.concat([interactions_data_result, result_percent], axis=1, join='inner', sort=False)
