@@ -14,7 +14,7 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.option('--project-name', default='', help='Name of the project. It creates a subfolder in output folder')
 @click.option('--iterations', default=1000, help='Number of pvalues analysis iterations [1000]')
 @click.option('--threshold', default=0.1, help='% of cells expressing a gene')
-@click.option('--result-precision', default='3', help='Number of decimal digits in results[3]')
+@click.option('--result-precision', default='3', help='Number of decimal digits in results [3]')
 @click.option('--output-path', default='',
               help='Directory where the results will be allocated (the directory must exist) [out]')
 @click.option('--means-result-name', default='means.txt', help='Means result namefile [means.txt]')
@@ -75,7 +75,7 @@ def statistical_analysis(meta_filename: str,
 @click.argument('counts-filename')
 @click.option('--project-name', default='', help='Name of the project. It creates a subfolder in output folder')
 @click.option('--threshold', default=0.1, help='% of cells expressing a gene')
-@click.option('--result-precision', default='3', help='Number of decimal digits in results[3]')
+@click.option('--result-precision', default='3', help='Number of decimal digits in results [3]')
 @click.option('--output-path', default='',
               help='Directory where the results will be allocated (the directory must exist) [out]')
 @click.option('--means-result-name', default='means.txt', help='Means result namefile [means.txt]')
