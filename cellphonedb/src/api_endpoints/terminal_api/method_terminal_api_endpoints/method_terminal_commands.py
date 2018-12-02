@@ -14,6 +14,7 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.option('--project-name', default='', help='Name of the project. It creates a subfolder in output folder')
 @click.option('--iterations', default=1000, help='Number of pvalues analysis iterations [1000]')
 @click.option('--threshold', default=0.1, help='% of cells expressing a gene')
+@click.option('--result-precision', default='3', help='Number of decimal digits in results[3]')
 @click.option('--output-path', default='',
               help='Directory where the results will be allocated (the directory must exist) [out]')
 @click.option('--means-result-name', default='means.txt', help='Means result namefile [means.txt]')
@@ -32,6 +33,7 @@ def statistical_analysis(meta_filename: str,
                          project_name: str,
                          iterations: str,
                          threshold: float,
+                         result_precision: int,
                          output_path: str,
                          means_result_name: str,
                          pvalues_result_name: str,
@@ -40,21 +42,25 @@ def statistical_analysis(meta_filename: str,
                          deconvoluted_result_name: str,
                          debug_seed: str,
                          threads: int,
-                         verbose: bool):
+                         verbose: bool,
+                         ) -> None:
     try:
-        LocalMethodLauncher(cpdb_app.create_app(verbose)).cpdb_statistical_analysis_local_method_launcher(meta_filename,
-                                                                                                          counts_filename,
-                                                                                                          project_name,
-                                                                                                          iterations,
-                                                                                                          threshold,
-                                                                                                          output_path,
-                                                                                                          means_result_name,
-                                                                                                          pvalues_result_name,
-                                                                                                          significant_mean_result_name,
-                                                                                                          means_pvalues_result_name,
-                                                                                                          deconvoluted_result_name,
-                                                                                                          debug_seed,
-                                                                                                          threads)
+        LocalMethodLauncher(cpdb_app.create_app(verbose)). \
+            cpdb_statistical_analysis_local_method_launcher(meta_filename,
+                                                            counts_filename,
+                                                            project_name,
+                                                            iterations,
+                                                            threshold,
+                                                            output_path,
+                                                            means_result_name,
+                                                            pvalues_result_name,
+                                                            significant_mean_result_name,
+                                                            means_pvalues_result_name,
+                                                            deconvoluted_result_name,
+                                                            debug_seed,
+                                                            threads,
+                                                            result_precision
+                                                            )
     except (ReadFileException, ParseMetaException) as e:
         app_logger.error(e)
     except:
