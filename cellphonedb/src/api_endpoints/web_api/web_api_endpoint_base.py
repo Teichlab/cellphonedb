@@ -1,7 +1,6 @@
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 
-import pandas as pd
 from flask_restful import Resource
 
 import json
