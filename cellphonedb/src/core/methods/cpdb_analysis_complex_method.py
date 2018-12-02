@@ -14,7 +14,8 @@ def call(meta: pd.DataFrame,
          complexes: pd.DataFrame,
          complex_compositions: pd.DataFrame,
          threshold: float = 0.1,
-         round_decimals: int = 1) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
+         result_precision: int = 3
+         ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
         '[Non Statistical Method] Threshold:{}'.format(threshold))
 
@@ -57,7 +58,7 @@ def call(meta: pd.DataFrame,
         complex_compositions,
         counts,
         genes,
-        round_decimals
+        result_precision
     )
     return means_result, significant_means, deconvoluted_result
 
@@ -69,7 +70,7 @@ def build_results(interactions: pd.DataFrame,
                   complex_compositions: pd.DataFrame,
                   counts: pd.DataFrame,
                   genes: pd.DataFrame,
-                  round_decimals: int) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
+                  result_precision: int) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     """
     Sets the results data structure from method generated data. Results documents are defined by specs.
     """
@@ -94,7 +95,7 @@ def build_results(interactions: pd.DataFrame,
 
     significant_mean_rank, significant_means = cpdb_analysis_helper.build_significant_means(
         mean_analysis, percent_analysis)
-    significant_means = significant_means.round(round_decimals)
+    significant_means = significant_means.round(result_precision)
 
     # Remove useless columns
     interactions_data_result = pd.DataFrame(interactions[
@@ -111,11 +112,11 @@ def build_results(interactions: pd.DataFrame,
         columns={'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
         inplace=True)
 
-    mean_analysis = mean_analysis.round(round_decimals)
+    mean_analysis = mean_analysis.round(result_precision)
 
     # Round result decimals
     for key, cluster_means in clusters_means.items():
-        clusters_means[key] = cluster_means.round(round_decimals)
+        clusters_means[key] = cluster_means.round(result_precision)
 
     # Document 2
     means_result = pd.concat([interactions_data_result, mean_analysis], axis=1, join='inner', sort=False)
