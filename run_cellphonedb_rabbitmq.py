@@ -104,7 +104,7 @@ def statistical_analysis(meta, counts, job_id, metadata):
     pvalues, means, significant_means, means_pvalues, deconvoluted = \
         app.method.cpdb_statistical_analysis_launcher(meta,
                                                       counts,
-                                                      threshold=float(metadata['threshold'] / 100),
+                                                      threshold=float(metadata['threshold']),
                                                       iterations=int(metadata['iterations']),
                                                       debug_seed=-1,
                                                       threads=4)
@@ -131,7 +131,7 @@ def non_statistical_analysis(meta, counts, job_id, metadata):
     means, significant_means, deconvoluted = \
         app.method.cpdb_method_analysis_launcher(meta,
                                                  counts,
-                                                 threshold=float(metadata['threshold'] / 100))
+                                                 threshold=float(metadata['threshold']))
     response = {
         'job_id': job_id,
         'files': {
