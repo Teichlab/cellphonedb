@@ -39,6 +39,7 @@ class LocalMethodLauncher(object):
         debug_seed = int(debug_seed)
         iterations = int(iterations)
         threads = int(threads)
+        threshold = float(threshold)
         result_precision = int(result_precision)
 
         counts, meta = self._load_meta_counts(counts_filename, meta_filename)
@@ -70,6 +71,9 @@ class LocalMethodLauncher(object):
                                             result_precision: int = 3
                                             ) -> None:
         output_path = self._set_paths(output_path, project_name)
+
+        result_precision = int(result_precision)
+        threshold = float(threshold)
 
         counts, meta = self._load_meta_counts(counts_filename, meta_filename)
 

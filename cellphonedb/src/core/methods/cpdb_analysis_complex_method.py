@@ -17,7 +17,7 @@ def call(meta: pd.DataFrame,
          result_precision: int = 3
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
-        '[Non Statistical Method] Threshold:{}'.format(threshold))
+        '[Non Statistical Method] Threshold:{} Precision:{}'.format(threshold, result_precision))
 
     cells_names = sorted(counts.columns)
 

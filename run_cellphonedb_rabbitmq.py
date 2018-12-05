@@ -15,6 +15,7 @@ import pika
 
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.cpdb_exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
@@ -103,10 +104,11 @@ def statistical_analysis(meta, counts, job_id, metadata):
     pvalues, means, significant_means, means_pvalues, deconvoluted = \
         app.method.cpdb_statistical_analysis_launcher(meta,
                                                       counts,
-                                                      threshold=float(metadata['threshold'] / 100),
+                                                      threshold=float(metadata['threshold']),
                                                       iterations=int(metadata['iterations']),
                                                       debug_seed=-1,
-                                                      threads=4)
+                                                      threads=4,
+                                                      result_precision=int(metadata['result_precision']))
     response = {
         'job_id': job_id,
         'files': {
@@ -130,7 +132,8 @@ def non_statistical_analysis(meta, counts, job_id, metadata):
     means, significant_means, deconvoluted = \
         app.method.cpdb_method_analysis_launcher(meta,
                                                  counts,
-                                                 threshold=float(metadata['threshold'] / 100))
+                                                 threshold=float(metadata['threshold']),
+                                                 result_precision=int(metadata['result_precision']))
     response = {
         'job_id': job_id,
         'files': {
@@ -141,6 +144,7 @@ def non_statistical_analysis(meta, counts, job_id, metadata):
         'success': True
     }
     write_data_in_s3(means, response['files']['means'])
+    write_data_in_s3(significant_means, response['files']['significant_means'])
     write_data_in_s3(deconvoluted, response['files']['deconvoluted'])
     return response
 
@@ -177,7 +181,7 @@ while jobs_runned < 3 and consume_more_jobs:
 
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
             app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
-        except (ReadFileException, ParseMetaException, ParseCountsException) as e:
+        except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException) as e:
             error_response = {
                 'job_id': json.loads(job[2].decode('utf-8'))['job_id'],
                 'success': False,
