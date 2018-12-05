@@ -107,7 +107,8 @@ def statistical_analysis(meta, counts, job_id, metadata):
                                                       threshold=float(metadata['threshold']),
                                                       iterations=int(metadata['iterations']),
                                                       debug_seed=-1,
-                                                      threads=4)
+                                                      threads=4,
+                                                      result_precision=int(metadata['result_precision']))
     response = {
         'job_id': job_id,
         'files': {
@@ -131,7 +132,8 @@ def non_statistical_analysis(meta, counts, job_id, metadata):
     means, significant_means, deconvoluted = \
         app.method.cpdb_method_analysis_launcher(meta,
                                                  counts,
-                                                 threshold=float(metadata['threshold']))
+                                                 threshold=float(metadata['threshold']),
+                                                 result_precision=int(metadata['result_precision']))
     response = {
         'job_id': job_id,
         'files': {
@@ -142,6 +144,7 @@ def non_statistical_analysis(meta, counts, job_id, metadata):
         'success': True
     }
     write_data_in_s3(means, response['files']['means'])
+    write_data_in_s3(significant_means, response['files']['significant_means'])
     write_data_in_s3(deconvoluted, response['files']['deconvoluted'])
     return response
 
