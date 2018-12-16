@@ -112,11 +112,6 @@ class LocalMethodLauncher(object):
         counts = utils.read_data_table_from_file(os.path.realpath(counts_filename), index_column_first=True)
 
         try:
-            counts.astype(pd.np.float)
-        except:
-            raise ParseCountsException
-
-        try:
             meta = pd.DataFrame(index=meta_raw.index)
             meta['cell_type'] = meta_raw.iloc[:, 0]
 

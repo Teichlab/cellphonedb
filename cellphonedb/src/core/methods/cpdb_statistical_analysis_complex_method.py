@@ -1,6 +1,7 @@
 import pandas as pd
 
 from cellphonedb.src.core.core_logger import core_logger
+from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
 from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
 from cellphonedb.src.core.models.cluster_counts import cluster_counts_helper, cluster_counts_filter
 from cellphonedb.src.core.models.complex import complex_helper
@@ -309,6 +310,9 @@ def prefilters(interactions: pd.DataFrame, counts: pd.DataFrame, genes: pd.DataF
     counts['gene'] = counts.index
 
     counts_multidata = cluster_counts_filter.filter_by_gene(counts, genes)
+
+    if counts_multidata.empty:
+        raise AllCountsFilteredException(hint='Are you using human data?')
 
     complex_in_counts, counts_multidata_complex = get_involved_complex_from_counts(counts_multidata, clusters_names,
                                                                                    complexes, complex_compositions)

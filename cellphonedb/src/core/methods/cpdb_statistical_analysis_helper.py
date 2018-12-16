@@ -255,9 +255,15 @@ def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame,
     """
     core_logger.info('Running Statistical Analysis')
     with Pool(processes=threads) as pool:
-        asd_mult = partial(_statistical_analysis, base_result, cluster_interactions, counts, interactions, meta,
-                           suffixes)
-        results = pool.map(asd_mult, range(iterations))
+        statidstical_analysis_thread = partial(_statistical_analysis,
+                                               base_result,
+                                               cluster_interactions,
+                                               counts,
+                                               interactions,
+                                               meta,
+                                               suffixes
+                                               )
+        results = pool.map(statidstical_analysis_thread, range(iterations))
 
     return results
 
@@ -269,7 +275,8 @@ def _statistical_analysis(base_result, cluster_interactions, counts, interaction
     """
     shuffled_meta = shuffle_meta(meta)
     shuffled_clusters = build_clusters(shuffled_meta, counts)
-    return mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, suffixes)
+    result_mean_analysis = mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, suffixes)
+    return result_mean_analysis
 
 
 def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.DataFrame,

@@ -3,8 +3,10 @@ import click
 
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
+from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
-from cellphonedb.src.cpdb_exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
@@ -63,11 +65,24 @@ def statistical_analysis(meta_filename: str,
                                                             threads,
                                                             result_precision
                                                             )
-    except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException) as e:
-        app_logger.error(e)
+    except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
+            AllCountsFilteredException) as e:
+        app_logger.error(str(e) +
+                         (':' if (hasattr(e, 'description') and e.description) or (
+                                 hasattr(e, 'hint') and e.hint) else '') +
+                         (' {}.'.format(e.description) if hasattr(e, 'description') and e.description else '') +
+                         (' {}.'.format(e.hint) if hasattr(e, 'hint') and e.hint else '')
+                         )
+
+    except EmptyResultException as e:
+        app_logger.warning(str(e) +
+                           (':' if (hasattr(e, 'description') and e.description) or (
+                                   hasattr(e, 'hint') and e.hint) else '') +
+                           (' {}.'.format(e.description) if hasattr(e, 'description') and e.description else '') +
+                           (' {}.'.format(e.hint) if hasattr(e, 'hint') and e.hint else '')
+                           )
     except:
         app_logger.error('Unexpected error')
-
         if (verbose):
             traceback.print_exc(file=sys.stdout)
 
@@ -108,8 +123,22 @@ def analysis(meta_filename: str,
                                                                                               deconvoluted_result_name,
                                                                                               result_precision,
                                                                                               )
-    except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException) as e:
-        app_logger.error(e)
+    except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
+            AllCountsFilteredException) as e:
+        app_logger.error(str(e) +
+                         (':' if (hasattr(e, 'description') and e.description) or (
+                                 hasattr(e, 'hint') and e.hint) else '') +
+                         (' {}.'.format(e.description) if hasattr(e, 'description') and e.description else '') +
+                         (' {}.'.format(e.hint) if hasattr(e, 'hint') and e.hint else '')
+                         )
+
+    except EmptyResultException as e:
+        app_logger.warning(str(e) +
+                           (':' if (hasattr(e, 'description') and e.description) or (
+                                   hasattr(e, 'hint') and e.hint) else '') +
+                           (' {}.'.format(e.description) if hasattr(e, 'description') and e.description else '') +
+                           (' {}.'.format(e.hint) if hasattr(e, 'hint') and e.hint else '')
+                           )
     except:
         app_logger.error('Unexpected error')
 

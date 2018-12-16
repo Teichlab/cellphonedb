@@ -1,5 +1,6 @@
 import pandas as pd
 
+from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.methods import cpdb_analysis_simple_method, cpdb_analysis_complex_method
 
 
@@ -30,6 +31,9 @@ def call(meta: pd.DataFrame,
     means = means_simple.append(means_complex, sort=False)
     significant_means = significant_means_simple.append(significant_means_complex, sort=False)
     deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
+
+    if means.empty:
+        raise EmptyResultException
 
     max_rank = significant_means['rank'].max()
     significant_means['rank'] = significant_means['rank'].apply(lambda rank: rank if rank != 0 else (1 + max_rank))
