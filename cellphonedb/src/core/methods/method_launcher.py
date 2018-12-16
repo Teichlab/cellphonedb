@@ -4,6 +4,7 @@ from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.database import DatabaseManager
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.core.methods import cpdb_analysis_method, cpdb_statistical_analysis_method
+from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 
 
 class MethodLauncher():
@@ -24,7 +25,7 @@ class MethodLauncher():
 
     def cpdb_statistical_analysis_launcher(self,
                                            meta: pd.DataFrame,
-                                           count: pd.DataFrame,
+                                           counts: pd.DataFrame,
                                            iterations: int,
                                            threshold: float,
                                            threads: int,
@@ -39,6 +40,8 @@ class MethodLauncher():
         if threshold < 0 or threshold > 1:
             raise ThresholdValueException(threshold)
 
+        counts = self._counts_validations(counts, meta)
+
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
         genes = self.database_manager.get_repository('gene').get_all_expanded()
@@ -47,7 +50,7 @@ class MethodLauncher():
 
         deconvoluted, mean_pvalue, means, pvalues, significant_means = \
             cpdb_statistical_analysis_method.call(meta,
-                                                  count,
+                                                  counts,
                                                   interactions,
                                                   genes,
                                                   complex_expanded,
@@ -62,13 +65,15 @@ class MethodLauncher():
 
     def cpdb_method_analysis_launcher(self,
                                       meta: pd.DataFrame,
-                                      count: pd.DataFrame,
+                                      counts: pd.DataFrame,
                                       threshold: float,
                                       result_precision: int,
                                       ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         if threshold < 0 or threshold > 1:
             raise ThresholdValueException(threshold)
+
+        counts = self._counts_validations(counts, meta)
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
@@ -78,7 +83,7 @@ class MethodLauncher():
 
         means, significant_means, deconvoluted = cpdb_analysis_method.call(
             meta,
-            count,
+            counts,
             interactions,
             genes,
             complex_expanded,
@@ -87,3 +92,16 @@ class MethodLauncher():
             result_precision)
 
         return means, significant_means, deconvoluted
+
+    def _counts_validations(self, counts: pd.DataFrame, meta: pd.DataFrame) -> pd.DataFrame:
+        if not len(counts.columns):
+            raise ParseCountsException('Counts values are not decimal values', 'Incorrect file format')
+        try:
+            counts = counts.astype(pd.np.float)  # type: pd.DataFrame
+        except:
+            raise ParseCountsException
+        for cell in meta.index.values:
+            if cell not in counts.columns.values:
+                raise ParseCountsException('Some cells in meta didnt exist in counts columns',
+                                           'Maybe incorrect file format')
+        return counts

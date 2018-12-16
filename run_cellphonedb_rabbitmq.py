@@ -15,8 +15,10 @@ import pika
 
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
+from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
-from cellphonedb.src.cpdb_exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.utils import utils
@@ -90,7 +92,6 @@ def process_job(method, properties, body) -> dict:
         raise ParseMetaException
 
     counts = read_data_from_s3(metadata['file_counts'], s3_bucket_name)
-    counts = counts.astype(dtype=pd.np.float64, copy=False)
 
     if metadata['iterations']:
         response = statistical_analysis(meta, counts, job_id, metadata)
@@ -181,13 +182,17 @@ while jobs_runned < 3 and consume_more_jobs:
 
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
             app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
-        except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException) as e:
+        except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
+                AllCountsFilteredException, EmptyResultException) as e:
             error_response = {
                 'job_id': json.loads(job[2].decode('utf-8'))['job_id'],
                 'success': False,
                 'error': {
                     'id': str(e),
-                    'message': ''
+                    'message': str(e) + (
+                        ' {}.'.format(e.description) if hasattr(e, 'description') and e.description else '') +
+                               (' {}.'.format(e.hint) if hasattr(e, 'hint') and e.hint else '')
+
                 }
             }
             print(traceback.print_exc(file=sys.stdout))
