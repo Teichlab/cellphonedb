@@ -4,7 +4,7 @@ setup(
     name='CellPhoneDB',
     author='TeichLab',
     author_email='contact@cellphonedb.org',
-    version='1.0.0',
+    version='1.1.0',
     long_description=__doc__,
     packages=find_packages(),
     include_package_data=True,
