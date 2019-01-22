@@ -45,6 +45,8 @@ def _find_interactions_by_element(elements: list, interactions: pd.DataFrame,
                                             (interactions['name_b'] == element) |
                                             (interactions['gene_name_a'] == element) |
                                             (interactions['gene_name_b'] == element) |
+                                            (interactions['entry_name_a'] == element) |
+                                            (interactions['entry_name_b'] == element) |
                                             (interactions['ensembl_a'] == element) |
                                             (interactions['ensembl_b'] == element)].copy()
 
