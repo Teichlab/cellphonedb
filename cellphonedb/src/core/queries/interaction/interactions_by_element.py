@@ -59,6 +59,7 @@ def _find_complex_by_element(element: str, complex_composition: pd.DataFrame) ->
     complexes_filtered = complex_composition[
         (complex_composition['name_protein'] == element) |
         (complex_composition['gene_name_protein'] == element) |
+        (complex_composition['entry_name_protein'] == element) |
         (complex_composition['ensembl_protein'] == element)]
 
     return complexes_filtered
