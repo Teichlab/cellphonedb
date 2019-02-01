@@ -4,6 +4,7 @@ from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.database import DatabaseManager
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.core.methods import cpdb_analysis_method, cpdb_statistical_analysis_method
+from cellphonedb.src.core.preprocessors import method_preprocessors
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 
 
@@ -24,7 +25,7 @@ class MethodLauncher():
         return multidatas
 
     def cpdb_statistical_analysis_launcher(self,
-                                           meta: pd.DataFrame,
+                                           raw_meta: pd.DataFrame,
                                            counts: pd.DataFrame,
                                            iterations: int,
                                            threshold: float,
@@ -40,6 +41,7 @@ class MethodLauncher():
         if threshold < 0 or threshold > 1:
             raise ThresholdValueException(threshold)
 
+        meta = method_preprocessors.meta_preprocessor(raw_meta)
         counts = self._counts_validations(counts, meta)
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
@@ -64,7 +66,7 @@ class MethodLauncher():
         return pvalues, means, significant_means, mean_pvalue, deconvoluted
 
     def cpdb_method_analysis_launcher(self,
-                                      meta: pd.DataFrame,
+                                      raw_meta: pd.DataFrame,
                                       counts: pd.DataFrame,
                                       threshold: float,
                                       result_precision: int,
@@ -72,6 +74,7 @@ class MethodLauncher():
 
         if threshold < 0 or threshold > 1:
             raise ThresholdValueException(threshold)
+        meta = method_preprocessors.meta_preprocessor(raw_meta)
 
         counts = self._counts_validations(counts, meta)
 

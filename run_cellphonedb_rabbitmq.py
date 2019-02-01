@@ -60,7 +60,7 @@ s3_client = boto3.client('s3', aws_access_key_id=s3_access_key,
                          endpoint_url=s3_endpoint)
 
 
-def read_data_from_s3(filename: str, s3_bucket_name: str):
+def read_data_from_s3(filename: str, s3_bucket_name: str, index_column_first: bool):
     s3_object = s3_client.get_object(Bucket=s3_bucket_name, Key=filename)
     return utils.read_data_from_s3_object(s3_object, filename, index_column_first=True)
 
@@ -83,15 +83,8 @@ def process_job(method, properties, body) -> dict:
     metadata = json.loads(body.decode('utf-8'))
     job_id = metadata['job_id']
     app_logger.info('New Job Queued: {}'.format(job_id))
-    meta_raw = read_data_from_s3(metadata['file_meta'], s3_bucket_name)
-    try:
-        meta = pd.DataFrame(index=meta_raw.index)
-        meta['cell_type'] = meta_raw.iloc[:, 0]
-
-    except:
-        raise ParseMetaException
-
-    counts = read_data_from_s3(metadata['file_counts'], s3_bucket_name)
+    meta = read_data_from_s3(metadata['file_meta'], s3_bucket_name, index_column_first=False)
+    counts = read_data_from_s3(metadata['file_counts'], s3_bucket_name, index_column_first=True)
 
     if metadata['iterations']:
         response = statistical_analysis(meta, counts, job_id, metadata)
@@ -189,8 +182,7 @@ while jobs_runned < 3 and consume_more_jobs:
                 'success': False,
                 'error': {
                     'id': str(e),
-                    'message': str(e) + (
-                        ' {}.'.format(e.description) if hasattr(e, 'description') and e.description else '') +
+                    'message': (' {}.'.format(e.description) if hasattr(e, 'description') and e.description else '') +
                                (' {}.'.format(e.hint) if hasattr(e, 'hint') and e.hint else '')
 
                 }
