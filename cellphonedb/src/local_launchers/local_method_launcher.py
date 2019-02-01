@@ -108,14 +108,7 @@ class LocalMethodLauncher(object):
         """
         :raise ParseMetaException
         """
-        meta_raw = utils.read_data_table_from_file(os.path.realpath(meta_filename), index_column_first=True)
+        meta = utils.read_data_table_from_file(os.path.realpath(meta_filename))
         counts = utils.read_data_table_from_file(os.path.realpath(counts_filename), index_column_first=True)
-
-        try:
-            meta = pd.DataFrame(index=meta_raw.index)
-            meta['cell_type'] = meta_raw.iloc[:, 0]
-
-        except:
-            raise ParseMetaException
 
         return counts, meta
