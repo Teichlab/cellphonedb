@@ -62,7 +62,7 @@ s3_client = boto3.client('s3', aws_access_key_id=s3_access_key,
 
 def read_data_from_s3(filename: str, s3_bucket_name: str, index_column_first: bool):
     s3_object = s3_client.get_object(Bucket=s3_bucket_name, Key=filename)
-    return utils.read_data_from_s3_object(s3_object, filename, index_column_first=True)
+    return utils.read_data_from_s3_object(s3_object, filename, index_column_first=index_column_first)
 
 
 def write_data_in_s3(data: pd.DataFrame, filename: str):
@@ -144,16 +144,6 @@ def non_statistical_analysis(meta, counts, job_id, metadata):
 
 
 consume_more_jobs = True
-
-
-def signal_handler(sig, frame):
-    app_logger.info('{} signal received. No more jobs will be consumed.'.format(sig))
-    global consume_more_jobs
-    consume_more_jobs = False
-
-
-signal.signal(signal.SIGINT, signal_handler)
-signal.signal(signal.SIGTERM, signal_handler)
 
 credentials = pika.PlainCredentials(rabbit_user, rabbit_password)
 connection = create_rabbit_connection()
