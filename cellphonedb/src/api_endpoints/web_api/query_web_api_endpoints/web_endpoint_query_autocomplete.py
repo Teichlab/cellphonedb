@@ -15,7 +15,7 @@ class WebEndpointQueryAutocomplete(WebApiEndpointBase):
 
         partial_element = parameters['partial_element']
 
-        if len(partial_element) < 4:
+        if len(partial_element) < 2:
             return flask.jsonify({'success': True, 'result': []})
 
         try:
