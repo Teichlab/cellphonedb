@@ -1,4 +1,7 @@
-import sys, traceback
+import sys
+import traceback
+from typing import Optional
+
 import click
 
 from cellphonedb.src.app import cpdb_app
@@ -7,9 +10,9 @@ from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCounts
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.core.utils.subsampler import Subsampler
-from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
+from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 
 
@@ -36,7 +39,7 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.option('--subsampling', default=False, help='Enable subsampling')
 @click.option('--subsampling-log', default=None, help='Enable subsampling log for non transformed data inputs')
 @click.option('--subsampling-num-pc', default=100, help='Subsampling NumPC argument')
-@click.option('--subsampling-num-cells-ratio', default=1/3,
+@click.option('--subsampling-num-cells-ratio', default=1 / 3,
               help='Ratio of cells to subsample (can also be specified as a number with --subsampling-num-cells)')
 @click.option('--subsampling-num-cells', default=None,
               help='Number of cells to subsample (can also be specified as a ratio with --subsampling-num-cells-ratio)')
@@ -56,15 +59,15 @@ def statistical_analysis(meta_filename: str,
                          threads: int,
                          verbose: bool,
                          subsampling: bool,
-                         subsamplingLog: bool,
-                         subsamplingNumPc: int,
-                         subsamplingNumCellsRatio: float,
-                         subsamplingNumCells: int
+                         subsampling_log: bool,
+                         subsampling_num_pc: int,
+                         subsampling_num_cells_ratio: float,
+                         subsampling_num_cells: Optional[int]
                          ) -> None:
     try:
 
         if subsampling:
-            subsampler = Subsampler(subsamplingLog, subsamplingNumPc, subsamplingNumCellsRatio, subsamplingNumCells)
+            subsampler = Subsampler(subsampling_log, subsampling_num_pc, subsampling_num_cells_ratio, subsampling_num_cells)
 
         LocalMethodLauncher(cpdb_app.create_app(verbose)). \
             cpdb_statistical_analysis_local_method_launcher(meta_filename,
