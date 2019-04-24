@@ -69,7 +69,8 @@ def statistical_analysis(meta_filename: str,
     try:
 
         if subsampling:
-            subsampler = Subsampler(subsampling_log, subsampling_num_pc, subsampling_num_cells_ratio, subsampling_num_cells)
+            subsampler = Subsampler(subsampling_log, subsampling_num_pc, subsampling_num_cells_ratio,
+                                    subsampling_num_cells)
 
         LocalMethodLauncher(cpdb_app.create_app(verbose)). \
             cpdb_statistical_analysis_local_method_launcher(meta_filename,
