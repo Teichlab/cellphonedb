@@ -1,3 +1,5 @@
+from datetime import datetime as dt
+
 import pandas as pd
 
 from cellphonedb.src.core.core_logger import core_logger
@@ -45,8 +47,11 @@ class MethodLauncher():
 
         meta = method_preprocessors.meta_preprocessor(raw_meta)
         counts = self._counts_validations(counts, meta)
+
         if subsampler is not None:
             counts = subsampler.subsample(counts)
+            # TODO: remove me.
+            counts.to_csv('counts_subsampled_{}.txt'.format(dt.now().strftime('%Y_%m_%d_%H_%M_%S')), sep='\t')
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
