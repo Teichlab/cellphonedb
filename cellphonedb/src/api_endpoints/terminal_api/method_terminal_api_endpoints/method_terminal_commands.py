@@ -19,29 +19,31 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.command()
 @click.argument('meta-filename')
 @click.argument('counts-filename')
-@click.option('--project-name', default='', help='Name of the project. It creates a subfolder in output folder')
-@click.option('--iterations', default=1000, help='Number of pvalues analysis iterations [1000]')
-@click.option('--threshold', default=0.1, help='% of cells expressing a gene')
-@click.option('--result-precision', default='3', help='Number of decimal digits in results [3]')
-@click.option('--output-path', default='',
+@click.option('--project-name', default='', type=str,
+              help='Name of the project. It creates a subfolder in output folder')
+@click.option('--iterations', default=1000, type=int, help='Number of pvalues analysis iterations [1000]')
+@click.option('--threshold', default=0.1, type=float, help='% of cells expressing a gene')
+@click.option('--result-precision', default='3', type=int, help='Number of decimal digits in results [3]')
+@click.option('--output-path', default='', type=str,
               help='Directory where the results will be allocated (the directory must exist) [out]')
-@click.option('--means-result-name', default='means.txt', help='Means result namefile [means.txt]')
-@click.option('--pvalues-result-name', default='pvalues.txt', help='Pvalues result namefile [pvalues.txt]')
-@click.option('--significant-mean-result-name', default='significant_means.txt',
+@click.option('--means-result-name', default='means.txt', type=str, help='Means result namefile [means.txt]')
+@click.option('--pvalues-result-name', default='pvalues.txt', type=str, help='Pvalues result namefile [pvalues.txt]')
+@click.option('--significant-mean-result-name', default='significant_means.txt', type=str,
               help='Significant result namefile [significant_means.txt]')
-@click.option('--means-pvalues-result-name', default='pvalues_means.txt',
+@click.option('--means-pvalues-result-name', default='pvalues_means.txt', type=str,
               help='Pvalues-means result namefile [pvalues_means.txt]')
-@click.option('--deconvoluted-result-name', default='deconvoluted.txt',
+@click.option('--deconvoluted-result-name', default='deconvoluted.txt', type=str,
               help='Deconvoluted result namefile [deconvoluted.txt]')
-@click.option('--debug-seed', default='-1', help='Debug random seed 0 for disable it. >=0 to set it [-1]')
-@click.option('--threads', default=4, help='Max of threads to process the data [4]')
-@click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
-@click.option('--subsampling', default=False, help='Enable subsampling')
-@click.option('--subsampling-log', default=None, help='Enable subsampling log for non transformed data inputs')
-@click.option('--subsampling-num-pc', default=100, help='Subsampling NumPC argument')
-@click.option('--subsampling-num-cells-ratio', default=1 / 3,
+@click.option('--debug-seed', default='-1', type=int, help='Debug random seed 0 for disable it. >=0 to set it [-1]')
+@click.option('--threads', default=4, type=int, help='Max of threads to process the data [4]')
+@click.option('--verbose/--quiet', default=True, type=bool, help='Print or hide cellphonedb logs [verbose]')
+@click.option('--subsampling', default=False, type=bool, help='Enable subsampling')
+@click.option('--subsampling-log', default=None, type=bool,
+              help='Enable subsampling log for non transformed data inputs')
+@click.option('--subsampling-num-pc', default=100, type=int, help='Subsampling NumPC argument')
+@click.option('--subsampling-num-cells-ratio', default=1 / 3, type=float,
               help='Ratio of cells to subsample (can also be specified as a number with --subsampling-num-cells)')
-@click.option('--subsampling-num-cells', default=None,
+@click.option('--subsampling-num-cells', default=None, type=int,
               help='Number of cells to subsample (can also be specified as a ratio with --subsampling-num-cells-ratio)')
 def statistical_analysis(meta_filename: str,
                          counts_filename: str,
