@@ -36,8 +36,8 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
               help='Deconvoluted result namefile [deconvoluted.txt]')
 @click.option('--debug-seed', default='-1', type=int, help='Debug random seed 0 for disable it. >=0 to set it [-1]')
 @click.option('--threads', default=4, type=int, help='Max of threads to process the data [4]')
-@click.option('--verbose/--quiet', default=True, type=bool, help='Print or hide cellphonedb logs [verbose]')
-@click.option('--subsampling', default=False, type=bool, help='Enable subsampling')
+@click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
+@click.option('--subsampling', default=False, is_flag=True, type=bool, help='Enable subsampling')
 @click.option('--subsampling-log', default=None, type=bool,
               help='Enable subsampling log for non transformed data inputs')
 @click.option('--subsampling-num-pc', default=100, type=int, help='Subsampling NumPC argument')
@@ -82,7 +82,7 @@ def statistical_analysis(meta_filename: str,
                                                             debug_seed,
                                                             threads,
                                                             result_precision,
-                                                            subsampler=subsampler
+                                                            subsampler=subsampler,
                                                             )
     except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
             AllCountsFilteredException) as e:
@@ -109,17 +109,24 @@ def statistical_analysis(meta_filename: str,
 @click.command()
 @click.argument('meta-filename')
 @click.argument('counts-filename')
-@click.option('--project-name', default='', help='Name of the project. It creates a subfolder in output folder')
-@click.option('--threshold', default=0.1, help='% of cells expressing a gene')
-@click.option('--result-precision', default='3', help='Number of decimal digits in results [3]')
-@click.option('--output-path', default='',
+@click.option('--project-name', default='', type=str,
+              help='Name of the project. It creates a subfolder in output folder')
+@click.option('--threshold', default=0.1, type=float, help='% of cells expressing a gene')
+@click.option('--result-precision', default='3', type=int, help='Number of decimal digits in results [3]')
+@click.option('--output-path', default='', type=str,
               help='Directory where the results will be allocated (the directory must exist) [out]')
-@click.option('--means-result-name', default='means.txt', help='Means result namefile [means.txt]')
-@click.option('--significant-means-result-name', default='significant_means.txt',
+@click.option('--means-result-name', default='means.txt', type=str, help='Means result namefile [means.txt]')
+@click.option('--significant-means-result-name', default='significant_means.txt', type=str,
               help='Significant result namefile [significant_means.txt]')
-@click.option('--deconvoluted-result-name', default='deconvoluted.txt',
+@click.option('--deconvoluted-result-name', default='deconvoluted.txt', type=str,
               help='Deconvoluted result namefile [deconvoluted.txt]')
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
+@click.option('--subsampling', default=False, is_flag=True, type=bool, help='Enable subsampling')
+@click.option('--subsampling-log', default=None, is_flag=True, type=bool,
+              help='Enable subsampling log for non transformed data inputs')
+@click.option('--subsampling-num-pc', default=100, type=int, help='Subsampling NumPC argument')
+@click.option('--subsampling-num-cells', default=None, type=int,
+              help='Number of cells to subsample (defaults to a 1/3 of cells)')
 def analysis(meta_filename: str,
              counts_filename: str,
              project_name: str,
@@ -129,9 +136,16 @@ def analysis(meta_filename: str,
              means_result_name: str,
              significant_means_result_name: str,
              deconvoluted_result_name: str,
-             verbose: bool
+             verbose: bool,
+             subsampling: bool,
+             subsampling_log: bool,
+             subsampling_num_pc: int,
+             subsampling_num_cells: Optional[int]
              ):
     try:
+
+        subsampler = Subsampler(subsampling_log, subsampling_num_pc, subsampling_num_cells) if subsampling else None
+
         LocalMethodLauncher(cpdb_app.create_app(verbose)).cpdb_analysis_local_method_launcher(meta_filename,
                                                                                               counts_filename,
                                                                                               project_name,
@@ -141,6 +155,7 @@ def analysis(meta_filename: str,
                                                                                               significant_means_result_name,
                                                                                               deconvoluted_result_name,
                                                                                               result_precision,
+                                                                                              subsampler,
                                                                                               )
     except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
             AllCountsFilteredException) as e:

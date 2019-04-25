@@ -35,7 +35,7 @@ class MethodLauncher():
                                            threads: int,
                                            debug_seed: int,
                                            result_precision: int,
-                                           subsampler: Subsampler = None
+                                           subsampler: Subsampler = None,
                                            ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         if threads < 1:
@@ -79,6 +79,7 @@ class MethodLauncher():
                                       counts: pd.DataFrame,
                                       threshold: float,
                                       result_precision: int,
+                                      subsampler: Subsampler = None,
                                       ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         if threshold < 0 or threshold > 1:
@@ -86,6 +87,11 @@ class MethodLauncher():
         meta = method_preprocessors.meta_preprocessor(raw_meta)
 
         counts = self._counts_validations(counts, meta)
+
+        if subsampler is not None:
+            counts = subsampler.subsample(counts)
+            # TODO: remove me.
+            counts.to_csv('counts_subsampled_{}.txt'.format(dt.now().strftime('%Y_%m_%d_%H_%M_%S')), sep='\t')
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
