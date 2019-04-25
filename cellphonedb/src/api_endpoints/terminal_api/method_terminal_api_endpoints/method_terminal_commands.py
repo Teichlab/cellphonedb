@@ -65,7 +65,10 @@ def statistical_analysis(meta_filename: str,
                          ) -> None:
     try:
 
-        subsampler = Subsampler(subsampling_log, subsampling_num_pc, subsampling_num_cells) if subsampling else None
+        subsampler = Subsampler(subsampling_log,
+                                subsampling_num_pc,
+                                subsampling_num_cells,
+                                verbose) if subsampling else None
 
         LocalMethodLauncher(cpdb_app.create_app(verbose)). \
             cpdb_statistical_analysis_local_method_launcher(meta_filename,
@@ -82,7 +85,7 @@ def statistical_analysis(meta_filename: str,
                                                             debug_seed,
                                                             threads,
                                                             result_precision,
-                                                            subsampler=subsampler,
+                                                            subsampler,
                                                             )
     except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
             AllCountsFilteredException) as e:
@@ -102,7 +105,7 @@ def statistical_analysis(meta_filename: str,
                            )
     except:
         app_logger.error('Unexpected error')
-        if (verbose):
+        if verbose:
             traceback.print_exc(file=sys.stdout)
 
 
@@ -144,7 +147,10 @@ def analysis(meta_filename: str,
              ):
     try:
 
-        subsampler = Subsampler(subsampling_log, subsampling_num_pc, subsampling_num_cells) if subsampling else None
+        subsampler = Subsampler(subsampling_log,
+                                subsampling_num_pc,
+                                subsampling_num_cells,
+                                verbose) if subsampling else None
 
         LocalMethodLauncher(cpdb_app.create_app(verbose)).cpdb_analysis_local_method_launcher(meta_filename,
                                                                                               counts_filename,
@@ -176,5 +182,5 @@ def analysis(meta_filename: str,
     except:
         app_logger.error('Unexpected error')
 
-        if (verbose):
+        if verbose:
             traceback.print_exc(file=sys.stdout)
