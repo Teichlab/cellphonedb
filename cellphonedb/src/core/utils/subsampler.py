@@ -29,7 +29,7 @@ class Subsampler(object):
             x_dimred = u[:, :self.num_pc] * s[:self.num_pc]
             sketch_index = gs(x_dimred, self.num_cells, replace=False)
             x_matrix = counts.iloc[sketch_index]
-        except AssertionError as e:
+        except Exception as e:
             core_logger.warning('Subsampling failed: ignored.')
             if self.verbose:
                 core_logger.warning(str(e))
