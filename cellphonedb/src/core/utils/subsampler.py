@@ -7,15 +7,14 @@ from cellphonedb.src.core.core_logger import core_logger
 
 
 class Subsampler(object):
-    def __init__(self, log: bool, num_pc: int = 100, num_cells_ratio: float = 1 / 3, num_cells: int = None):
+    def __init__(self, log: bool, num_pc: int = 100, num_cells: int = None):
         self.log = log
         self.num_pc = num_pc
-        self.num_cells_ratio = num_cells_ratio
         self.num_cells = num_cells
 
     def subsample(self, counts: pd.DataFrame) -> pd.DataFrame:
         if self.num_cells is None:
-            self.num_cells = int(len(counts) * self.num_cells_ratio)
+            self.num_cells = int(len(counts) / 3)
 
         core_logger.info('Subsampling {} to {}'.format(len(counts), self.num_cells))
 

@@ -41,10 +41,8 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.option('--subsampling-log', default=None, type=bool,
               help='Enable subsampling log for non transformed data inputs')
 @click.option('--subsampling-num-pc', default=100, type=int, help='Subsampling NumPC argument')
-@click.option('--subsampling-num-cells-ratio', default=1 / 3, type=float,
-              help='Ratio of cells to subsample (can also be specified as a number with --subsampling-num-cells)')
 @click.option('--subsampling-num-cells', default=None, type=int,
-              help='Number of cells to subsample (can also be specified as a ratio with --subsampling-num-cells-ratio)')
+              help='Number of cells to subsample (defaults to a 1/3 of cells)')
 def statistical_analysis(meta_filename: str,
                          counts_filename: str,
                          project_name: str,
@@ -63,14 +61,11 @@ def statistical_analysis(meta_filename: str,
                          subsampling: bool,
                          subsampling_log: bool,
                          subsampling_num_pc: int,
-                         subsampling_num_cells_ratio: float,
                          subsampling_num_cells: Optional[int]
                          ) -> None:
     try:
 
-        if subsampling:
-            subsampler = Subsampler(subsampling_log, subsampling_num_pc, subsampling_num_cells_ratio,
-                                    subsampling_num_cells)
+        subsampler = Subsampler(subsampling_log, subsampling_num_pc, subsampling_num_cells) if subsampling else None
 
         LocalMethodLauncher(cpdb_app.create_app(verbose)). \
             cpdb_statistical_analysis_local_method_launcher(meta_filename,
@@ -87,7 +82,7 @@ def statistical_analysis(meta_filename: str,
                                                             debug_seed,
                                                             threads,
                                                             result_precision,
-                                                            subsampler=subsampler if subsampling else None
+                                                            subsampler=subsampler
                                                             )
     except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
             AllCountsFilteredException) as e:
