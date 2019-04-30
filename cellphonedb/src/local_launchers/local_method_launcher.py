@@ -1,10 +1,10 @@
 import os
+
 import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir
-from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
-from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
+from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.utils import utils
 
 
@@ -33,7 +33,9 @@ class LocalMethodLauncher(object):
                                                         deconvoluted_filename='deconvoluted.txt',
                                                         debug_seed: int = -1,
                                                         threads: int = -1,
-                                                        result_precision: int = 3) -> None:
+                                                        result_precision: int = 3,
+                                                        subsampler: Subsampler = None
+                                                        ) -> None:
         output_path = self._set_paths(output_path, project_name)
 
         debug_seed = int(debug_seed)
@@ -52,7 +54,9 @@ class LocalMethodLauncher(object):
                 threshold,
                 threads,
                 debug_seed,
-                result_precision)
+                result_precision,
+                subsampler
+            )
 
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
         pvalues_simple.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)
@@ -68,7 +72,8 @@ class LocalMethodLauncher(object):
                                             means_filename: str = 'means.txt',
                                             significant_means_filename: str = 'significant_means.txt',
                                             deconvoluted_filename='deconvoluted.txt',
-                                            result_precision: int = 3
+                                            result_precision: int = 3,
+                                            subsampler: Subsampler = None,
                                             ) -> None:
         output_path = self._set_paths(output_path, project_name)
 
@@ -81,7 +86,8 @@ class LocalMethodLauncher(object):
             self.cellphonedb_app.method.cpdb_method_analysis_launcher(meta,
                                                                       counts,
                                                                       threshold,
-                                                                      result_precision)
+                                                                      result_precision,
+                                                                      subsampler)
 
         means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
         significant_means.to_csv('{}/{}'.format(output_path, significant_means_filename), sep='\t', index=False)

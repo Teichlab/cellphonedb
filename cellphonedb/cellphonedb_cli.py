@@ -3,6 +3,7 @@ import click
 
 from cellphonedb.src.api_endpoints.terminal_api.method_terminal_api_endpoints import method_terminal_commands
 from cellphonedb.src.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
+from cellphonedb.src.app.flask.flask_app import create_app
 
 
 @click.group()
@@ -17,6 +18,8 @@ def method():
 
 @cli.group()
 def query():
+    # TODO: improve me, flask dependency must be avoided
+    create_app()
     pass
 
 
