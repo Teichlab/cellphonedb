@@ -70,7 +70,8 @@ def call(meta: pd.DataFrame,
                                                                                    interactions_processed,
                                                                                    cluster_interactions,
                                                                                    base_result,
-                                                                                   threads)
+                                                                                   threads,
+                                                                                   separator)
 
     result_percent = cpdb_statistical_analysis_helper.build_percent_result(real_mean_analysis,
                                                                            real_percents_analysis,

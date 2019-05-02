@@ -246,7 +246,7 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
 
 
 def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame,
-                      cluster_interactions: list, base_result: pd.DataFrame, threads: int,
+                      cluster_interactions: list, base_result: pd.DataFrame, threads: int, separator: str,
                       suffixes: tuple = ('_1', '_2')) -> list:
     """
     Shuffles meta and calculates the means for each and saves it in a list.
@@ -261,6 +261,7 @@ def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame,
                                                counts,
                                                interactions,
                                                meta,
+                                               separator,
                                                suffixes
                                                )
         results = pool.map(statidstical_analysis_thread, range(iterations))
@@ -268,14 +269,15 @@ def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame,
     return results
 
 
-def _statistical_analysis(base_result, cluster_interactions, counts, interactions, meta, suffixes,
+def _statistical_analysis(base_result, cluster_interactions, counts, interactions, meta, separator, suffixes,
                           iteration_number) -> pd.DataFrame:
     """
     Shuffles meta dataset and calculates calculates the means
     """
     shuffled_meta = shuffle_meta(meta)
     shuffled_clusters = build_clusters(shuffled_meta, counts)
-    result_mean_analysis = mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, suffixes)
+    result_mean_analysis = mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, separator,
+                                         suffixes)
     return result_mean_analysis
 
 
