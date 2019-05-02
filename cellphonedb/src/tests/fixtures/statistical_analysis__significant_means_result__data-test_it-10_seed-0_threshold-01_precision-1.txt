@@ -1,4 +1,4 @@
-interacting_pair	id_cp_interaction	partner_a	partner_b	ensembl_a	ensembl_b	source	secreted	is_integrin	rank	Myeloid|Myeloid	Myeloid|NKcells_0	Myeloid|NKcells_1	Myeloid|Tcells	NKcells_0_Myeloid	NKcells_0|NKcells_0	NKcells_0|NKcells_1	NKcells_0|Tcells	NKcells_1|Myeloid	NKcells_1|NKcells_0	NKcells_1|NKcells_1	NKcells_1|Tcells	Tcells|Myeloid	Tcells|NKcells_0	Tcells|NKcells_1	Tcells|Tcells
+interacting_pair	id_cp_interaction	partner_a	partner_b	ensembl_a	ensembl_b	source	secreted	is_integrin	rank	Myeloid|Myeloid	Myeloid|NKcells_0	Myeloid|NKcells_1	Myeloid|Tcells	NKcells_0|Myeloid	NKcells_0|NKcells_0	NKcells_0|NKcells_1	NKcells_0|Tcells	NKcells_1|Myeloid	NKcells_1|NKcells_0	NKcells_1|NKcells_1	NKcells_1|Tcells	Tcells|Myeloid	Tcells|NKcells_0	Tcells|NKcells_1	Tcells|Tcells
 LILRB4_LAIR1	CPI-SS0C8D6BD62	simple:Q8NHJ6	simple:Q6GTX8	ENSG00000186818	ENSG00000167613	curated	False	False	0.062	1.6
 CD48_CD244	CPI-SS056FF4363	simple:P09326	simple:Q9BZW8	ENSG00000117091	ENSG00000122223	curated	False	False	0.062										0.9
 SEMA4D_PLXNB2	CPI-SS012F60F11	simple:Q92854	simple:O15031	ENSG00000187764	ENSG00000196576	curated	False	False	0.062						0.8
