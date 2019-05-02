@@ -9,7 +9,7 @@ from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 
 
 class MethodLauncher():
-    def __init__(self, database_manager: DatabaseManager, default_threads: int, separator: str = '_'):
+    def __init__(self, database_manager: DatabaseManager, default_threads: int, separator: str = '|'):
         self.database_manager = database_manager
         self.default_threads = default_threads
         self.separator = separator
