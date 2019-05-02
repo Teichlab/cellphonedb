@@ -13,6 +13,7 @@ def call(meta: pd.DataFrame,
          genes: pd.DataFrame,
          complexes: pd.DataFrame,
          complex_compositions: pd.DataFrame,
+         separator: str,
          iterations: int = 1000,
          threshold: float = 0.1,
          threads: int = 4,
@@ -46,26 +47,39 @@ def call(meta: pd.DataFrame,
     cluster_interactions = cpdb_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
     interactions_processed = get_interactions_processed(interactions_filtered, complex_significative_protein)
 
-    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_processed, cluster_interactions)
+    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_processed,
+                                                                       cluster_interactions,
+                                                                       separator)
 
-    real_mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_processed, clusters,
-                                                                        cluster_interactions, base_result)
+    real_mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_processed,
+                                                                        clusters,
+                                                                        cluster_interactions,
+                                                                        base_result,
+                                                                        separator)
 
-    real_percents_analysis = cpdb_statistical_analysis_helper.percent_analysis(clusters, threshold,
+    real_percents_analysis = cpdb_statistical_analysis_helper.percent_analysis(clusters,
+                                                                               threshold,
                                                                                interactions_processed,
                                                                                cluster_interactions,
-                                                                               base_result)
+                                                                               base_result,
+                                                                               separator)
 
-    statistical_mean_analysis = cpdb_statistical_analysis_helper.shuffled_analysis(iterations, meta, counts_filtered,
+    statistical_mean_analysis = cpdb_statistical_analysis_helper.shuffled_analysis(iterations,
+                                                                                   meta,
+                                                                                   counts_filtered,
                                                                                    interactions_processed,
-                                                                                   cluster_interactions, base_result,
+                                                                                   cluster_interactions,
+                                                                                   base_result,
                                                                                    threads)
 
     result_percent = cpdb_statistical_analysis_helper.build_percent_result(real_mean_analysis,
                                                                            real_percents_analysis,
                                                                            statistical_mean_analysis,
                                                                            interactions_processed,
-                                                                           cluster_interactions, base_result)
+                                                                           cluster_interactions,
+                                                                           base_result,
+                                                                           separator)
+
     pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result = build_results(
         interactions_filtered,
         real_mean_analysis,

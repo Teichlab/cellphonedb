@@ -134,14 +134,14 @@ def get_cluster_combinations(cluster_names: list) -> list:
     return sorted(itertools.product(cluster_names, repeat=2))
 
 
-def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) -> pd.DataFrame:
+def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list, separator: str) -> pd.DataFrame:
     """
     builds an empty cluster matrix to fill it later
     """
     columns = []
 
     for cluster_interaction in cluster_interactions:
-        columns.append('{}_{}'.format(cluster_interaction[0], cluster_interaction[1]))
+        columns.append('{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1]))
 
     result = pd.DataFrame(index=interactions.index, columns=columns, dtype=float)
 
@@ -149,7 +149,7 @@ def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list) 
 
 
 def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list,
-                  base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+                  base_result: pd.DataFrame, separator: str, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
     """
     Calculates the mean for the list of interactions and for each cluster
 
@@ -179,7 +179,7 @@ def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactio
 
     for interaction_index, interaction in interactions.iterrows():
         for cluster_interaction in cluster_interactions:
-            cluster_interaction_string = '{}_{}'.format(cluster_interaction[0], cluster_interaction[1])
+            cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
 
             interaction_mean = cluster_interaction_mean(cluster_interaction, interaction, clusters['means'], suffixes)
 
@@ -189,7 +189,7 @@ def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactio
 
 
 def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFrame, cluster_interactions: list,
-                     base_result: pd.DataFrame, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+                     base_result: pd.DataFrame, separator: str, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
     """
     Calculates the percents for cluster interactions and foreach gene interaction
 
@@ -237,7 +237,7 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
 
     for interaction_index, interaction in interactions.iterrows():
         for cluster_interaction in cluster_interactions:
-            cluster_interaction_string = '{}_{}'.format(cluster_interaction[0], cluster_interaction[1])
+            cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
 
             interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents, suffixes)
             result.at[interaction_index, cluster_interaction_string] = interaction_percent
@@ -281,7 +281,7 @@ def _statistical_analysis(base_result, cluster_interactions, counts, interaction
 
 def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.DataFrame,
                          statistical_mean_analysis: list, interactions: pd.DataFrame, cluster_interactions: list,
-                         base_result: pd.DataFrame) -> pd.DataFrame:
+                         base_result: pd.DataFrame, separator: str) -> pd.DataFrame:
     """
     Calculates the pvalues after statistical analysis.
 
@@ -333,7 +333,7 @@ def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analys
 
     for interaction_index, interaction in interactions.iterrows():
         for cluster_interaction in cluster_interactions:
-            cluster_interaction_string = '{}_{}'.format(cluster_interaction[0], cluster_interaction[1])
+            cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
             real_mean = real_mean_analysis.at[interaction_index, cluster_interaction_string]
             real_percent = real_perecents_analysis.at[interaction_index, cluster_interaction_string]
 
