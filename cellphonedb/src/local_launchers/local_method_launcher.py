@@ -33,7 +33,9 @@ class LocalMethodLauncher(object):
                                                         deconvoluted_filename='deconvoluted.txt',
                                                         debug_seed: int = -1,
                                                         threads: int = -1,
-                                                        result_precision: int = 3) -> None:
+                                                        result_precision: int = 3,
+                                                        min_significant_mean: float = 0.05,
+                                                        ) -> None:
         output_path = self._set_paths(output_path, project_name)
 
         debug_seed = int(debug_seed)
@@ -52,7 +54,9 @@ class LocalMethodLauncher(object):
                 threshold,
                 threads,
                 debug_seed,
-                result_precision)
+                result_precision,
+                min_significant_mean,
+            )
 
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
         pvalues_simple.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)

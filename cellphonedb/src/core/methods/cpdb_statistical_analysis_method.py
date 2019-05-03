@@ -15,17 +15,20 @@ def call(meta: pd.DataFrame,
          threshold: float,
          threads: int,
          debug_seed: int,
-         result_precision: int
+         result_precision: int,
+         min_significant_mean: float,
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     pvalues_simple, means_simple, significant_means_simple, mean_pvalue_simple, deconvoluted_simple = \
         cpdb_statistical_analysis_simple_method.call(meta.copy(),
                                                      count.copy(),
                                                      interactions,
+                                                     min_significant_mean,
                                                      iterations,
                                                      threshold,
                                                      threads,
                                                      debug_seed,
-                                                     result_precision)
+                                                     result_precision,
+                                                     )
 
     pvalues_complex, means_complex, significant_means_complex, mean_pvalue_complex, deconvoluted_complex = \
         cpdb_statistical_analysis_complex_method.call(meta.copy(),
@@ -34,11 +37,13 @@ def call(meta: pd.DataFrame,
                                                       genes,
                                                       complex_expanded,
                                                       complex_composition,
+                                                      min_significant_mean,
                                                       iterations,
                                                       threshold,
                                                       threads,
                                                       debug_seed,
-                                                      result_precision)
+                                                      result_precision,
+                                                      )
 
     pvalues = pvalues_simple.append(pvalues_complex, sort=False)
     means = means_simple.append(means_complex, sort=False)

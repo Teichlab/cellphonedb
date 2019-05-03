@@ -102,7 +102,9 @@ def statistical_analysis(meta, counts, job_id, metadata):
                                                       iterations=int(metadata['iterations']),
                                                       debug_seed=-1,
                                                       threads=4,
-                                                      result_precision=int(metadata['result_precision']))
+                                                      result_precision=int(metadata['result_precision']),
+                                                      min_significant_mean=float(metadata['pvalue']),
+                                                      )
     response = {
         'job_id': job_id,
         'files': {

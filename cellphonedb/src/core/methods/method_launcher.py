@@ -31,7 +31,8 @@ class MethodLauncher():
                                            threshold: float,
                                            threads: int,
                                            debug_seed: int,
-                                           result_precision: int
+                                           result_precision: int,
+                                           min_significant_mean: float,
                                            ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         if threads < 1:
@@ -61,7 +62,9 @@ class MethodLauncher():
                                                   threshold,
                                                   threads,
                                                   debug_seed,
-                                                  result_precision)
+                                                  result_precision,
+                                                  min_significant_mean,
+                                                  )
 
         return pvalues, means, significant_means, mean_pvalue, deconvoluted
 

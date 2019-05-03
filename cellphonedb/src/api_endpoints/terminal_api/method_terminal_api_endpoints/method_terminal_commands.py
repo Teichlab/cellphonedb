@@ -1,4 +1,6 @@
-import sys, traceback
+import sys
+import traceback
+
 import click
 
 from cellphonedb.src.app import cpdb_app
@@ -6,9 +8,9 @@ from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
-from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
+from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 
 
@@ -27,6 +29,8 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
               help='Significant result namefile [significant_means.txt]')
 @click.option('--means-pvalues-result-name', default='pvalues_means.txt',
               help='Pvalues-means result namefile [pvalues_means.txt]')
+@click.option('--pvalue', 'min_significant_mean', default=0.05, type=float,
+              help='Pvalue threshold [0.05]')
 @click.option('--deconvoluted-result-name', default='deconvoluted.txt',
               help='Deconvoluted result namefile [deconvoluted.txt]')
 @click.option('--debug-seed', default='-1', help='Debug random seed 0 for disable it. >=0 to set it [-1]')
@@ -43,6 +47,7 @@ def statistical_analysis(meta_filename: str,
                          pvalues_result_name: str,
                          significant_mean_result_name: str,
                          means_pvalues_result_name: str,
+                         min_significant_mean: float,
                          deconvoluted_result_name: str,
                          debug_seed: int,
                          threads: int,
@@ -63,7 +68,8 @@ def statistical_analysis(meta_filename: str,
                                                             deconvoluted_result_name,
                                                             debug_seed,
                                                             threads,
-                                                            result_precision
+                                                            result_precision,
+                                                            min_significant_mean,
                                                             )
     except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
             AllCountsFilteredException) as e:

@@ -1,18 +1,19 @@
 import pandas as pd
 
-from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
 from cellphonedb.src.core.core_logger import core_logger
+from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
 from cellphonedb.src.core.models.interaction import interaction_filter
 
 
 def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
          interactions: pd.DataFrame,
+         min_significant_mean: float,
          iterations: int = 1000,
          threshold: float = 0.1,
          threads: int = 4,
          debug_seed: int = -1,
-         result_precision: int = 3
+         result_precision: int = 3,
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
         '[Cluster Statistical Analysis Simple] '
@@ -65,7 +66,9 @@ def call(meta: pd.DataFrame,
         real_mean_analysis,
         result_percent,
         clusters['means'],
-        result_precision)
+        result_precision,
+        min_significant_mean,
+    )
 
     return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
 
@@ -74,7 +77,8 @@ def build_results(interactions: pd.DataFrame,
                   real_mean_analysis: pd.DataFrame,
                   result_percent: pd.DataFrame,
                   clusters_means: dict,
-                  result_precision: int
+                  result_precision: int,
+                  min_significant_mean: float,
                   ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info('Building Simple results')
     interacting_pair = cpdb_statistical_analysis_helper.interacting_pair_build(interactions)
@@ -98,7 +102,7 @@ def build_results(interactions: pd.DataFrame,
         lambda name: 'simple:{}'.format(name))
 
     significant_mean_rank, significant_means = cpdb_statistical_analysis_helper.build_significant_means(
-        real_mean_analysis, result_percent)
+        real_mean_analysis, result_percent, min_significant_mean)
 
     result_percent = result_percent.round(result_precision)
     real_mean_analysis = real_mean_analysis.round(result_precision)
