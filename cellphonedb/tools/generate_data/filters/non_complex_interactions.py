@@ -1,17 +1,13 @@
-import os
-
 import pandas as pd
-
-from tools.app import data_dir, output_dir, current_dir
 
 
 def only_noncomplex_interactions(interactions, complexes):
-    '''
+    """
 
     :type interactions: pd.DataFrame
     :type complexes: pd.DataFrame
     :rtype: pd.DataFrame
-    '''
+    """
 
     proteins_in_complex = []
 
