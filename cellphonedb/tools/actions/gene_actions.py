@@ -1,7 +1,7 @@
-from tools import app
-from tools.generate_data.filters import remove_genes
-from tools.generate_data.mergers import mergers_genes
-from tools.validators import gene_validators
+from cellphonedb.tools import app
+from cellphonedb.tools.generate_data.filters import remove_genes
+from cellphonedb.tools.generate_data.mergers import mergers_genes
+from cellphonedb.tools.validators import gene_validators
 from cellphonedb.utils import utils
 
 
