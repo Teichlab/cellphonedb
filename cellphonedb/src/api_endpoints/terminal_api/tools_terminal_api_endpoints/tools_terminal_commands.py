@@ -39,11 +39,9 @@ def generate_genes(
     gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename, ensembl_db_filename, proteins_filename,
                                                         gene_uniprot_ensembl_merged_result_filename, result_path)
 
-    merge_result_filename = '{}/{}'.format('.', gene_uniprot_ensembl_merged_result_filename)
-    gene_actions.add_hla_genes(merge_result_filename, hla_genes_filename, '', add_hla_result_filename,
+    gene_actions.add_hla_genes(gene_uniprot_ensembl_merged_result_filename, hla_genes_filename, '', add_hla_result_filename,
                                result_path)
 
-    add_hla_result_filename = '{}/{}'.format('.', add_hla_result_filename)
     gene_actions.remove_genes_in_file(add_hla_result_filename, remove_genes_filename, result_filename)
 
     gene_actions.validate_gene_list(result_filename, result_path)
