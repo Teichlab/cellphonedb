@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tools.tools_helper import interaction_exist, normalize_interactions
+from cellphonedb.tools.tools_helper import normalize_interactions, interaction_exist
 
 
 def merge_interactions(interactions_1, interactions_2, interaction_1_key='protein_1', interaction_2_key='protein_2'):
