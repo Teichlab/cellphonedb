@@ -1,7 +1,10 @@
+import os
+
 import pandas as pd
 from click._unicodefun import click
 
-from cellphonedb.src.app.cellphonedb_app import output_dir, data_dir
+from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.src.app.cellphonedb_app import output_dir
 from cellphonedb.tools.actions import gene_actions
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
@@ -33,18 +36,29 @@ def generate_genes(
         result_path: str,
         gene_uniprot_ensembl_merged_result_filename: str,
         add_hla_result_filename: str) -> None:
-    if not result_path:
-        result_path = output_dir
 
-    gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename, ensembl_db_filename, proteins_filename,
-                                                        gene_uniprot_ensembl_merged_result_filename, result_path)
+    output_path = _set_paths(output_dir, result_path)
 
-    gene_actions.add_hla_genes(gene_uniprot_ensembl_merged_result_filename, hla_genes_filename, '', add_hla_result_filename,
-                               result_path)
+    def prefix_output_path(filename: str) -> str:
+        return '{}/{}'.format(output_path, filename)
 
-    gene_actions.remove_genes_in_file(add_hla_result_filename, remove_genes_filename, result_filename)
+    gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename,
+                                                        ensembl_db_filename,
+                                                        proteins_filename,
+                                                        prefix_output_path(gene_uniprot_ensembl_merged_result_filename)
+                                                        )
 
-    gene_actions.validate_gene_list(result_filename, result_path)
+    gene_actions.add_hla_genes(gene_uniprot_ensembl_merged_result_filename,
+                               hla_genes_filename,
+                               prefix_output_path(add_hla_result_filename),
+                               )
+
+    gene_actions.remove_genes_in_file(prefix_output_path(add_hla_result_filename),
+                                      remove_genes_filename,
+                                      prefix_output_path(result_filename),
+                                      )
+
+    gene_actions.validate_gene_list(prefix_output_path(result_filename))
 
 
 @click.command()
@@ -55,6 +69,7 @@ def generate_genes(
 @click.argument('database_complex_filename', default='complex.csv')
 @click.argument('interaction_to_remove_filename')
 @click.argument('interaction_curated_filename')
+@click.option('--result_path', default='')
 def generate_interactions(
         imex_raw_filename: str,
         iuphar_raw_filename: str,
@@ -62,22 +77,28 @@ def generate_interactions(
         database_gene_filename: str,
         database_complex_filename: str,
         interaction_to_remove_filename: str,
-        interaction_curated_filename: str) -> None:
-    interactions_base = utils.read_data_table_from_file('%s/%s' % (data_dir, imex_raw_filename), na_values='-')
-    proteins = pd.read_csv('%s/%s' % (data_dir, database_proteins_filename))
-    genes = pd.read_csv('%s/%s' % (data_dir, database_gene_filename))
-    complexes = pd.read_csv('%s/%s' % (data_dir, database_complex_filename))
-    interactions_to_remove = pd.read_csv('%s/%s' % (data_dir, interaction_to_remove_filename))
-    interaction_curated = pd.read_csv('%s/%s' % (data_dir, interaction_curated_filename))
+        interaction_curated_filename: str,
+        result_path: str,
+) -> None:
+    interactions_base = utils.read_data_table_from_file(imex_raw_filename, na_values='-')
+    proteins = pd.read_csv(database_proteins_filename)
+    genes = pd.read_csv(database_gene_filename)
+    complexes = pd.read_csv(database_complex_filename)
+    interactions_to_remove = pd.read_csv(interaction_to_remove_filename)
+    interaction_curated = pd.read_csv(interaction_curated_filename)
 
     print('generating imex file')
     imex_interactions = parse_interactions_imex(interactions_base, proteins, genes)
 
-    print('Getting Iuphar interactions')
+    output_path = _set_paths(output_dir, result_path)
+    download_path = _set_paths(output_path, 'downloads')
 
-    iuphar_original = get_iuphar_guidetopharmacology.call(iuphar_raw_filename, data_dir,
-                                                          '{}/downloads'.format(data_dir),
-                                                          default_download_response='yes')
+    print('Getting Iuphar interactions')
+    iuphar_original = get_iuphar_guidetopharmacology.call(iuphar_raw_filename,
+                                                          download_path,
+                                                          default_download_response='no',
+                                                          )
+
     print('generating iuphar file')
     iuphar_interactions = parse_iuphar_guidetopharmacology.call(iuphar_original, genes, proteins)
 
@@ -93,4 +114,24 @@ def generate_interactions(
     print('adding curated interaction')
     interactions_with_curated = add_curated(clean_interactions, interaction_curated)
 
-    interactions_with_curated.to_csv('%s/interaction.csv' % output_dir, index=False)
+    interactions_with_curated.to_csv('{}/interaction.csv'.format(output_path), index=False)
+
+
+def _set_paths(output_path, project_name):
+    if not output_path:
+        output_path = output_dir
+
+    if project_name:
+        output_path = os.path.realpath(os.path.expanduser('{}/{}'.format(output_path, project_name)))
+
+    os.makedirs(output_path, exist_ok=True)
+
+    if _path_is_not_empty(output_path):
+        app_logger.warning(
+            'Output directory ({}) exist and is not empty. Result can overwrite old results'.format(output_path))
+
+    return output_path
+
+
+def _path_is_not_empty(path):
+    return bool([f for f in os.listdir(path) if not f.startswith('.')])

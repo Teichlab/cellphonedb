@@ -1,4 +1,6 @@
-import sys, traceback
+import sys
+import traceback
+
 import click
 
 from cellphonedb.src.app import cpdb_app
@@ -6,9 +8,9 @@ from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
-from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
+from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 
 
