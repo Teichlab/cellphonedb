@@ -12,13 +12,10 @@ class Interaction(Base):
     multidata_1_id = Column(Integer, ForeignKey('multidata.id_multidata'), nullable=False)
     multidata_2_id = Column(Integer, ForeignKey('multidata.id_multidata'), nullable=False)
 
-    score_1 = Column(Float)
-    score_2 = Column(Float)
 
     source = Column(String)
     comments_interaction = Column(String)
     family = Column(String)
-    dlrp = Column(Boolean)
     iuphar = Column(Boolean)
 
     is_cellphonedb_interactor = Column(Boolean)
