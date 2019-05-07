@@ -19,7 +19,7 @@ def call(meta: pd.DataFrame,
          min_significant_mean: float,
          separator: str
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    pvalues_simple, means_simple, deconvoluted_simple = \
+    pvalues_simple, means_simple, significant_means_simple, deconvoluted_simple = \
         cpdb_statistical_analysis_simple_method.call(meta.copy(),
                                                      count.copy(),
                                                      interactions,
