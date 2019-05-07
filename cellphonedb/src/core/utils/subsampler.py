@@ -15,26 +15,28 @@ class Subsampler(object):
 
     def subsample(self, counts: pd.DataFrame) -> pd.DataFrame:
         if self.num_cells is None:
-            self.num_cells = int(len(counts) / 3)
+            self.num_cells = int(counts.shape[1] / 3)
 
-        core_logger.info('Subsampling {} to {}'.format(len(counts), self.num_cells))
+        core_logger.info('Subsampling {} to {}'.format(counts.shape[1], self.num_cells))
+
+        counts_t = counts.T
 
         if self.log:
-            pca_input = np.log1p(counts)
+            pca_input = np.log1p(counts_t)
         else:
-            pca_input = counts
+            pca_input = counts_t
 
         try:
             u, s, vt = pca(pca_input.values, k=self.num_pc)
             x_dimred = u[:, :self.num_pc] * s[:self.num_pc]
             sketch_index = gs(x_dimred, self.num_cells, replace=False)
-            x_matrix = counts.iloc[sketch_index]
+            x_matrix = counts_t.iloc[sketch_index]
         except Exception as e:
             core_logger.warning('Subsampling failed: ignored.')
             if self.verbose:
                 core_logger.warning(str(e))
             return counts
 
-        core_logger.info('Done subsampling {} to {}'.format(len(counts), self.num_cells))
+        core_logger.info('Done subsampling {} to {}'.format(counts.shape[1], self.num_cells))
 
-        return x_matrix
+        return x_matrix.T
