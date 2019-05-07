@@ -19,7 +19,7 @@ def call(meta: pd.DataFrame,
          min_significant_mean: float,
          separator: str
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    pvalues_simple, means_simple, significant_means_simple, mean_pvalue_simple, deconvoluted_simple = \
+    pvalues_simple, means_simple, significant_means_simple, deconvoluted_simple = \
         cpdb_statistical_analysis_simple_method.call(meta.copy(),
                                                      count.copy(),
                                                      interactions,
@@ -32,7 +32,7 @@ def call(meta: pd.DataFrame,
                                                      result_precision,
                                                      )
 
-    pvalues_complex, means_complex, significant_means_complex, mean_pvalue_complex, deconvoluted_complex = \
+    pvalues_complex, means_complex, significant_means_complex, deconvoluted_complex = \
         cpdb_statistical_analysis_complex_method.call(meta.copy(),
                                                       count.copy(),
                                                       interactions,
@@ -59,10 +59,9 @@ def call(meta: pd.DataFrame,
     significant_means['rank'] = significant_means['rank'].apply(lambda rank: rank if rank != 0 else (1 + max_rank))
     significant_means.sort_values('rank', inplace=True)
 
-    mean_pvalue = mean_pvalue_simple.append(mean_pvalue_complex, sort=False)
     deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
 
     if not 'complex_name' in deconvoluted:
         deconvoluted['complex_name'] = ''
 
-    return deconvoluted, mean_pvalue, means, pvalues, significant_means
+    return deconvoluted, means, pvalues, significant_means

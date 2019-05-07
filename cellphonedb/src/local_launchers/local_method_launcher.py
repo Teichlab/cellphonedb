@@ -29,7 +29,6 @@ class LocalMethodLauncher(object):
                                                         means_filename: str = 'means.txt',
                                                         pvalues_filename: str = 'pvalues.txt',
                                                         significant_mean_filename: str = 'significant_means.txt',
-                                                        means_pvalues_filename: str = 'pvalues_means.txt',
                                                         deconvoluted_filename='deconvoluted.txt',
                                                         debug_seed: int = -1,
                                                         threads: int = -1,
@@ -46,7 +45,7 @@ class LocalMethodLauncher(object):
 
         counts, meta = self._load_meta_counts(counts_filename, meta_filename)
 
-        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = \
+        pvalues_simple, means_simple, significant_means_simple, deconvoluted_simple = \
             self.cellphonedb_app.method.cpdb_statistical_analysis_launcher(
                 meta,
                 counts,
@@ -61,7 +60,6 @@ class LocalMethodLauncher(object):
         means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
         pvalues_simple.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)
         significant_means_simple.to_csv('{}/{}'.format(output_path, significant_mean_filename), sep='\t', index=False)
-        means_pvalues_simple.to_csv('{}/{}'.format(output_path, means_pvalues_filename), sep='\t', index=False)
         deconvoluted_simple.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
 
     def cpdb_analysis_local_method_launcher(self, meta_filename: str,
