@@ -44,8 +44,6 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                                                             result_precision)
         result_significant_means_filename = self._get_result_filename('significant_means', data, iterations, debug_seed,
                                                                       threshold, result_precision)
-        result_pvalues_means_filename = self._get_result_filename('pvalues_means', data, iterations, debug_seed,
-                                                                  threshold, result_precision)
         result_deconvoluted_filename = self._get_result_filename('deconvoluted', data, iterations, debug_seed,
                                                                  threshold, result_precision)
 
@@ -62,7 +60,6 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                                                             result_means_filename,
                                                             result_pvalues_filename,
                                                             result_significant_means_filename,
-                                                            result_pvalues_means_filename,
                                                             result_deconvoluted_filename,
                                                             debug_seed,
                                                             result_precision=result_precision)
@@ -73,8 +70,6 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                             result_precision)
         self._assert_result('significant_means', data, iterations, project_name, result_significant_means_filename,
                             debug_seed, threshold, result_precision)
-        self._assert_result('pvalues_means', data, iterations, project_name, result_pvalues_means_filename, debug_seed,
-                            threshold, result_precision)
         self._assert_result('deconvoluted', data, iterations, project_name, result_deconvoluted_filename, debug_seed,
                             threshold, result_precision)
 
