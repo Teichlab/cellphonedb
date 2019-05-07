@@ -34,7 +34,7 @@ class MethodLauncher():
                                            debug_seed: int,
                                            result_precision: int,
                                            min_significant_mean: float,
-                                           ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+                                           ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         if threads < 1:
             core_logger.info('Using Default thread number: %s' % self.default_threads)

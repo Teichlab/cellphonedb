@@ -15,7 +15,7 @@ def call(meta: pd.DataFrame,
          threads: int = 4,
          debug_seed: int = -1,
          result_precision: int = 3,
-         ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+         ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
         '[Cluster Statistical Analysis Simple] '
         'Threshold:{} Iterations:{} Debug-seed:{} Threads:{} Precision:{}'.format(threshold,
