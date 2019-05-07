@@ -1,10 +1,10 @@
 import pandas as pd
 
 from cellphonedb.src.core.core_logger import core_logger
+from cellphonedb.src.core.methods import cpdb_analysis_helper
 from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
 from cellphonedb.src.core.models.cluster_counts import cluster_counts_helper, cluster_counts_filter
 from cellphonedb.src.core.models.complex import complex_helper
-from cellphonedb.src.core.methods import cpdb_analysis_helper
 
 
 def call(meta: pd.DataFrame,
@@ -13,6 +13,7 @@ def call(meta: pd.DataFrame,
          genes: pd.DataFrame,
          complexes: pd.DataFrame,
          complex_compositions: pd.DataFrame,
+         separator: str,
          threshold: float = 0.1,
          result_precision: int = 3
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
@@ -35,12 +36,14 @@ def call(meta: pd.DataFrame,
     cluster_interactions = cpdb_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
     interactions_processed = get_interactions_processed(interactions_filtered, complex_significative_protein)
 
-    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_processed, cluster_interactions)
+    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_processed, cluster_interactions,
+                                                                       separator)
 
     mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_processed,
                                                                    clusters,
                                                                    cluster_interactions,
                                                                    base_result,
+                                                                   separator,
                                                                    suffixes=('_1', '_2'))
 
     percent_analysis = cpdb_analysis_helper.percent_analysis(clusters,
@@ -48,6 +51,7 @@ def call(meta: pd.DataFrame,
                                                              interactions_processed,
                                                              cluster_interactions,
                                                              base_result.copy(),
+                                                             separator,
                                                              suffixes=('_1', '_2'))
 
     means_result, significant_means, deconvoluted_result = build_results(

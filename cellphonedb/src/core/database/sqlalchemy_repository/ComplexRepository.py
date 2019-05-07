@@ -155,7 +155,7 @@ class ComplexRepository(Repository):
 
             # Convert ints to bool
             bools = ['receptor', 'adhesion', 'other', 'transporter', 'secreted_highlight', 'transmembrane', 'secretion',
-                     'peripheral', 'extracellular', 'cytoplasm']
+                     'peripheral']
             complexes[bools] = complexes[bools].astype(bool)
 
             # Drop existing complexes

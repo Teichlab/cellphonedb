@@ -1,5 +1,5 @@
-interacting_pair	id_cp_interaction	partner_a	partner_b	ensembl_a	ensembl_b	source	secreted	is_integrin	rank	Myeloid_Myeloid	Myeloid_NKcells_0	Myeloid_NKcells_1	Myeloid_Tcells	NKcells_0_Myeloid	NKcells_0_NKcells_0	NKcells_0_NKcells_1	NKcells_0_Tcells	NKcells_1_Myeloid	NKcells_1_NKcells_0	NKcells_1_NKcells_1	NKcells_1_Tcells	Tcells_Myeloid	Tcells_NKcells_0	Tcells_NKcells_1	Tcells_Tcells
-LTBR_LTA	CPI-SS04EE6599C	simple:P36941	simple:P01374	ENSG00000111321	ENSG00000226979	InnateDB-All	True	False	0.062		0.606														
+interacting_pair	id_cp_interaction	partner_a	partner_b	ensembl_a	ensembl_b	source	secreted	is_integrin	rank	Myeloid|Myeloid	Myeloid|NKcells_0	Myeloid|NKcells_1	Myeloid|Tcells	NKcells_0|Myeloid	NKcells_0|NKcells_0	NKcells_0|NKcells_1	NKcells_0|Tcells	NKcells_1|Myeloid	NKcells_1|NKcells_0	NKcells_1|NKcells_1	NKcells_1|Tcells	Tcells|Myeloid	Tcells|NKcells_0	Tcells|NKcells_1	Tcells|Tcells
+LTBR_LTA	CPI-SS04EE6599C	simple:P36941	simple:P01374	ENSG00000111321	ENSG00000226979	InnateDB-All	True	False	0.062		0.606
 TNF_LTBR	CPI-SS00D2C6F8C	simple:P01375	simple:P36941	ENSG00000232810	ENSG00000111321	InnateDB-All	True	False	0.062					0.637											
 a5b1 complex_FN1	CPI-CS03DA9B97D	complex:a5b1 complex	simple:P02751		ENSG00000115414	curated	True	True	0.062					2.078											
 a10b1 complex_FN1	CPI-CS0C58D4424	complex:a10b1 complex	simple:P02751		ENSG00000115414	curated	True	True	0.062					2.08											

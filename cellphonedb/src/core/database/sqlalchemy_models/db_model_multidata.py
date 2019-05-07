@@ -21,8 +21,6 @@ class Multidata(Base):
     transmembrane = Column(Boolean)
     secretion = Column(Boolean)
     peripheral = Column(Boolean)
-    cytoplasm = Column(Boolean)
-    extracellular = Column(Boolean)
     integrin_interaction = Column(Boolean)
     is_complex = Column(Boolean)
 

@@ -20,12 +20,10 @@ complex_entries = [
             "transmembrane": True,
             "secretion": False,
             "peripheral": False,
-            "cytoplasm": False,
             "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "Note: Presumably retained within the endoplasmic reticulum unless complexed with HTR3A.",
-            "extracellular": False,
             "integrin_interaction": False
         },
         'composition': ["Q8WXA8", "P46098"]
@@ -44,7 +42,6 @@ complex_entries = [
             "transmembrane": True,
             "secretion": False,
             "peripheral": False,
-            "cytoplasm": False,
             "pdb_structure": "True",
             "pdb_id": "1kup",
             "stoichiometry": "ITGA2B;ITGB3",
@@ -69,12 +66,10 @@ complex_entries = [
             "transmembrane": True,
             "secretion": False,
             "peripheral": False,
-            "cytoplasm": False,
             "pdb_structure": "partial",
             "pdb_id": "3ml4",
             "stoichiometry": "DOK7;DOK7;MUSK;MUSK",
             "comments_complex": "MUSK Interacts with LRP4; the heterodimer forms an AGRIN receptor complex that binds AGRIN resulting in activation of MUSK",
-            "extracellular": False,
             "integrin_interaction": False,
         },
         'composition':
@@ -94,12 +89,10 @@ complex_entries = [
             "transmembrane": True,
             "secretion": False,
             "peripheral": False,
-            "cytoplasm": False,
             "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "Membrane-bound IgM molecules are non-covalently associated with heterodimer of CD79A and CD79B",
-            "extracellular": False,
             "integrin_interaction": False,
         },
         'composition':
@@ -119,12 +112,10 @@ complex_entries = [
             "transmembrane": True,
             "secretion": False,
             "peripheral": False,
-            "cytoplasm": False,
             "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "Serine/threonine kinase heterodimer upon ligand binding",
-            "extracellular": False,
             "integrin_interaction": False,
         },
         'composition':
@@ -144,12 +135,10 @@ complex_entries = [
             "transmembrane": True,
             "secretion": False,
             "peripheral": False,
-            "cytoplasm": False,
             "pdb_structure": "True",
             "pdb_id": "1onq",
             "stoichiometry": "B2M;CD1A",
             "comments_complex": "Heterodimer with B2M (beta-2-microglobulin).",
-            "extracellular": False,
             "integrin_interaction": False,
         },
         'composition':
@@ -169,12 +158,10 @@ complex_entries = [
             "transmembrane": False,
             "secretion": True,
             "peripheral": False,
-            "cytoplasm": False,
             "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": None,
-            "extracellular": True,
             "integrin_interaction": False,
         },
         'composition':
@@ -194,12 +181,10 @@ complex_entries = [
             "transmembrane": True,
             "secretion": False,
             "peripheral": False,
-            "cytoplasm": False,
             "pdb_structure": "False",
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "NA; the heterodimer binds IL17AF",
-            "extracellular": False,
             "integrin_interaction": False,
         },
         'composition':
@@ -224,8 +209,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": False,
-        "extracellular": True,
     },
     {
         "name": "A0AVI2",
@@ -244,8 +227,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": False,
-        "extracellular": False,
     },
     {
         "name": "A1E959",
@@ -264,8 +245,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": True,
-        "extracellular": True,
     },
     {
         "name": "O75970",
@@ -284,8 +263,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": True,
-        "extracellular": False,
     },
     {
         "name": "O76036",
@@ -304,8 +281,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": False,
-        "extracellular": False,
     },
     {
         "name": "O95256",
@@ -324,7 +299,6 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": None,
         "tags_description": "Iglike",
-        "cytoplasm": False,
     },
     {
         "name": "P78357",
@@ -343,8 +317,6 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": None,
         "tags_description": "complex",
-        "cytoplasm": False,
-        "extracellular": False,
     },
     {
         "name": "Q13444",
@@ -363,8 +335,6 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": None,
         "tags_description": "Active metalloproteinase with gelatinolytic and collagenolytic activity. (uniprot)",
-        "cytoplasm": False,
-        "extracellular": False,
     },
     {
         "name": "A5X5Y0",
@@ -383,8 +353,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": False,
-        "extracellular": False,
     },
     {
         "name": "Q9NPH3",
@@ -403,8 +371,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": False,
-        "extracellular": True,
     },
     {
         "name": "O75325",
@@ -423,8 +389,6 @@ protein_entries = [
         "tags": "To_add | To_comment",
         "tags_reason": None,
         "tags_description": "Iglike | Possible_receptor",
-        "cytoplasm": False,
-        "extracellular": True,
     },
     {
         "name": "P05067",
@@ -443,8 +407,6 @@ protein_entries = [
         "tags": "To_add",
         "tags_reason": None,
         "tags_description": "ligandIUPHAR",
-        "cytoplasm": True,
-        "extracellular": True,
     },
     {
         "name": "Q9HC73",
@@ -463,8 +425,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": False,
-        "extracellular": True,
     },
     {
         "name": "P48960",
@@ -483,8 +443,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": False,
-        "extracellular": False,
     },
     {
         "name": "Q01113",
@@ -503,8 +461,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": False,
-        "extracellular": True,
     },
     {
         "name": "P16284",
@@ -523,8 +479,6 @@ protein_entries = [
         "tags": None,
         "tags_reason": None,
         "tags_description": None,
-        "cytoplasm": False,
-        "extracellular": True,
     }
 ]
 gene_entries = [
