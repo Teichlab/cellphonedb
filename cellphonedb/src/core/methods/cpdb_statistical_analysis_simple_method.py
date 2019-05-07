@@ -73,7 +73,7 @@ def call(meta: pd.DataFrame,
                                                                            base_result,
                                                                            separator)
 
-    pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result = build_results(
+    pvalues_result, means_result, significant_means, deconvoluted_result = build_results(
         interactions_filtered,
         real_mean_analysis,
         result_percent,
@@ -82,7 +82,7 @@ def call(meta: pd.DataFrame,
         min_significant_mean,
     )
 
-    return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
+    return pvalues_result, means_result, significant_means, deconvoluted_result
 
 
 def build_results(interactions: pd.DataFrame,
@@ -132,15 +132,10 @@ def build_results(interactions: pd.DataFrame,
     significant_mean_result = pd.concat([interactions_data_result, significant_mean_rank, significant_means], axis=1,
                                         join='inner', sort=False)
 
-    # Document 4
-    mean_pvalue_result = cpdb_statistical_analysis_helper.mean_pvalue_result_build(real_mean_analysis,
-                                                                                   result_percent,
-                                                                                   interactions_data_result)
-
     # Document 5
     deconvoluted_result = deconvoluted_result_build(clusters_means, interactions)
 
-    return pvalues_result, means_result, significant_mean_result, mean_pvalue_result, deconvoluted_result
+    return pvalues_result, means_result, significant_mean_result, deconvoluted_result
 
 
 def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) -> pd.DataFrame:

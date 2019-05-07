@@ -52,7 +52,7 @@ class MethodLauncher():
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
 
-        deconvoluted, mean_pvalue, means, pvalues, significant_means = \
+        deconvoluted, means, pvalues, significant_means = \
             cpdb_statistical_analysis_method.call(meta,
                                                   counts,
                                                   interactions,
@@ -67,7 +67,7 @@ class MethodLauncher():
                                                   min_significant_mean,
                                                   self.separator)
 
-        return pvalues, means, significant_means, mean_pvalue, deconvoluted
+        return pvalues, means, significant_means, deconvoluted
 
     def cpdb_method_analysis_launcher(self,
                                       raw_meta: pd.DataFrame,

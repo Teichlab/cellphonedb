@@ -27,8 +27,6 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.option('--pvalues-result-name', default='pvalues.txt', help='Pvalues result namefile [pvalues.txt]')
 @click.option('--significant-mean-result-name', default='significant_means.txt',
               help='Significant result namefile [significant_means.txt]')
-@click.option('--means-pvalues-result-name', default='pvalues_means.txt',
-              help='Pvalues-means result namefile [pvalues_means.txt]')
 @click.option('--pvalue', 'min_significant_mean', default=0.05, type=float,
               help='Pvalue threshold [0.05]')
 @click.option('--deconvoluted-result-name', default='deconvoluted.txt',
@@ -46,7 +44,6 @@ def statistical_analysis(meta_filename: str,
                          means_result_name: str,
                          pvalues_result_name: str,
                          significant_mean_result_name: str,
-                         means_pvalues_result_name: str,
                          min_significant_mean: float,
                          deconvoluted_result_name: str,
                          debug_seed: int,
@@ -64,7 +61,6 @@ def statistical_analysis(meta_filename: str,
                                                             means_result_name,
                                                             pvalues_result_name,
                                                             significant_mean_result_name,
-                                                            means_pvalues_result_name,
                                                             deconvoluted_result_name,
                                                             debug_seed,
                                                             threads,
