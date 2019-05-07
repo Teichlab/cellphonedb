@@ -6,6 +6,7 @@ def percent_analysis(clusters: dict,
                      interactions: pd.DataFrame,
                      cluster_interactions: list,
                      base_result: pd.DataFrame,
+                     separator: str,
                      suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
     result = base_result.copy()
     percents = {}
@@ -16,7 +17,7 @@ def percent_analysis(clusters: dict,
 
     for interaction_index, interaction in interactions.iterrows():
         for cluster_interaction in cluster_interactions:
-            cluster_interaction_string = '{}_{}'.format(cluster_interaction[0], cluster_interaction[1])
+            cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
 
             interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents, suffixes)
             result.at[interaction_index, cluster_interaction_string] = interaction_percent

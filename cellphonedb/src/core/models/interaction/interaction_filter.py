@@ -1,6 +1,7 @@
+import pandas as pd
+
 from cellphonedb.src.core.core_logger import core_logger
 
-import pandas as pd
 
 def filter_by_any_multidatas(multidatas: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
     """
@@ -21,21 +22,6 @@ def filter_by_multidatas(multidatas: pd.DataFrame, interactions: pd.DataFrame) -
     """
     interactions_filtered = pd.merge(multidatas, interactions, left_on='id_multidata', right_on='multidata_1_id')
     interactions_filtered = pd.merge(multidatas, interactions_filtered, left_on='id_multidata',
-                                     right_on='multidata_2_id')
-
-    interactions_filtered.drop_duplicates('id_interaction', inplace=True)
-    interactions_filtered.reset_index(drop=True, inplace=True)
-
-    return interactions_filtered[interactions.columns.values]
-
-
-# TODO: add test
-def filter_by(parameter: str, multidatas: pd.DataFrame, interactions: pd.DataFrame, suffix: ()) -> pd.DataFrame:
-    """
-    Filters interactions if both interactions multidatas are in multidatas list
-    """
-    interactions_filtered = pd.merge(multidatas, interactions, left_on=parameter, right_on='{}_{}')
-    interactions_filtered = pd.merge(multidatas, interactions_filtered, left_on=parameter,
                                      right_on='multidata_2_id')
 
     interactions_filtered.drop_duplicates('id_interaction', inplace=True)

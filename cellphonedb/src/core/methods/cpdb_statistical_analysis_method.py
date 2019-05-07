@@ -15,12 +15,14 @@ def call(meta: pd.DataFrame,
          threshold: float,
          threads: int,
          debug_seed: int,
-         result_precision: int
+         result_precision: int,
+         separator: str
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     pvalues_simple, means_simple, significant_means_simple, mean_pvalue_simple, deconvoluted_simple = \
         cpdb_statistical_analysis_simple_method.call(meta.copy(),
                                                      count.copy(),
                                                      interactions,
+                                                     separator,
                                                      iterations,
                                                      threshold,
                                                      threads,
@@ -34,6 +36,7 @@ def call(meta: pd.DataFrame,
                                                       genes,
                                                       complex_expanded,
                                                       complex_composition,
+                                                      separator,
                                                       iterations,
                                                       threshold,
                                                       threads,
