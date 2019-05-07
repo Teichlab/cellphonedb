@@ -7,7 +7,8 @@ import pandas as pd
 from cellphonedb.src.core.core_logger import core_logger
 
 
-def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame) -> pd.DataFrame:
+def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
+                          min_significant_mean: float) -> pd.DataFrame:
     """
     If the result_percent value is > min_significant_mean, sets the value to NaN, else, sets the mean value.
 
@@ -37,7 +38,6 @@ def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.D
     ensembl3    NaN         NaN         0.5
     """
     significant_means = real_mean_analysis.copy()
-    min_significant_mean = 0.05
     for index, mean_analysis in real_mean_analysis.iterrows():
         for cluster_interaction in list(result_percent.columns):
             if result_percent.at[index, cluster_interaction] > min_significant_mean:
@@ -377,12 +377,13 @@ def interacting_pair_build(interactions: pd.DataFrame) -> pd.Series:
     return interacting_pair
 
 
-def build_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame) -> (
+def build_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
+                            min_significant_mean: float) -> (
         pd.Series, pd.DataFrame):
     """
     Calculates the significant means and add rank (number of non empty entries divided by total entries)
     """
-    significant_means = get_significant_means(real_mean_analysis, result_percent)
+    significant_means = get_significant_means(real_mean_analysis, result_percent, min_significant_mean)
     significant_mean_rank = significant_means.count(axis=1)  # type: pd.Series
     number_of_clusters = len(significant_means.columns)
     significant_mean_rank = significant_mean_rank.apply(lambda rank: rank / number_of_clusters)
