@@ -1,17 +1,20 @@
+from functools import reduce
+from typing import List
+
 import pandas as pd
 
 
 def call(element: str, interactions: pd.DataFrame, complex_composition: pd.DataFrame) -> pd.DataFrame:
     interactions = interactions[interactions['is_cellphonedb_interactor']]
 
-    related_complexes = _find_complex_by_element(element, complex_composition)
+    elements = [name.strip() for name in element.split(',')]
+    related_complexes = _find_complex_by_elements(elements, complex_composition)
 
-    complex_names = related_complexes['name_complex'].drop_duplicates().tolist()
-    elements = [element] + complex_names
+    elements = elements + related_complexes
 
     interactions_filtered = pd.DataFrame()
 
-    interactions_filtered = _find_interactions_by_element(elements, interactions, interactions_filtered)
+    interactions_filtered = _find_interactions_by_elements(elements, interactions, interactions_filtered)
 
     if interactions_filtered.empty:
         return interactions_filtered
@@ -38,8 +41,8 @@ def _build_result(interactions: pd.DataFrame) -> pd.DataFrame:
     return interactions
 
 
-def _find_interactions_by_element(elements: list, interactions: pd.DataFrame,
-                                  interactions_filtered: pd.DataFrame) -> pd.DataFrame:
+def _find_interactions_by_elements(elements: list, interactions: pd.DataFrame,
+                                   interactions_filtered: pd.DataFrame) -> pd.DataFrame:
     for element in elements:
         element_interactions = interactions[(interactions['name_a'] == element) |
                                             (interactions['name_b'] == element) |
@@ -55,11 +58,17 @@ def _find_interactions_by_element(elements: list, interactions: pd.DataFrame,
     return interactions_filtered
 
 
-def _find_complex_by_element(element: str, complex_composition: pd.DataFrame) -> pd.DataFrame:
+def _find_complex_by_elements(elements: List[str], complex_composition: pd.DataFrame) -> List[str]:
+    all_results = [_find_complex_by_element(element, complex_composition) for element in elements]
+
+    return list(set(reduce((lambda carry, current: carry + current), all_results)))
+
+
+def _find_complex_by_element(element: str, complex_composition: pd.DataFrame) -> List[str]:
     complexes_filtered = complex_composition[
         (complex_composition['name_protein'] == element) |
         (complex_composition['gene_name_protein'] == element) |
         (complex_composition['entry_name_protein'] == element) |
         (complex_composition['ensembl_protein'] == element)]
 
-    return complexes_filtered
+    return complexes_filtered['name_complex'].drop_duplicates().tolist()
