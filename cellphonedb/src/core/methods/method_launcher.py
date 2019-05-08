@@ -50,6 +50,7 @@ class MethodLauncher():
 
         if subsampler is not None:
             counts = subsampler.subsample(counts)
+            meta = meta.filter(items=(list(counts)), axis=0)
             # TODO: remove me.
             counts.to_csv('counts_subsampled_{}.txt'.format(dt.now().strftime('%Y_%m_%d_%H_%M_%S')), sep='\t')
 
@@ -90,6 +91,7 @@ class MethodLauncher():
 
         if subsampler is not None:
             counts = subsampler.subsample(counts)
+            meta = meta.filter(items=list(counts), axis=0)
             # TODO: remove me.
             counts.to_csv('counts_subsampled_{}.txt'.format(dt.now().strftime('%Y_%m_%d_%H_%M_%S')), sep='\t')
 
