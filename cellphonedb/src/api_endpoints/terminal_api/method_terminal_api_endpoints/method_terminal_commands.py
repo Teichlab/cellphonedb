@@ -1,8 +1,11 @@
+import os
 import sys
 import traceback
 from typing import Optional, Any, Callable
 
 import click
+import pandas as pd
+from rpy2 import robjects
 from click import Context
 
 from cellphonedb.src.app import cpdb_app
@@ -217,3 +220,19 @@ def analysis(meta_filename: str,
 
         if verbose:
             traceback.print_exc(file=sys.stdout)
+
+
+@click.command()
+def plot():
+    os.chdir('./out')
+    df = pd.read_csv('./means.txt', sep='\t')
+    rows, cols = df.shape
+    cols -= 9
+    print(rows, cols)
+
+    robjects.r('library(ggplot2)')
+    this_file_dir = os.path.dirname(os.path.realpath(__file__))
+
+    robjects.r.source(os.path.join(this_file_dir, 'plotters/plot_dot_by_column_name.R'))
+    dot_plot = robjects.r['dot_plot']
+    dot_plot(width=int(5 + max(3, rows / 16)), height=int(5 + max(5, cols * 2)))

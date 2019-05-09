@@ -28,6 +28,7 @@ def tools():
 
 method.add_command(method_terminal_commands.statistical_analysis)
 method.add_command(method_terminal_commands.analysis)
+method.add_command(method_terminal_commands.plot)
 query.add_command(query_terminal_commands.find_interactions_by_element)
 query.add_command(query_terminal_commands.get_interaction_gene)
 query.add_command(query_terminal_commands.cpdb_data_report)
