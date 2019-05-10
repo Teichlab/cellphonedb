@@ -9,8 +9,11 @@ dot_plot = function(selected_rows = NULL, selected_columns = NULL, filename = 'p
   all_pval = all_pval[,-c(1:9)]
   all_means = all_means[,-c(1:9)]
 
-  if(is.null(selected_rows) || is.null(selected_columns)){
+  if(is.null(selected_rows)){
     selected_rows = rownames(all_pval)
+  }
+
+  if(is.null(selected_columns)){
     selected_columns = colnames(all_pval)
   }
 

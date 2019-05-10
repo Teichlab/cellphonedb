@@ -6,6 +6,7 @@ from typing import Optional, Any, Callable
 import click
 import pandas as pd
 from rpy2 import robjects
+from rpy2.robjects.vectors import StrVector
 from click import Context
 
 from cellphonedb.src.app import cpdb_app
@@ -14,6 +15,7 @@ from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCounts
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.core.utils.subsampler import Subsampler
+from cellphonedb.src.exceptions.MissingPlotterFunctoinException import MissingPlotterFunctionException
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
@@ -223,16 +225,43 @@ def analysis(meta_filename: str,
 
 
 @click.command()
-def plot():
+@click.option('--rows', type=click.File('r'))
+@click.option('--columns', type=click.File('r'))
+@click.option('--plot-function', type=str, default='dot_plot')
+def plot(rows, columns, plot_function):
     os.chdir('./out')
-    df = pd.read_csv('./means.txt', sep='\t')
-    rows, cols = df.shape
-    cols -= 9
-    print(rows, cols)
 
-    robjects.r('library(ggplot2)')
+    means_df = pd.read_csv('./means.txt', sep='\t')
+    n_rows, n_cols = means_df.shape
+    n_cols -= 9
+
+    n_rows, selected_rows = selected_items(rows, n_rows)
+    n_cols, selected_columns = selected_items(columns, n_cols)
+
     this_file_dir = os.path.dirname(os.path.realpath(__file__))
 
     robjects.r.source(os.path.join(this_file_dir, 'plotters/plot_dot_by_column_name.R'))
-    dot_plot = robjects.r['dot_plot']
-    dot_plot(width=int(5 + max(3, rows / 16)), height=int(5 + max(5, cols * 2)))
+    available_names = list(robjects.globalenv.keys())
+
+    if plot_function in available_names:
+        function_name = plot_function
+    else:
+        raise MissingPlotterFunctionException()
+
+    robjects.r('library(ggplot2)')
+
+    dot_plot = robjects.r[function_name]
+    dot_plot(width=int(5 + max(3, n_cols * 0.8)), height=int(5 + max(5, n_rows * 0.5)), selected_rows=selected_rows)
+
+
+def selected_items(selection: Optional[click.File], size):
+    if selection is not None:
+        df = pd.read_csv(selection, header=None)
+        names = df[0].tolist()
+
+        selected_rows = StrVector(names)
+        size = len(names)
+    else:
+        selected_rows = robjects.NULL
+
+    return size, selected_rows
