@@ -7,11 +7,12 @@ from cellphonedb.src.core.core_logger import core_logger
 
 
 class Subsampler(object):
-    def __init__(self, log: bool, num_pc: int = 100, num_cells: int = None, verbose: bool = None):
+    def __init__(self, log: bool, num_pc: int = 100, num_cells: int = None, verbose: bool = None, debug_seed: int = None):
         self.verbose = verbose
         self.log = log
         self.num_pc = num_pc
         self.num_cells = num_cells
+        np.random.seed(debug_seed)
 
     def subsample(self, counts: pd.DataFrame) -> pd.DataFrame:
         input_genes = counts.shape[1]
