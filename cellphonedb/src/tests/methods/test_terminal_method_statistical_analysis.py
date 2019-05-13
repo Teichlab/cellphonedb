@@ -2,8 +2,8 @@ import os
 
 import pandas as pd
 
-from cellphonedb.src.app.flask.flask_app import create_app
 from cellphonedb.src.app.cellphonedb_app import output_test_dir, data_test_dir, cellphonedb_app
+from cellphonedb.src.app.flask.flask_app import create_app
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 from cellphonedb.src.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 from cellphonedb.utils import dataframe_functions
@@ -44,8 +44,6 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                                                             result_precision)
         result_significant_means_filename = self._get_result_filename('significant_means', data, iterations, debug_seed,
                                                                       threshold, result_precision)
-        result_pvalues_means_filename = self._get_result_filename('pvalues_means', data, iterations, debug_seed,
-                                                                  threshold, result_precision)
         result_deconvoluted_filename = self._get_result_filename('deconvoluted', data, iterations, debug_seed,
                                                                  threshold, result_precision)
 
@@ -62,7 +60,6 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                                                             result_means_filename,
                                                             result_pvalues_filename,
                                                             result_significant_means_filename,
-                                                            result_pvalues_means_filename,
                                                             result_deconvoluted_filename,
                                                             debug_seed,
                                                             result_precision=result_precision)
@@ -73,8 +70,6 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                             result_precision)
         self._assert_result('significant_means', data, iterations, project_name, result_significant_means_filename,
                             debug_seed, threshold, result_precision)
-        self._assert_result('pvalues_means', data, iterations, project_name, result_pvalues_means_filename, debug_seed,
-                            threshold, result_precision)
         self._assert_result('deconvoluted', data, iterations, project_name, result_deconvoluted_filename, debug_seed,
                             threshold, result_precision)
 
@@ -99,7 +94,8 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                                                                          result_precision)
         original_means = pd.read_table(os.path.realpath('{}/{}'.format(data_test_dir, means_test_filename)))
         result_means = pd.read_table('{}/{}/{}'.format(output_test_dir, project_name, result_means_filename))
-        self.assertTrue(dataframe_functions.dataframes_has_same_data(result_means, original_means))
+        self.assertTrue(dataframe_functions.dataframes_has_same_data(result_means, original_means),
+                        msg='failed comparing {} with{}'.format(means_test_filename, result_means_filename))
         self.remove_file('{}/{}/{}'.format(output_test_dir, project_name, result_means_filename))
 
     def _get_result_filename(self,

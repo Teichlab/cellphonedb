@@ -1,19 +1,21 @@
 import pandas as pd
 
-from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
 from cellphonedb.src.core.core_logger import core_logger
+from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
 from cellphonedb.src.core.models.interaction import interaction_filter
 
 
 def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
          interactions: pd.DataFrame,
+         min_significant_mean: float,
+         separator: str,
          iterations: int = 1000,
          threshold: float = 0.1,
          threads: int = 4,
          debug_seed: int = -1,
-         result_precision: int = 3
-         ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+         result_precision: int = 3,
+         ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
         '[Cluster Statistical Analysis Simple] '
         'Threshold:{} Iterations:{} Debug-seed:{} Threads:{} Precision:{}'.format(threshold,
@@ -35,15 +37,23 @@ def call(meta: pd.DataFrame,
     core_logger.info('Running Real Simple Analysis')
     cluster_interactions = cpdb_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
 
-    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions)
+    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_filtered,
+                                                                       cluster_interactions,
+                                                                       separator)
 
-    real_mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_filtered, clusters,
-                                                                        cluster_interactions, base_result,
+    real_mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_filtered,
+                                                                        clusters,
+                                                                        cluster_interactions,
+                                                                        base_result,
+                                                                        separator,
                                                                         suffixes=('_1', '_2'))
 
-    real_percent_analysis = cpdb_statistical_analysis_helper.percent_analysis(clusters, threshold,
+    real_percent_analysis = cpdb_statistical_analysis_helper.percent_analysis(clusters,
+                                                                              threshold,
                                                                               interactions_filtered,
-                                                                              cluster_interactions, base_result,
+                                                                              cluster_interactions,
+                                                                              base_result,
+                                                                              separator,
                                                                               suffixes=('_1', '_2'))
 
     statistical_mean_analysis = cpdb_statistical_analysis_helper.shuffled_analysis(iterations, meta,
@@ -52,29 +62,35 @@ def call(meta: pd.DataFrame,
                                                                                    cluster_interactions,
                                                                                    base_result,
                                                                                    threads,
+                                                                                   separator,
                                                                                    suffixes=('_1', '_2'))
 
     result_percent = cpdb_statistical_analysis_helper.build_percent_result(real_mean_analysis,
                                                                            real_percent_analysis,
                                                                            statistical_mean_analysis,
                                                                            interactions_filtered,
-                                                                           cluster_interactions, base_result)
+                                                                           cluster_interactions,
+                                                                           base_result,
+                                                                           separator)
 
-    pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result = build_results(
+    pvalues_result, means_result, significant_means, deconvoluted_result = build_results(
         interactions_filtered,
         real_mean_analysis,
         result_percent,
         clusters['means'],
-        result_precision)
+        result_precision,
+        min_significant_mean,
+    )
 
-    return pvalues_result, means_result, significant_means, mean_pvalue_result, deconvoluted_result
+    return pvalues_result, means_result, significant_means, deconvoluted_result
 
 
 def build_results(interactions: pd.DataFrame,
                   real_mean_analysis: pd.DataFrame,
                   result_percent: pd.DataFrame,
                   clusters_means: dict,
-                  result_precision: int
+                  result_precision: int,
+                  min_significant_mean: float,
                   ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info('Building Simple results')
     interacting_pair = cpdb_statistical_analysis_helper.interacting_pair_build(interactions)
@@ -98,7 +114,7 @@ def build_results(interactions: pd.DataFrame,
         lambda name: 'simple:{}'.format(name))
 
     significant_mean_rank, significant_means = cpdb_statistical_analysis_helper.build_significant_means(
-        real_mean_analysis, result_percent)
+        real_mean_analysis, result_percent, min_significant_mean)
 
     result_percent = result_percent.round(result_precision)
     real_mean_analysis = real_mean_analysis.round(result_precision)
@@ -116,15 +132,10 @@ def build_results(interactions: pd.DataFrame,
     significant_mean_result = pd.concat([interactions_data_result, significant_mean_rank, significant_means], axis=1,
                                         join='inner', sort=False)
 
-    # Document 4
-    mean_pvalue_result = cpdb_statistical_analysis_helper.mean_pvalue_result_build(real_mean_analysis,
-                                                                                   result_percent,
-                                                                                   interactions_data_result)
-
     # Document 5
     deconvoluted_result = deconvoluted_result_build(clusters_means, interactions)
 
-    return pvalues_result, means_result, significant_mean_result, mean_pvalue_result, deconvoluted_result
+    return pvalues_result, means_result, significant_mean_result, deconvoluted_result
 
 
 def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) -> pd.DataFrame:

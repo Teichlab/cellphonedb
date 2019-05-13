@@ -10,12 +10,14 @@ def call(meta: pd.DataFrame,
          genes: pd.DataFrame,
          complexes: pd.DataFrame,
          complex_compositions: pd.DataFrame,
+         separator: str,
          threshold: float = 0.1,
          result_precision: int = 3) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     means_simple, significant_means_simple, deconvoluted_simple = \
         cpdb_analysis_simple_method.call(meta.copy(),
                                          counts.copy(),
                                          interactions.copy(),
+                                         separator,
                                          threshold,
                                          result_precision)
     means_complex, significant_means_complex, deconvoluted_complex = \
@@ -25,6 +27,7 @@ def call(meta: pd.DataFrame,
                                           genes,
                                           complexes,
                                           complex_compositions,
+                                          separator,
                                           threshold,
                                           result_precision)
 

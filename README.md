@@ -84,7 +84,7 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 
 ~ **Optional Method Statistical parameters**
 - `--pvalues-result-name`: Pvalues result namefile [pvalues.txt]
-- `--means-pvalues-result-name`: Pvalues-means result namefile [pvalues_means.txt]
+- `--pvalue`: Pvalue threshold [0.05]
 - `--debug-seed`: Debug random seed -1 for disable it. >=0 [-1]
 - `--threads`: Number of threads to use. >=1 [-1]
 

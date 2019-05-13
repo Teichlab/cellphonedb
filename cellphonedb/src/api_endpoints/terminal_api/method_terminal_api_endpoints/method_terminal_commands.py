@@ -1,7 +1,6 @@
 import sys
 import traceback
 from typing import Optional
-
 import click
 
 from cellphonedb.src.app import cpdb_app
@@ -30,9 +29,9 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.option('--pvalues-result-name', default='pvalues.txt', type=str, help='Pvalues result namefile [pvalues.txt]')
 @click.option('--significant-mean-result-name', default='significant_means.txt', type=str,
               help='Significant result namefile [significant_means.txt]')
-@click.option('--means-pvalues-result-name', default='pvalues_means.txt', type=str,
-              help='Pvalues-means result namefile [pvalues_means.txt]')
-@click.option('--deconvoluted-result-name', default='deconvoluted.txt', type=str,
+@click.option('--pvalue', 'min_significant_mean', default=0.05, type=float,
+              help='Pvalue threshold [0.05]')
+@click.option('--deconvoluted-result-name', default='deconvoluted.txt',
               help='Deconvoluted result namefile [deconvoluted.txt]')
 @click.option('--debug-seed', default='-1', type=int, help='Debug random seed 0 for disable it. >=0 to set it [-1]')
 @click.option('--threads', default=4, type=int, help='Max of threads to process the data [4]')
@@ -53,7 +52,7 @@ def statistical_analysis(meta_filename: str,
                          means_result_name: str,
                          pvalues_result_name: str,
                          significant_mean_result_name: str,
-                         means_pvalues_result_name: str,
+                         min_significant_mean: float,
                          deconvoluted_result_name: str,
                          debug_seed: int,
                          threads: int,
@@ -80,11 +79,11 @@ def statistical_analysis(meta_filename: str,
                                                             means_result_name,
                                                             pvalues_result_name,
                                                             significant_mean_result_name,
-                                                            means_pvalues_result_name,
                                                             deconvoluted_result_name,
                                                             debug_seed,
                                                             threads,
                                                             result_precision,
+                                                            min_significant_mean,
                                                             subsampler,
                                                             )
     except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,

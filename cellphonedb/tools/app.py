@@ -1,10 +1,12 @@
 import os
 
-from flask import Flask, abort
+from flask import Flask
 
-current_dir = os.path.dirname(os.path.realpath(__file__))
-data_dir = '%s/data' % current_dir
-output_dir = '%s/out' % current_dir
+this_file_dir = os.path.dirname(os.path.realpath(__file__))
+
+
+data_dir = '{}/data'.format(this_file_dir)
+output_dir = '{}/out'.format(this_file_dir)
 downloads_dir = '{}/downloads'.format(data_dir)
 
 

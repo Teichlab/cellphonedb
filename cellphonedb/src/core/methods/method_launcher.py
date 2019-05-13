@@ -1,5 +1,3 @@
-from datetime import datetime as dt
-
 import pandas as pd
 
 from cellphonedb.src.core.core_logger import core_logger
@@ -12,9 +10,10 @@ from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 
 
 class MethodLauncher():
-    def __init__(self, database_manager: DatabaseManager, default_threads: int):
+    def __init__(self, database_manager: DatabaseManager, default_threads: int, separator: str = '|'):
         self.database_manager = database_manager
         self.default_threads = default_threads
+        self.separator = separator
 
     def __getattribute__(self, name):
         method = object.__getattribute__(self, name)
@@ -35,6 +34,7 @@ class MethodLauncher():
                                            threads: int,
                                            debug_seed: int,
                                            result_precision: int,
+                                           min_significant_mean: float,
                                            subsampler: Subsampler = None,
                                            ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
@@ -51,8 +51,6 @@ class MethodLauncher():
         if subsampler is not None:
             counts = subsampler.subsample(counts)
             meta = meta.filter(items=(list(counts)), axis=0)
-            # TODO: remove me.
-            counts.to_csv('counts_subsampled_{}.txt'.format(dt.now().strftime('%Y_%m_%d_%H_%M_%S')), sep='\t')
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
@@ -60,7 +58,7 @@ class MethodLauncher():
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
 
-        deconvoluted, mean_pvalue, means, pvalues, significant_means = \
+        deconvoluted, means, pvalues, significant_means = \
             cpdb_statistical_analysis_method.call(meta,
                                                   counts,
                                                   interactions,
@@ -71,9 +69,11 @@ class MethodLauncher():
                                                   threshold,
                                                   threads,
                                                   debug_seed,
-                                                  result_precision)
+                                                  result_precision,
+                                                  min_significant_mean,
+                                                  self.separator)
 
-        return pvalues, means, significant_means, mean_pvalue, deconvoluted
+        return pvalues, means, significant_means, deconvoluted
 
     def cpdb_method_analysis_launcher(self,
                                       raw_meta: pd.DataFrame,
@@ -92,8 +92,6 @@ class MethodLauncher():
         if subsampler is not None:
             counts = subsampler.subsample(counts)
             meta = meta.filter(items=list(counts), axis=0)
-            # TODO: remove me.
-            counts.to_csv('counts_subsampled_{}.txt'.format(dt.now().strftime('%Y_%m_%d_%H_%M_%S')), sep='\t')
 
         interactions = self.database_manager.get_repository('interaction').get_all_expanded(
             only_cellphonedb_interactor=True)
@@ -108,6 +106,7 @@ class MethodLauncher():
             genes,
             complex_expanded,
             complex_composition,
+            self.separator,
             threshold,
             result_precision)
 
