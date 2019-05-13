@@ -225,11 +225,13 @@ def analysis(meta_filename: str,
 
 
 @click.command()
-@click.option('--rows', type=click.File('r'))
-@click.option('--columns', type=click.File('r'))
-@click.option('--plot-function', type=str, default='dot_plot')
-def plot(rows, columns, plot_function):
-    os.chdir('./out')
+@click.option('--results-path', type=click.Path(exists=True, file_okay=False, writable=True, readable=True),
+              default='./out', help='Results path from which means.txt and pvalues.txt are read [./out]')
+@click.option('--rows', type=click.File('r'), help='List of rows to plot, one per line [all available]')
+@click.option('--columns', type=click.File('r'), help='List of columns to plot, one per line [all available]')
+@click.option('--plot-function', type=str, default='dot_plot', help='Plot function name in R code [dot_plot]')
+def plot(results_path, rows, columns, plot_function):
+    os.chdir(results_path)
 
     means_df = pd.read_csv('./means.txt', sep='\t')
     n_rows, n_cols = means_df.shape
@@ -250,8 +252,13 @@ def plot(rows, columns, plot_function):
 
     robjects.r('library(ggplot2)')
 
-    dot_plot = robjects.r[function_name]
-    dot_plot(width=int(5 + max(3, n_cols * 0.8)), height=int(5 + max(5, n_rows * 0.5)), selected_rows=selected_rows)
+    plotter = robjects.r[function_name]
+
+    plotter(width=int(5 + max(3, n_cols * 0.8)),
+            height=int(5 + max(5, n_rows * 0.5)),
+            selected_rows=selected_rows,
+            selected_columns=selected_columns
+            )
 
 
 def selected_items(selection: Optional[click.File], size):
@@ -259,9 +266,9 @@ def selected_items(selection: Optional[click.File], size):
         df = pd.read_csv(selection, header=None)
         names = df[0].tolist()
 
-        selected_rows = StrVector(names)
+        selected = StrVector(names)
         size = len(names)
     else:
-        selected_rows = robjects.NULL
+        selected = robjects.NULL
 
-    return size, selected_rows
+    return size, selected
