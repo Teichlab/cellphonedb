@@ -14,10 +14,12 @@ class Subsampler(object):
         self.num_cells = num_cells
 
     def subsample(self, counts: pd.DataFrame) -> pd.DataFrame:
-        if self.num_cells is None:
-            self.num_cells = int(counts.shape[1] / 3)
+        input_genes = counts.shape[1]
 
-        core_logger.info('Subsampling {} to {}'.format(counts.shape[1], self.num_cells))
+        if self.num_cells is None:
+            self.num_cells = int(input_genes / 3)
+
+        core_logger.info('Subsampling {} to {}'.format(input_genes, self.num_cells))
 
         counts_t = counts.T
 
@@ -37,6 +39,6 @@ class Subsampler(object):
                 core_logger.warning(str(e))
             return counts
 
-        core_logger.info('Done subsampling {} to {}'.format(counts.shape[1], self.num_cells))
+        core_logger.info('Done subsampling {} to {}'.format(input_genes, self.num_cells))
 
         return x_matrix.T
