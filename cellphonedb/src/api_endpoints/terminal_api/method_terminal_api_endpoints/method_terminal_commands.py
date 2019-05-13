@@ -39,7 +39,7 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
 @click.option('--subsampling', default=False, is_flag=True, type=bool, help='Enable subsampling')
 @click.option('--subsampling-log', default=None, type=bool,
-              help='Enable subsampling log for non transformed data inputs')
+              help='Enable subsampling log1p for non transformed data inputs')
 @click.option('--subsampling-num-pc', default=100, type=int, help='Subsampling NumPC argument')
 @click.option('--subsampling-num-cells', default=None, type=int,
               help='Number of cells to subsample (defaults to a 1/3 of cells)')
@@ -126,7 +126,7 @@ def statistical_analysis(meta_filename: str,
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
 @click.option('--subsampling', default=False, is_flag=True, type=bool, help='Enable subsampling')
 @click.option('--subsampling-log', default=None, is_flag=True, type=bool,
-              help='Enable subsampling log for non transformed data inputs')
+              help='Enable subsampling log1p for non transformed data inputs')
 @click.option('--subsampling-num-pc', default=100, type=int, help='Subsampling NumPC argument')
 @click.option('--subsampling-num-cells', default=None, type=int,
               help='Number of cells to subsample (defaults to a 1/3 of cells)')
