@@ -17,6 +17,7 @@ from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.src.exceptions.MissingPlotterFunctoinException import MissingPlotterFunctionException
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
+from cellphonedb.src.exceptions.RRuntimeException import RRuntimeException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 from cellphonedb.src.plotters import r_plotter
@@ -225,10 +226,26 @@ def analysis(meta_filename: str,
 
 
 @click.command()
-@click.option('--results-path', type=click.Path(exists=True, file_okay=False, writable=True, readable=True),
-              default='./out', help='Results path from which means.txt and pvalues.txt are read [./out]')
+@click.option('--means-path', type=click.Path(exists=True, file_okay=True, dir_okay=False),
+              default='./out/means.txt', help='Analysis output means [./out/means.txt]')
+@click.option('--pvalues-path', type=click.Path(exists=True, file_okay=True, dir_okay=False),
+              default='./out/pvalues.txt', help='Analysis output pvalues [./out/pvalues.txt]')
+@click.option('--output-path', type=click.Path(exists=True, file_okay=False, writable=True),
+              default='./out', help='Path to write generated plot [./out]')
+@click.option('--output-name', type=str, default='./plot.pdf', help='Output file with plot [plot.pdf]')
 @click.option('--rows', type=click.File('r'), help='List of rows to plot, one per line [all available]')
 @click.option('--columns', type=click.File('r'), help='List of columns to plot, one per line [all available]')
 @click.option('--plot-function', type=str, default='dot_plot', help='Plot function name in R code [dot_plot]')
-def plot(results_path, rows, columns, plot_function):
-    r_plotter.plot(plot_function, results_path, rows, columns)
+@click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
+def plot(means_path, pvalues_path, output_path, output_name, rows, columns, plot_function, verbose):
+    try:
+        r_plotter.plot(means_path, pvalues_path, output_path, output_name, rows, columns, plot_function)
+    except RRuntimeException as e:
+        app_logger.error(str(e))
+    except:
+        app_logger.error('Unexpected error')
+
+        if verbose:
+            traceback.print_exc(file=sys.stdout)
+        else:
+            app_logger.error('execute with --verbose to see full stack trace')

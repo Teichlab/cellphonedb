@@ -1,8 +1,18 @@
+library(ggplot2)
+dot_plot = function(selected_rows = NULL,
+                    selected_columns = NULL,
+                    filename = 'plot.pdf',
+                    width = 8,
+                    height = 10,
+                    means_path = './means.txt',
+                    pvalues_path = './pvalues.txt',
+                    means_separator = '\t',
+                    pvalues_separator = '\t',
+                    output_extension = '.pdf'
+){
 
-dot_plot = function(selected_rows = NULL, selected_columns = NULL, filename = 'plot.pdf', width = 8, height = 10){
-
-  all_pval = read.table('pvalues.txt', header=T, stringsAsFactors = F, sep='\t', comment.char = '')
-  all_means = read.table('means.txt', header=T, stringsAsFactors = F, sep='\t', comment.char = '')
+  all_pval = read.table(pvalues_path, header=T, stringsAsFactors = F, sep=means_separator, comment.char = '')
+  all_means = read.table(means_path, header=T, stringsAsFactors = F, sep=pvalues_separator, comment.char = '')
 
   rownames(all_pval) = all_pval$interacting_pair
   rownames(all_means) = all_means$interacting_pair
@@ -43,7 +53,12 @@ dot_plot = function(selected_rows = NULL, selected_columns = NULL, filename = 'p
         axis.title=element_blank(),
         text = element_text('Arial'),
         panel.border = element_rect(size = 0.7, linetype = "solid", colour = "black"))
-  ggsave(filename, width = width, height = height, device = cairo_pdf, limitsize=F)
 
+  if (output_extension == '.pdf') {
+      ggsave(filename, width = width, height = height, device = cairo_pdf, limitsize=F)
+  }
+  else {
+      ggsave(filename, width = width, height = height, limitsize=F)
+  }
 }
 
