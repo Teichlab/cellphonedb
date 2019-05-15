@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 import pandas as pd
 
@@ -26,7 +27,7 @@ class LocalMethodLauncher(object):
                                                         iterations: int = 1000,
                                                         threshold: float = 0.1,
                                                         output_path: str = '',
-                                                        output_format: str = None,
+                                                        output_format: Optional[str] = None,
                                                         means_filename: str = 'means',
                                                         pvalues_filename: str = 'pvalues',
                                                         significant_means_filename: str = 'significant_means',
@@ -68,7 +69,7 @@ class LocalMethodLauncher(object):
                                             project_name: str = '',
                                             threshold: float = 0.1,
                                             output_path: str = '',
-                                            output_format: str = None,
+                                            output_format: Optional[str] = None,
                                             means_filename: str = 'means',
                                             significant_means_filename: str = 'significant_means',
                                             deconvoluted_filename='deconvoluted',
@@ -92,7 +93,7 @@ class LocalMethodLauncher(object):
         self.write_to_file(deconvoluted, deconvoluted_filename, output_format, output_path)
 
     @staticmethod
-    def write_to_file(df: pd.DataFrame, filename: str, output_format: str, output_path: str):
+    def write_to_file(df: pd.DataFrame, filename: str, output_format: Optional[str], output_path: str):
         _, file_extension = os.path.splitext(filename)
 
         if output_format is None:
