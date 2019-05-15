@@ -57,6 +57,7 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                                                             iterations,
                                                             threshold,
                                                             output_test_dir,
+                                                            'txt',
                                                             result_means_filename,
                                                             result_pvalues_filename,
                                                             result_significant_means_filename,
