@@ -1,11 +1,11 @@
 import os
+
 import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir
-from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
-from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.utils import utils
+from cellphonedb.utils.utils import _get_separator
 
 
 class LocalMethodLauncher(object):
@@ -67,6 +67,7 @@ class LocalMethodLauncher(object):
                                             project_name: str = '',
                                             threshold: float = 0.1,
                                             output_path: str = '',
+                                            output_format: str = None,
                                             means_filename: str = 'means.txt',
                                             significant_means_filename: str = 'significant_means.txt',
                                             deconvoluted_filename='deconvoluted.txt',
@@ -85,9 +86,33 @@ class LocalMethodLauncher(object):
                                                                       threshold,
                                                                       result_precision)
 
-        means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
-        significant_means.to_csv('{}/{}'.format(output_path, significant_means_filename), sep='\t', index=False)
-        deconvoluted.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
+        self.write_to_file(means, means_filename, output_format, output_path)
+        self.write_to_file(significant_means, significant_means_filename, output_format, output_path)
+        self.write_to_file(deconvoluted, deconvoluted_filename, output_format, output_path)
+
+    @staticmethod
+    def write_to_file(df: pd.DataFrame, filename: str, output_format: str, output_path: str):
+        _, file_extension = os.path.splitext(filename)
+
+        if output_format is None or not file_extension:
+            default_format = 'csv'
+            default_extension = '.{}'.format(default_format)
+
+            separator = _get_separator(default_extension)
+            filename = '{}{}'.format(filename, default_extension)
+        else:
+            selected_extension = '.{}'.format(output_format)
+
+            if file_extension != selected_extension:
+                separator = _get_separator(selected_extension)
+                filename = '{}{}'.format(filename, selected_extension)
+                app_logger.warning(
+                    'Selected extension missmatches output filename ({}, {}): It will be added => {}'.format(
+                        selected_extension, file_extension, filename))
+            else:
+                separator = _get_separator(selected_extension)
+
+        df.to_csv('{}/{}'.format(output_path, filename), sep=separator, index=False)
 
     @staticmethod
     def _path_is_empty(path):

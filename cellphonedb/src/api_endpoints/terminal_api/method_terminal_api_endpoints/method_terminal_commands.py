@@ -85,7 +85,7 @@ def statistical_analysis(meta_filename: str,
                            )
     except:
         app_logger.error('Unexpected error')
-        if (verbose):
+        if verbose:
             traceback.print_exc(file=sys.stdout)
 
 
@@ -97,6 +97,7 @@ def statistical_analysis(meta_filename: str,
 @click.option('--result-precision', default='3', help='Number of decimal digits in results [3]')
 @click.option('--output-path', default='',
               help='Directory where the results will be allocated (the directory must exist) [out]')
+@click.option('--output-format', type=click.Choice(['txt', 'csv', 'tsv', 'tab']))
 @click.option('--means-result-name', default='means.txt', help='Means result namefile [means.txt]')
 @click.option('--significant-means-result-name', default='significant_means.txt',
               help='Significant result namefile [significant_means.txt]')
@@ -109,6 +110,7 @@ def analysis(meta_filename: str,
              threshold: float,
              result_precision: int,
              output_path: str,
+             output_format: str,
              means_result_name: str,
              significant_means_result_name: str,
              deconvoluted_result_name: str,
@@ -120,6 +122,7 @@ def analysis(meta_filename: str,
                                                                                               project_name,
                                                                                               threshold,
                                                                                               output_path,
+                                                                                              output_format,
                                                                                               means_result_name,
                                                                                               significant_means_result_name,
                                                                                               deconvoluted_result_name,
