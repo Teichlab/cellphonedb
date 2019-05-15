@@ -26,10 +26,11 @@ class LocalMethodLauncher(object):
                                                         iterations: int = 1000,
                                                         threshold: float = 0.1,
                                                         output_path: str = '',
-                                                        means_filename: str = 'means.txt',
-                                                        pvalues_filename: str = 'pvalues.txt',
-                                                        significant_mean_filename: str = 'significant_means.txt',
-                                                        deconvoluted_filename='deconvoluted.txt',
+                                                        output_format: str = None,
+                                                        means_filename: str = 'means',
+                                                        pvalues_filename: str = 'pvalues',
+                                                        significant_means_filename: str = 'significant_means',
+                                                        deconvoluted_filename='deconvoluted',
                                                         debug_seed: int = -1,
                                                         threads: int = -1,
                                                         result_precision: int = 3,
@@ -57,10 +58,10 @@ class LocalMethodLauncher(object):
                 min_significant_mean,
             )
 
-        means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
-        pvalues_simple.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)
-        significant_means_simple.to_csv('{}/{}'.format(output_path, significant_mean_filename), sep='\t', index=False)
-        deconvoluted_simple.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
+        self.write_to_file(means_simple, means_filename, output_format, output_path)
+        self.write_to_file(pvalues_simple, pvalues_filename, output_format, output_path)
+        self.write_to_file(significant_means_simple, significant_means_filename, output_format, output_path)
+        self.write_to_file(deconvoluted_simple, deconvoluted_filename, output_format, output_path)
 
     def cpdb_analysis_local_method_launcher(self, meta_filename: str,
                                             counts_filename: str,
@@ -68,9 +69,9 @@ class LocalMethodLauncher(object):
                                             threshold: float = 0.1,
                                             output_path: str = '',
                                             output_format: str = None,
-                                            means_filename: str = 'means.txt',
-                                            significant_means_filename: str = 'significant_means.txt',
-                                            deconvoluted_filename='deconvoluted.txt',
+                                            means_filename: str = 'means',
+                                            significant_means_filename: str = 'significant_means',
+                                            deconvoluted_filename='deconvoluted',
                                             result_precision: int = 3
                                             ) -> None:
         output_path = self._set_paths(output_path, project_name)
