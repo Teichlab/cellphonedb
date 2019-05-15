@@ -94,21 +94,26 @@ class LocalMethodLauncher(object):
     def write_to_file(df: pd.DataFrame, filename: str, output_format: str, output_path: str):
         _, file_extension = os.path.splitext(filename)
 
-        if output_format is None or not file_extension:
-            default_format = 'csv'
-            default_extension = '.{}'.format(default_format)
+        if output_format is None:
+            if not file_extension:
+                default_format = 'txt'
+                default_extension = '.{}'.format(default_format)
 
-            separator = _get_separator(default_extension)
-            filename = '{}{}'.format(filename, default_extension)
+                separator = _get_separator(default_extension)
+                filename = '{}{}'.format(filename, default_extension)
+            else:
+                separator = _get_separator(file_extension)
         else:
             selected_extension = '.{}'.format(output_format)
 
             if file_extension != selected_extension:
                 separator = _get_separator(selected_extension)
                 filename = '{}{}'.format(filename, selected_extension)
-                app_logger.warning(
-                    'Selected extension missmatches output filename ({}, {}): It will be added => {}'.format(
-                        selected_extension, file_extension, filename))
+
+                if file_extension:
+                    app_logger.warning(
+                        'Selected extension missmatches output filename ({}, {}): It will be added => {}'.format(
+                            selected_extension, file_extension, filename))
             else:
                 separator = _get_separator(selected_extension)
 
