@@ -5,7 +5,7 @@ from cellphonedb.src.core.utils import filters
 
 def call(proteins: pd.DataFrame, multidata_colums, protein_columns):
     bools = ['transmembrane', 'secretion', 'peripheral', 'receptor', 'adhesion', 'other', 'transporter',
-             'secreted_highlight', 'cytoplasm', 'extracellular']
+             'secreted_highlight']
 
     proteins.rename(index=str, columns={'uniprot': 'name'}, inplace=True)
     proteins[bools] = proteins[bools].astype(bool)

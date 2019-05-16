@@ -23,14 +23,15 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.option('--result-precision', default='3', help='Number of decimal digits in results [3]')
 @click.option('--output-path', default='',
               help='Directory where the results will be allocated (the directory must exist) [out]')
-@click.option('--means-result-name', default='means.txt', help='Means result namefile [means.txt]')
-@click.option('--pvalues-result-name', default='pvalues.txt', help='Pvalues result namefile [pvalues.txt]')
-@click.option('--significant-mean-result-name', default='significant_means.txt',
-              help='Significant result namefile [significant_means.txt]')
+@click.option('--output-format', type=click.Choice(['txt', 'csv', 'tsv', 'tab']))
+@click.option('--means-result-name', default='means', help='Means result namefile [means]')
+@click.option('--pvalues-result-name', default='pvalues', help='Pvalues result namefile [pvalues]')
+@click.option('--significant-mean-result-name', default='significant_means',
+              help='Significant result namefile [significant_means]')
+@click.option('--deconvoluted-result-name', default='deconvoluted',
+              help='Deconvoluted result namefile [deconvoluted]')
 @click.option('--pvalue', 'min_significant_mean', default=0.05, type=float,
               help='Pvalue threshold [0.05]')
-@click.option('--deconvoluted-result-name', default='deconvoluted.txt',
-              help='Deconvoluted result namefile [deconvoluted.txt]')
 @click.option('--debug-seed', default='-1', help='Debug random seed 0 for disable it. >=0 to set it [-1]')
 @click.option('--threads', default=4, help='Max of threads to process the data [4]')
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
@@ -41,11 +42,12 @@ def statistical_analysis(meta_filename: str,
                          threshold: float,
                          result_precision: int,
                          output_path: str,
+                         output_format: str,
                          means_result_name: str,
                          pvalues_result_name: str,
                          significant_mean_result_name: str,
-                         min_significant_mean: float,
                          deconvoluted_result_name: str,
+                         min_significant_mean: float,
                          debug_seed: int,
                          threads: int,
                          verbose: bool,
@@ -58,6 +60,7 @@ def statistical_analysis(meta_filename: str,
                                                             iterations,
                                                             threshold,
                                                             output_path,
+                                                            output_format,
                                                             means_result_name,
                                                             pvalues_result_name,
                                                             significant_mean_result_name,
@@ -85,7 +88,7 @@ def statistical_analysis(meta_filename: str,
                            )
     except:
         app_logger.error('Unexpected error')
-        if (verbose):
+        if verbose:
             traceback.print_exc(file=sys.stdout)
 
 
@@ -97,11 +100,12 @@ def statistical_analysis(meta_filename: str,
 @click.option('--result-precision', default='3', help='Number of decimal digits in results [3]')
 @click.option('--output-path', default='',
               help='Directory where the results will be allocated (the directory must exist) [out]')
-@click.option('--means-result-name', default='means.txt', help='Means result namefile [means.txt]')
-@click.option('--significant-means-result-name', default='significant_means.txt',
-              help='Significant result namefile [significant_means.txt]')
-@click.option('--deconvoluted-result-name', default='deconvoluted.txt',
-              help='Deconvoluted result namefile [deconvoluted.txt]')
+@click.option('--output-format', type=click.Choice(['txt', 'csv', 'tsv', 'tab']))
+@click.option('--means-result-name', default='means', help='Means result namefile [means]')
+@click.option('--significant-means-result-name', default='significant_means',
+              help='Significant result namefile [significant_means]')
+@click.option('--deconvoluted-result-name', default='deconvoluted',
+              help='Deconvoluted result namefile [deconvoluted]')
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
 def analysis(meta_filename: str,
              counts_filename: str,
@@ -109,6 +113,7 @@ def analysis(meta_filename: str,
              threshold: float,
              result_precision: int,
              output_path: str,
+             output_format: str,
              means_result_name: str,
              significant_means_result_name: str,
              deconvoluted_result_name: str,
@@ -120,6 +125,7 @@ def analysis(meta_filename: str,
                                                                                               project_name,
                                                                                               threshold,
                                                                                               output_path,
+                                                                                              output_format,
                                                                                               means_result_name,
                                                                                               significant_means_result_name,
                                                                                               deconvoluted_result_name,
