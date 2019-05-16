@@ -1,11 +1,12 @@
 import os
+from typing import Optional
+
 import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir
-from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
-from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.utils import utils
+from cellphonedb.utils.utils import _get_separator
 
 
 class LocalMethodLauncher(object):
@@ -26,10 +27,11 @@ class LocalMethodLauncher(object):
                                                         iterations: int = 1000,
                                                         threshold: float = 0.1,
                                                         output_path: str = '',
-                                                        means_filename: str = 'means.txt',
-                                                        pvalues_filename: str = 'pvalues.txt',
-                                                        significant_mean_filename: str = 'significant_means.txt',
-                                                        deconvoluted_filename='deconvoluted.txt',
+                                                        output_format: Optional[str] = None,
+                                                        means_filename: str = 'means',
+                                                        pvalues_filename: str = 'pvalues',
+                                                        significant_means_filename: str = 'significant_means',
+                                                        deconvoluted_filename='deconvoluted',
                                                         debug_seed: int = -1,
                                                         threads: int = -1,
                                                         result_precision: int = 3,
@@ -57,19 +59,20 @@ class LocalMethodLauncher(object):
                 min_significant_mean,
             )
 
-        means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
-        pvalues_simple.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)
-        significant_means_simple.to_csv('{}/{}'.format(output_path, significant_mean_filename), sep='\t', index=False)
-        deconvoluted_simple.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
+        self.write_to_file(means_simple, means_filename, output_format, output_path)
+        self.write_to_file(pvalues_simple, pvalues_filename, output_format, output_path)
+        self.write_to_file(significant_means_simple, significant_means_filename, output_format, output_path)
+        self.write_to_file(deconvoluted_simple, deconvoluted_filename, output_format, output_path)
 
     def cpdb_analysis_local_method_launcher(self, meta_filename: str,
                                             counts_filename: str,
                                             project_name: str = '',
                                             threshold: float = 0.1,
                                             output_path: str = '',
-                                            means_filename: str = 'means.txt',
-                                            significant_means_filename: str = 'significant_means.txt',
-                                            deconvoluted_filename='deconvoluted.txt',
+                                            output_format: Optional[str] = None,
+                                            means_filename: str = 'means',
+                                            significant_means_filename: str = 'significant_means',
+                                            deconvoluted_filename='deconvoluted',
                                             result_precision: int = 3
                                             ) -> None:
         output_path = self._set_paths(output_path, project_name)
@@ -85,9 +88,38 @@ class LocalMethodLauncher(object):
                                                                       threshold,
                                                                       result_precision)
 
-        means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
-        significant_means.to_csv('{}/{}'.format(output_path, significant_means_filename), sep='\t', index=False)
-        deconvoluted.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
+        self.write_to_file(means, means_filename, output_format, output_path)
+        self.write_to_file(significant_means, significant_means_filename, output_format, output_path)
+        self.write_to_file(deconvoluted, deconvoluted_filename, output_format, output_path)
+
+    @staticmethod
+    def write_to_file(df: pd.DataFrame, filename: str, output_format: Optional[str], output_path: str):
+        _, file_extension = os.path.splitext(filename)
+
+        if output_format is None:
+            if not file_extension:
+                default_format = 'txt'
+                default_extension = '.{}'.format(default_format)
+
+                separator = _get_separator(default_extension)
+                filename = '{}{}'.format(filename, default_extension)
+            else:
+                separator = _get_separator(file_extension)
+        else:
+            selected_extension = '.{}'.format(output_format)
+
+            if file_extension != selected_extension:
+                separator = _get_separator(selected_extension)
+                filename = '{}{}'.format(filename, selected_extension)
+
+                if file_extension:
+                    app_logger.warning(
+                        'Selected extension missmatches output filename ({}, {}): It will be added => {}'.format(
+                            selected_extension, file_extension, filename))
+            else:
+                separator = _get_separator(selected_extension)
+
+        df.to_csv('{}/{}'.format(output_path, filename), sep=separator, index=False)
 
     @staticmethod
     def _path_is_empty(path):
