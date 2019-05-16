@@ -48,7 +48,7 @@ def generate_genes(
                                                         prefix_output_path(gene_uniprot_ensembl_merged_result_filename)
                                                         )
 
-    gene_actions.add_hla_genes(gene_uniprot_ensembl_merged_result_filename,
+    gene_actions.add_hla_genes(prefix_output_path(gene_uniprot_ensembl_merged_result_filename),
                                hla_genes_filename,
                                prefix_output_path(add_hla_result_filename),
                                )
