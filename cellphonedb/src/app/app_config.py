@@ -85,7 +85,7 @@ class AppConfig():
     def _load_yaml(yaml_name):
         with open(yaml_name, 'r') as stream:
             try:
-                return yaml.load(stream, Loader=yaml.FullLoader)
+                return yaml.load(stream, Loader=yaml.SafeLoader)
             except yaml.YAMLError as exec:
                 print(exec)
 
