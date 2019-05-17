@@ -15,7 +15,9 @@ class ProteinRepository(Repository):
         return protein
 
     def get_all_expanded(self) -> pd.DataFrame:
-        protein_query = self.database_manager.database.session.query(Protein, Multidata).join(Multidata)
+        protein_multidata_join = Protein.protein_multidata_id == Multidata.id_multidata
+        protein_query = self.database_manager.database.session.query(Protein, Multidata).join(Multidata,
+                                                                                              protein_multidata_join)
         protein = pd.read_sql(protein_query.statement, self.database_manager.database.session.bind)
 
         return protein
