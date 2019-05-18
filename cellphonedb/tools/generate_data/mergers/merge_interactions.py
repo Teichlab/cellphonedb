@@ -57,6 +57,6 @@ def merge_iuphar_other_and_curated_interactions(iuphar_other_interactions: pd.Da
     interactions_merged = non_repeated_interactions.append(merged_duplicated_interactions, sort=True, ignore_index=True)
     interactions_merged.fillna({'iuphar': False}, inplace=True)
     interactions_merged = interactions_merged.astype(
-        {'dlrp': bool, 'iuphar': bool})
+        {'iuphar': bool})
 
     return interactions_merged

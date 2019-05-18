@@ -72,9 +72,10 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 - `--threshold`: % of cells expressing a gene
 - `--result-precision`: Number of decimal digits in results [3]
 - `--output-path`: Directory where the results will be allocated (the directory must exist) [out]
-- `--means-result-name`: Means result namefile [means.txt]
-- `--significant-mean-result-name`: Significant result namefile [significant_means.txt]
-- `--deconvoluted-result-name`: Deconvoluted result namefile [deconvoluted.txt]
+- `--output-format`: Result files output format (extension will be added to filename if not present) [txt]
+- `--means-result-name`: Means result filename [means]
+- `--significant-mean-result-name`: Significant result filename [significant_means]
+- `--deconvoluted-result-name`: Deconvoluted result filename [deconvoluted]
 - `--verbose/--quiet`: Print or hide cellphonedb logs [verbose]
 - `--subsampling`: Enable Cells subsampling
 - `--subsampling-log`: Enable subsampling log1p for non transformed data inputs !!mandatory!!
@@ -83,7 +84,7 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 
 
 ~ **Optional Method Statistical parameters**
-- `--pvalues-result-name`: Pvalues result namefile [pvalues.txt]
+- `--pvalues-result-name`: Pvalues result filename [pvalues]
 - `--pvalue`: Pvalue threshold [0.05]
 - `--debug-seed`: Debug random seed -1 for disable it. >=0 [-1]
 - `--threads`: Number of threads to use. >=1 [-1]
