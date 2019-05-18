@@ -1,7 +1,9 @@
 import sys
 import traceback
-from typing import Optional
+from typing import Optional, Any
+
 import click
+from click import Context
 
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
@@ -13,6 +15,22 @@ from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
+
+
+def check_subsampling_params(ctx: Context, argument: click.Argument, value) -> Any:
+    subsampling = ctx.params.get('subsampling')
+
+    if not subsampling:
+        tpl = 'This parameter ({}) only applies to subsampling, to enable it add `--subsampling` to your command'
+        app_logger.error(tpl.format(argument.name))
+        ctx.abort()
+
+    if argument.name == 'subsampling_log' and value is None:
+        app_logger.error('''In order to perform subsampling you need to specify whether to log1p input counts or not:
+            to do this specify in your command as --subsampling-log [true|false]''')
+        ctx.abort()
+
+    return value
 
 
 @click.command()
@@ -37,10 +55,11 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 @click.option('--threads', default=4, type=int, help='Max of threads to process the data [4]')
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
 @click.option('--subsampling', default=False, is_flag=True, type=bool, help='Enable subsampling')
-@click.option('--subsampling-log', default=None, type=bool,
-              help='Enable subsampling log1p for non transformed data inputs')
-@click.option('--subsampling-num-pc', default=100, type=int, help='Subsampling NumPC argument')
-@click.option('--subsampling-num-cells', default=None, type=int,
+@click.option('--subsampling-log', default=None, type=bool, callback=check_subsampling_params,
+              help='Enable subsampling log1p for non transformed data inputs !mandatory!')
+@click.option('--subsampling-num-pc', default=100, type=int, callback=check_subsampling_params,
+              help='Subsampling NumPC argument [100]')
+@click.option('--subsampling-num-cells', default=None, type=int, callback=check_subsampling_params,
               help='Number of cells to subsample (defaults to a 1/3 of cells)')
 def statistical_analysis(meta_filename: str,
                          counts_filename: str,
@@ -123,11 +142,11 @@ def statistical_analysis(meta_filename: str,
 @click.option('--deconvoluted-result-name', default='deconvoluted.txt', type=str,
               help='Deconvoluted result namefile [deconvoluted.txt]')
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
-@click.option('--subsampling', default=False, is_flag=True, type=bool, help='Enable subsampling')
-@click.option('--subsampling-log', default=None, is_flag=True, type=bool,
-              help='Enable subsampling log1p for non transformed data inputs')
-@click.option('--subsampling-num-pc', default=100, type=int, help='Subsampling NumPC argument')
-@click.option('--subsampling-num-cells', default=None, type=int,
+@click.option('--subsampling-log', default=None, type=bool, callback=check_subsampling_params,
+              help='Enable subsampling log1p for non transformed data inputs !mandatory!')
+@click.option('--subsampling-num-pc', default=100, type=int, callback=check_subsampling_params,
+              help='Subsampling NumPC argument [100]')
+@click.option('--subsampling-num-cells', default=None, type=int, callback=check_subsampling_params,
               help='Number of cells to subsample (defaults to a 1/3 of cells)')
 def analysis(meta_filename: str,
              counts_filename: str,
