@@ -18,7 +18,11 @@ class GeneRepository(Repository):
         return result
 
     def get_all_expanded(self):
-        query = self.database_manager.database.session.query(Gene, Protein, Multidata).join(Protein).join(Multidata)
+        protein_multidata_join = Protein.protein_multidata_id == Multidata.id_multidata
+        gene_protein_join = Gene.protein_id == Protein.id_protein
+        query = self.database_manager.database.session.query(Gene, Protein, Multidata).join(
+            Protein, gene_protein_join).join(Multidata, protein_multidata_join)
+
         result = pd.read_sql(query.statement, self.database_manager.database.session.bind)
 
         return result

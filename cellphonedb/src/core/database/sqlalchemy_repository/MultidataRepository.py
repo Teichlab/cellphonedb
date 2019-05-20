@@ -17,16 +17,24 @@ class MultidataRepository(Repository):
         return result
 
     def get_all_expanded(self, include_gene=True):
+        protein_multidata_join = Protein.protein_multidata_id == Multidata.id_multidata
         if include_gene:
-            query_single = self.database_manager.database.session.query(Gene, Protein, Multidata).join(Protein).join(
-                Multidata)
+            gene_protein_join = Gene.protein_id == Protein.id_protein
+            query_single = self.database_manager.database.session.query(Gene,
+                                                                        Protein,
+                                                                        Multidata).join(Protein,
+                                                                                        gene_protein_join
+                                                                                        ).join(Multidata,
+                                                                                               protein_multidata_join)
         else:
             query_single = self.database_manager.database.session.query(Protein, Multidata).join(
-                Multidata)
+                Multidata, protein_multidata_join)
 
         multidata_simple = pd.read_sql(query_single.statement, self.database_manager.database.engine)
 
-        query_complex = self.database_manager.database.session.query(Multidata, Complex).join(Complex)
+        multidata_complex_join = Multidata.id_multidata == Complex.complex_multidata_id
+        query_complex = self.database_manager.database.session.query(Multidata, Complex).join(Complex,
+                                                                                              multidata_complex_join)
         multidata_complex = pd.read_sql(query_complex.statement, self.database_manager.database.engine)
 
         multidata_expanded = multidata_simple.append(multidata_complex, ignore_index=True, sort=True)

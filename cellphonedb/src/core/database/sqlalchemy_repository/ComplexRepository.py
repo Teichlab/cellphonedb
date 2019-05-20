@@ -35,12 +35,18 @@ class ComplexRepository(Repository):
         query = self.database_manager.database.session.query(ComplexComposition)
         complex_composition = pd.read_sql(query.statement, self.database_manager.database.engine)
 
+        protein_gene_join = Protein.protein_multidata_id == Multidata.id_multidata
         if include_gene:
-            multidatas_proteins_query = self.database_manager.database.session.query(Gene, Protein, Multidata).join(
-                Protein).join(Multidata)
+            gene_protein_join = Gene.protein_id == Protein.id_protein
+            multidatas_proteins_query = self.database_manager.database.session.query(Gene,
+                                                                                     Protein,
+                                                                                     Multidata).join(Protein,
+                                                                                                     gene_protein_join
+                                                                                                     ).join(Multidata,
+                                                                                                            protein_gene_join)
         else:
             multidatas_proteins_query = self.database_manager.database.session.query(Protein, Multidata).join(
-                Multidata)
+                Multidata, protein_gene_join)
 
         multidatas_proteins = pd.read_sql(multidatas_proteins_query.statement, self.database_manager.database.engine)
         multidatas_proteins.columns = multidatas_proteins.columns.map(lambda column: column + '_protein')
