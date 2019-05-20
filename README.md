@@ -77,6 +77,11 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 - `--significant-mean-result-name`: Significant result filename [significant_means]
 - `--deconvoluted-result-name`: Deconvoluted result filename [deconvoluted]
 - `--verbose/--quiet`: Print or hide cellphonedb logs [verbose]
+- `--subsampling`: Enable Cells subsampling
+- `--subsampling-log`: Enable subsampling log1p for non transformed data inputs !!mandatory!!
+- `--subsampling-num-pc`: Subsampling NumPC argument [100]
+- `--subsampling-num-cells`: Number of cells to subsample [1/3 of cells]
+
 
 ~ **Optional Method Statistical parameters**
 - `--pvalues-result-name`: Pvalues result filename [pvalues]
@@ -99,6 +104,11 @@ Set output path
 ```shell
 mkdir custom_folder
 cellphonedb method statistical_analysis yourmetafile.txt yourcountsfile.txt --output-path=custom_folder
+```
+
+Subsampling
+```shell
+cellphonedb method analysis yourmetafile.txt yourcountsfile.txt --subsampling --subsampling-log false --subsampling-num-cells 3000
 ```
 
 ## Contributing to CellPhoneDB

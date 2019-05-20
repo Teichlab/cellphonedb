@@ -5,6 +5,7 @@ import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir
+from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.utils import utils
 from cellphonedb.utils.utils import _get_separator
 
@@ -36,6 +37,7 @@ class LocalMethodLauncher(object):
                                                         threads: int = -1,
                                                         result_precision: int = 3,
                                                         min_significant_mean: float = 0.05,
+                                                        subsampler: Subsampler = None,
                                                         ) -> None:
         output_path = self._set_paths(output_path, project_name)
 
@@ -57,6 +59,7 @@ class LocalMethodLauncher(object):
                 debug_seed,
                 result_precision,
                 min_significant_mean,
+                subsampler
             )
 
         self.write_to_file(means_simple, means_filename, output_format, output_path)
@@ -73,7 +76,8 @@ class LocalMethodLauncher(object):
                                             means_filename: str = 'means',
                                             significant_means_filename: str = 'significant_means',
                                             deconvoluted_filename='deconvoluted',
-                                            result_precision: int = 3
+                                            result_precision: int = 3,
+                                            subsampler: Subsampler = None,
                                             ) -> None:
         output_path = self._set_paths(output_path, project_name)
 
@@ -86,7 +90,8 @@ class LocalMethodLauncher(object):
             self.cellphonedb_app.method.cpdb_method_analysis_launcher(meta,
                                                                       counts,
                                                                       threshold,
-                                                                      result_precision)
+                                                                      result_precision,
+                                                                      subsampler)
 
         self.write_to_file(means, means_filename, output_format, output_path)
         self.write_to_file(significant_means, significant_means_filename, output_format, output_path)

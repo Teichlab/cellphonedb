@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 
-import os
 import io
 import json
-import signal
+import os
 import sys
 import time
 import traceback
 
-import pandas as pd
-
 import boto3
+import pandas as pd
 import pika
 
 from cellphonedb.src.app import cpdb_app
@@ -18,9 +16,10 @@ from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
-from cellphonedb.src.exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
+from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.utils import utils
 
 try:
@@ -86,15 +85,20 @@ def process_job(method, properties, body) -> dict:
     meta = read_data_from_s3(metadata['file_meta'], s3_bucket_name, index_column_first=False)
     counts = read_data_from_s3(metadata['file_counts'], s3_bucket_name, index_column_first=True)
 
+    subsampler = Subsampler(bool(metadata['log']),
+                            int(metadata['num_pc']),
+                            int(metadata['num_cells']) if metadata['num_cells'] else None
+                            ) if metadata['subsampling'] else None
+
     if metadata['iterations']:
-        response = statistical_analysis(meta, counts, job_id, metadata)
+        response = statistical_analysis(meta, counts, job_id, metadata, subsampler)
     else:
-        response = non_statistical_analysis(meta, counts, job_id, metadata)
+        response = non_statistical_analysis(meta, counts, job_id, metadata, subsampler)
 
     return response
 
 
-def statistical_analysis(meta, counts, job_id, metadata):
+def statistical_analysis(meta, counts, job_id, metadata, subsampler):
     pvalues, means, significant_means, means_pvalues, deconvoluted = \
         app.method.cpdb_statistical_analysis_launcher(meta,
                                                       counts,
@@ -104,6 +108,7 @@ def statistical_analysis(meta, counts, job_id, metadata):
                                                       threads=4,
                                                       result_precision=int(metadata['result_precision']),
                                                       min_significant_mean=float(metadata['pvalue']),
+                                                      subsampler=subsampler,
                                                       )
     response = {
         'job_id': job_id,
@@ -124,12 +129,14 @@ def statistical_analysis(meta, counts, job_id, metadata):
     return response
 
 
-def non_statistical_analysis(meta, counts, job_id, metadata):
+def non_statistical_analysis(meta, counts, job_id, metadata, subsampler):
     means, significant_means, deconvoluted = \
         app.method.cpdb_method_analysis_launcher(meta,
                                                  counts,
                                                  threshold=float(metadata['threshold']),
-                                                 result_precision=int(metadata['result_precision']))
+                                                 result_precision=int(metadata['result_precision']),
+                                                 subsampler=subsampler,
+                                                 )
     response = {
         'job_id': job_id,
         'files': {

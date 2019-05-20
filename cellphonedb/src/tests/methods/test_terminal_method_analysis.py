@@ -1,9 +1,11 @@
 import os
+from typing import Optional
 
 import pandas as pd
 
-from cellphonedb.src.app.flask.flask_app import create_app
 from cellphonedb.src.app.cellphonedb_app import output_test_dir, data_test_dir, cellphonedb_app
+from cellphonedb.src.app.flask.flask_app import create_app
+from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 from cellphonedb.src.tests.cellphone_flask_test_case import CellphoneFlaskTestCase
 from cellphonedb.utils import dataframe_functions
@@ -27,7 +29,16 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
         result_precision = 3
         self._method_call(data, project_name, threshold, result_precision)
 
-    def _method_call(self, data: str, project_name: str, threshold: float, result_precision: int):
+    def test_non_statistical_method_subsampled_data_test__threshold__01__precision_3__num_pc_4__num_cells_4(self):
+        data = 'test_subsampled'
+        project_name = 'test_data'
+        threshold = 0.1
+        result_precision = 3
+        subsampler = Subsampler(False, 4, 4, debug_seed=0)
+        self._method_call(data, project_name, threshold, result_precision, subsampler)
+
+    def _method_call(self, data: str, project_name: str, threshold: float, result_precision: int,
+                     subsampler: Optional[Subsampler] = None):
         result_means_filename = self._get_result_filename('means', data, threshold, result_precision)
         result_significant_means_filename = self._get_result_filename('significant_means', data, threshold,
                                                                       result_precision)
@@ -45,7 +56,9 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
                                                                                              result_means_filename,
                                                                                              result_significant_means_filename,
                                                                                              result_deconvoluted_filename,
-                                                                                             result_precision)
+                                                                                             result_precision,
+                                                                                             subsampler
+                                                                                             )
 
         self._assert_result('means', data, project_name, result_means_filename, threshold, result_precision)
         self._assert_result('significant_means', data, project_name, result_significant_means_filename, threshold,
