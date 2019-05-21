@@ -20,10 +20,23 @@ from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLau
 def check_subsampling_params(ctx: Context, argument: click.Argument, value) -> Any:
     subsampling = ctx.params.get('subsampling')
 
+    if not subsampling and value is not None:
+        tpl = 'This parameter ({}) only applies to subsampling, to enable it add `--subsampling` to your command'
+        app_logger.error(tpl.format(argument.name))
+        ctx.abort()
+
     if argument.name == 'subsampling_log' and subsampling and value is None:
         app_logger.error('''In order to perform subsampling you need to specify whether to log1p input counts or not:
             to do this specify in your command as --subsampling-log [true|false]''')
         ctx.abort()
+
+    defaults = {
+        'subsampling_num_pc': 100,
+        'subsampling_num_cells': None
+    }
+
+    if subsampling and value is None:
+        return defaults.get(argument.name, None)
 
     return value
 
@@ -33,7 +46,7 @@ def subsampling_options(f: Callable) -> Callable:
         click.option('--subsampling', is_flag=True, help='Enable subsampling', is_eager=True),
         click.option('--subsampling-log', default=None, type=bool, callback=check_subsampling_params,
                      help='Enable subsampling log1p for non transformed data inputs !mandatory!'),
-        click.option('--subsampling-num-pc', default=100, type=int, callback=check_subsampling_params,
+        click.option('--subsampling-num-pc', default=None, type=int, callback=check_subsampling_params,
                      help='Subsampling NumPC argument [100]'),
         click.option('--subsampling-num-cells', default=None, type=int, callback=check_subsampling_params,
                      help='Number of cells to subsample (defaults to a 1/3 of cells)')
