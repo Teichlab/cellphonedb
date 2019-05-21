@@ -13,7 +13,7 @@ def call(meta: pd.DataFrame,
          genes: pd.DataFrame,
          complexes: pd.DataFrame,
          complex_compositions: pd.DataFrame,
-         min_significant_mean: float,
+         pvalue: float,
          separator: str,
          iterations: int = 1000,
          threshold: float = 0.1,
@@ -91,7 +91,7 @@ def call(meta: pd.DataFrame,
         counts,
         genes,
         result_precision,
-        min_significant_mean,
+        pvalue,
     )
     return pvalues_result, means_result, significant_means, deconvoluted_result
 
@@ -104,7 +104,7 @@ def build_results(interactions: pd.DataFrame,
                   counts: pd.DataFrame,
                   genes: pd.DataFrame,
                   result_precision: int,
-                  min_significant_mean: float,
+                  pvalue: float,
                   ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     """
     Sets the results data structure from method generated data. Results documents are defined by specs.
@@ -143,7 +143,7 @@ def build_results(interactions: pd.DataFrame,
         inplace=True)
 
     significant_mean_rank, significant_means = cpdb_statistical_analysis_helper.build_significant_means(
-        real_mean_analysis, result_percent, min_significant_mean)
+        real_mean_analysis, result_percent, pvalue)
 
     result_percent = result_percent.round(result_precision)
     real_mean_analysis = real_mean_analysis.round(result_precision)

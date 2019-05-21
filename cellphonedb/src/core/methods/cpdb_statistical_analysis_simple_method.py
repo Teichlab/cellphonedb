@@ -8,7 +8,7 @@ from cellphonedb.src.core.models.interaction import interaction_filter
 def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
          interactions: pd.DataFrame,
-         min_significant_mean: float,
+         pvalue: float,
          separator: str,
          iterations: int = 1000,
          threshold: float = 0.1,
@@ -79,7 +79,7 @@ def call(meta: pd.DataFrame,
         result_percent,
         clusters['means'],
         result_precision,
-        min_significant_mean,
+        pvalue,
     )
 
     return pvalues_result, means_result, significant_means, deconvoluted_result
@@ -90,7 +90,7 @@ def build_results(interactions: pd.DataFrame,
                   result_percent: pd.DataFrame,
                   clusters_means: dict,
                   result_precision: int,
-                  min_significant_mean: float,
+                  pvalue: float,
                   ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info('Building Simple results')
     interacting_pair = cpdb_statistical_analysis_helper.interacting_pair_build(interactions)
@@ -114,7 +114,7 @@ def build_results(interactions: pd.DataFrame,
         lambda name: 'simple:{}'.format(name))
 
     significant_mean_rank, significant_means = cpdb_statistical_analysis_helper.build_significant_means(
-        real_mean_analysis, result_percent, min_significant_mean)
+        real_mean_analysis, result_percent, pvalue)
 
     result_percent = result_percent.round(result_precision)
     real_mean_analysis = real_mean_analysis.round(result_precision)

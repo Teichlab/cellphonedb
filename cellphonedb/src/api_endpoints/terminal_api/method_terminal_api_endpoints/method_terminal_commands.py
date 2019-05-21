@@ -80,7 +80,7 @@ def common_options(f: Callable) -> Callable:
 @click.command()
 @common_options
 @click.option('--debug-seed', default='-1', type=int, help='Debug random seed 0 for disable it. >=0 to set it [-1]')
-@click.option('--pvalue', 'min_significant_mean', default=0.05, type=float, help='Pvalue threshold [0.05]')
+@click.option('--pvalue', default=0.05, type=float, help='Pvalue threshold [0.05]')
 @click.option('--pvalues-result-name', default='pvalues', type=str, help='Pvalues result namefile [pvalues]')
 @click.option('--iterations', default=1000, type=int, help='Number of pvalues analysis iterations [1000]')
 @click.option('--threads', default=4, type=int, help='Max of threads to process the data [4]')
@@ -100,12 +100,13 @@ def statistical_analysis(meta_filename: str,
                          subsampling_num_pc: int,
                          subsampling_num_cells: Optional[int],
                          debug_seed: int,
-                         min_significant_mean: float,
+                         pvalue: float,
                          pvalues_result_name: str,
                          iterations: int,
                          threads: int
                          ) -> None:
     try:
+
 
         subsampler = Subsampler(subsampling_log,
                                 subsampling_num_pc,
@@ -127,7 +128,7 @@ def statistical_analysis(meta_filename: str,
                                                             debug_seed,
                                                             threads,
                                                             result_precision,
-                                                            min_significant_mean,
+                                                            pvalue,
                                                             subsampler,
                                                             )
     except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
