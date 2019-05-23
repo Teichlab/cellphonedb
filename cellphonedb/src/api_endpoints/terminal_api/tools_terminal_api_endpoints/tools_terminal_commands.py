@@ -1,7 +1,8 @@
 import os
+from typing import Optional
 
+import click
 import pandas as pd
-from click._unicodefun import click
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir
@@ -36,7 +37,6 @@ def generate_genes(
         result_path: str,
         gene_uniprot_ensembl_merged_result_filename: str,
         add_hla_result_filename: str) -> None:
-
     output_path = _set_paths(output_dir, result_path)
 
     def prefix_output_path(filename: str) -> str:
@@ -117,12 +117,130 @@ def generate_interactions(
     interactions_with_curated.to_csv('{}/interaction.csv'.format(output_path), index=False)
 
 
-def _set_paths(output_path, project_name):
+@click.command()
+@click.argument('curated_proteins', type=click.File('r'))
+@click.option('--additional-proteins', type=click.File('rb'), default=None)
+@click.option('--result-path', type=str, default=None)
+@click.option('--log-file', type=click.File('w'), default='./log.txt')
+def generate_proteins(curated_proteins: click.File,
+                      additional_proteins: Optional[click.File],
+                      result_path: str,
+                      log_file: click.File):
+    defaults = {
+        'receptor': False,
+        'integrin_interaction': None,
+        'other': False,
+        'other_desc': None,
+        'peripheral': None,
+        'receptor_desc': None,
+        'secreted_desc': None,
+        'secreted_highlight': False,
+        'secretion': None,
+        'transmembrane': None,
+        'pdb_structure': False,
+        'pdb_id': None,
+        'stoichiometry': None,
+        'comments_complex': None,
+        'adhesion': False,
+        'tags': 'To_add',
+        'tags_reason': None,
+        'tags_description': None
+    }
+
+    used_cols = ['uniprot', 'entry_name'] + list(defaults.keys())
+
+    curated_df: pd.DataFrame = pd.read_csv(curated_proteins)
+
+    # additional data comes from given file or uniprot remote url
+    if additional_proteins is None:
+        source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
+                     '&columns=id,entry%20name,reviewed,protein%20names,genes,organism,length' \
+                     '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
+                     '&compress=yes'
+
+        additional_df = pd.read_csv(source_url, sep='\t', compression='gzip')
+        print('read remote uniprot file')
+    else:
+        additional_df = pd.read_csv(additional_proteins, sep='\t', compression='gzip')
+        print('read local additional file')
+
+    # homogeneized column names
+    additional_df.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'entry_name'}, inplace=True)
+
+    # # Here we set defaults for uniprot & curated data
+    set_defaults(curated_df, defaults)
+    set_defaults(additional_df, defaults)
+
+    # we will only use these columns
+    additional_df: pd.DataFrame = additional_df[used_cols]
+
+    # We add missing uniprot columns to enable to concatenation
+    for column in curated_df:
+        if column not in additional_df:
+            print('column {} not present in uniprot, addinng it'.format(column))
+            additional_df[column] = None
+
+    # type casting to ensure they are equal
+    for column in additional_df:
+        if additional_df[column].dtype == curated_df[column].dtype:
+            continue
+
+        print(f'converting `{column}` type from `{additional_df[column].dtype}` to `{curated_df[column].dtype}`')
+        additional_df[column] = additional_df[column].astype(curated_df[column].dtype)
+
+    additional_is_in_curated = additional_df['uniprot'].isin(curated_df['uniprot'])
+    curated_is_in_additional = curated_df['uniprot'].isin(additional_df['uniprot'])
+
+    common_additional = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
+    common_curated = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
+
+    common_additional = common_additional.sort_values(by='uniprot').reset_index()
+    common_curated = common_curated.sort_values(by='uniprot').reset_index()
+
+    warned = False
+
+    # Now we check for differences uin both files
+    for idx, from_curated in common_curated.iterrows():
+        uniprot = from_curated['uniprot']
+
+        from_additional: pd.Series = common_additional[common_additional['uniprot'] == uniprot].iloc[0].drop('index')
+        from_curated = from_curated.drop('index')
+
+        if from_curated.equals(from_additional):
+            continue
+
+        if not warned:
+            app_logger.warning(
+                'There are some missmatches between both files, they are being logged to {}'.format(log_file.name))
+            warned = True
+
+        print('missmatch in {} protein:\n\tuniprot: {}\n\tcurated: {}'.format(uniprot, from_curated.to_dict(),
+                                                                              from_additional.to_dict()), file=log_file)
+
+    distinct_uniprots = additional_df[~additional_is_in_curated]
+
+    result: pd.DataFrame = pd.concat([common_curated, distinct_uniprots], ignore_index=True, sort=True)
+
+    output_path = _set_paths(output_dir, result_path)
+    result.to_csv('{}/{}'.format(output_path, 'protein.csv'), index=False, )
+
+
+def set_defaults(df, defaults):
+    for column_name, default_value in defaults.items():
+        if column_name not in df:
+            print('missing column in uniprot: {}, set to default {}'.format(column_name, default_value))
+            df[column_name] = default_value
+            continue
+
+        df[column_name].replace({pd.np.nan: default_value}, inplace=True)
+
+
+def _set_paths(output_path, subfolder):
     if not output_path:
         output_path = output_dir
 
-    if project_name:
-        output_path = os.path.realpath(os.path.expanduser('{}/{}'.format(output_path, project_name)))
+    if subfolder:
+        output_path = os.path.realpath(os.path.expanduser('{}/{}'.format(output_path, subfolder)))
 
     os.makedirs(output_path, exist_ok=True)
 
