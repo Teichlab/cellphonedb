@@ -127,14 +127,20 @@ You can tweak the options for the plot with these arguments:
 - `--pvalues-path`: Analysis output pvalues [./out/pvalues.txt]
 - `--output-path`: Path to write generated plot [./out]
 - `--output-name`: Output file with plot [plot.pdf]
-- `--rows`: List of rows to plot, one per line [all available]
-- `--columns`: List of columns to plot, one per line [all available]
+- `--rows`: File with a list of rows to plot, one per line [all available]
+- `--columns`: File with a list of columns to plot, one per line [all available]
 - `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
 
 Available output formats are those supported by `R's ggplot2` package, among others tey are:
 - `pdf`
 - `png`
 - `jpeg`
+
+To plot only desired rows/columns (samples for [rows](in/example_data/rows.txt) and [columns](in/example_data/columns.txt) based in example data files) :
+```shell
+cellphonedb plot dot_plot --rows in/rows.txt --columns in/columns.txt
+```
+
 
 This format will be inferred from the `--output-name` argument
 
