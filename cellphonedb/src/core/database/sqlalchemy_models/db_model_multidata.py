@@ -12,7 +12,6 @@ class Multidata(Base):
 
     receptor = Column(Boolean)
     receptor_desc = Column(String)
-    adhesion = Column(Boolean)
     other = Column(Boolean)
     other_desc = Column(String)
     transporter = Column(Boolean)
