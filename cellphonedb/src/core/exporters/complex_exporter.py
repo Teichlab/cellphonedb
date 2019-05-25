@@ -46,17 +46,10 @@ def call(complexes: pd.DataFrame, multidatas: pd.DataFrame, complex_compositions
 
     composition_df = pd.DataFrame(composition)
     complex_complete = pd.merge(complex_complete, composition_df, on='complex_multidata_id')
-    complex_complete.drop(['id_multidata', 'id_complex', 'complex_multidata_id'], axis=1, inplace=True)
 
-    # Edit order of the columns
-    protein_headers = []
+    complex_complete.rename({'name': 'complex_name'}, axis=1, inplace=1)
 
-    for i in range(4):
-        protein_headers.append('uniprot_%s' % (i + 1))
-        protein_headers.append('protein_%s_gene_name' % (i + 1))
-
-    complex_complete = dataframe_format.bring_columns_to_start(['name'] + protein_headers, complex_complete)
-    complex_complete = dataframe_format.bring_columns_to_end(
-        ['pdb_structure', 'pdb_id', 'stoichiometry', 'comments_complex'], complex_complete)
-
-    return complex_complete
+    return complex_complete[
+        ['complex_name', 'uniprot_1', 'uniprot_2', 'uniprot_3', 'uniprot_4', 'transmembrane', 'peripheral', 'secreted',
+         'secreted_desc', 'secreted_highlight', 'receptor', 'receptor_desc', 'integrin', 'other', 'other_desc',
+         'pdb_id', 'pdb_structure', 'stoichiometry', 'comments_complex', 'transporter']]
