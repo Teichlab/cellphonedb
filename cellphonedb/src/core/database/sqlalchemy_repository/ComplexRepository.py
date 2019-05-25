@@ -115,7 +115,6 @@ class ComplexRepository(Repository):
         proteins = {p[0]: p[1] for p in proteins}
         # Read in complexes
         complexes.dropna(axis=1, inplace=True, how='all')
-        complexes.rename(index=str, columns={'complex_name': 'name'}, inplace=True)
 
         # Get complex composition info
         complete_indices = []

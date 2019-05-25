@@ -1,4 +1,4 @@
-name,uniprot_1,uniprot_2,uniprot_3,uniprot_4,integrin,other,other_desc,peripheral,receptor,receptor_desc,secreted_desc,secreted_highlight,secreted,transmembrane,transporter,pdb_structure,pdb_id,stoichiometry,comments_complex
+complex_name,uniprot_1,uniprot_2,uniprot_3,uniprot_4,integrin,other,other_desc,peripheral,receptor,receptor_desc,secreted_desc,secreted_highlight,secreted,transmembrane,transporter,pdb_structure,pdb_id,stoichiometry,comments_complex
 contactin complex II,Q12860,Q92823,,,False,False,,False,False,,,False,False,True,False,False,,,NRCAM bind in cis and in trans to contactin-1
 FCyR1A,P12314,P30273,,,False,False,,False,True,Human IgG receptor,,False,False,True,False,False,,,Also called CD64. Interacts with FCERG1; forms a functional signaling complex
 IL6 receptor,P08887,P40189,,,False,False,,False,True,Cytokine receptor IL6 family,,False,False,True,False,binding,1p9m,IL6;IL6;IL6R;IL6R;IL6ST;IL6ST,Signal activation necessitate an association with IL6ST.
