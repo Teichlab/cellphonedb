@@ -17,13 +17,13 @@ def call(complexes: pd.DataFrame, multidatas: pd.DataFrame, complex_compositions
         protein_index = 1
         complex_proteins = {
             'complex_multidata_id': complex['complex_multidata_id'],
-            'uniprot_1': None, 'protein_1_gene_name': None, 'tags_1': None, 'entry_name_1': None,
+            'uniprot_1': None, 'protein_1_gene_name': None, 'tags_1': None, 'protein_name_1': None,
             'tags_description_1': None, 'tags_reason_1': None,
-            'uniprot_2': None, 'protein_2_gene_name': None, 'tags_2': None, 'entry_name_2': None,
+            'uniprot_2': None, 'protein_2_gene_name': None, 'tags_2': None, 'protein_name_2': None,
             'tags_description_2': None, 'tags_reason_2': None,
-            'uniprot_3': None, 'protein_3_gene_name': None, 'tags_3': None, 'entry_name_3': None,
+            'uniprot_3': None, 'protein_3_gene_name': None, 'tags_3': None, 'protein_name_3': None,
             'tags_description_3': None, 'tags_reason_3': None,
-            'uniprot_4': None, 'protein_4_gene_name': None, 'tags_4': None, 'entry_name_4': None,
+            'uniprot_4': None, 'protein_4_gene_name': None, 'tags_4': None, 'protein_name_4': None,
             'tags_description_4': None, 'tags_reason_4': None,
         }
         for index, complex_composition in complex_complex_composition.iterrows():
@@ -33,9 +33,9 @@ def call(complexes: pd.DataFrame, multidatas: pd.DataFrame, complex_compositions
             complex_proteins['uniprot_%i' % protein_index] = proteine_name
 
             selected_protein = proteins[proteins['name'] == proteine_name]
-            entry_name = selected_protein['entry_name'].values[0]
-            complex_proteins['protein_%i_gene_name' % protein_index] = entry_name
-            complex_proteins['entry_name_%i' % protein_index] = entry_name
+            protein_name = selected_protein['protein_name'].values[0]
+            complex_proteins['protein_%i_gene_name' % protein_index] = protein_name
+            complex_proteins['protein_name_%i' % protein_index] = protein_name
             complex_proteins['tags_%i' % protein_index] = selected_protein['tags'].values[0]
             complex_proteins['tags_description_%i' % protein_index] = selected_protein['tags_description'].values[0]
             complex_proteins['tags_reason_%i' % protein_index] = selected_protein['tags_reason'].values[0]

@@ -52,5 +52,5 @@ class MultidataRepository(Repository):
 
         return multidatas[(multidatas['name'] == input_string) |
                           (multidatas['ensembl'] == input_string) |
-                          (multidatas['entry_name'] == input_string) |
+                          (multidatas['protein_name'] == input_string) |
                           (multidatas['gene_name'] == input_string)]

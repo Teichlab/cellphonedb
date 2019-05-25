@@ -142,13 +142,13 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) 
     deconvoluted_result_1 = pd.DataFrame()
     deconvoluted_result_2 = pd.DataFrame()
     deconvoluted_result_1[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
+        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
         interactions[
-            ['ensembl_1', 'entry_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_cp_interaction']]
+            ['ensembl_1', 'protein_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_cp_interaction']]
     deconvoluted_result_2[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
+        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
         interactions[
-            ['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_cp_interaction']]
+            ['ensembl_2', 'protein_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_cp_interaction']]
 
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
 

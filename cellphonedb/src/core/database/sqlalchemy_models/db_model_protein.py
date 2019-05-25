@@ -8,7 +8,7 @@ class Protein(Base):
     __tablename__ = 'protein'
     id_protein = Column(Integer, nullable=False, primary_key=True)
 
-    entry_name = Column(String)
+    protein_name = Column(String)
     tags = Column(String)
     tags_reason = Column(String)
     tags_description = Column(String)

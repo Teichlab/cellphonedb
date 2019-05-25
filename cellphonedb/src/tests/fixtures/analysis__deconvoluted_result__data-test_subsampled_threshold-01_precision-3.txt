@@ -1,4 +1,4 @@
-ensembl	entry_name	gene_name	name	is_complex	id_cp_interaction	Myeloid	NKcells_0	NKcells_1	Tcells	complex_name
+ensembl	protein_name	gene_name	name	is_complex	id_cp_interaction	Myeloid	NKcells_0	NKcells_1	Tcells	complex_name
 ENSG00000067182	TNR1A_HUMAN	TNFRSF1A	P19438	False	CPI-SS0A4F27388	0.0	0.0	0.0	1.1
 ENSG00000197471	LEUK_HUMAN	SPN	P16150	False	CPI-SS092AA7A93	1.127	0.934	1.268	1.1
 ENSG00000168961	LEG9_HUMAN	LGALS9	O00182	False	CPI-SS0703338F5	1.643	0.0	0.0	0.0

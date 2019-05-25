@@ -10,5 +10,6 @@ def call(multidatas: pd.DataFrame, interactions: pd.DataFrame):
     multidatas_filtered = multidatas[multidatas['id_multidata'].apply(lambda id: id in multidatas_interactors_ids)]
 
     return multidatas_filtered[
-        ['name', 'entry_name', 'transmembrane', 'secretion', 'peripheral', 'integrin_interaction', 'secreted_highlight',
+        ['name', 'protein_name', 'transmembrane', 'secretion', 'peripheral', 'integrin_interaction',
+         'secreted_highlight',
          'secreted_desc', 'transporter', 'other', 'other_desc', 'tags', 'tags_description', 'tags_reason']]

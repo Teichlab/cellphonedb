@@ -194,7 +194,7 @@ complex_entries = [
 protein_entries = [
     {
         "name": "A0A0B4J2F0",
-        "entry_name": "PIOS1_HUMAN",
+        "protein_name": "PIOS1_HUMAN",
         "transmembrane": False,
         "secretion": True,
         "peripheral": False,
@@ -212,7 +212,7 @@ protein_entries = [
     },
     {
         "name": "A0AVI2",
-        "entry_name": "FR1L5_HUMAN",
+        "protein_name": "FR1L5_HUMAN",
         "transmembrane": True,
         "secretion": False,
         "peripheral": False,
@@ -230,7 +230,7 @@ protein_entries = [
     },
     {
         "name": "A1E959",
-        "entry_name": "ODAM_HUMAN",
+        "protein_name": "ODAM_HUMAN",
         "transmembrane": False,
         "secretion": True,
         "peripheral": False,
@@ -248,7 +248,7 @@ protein_entries = [
     },
     {
         "name": "O75970",
-        "entry_name": "MPDZ_HUMAN",
+        "protein_name": "MPDZ_HUMAN",
         "transmembrane": False,
         "secretion": False,
         "peripheral": True,
@@ -266,7 +266,7 @@ protein_entries = [
     },
     {
         "name": "O76036",
-        "entry_name": "NCTR1_HUMAN",
+        "protein_name": "NCTR1_HUMAN",
         "transmembrane": True,
         "secretion": False,
         "peripheral": False,
@@ -284,7 +284,7 @@ protein_entries = [
     },
     {
         "name": "O95256",
-        "entry_name": "I18RA_HUMAN",
+        "protein_name": "I18RA_HUMAN",
         "transmembrane": True,
         "secretion": False,
         "peripheral": False,
@@ -302,7 +302,7 @@ protein_entries = [
     },
     {
         "name": "P78357",
-        "entry_name": "CNTP1_HUMAN",
+        "protein_name": "CNTP1_HUMAN",
         "transmembrane": True,
         "secretion": False,
         "peripheral": False,
@@ -320,7 +320,7 @@ protein_entries = [
     },
     {
         "name": "Q13444",
-        "entry_name": "ADA15_HUMAN",
+        "protein_name": "ADA15_HUMAN",
         "transmembrane": True,
         "secretion": False,
         "peripheral": False,
@@ -338,7 +338,7 @@ protein_entries = [
     },
     {
         "name": "A5X5Y0",
-        "entry_name": "5HT3E_HUMAN",
+        "protein_name": "5HT3E_HUMAN",
         "transmembrane": True,
         "secretion": False,
         "peripheral": False,
@@ -356,7 +356,7 @@ protein_entries = [
     },
     {
         "name": "Q9NPH3",
-        "entry_name": "IL1AP_HUMAN",
+        "protein_name": "IL1AP_HUMAN",
         "transmembrane": True,
         "secretion": True,
         "peripheral": False,
@@ -374,7 +374,7 @@ protein_entries = [
     },
     {
         "name": "O75325",
-        "entry_name": "LRRN2_HUMAN",
+        "protein_name": "LRRN2_HUMAN",
         "transmembrane": True,
         "secretion": False,
         "peripheral": False,
@@ -392,7 +392,7 @@ protein_entries = [
     },
     {
         "name": "P05067",
-        "entry_name": "A4_HUMAN",
+        "protein_name": "A4_HUMAN",
         "transmembrane": True,
         "secretion": False,
         "peripheral": False,
@@ -410,7 +410,7 @@ protein_entries = [
     },
     {
         "name": "Q9HC73",
-        "entry_name": "CRLF2_HUMAN",
+        "protein_name": "CRLF2_HUMAN",
         "transmembrane": True,
         "secretion": True,
         "peripheral": False,
@@ -428,7 +428,7 @@ protein_entries = [
     },
     {
         "name": "P48960",
-        "entry_name": "CD97_HUMAN",
+        "protein_name": "CD97_HUMAN",
         "transmembrane": True,
         "secretion": True,
         "peripheral": False,
@@ -446,7 +446,7 @@ protein_entries = [
     },
     {
         "name": "Q01113",
-        "entry_name": "IL9R_HUMAN",
+        "protein_name": "IL9R_HUMAN",
         "transmembrane": True,
         "secretion": True,
         "peripheral": False,
@@ -464,7 +464,7 @@ protein_entries = [
     },
     {
         "name": "P16284",
-        "entry_name": "PECA1_HUMAN",
+        "protein_name": "PECA1_HUMAN",
         "transmembrane": True,
         "secretion": False,
         "peripheral": False,

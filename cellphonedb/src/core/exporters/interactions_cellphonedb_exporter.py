@@ -22,5 +22,5 @@ def call(interactions: pd.DataFrame()) -> pd.DataFrame():
             interactions_filtered['integrin_interaction_a'] | interactions_filtered['integrin_interaction_b'])
 
     return interactions_filtered[
-        ['id_cp_interaction', 'source', 'partner_a', 'partner_b', 'entry_name_a', 'entry_name_b', 'secreted',
+        ['id_cp_interaction', 'source', 'partner_a', 'partner_b', 'protein_name_a', 'protein_name_b', 'secreted',
          'is_integrin', 'comments_interaction', 'iuphar']]
