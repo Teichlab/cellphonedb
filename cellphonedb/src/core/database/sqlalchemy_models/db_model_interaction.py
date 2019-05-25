@@ -15,7 +15,6 @@ class Interaction(Base):
 
     source = Column(String)
     comments_interaction = Column(String)
-    family = Column(String)
     iuphar = Column(Boolean)
 
     is_cellphonedb_interactor = Column(Boolean)

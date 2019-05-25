@@ -1,6 +1,6 @@
-comments,multidata_name_1,multidata_name_2,score_1,score_2,source,dlrp,iuphar
-comment_1,uniprot_1,uniprot_2,0.0,0.0,something_1,False,False
-comment_2,uniprot_1,complex_1,0.1,0.1,something_2,False,False
-comment_3,uniprot_3,uniprot_3,0.2,0.3,something_3,False,False
-comment_4,complex_2,complex_3,0.5,1.0,curated,False,False
-comment_5,uniprot_4,uniprot_5,0.2,0.5,something_5,False,False
+comments_interaction,multidata_name_1,multidata_name_2,source,iuphar
+comment_1,uniprot_1,uniprot_2,something_1,False
+comment_2,uniprot_1,complex_1,something_2,False
+comment_3,uniprot_3,uniprot_3,something_3,False
+comment_4,complex_2,complex_3,curated,False
+comment_5,uniprot_4,uniprot_5,something_5,False

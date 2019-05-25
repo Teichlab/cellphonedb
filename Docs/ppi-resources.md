@@ -2,7 +2,6 @@
 
 ## PPI Resources
 * [IUPHAR]("http://www.guidetopharmacology.org/")
-* [DLRP]("http://dip.doe-mbi.ucla.edu/dip/DLRP.cgi") Graeber TG and Eisenberg D. Bioinformatic identification of potential autocrine signaling loops in cancers from gene expression profiles. Nature Genetics, 29(3):295-300 (2001)
 * [iMEX]("https://www.imexconsortium.org/") Orchard S et al., Protein interaction data curation: the International Molecular Exchange (IMEx) consortium. Nat Methods. 2012 Apr;9(4):345-50.
 * [Intact]("https://www.ebi.ac.uk/intact/") Orchard S et al., The MIntAct project--IntAct as a common curation platform for 11 molecular interaction databases. Nucleic Acids Research 42: D358-63 (2013)
 * [InnateDB]("http://www.innatedb.com/") Breuer et al., InnateDB: systems biology of innate immunity and beyond - recent updates and continuing curation. Nucleic Acids Research 41:D1 (2013)

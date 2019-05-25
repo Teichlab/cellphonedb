@@ -5,6 +5,7 @@ from cellphonedb.utils import dataframe_format
 
 
 def call(interactions_expanded: pd.DataFrame) -> pd.DataFrame:
+    interactions_expanded = interactions_expanded[interactions_expanded['is_cellphonedb_interactor']].copy()
     interactions_expanded.rename(index=str, columns={'name_1': 'multidata_name_1', 'name_2': 'multidata_name_2'},
                                  inplace=True)
     filters.remove_not_defined_columns(interactions_expanded,
