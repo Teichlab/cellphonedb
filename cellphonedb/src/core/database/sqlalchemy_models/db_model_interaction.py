@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 
 from cellphonedb.src.core.database.sqlalchemy_models import Base
 

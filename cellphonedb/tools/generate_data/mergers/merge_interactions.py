@@ -29,18 +29,18 @@ def merge_iuphar_other_and_curated_interactions(iuphar_other_interactions: pd.Da
     all_interactions = iuphar_other_interactions.append(curated_interactions)
 
     all_interactions.reset_index(inplace=True, drop=True)
-    normalized_interactions = normalize_interactions(all_interactions, 'multidata_name_1', 'multidata_name_2')
+    normalized_interactions = normalize_interactions(all_interactions, 'partner_a', 'partner_b')
 
     duplicated_interactions = normalized_interactions[
-        normalized_interactions.duplicated(['multidata_name_1', 'multidata_name_2'], keep=False)]
+        normalized_interactions.duplicated(['partner_a', 'partner_b'], keep=False)]
 
-    unique_interactions = duplicated_interactions.drop_duplicates(['multidata_name_1', 'multidata_name_2'])
+    unique_interactions = duplicated_interactions.drop_duplicates(['partner_a', 'partner_b'])
 
     def merge_values(interaction: pd.Series) -> pd.Series:
         interaction = interaction.copy()
         duplicated = duplicated_interactions[
-            (duplicated_interactions['multidata_name_1'] == interaction['multidata_name_1']) & (
-                    duplicated_interactions['multidata_name_2'] == interaction['multidata_name_2'])]
+            (duplicated_interactions['partner_a'] == interaction['partner_a']) & (
+                    duplicated_interactions['partner_b'] == interaction['partner_b'])]
 
         if not duplicated[duplicated['source'] == 'curated'].empty:
             interaction = duplicated[duplicated['source'] == 'curated'].iloc[0]
@@ -52,7 +52,7 @@ def merge_iuphar_other_and_curated_interactions(iuphar_other_interactions: pd.Da
 
     merged_duplicated_interactions = unique_interactions.apply(merge_values, axis=1)
 
-    non_repeated_interactions = normalized_interactions.drop_duplicates(['multidata_name_1', 'multidata_name_2'],
+    non_repeated_interactions = normalized_interactions.drop_duplicates(['partner_a', 'partner_b'],
                                                                         keep=False)
     interactions_merged = non_repeated_interactions.append(merged_duplicated_interactions, sort=True, ignore_index=True)
     interactions_merged.fillna({'iuphar': False}, inplace=True)

@@ -1,4 +1,4 @@
-comments_interaction,multidata_name_1,multidata_name_2,source,iuphar
+comments_interaction,partner_a,partner_b,source,iuphar
 comment_1,uniprot_1,uniprot_2,something_1,False
 comment_2,uniprot_1,complex_1,something_2,False
 comment_3,uniprot_3,uniprot_3,something_3,False
