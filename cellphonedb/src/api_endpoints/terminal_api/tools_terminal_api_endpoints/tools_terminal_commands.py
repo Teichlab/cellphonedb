@@ -1,11 +1,11 @@
 import os
-from typing import Optional
+from typing import Optional, Union, IO
 
 import click
 import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
-from cellphonedb.src.app.cellphonedb_app import output_dir
+from cellphonedb.src.app.cellphonedb_app import output_dir, data_dir
 from cellphonedb.tools.actions import gene_actions
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
@@ -118,14 +118,49 @@ def generate_interactions(
 
 
 @click.command()
-@click.argument('curated_proteins', type=click.File('r'))
+@click.option('--curated-proteins', type=click.File('r'), default=None)
+@click.option('--from-uniprot', is_flag=True)
 @click.option('--additional-proteins', type=click.File('rb'), default=None)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=click.File('w'), default='./log.txt')
-def generate_proteins(curated_proteins: click.File,
+def recreate_proteins(curated_proteins: Optional[click.File],
+                      from_uniprot: bool,
                       additional_proteins: Optional[click.File],
                       result_path: str,
                       log_file: click.File):
+    if not (from_uniprot or additional_proteins):
+        raise click.BadArgumentUsage('You must choose whether to add from uniprot or from your custom protein file')
+
+    # additional data comes from given file or uniprot remote url
+    if from_uniprot:
+        source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
+                     '&columns=id,entry%20name,reviewed,protein%20names,genes,organism,length' \
+                     '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
+                     '&compress=yes'
+
+        additional_df = pd.read_csv(source_url, sep='\t', compression='gzip')
+        print('read remote uniprot file')
+    else:
+        if os.path.splitext(additional_proteins.name)[-1] == '.gz':
+            additional_df = pd.read_csv(additional_proteins, sep='\t', compression='gzip')
+        else:
+            additional_df = pd.read_csv(additional_proteins, sep='\t')
+        print('read local additional file')
+
+    if curated_proteins:
+        curated_df: pd.DataFrame = pd.read_csv(curated_proteins)
+    else:
+        curated_df: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'protein_curated.csv'))
+
+    result = merge_proteins(curated_df, additional_df, log_file)
+
+    output_path = _set_paths(output_dir, result_path)
+    result.to_csv('{}/{}'.format(output_path, 'protein.csv'), index=False)
+
+
+def merge_proteins(curated_df,
+                   additional_df: pd.DataFrame,
+                   log_file: Union[click.File, IO, None]):
     defaults = {
         'receptor': False,
         'integrin_interaction': None,
@@ -146,23 +181,7 @@ def generate_proteins(curated_proteins: click.File,
         'tags_reason': None,
         'tags_description': None
     }
-
     used_cols = ['uniprot', 'entry_name'] + list(defaults.keys())
-
-    curated_df: pd.DataFrame = pd.read_csv(curated_proteins)
-
-    # additional data comes from given file or uniprot remote url
-    if additional_proteins is None:
-        source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
-                     '&columns=id,entry%20name,reviewed,protein%20names,genes,organism,length' \
-                     '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
-                     '&compress=yes'
-
-        additional_df = pd.read_csv(source_url, sep='\t', compression='gzip')
-        print('read remote uniprot file')
-    else:
-        additional_df = pd.read_csv(additional_proteins, sep='\t', compression='gzip')
-        print('read local additional file')
 
     # homogeneized column names
     additional_df.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'entry_name'}, inplace=True)
@@ -177,7 +196,7 @@ def generate_proteins(curated_proteins: click.File,
     # We add missing uniprot columns to enable to concatenation
     for column in curated_df:
         if column not in additional_df:
-            print('column {} not present in uniprot, addinng it'.format(column))
+            print('column {} not present in uniprot, adding it'.format(column))
             additional_df[column] = None
 
     # type casting to ensure they are equal
@@ -197,8 +216,10 @@ def generate_proteins(curated_proteins: click.File,
     common_additional = common_additional.sort_values(by='uniprot').reset_index()
     common_curated = common_curated.sort_values(by='uniprot').reset_index()
 
-    warned = False
+    distinct_uniprots = additional_df[~additional_is_in_curated]
+    result: pd.DataFrame = pd.concat([common_curated, distinct_uniprots], ignore_index=True, sort=True)
 
+    warned = False
     # Now we check for differences uin both files
     for idx, from_curated in common_curated.iterrows():
         uniprot = from_curated['uniprot']
@@ -216,13 +237,7 @@ def generate_proteins(curated_proteins: click.File,
 
         print('missmatch in {} protein:\n\tuniprot: {}\n\tcurated: {}'.format(uniprot, from_curated.to_dict(),
                                                                               from_additional.to_dict()), file=log_file)
-
-    distinct_uniprots = additional_df[~additional_is_in_curated]
-
-    result: pd.DataFrame = pd.concat([common_curated, distinct_uniprots], ignore_index=True, sort=True)
-
-    output_path = _set_paths(output_dir, result_path)
-    result.to_csv('{}/{}'.format(output_path, 'protein.csv'), index=False, )
+    return result
 
 
 def set_defaults(df, defaults):
