@@ -21,7 +21,7 @@ class Multidata(Base):
     transmembrane = Column(Boolean)
     secreted = Column(Boolean)
     peripheral = Column(Boolean)
-    integrin_interaction = Column(Boolean)
+    integrin = Column(Boolean)
     is_complex = Column(Boolean)
 
     protein = relationship('Protein', backref='protein', lazy='subquery')

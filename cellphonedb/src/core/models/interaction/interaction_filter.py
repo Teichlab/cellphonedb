@@ -41,7 +41,7 @@ def filter_by_receptor_ligand_integrin(proteins: pd.DataFrame, interactions: pd.
     Returns a DataFrame of enabled integrin interactions
     """
     core_logger.debug('Filtering by integrin')
-    multidata_receptors = proteins[proteins['integrin_interaction']]
+    multidata_receptors = proteins[proteins['integrin']]
 
     receptor_interactions = pd.merge(multidata_receptors, interactions, left_on='id_multidata',
                                      right_on='multidata_1_id')

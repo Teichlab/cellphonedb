@@ -19,7 +19,7 @@ def call(interactions: pd.DataFrame()) -> pd.DataFrame():
 
     interactions_filtered['secreted'] = (interactions_filtered['secreted_a'] | interactions_filtered['secreted_b'])
     interactions_filtered['is_integrin'] = (
-            interactions_filtered['integrin_interaction_a'] | interactions_filtered['integrin_interaction_b'])
+            interactions_filtered['integrin_a'] | interactions_filtered['integrin_b'])
 
     return interactions_filtered[
         ['id_cp_interaction', 'source', 'partner_a', 'partner_b', 'protein_name_a', 'protein_name_b', 'secreted',

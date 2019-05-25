@@ -7,7 +7,7 @@ def call(complexes: pd.DataFrame, multidatas: pd.DataFrame, complex_compositions
          proteins: pd.DataFrame) -> pd.DataFrame:
     result = complex_exporter.call(complexes, multidatas, complex_compositions, proteins)
 
-    return result[['name', 'transmembrane', 'secreted', 'peripheral', 'integrin_interaction', 'secreted_highlight',
+    return result[['name', 'transmembrane', 'secreted', 'peripheral', 'integrin', 'secreted_highlight',
                    'secreted_desc', 'transporter', 'other', 'other_desc',
                    'protein_name_1', 'uniprot_1', 'tags_1', 'tags_description_1', 'tags_reason_1',
                    'protein_name_2', 'uniprot_2', 'tags_2', 'tags_description_2', 'tags_reason_2',

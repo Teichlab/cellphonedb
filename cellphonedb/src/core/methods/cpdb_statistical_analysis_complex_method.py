@@ -136,7 +136,7 @@ def build_results(interactions: pd.DataFrame,
 
     interactions_data_result['secreted'] = (interactions['secreted_1'] | interactions['secreted_2'])
     interactions_data_result['is_integrin'] = (
-            interactions['integrin_interaction_1'] | interactions['integrin_interaction_2'])
+            interactions['integrin_1'] | interactions['integrin_2'])
 
     interactions_data_result.rename(
         columns={'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},

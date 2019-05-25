@@ -24,7 +24,7 @@ complex_entries = [
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "Note: Presumably retained within the endoplasmic reticulum unless complexed with HTR3A.",
-            "integrin_interaction": False
+            "integrin": False
         },
         'composition': ["Q8WXA8", "P46098"]
     },
@@ -46,7 +46,7 @@ complex_entries = [
             "pdb_id": "1kup",
             "stoichiometry": "ITGA2B;ITGB3",
             "comments_complex": "Well known integrin combination",
-            "integrin_interaction": True
+            "integrin": True
 
         },
         'composition':
@@ -70,7 +70,7 @@ complex_entries = [
             "pdb_id": "3ml4",
             "stoichiometry": "DOK7;DOK7;MUSK;MUSK",
             "comments_complex": "MUSK Interacts with LRP4; the heterodimer forms an AGRIN receptor complex that binds AGRIN resulting in activation of MUSK",
-            "integrin_interaction": False,
+            "integrin": False,
         },
         'composition':
             ["O15146", "O00468", "O75096", "Q18PE1"]
@@ -93,7 +93,7 @@ complex_entries = [
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "Membrane-bound IgM molecules are non-covalently associated with heterodimer of CD79A and CD79B",
-            "integrin_interaction": False,
+            "integrin": False,
         },
         'composition':
             ["P11912", "P40259", "P01871"]
@@ -116,7 +116,7 @@ complex_entries = [
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "Serine/threonine kinase heterodimer upon ligand binding",
-            "integrin_interaction": False,
+            "integrin": False,
         },
         'composition':
             ["O00238", "Q13873"]
@@ -139,7 +139,7 @@ complex_entries = [
             "pdb_id": "1onq",
             "stoichiometry": "B2M;CD1A",
             "comments_complex": "Heterodimer with B2M (beta-2-microglobulin).",
-            "integrin_interaction": False,
+            "integrin": False,
         },
         'composition':
             ["P61769", "P06126"]
@@ -162,7 +162,7 @@ complex_entries = [
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": None,
-            "integrin_interaction": False,
+            "integrin": False,
         },
         'composition':
             ["Q16552", "Q96PD4"]
@@ -185,7 +185,7 @@ complex_entries = [
             "pdb_id": None,
             "stoichiometry": None,
             "comments_complex": "NA; the heterodimer binds IL17AF",
-            "integrin_interaction": False,
+            "integrin": False,
         },
         'composition':
             ["Q96F46", "Q8NAC3"]
