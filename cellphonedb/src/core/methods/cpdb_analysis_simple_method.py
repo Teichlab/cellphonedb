@@ -64,7 +64,7 @@ def build_results(interactions: pd.DataFrame,
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
-    interactions_data_result['secreted'] = (interactions['secretion_1'] | interactions['secretion_2'])
+    interactions_data_result['secreted'] = (interactions['secreted_1'] | interactions['secreted_2'])
     interactions_data_result['is_integrin'] = (
             interactions['integrin_interaction_1'] | interactions['integrin_interaction_2'])
 

@@ -19,7 +19,7 @@ class Multidata(Base):
     secreted_highlight = Column(Boolean)
     secreted_desc = Column(String)
     transmembrane = Column(Boolean)
-    secretion = Column(Boolean)
+    secreted = Column(Boolean)
     peripheral = Column(Boolean)
     integrin_interaction = Column(Boolean)
     is_complex = Column(Boolean)

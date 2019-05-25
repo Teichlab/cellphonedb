@@ -17,7 +17,7 @@ def call(interactions: pd.DataFrame()) -> pd.DataFrame():
         lambda interaction: simple_complex_indicator(interaction, '_b'),
         axis=1)
 
-    interactions_filtered['secreted'] = (interactions_filtered['secretion_a'] | interactions_filtered['secretion_b'])
+    interactions_filtered['secreted'] = (interactions_filtered['secreted_a'] | interactions_filtered['secreted_b'])
     interactions_filtered['is_integrin'] = (
             interactions_filtered['integrin_interaction_a'] | interactions_filtered['integrin_interaction_b'])
 

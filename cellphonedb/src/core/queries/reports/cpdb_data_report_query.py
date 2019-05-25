@@ -5,7 +5,7 @@ def call(complex_compositions, interactions, proteins):
         interactions_cpdb['multidata_2_id']).drop_duplicates().tolist()
     protein_id_in_complex = complex_compositions['protein_multidata_id'].drop_duplicates().tolist()
     report['total_proteins'] = len(proteins)
-    secreted_proteins = proteins[proteins['secretion']]
+    secreted_proteins = proteins[proteins['secreted']]
     report['secreted_proteins'] = len(secreted_proteins)
     secreted_proteins_incpdb_interaction = secreted_proteins[
         secreted_proteins['id_protein'].apply(lambda id: id in multidata_id_in_interactions_cpdb)]

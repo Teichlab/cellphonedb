@@ -1,4 +1,4 @@
-uniprot,protein_name,receptor,receptor_desc,adhesion,other,other_desc,transporter,secreted_highlight,secreted_desc,transmembrane,secretion,peripheral,cytoplasm,extracellular,tags,tags_reason,tags_description,integrin_interaction,protein_test_comment
+uniprot,protein_name,receptor,receptor_desc,adhesion,other,other_desc,transporter,secreted_highlight,secreted_desc,transmembrane,secreted,peripheral,cytoplasm,extracellular,tags,tags_reason,tags_description,integrin_interaction,protein_test_comment
 uniprot_1,ACKR3_HUMAN,True,receptor_desc,True,True,other_desc,False,False,,True,False,False,True,False,To_comment,Receptor_add,tags_description,False,
 uniprot_2,ERBB2_HUMAN,True,receptor_desc,False,False,,False,True,,True,False,False,True,False,,,,False,
 uniprot_3,F168B_HUMAN,False,,True,False,,False,False,,True,False,False,True,False,To_comment,Adhesion_add,,False,
