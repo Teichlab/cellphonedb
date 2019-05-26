@@ -45,7 +45,8 @@ class TestCollectionCalls(CellphoneFlaskTestCase):
         db_data = cellphonedb_app.cellphonedb.database_manager.get_repository(name).get_all()
 
         expected_data = pd.read_csv('{}/{}'.format(self.fixtures_dir(), namefile))
-        self.assertEqual(len(db_data), len(expected_data), 'Database collected {} didnt match'.format(name))
+
+        self.assertEqual(len(expected_data), len(db_data), 'Database collected {} didnt match'.format(name))
 
     def collect_data(self, name):
         namefile = 'collect_{}.csv'.format(name)

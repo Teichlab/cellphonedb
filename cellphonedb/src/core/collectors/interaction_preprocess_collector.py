@@ -6,6 +6,7 @@ from cellphonedb.utils import unique_id_generator
 
 def call(interactions: pd.DataFrame, multidatas: pd.DataFrame) -> pd.DataFrame:
     interactions_processed = _set_interactor_property(interactions, multidatas)
+    interactions_processed = interactions_processed[interactions_processed['is_cellphonedb_interactor']]
 
     return interactions_processed
 
