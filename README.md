@@ -74,7 +74,7 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 - `--output-path`: Directory where the results will be allocated (the directory must exist) [out]
 - `--output-format`: Result files output format (extension will be added to filename if not present) [txt]
 - `--means-result-name`: Means result filename [means]
-- `--significant-mean-result-name`: Significant result filename [significant_means]
+- `--significant-means-result-name`: Significant result filename [significant_means]
 - `--deconvoluted-result-name`: Deconvoluted result filename [deconvoluted]
 - `--verbose/--quiet`: Print or hide cellphonedb logs [verbose]
 - `--subsampling`: Enable Cells subsampling
