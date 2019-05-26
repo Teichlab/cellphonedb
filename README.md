@@ -111,6 +111,39 @@ Subsampling
 cellphonedb method analysis yourmetafile.txt yourcountsfile.txt --subsampling --subsampling-log false --subsampling-num-cells 3000
 ```
 
+## Plotting statistical method results
+
+In order to plot results from statistical methods you need to run it first.
+
+Currently there is only one plot type available `dot_plot`
+
+Once you have the needed files (`means` & `pvalues`) you can proceed as follows:
+```shell
+cellphonedb plot dot_plot
+```
+
+You can tweak the options for the plot with these arguments:
+- `--means-path`: Analysis output means [./out/means.txt]
+- `--pvalues-path`: Analysis output pvalues [./out/pvalues.txt]
+- `--output-path`: Path to write generated plot [./out]
+- `--output-name`: Output file with plot [plot.pdf]
+- `--rows`: File with a list of rows to plot, one per line [all available]
+- `--columns`: File with a list of columns to plot, one per line [all available]
+- `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
+
+Available output formats are those supported by `R's ggplot2` package, among others tey are:
+- `pdf`
+- `png`
+- `jpeg`
+
+To plot only desired rows/columns (samples for [rows](in/example_data/rows.txt) and [columns](in/example_data/columns.txt) based in example data files) :
+```shell
+cellphonedb plot dot_plot --rows in/rows.txt --columns in/columns.txt
+```
+
+
+This format will be inferred from the `--output-name` argument
+
 ## Contributing to CellPhoneDB
 
 CellPhoneDB is Open Source project. If you are interesed to contribute to this project, please let us know.

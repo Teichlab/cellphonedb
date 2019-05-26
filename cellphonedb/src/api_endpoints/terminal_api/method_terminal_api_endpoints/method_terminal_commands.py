@@ -3,6 +3,9 @@ import traceback
 from typing import Optional, Any, Callable
 
 import click
+import pandas as pd
+from rpy2 import robjects
+from rpy2.robjects.vectors import StrVector
 from click import Context
 
 from cellphonedb.src.app import cpdb_app
@@ -11,6 +14,7 @@ from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCounts
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.core.utils.subsampler import Subsampler
+from cellphonedb.src.exceptions.MissingPlotterFunctoinException import MissingPlotterFunctionException
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException

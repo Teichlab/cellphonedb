@@ -71,7 +71,4 @@ def _get_separator(mime_type_or_extension: str) -> str:
     }
     default_separator = ','
 
-    if mime_type_or_extension.lower() in extensions:
-        return extensions[mime_type_or_extension.lower()]
-
-    return default_separator
+    return extensions.get(mime_type_or_extension.lower(), default_separator)
