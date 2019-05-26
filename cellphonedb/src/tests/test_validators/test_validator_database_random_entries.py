@@ -471,6 +471,7 @@ gene_entries = [
 ]
 interaction_entries = [
     {
+        "id_cp_interaction": "CPI-CS0A66DB1CA",
         "name_1": "CD8 receptor",
         "name_2": "P06239",
         "comments_interaction": "1q69, PDB partially",
@@ -478,28 +479,7 @@ interaction_entries = [
         "iuphar": False
     },
     {
-        "name_1": "P25106",
-        "name_2": "P25705",
-        "comments_interaction": None,
-        "source": "IntAct",
-        "iuphar": False
-
-    },
-    {
-        "name_1": "P01023",
-        "name_2": "P25705",
-        "comments_interaction": None,
-        "source": "MINT",
-        "iuphar": False
-    },
-    {
-        "name_1": "Q05397",
-        "name_2": "P12931",
-        "comments_interaction": None,
-        "source": "MolCon",
-        "iuphar": False
-    },
-    {
+        "id_cp_interaction": "CPI-SS0322F3EA0",
         "name_1": "Q03167",
         "name_2": "P01137",
         "comments_interaction": "uniprot",
@@ -507,6 +487,7 @@ interaction_entries = [
         "iuphar": False
     },
     {
+        "id_cp_interaction": "CPI-SS0605AC9BF",
         "name_1": "Q99731",
         "name_2": "O00421",
         "comments_interaction": None,
@@ -514,6 +495,7 @@ interaction_entries = [
         "iuphar": True
     },
     {
+        "id_cp_interaction": "CPI-SS03165AD8C",
         "name_1": "O00590",
         "name_2": "P13500",
         "comments_interaction": "PMID: 24218476",
@@ -521,12 +503,27 @@ interaction_entries = [
         "iuphar": False
     },
     {
+        "id_cp_interaction": "CPI-SS005572B52",
         "name_1": "P49767",
         "name_2": "P35916",
         "comments_interaction": "uniprot",
         "source": "curated",
         "iuphar": True
     },
+    {
+        "id_cp_interaction": "CPI-SS0AEED3EB0",
+        "name_1": "Q9HC23",
+        "name_2": "Q8NFJ6",
+        "source": "guidetopharmacology.org",
+        "comments_interaction": None
+    },
+    {
+        "id_cp_interaction": "CPI-SS0B1B18F2D",
+        "name_1": "P48061",
+        "name_2": "P27487",
+        "source": "curated",
+        "comments_interaction": "PMID: 24218476"
+    }
 ]
 
 
