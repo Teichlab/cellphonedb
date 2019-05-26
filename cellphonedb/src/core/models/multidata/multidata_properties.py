@@ -3,8 +3,7 @@ import pandas as pd
 
 def can_be_receptor(multidata: pd.Series, suffix: str = '') -> bool:
     if multidata['receptor{}'.format(suffix)] and \
-            not multidata['other{}'.format(suffix)] and \
-            not multidata['transporter{}'.format(suffix)]:
+            not multidata['other{}'.format(suffix)]:
         return True
     return False
 
