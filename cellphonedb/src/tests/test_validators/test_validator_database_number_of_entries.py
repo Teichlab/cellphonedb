@@ -58,10 +58,11 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
         self.assertEqual(1144, len(interactions[interactions['is_cellphonedb_interactor']]),
                          'number of cellphonedb interaction interactors different that expected')
 
-    def test_interaction_iuphar(self):
+    def test_interaction_guidetopharmacology(self):
         interactions = cellphonedb_app.cellphonedb.database_manager.get_repository(
             'interaction').get_all()
-        self.assertEqual(245, len(interactions[interactions['iuphar']]))
+        self.assertEqual(150, len(interactions[interactions['source'] == 'guidetopharmacology.org']),
+                         'Number of source=guidetopharmacology.org (iphar) entries is different')
 
     def test_complex_composition(self):
         complex_compositions = cellphonedb_app.cellphonedb.database_manager.get_repository(

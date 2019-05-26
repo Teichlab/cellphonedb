@@ -476,7 +476,6 @@ interaction_entries = [
         "name_2": "P06239",
         "comments_interaction": "1q69, PDB partially",
         "source": "curated",
-        "iuphar": False
     },
     {
         "id_cp_interaction": "CPI-SS0322F3EA0",
@@ -484,7 +483,6 @@ interaction_entries = [
         "name_2": "P01137",
         "comments_interaction": "uniprot",
         "source": "curated",
-        "iuphar": False
     },
     {
         "id_cp_interaction": "CPI-SS0605AC9BF",
@@ -492,7 +490,6 @@ interaction_entries = [
         "name_2": "O00421",
         "comments_interaction": None,
         "source": "guidetopharmacology.org",
-        "iuphar": True
     },
     {
         "id_cp_interaction": "CPI-SS03165AD8C",
@@ -500,7 +497,6 @@ interaction_entries = [
         "name_2": "P13500",
         "comments_interaction": "PMID: 24218476",
         "source": "curated",
-        "iuphar": False
     },
     {
         "id_cp_interaction": "CPI-SS005572B52",
@@ -508,7 +504,6 @@ interaction_entries = [
         "name_2": "P35916",
         "comments_interaction": "uniprot",
         "source": "curated",
-        "iuphar": True
     },
     {
         "id_cp_interaction": "CPI-SS0AEED3EB0",
