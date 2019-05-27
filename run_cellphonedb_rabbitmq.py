@@ -87,8 +87,8 @@ def process_job(method, properties, body) -> dict:
 
     subsampler = Subsampler(bool(metadata['log']),
                             int(metadata['num_pc']),
-                            int(metadata['num_cells']) if metadata['num_cells'] else None
-                            ) if metadata['subsampling'] else None
+                            int(metadata['num_cells']) if metadata.get('num_cells', False) else None
+                            ) if metadata.get('subsampling', False) else None
 
     if metadata['iterations']:
         response = statistical_analysis(meta, counts, job_id, metadata, subsampler)
@@ -99,7 +99,7 @@ def process_job(method, properties, body) -> dict:
 
 
 def statistical_analysis(meta, counts, job_id, metadata, subsampler):
-    pvalues, means, significant_means, means_pvalues, deconvoluted = \
+    pvalues, means, significant_means, deconvoluted = \
         app.method.cpdb_statistical_analysis_launcher(meta,
                                                       counts,
                                                       threshold=float(metadata['threshold']),
@@ -107,7 +107,7 @@ def statistical_analysis(meta, counts, job_id, metadata, subsampler):
                                                       debug_seed=-1,
                                                       threads=4,
                                                       result_precision=int(metadata['result_precision']),
-                                                      pvalue=float(metadata['pvalue']),
+                                                      pvalue=float(metadata.get('pvalue', 0.05)),
                                                       subsampler=subsampler,
                                                       )
     response = {
@@ -116,7 +116,6 @@ def statistical_analysis(meta, counts, job_id, metadata, subsampler):
             'pvalues': 'pvalues_simple_{}.txt'.format(job_id),
             'means': 'means_simple_{}.txt'.format(job_id),
             'significant_means': 'significant_means_simple_{}.txt'.format(job_id),
-            'means_pvalues': 'means_pvalues_simple_{}.txt'.format(job_id),
             'deconvoluted': 'deconvoluted_simple_{}.txt'.format(job_id),
         },
         'success': True
@@ -124,7 +123,6 @@ def statistical_analysis(meta, counts, job_id, metadata, subsampler):
     write_data_in_s3(pvalues, response['files']['pvalues'])
     write_data_in_s3(means, response['files']['means'])
     write_data_in_s3(significant_means, response['files']['significant_means'])
-    write_data_in_s3(means_pvalues, response['files']['means_pvalues'])
     write_data_in_s3(deconvoluted, response['files']['deconvoluted'])
     return response
 
