@@ -15,6 +15,7 @@ from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iup
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
 from cellphonedb.tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
 from cellphonedb.utils import utils
+from cellphonedb.utils.utils import _get_separator
 
 
 @click.command()
@@ -118,21 +119,16 @@ def generate_interactions(
 
 
 @click.command()
-@click.option('--curated-proteins', type=click.File('r'), default=None)
-@click.option('--from-uniprot', is_flag=True)
-@click.option('--additional-proteins', type=click.File('rb'), default=None)
+@click.option('--user-protein', type=click.File('r'), default=None)
+@click.option('--fetch-uniprot', is_flag=True)
 @click.option('--result-path', type=str, default=None)
-@click.option('--log-file', type=click.File('w'), default='./log.txt')
-def recreate_proteins(curated_proteins: Optional[click.File],
-                      from_uniprot: bool,
-                      additional_proteins: Optional[click.File],
+@click.option('--log-file', type=click.File('wt'), default='./log.txt')
+def generate_proteins(user_protein: Optional[click.File],
+                      fetch_uniprot: bool,
                       result_path: str,
                       log_file: click.File):
-    if not (from_uniprot or additional_proteins):
-        raise click.BadArgumentUsage('You must choose whether to add from uniprot or from your custom protein file')
-
     # additional data comes from given file or uniprot remote url
-    if from_uniprot:
+    if fetch_uniprot:
         source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
                      '&columns=id,entry%20name,reviewed,protein%20names,genes,organism,length' \
                      '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
@@ -141,18 +137,18 @@ def recreate_proteins(curated_proteins: Optional[click.File],
         additional_df = pd.read_csv(source_url, sep='\t', compression='gzip')
         print('read remote uniprot file')
     else:
-        if os.path.splitext(additional_proteins.name)[-1] == '.gz':
-            additional_df = pd.read_csv(additional_proteins, sep='\t', compression='gzip')
-        else:
-            additional_df = pd.read_csv(additional_proteins, sep='\t')
-        print('read local additional file')
+        additional_df = pd.read_csv(os.path.join(data_dir, 'sources/uniprot.tab'), sep='\t')
+        print('read remote uniprot file')
 
-    if curated_proteins:
-        curated_df: pd.DataFrame = pd.read_csv(curated_proteins)
-    else:
-        curated_df: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'protein_curated.csv'))
+    curated_df: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
 
     result = merge_proteins(curated_df, additional_df, log_file)
+
+    if user_protein:
+        separator = _get_separator(os.path.splitext(user_protein.name)[-1])
+        user_df: pd.DataFrame = pd.read_csv(user_protein, sep=separator)
+
+        result = merge_proteins(user_df, result, log_file)
 
     output_path = _set_paths(output_dir, result_path)
     result.to_csv('{}/{}'.format(output_path, 'protein.csv'), index=False)
@@ -160,18 +156,20 @@ def recreate_proteins(curated_proteins: Optional[click.File],
 
 def merge_proteins(curated_df,
                    additional_df: pd.DataFrame,
-                   log_file: Union[click.File, IO, None]):
+                   log_file: Union[click.File, IO, None]) -> pd.DataFrame:
+    additional_df = additional_df.copy()
+
     defaults = {
         'receptor': False,
-        'integrin_interaction': None,
+        'integrin_interaction': False,
         'other': False,
         'other_desc': None,
-        'peripheral': None,
+        'peripheral': False,
         'receptor_desc': None,
         'secreted_desc': None,
         'secreted_highlight': False,
-        'secretion': None,
-        'transmembrane': None,
+        'secretion': False,
+        'transmembrane': False,
         'pdb_structure': False,
         'pdb_id': None,
         'stoichiometry': None,
@@ -192,12 +190,7 @@ def merge_proteins(curated_df,
 
     # we will only use these columns
     additional_df: pd.DataFrame = additional_df[used_cols]
-
-    # We add missing uniprot columns to enable to concatenation
-    for column in curated_df:
-        if column not in additional_df:
-            print('column {} not present in uniprot, adding it'.format(column))
-            additional_df[column] = None
+    curated_df: pd.DataFrame = curated_df[used_cols]
 
     # type casting to ensure they are equal
     for column in additional_df:
@@ -210,40 +203,28 @@ def merge_proteins(curated_df,
     additional_is_in_curated = additional_df['uniprot'].isin(curated_df['uniprot'])
     curated_is_in_additional = curated_df['uniprot'].isin(additional_df['uniprot'])
 
-    common_additional = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
+    common_additional: pd.DataFrame = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
     common_curated = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
 
-    common_additional = common_additional.sort_values(by='uniprot').reset_index()
-    common_curated = common_curated.sort_values(by='uniprot').reset_index()
+    common_additional = common_additional.sort_values(by='uniprot')
+    common_curated = common_curated.sort_values(by='uniprot')
 
     distinct_uniprots = additional_df[~additional_is_in_curated]
     result: pd.DataFrame = pd.concat([common_curated, distinct_uniprots], ignore_index=True, sort=True)
 
-    warned = False
-    # Now we check for differences uin both files
-    for idx, from_curated in common_curated.iterrows():
-        uniprot = from_curated['uniprot']
+    common_curated['file'] = 'curated'
+    common_additional['file'] = 'additional'
 
-        from_additional: pd.Series = common_additional[common_additional['uniprot'] == uniprot].iloc[0].drop('index')
-        from_curated = from_curated.drop('index')
+    merged = common_curated.append(common_additional).sort_values(by=used_cols)
+    merged.to_csv(log_file, index=False, sep='\t')
 
-        if from_curated.equals(from_additional):
-            continue
-
-        if not warned:
-            app_logger.warning(
-                'There are some missmatches between both files, they are being logged to {}'.format(log_file.name))
-            warned = True
-
-        print('missmatch in {} protein:\n\tuniprot: {}\n\tcurated: {}'.format(uniprot, from_curated.to_dict(),
-                                                                              from_additional.to_dict()), file=log_file)
     return result
 
 
 def set_defaults(df, defaults):
     for column_name, default_value in defaults.items():
         if column_name not in df:
-            print('missing column in uniprot: {}, set to default {}'.format(column_name, default_value))
+            print('missing column in dataframe: {}, set to default {}'.format(column_name, default_value))
             df[column_name] = default_value
             continue
 
