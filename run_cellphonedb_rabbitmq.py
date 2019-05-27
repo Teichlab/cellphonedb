@@ -4,6 +4,7 @@ import io
 import json
 import os
 import sys
+import tempfile
 import time
 import traceback
 
@@ -20,6 +21,7 @@ from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.plotters.r_plotter import plot
 from cellphonedb.utils import utils
 
 try:
@@ -78,6 +80,28 @@ def write_data_in_s3(data: pd.DataFrame, filename: str):
     s3_client.put_object(Body=encoding.getvalue().encode('utf-8'), Bucket=s3_bucket_name, Key=filename)
 
 
+def plot_results(means, pvalues, rows, columns, job_id) -> dict:
+    means_fd, means_path = tempfile.mkstemp()
+    with open(means_fd, 'wb+') as means_file:
+        print(means_path, means_fd)
+        s3_means = s3_client.get_object(Bucket=s3_bucket_name, Key=means)
+        print(s3_means)
+        means_file.write(s3_means['Body'].read())
+
+        pvalues_fd, pvalues_path = tempfile.mkstemp()
+        with open(pvalues_fd, 'wb+') as pvalues_file:
+            s3_pvalues = s3_client.get_object(Bucket=s3_bucket_name, Key=pvalues)
+            pvalues_file.write(s3_pvalues['Body'].read())
+
+            plot(means_path=means_path,
+                 pvalues_path=pvalues_path,
+                 output_path='./',
+                 output_name='plot_xxx.png',
+                 rows=None,
+                 columns=None,
+                 plot_function='dot_plot')
+
+
 def process_job(method, properties, body) -> dict:
     metadata = json.loads(body.decode('utf-8'))
     job_id = metadata['job_id']
@@ -90,8 +114,18 @@ def process_job(method, properties, body) -> dict:
                             int(metadata['num_cells']) if metadata.get('num_cells', False) else None
                             ) if metadata.get('subsampling', False) else None
 
+    print(metadata)
+
     if metadata['iterations']:
         response = statistical_analysis(meta, counts, job_id, metadata, subsampler)
+        if metadata.get('plot', True) and response['success']:
+            print('about to plot')
+            plot_result = plot_results(response['files']['means'],
+                                       response['files']['pvalues'],
+                                       metadata.get('rows', None),
+                                       metadata.get('columns', None),
+                                       metadata['job_id'],
+                                       )
     else:
         response = non_statistical_analysis(meta, counts, job_id, metadata, subsampler)
 
