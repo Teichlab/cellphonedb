@@ -107,7 +107,7 @@ def statistical_analysis(meta, counts, job_id, metadata, subsampler):
                                                       debug_seed=-1,
                                                       threads=4,
                                                       result_precision=int(metadata['result_precision']),
-                                                      min_significant_mean=float(metadata['pvalue']),
+                                                      pvalue=float(metadata['pvalue']),
                                                       subsampler=subsampler,
                                                       )
     response = {

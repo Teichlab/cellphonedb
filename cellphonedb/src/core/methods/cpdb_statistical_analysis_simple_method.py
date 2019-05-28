@@ -8,7 +8,7 @@ from cellphonedb.src.core.models.interaction import interaction_filter
 def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
          interactions: pd.DataFrame,
-         min_significant_mean: float,
+         pvalue: float,
          separator: str,
          iterations: int = 1000,
          threshold: float = 0.1,
@@ -79,7 +79,7 @@ def call(meta: pd.DataFrame,
         result_percent,
         clusters['means'],
         result_precision,
-        min_significant_mean,
+        pvalue,
     )
 
     return pvalues_result, means_result, significant_means, deconvoluted_result
@@ -90,7 +90,7 @@ def build_results(interactions: pd.DataFrame,
                   result_percent: pd.DataFrame,
                   clusters_means: dict,
                   result_precision: int,
-                  min_significant_mean: float,
+                  pvalue: float,
                   ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info('Building Simple results')
     interacting_pair = cpdb_statistical_analysis_helper.interacting_pair_build(interactions)
@@ -100,9 +100,9 @@ def build_results(interactions: pd.DataFrame,
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
-    interactions_data_result['secreted'] = (interactions['secretion_1'] | interactions['secretion_2'])
+    interactions_data_result['secreted'] = (interactions['secreted_1'] | interactions['secreted_2'])
     interactions_data_result['is_integrin'] = (
-            interactions['integrin_interaction_1'] | interactions['integrin_interaction_2'])
+            interactions['integrin_1'] | interactions['integrin_2'])
 
     interactions_data_result.rename(
         columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
@@ -114,7 +114,7 @@ def build_results(interactions: pd.DataFrame,
         lambda name: 'simple:{}'.format(name))
 
     significant_mean_rank, significant_means = cpdb_statistical_analysis_helper.build_significant_means(
-        real_mean_analysis, result_percent, min_significant_mean)
+        real_mean_analysis, result_percent, pvalue)
 
     result_percent = result_percent.round(result_precision)
     real_mean_analysis = real_mean_analysis.round(result_precision)
@@ -142,13 +142,13 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) 
     deconvoluted_result_1 = pd.DataFrame()
     deconvoluted_result_2 = pd.DataFrame()
     deconvoluted_result_1[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
+        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
         interactions[
-            ['ensembl_1', 'entry_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_cp_interaction']]
+            ['ensembl_1', 'protein_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_cp_interaction']]
     deconvoluted_result_2[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
+        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
         interactions[
-            ['ensembl_2', 'entry_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_cp_interaction']]
+            ['ensembl_2', 'protein_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_cp_interaction']]
 
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
 

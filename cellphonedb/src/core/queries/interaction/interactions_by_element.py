@@ -48,8 +48,8 @@ def _find_interactions_by_elements(elements: list, interactions: pd.DataFrame,
                                             (interactions['name_b'] == element) |
                                             (interactions['gene_name_a'] == element) |
                                             (interactions['gene_name_b'] == element) |
-                                            (interactions['entry_name_a'] == element) |
-                                            (interactions['entry_name_b'] == element) |
+                                            (interactions['protein_name_a'] == element) |
+                                            (interactions['protein_name_b'] == element) |
                                             (interactions['ensembl_a'] == element) |
                                             (interactions['ensembl_b'] == element)].copy()
 
@@ -68,7 +68,7 @@ def _find_complex_by_element(element: str, complex_composition: pd.DataFrame) ->
     complexes_filtered = complex_composition[
         (complex_composition['name_protein'] == element) |
         (complex_composition['gene_name_protein'] == element) |
-        (complex_composition['entry_name_protein'] == element) |
+        (complex_composition['protein_name_protein'] == element) |
         (complex_composition['ensembl_protein'] == element)]
 
     return complexes_filtered['name_complex'].drop_duplicates().tolist()

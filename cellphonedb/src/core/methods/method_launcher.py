@@ -34,7 +34,7 @@ class MethodLauncher():
                                            threads: int,
                                            debug_seed: int,
                                            result_precision: int,
-                                           min_significant_mean: float,
+                                           pvalue: float,
                                            subsampler: Subsampler = None,
                                            ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
@@ -70,7 +70,7 @@ class MethodLauncher():
                                                   threads,
                                                   debug_seed,
                                                   result_precision,
-                                                  min_significant_mean,
+                                                  pvalue,
                                                   self.separator)
 
         return pvalues, means, significant_means, deconvoluted

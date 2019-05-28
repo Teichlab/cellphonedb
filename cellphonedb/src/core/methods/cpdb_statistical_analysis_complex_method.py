@@ -13,7 +13,7 @@ def call(meta: pd.DataFrame,
          genes: pd.DataFrame,
          complexes: pd.DataFrame,
          complex_compositions: pd.DataFrame,
-         min_significant_mean: float,
+         pvalue: float,
          separator: str,
          iterations: int = 1000,
          threshold: float = 0.1,
@@ -91,7 +91,7 @@ def call(meta: pd.DataFrame,
         counts,
         genes,
         result_precision,
-        min_significant_mean,
+        pvalue,
     )
     return pvalues_result, means_result, significant_means, deconvoluted_result
 
@@ -104,7 +104,7 @@ def build_results(interactions: pd.DataFrame,
                   counts: pd.DataFrame,
                   genes: pd.DataFrame,
                   result_precision: int,
-                  min_significant_mean: float,
+                  pvalue: float,
                   ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
     """
     Sets the results data structure from method generated data. Results documents are defined by specs.
@@ -134,16 +134,16 @@ def build_results(interactions: pd.DataFrame,
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
-    interactions_data_result['secreted'] = (interactions['secretion_1'] | interactions['secretion_2'])
+    interactions_data_result['secreted'] = (interactions['secreted_1'] | interactions['secreted_2'])
     interactions_data_result['is_integrin'] = (
-            interactions['integrin_interaction_1'] | interactions['integrin_interaction_2'])
+            interactions['integrin_1'] | interactions['integrin_2'])
 
     interactions_data_result.rename(
         columns={'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
         inplace=True)
 
     significant_mean_rank, significant_means = cpdb_statistical_analysis_helper.build_significant_means(
-        real_mean_analysis, result_percent, min_significant_mean)
+        real_mean_analysis, result_percent, pvalue)
 
     result_percent = result_percent.round(result_precision)
     real_mean_analysis = real_mean_analysis.round(result_precision)
@@ -206,9 +206,9 @@ def deconvolute_interaction_component(interactions, suffix):
     interactions = interactions[~interactions['is_complex{}'.format(suffix)]]
     deconvoluted_result = pd.DataFrame()
     deconvoluted_result[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
+        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
         interactions[
-            ['ensembl{}'.format(suffix), 'entry_name{}'.format(suffix), 'gene_name{}'.format(suffix),
+            ['ensembl{}'.format(suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
              'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction']]
 
     return deconvoluted_result
@@ -218,10 +218,10 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvoluted_result = pd.DataFrame()
     component = pd.DataFrame()
     component[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction',
+        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction',
          'id_multidata']] = \
         interactions[
-            ['ensembl{}'.format(suffix), 'entry_name{}'.format(suffix), 'gene_name{}'.format(suffix),
+            ['ensembl{}'.format(suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
              'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction',
              'id_multidata{}'.format(suffix)]]
 
@@ -230,8 +230,8 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvolution_complex = pd.merge(deconvolution_complex, genes_filtered, left_on='protein_multidata_id',
                                      right_on='protein_multidata_id', suffixes=['_complex', '_simple'])
     deconvoluted_result[
-        ['ensembl', 'entry_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'id_cp_interaction']] = \
-        deconvolution_complex[['ensembl_simple', 'entry_name_simple', 'gene_name_simple', 'name_simple',
+        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'id_cp_interaction']] = \
+        deconvolution_complex[['ensembl_simple', 'protein_name_simple', 'gene_name_simple', 'name_simple',
                                'is_complex_complex', 'name_complex', 'id_cp_interaction']]
 
     return deconvoluted_result

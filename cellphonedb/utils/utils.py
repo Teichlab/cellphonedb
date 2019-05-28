@@ -1,16 +1,31 @@
 import io
 import os
+import pickle
 from typing import TextIO
 
 import pandas as pd
 from werkzeug.datastructures import FileStorage
 
+from cellphonedb.src.exceptions.NotADataFrameException import NotADataFrameException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
+from cellphonedb.src.exceptions.ReadFromPickleException import ReadFromPickleException
 
 
 def read_data_table_from_file(file: str, index_column_first: bool = False, separator: str = '',
                               dtype=None, na_values=None, compression=None) -> pd.DataFrame:
     filename, file_extension = os.path.splitext(file)
+
+    if file_extension == '.pickle':
+        try:
+            with open(file, 'rb') as f:
+                df = pickle.load(f)
+                if isinstance(df, pd.DataFrame):
+                    return df
+                else:
+                    raise NotADataFrameException(file)
+        except:
+            raise ReadFromPickleException(file)
+
     if not separator:
         separator = _get_separator(file_extension)
     try:
@@ -56,7 +71,4 @@ def _get_separator(mime_type_or_extension: str) -> str:
     }
     default_separator = ','
 
-    if mime_type_or_extension.lower() in extensions:
-        return extensions[mime_type_or_extension.lower()]
-
-    return default_separator
+    return extensions.get(mime_type_or_extension.lower(), default_separator)

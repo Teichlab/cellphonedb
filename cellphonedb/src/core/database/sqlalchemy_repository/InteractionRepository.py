@@ -58,7 +58,7 @@ class InteractionRepository(Repository):
         return interactions
 
     def add(self, interactions):
-        interaction_df = self.blend_dataframes(interactions, ['multidata_name_1', 'multidata_name_2'],
+        interaction_df = self.blend_dataframes(interactions, ['partner_a', 'partner_b'],
                                                self.database_manager.get_repository('multidata').get_all_name_id(),
                                                'name', 'multidata')
 

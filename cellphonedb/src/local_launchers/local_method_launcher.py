@@ -36,7 +36,7 @@ class LocalMethodLauncher(object):
                                                         debug_seed: int = -1,
                                                         threads: int = -1,
                                                         result_precision: int = 3,
-                                                        min_significant_mean: float = 0.05,
+                                                        pvalue: float = 0.05,
                                                         subsampler: Subsampler = None,
                                                         ) -> None:
         output_path = self._set_paths(output_path, project_name)
@@ -58,7 +58,7 @@ class LocalMethodLauncher(object):
                 threads,
                 debug_seed,
                 result_precision,
-                min_significant_mean,
+                pvalue,
                 subsampler
             )
 

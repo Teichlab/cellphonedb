@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 
 from cellphonedb.src.core.database.sqlalchemy_models import Base
 
@@ -15,7 +15,5 @@ class Interaction(Base):
 
     source = Column(String)
     comments_interaction = Column(String)
-    family = Column(String)
-    iuphar = Column(Boolean)
 
     is_cellphonedb_interactor = Column(Boolean)

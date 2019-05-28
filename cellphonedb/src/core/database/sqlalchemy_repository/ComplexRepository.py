@@ -115,7 +115,6 @@ class ComplexRepository(Repository):
         proteins = {p[0]: p[1] for p in proteins}
         # Read in complexes
         complexes.dropna(axis=1, inplace=True, how='all')
-        complexes.rename(index=str, columns={'complex_name': 'name'}, inplace=True)
 
         # Get complex composition info
         complete_indices = []
@@ -160,7 +159,7 @@ class ComplexRepository(Repository):
             complexes = complexes.iloc[complete_indices, :]
 
             # Convert ints to bool
-            bools = ['receptor', 'adhesion', 'other', 'transporter', 'secreted_highlight', 'transmembrane', 'secretion',
+            bools = ['receptor', 'other', 'transporter', 'secreted_highlight', 'transmembrane', 'secreted',
                      'peripheral']
             complexes[bools] = complexes[bools].astype(bool)
 
