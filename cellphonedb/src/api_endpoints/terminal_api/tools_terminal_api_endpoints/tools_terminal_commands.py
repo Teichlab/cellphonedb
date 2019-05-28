@@ -122,11 +122,11 @@ def generate_interactions(
 @click.option('--user-protein', type=click.File('r'), default=None)
 @click.option('--fetch-uniprot', is_flag=True)
 @click.option('--result-path', type=str, default=None)
-@click.option('--log-file', type=click.File('wt'), default='./log.txt')
+@click.option('--log-file', type=str, default='log.txt')
 def generate_proteins(user_protein: Optional[click.File],
                       fetch_uniprot: bool,
                       result_path: str,
-                      log_file: click.File):
+                      log_file: str):
     # additional data comes from given file or uniprot remote url
     if fetch_uniprot:
         source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
@@ -142,21 +142,22 @@ def generate_proteins(user_protein: Optional[click.File],
 
     curated_df: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
 
-    result = merge_proteins(curated_df, additional_df, log_file)
+    output_path = _set_paths(output_dir, result_path)
+    log_path = '{}/{}'.format(output_path, log_file)
+    result = merge_proteins(curated_df, additional_df, log_path)
 
     if user_protein:
         separator = _get_separator(os.path.splitext(user_protein.name)[-1])
         user_df: pd.DataFrame = pd.read_csv(user_protein, sep=separator)
 
-        result = merge_proteins(user_df, result, log_file)
+        result = merge_proteins(user_df, result, log_path)
 
-    output_path = _set_paths(output_dir, result_path)
     result.to_csv('{}/{}'.format(output_path, 'protein.csv'), index=False)
 
 
 def merge_proteins(curated_df,
                    additional_df: pd.DataFrame,
-                   log_file: Union[click.File, IO, None]) -> pd.DataFrame:
+                   log_file: str) -> pd.DataFrame:
     additional_df = additional_df.copy()
 
     defaults = {
