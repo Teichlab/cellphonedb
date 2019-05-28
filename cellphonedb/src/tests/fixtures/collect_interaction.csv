@@ -1,6 +1,2 @@
 comments_interaction,partner_a,partner_b,source
-comment_1,uniprot_1,uniprot_2,something_1
-comment_2,uniprot_1,complex_1,something_2
-comment_3,uniprot_3,uniprot_3,something_3
 comment_4,complex_2,complex_3,curated
-comment_5,uniprot_4,uniprot_5,something_5

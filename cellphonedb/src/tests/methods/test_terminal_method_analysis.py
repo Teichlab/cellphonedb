@@ -39,10 +39,15 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
 
     def _method_call(self, data: str, project_name: str, threshold: float, result_precision: int,
                      subsampler: Optional[Subsampler] = None):
-        result_means_filename = self._get_result_filename('means', data, threshold, result_precision)
-        result_significant_means_filename = self._get_result_filename('significant_means', data, threshold,
-                                                                      result_precision)
-        result_deconvoluted_filename = self._get_result_filename('deconvoluted', data, threshold, result_precision)
+        result_names_as_fixture = False
+        if result_names_as_fixture:
+            result_deconvoluted_filename, result_means_filename, result_significant_means_filename = self._original_names(
+                data, result_precision, threshold)
+        else:
+            result_means_filename = self._get_result_filename('means', data, threshold, result_precision)
+            result_significant_means_filename = self._get_result_filename('significant_means', data, threshold,
+                                                                          result_precision)
+            result_deconvoluted_filename = self._get_result_filename('deconvoluted', data, threshold, result_precision)
 
         meta_filename = os.path.realpath('{}/hi_{}_meta.txt'.format(data_test_dir, data))
         counts_filename = os.path.realpath('{}/hi_{}_counts.txt'.format(data_test_dir, data))
@@ -65,6 +70,25 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
                             result_precision)
         self._assert_result('deconvoluted', data, project_name, result_deconvoluted_filename, threshold,
                             result_precision)
+
+    def _original_names(self, data, result_precision, threshold):
+        str_threshold = ''.join(str(threshold).split('.'))
+
+        result_means_filename = 'analysis__{}_result__data-{}_threshold-{}_precision-{}.txt'.format('means',
+                                                                                                    data,
+                                                                                                    str_threshold,
+                                                                                                    result_precision)
+        result_significant_means_filename = 'analysis__{}_result__data-{}_threshold-{}_precision-{}.txt'.format(
+            'significant_means',
+            data,
+            str_threshold,
+            result_precision)
+        result_deconvoluted_filename = 'analysis__{}_result__data-{}_threshold-{}_precision-{}.txt'.format(
+            'deconvoluted',
+            data,
+            str_threshold,
+            result_precision)
+        return result_deconvoluted_filename, result_means_filename, result_significant_means_filename
 
     def _assert_result(self,
                        namefile: str,
