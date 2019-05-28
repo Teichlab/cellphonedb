@@ -1,5 +1,5 @@
 import os
-from typing import Optional
+from typing import Optional, List
 
 import click
 import pandas as pd
@@ -7,7 +7,6 @@ import pandas as pd
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir, data_dir
 from cellphonedb.src.exceptions.MissingRequiredColumns import MissingRequiredColumns
-from cellphonedb.tools.actions import gene_actions
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
 from cellphonedb.tools.generate_data.getters import get_iuphar_guidetopharmacology
@@ -16,51 +15,77 @@ from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iup
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
 from cellphonedb.tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
 from cellphonedb.utils import utils
-from cellphonedb.utils.utils import _get_separator
+from cellphonedb.utils.utils import _get_separator, read_data_table_from_file
 
 
 @click.command()
-@click.argument('uniprot_db_filename')
-@click.argument('ensembl_db_filename')
-@click.argument('proteins_filename')
-@click.argument('remove_genes_filename')
-@click.argument('hla_genes_filename')
-@click.option('--result_filename', default='gene.csv')
-@click.option('--result_path', default='')
-@click.option('--gene_uniprot_ensembl_merged_result_filename', default='gene_uniprot_ensembl_merged.csv')
-@click.option('--add_hla_result_filename', default='gene_hla_added.csv')
-def generate_genes(
-        uniprot_db_filename: str,
-        ensembl_db_filename: str,
-        proteins_filename: str,
-        remove_genes_filename: str,
-        hla_genes_filename: str,
-        result_filename: str,
-        result_path: str,
-        gene_uniprot_ensembl_merged_result_filename: str,
-        add_hla_result_filename: str) -> None:
+@click.option('--user-gene', type=click.File('r'), default=None)
+@click.option('--result-path', type=str, default=None)
+@click.option('--log-file', type=str, default='log.txt')
+def generate_genes(user_gene: Optional[click.File], result_path: str, log_file: str) -> None:
     output_path = _set_paths(output_dir, result_path)
+    log_path = '{}/{}'.format(output_path, log_file)
 
-    def prefix_output_path(filename: str) -> str:
-        return '{}/{}'.format(output_path, filename)
+    ensembl_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
+    uniprot_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
 
-    gene_actions.generate_genes_from_uniprot_ensembl_db(uniprot_db_filename,
-                                                        ensembl_db_filename,
-                                                        proteins_filename,
-                                                        prefix_output_path(gene_uniprot_ensembl_merged_result_filename)
-                                                        )
+    ensembl_columns = {'Gene name': 'gene_name',
+                       'Gene stable ID': 'ensembl',
+                       'HGNC symbol': 'hgnc_symbol',
+                       'UniProtKB/Swiss-Prot ID': 'uniprot'
+                       }
 
-    gene_actions.add_hla_genes(prefix_output_path(gene_uniprot_ensembl_merged_result_filename),
-                               hla_genes_filename,
-                               prefix_output_path(add_hla_result_filename),
-                               )
+    uniprot_columns = {'Entry': 'uniprot',
+                       'Gene names': 'gene_names'
+                       }
 
-    gene_actions.remove_genes_in_file(prefix_output_path(add_hla_result_filename),
-                                      remove_genes_filename,
-                                      prefix_output_path(result_filename),
-                                      )
+    ensembl_df = ensembl_df[list(ensembl_columns.keys())].rename(columns=ensembl_columns)
+    uniprot_df = uniprot_df[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
+    used_columns = list(ensembl_columns.values())
 
-    gene_actions.validate_gene_list(prefix_output_path(result_filename))
+    def deconvolute(df: pd.DataFrame) -> pd.DataFrame:
+        cols = list(uniprot_columns.values())
+
+        rename_map = {0: 'gene_name'}
+        significant_columns = df[cols]
+        expanded: pd.DataFrame = significant_columns['gene_names'].str.split(' ').apply(pd.Series)
+        expanded.index = significant_columns.set_index(cols).index
+
+        return expanded.stack().reset_index(cols).reset_index(drop=True).rename(columns=rename_map).drop(
+            columns='gene_names')
+
+    expanded_uniprot_df: pd.DataFrame = deconvolute(uniprot_df)
+
+    # to be replaced with new logging merge technique?
+    with_uniprot: pd.DataFrame = pd.merge(expanded_uniprot_df, ensembl_df, on='gene_name', suffixes=['', '_ensembl'])
+
+    # todo: log this duped list
+    duped = with_uniprot[with_uniprot['uniprot'] != with_uniprot['uniprot_ensembl']]
+
+    # We retain only desired columns & remove duplicates
+    with_uniprot = with_uniprot[used_columns].drop_duplicates()
+
+    # Now we remove hla genes
+    non_hla = with_uniprot[~with_uniprot['gene_name'].str.contains('HLA')]
+
+    # They are added from external list
+    hla_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/hla_genes.txt'))
+
+    with_hla = pd.concat([non_hla, hla_df], sort=False)
+    print(with_hla.shape, with_hla.head())
+
+    if user_gene:
+        separator = _get_separator(os.path.splitext(user_gene.name)[-1])
+        user_df: pd.DataFrame = pd.read_csv(user_gene, sep=separator)
+        print(user_df.shape, user_df.drop_duplicates().shape)
+
+        result = merge_df(user_df, with_hla, log_path, used_columns, 'gene_name')
+    else:
+        result = with_hla
+
+    print(result.shape)
+
+    result.to_csv('{}/{}'.format(output_path, 'gene_input.csv'), index=False)
 
 
 @click.command()
@@ -297,6 +322,46 @@ def merge_complex(curated_df, additional_df, log_file):
 
     common_additional = common_additional.sort_values(by=join_key)
     common_curated = common_curated.sort_values(by=join_key)
+
+    distinct = additional_df[~additional_is_in_curated]
+
+    result: pd.DataFrame = pd.concat([common_curated, distinct], ignore_index=True).sort_values(by=join_key)
+
+    if not common_curated.equals(common_additional):
+        app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
+
+        common_curated['file'] = 'curated'
+        common_additional['file'] = 'additional'
+
+        log = common_curated.append(common_additional).sort_values(by=used_cols)
+        log.to_csv(log_file, index=False, sep='\t')
+
+    return result
+
+
+def merge_df(curated_df, additional_df, log_file, used_cols: List, join_key):
+    additional_df = additional_df.copy()
+
+    # we will only use these columns
+    additional_df: pd.DataFrame = additional_df[used_cols]
+    curated_df: pd.DataFrame = curated_df[used_cols]
+
+    # type casting to ensure they are equal
+    for column in additional_df:
+        if additional_df[column].dtype == curated_df[column].dtype:
+            continue
+
+        print(f'converting `{column}` type from `{additional_df[column].dtype}` to `{curated_df[column].dtype}`')
+        additional_df[column] = additional_df[column].astype(curated_df[column].dtype)
+
+    additional_is_in_curated = additional_df[join_key].isin(curated_df[join_key])
+    curated_is_in_additional = curated_df[join_key].isin(additional_df[join_key])
+
+    common_additional: pd.DataFrame = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
+    common_curated: pd.DataFrame = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
+
+    common_additional = common_additional.sort_values(by=join_key).reset_index(drop=True)
+    common_curated = common_curated.sort_values(by=join_key).reset_index(drop=True)
 
     distinct = additional_df[~additional_is_in_curated]
 
