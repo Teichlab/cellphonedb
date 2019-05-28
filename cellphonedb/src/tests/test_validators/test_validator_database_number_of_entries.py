@@ -43,7 +43,7 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
         interactions = cellphonedb_app.cellphonedb.database_manager.get_repository(
             'interaction').get_all()
 
-        self.assertEqual(1144, len(interactions), 'Number of interactions are not equal')
+        self.assertEqual(1149, len(interactions), 'Number of interactions are not equal')
 
     def test_interaction_curated(self):
         interactions = cellphonedb_app.cellphonedb.database_manager.get_repository(
@@ -55,7 +55,7 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
         interactions = cellphonedb_app.cellphonedb.database_manager.get_repository(
             'interaction').get_all()
 
-        self.assertEqual(1144, len(interactions[interactions['is_cellphonedb_interactor']]),
+        self.assertEqual(1149, len(interactions[interactions['is_cellphonedb_interactor']]),
                          'number of cellphonedb interaction interactors different that expected')
 
     def test_interaction_guidetopharmacology(self):
