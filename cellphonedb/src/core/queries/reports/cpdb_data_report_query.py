@@ -5,7 +5,7 @@ def call(complex_compositions, interactions, proteins):
         interactions_cpdb['multidata_2_id']).drop_duplicates().tolist()
     protein_id_in_complex = complex_compositions['protein_multidata_id'].drop_duplicates().tolist()
     report['total_proteins'] = len(proteins)
-    secreted_proteins = proteins[proteins['secretion']]
+    secreted_proteins = proteins[proteins['secreted']]
     report['secreted_proteins'] = len(secreted_proteins)
     secreted_proteins_incpdb_interaction = secreted_proteins[
         secreted_proteins['id_protein'].apply(lambda id: id in multidata_id_in_interactions_cpdb)]
@@ -41,14 +41,14 @@ def call(complex_compositions, interactions, proteins):
     interaction_duplicated = interactions_curated[
         interactions_curated['multidata_1_id'] == interactions_curated['multidata_2_id']]
     report['interaction_protein_duplicated'] = len(interaction_duplicated.drop_duplicates())
-    interactions_iuphar = interactions[interactions['iuphar']]
+    interactions_iuphar = interactions[interactions['source'] == 'guidetopharmacology.org']
     report['interactions_iuphar'] = len(interactions_iuphar.drop_duplicates())
-    interactions_cpdb_iuphar = interactions_cpdb[interactions_cpdb['iuphar'] == True]
+    interactions_cpdb_iuphar = interactions_cpdb[interactions_cpdb['source'] == True]
     report['interactions_cpdb_iuphar'] = len(interactions_cpdb_iuphar.drop_duplicates())
     interactions_non_curated_iuphar = interactions[
-        (interactions['source'] != 'curated') & (interactions['iuphar'] == False)]
+        (interactions['source'] != 'curated') & (interactions['source'] != 'guidetopharmacology.org')]
     report['interactions_non_curated_iuphar'] = len(interactions_non_curated_iuphar.drop_duplicates())
     interactions_cpdb_non_curated_iuphar = interactions_cpdb[
-        (interactions_cpdb['source'] != 'curated') & (interactions_cpdb['iuphar'] == False)]
+        (interactions_cpdb['source'] != 'curated') & (interactions_cpdb['source'] != 'guidetopharmacology.org')]
     report['interactions_cpdb_non_curated_iuphar'] = len(interactions_cpdb_non_curated_iuphar.drop_duplicates())
     return report

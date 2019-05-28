@@ -1,4 +1,4 @@
-ensembl	entry_name	gene_name	name	is_complex	id_cp_interaction	complex_name	Tcells	Myeloid	NKcells_0	NKcells_1
+ensembl	protein_name	gene_name	name	is_complex	id_cp_interaction	complex_name	Tcells	Myeloid	NKcells_0	NKcells_1
 ENSG00000144810	CO8A1_HUMAN	COL8A1	P27658	False	CPI-CS08D14CA7D		0.0	0.0	0.0	0.0
 ENSG00000197565	CO4A6_HUMAN	COL4A6	Q14031	False	CPI-CS013047EEE		0.0	0.0	0.0	0.0
 ENSG00000197565	CO4A6_HUMAN	COL4A6	Q14031	False	CPI-CS03BD8F598		0.0	0.0	0.0	0.0

@@ -53,7 +53,7 @@
 * clusterA_clusterB and clusterB_clusterA  values will be different.
 
 ## Document 5: deconvoluted (deconvoluted.csv)
-* **entry_name**: molecule name
+* **protein_name**: molecule name
 * **gene_name**: Ensembl id
 * **name**: Uniprot id
 * **is_complex**: i) single- homodimer; ii) complex- heterodimer

@@ -24,7 +24,7 @@ multidatas_fixtures = [
     {
         'id': 1,
         'receptor': True,
-        'secretion': True,
+        'secreted': True,
         'other': False,
         'transmembrane': False,
         'extracellular': False,
@@ -39,7 +39,7 @@ multidatas_fixtures = [
     {
         'id': 2,
         'receptor': True,
-        'secretion': False,
+        'secreted': False,
         'other': True,
         'transmembrane': True,
         'extracellular': True,
@@ -54,7 +54,7 @@ multidatas_fixtures = [
     {
         'id': 3,
         'receptor': True,
-        'secretion': False,
+        'secreted': False,
         'other': False,
         'transmembrane': False,
         'extracellular': False,
@@ -68,7 +68,7 @@ multidatas_fixtures = [
     {
         'id': 4,
         'receptor': False,
-        'secretion': False,
+        'secreted': False,
         'other': False,
         'transmembrane': True,
         'extracellular': False,

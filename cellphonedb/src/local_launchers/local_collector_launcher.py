@@ -2,6 +2,7 @@ import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import cellphonedb_app, data_dir
+from cellphonedb.utils import utils
 
 
 class LocalCollectorLauncher(object):
@@ -9,12 +10,12 @@ class LocalCollectorLauncher(object):
         def wrapper(namefile='', data_path=''):
             app_logger.info('Collecting {}'.format(method_name))
             if not namefile:
-                namefile = '{}.csv'.format(method_name)
+                namefile = '{}_input.csv'.format(method_name)
 
             if not data_path:
                 data_path = data_dir
 
-            data = pd.read_csv('{}/{}'.format(data_path, namefile))
+            data = utils.read_data_table_from_file('{}/{}'.format(data_path, namefile))
 
             getattr(cellphonedb_app.cellphonedb.collect, method_name)(data)
 
