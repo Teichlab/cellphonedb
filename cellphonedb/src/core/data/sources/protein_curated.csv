@@ -1,4 +1,4 @@
-uniprot,adhesion,entry_name,integrin_interaction,other,other_desc,pdb_id,pdb_structure,peripheral,receptor,receptor_desc,secreted_desc,secreted_highlight,secretion,stoichiometry,tags_description,transmembrane,transporter,tags,tags_reason
+uniprot,adhesion,protein_name,integrin_interaction,other,other_desc,pdb_id,pdb_structure,peripheral,receptor,receptor_desc,secreted_desc,secreted_highlight,secretion,stoichiometry,tags_description,transmembrane,transporter,tags,tags_reason
 P25106,True,ACKR3_HUMAN,False,True,CoReceptor_Acts as coreceptor with CXCR4 for a restricted number of HIV isolates (uniprot),,,False,True,Atipical_chemokine_receptor_add,,False,False,,CoReceptor_Acts as coreceptor with CXCR4 for a restricted number of HIV isolates (uniprot),True,False,To_comment,Receptor_add
 P04626,False,ERBB2_HUMAN,False,False,,,,False,True,https://www.ncbi.nlm.nih.gov/pubmed/22505611,,False,False,,,True,False,,
 A1KXE4,True,F168B_HUMAN,False,False,,,,False,False,,,False,False,,,True,False,To_comment,Adhesion_add

@@ -138,7 +138,7 @@ def generate_proteins(user_protein: Optional[click.File],
         print('read remote uniprot file')
     else:
         additional_df = pd.read_csv(os.path.join(data_dir, 'sources/uniprot.tab'), sep='\t')
-        print('read remote uniprot file')
+        print('read local uniprot file')
 
     curated_df: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
 
@@ -152,7 +152,7 @@ def generate_proteins(user_protein: Optional[click.File],
 
         result = merge_proteins(user_df, result, log_path)
 
-    result.to_csv('{}/{}'.format(output_path, 'protein.csv'), index=False)
+    result.to_csv('{}/{}'.format(output_path, 'protein_input.csv'), index=False)
 
 
 def merge_proteins(curated_df,
@@ -161,29 +161,25 @@ def merge_proteins(curated_df,
     additional_df = additional_df.copy()
 
     defaults = {
-        'receptor': False,
-        'integrin_interaction': False,
-        'other': False,
-        'other_desc': None,
+        'transmembrane': False,
         'peripheral': False,
-        'receptor_desc': None,
+        'secreted': False,
         'secreted_desc': None,
         'secreted_highlight': False,
-        'secretion': False,
-        'transmembrane': False,
-        'pdb_structure': False,
-        'pdb_id': None,
-        'stoichiometry': None,
-        'comments_complex': None,
-        'adhesion': False,
+        'receptor': False,
+        'receptor_desc': None,
+        'integrin': False,
+        'other': False,
+        'other_desc': None,
         'tags': 'To_add',
         'tags_reason': None,
-        'tags_description': None
+        'tags_description': None,
+        'transporter': False
     }
-    used_cols = ['uniprot', 'entry_name'] + list(defaults.keys())
+    used_cols = ['uniprot', 'protein_name'] + list(defaults.keys())
 
     # homogeneized column names
-    additional_df.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'entry_name'}, inplace=True)
+    additional_df.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'protein_name'}, inplace=True)
 
     # # Here we set defaults for uniprot & curated data
     set_defaults(curated_df, defaults)
@@ -211,13 +207,16 @@ def merge_proteins(curated_df,
     common_curated = common_curated.sort_values(by='uniprot')
 
     distinct_uniprots = additional_df[~additional_is_in_curated]
-    result: pd.DataFrame = pd.concat([common_curated, distinct_uniprots], ignore_index=True, sort=True)
+    result: pd.DataFrame = pd.concat([common_curated, distinct_uniprots], ignore_index=True).sort_values(by='uniprot')
 
-    common_curated['file'] = 'curated'
-    common_additional['file'] = 'additional'
+    if not common_curated.equals(common_additional):
+        app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
 
-    merged = common_curated.append(common_additional).sort_values(by=used_cols)
-    merged.to_csv(log_file, index=False, sep='\t')
+        common_curated['file'] = 'curated'
+        common_additional['file'] = 'additional'
+
+        log = common_curated.append(common_additional).sort_values(by=used_cols)
+        log.to_csv(log_file, index=False, sep='\t')
 
     return result
 
