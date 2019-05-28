@@ -41,6 +41,7 @@ tools.add_command(tools_terminal_commands.generate_genes)
 tools.add_command(tools_terminal_commands.generate_interactions)
 plot.add_command(plot_terminal_commands.dot_plot)
 tools.add_command(tools_terminal_commands.generate_proteins)
+tools.add_command(tools_terminal_commands.generate_complex)
 
 if __name__ == '__main__':
     cli()
