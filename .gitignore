@@ -11,6 +11,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Python Env
+cpdb-venv
 # C extensions
 *.so
 

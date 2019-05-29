@@ -1,8 +1,9 @@
 import math
 
 import pandas as pd
-from cellphonedb.tools.interactions_helper import _only_uniprots_in_df
-from cellphonedb.tools.tools_helper import normalize_interactions
+
+from cellphonedb.tools.interactions_helper import filter_by_cellphonedb_interactor
+from cellphonedb.tools.tools_helper import sort_interactions_partners_alphabetically
 
 
 def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
@@ -41,8 +42,6 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
 
     custom_interactions['source'] = interactions_base_df['provider']
 
-    custom_interactions['raw_score'] = interactions_base_df['confidenceScore']  # .apply(extract_score)
-
     # Extract ensembl for a_raw_ensembl data. Only if value is not null and has ensembl: prefix
     custom_interactions['ensembl_1'] = custom_interactions.dropna(subset=['a_raw_ensembl'])[
         custom_interactions.dropna(subset=['a_raw_ensembl'])['a_raw_ensembl'].apply(
@@ -72,44 +71,23 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
 
     custom_interactions['protein_1'] = custom_interactions.apply(lambda row: get_protein(row, 1), axis=1)
     custom_interactions['protein_2'] = custom_interactions.apply(lambda row: get_protein(row, 2), axis=1)
+    custom_interactions = custom_interactions[['protein_1', 'protein_2', 'source']]
 
     custom_interactions.dropna(how='any', subset=['protein_1', 'protein_2'], inplace=True)
 
-    custom_interactions = custom_interactions[['protein_1', 'protein_2', 'raw_score', 'source']]
-    custom_interactions = _only_uniprots_in_df(protein_df, custom_interactions)
+    # Filtering
 
-    custom_interactions = normalize_interactions(custom_interactions)
+    custom_interactions = filter_by_cellphonedb_interactor(protein_df, custom_interactions)
+
+    custom_interactions = sort_interactions_partners_alphabetically(custom_interactions, ('protein_1', 'protein_2'))
+
+    custom_interactions['source'] = custom_interactions.groupby(['protein_1', 'protein_2'])['source'].transform(
+        lambda sources: ','.join(sorted(set(sources))))
 
     custom_interactions_unique = custom_interactions.drop_duplicates(['protein_1', 'protein_2'], keep='first')
-
     custom_interactions_unique = custom_interactions_unique[['protein_1', 'protein_2', 'source']]
-
-    _validate_sources(custom_interactions_unique['source'].tolist(), interactions_base_df['provider'].tolist())
 
     custom_interactions_unique.rename(index=str, columns={'protein_1': 'uniprot_1', 'protein_2': 'uniprot_2'},
                                       inplace=True)
 
     return custom_interactions_unique
-
-
-def _validate_sources(generated_sources, original_sources):
-    """
-    Check if all original soruces exist in generated source
-    :type generated_sources: list
-    :type original_sources: list
-    :rtype: bool
-    """
-
-    generated_sources = list(set(generated_sources))
-    original_sources = list(set(original_sources))
-    not_existent_source = []
-    for source in original_sources:
-        if source not in generated_sources:
-            not_existent_source.append(source)
-
-    if not_existent_source:
-        print('WARN: Some sources did exist in generated file')
-        print(not_existent_source)
-        return False
-
-    return True

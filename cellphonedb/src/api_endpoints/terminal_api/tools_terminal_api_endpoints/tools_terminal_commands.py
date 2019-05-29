@@ -113,12 +113,11 @@ def generate_interactions(
     complexes = pd.read_csv(database_complex_filename)
     interactions_to_remove = pd.read_csv(interaction_to_remove_filename)
     interaction_curated = pd.read_csv(interaction_curated_filename)
+    output_path = _set_paths(output_dir, result_path)
+    download_path = _set_paths(output_path, 'downloads')
 
     print('generating imex file')
     imex_interactions = parse_interactions_imex(interactions_base, proteins, genes)
-
-    output_path = _set_paths(output_dir, result_path)
-    download_path = _set_paths(output_path, 'downloads')
 
     print('Getting Iuphar interactions')
     iuphar_original = get_iuphar_guidetopharmacology.call(iuphar_raw_filename,
@@ -141,7 +140,8 @@ def generate_interactions(
     print('adding curated interaction')
     interactions_with_curated = add_curated(clean_interactions, interaction_curated)
 
-    interactions_with_curated.to_csv('{}/interaction.csv'.format(output_path), index=False)
+    interactions_with_curated[['partner_a', 'partner_b', 'source', 'comments_interaction']].to_csv(
+        '{}/interaction.csv'.format(output_path), index=False)
 
 
 @click.command()
