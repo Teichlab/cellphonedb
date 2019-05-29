@@ -42,6 +42,7 @@ tools.add_command(tools_terminal_commands.generate_interactions)
 tools.add_command(tools_terminal_commands.generate_proteins)
 tools.add_command(tools_terminal_commands.generate_complex)
 tools.add_command(tools_terminal_commands.filter_all)
+tools.add_command(tools_terminal_commands.collect)
 plot.add_command(plot_terminal_commands.dot_plot)
 
 if __name__ == '__main__':
