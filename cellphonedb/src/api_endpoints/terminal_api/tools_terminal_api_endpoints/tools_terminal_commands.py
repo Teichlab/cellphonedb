@@ -72,18 +72,14 @@ def generate_genes(user_gene: Optional[click.File], result_path: str, log_file: 
     hla_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/hla_genes.txt'))
 
     with_hla = pd.concat([non_hla, hla_df], sort=False)
-    print(with_hla.shape, with_hla.head())
 
     if user_gene:
         separator = _get_separator(os.path.splitext(user_gene.name)[-1])
         user_df: pd.DataFrame = pd.read_csv(user_gene, sep=separator)
-        print(user_df.shape, user_df.drop_duplicates().shape)
 
         result = merge_df(user_df, with_hla, log_path, used_columns, 'gene_name')
     else:
         result = with_hla
-
-    print(result.shape)
 
     result.to_csv('{}/{}'.format(output_path, 'gene_input.csv'), index=False)
 
