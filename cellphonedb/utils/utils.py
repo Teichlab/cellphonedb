@@ -1,11 +1,12 @@
 import io
 import os
 import pickle
-from typing import TextIO
+from typing import TextIO, Optional
 
 import pandas as pd
 from werkzeug.datastructures import FileStorage
 
+from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.exceptions.NotADataFrameException import NotADataFrameException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.exceptions.ReadFromPickleException import ReadFromPickleException
@@ -52,6 +53,35 @@ def read_data_from_s3_object(s3_object: dict, s3_name: str, index_column_first: 
         bytestream = io.BytesIO(s3_object['Body'].read())
 
     return _read_data(bytestream, separator, index_column_first, dtype, na_values)
+
+
+def write_to_file(df: pd.DataFrame, filename: str, output_path: str, output_format: Optional[str] = None):
+    _, file_extension = os.path.splitext(filename)
+
+    if output_format is None:
+        if not file_extension:
+            default_format = 'txt'
+            default_extension = '.{}'.format(default_format)
+
+            separator = _get_separator(default_extension)
+            filename = '{}{}'.format(filename, default_extension)
+        else:
+            separator = _get_separator(file_extension)
+    else:
+        selected_extension = '.{}'.format(output_format)
+
+        if file_extension != selected_extension:
+            separator = _get_separator(selected_extension)
+            filename = '{}{}'.format(filename, selected_extension)
+
+            if file_extension:
+                app_logger.warning(
+                    'Selected extension missmatches output filename ({}, {}): It will be added => {}'.format(
+                        selected_extension, file_extension, filename))
+        else:
+            separator = _get_separator(selected_extension)
+
+    df.to_csv('{}/{}'.format(output_path, filename), sep=separator, index=False)
 
 
 def _read_data(file_stream: TextIO, separator: str, index_column_first: bool, dtype=None,
