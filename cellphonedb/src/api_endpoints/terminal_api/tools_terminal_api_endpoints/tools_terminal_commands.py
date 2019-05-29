@@ -1,4 +1,5 @@
 import os
+import urllib.parse
 from typing import Optional, List
 
 import click
@@ -20,14 +21,52 @@ from cellphonedb.utils.utils import _get_separator, read_data_table_from_file, w
 
 @click.command()
 @click.option('--user-gene', type=click.File('r'), default=None)
+@click.option('--fetch-uniprot', is_flag=True)
+@click.option('--fetch-ensembl', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
-def generate_genes(user_gene: Optional[click.File], result_path: str, log_file: str) -> None:
+def generate_genes(user_gene: Optional[click.File],
+                   fetch_uniprot: bool,
+                   fetch_ensembl: bool,
+                   result_path: str,
+                   log_file: str) -> None:
     output_path = _set_paths(output_dir, result_path)
     log_path = '{}/{}'.format(output_path, log_file)
 
-    ensembl_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
-    uniprot_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
+    if fetch_ensembl:
+        print('fetching remote ensembl data ... ', end='')
+        source_url = 'http://www.ensembl.org/biomart/martservice?query={}'
+        query = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE Query><Query virtualSchemaName = "default" ' \
+                'formatter = "CSV" header = "1" uniqueRows = "1" count = "" datasetConfigVersion = "0.6" >' \
+                '<Dataset name = "hsapiens_gene_ensembl" interface = "default" >' \
+                '<Attribute name = "ensembl_gene_id" />' \
+                '<Attribute name = "ensembl_transcript_id" />' \
+                '<Attribute name = "external_gene_name" />' \
+                '<Attribute name = "hgnc_symbol" />' \
+                '<Attribute name = "uniprotswissprot" />' \
+                '</Dataset>' \
+                '</Query>'
+
+        url = source_url.format(urllib.parse.quote(query))
+        ensembl_df: pd.DataFrame = pd.read_csv(url)
+        print('done')
+    else:
+        ensembl_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
+        print('read remote ensembl file')
+
+    # additional data comes from given file or uniprot remote url
+    if fetch_uniprot:
+        print('fetching remote uniprot file ... ', end='')
+        source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
+                     '&columns=id,entry%20name,reviewed,protein%20names,genes,organism,length' \
+                     '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
+                     '&compress=yes'
+
+        uniprot_df = pd.read_csv(source_url, sep='\t', compression='gzip')
+        print('done')
+    else:
+        uniprot_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
+        print('read local uniprot file')
 
     ensembl_columns = {'Gene name': 'gene_name',
                        'Gene stable ID': 'ensembl',
