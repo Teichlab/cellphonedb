@@ -8,6 +8,7 @@ import pandas as pd
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir, data_dir
 from cellphonedb.src.exceptions.MissingRequiredColumns import MissingRequiredColumns
+from cellphonedb.src.local_launchers.local_collector_launcher import LocalCollectorLauncher
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
 from cellphonedb.tools.generate_data.getters import get_iuphar_guidetopharmacology
@@ -264,6 +265,13 @@ def filter_all(input_path, result_path):
     if len(rejected_members):
         app_logger.warning('There are some proteins or complexes not interacting properly: `{}`'.format(
             ', '.join(rejected_members)))
+
+
+@click.command()
+@click.argument('table')
+@click.argument('file', default='')
+def collect(table, file):
+    getattr(LocalCollectorLauncher(), table)(file)
 
 
 def filter_genes(genes: pd.DataFrame, interacting_proteins: pd.DataFrame) -> pd.DataFrame:
