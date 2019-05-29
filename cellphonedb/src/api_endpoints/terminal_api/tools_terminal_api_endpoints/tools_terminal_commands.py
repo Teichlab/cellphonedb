@@ -199,26 +199,24 @@ def generate_complex(user_complex: Optional[click.File], result_path: str, log_f
 
 
 @click.command()
-def filter_all():
-    complexes: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'complex_input.csv'))
-    interactions: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'interaction_input.csv'))
-    proteins: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'protein_input.csv'))
-    genes: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'gene_input.csv'))
-    output_path = _set_paths(output_dir, 'filtered')
+@click.option('--input-path', type=str, default=data_dir)
+@click.option('--result-path', type=str, default='filtered')
+def filter_all(input_path, result_path):
+    interactions: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'interaction_input.csv'))
+    complexes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'complex_input.csv'))
+    proteins: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'protein_input.csv'))
+    genes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'gene_input.csv'))
+    output_path = _set_paths(output_dir, result_path)
 
     interacting_partners = pd.concat([interactions['partner_a'], interactions['partner_b']]).drop_duplicates()
 
-    filtered_complexes = complexes[complexes['complex_name'].isin(interacting_partners)]
+    filtered_complexes = filter_complexes(complexes, interacting_partners)
     write_to_file(filtered_complexes, 'complex_input.csv', output_path=output_path)
 
-    interacting_proteins = pd.concat([filtered_complexes[f'uniprot_{i}'] for i in range(1, 5)]).drop_duplicates()
-
-    filtered_proteins = proteins[
-        proteins['uniprot'].isin(interacting_partners) | proteins['uniprot'].isin(interacting_proteins)]
-
+    filtered_proteins, interacting_proteins = filter_proteins(proteins, filtered_complexes, interacting_partners)
     write_to_file(filtered_proteins, 'protein_input.csv', output_path=output_path)
 
-    filtered_genes = genes[genes['uniprot'].isin(interacting_proteins)]
+    filtered_genes = filter_genes(genes, interacting_proteins)
     write_to_file(filtered_genes, 'gene_input.csv', output_path=output_path)
 
     rejected_members = interacting_partners[~(interacting_partners.isin(filtered_complexes['complex_name']) |
@@ -227,6 +225,29 @@ def filter_all():
     if len(rejected_members):
         app_logger.warning('There are some proteins or complexes not interacting properly: `{}`'.format(
             ', '.join(rejected_members)))
+
+
+def filter_genes(genes: pd.DataFrame, interacting_proteins: pd.DataFrame) -> pd.DataFrame:
+    filtered_genes = genes[genes['uniprot'].isin(interacting_proteins)]
+
+    return filtered_genes
+
+
+def filter_proteins(proteins: pd.DataFrame,
+                    filtered_complexes: pd.DataFrame,
+                    interacting_partners: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
+    interacting_proteins = pd.concat([filtered_complexes[f'uniprot_{i}'] for i in range(1, 5)]).drop_duplicates()
+
+    filtered_proteins = proteins[
+        proteins['uniprot'].isin(interacting_partners) | proteins['uniprot'].isin(interacting_proteins)]
+
+    return filtered_proteins, interacting_proteins
+
+
+def filter_complexes(complexes: pd.DataFrame, interacting_partners: pd.DataFrame) -> pd.DataFrame:
+    filtered_complexes = complexes[complexes['complex_name'].isin(interacting_partners)]
+
+    return filtered_complexes
 
 
 def merge_proteins(curated_df,
