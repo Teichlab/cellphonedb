@@ -15,7 +15,7 @@ from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iup
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
 from cellphonedb.tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
 from cellphonedb.utils import utils
-from cellphonedb.utils.utils import _get_separator, read_data_table_from_file
+from cellphonedb.utils.utils import _get_separator, read_data_table_from_file, write_to_file
 
 
 @click.command()
@@ -196,6 +196,37 @@ def generate_complex(user_complex: Optional[click.File], result_path: str, log_f
             app_logger.error(e)
 
     result.to_csv('{}/{}'.format(output_path, 'complex_input.csv'), index=False)
+
+
+@click.command()
+def filter_all():
+    complexes: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'complex_input.csv'))
+    interactions: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'interaction_input.csv'))
+    proteins: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'protein_input.csv'))
+    genes: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'gene_input.csv'))
+    output_path = _set_paths(output_dir, 'filtered')
+
+    interacting_partners = pd.concat([interactions['partner_a'], interactions['partner_b']]).drop_duplicates()
+
+    filtered_complexes = complexes[complexes['complex_name'].isin(interacting_partners)]
+    write_to_file(filtered_complexes, 'complex_input.csv', output_path=output_path)
+
+    interacting_proteins = pd.concat([filtered_complexes[f'uniprot_{i}'] for i in range(1, 5)]).drop_duplicates()
+
+    filtered_proteins = proteins[
+        proteins['uniprot'].isin(interacting_partners) | proteins['uniprot'].isin(interacting_proteins)]
+
+    write_to_file(filtered_proteins, 'protein_input.csv', output_path=output_path)
+
+    filtered_genes = genes[genes['uniprot'].isin(interacting_proteins)]
+    write_to_file(filtered_genes, 'gene_input.csv', output_path=output_path)
+
+    rejected_members = interacting_partners[~(interacting_partners.isin(filtered_complexes['complex_name']) |
+                                              interacting_partners.isin(filtered_proteins['uniprot']))]
+
+    if len(rejected_members):
+        app_logger.warning('There are some proteins or complexes not interacting properly: `{}`'.format(
+            ', '.join(rejected_members)))
 
 
 def merge_proteins(curated_df,
