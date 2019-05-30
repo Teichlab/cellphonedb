@@ -297,10 +297,10 @@ def _filter_complexes(complexes: pd.DataFrame, interacting_partners: pd.DataFram
     return filtered_complexes
 
 
-def _merge_proteins(curated_df,
-                    additional_df: pd.DataFrame,
+def _merge_proteins(curated,
+                    additional: pd.DataFrame,
                     log_file: str) -> pd.DataFrame:
-    additional_df = additional_df.copy()
+    additional = additional.copy()
 
     defaults = {
         'transmembrane': False,
@@ -340,29 +340,28 @@ def _merge_proteins(curated_df,
     used_cols = ['uniprot', 'protein_name'] + list(defaults.keys())
 
     # homogeneized column names
-    additional_df.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'protein_name'}, inplace=True)
+    additional.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'protein_name'}, inplace=True)
 
     # Here we set defaults for uniprot & curated data
-    _set_defaults(curated_df, defaults)
-    _set_defaults(additional_df, defaults)
+    _set_defaults(curated, defaults)
+    _set_defaults(additional, defaults)
 
     # we will only use these columns
-    additional_df: pd.DataFrame = additional_df[used_cols]
-    curated_df: pd.DataFrame = curated_df[used_cols]
+    additional: pd.DataFrame = additional[used_cols]
+    curated: pd.DataFrame = curated[used_cols]
 
     # Type casting to ensure they are equal
+    additional = additional.astype(default_types)
+    curated = curated.astype(default_types)
 
-    additional_df = additional_df.astype(default_types)
-    curated_df = curated_df.astype(default_types)
+    additional_is_in_curated = additional['uniprot'].isin(curated['uniprot'])
+    curated_is_in_additional = curated['uniprot'].isin(additional['uniprot'])
 
-    additional_is_in_curated = additional_df['uniprot'].isin(curated_df['uniprot'])
-    curated_is_in_additional = curated_df['uniprot'].isin(additional_df['uniprot'])
+    common_additional: pd.DataFrame = additional.reindex(used_cols, axis=1)[additional_is_in_curated]
+    common_curated: pd.DataFrame = curated.reindex(used_cols, axis=1)[curated_is_in_additional]
 
-    common_additional: pd.DataFrame = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
-    common_curated: pd.DataFrame = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
-
-    distinct_additional = additional_df[~additional_is_in_curated]
-    distinct_curated = curated_df[~curated_is_in_additional]
+    distinct_additional = additional[~additional_is_in_curated]
+    distinct_curated = curated[~curated_is_in_additional]
 
     result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
                                      ignore_index=True).sort_values(by='uniprot')
@@ -379,8 +378,8 @@ def _merge_proteins(curated_df,
     return result
 
 
-def _merge_complex(curated_df, additional_df, log_file):
-    additional_df = additional_df.copy()
+def _merge_complex(curated, additional, log_file):
+    additional = additional.copy()
 
     defaults = {
         'uniprot_3': pd.np.nan,
@@ -401,38 +400,56 @@ def _merge_complex(curated_df, additional_df, log_file):
         'comments_complex': pd.np.nan
     }
 
+    default_types = {
+        'complex_name': str,
+        'uniprot_1': str,
+        'uniprot_2': str,
+        'uniprot_3': str,
+        'uniprot_4': str,
+        'transmembrane': bool,
+        'peripheral': bool,
+        'secreted': bool,
+        'secreted_desc': str,
+        'secreted_highlight': bool,
+        'receptor': bool,
+        'receptor_desc': str,
+        'integrin': bool,
+        'other': bool,
+        'other_desc': str,
+        'pdb_id': str,
+        'pdb_structure': str,
+        'stoichiometry': str,
+        'comments_complex': str,
+    }
+
     required_columns = ['complex_name', 'uniprot_1', 'uniprot_2']
 
-    if not set(required_columns).issubset(additional_df):
-        raise MissingRequiredColumns(list(set(required_columns).difference(additional_df)))
+    if not set(required_columns).issubset(additional):
+        raise MissingRequiredColumns(list(set(required_columns).difference(additional)))
 
     used_cols = required_columns + list(defaults.keys())
 
     # Here we set defaults for curated & user data
-    _set_defaults(curated_df, defaults)
-    _set_defaults(additional_df, defaults)
+    _set_defaults(curated, defaults)
+    _set_defaults(additional, defaults)
+
+    # Type casting to ensure they are equal
+    curated = curated.astype(default_types)
+    additional = additional.astype(default_types)
 
     # we will only use these columns
-    additional_df: pd.DataFrame = additional_df[used_cols]
-    curated_df: pd.DataFrame = curated_df[used_cols]
-
-    # type casting to ensure they are equal
-    for column in additional_df:
-        if additional_df[column].dtype == curated_df[column].dtype:
-            continue
-
-        print(f'converting `{column}` type from `{additional_df[column].dtype}` to `{curated_df[column].dtype}`')
-        additional_df[column] = additional_df[column].astype(curated_df[column].dtype)
+    additional: pd.DataFrame = additional[used_cols]
+    curated: pd.DataFrame = curated[used_cols]
 
     join_key = 'complex_name'
-    additional_is_in_curated = additional_df[join_key].isin(curated_df[join_key])
-    curated_is_in_additional = curated_df[join_key].isin(additional_df[join_key])
+    additional_is_in_curated = additional[join_key].isin(curated[join_key])
+    curated_is_in_additional = curated[join_key].isin(additional[join_key])
 
-    common_additional: pd.DataFrame = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
-    common_curated: pd.DataFrame = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
+    common_additional: pd.DataFrame = additional.reindex(used_cols, axis=1)[additional_is_in_curated]
+    common_curated: pd.DataFrame = curated.reindex(used_cols, axis=1)[curated_is_in_additional]
 
-    distinct_additional = additional_df[~additional_is_in_curated]
-    distinct_curated = curated_df[~curated_is_in_additional]
+    distinct_additional = additional[~additional_is_in_curated]
+    distinct_curated = curated[~curated_is_in_additional]
 
     result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
                                      ignore_index=True).sort_values(by=join_key)
