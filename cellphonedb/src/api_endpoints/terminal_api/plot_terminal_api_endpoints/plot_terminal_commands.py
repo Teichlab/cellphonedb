@@ -16,10 +16,13 @@ from cellphonedb.src.plotters import r_plotter
 @click.option('--output-path', type=click.Path(exists=True, file_okay=False, writable=True),
               default='./out', help='Path to write generated plot [./out]')
 @click.option('--output-name', type=str, default='./plot.pdf', help='Output file with plot [plot.pdf]')
-@click.option('--rows', type=click.File('r'), help='List of rows to plot, one per line [all available]')
-@click.option('--columns', type=click.File('r'), help='List of columns to plot, one per line [all available]')
+@click.option('--rows', type=click.Path(exists=True, file_okay=True, dir_okay=False),
+              help='List of rows to plot, one per line [all available]')
+@click.option('--columns', type=click.Path(exists=True, file_okay=True, dir_okay=False),
+              help='List of columns to plot, one per line [all available]')
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
-def dot_plot(means_path, pvalues_path, output_path, output_name, rows, columns, verbose):
+def dot_plot(means_path: str, pvalues_path: str, output_path: str, output_name: str, rows: str,
+             columns: str, verbose: bool):
     try:
         r_plotter.dot_plot(means_path, pvalues_path, output_path, output_name, rows, columns, 'dot_plot')
     except RRuntimeException as e:

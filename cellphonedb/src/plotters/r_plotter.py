@@ -1,5 +1,6 @@
+import io
 import os
-from typing import Optional
+from typing import Optional, IO
 
 import click
 import pandas as pd
@@ -45,8 +46,8 @@ def dot_plot(means_path: str,
              pvalues_path: str,
              output_path: str,
              output_name: str,
-             rows: click.File,
-             columns: click.File,
+             rows: Optional[str] = None,
+             columns: Optional[str] = None,
              plot_function: str = 'dot_plot',
              ) -> None:
     pvalues_separator = _get_separator(os.path.splitext(pvalues_path)[-1])
@@ -88,7 +89,7 @@ def dot_plot(means_path: str,
         raise RRuntimeException(e)
 
 
-def selected_items(selection: Optional[click.File], size):
+def selected_items(selection: Optional[str], size):
     if selection is not None:
         df = pd.read_csv(selection, header=None)
         names = df[0].tolist()
