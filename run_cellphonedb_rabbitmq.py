@@ -21,7 +21,7 @@ from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
-from cellphonedb.src.plotters.r_plotter import plot
+from cellphonedb.src.plotters.r_plotter import dot_plot
 from cellphonedb.utils import utils
 
 try:
@@ -56,6 +56,7 @@ app = cpdb_app.create_app()
 s3_resource = boto3.resource('s3', aws_access_key_id=s3_access_key,
                              aws_secret_access_key=s3_secret_key,
                              endpoint_url=s3_endpoint)
+
 s3_client = boto3.client('s3', aws_access_key_id=s3_access_key,
                          aws_secret_access_key=s3_secret_key,
                          endpoint_url=s3_endpoint)
@@ -71,38 +72,82 @@ def write_data_in_s3(data: pd.DataFrame, filename: str):
     data.to_csv(result_buffer, index=False, sep='\t')
     result_buffer.seek(0)
 
-    # TODO: Find more elegant solution
+    # TODO: Find more elegant solution (connexion closes after timeout)
     s3_client = boto3.client('s3', aws_access_key_id=s3_access_key,
                              aws_secret_access_key=s3_secret_key,
                              endpoint_url=s3_endpoint)
 
-    encoding = result_buffer
-    s3_client.put_object(Body=encoding.getvalue().encode('utf-8'), Bucket=s3_bucket_name, Key=filename)
+    s3_client.put_object(Body=result_buffer.getvalue().encode('utf-8'), Bucket=s3_bucket_name, Key=filename)
 
 
-def plot_results(means, pvalues, rows, columns, job_id) -> dict:
-    means_fd, means_path = tempfile.mkstemp()
-    with open(means_fd, 'wb+') as means_file:
-        print(means_path, means_fd)
-        s3_means = s3_client.get_object(Bucket=s3_bucket_name, Key=means)
-        print(s3_means)
-        means_file.write(s3_means['Body'].read())
+def write_image_to_s3(path: str, filename: str):
+    _io = open(path, 'rb')
 
-        pvalues_fd, pvalues_path = tempfile.mkstemp()
-        with open(pvalues_fd, 'wb+') as pvalues_file:
-            s3_pvalues = s3_client.get_object(Bucket=s3_bucket_name, Key=pvalues)
-            pvalues_file.write(s3_pvalues['Body'].read())
+    # TODO: Find more elegant solution (connexion closes after timeout)
+    s3_client = boto3.client('s3', aws_access_key_id=s3_access_key,
+                             aws_secret_access_key=s3_secret_key,
+                             endpoint_url=s3_endpoint)
 
-            plot(means_path=means_path,
-                 pvalues_path=pvalues_path,
-                 output_path='./',
-                 output_name='plot_xxx.png',
-                 rows=None,
-                 columns=None,
-                 plot_function='dot_plot')
+    s3_client.put_object(Body=_io, Bucket=s3_bucket_name, Key=filename)
 
 
-def process_job(method, properties, body) -> dict:
+def plot_results(means: str, pvalues: str, rows: str, columns: str, job_id: str, plot_type: str):
+    if plot_type != 'dot_plot':
+        raise Exception()
+
+    with tempfile.TemporaryDirectory() as output_path:
+        with tempfile.NamedTemporaryFile(suffix=os.path.splitext(means)[-1]) as means_file:
+            with tempfile.NamedTemporaryFile(suffix=os.path.splitext(pvalues)[-1]) as pvalues_file:
+                with tempfile.NamedTemporaryFile() as rows_file:
+                    with tempfile.NamedTemporaryFile() as columns_file:
+                        _from_s3_to_temp(means, means_file)
+                        _from_s3_to_temp(pvalues, pvalues_file)
+                        _from_s3_to_temp(rows, rows_file)
+                        _from_s3_to_temp(columns, columns_file)
+
+                        output_name = 'plot__{}.png'.format(job_id)
+
+                        dot_plot(means_file.name, pvalues_file.name, output_path, output_name, rows_file.name,
+                                 columns_file.name)
+
+                        output_file = os.path.join(output_path, output_name)
+
+                        response = {
+                            'job_id': job_id,
+                            'files': {
+                                'plot': 'plot__{}.png'.format(job_id),
+                            },
+                            'success': True
+                        }
+
+                        write_image_to_s3(output_file, response['files']['plot'])
+
+                        return response
+
+
+def _from_s3_to_temp(key, file):
+    data = s3_client.get_object(Bucket=s3_bucket_name, Key=key)
+    file.write(data['Body'].read())
+    file.seek(0)
+
+    return file
+
+
+def process_plot(method, properties, body) -> dict:
+    metadata = json.loads(body.decode('utf-8'))
+    job_id = metadata['job_id']
+    app_logger.info('New Plot Queued: {}'.format(job_id))
+
+    return plot_results(metadata.get('means_file'),
+                        metadata.get('pvalues'),
+                        metadata.get('file_rows', None),
+                        metadata.get('file_columns', None),
+                        metadata['job_id'],
+                        metadata.get('type', None)
+                        )
+
+
+def process_method(method, properties, body) -> dict:
     metadata = json.loads(body.decode('utf-8'))
     job_id = metadata['job_id']
     app_logger.info('New Job Queued: {}'.format(job_id))
@@ -114,18 +159,8 @@ def process_job(method, properties, body) -> dict:
                             int(metadata['num_cells']) if metadata.get('num_cells', False) else None
                             ) if metadata.get('subsampling', False) else None
 
-    print(metadata)
-
     if metadata['iterations']:
         response = statistical_analysis(meta, counts, job_id, metadata, subsampler)
-        if metadata.get('plot', True) and response['success']:
-            print('about to plot')
-            plot_result = plot_results(response['files']['means'],
-                                       response['files']['pvalues'],
-                                       metadata.get('rows', None),
-                                       metadata.get('columns', None),
-                                       metadata['job_id'],
-                                       )
     else:
         response = non_statistical_analysis(meta, counts, job_id, metadata, subsampler)
 
@@ -198,7 +233,11 @@ while jobs_runned < 3 and consume_more_jobs:
 
     if all(job):
         try:
-            job_response = process_job(*job)
+            if jobs_queue_name == 'plot_jobs':
+                job_response = process_plot(*job)
+            else:
+                job_response = process_method(*job)
+
             # TODO: Find more elegant solution
             connection = create_rabbit_connection()
             channel = connection.channel()
