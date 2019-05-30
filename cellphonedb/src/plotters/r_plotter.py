@@ -10,14 +10,45 @@ from cellphonedb.src.exceptions.MissingPlotterFunctionException import MissingPl
 from cellphonedb.src.exceptions.RRuntimeException import RRuntimeException
 from cellphonedb.utils.utils import _get_separator
 
-def plot(means_path: str,
-         pvalues_path: str,
-         output_path: str,
-         output_name: str,
-         rows: click.File,
-         columns: click.File,
-         plot_function: str,
-         ) -> None:
+
+def plot_heatmaps(meta_file: str,
+                  pvalues_file: str,
+                  output_path: str,
+                  count_name: str,
+                  log_name: str,
+                  plot_function: str = 'plot_heatmaps'
+                  ) -> None:
+    this_file_dir = os.path.dirname(os.path.realpath(__file__))
+    robjects.r.source(os.path.join(this_file_dir, 'R/plot_heatmaps.R'))
+    available_names = list(robjects.globalenv.keys())
+    count_filename = os.path.join(output_path, count_name)
+    log_filename = os.path.join(output_path, log_name)
+
+    if plot_function in available_names:
+        function_name = plot_function
+    else:
+        raise MissingPlotterFunctionException()
+
+    plotter = robjects.r[function_name]
+
+    try:
+        plotter(meta_file=meta_file,
+                pvalues_file=pvalues_file,
+                count_filename=count_filename,
+                log_filename=log_filename
+                )
+    except RRuntimeError as e:
+        raise RRuntimeException(e)
+
+
+def dot_plot(means_path: str,
+             pvalues_path: str,
+             output_path: str,
+             output_name: str,
+             rows: click.File,
+             columns: click.File,
+             plot_function: str = 'dot_plot',
+             ) -> None:
     pvalues_separator = _get_separator(os.path.splitext(pvalues_path)[-1])
     means_separator = _get_separator(os.path.splitext(means_path)[-1])
     output_extension = os.path.splitext(output_name)[-1].lower()
