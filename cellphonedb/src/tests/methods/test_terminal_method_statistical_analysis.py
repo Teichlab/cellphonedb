@@ -52,14 +52,22 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                      result_precision: int,
                      subsampler: Optional[Subsampler] = None,
                      ):
-        result_means_filename = self._get_result_filename('means', data, iterations, debug_seed, threshold,
-                                                          result_precision)
-        result_pvalues_filename = self._get_result_filename('pvalues', data, iterations, debug_seed, threshold,
-                                                            result_precision)
-        result_significant_means_filename = self._get_result_filename('significant_means', data, iterations, debug_seed,
-                                                                      threshold, result_precision)
-        result_deconvoluted_filename = self._get_result_filename('deconvoluted', data, iterations, debug_seed,
-                                                                 threshold, result_precision)
+
+        result_names_as_fixture = False
+        if result_names_as_fixture:
+            result_deconvoluted_filename, result_means_filename, result_pvalues_filename, result_significant_means_filename = self._original_names(
+                data, debug_seed, iterations, result_precision, threshold)
+
+        else:
+            result_means_filename = self._get_result_filename('means', data, iterations, debug_seed, threshold,
+                                                              result_precision)
+            result_pvalues_filename = self._get_result_filename('pvalues', data, iterations, debug_seed, threshold,
+                                                                result_precision)
+            result_significant_means_filename = self._get_result_filename('significant_means', data, iterations,
+                                                                          debug_seed,
+                                                                          threshold, result_precision)
+            result_deconvoluted_filename = self._get_result_filename('deconvoluted', data, iterations, debug_seed,
+                                                                     threshold, result_precision)
 
         meta_filename = os.path.realpath('{}/hi_{}_meta.txt'.format(data_test_dir, data))
         counts_filename = os.path.realpath('{}/hi_{}_counts.txt'.format(data_test_dir, data))
@@ -89,6 +97,39 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                             debug_seed, threshold, result_precision)
         self._assert_result('deconvoluted', data, iterations, project_name, result_deconvoluted_filename, debug_seed,
                             threshold, result_precision)
+
+    def _original_names(self, data, debug_seed, iterations, result_precision, threshold):
+        str_threshold = ''.join(str(threshold).split('.'))
+        result_means_filename = 'statistical_analysis__{}_result__' \
+                                'data-{}_it-{}_seed-{}_threshold-{}_precision-{}.txt'.format('means',
+                                                                                             data,
+                                                                                             iterations,
+                                                                                             debug_seed,
+                                                                                             str_threshold,
+                                                                                             result_precision)
+        result_pvalues_filename = 'statistical_analysis__{}_result__' \
+                                  'data-{}_it-{}_seed-{}_threshold-{}_precision-{}.txt'.format('pvalues',
+                                                                                               data,
+                                                                                               iterations,
+                                                                                               debug_seed,
+                                                                                               str_threshold,
+                                                                                               result_precision)
+        result_significant_means_filename = 'statistical_analysis__{}_result__' \
+                                            'data-{}_it-{}_seed-{}_threshold-{}_precision-{}.txt'.format(
+            'significant_means',
+            data,
+            iterations,
+            debug_seed,
+            str_threshold,
+            result_precision)
+        result_deconvoluted_filename = 'statistical_analysis__{}_result__' \
+                                       'data-{}_it-{}_seed-{}_threshold-{}_precision-{}.txt'.format('deconvoluted',
+                                                                                                    data,
+                                                                                                    iterations,
+                                                                                                    debug_seed,
+                                                                                                    str_threshold,
+                                                                                                    result_precision)
+        return result_deconvoluted_filename, result_means_filename, result_pvalues_filename, result_significant_means_filename
 
     def _assert_result(self, filename: str,
                        data: str,

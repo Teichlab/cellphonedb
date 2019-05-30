@@ -52,4 +52,4 @@ def call(complexes: pd.DataFrame, multidatas: pd.DataFrame, complex_compositions
     return complex_complete[
         ['complex_name', 'uniprot_1', 'uniprot_2', 'uniprot_3', 'uniprot_4', 'transmembrane', 'peripheral', 'secreted',
          'secreted_desc', 'secreted_highlight', 'receptor', 'receptor_desc', 'integrin', 'other', 'other_desc',
-         'pdb_id', 'pdb_structure', 'stoichiometry', 'comments_complex', 'transporter']]
+         'pdb_id', 'pdb_structure', 'stoichiometry', 'comments_complex']]
