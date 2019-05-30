@@ -306,24 +306,43 @@ def _merge_proteins(curated_df,
         'transmembrane': False,
         'peripheral': False,
         'secreted': False,
-        'secreted_desc': None,
+        'secreted_desc': pd.np.nan,
         'secreted_highlight': False,
         'receptor': False,
-        'receptor_desc': None,
+        'receptor_desc': pd.np.nan,
         'integrin': False,
         'other': False,
-        'other_desc': None,
+        'other_desc': pd.np.nan,
         'tags': 'To_add',
-        'tags_reason': None,
-        'tags_description': None,
+        'tags_reason': pd.np.nan,
+        'tags_description': pd.np.nan,
         'transporter': False
     }
+
+    default_types = {
+        'uniprot': str,
+        'protein_name': str,
+        'transmembrane': bool,
+        'peripheral': bool,
+        'secreted': bool,
+        'secreted_desc': str,
+        'secreted_highlight': bool,
+        'receptor': bool,
+        'receptor_desc': str,
+        'integrin': bool,
+        'other': bool,
+        'other_desc': str,
+        'tags': str,
+        'tags_reason': str,
+        'tags_description': str,
+    }
+
     used_cols = ['uniprot', 'protein_name'] + list(defaults.keys())
 
     # homogeneized column names
     additional_df.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'protein_name'}, inplace=True)
 
-    # # Here we set defaults for uniprot & curated data
+    # Here we set defaults for uniprot & curated data
     _set_defaults(curated_df, defaults)
     _set_defaults(additional_df, defaults)
 
@@ -331,13 +350,10 @@ def _merge_proteins(curated_df,
     additional_df: pd.DataFrame = additional_df[used_cols]
     curated_df: pd.DataFrame = curated_df[used_cols]
 
-    # type casting to ensure they are equal
-    for column in additional_df:
-        if additional_df[column].dtype == curated_df[column].dtype:
-            continue
+    # Type casting to ensure they are equal
 
-        print(f'converting `{column}` type from `{additional_df[column].dtype}` to `{curated_df[column].dtype}`')
-        additional_df[column] = additional_df[column].astype(curated_df[column].dtype)
+    additional_df = additional_df.astype(default_types)
+    curated_df = curated_df.astype(default_types)
 
     additional_is_in_curated = additional_df['uniprot'].isin(curated_df['uniprot'])
     curated_is_in_additional = curated_df['uniprot'].isin(additional_df['uniprot'])
@@ -367,22 +383,22 @@ def _merge_complex(curated_df, additional_df, log_file):
     additional_df = additional_df.copy()
 
     defaults = {
-        'uniprot_3': None,
-        'uniprot_4': None,
+        'uniprot_3': pd.np.nan,
+        'uniprot_4': pd.np.nan,
         'receptor': False,
         'integrin': False,
         'other': False,
         'other_desc': pd.np.nan,
         'peripheral': False,
-        'receptor_desc': None,
-        'secreted_desc': None,
+        'receptor_desc': pd.np.nan,
+        'secreted_desc': pd.np.nan,
         'secreted_highlight': False,
         'secreted': False,
         'transmembrane': False,
         'pdb_structure': False,
-        'pdb_id': None,
-        'stoichiometry': None,
-        'comments_complex': None
+        'pdb_id': pd.np.nan,
+        'stoichiometry': pd.np.nan,
+        'comments_complex': pd.np.nan
     }
 
     required_columns = ['complex_name', 'uniprot_1', 'uniprot_2']
