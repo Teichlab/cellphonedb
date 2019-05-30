@@ -138,8 +138,8 @@ def process_plot(method, properties, body) -> dict:
     job_id = metadata['job_id']
     app_logger.info('New Plot Queued: {}'.format(job_id))
 
-    return plot_results(metadata.get('means_file'),
-                        metadata.get('pvalues'),
+    return plot_results(metadata.get('file_means'),
+                        metadata.get('file_pvalues'),
                         metadata.get('file_rows', None),
                         metadata.get('file_columns', None),
                         metadata['job_id'],
