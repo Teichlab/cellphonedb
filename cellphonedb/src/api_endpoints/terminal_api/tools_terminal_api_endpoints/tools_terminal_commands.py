@@ -117,7 +117,7 @@ def generate_genes(user_gene: Optional[click.File],
         separator = _get_separator(os.path.splitext(user_gene.name)[-1])
         user_df: pd.DataFrame = pd.read_csv(user_gene, sep=separator)
 
-        result = merge_df(user_df, with_hla, log_path, used_columns, 'gene_name')
+        result = _merge_df(user_df, with_hla, log_path, used_columns, 'gene_name')
     else:
         result = with_hla
 
@@ -206,13 +206,13 @@ def generate_proteins(user_protein: Optional[click.File],
 
     output_path = _set_paths(output_dir, result_path)
     log_path = '{}/{}'.format(output_path, log_file)
-    result = merge_proteins(curated_df, additional_df, log_path)
+    result = _merge_proteins(curated_df, additional_df, log_path)
 
     if user_protein:
         separator = _get_separator(os.path.splitext(user_protein.name)[-1])
         user_df: pd.DataFrame = pd.read_csv(user_protein, sep=separator)
 
-        result = merge_proteins(user_df, result, log_path)
+        result = _merge_proteins(user_df, result, log_path)
 
     result.to_csv('{}/{}'.format(output_path, 'protein_input.csv'), index=False)
 
@@ -231,7 +231,7 @@ def generate_complex(user_complex: Optional[click.File], result_path: str, log_f
         separator = _get_separator(os.path.splitext(user_complex.name)[-1])
         user_df: pd.DataFrame = pd.read_csv(user_complex, sep=separator)
         try:
-            result = merge_complex(user_df, result, log_path)
+            result = _merge_complex(user_df, result, log_path)
         except MissingRequiredColumns as e:
             app_logger.error(e)
 
@@ -250,13 +250,13 @@ def filter_all(input_path, result_path):
 
     interacting_partners = pd.concat([interactions['partner_a'], interactions['partner_b']]).drop_duplicates()
 
-    filtered_complexes = filter_complexes(complexes, interacting_partners)
+    filtered_complexes = _filter_complexes(complexes, interacting_partners)
     write_to_file(filtered_complexes, 'complex_input.csv', output_path=output_path)
 
-    filtered_proteins, interacting_proteins = filter_proteins(proteins, filtered_complexes, interacting_partners)
+    filtered_proteins, interacting_proteins = _filter_proteins(proteins, filtered_complexes, interacting_partners)
     write_to_file(filtered_proteins, 'protein_input.csv', output_path=output_path)
 
-    filtered_genes = filter_genes(genes, interacting_proteins)
+    filtered_genes = _filter_genes(genes, interacting_proteins)
     write_to_file(filtered_genes, 'gene_input.csv', output_path=output_path)
 
     rejected_members = interacting_partners[~(interacting_partners.isin(filtered_complexes['complex_name']) |
@@ -274,15 +274,15 @@ def collect(table, file):
     getattr(LocalCollectorLauncher(), table)(file)
 
 
-def filter_genes(genes: pd.DataFrame, interacting_proteins: pd.DataFrame) -> pd.DataFrame:
+def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.DataFrame) -> pd.DataFrame:
     filtered_genes = genes[genes['uniprot'].isin(interacting_proteins)]
 
     return filtered_genes
 
 
-def filter_proteins(proteins: pd.DataFrame,
-                    filtered_complexes: pd.DataFrame,
-                    interacting_partners: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
+def _filter_proteins(proteins: pd.DataFrame,
+                     filtered_complexes: pd.DataFrame,
+                     interacting_partners: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
     interacting_proteins = pd.concat([filtered_complexes[f'uniprot_{i}'] for i in range(1, 5)]).drop_duplicates()
 
     filtered_proteins = proteins[
@@ -291,15 +291,15 @@ def filter_proteins(proteins: pd.DataFrame,
     return filtered_proteins, interacting_proteins
 
 
-def filter_complexes(complexes: pd.DataFrame, interacting_partners: pd.DataFrame) -> pd.DataFrame:
+def _filter_complexes(complexes: pd.DataFrame, interacting_partners: pd.DataFrame) -> pd.DataFrame:
     filtered_complexes = complexes[complexes['complex_name'].isin(interacting_partners)]
 
     return filtered_complexes
 
 
-def merge_proteins(curated_df,
-                   additional_df: pd.DataFrame,
-                   log_file: str) -> pd.DataFrame:
+def _merge_proteins(curated_df,
+                    additional_df: pd.DataFrame,
+                    log_file: str) -> pd.DataFrame:
     additional_df = additional_df.copy()
 
     defaults = {
@@ -324,8 +324,8 @@ def merge_proteins(curated_df,
     additional_df.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'protein_name'}, inplace=True)
 
     # # Here we set defaults for uniprot & curated data
-    set_defaults(curated_df, defaults)
-    set_defaults(additional_df, defaults)
+    _set_defaults(curated_df, defaults)
+    _set_defaults(additional_df, defaults)
 
     # we will only use these columns
     additional_df: pd.DataFrame = additional_df[used_cols]
@@ -363,7 +363,7 @@ def merge_proteins(curated_df,
     return result
 
 
-def merge_complex(curated_df, additional_df, log_file):
+def _merge_complex(curated_df, additional_df, log_file):
     additional_df = additional_df.copy()
 
     defaults = {
@@ -393,8 +393,8 @@ def merge_complex(curated_df, additional_df, log_file):
     used_cols = required_columns + list(defaults.keys())
 
     # Here we set defaults for curated & user data
-    set_defaults(curated_df, defaults)
-    set_defaults(additional_df, defaults)
+    _set_defaults(curated_df, defaults)
+    _set_defaults(additional_df, defaults)
 
     # we will only use these columns
     additional_df: pd.DataFrame = additional_df[used_cols]
@@ -434,7 +434,7 @@ def merge_complex(curated_df, additional_df, log_file):
     return result
 
 
-def merge_df(curated_df, additional_df, log_file, used_cols: List, join_key):
+def _merge_df(curated_df, additional_df, log_file, used_cols: List, join_key):
     additional_df = additional_df.copy()
 
     # we will only use these columns
@@ -474,7 +474,7 @@ def merge_df(curated_df, additional_df, log_file, used_cols: List, join_key):
     return result
 
 
-def set_defaults(df, defaults):
+def _set_defaults(df, defaults):
     for column_name, default_value in defaults.items():
         if column_name not in df:
             print('missing column in dataframe: {}, set to default {}'.format(column_name, default_value))
