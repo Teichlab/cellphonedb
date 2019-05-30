@@ -14,7 +14,6 @@ class Multidata(Base):
     receptor_desc = Column(String)
     other = Column(Boolean)
     other_desc = Column(String)
-    transporter = Column(Boolean)
     secreted_highlight = Column(Boolean)
     secreted_desc = Column(String)
     transmembrane = Column(Boolean)

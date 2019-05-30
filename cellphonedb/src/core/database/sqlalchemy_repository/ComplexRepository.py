@@ -159,7 +159,7 @@ class ComplexRepository(Repository):
             complexes = complexes.iloc[complete_indices, :]
 
             # Convert ints to bool
-            bools = ['receptor', 'other', 'transporter', 'secreted_highlight', 'transmembrane', 'secreted',
+            bools = ['receptor', 'other', 'secreted_highlight', 'transmembrane', 'secreted',
                      'peripheral']
             complexes[bools] = complexes[bools].astype(bool)
 

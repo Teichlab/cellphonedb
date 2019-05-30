@@ -54,7 +54,6 @@ multidatas_fixtures = [
         'other': False,
         'transmembrane': False,
         'extracellular': False,
-        'transporter': True,
         'is_receptor': False,
         'secreted_highlight': False,
         'can_be_ligand': False,
