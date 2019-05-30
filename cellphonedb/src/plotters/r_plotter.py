@@ -94,9 +94,13 @@ def selected_items(selection: Optional[click.File], size):
         names = df[0].tolist()
 
         from rpy2.robjects.vectors import StrVector
-        selected = StrVector(names)
+        selected = StrVector(_sanitize_names(names))
         size = len(names)
     else:
         selected = robjects.NULL
 
     return size, selected
+
+
+def _sanitize_names(names):
+    return [name.replace('|', '.') for name in names]
