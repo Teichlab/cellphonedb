@@ -343,13 +343,13 @@ def _merge_proteins(curated_df,
     curated_is_in_additional = curated_df['uniprot'].isin(additional_df['uniprot'])
 
     common_additional: pd.DataFrame = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
-    common_curated = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
+    common_curated: pd.DataFrame = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
 
-    common_additional = common_additional.sort_values(by='uniprot')
-    common_curated = common_curated.sort_values(by='uniprot')
+    distinct_additional = additional_df[~additional_is_in_curated]
+    distinct_curated = curated_df[~curated_is_in_additional]
 
-    distinct_uniprots = additional_df[~additional_is_in_curated]
-    result: pd.DataFrame = pd.concat([common_curated, distinct_uniprots], ignore_index=True).sort_values(by='uniprot')
+    result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
+                                     ignore_index=True).sort_values(by='uniprot')
 
     if not common_curated.equals(common_additional):
         app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
@@ -415,12 +415,11 @@ def _merge_complex(curated_df, additional_df, log_file):
     common_additional: pd.DataFrame = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
     common_curated: pd.DataFrame = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
 
-    common_additional = common_additional.sort_values(by=join_key)
-    common_curated = common_curated.sort_values(by=join_key)
+    distinct_additional = additional_df[~additional_is_in_curated]
+    distinct_curated = curated_df[~curated_is_in_additional]
 
-    distinct = additional_df[~additional_is_in_curated]
-
-    result: pd.DataFrame = pd.concat([common_curated, distinct], ignore_index=True).sort_values(by=join_key)
+    result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
+                                     ignore_index=True).sort_values(by=join_key)
 
     if not common_curated.equals(common_additional):
         app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
@@ -455,12 +454,11 @@ def _merge_df(curated_df, additional_df, log_file, used_cols: List, join_key):
     common_additional: pd.DataFrame = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
     common_curated: pd.DataFrame = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
 
-    common_additional = common_additional.sort_values(by=join_key).reset_index(drop=True)
-    common_curated = common_curated.sort_values(by=join_key).reset_index(drop=True)
+    distinct_additional = additional_df[~additional_is_in_curated]
+    distinct_curated = curated_df[~curated_is_in_additional]
 
-    distinct = additional_df[~additional_is_in_curated]
-
-    result: pd.DataFrame = pd.concat([common_curated, distinct], ignore_index=True).sort_values(by=join_key)
+    result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
+                                     ignore_index=True).sort_values(by=join_key)
 
     if not common_curated.equals(common_additional):
         app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
