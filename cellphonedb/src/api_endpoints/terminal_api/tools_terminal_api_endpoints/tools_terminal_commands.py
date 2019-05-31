@@ -7,6 +7,7 @@ import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir, data_dir
+from cellphonedb.src.core.generators.gene_generator import gene_generator
 from cellphonedb.src.exceptions.MissingRequiredColumns import MissingRequiredColumns
 from cellphonedb.src.local_launchers.local_collector_launcher import LocalCollectorLauncher
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
@@ -32,7 +33,6 @@ def generate_genes(user_gene: Optional[click.File],
                    result_path: str,
                    log_file: str) -> None:
     output_path = _set_paths(output_dir, result_path)
-    log_path = '{}/{}'.format(output_path, log_file)
 
     if fetch_ensembl:
         print('fetching remote ensembl data ... ', end='')
@@ -49,10 +49,10 @@ def generate_genes(user_gene: Optional[click.File],
                 '</Query>'
 
         url = source_url.format(urllib.parse.quote(query))
-        ensembl_df: pd.DataFrame = pd.read_csv(url)
+        ensembl_db: pd.DataFrame = pd.read_csv(url)
         print('done')
     else:
-        ensembl_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
+        ensembl_db: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
         print('read local ensembl file')
 
     # additional data comes from given file or uniprot remote url
@@ -63,66 +63,39 @@ def generate_genes(user_gene: Optional[click.File],
                      '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
                      '&compress=yes'
 
-        uniprot_df = pd.read_csv(source_url, sep='\t', compression='gzip')
+        uniprot_db = pd.read_csv(source_url, sep='\t', compression='gzip')
         print('done')
     else:
-        uniprot_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
+        uniprot_db: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
         print('read local uniprot file')
 
-    ensembl_columns = {'Gene name': 'gene_name',
-                       'Gene stable ID': 'ensembl',
-                       'HGNC symbol': 'hgnc_symbol',
-                       'UniProtKB/Swiss-Prot ID': 'uniprot'
-                       }
+    ensembl_columns = {
+        'Gene name': 'gene_name',
+        'Gene stable ID': 'ensembl',
+        'HGNC symbol': 'hgnc_symbol',
+        'UniProtKB/Swiss-Prot ID': 'uniprot_ensembl'
+    }
 
-    uniprot_columns = {'Entry': 'uniprot',
-                       'Gene names': 'gene_names'
-                       }
+    uniprot_columns = {
+        'Entry': 'uniprot',
+        'Gene names': 'gene_names'
+    }
 
-    ensembl_df = ensembl_df[list(ensembl_columns.keys())].rename(columns=ensembl_columns)
-    uniprot_df = uniprot_df[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
-    used_columns = list(ensembl_columns.values())
+    result_columns = [
+        'gene_name',
+        'uniprot',
+        'hgnc_symbol',
+        'ensembl'
+    ]
 
-    def deconvolute(df: pd.DataFrame) -> pd.DataFrame:
-        cols = list(uniprot_columns.values())
+    ensembl_db = ensembl_db[list(ensembl_columns.keys())].rename(columns=ensembl_columns)
+    uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
+    hla_genes = read_data_table_from_file(os.path.join(data_dir, 'sources/hla_genes.csv'))
+    cpdb_interactions = pd.read_csv('cellphonedb/src/core/data/interaction_input.csv')
 
-        rename_map = {0: 'gene_name'}
-        significant_columns = df[cols]
-        expanded: pd.DataFrame = significant_columns['gene_names'].str.split(' ').apply(pd.Series)
-        expanded.index = significant_columns.set_index(cols).index
+    cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, cpdb_interactions, result_columns)
 
-        return expanded.stack().reset_index(cols).reset_index(drop=True).rename(columns=rename_map).drop(
-            columns='gene_names')
-
-    expanded_uniprot_df: pd.DataFrame = deconvolute(uniprot_df)
-
-    # to be replaced with new logging merge technique?
-    with_uniprot: pd.DataFrame = pd.merge(expanded_uniprot_df, ensembl_df, on='gene_name', suffixes=['', '_ensembl'])
-
-    # todo: log this duped list
-    duped = with_uniprot[with_uniprot['uniprot'] != with_uniprot['uniprot_ensembl']]
-
-    # We retain only desired columns & remove duplicates
-    with_uniprot = with_uniprot[used_columns].drop_duplicates()
-
-    # Now we remove hla genes
-    non_hla = with_uniprot[~with_uniprot['gene_name'].str.contains('HLA')]
-
-    # They are added from external list
-    hla_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/hla_genes.txt'))
-
-    with_hla = pd.concat([non_hla, hla_df], sort=False)
-
-    if user_gene:
-        separator = _get_separator(os.path.splitext(user_gene.name)[-1])
-        user_df: pd.DataFrame = pd.read_csv(user_gene, sep=separator)
-
-        result = _merge_df(user_df, with_hla, log_path, used_columns, 'gene_name')
-    else:
-        result = with_hla
-
-    result[['gene_name', 'uniprot', 'hgnc_symbol', 'ensembl']].to_csv('{}/{}'.format(output_path, 'gene_input.csv'),
-                                                                      index=False)
+    cpdb_genes[result_columns].to_csv('{}/{}'.format(output_path, 'gene_input.csv'), index=False)
 
 
 @click.command()
