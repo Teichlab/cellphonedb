@@ -8,6 +8,8 @@ import pandas as pd
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir, data_dir
 from cellphonedb.src.core.generators.gene_generator import gene_generator
+from cellphonedb.src.core.generators.generator_helper import set_defaults
+from cellphonedb.src.core.generators.protein_generator import protein_generator
 from cellphonedb.src.exceptions.MissingRequiredColumns import MissingRequiredColumns
 from cellphonedb.src.local_launchers.local_collector_launcher import LocalCollectorLauncher
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
@@ -95,7 +97,7 @@ def generate_genes(user_gene: Optional[click.File],
     cpdb_interactions = pd.read_csv('cellphonedb/src/core/data/interaction_input.csv')
     if user_gene:
         separator = _get_separator(os.path.splitext(user_gene.name)[-1])
-        user_gene: pd.DataFrame = pd.read_csv(user_gene, sep=separator)
+        user_gene = pd.read_csv(user_gene, sep=separator)
 
     cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, user_gene, cpdb_interactions, result_columns)
 
@@ -175,23 +177,57 @@ def generate_proteins(user_protein: Optional[click.File],
                      '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
                      '&compress=yes'
 
-        additional_df = pd.read_csv(source_url, sep='\t', compression='gzip')
+        uniprot_db = pd.read_csv(source_url, sep='\t', compression='gzip')
+
+        if user_protein:
+            separator = _get_separator(os.path.splitext(user_protein.name)[-1])
+            user_protein = pd.read_csv(user_protein, sep=separator)
+
         print('read remote uniprot file')
     else:
-        additional_df = pd.read_csv(os.path.join(data_dir, 'sources/uniprot.tab'), sep='\t')
+        uniprot_db = pd.read_csv(os.path.join(data_dir, 'sources/uniprot.tab'), sep='\t')
         print('read local uniprot file')
 
-    curated_df: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
+    default_values = {
+        'transmembrane': False,
+        'peripheral': False,
+        'secreted': False,
+        'secreted_desc': pd.np.nan,
+        'secreted_highlight': False,
+        'receptor': False,
+        'receptor_desc': pd.np.nan,
+        'integrin': False,
+        'other': False,
+        'other_desc': pd.np.nan,
+        'tags': 'To_add',
+        'tags_reason': pd.np.nan,
+        'tags_description': pd.np.nan,
+        'transporter': False
+    }
+
+    default_types = {
+        'uniprot': str,
+        'protein_name': str,
+        'transmembrane': bool,
+        'peripheral': bool,
+        'secreted': bool,
+        'secreted_desc': str,
+        'secreted_highlight': bool,
+        'receptor': bool,
+        'receptor_desc': str,
+        'integrin': bool,
+        'other': bool,
+        'other_desc': str,
+        'tags': str,
+        'tags_reason': str,
+        'tags_description': str,
+    }
 
     output_path = _set_paths(output_dir, result_path)
     log_path = '{}/{}'.format(output_path, log_file)
-    result = _merge_proteins(curated_df, additional_df, log_path)
+    curated_proteins: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
 
-    if user_protein:
-        separator = _get_separator(os.path.splitext(user_protein.name)[-1])
-        user_df: pd.DataFrame = pd.read_csv(user_protein, sep=separator)
-
-        result = _merge_proteins(user_df, result, log_path)
+    result = protein_generator(uniprot_db, curated_proteins, user_protein, default_values, default_types, log_path)
 
     result.to_csv('{}/{}'.format(output_path, 'protein_input.csv'), index=False)
 
@@ -276,87 +312,6 @@ def _filter_complexes(complexes: pd.DataFrame, interacting_partners: pd.DataFram
     return filtered_complexes
 
 
-def _merge_proteins(curated,
-                    additional: pd.DataFrame,
-                    log_file: str) -> pd.DataFrame:
-    additional = additional.copy()
-
-    defaults = {
-        'transmembrane': False,
-        'peripheral': False,
-        'secreted': False,
-        'secreted_desc': pd.np.nan,
-        'secreted_highlight': False,
-        'receptor': False,
-        'receptor_desc': pd.np.nan,
-        'integrin': False,
-        'other': False,
-        'other_desc': pd.np.nan,
-        'tags': 'To_add',
-        'tags_reason': pd.np.nan,
-        'tags_description': pd.np.nan,
-        'transporter': False
-    }
-
-    default_types = {
-        'uniprot': str,
-        'protein_name': str,
-        'transmembrane': bool,
-        'peripheral': bool,
-        'secreted': bool,
-        'secreted_desc': str,
-        'secreted_highlight': bool,
-        'receptor': bool,
-        'receptor_desc': str,
-        'integrin': bool,
-        'other': bool,
-        'other_desc': str,
-        'tags': str,
-        'tags_reason': str,
-        'tags_description': str,
-    }
-
-    used_cols = ['uniprot', 'protein_name'] + list(defaults.keys())
-
-    # homogeneized column names
-    additional.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'protein_name'}, inplace=True)
-
-    # Here we set defaults for uniprot & curated data
-    _set_defaults(curated, defaults)
-    _set_defaults(additional, defaults)
-
-    # we will only use these columns
-    additional: pd.DataFrame = additional[used_cols]
-    curated: pd.DataFrame = curated[used_cols]
-
-    # Type casting to ensure they are equal
-    additional = additional.astype(default_types)
-    curated = curated.astype(default_types)
-
-    additional_is_in_curated = additional['uniprot'].isin(curated['uniprot'])
-    curated_is_in_additional = curated['uniprot'].isin(additional['uniprot'])
-
-    common_additional: pd.DataFrame = additional.reindex(used_cols, axis=1)[additional_is_in_curated]
-    common_curated: pd.DataFrame = curated.reindex(used_cols, axis=1)[curated_is_in_additional]
-
-    distinct_additional = additional[~additional_is_in_curated]
-    distinct_curated = curated[~curated_is_in_additional]
-
-    result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
-                                     ignore_index=True).sort_values(by='uniprot')
-
-    if not common_curated.equals(common_additional):
-        app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
-
-        common_curated['file'] = 'curated'
-        common_additional['file'] = 'additional'
-
-        log = common_curated.append(common_additional).sort_values(by=used_cols)
-        log.to_csv(log_file, index=False, sep='\t')
-
-    return result
-
-
 def _merge_complex(curated, additional, log_file):
     additional = additional.copy()
 
@@ -409,8 +364,8 @@ def _merge_complex(curated, additional, log_file):
     used_cols = required_columns + list(defaults.keys())
 
     # Here we set defaults for curated & user data
-    _set_defaults(curated, defaults)
-    _set_defaults(additional, defaults)
+    curated = set_defaults(curated, defaults)
+    additional = set_defaults(additional, defaults)
 
     # Type casting to ensure they are equal
     curated = curated.astype(default_types)
@@ -482,16 +437,6 @@ def _merge_df(curated_df, additional_df, log_file, used_cols: List, join_key):
         log.to_csv(log_file, index=False, sep='\t')
 
     return result
-
-
-def _set_defaults(df, defaults):
-    for column_name, default_value in defaults.items():
-        if column_name not in df:
-            print('missing column in dataframe: {}, set to default {}'.format(column_name, default_value))
-            df[column_name] = default_value
-            continue
-
-        df[column_name].replace({pd.np.nan: default_value}, inplace=True)
 
 
 def _set_paths(output_path, subfolder):
