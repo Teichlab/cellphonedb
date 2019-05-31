@@ -1,7 +1,7 @@
 import pandas as pd
 
-from tools.generate_data.mergers import merge_interactions
-from tools.tools_helper import normalize_interactions
+from cellphonedb.tools.generate_data.mergers import merge_interactions
+from cellphonedb.tools.tools_helper import normalize_interactions
 
 
 def add_curated(interactions: pd.DataFrame, interaction_curated: pd.DataFrame) -> pd.DataFrame:

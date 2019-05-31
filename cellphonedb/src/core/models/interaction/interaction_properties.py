@@ -4,11 +4,11 @@ from cellphonedb.src.core.models.multidata import multidata_properties
 
 
 def is_cellphonedb_interactor(interaction: pd.Series, suffixes=('_1', '_2')) -> bool:
-    if interaction['id_multidata{}'.format(suffixes[0])] == interaction['id_multidata{}'.format(suffixes[1])]:
-        return False
-
     if interaction['source'] == 'curated':
         return True
+
+    if interaction['id_multidata{}'.format(suffixes[0])] == interaction['id_multidata{}'.format(suffixes[1])]:
+        return False
 
     if interaction['source'] == 'guidetopharmacology.org':
         return True
