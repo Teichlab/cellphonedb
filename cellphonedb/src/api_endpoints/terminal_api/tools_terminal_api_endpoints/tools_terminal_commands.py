@@ -34,6 +34,7 @@ def generate_genes(user_gene: Optional[click.File],
                    log_file: str) -> None:
     output_path = _set_paths(output_dir, result_path)
 
+    # TODO: Add logger
     if fetch_ensembl:
         print('fetching remote ensembl data ... ', end='')
         source_url = 'http://www.ensembl.org/biomart/martservice?query={}'
@@ -92,8 +93,11 @@ def generate_genes(user_gene: Optional[click.File],
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
     hla_genes = read_data_table_from_file(os.path.join(data_dir, 'sources/hla_genes.csv'))
     cpdb_interactions = pd.read_csv('cellphonedb/src/core/data/interaction_input.csv')
+    if user_gene:
+        separator = _get_separator(os.path.splitext(user_gene.name)[-1])
+        user_gene: pd.DataFrame = pd.read_csv(user_gene, sep=separator)
 
-    cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, cpdb_interactions, result_columns)
+    cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, user_gene, cpdb_interactions, result_columns)
 
     cpdb_genes[result_columns].to_csv('{}/{}'.format(output_path, 'gene_input.csv'), index=False)
 

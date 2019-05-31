@@ -4,6 +4,7 @@ import pandas as pd
 def gene_generator(ensembl_db: pd.DataFrame,
                    uniprot_db: pd.DataFrame,
                    hla_genes: pd.DataFrame,
+                   user_gene: pd.DataFrame,
                    interactions: pd.DataFrame,
                    result_columns: list) -> pd.DataFrame:
     def get_first_gene_name(gene_names: str) -> str:
@@ -66,6 +67,10 @@ def gene_generator(ensembl_db: pd.DataFrame,
     # Merging missing cpdb_uniprot_genes and missing uniprot_genes
     cpdb_genes = cpdb_genes.append(genes_missing_after_ensembl_merge, ignore_index=True, sort=False)[result_columns]
     cpdb_genes = cpdb_genes.append(hla_genes, ignore_index=True, sort=False).drop_duplicates(result_columns)
+
+    # If user_gene added, append
+    cpdb_genes = cpdb_genes.append(user_gene, ignore_index=True, sort=False).drop_duplicates(result_columns,
+                                                                                             keep='last')
 
     # Check if exist any duplicated ensembl
     print('Duplicated ensembl genes')
