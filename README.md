@@ -138,7 +138,7 @@ You can tweak the options for the plot with these arguments:
 - `--columns`: File with a list of columns to plot, one per line [all available]
 - `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
 
-Available output formats are those supported by `R's ggplot2` package, among others tey are:
+Available output formats are those supported by `R's ggplot2` package, among others they are:
 - `pdf`
 - `png`
 - `jpeg`
@@ -156,14 +156,13 @@ This plot type requires `pheatmap` R package installed and working
 This plot type includes to plots: `count` & `log_count` 
 
 You can tweak the options for the plot with these arguments:
-- `--meta-path`: Analysis input meta file [meta.txt]
 - `--pvalues-path`: Analysis output pvalues [./out/pvalues.txt]
 - `--output-path`: Path to write generated plots [./out]
 - `--count-name`: Analysis output pvalues [heatmap_count.pdf]
 - `--log-name`: Analysis output pvalues [heatmap_log_count.pdf]
 - `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
 
-Available output formats are those supported by `R's pheatmap` package, among others tey are:
+Available output formats are those supported by `R's pheatmap` package, among others they are:
 - `pdf`
 - `png`
 - `jpeg`
