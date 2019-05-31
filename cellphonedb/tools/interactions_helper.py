@@ -1,32 +1,21 @@
 import pandas as pd
 
-from cellphonedb.src.core.utils.filters import remove_not_defined_columns
+from cellphonedb.src.core.models.interaction import interaction_properties
 
 
-def _only_uniprots_in_df(uniprots_df, inweb_interactions):
-    inweb_cellphone = pd.merge(inweb_interactions, uniprots_df, left_on=['protein_1'],
-                               right_on=['uniprot'], how='inner')
+def filter_by_cellphonedb_interactor(uniprots: pd.DataFrame, interactions: pd.DataFrame) -> pd.DataFrame:
+    interactions_filtered = pd.merge(interactions, uniprots, left_on=['protein_1'], right_on=['uniprot'], how='inner')
 
-    remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)
+    interactions_filtered = pd.merge(interactions_filtered, uniprots, left_on=['protein_2'],
+                                     right_on=['uniprot'], how='inner', suffixes=('_1', '_2'))
 
-    inweb_cellphone = pd.merge(inweb_cellphone, uniprots_df, left_on=['protein_2'],
-                               right_on=['uniprot'], how='inner')
-    remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)
+    interactions_filtered.rename(columns={'uniprot_1': 'id_multidata_1', 'uniprot_2': 'id_multidata_2'}, inplace=True)
+    interactions_filtered.drop_duplicates(inplace=True)
 
-    # Prevents duplicated interactions if any uniprot is duplicated in uniprots_df or intaractions
-    inweb_cellphone = inweb_cellphone[inweb_cellphone.duplicated() == False]
+    print(len(interactions_filtered))
+    interactions_filtered = interactions_filtered[
+        interactions_filtered.apply(lambda interaction: interaction_properties.is_cellphonedb_interactor(interaction),
+                                    axis=1)]
+    print(len(interactions_filtered))
 
-    return remove_not_defined_columns(inweb_cellphone, inweb_interactions.columns.values)
-
-
-def _only_genes_in_df(genes_df, interactions):
-    result = pd.merge(interactions, genes_df, left_on=['gene_1'],
-                      right_on=['ensembl'], how='inner')
-
-    result = pd.merge(result, genes_df, left_on=['gene_2'],
-                      right_on=['ensembl'], how='inner', suffixes=['_1', '_2'])
-
-    # Prevents duplicated interactions if any uniprot is duplicated in uniprots_df or intaractions
-    result = result[result.duplicated() == False]
-
-    return result
+    return interactions_filtered[interactions.columns.values]

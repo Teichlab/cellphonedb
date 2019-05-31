@@ -178,7 +178,8 @@ def generate_interactions(
     print('adding curated interaction')
     interactions_with_curated = add_curated(clean_interactions, interaction_curated)
 
-    interactions_with_curated.to_csv('{}/interaction.csv'.format(output_path), index=False)
+    interactions_with_curated[['partner_a', 'partner_b', 'source', 'comments_interaction']].to_csv(
+        '{}/interaction_input.csv'.format(output_path), index=False)
 
 
 @click.command()
