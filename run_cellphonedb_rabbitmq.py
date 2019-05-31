@@ -284,7 +284,7 @@ while jobs_runned < 3 and consume_more_jobs:
 
     if all(job):
         try:
-            if jobs_queue_name == 'plot_jobs':
+            if jobs_queue_name == 'cpdb-plot-jobs':
                 job_response = process_plot(*job)
             else:
                 job_response = process_method(*job)
