@@ -1,5 +1,5 @@
 library(pheatmap)
-plot_heatmaps = function(meta_file, pvalues_file, count_filename, log_filename, show_rownames = T, show_colnames = T,
+heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, show_rownames = T, show_colnames = T,
                          scale="none", cluster_cols = T,border_color='white', cluster_rows = T, fontsize_row=11,
                          fontsize_col = 11, main = '',treeheight_row=0, family='Arial', treeheight_col = 0,
                          col1 = "dodgerblue4", col2 = 'peachpuff', col3 = 'deeppink4'){

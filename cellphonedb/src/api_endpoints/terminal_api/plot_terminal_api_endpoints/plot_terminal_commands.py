@@ -24,7 +24,7 @@ from cellphonedb.src.plotters import r_plotter
 def dot_plot(means_path: str, pvalues_path: str, output_path: str, output_name: str, rows: str,
              columns: str, verbose: bool):
     try:
-        r_plotter.dot_plot(means_path, pvalues_path, output_path, output_name, rows, columns, 'dot_plot')
+        r_plotter.dot_plot(means_path, pvalues_path, output_path, output_name, rows, columns)
     except RRuntimeException as e:
         app_logger.error(str(e))
     except:
@@ -49,7 +49,7 @@ def dot_plot(means_path: str, pvalues_path: str, output_path: str, output_name: 
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
 def heatmap_plot(meta_path: str, pvalues_path: str, output_path: str, count_name: str, log_name: str, verbose: bool):
     try:
-        r_plotter.plot_heatmaps(meta_path, pvalues_path, output_path, log_name, count_name)
+        r_plotter.heatmaps_plot(meta_path, pvalues_path, output_path, log_name, count_name)
     except RRuntimeException as e:
         app_logger.error(str(e))
     except:

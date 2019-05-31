@@ -1,8 +1,6 @@
-import io
 import os
-from typing import Optional, IO
+from typing import Optional
 
-import click
 import pandas as pd
 from rpy2 import robjects
 from rpy2.rinterface_lib.embedded import RRuntimeError
@@ -12,18 +10,18 @@ from cellphonedb.src.exceptions.RRuntimeException import RRuntimeException
 from cellphonedb.utils.utils import _get_separator
 
 
-def plot_heatmaps(meta_file: str,
-                  pvalues_file: str,
-                  output_path: str,
-                  count_name: str,
-                  log_name: str,
-                  plot_function: str = 'plot_heatmaps'
-                  ) -> None:
+def heatmaps_plot(meta_file: str,
+                   pvalues_file: str,
+                   output_path: str,
+                   count_name: str,
+                   log_name: str
+                   ) -> None:
     this_file_dir = os.path.dirname(os.path.realpath(__file__))
     robjects.r.source(os.path.join(this_file_dir, 'R/plot_heatmaps.R'))
     available_names = list(robjects.globalenv.keys())
     count_filename = os.path.join(output_path, count_name)
     log_filename = os.path.join(output_path, log_name)
+    plot_function: str = 'heatmaps_plot'
 
     if plot_function in available_names:
         function_name = plot_function
@@ -47,8 +45,7 @@ def dot_plot(means_path: str,
              output_path: str,
              output_name: str,
              rows: Optional[str] = None,
-             columns: Optional[str] = None,
-             plot_function: str = 'dot_plot',
+             columns: Optional[str] = None
              ) -> None:
     pvalues_separator = _get_separator(os.path.splitext(pvalues_path)[-1])
     means_separator = _get_separator(os.path.splitext(means_path)[-1])
@@ -65,6 +62,7 @@ def dot_plot(means_path: str,
     this_file_dir = os.path.dirname(os.path.realpath(__file__))
     robjects.r.source(os.path.join(this_file_dir, 'R/plot_dot_by_column_name.R'))
     available_names = list(robjects.globalenv.keys())
+    plot_function: str = 'dot_plot'
 
     if plot_function in available_names:
         function_name = plot_function

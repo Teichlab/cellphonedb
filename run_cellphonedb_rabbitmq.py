@@ -20,8 +20,9 @@ from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdVal
 from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
+from cellphonedb.src.exceptions.PlotException import PlotException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
-from cellphonedb.src.plotters.r_plotter import dot_plot
+from cellphonedb.src.plotters.r_plotter import dot_plot, heatmaps_plot
 from cellphonedb.utils import utils
 
 try:
@@ -91,10 +92,7 @@ def write_image_to_s3(path: str, filename: str):
     s3_client.put_object(Body=_io, Bucket=s3_bucket_name, Key=filename)
 
 
-def plot_results(means: str, pvalues: str, rows: str, columns: str, job_id: str, plot_type: str):
-    if plot_type != 'dot_plot':
-        raise Exception()
-
+def dot_plot_results(means: str, pvalues: str, rows: str, columns: str, job_id: str):
     with tempfile.TemporaryDirectory() as output_path:
         with tempfile.NamedTemporaryFile(suffix=os.path.splitext(means)[-1]) as means_file:
             with tempfile.NamedTemporaryFile(suffix=os.path.splitext(pvalues)[-1]) as pvalues_file:
@@ -112,17 +110,53 @@ def plot_results(means: str, pvalues: str, rows: str, columns: str, job_id: str,
 
                         output_file = os.path.join(output_path, output_name)
 
+                        if not os.path.exists(output_file):
+                            raise PlotException('Could not generate output file for plot of type dot_plot')
+
                         response = {
                             'job_id': job_id,
                             'files': {
-                                'plot': 'plot__{}.png'.format(job_id),
+                                'plot': output_name,
                             },
                             'success': True
                         }
 
-                        write_image_to_s3(output_file, response['files']['plot'])
+                        write_image_to_s3(output_file, output_name)
 
                         return response
+
+
+def heatmaps_plot_results(meta: str, pvalues: str, job_id: str):
+    with tempfile.TemporaryDirectory() as output_path:
+        with tempfile.NamedTemporaryFile(suffix=os.path.splitext(pvalues)[-1]) as pvalues_file:
+            with tempfile.NamedTemporaryFile() as meta_file:
+                _from_s3_to_temp(pvalues, pvalues_file)
+                _from_s3_to_temp(meta, meta_file)
+
+                count_name = 'plot_count__{}.png'.format(job_id)
+                count_log_name = 'plot_count_log__{}.png'.format(job_id)
+
+                heatmaps_plot(meta_file.name, pvalues_file.name, output_path, count_name, count_log_name)
+
+                output_count_file = os.path.join(output_path, count_name)
+                output_count_log_file = os.path.join(output_path, count_log_name)
+
+                if not os.path.exists(output_count_file) or not os.path.exists(output_count_log_file):
+                    raise PlotException('Could not generate output file for plot of type dot_plot')
+
+                response = {
+                    'job_id': job_id,
+                    'files': {
+                        'count_plot': count_name,
+                        'count_log_plot': count_log_name
+                    },
+                    'success': True
+                }
+
+                write_image_to_s3(output_count_file, count_name)
+                write_image_to_s3(output_count_log_file, count_log_name)
+
+                return response
 
 
 def _from_s3_to_temp(key, file):
@@ -138,13 +172,30 @@ def process_plot(method, properties, body) -> dict:
     job_id = metadata['job_id']
     app_logger.info('New Plot Queued: {}'.format(job_id))
 
-    return plot_results(metadata.get('file_means'),
-                        metadata.get('file_pvalues'),
-                        metadata.get('file_rows', None),
-                        metadata.get('file_columns', None),
-                        metadata['job_id'],
-                        metadata.get('type', None)
-                        )
+    plot_type = metadata.get('type', None)
+
+    if plot_type == 'dot_plot':
+        return dot_plot_results(metadata.get('file_means'),
+                                metadata.get('file_pvalues'),
+                                metadata.get('file_rows', None),
+                                metadata.get('file_columns', None),
+                                job_id
+                                )
+
+    if plot_type == 'heatmaps_plot':
+        return heatmaps_plot_results(metadata.get('file_meta'),
+                                     metadata.get('file_pvalues'),
+                                     job_id
+                                     )
+
+    return {
+        'job_id': job_id,
+        'success': False,
+        'error': {
+            'id': 'UnknownPlotType',
+            'message': 'Given plot type does not exist: {}'.format(plot_type)
+        }
+    }
 
 
 def process_method(method, properties, body) -> dict:
@@ -246,7 +297,7 @@ while jobs_runned < 3 and consume_more_jobs:
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
             app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
         except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
-                AllCountsFilteredException, EmptyResultException) as e:
+                AllCountsFilteredException, EmptyResultException, PlotException) as e:
             error_response = {
                 'job_id': json.loads(job[2].decode('utf-8'))['job_id'],
                 'success': False,
