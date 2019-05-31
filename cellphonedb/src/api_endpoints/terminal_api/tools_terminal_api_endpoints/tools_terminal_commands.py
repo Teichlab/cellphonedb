@@ -53,7 +53,7 @@ def generate_genes(user_gene: Optional[click.File],
         print('done')
     else:
         ensembl_df: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
-        print('read remote ensembl file')
+        print('read local ensembl file')
 
     # additional data comes from given file or uniprot remote url
     if fetch_uniprot:
@@ -121,7 +121,8 @@ def generate_genes(user_gene: Optional[click.File],
     else:
         result = with_hla
 
-    result.to_csv('{}/{}'.format(output_path, 'gene_input.csv'), index=False)
+    result[['gene_name', 'uniprot', 'hgnc_symbol', 'ensembl']].to_csv('{}/{}'.format(output_path, 'gene_input.csv'),
+                                                                      index=False)
 
 
 @click.command()
