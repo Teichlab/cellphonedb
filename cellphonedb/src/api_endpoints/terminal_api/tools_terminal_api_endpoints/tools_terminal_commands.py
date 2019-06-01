@@ -1,6 +1,7 @@
 import io
 import os
 import zipfile
+from typing import Union
 
 import click
 import pandas as pd
@@ -18,70 +19,99 @@ from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmaco
 from cellphonedb.tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
 from cellphonedb.utils import utils
 
+
 # TODO: move to separate modules
 @click.command()
 @click.option('--version', type=str, default='latest')
 def download_database(version: str):
-    if not version or version == 'latest':
-        latest_release = _latest_release()
+    try:
+        if not version or version == 'latest':
+            latest_release = _latest_release()
 
-        version = latest_release['tag']
-        zip_to_download = latest_release['url']
-    else:
-        releases = _list_releases()
+            version = latest_release['tag']
+            zip_to_download = latest_release['url']
+        else:
+            releases = _list_releases()
 
-        if version not in releases:
-            app_logger.error('Unavailable version selected')
-            app_logger.error('Available versions are: {}'.format(', '.join(releases.keys())))
-            exit(1)
+            if version not in releases:
+                app_logger.error('Unavailable version selected')
+                app_logger.error('Available versions are: {}'.format(', '.join(releases.keys())))
+                exit(1)
 
-        zip_to_download = releases[version]['url']
+            zip_to_download = releases[version]['url']
 
-    print('Downloading {} release of database'.format(version))
+        print('Downloading {} release of database'.format(version))
 
-    output_folder = os.path.expanduser('~/.cpdb/releases/{}'.format(version))
-    os.makedirs(output_folder, exist_ok=True)
+        output_folder = os.path.expanduser('~/.cpdb/releases/{}'.format(version))
+        os.makedirs(output_folder, exist_ok=True)
 
-    zip_response = requests.get(zip_to_download)
-    with zipfile.ZipFile(io.BytesIO(zip_response.content)) as thezip:
-        root_folder = thezip.namelist()[0]
-        for name in thezip.namelist():
-            if name.endswith('/'):
-                continue
+        zip_response = requests.get(zip_to_download)
+        with zipfile.ZipFile(io.BytesIO(zip_response.content)) as thezip:
+            root_folder = thezip.namelist()[0]
+            for name in thezip.namelist():
+                if name.endswith('/'):
+                    continue
 
-            file_folder = os.path.dirname(name)
-            file_name = os.path.basename(name)
+                file_folder = os.path.dirname(name)
+                file_name = os.path.basename(name)
 
-            dest_folder = os.path.realpath(os.path.join(output_folder, os.path.relpath(file_folder, root_folder)))
-            dest_file = os.path.join(dest_folder, file_name)
-            os.makedirs(dest_folder, exist_ok=True)
-            with thezip.open(name) as zf:
-                with open(dest_file, 'wb') as fw:
-                    fw.write(zf.read())
+                dest_folder = os.path.realpath(os.path.join(output_folder, os.path.relpath(file_folder, root_folder)))
+                dest_file = os.path.join(dest_folder, file_name)
+                os.makedirs(dest_folder, exist_ok=True)
+                with thezip.open(name) as zf:
+                    with open(dest_file, 'wb') as fw:
+                        fw.write(zf.read())
+
+    except NoReleasesException:
+        print('There are no versions available (or connection could not be made to server to retrieve them)')
+        exit(1)
 
 
 @click.command()
 def list_versions():
-    releases = _list_releases()
+    try:
+        releases: dict = _list_releases()
 
-    for idx, (_, version) in enumerate(releases.items()):
-        note = ' *latest' if idx == 0 else ''
-        print('version {}{}: released: {}, url: {}'.format(version['tag'], note, version['date'], version['link']))
+        for idx, (_, version) in enumerate(releases.items()):
+            note = ' *latest' if idx == 0 else ''
+            print('version {}{}: released: {}, url: {}'.format(version['tag'], note, version['date'], version['link']))
+
+    except NoReleasesException:
+        print('There are no versions available (or connection could not be made to server to retrieve them)')
+        exit(1)
+
+
+class NoReleasesException(Exception):
+    pass
 
 
 def _list_releases():
-    releases = _github_query('releases')
+    try:
+        releases = _github_query('releases')
 
-    return _format_releases(*releases)
+        if not releases:
+            raise NoReleasesException()
+
+        return _format_releases(*releases)
+
+    except requests.exceptions.ConnectionError:
+        raise NoReleasesException()
 
 
 def _latest_release():
-    latest_release = _github_query('latest')
+    try:
+        latest_release = _github_query('latest')
 
-    return _format_release(latest_release)
+        if not latest_release:
+            raise NoReleasesException()
+
+        return _format_release(latest_release)
+
+    except requests.exceptions.ConnectionError:
+        raise NoReleasesException()
 
 
-def _github_query(kind):
+def _github_query(kind) -> Union[dict, list]:
     queries = {
         'releases': 'https://api.github.com/repos/{}/{}/releases'.format('ydevs', 'cpdb-data'),
         'latest': 'https://api.github.com/repos/{}/{}/releases/latest'.format('ydevs', 'cpdb-data')
@@ -90,14 +120,18 @@ def _github_query(kind):
     query = queries[kind]
 
     response = requests.get(query, headers={'Accept': 'application/vnd.github.v3+json'})
+
+    if response.status_code != 200:
+        raise NoReleasesException()
+
     return response.json()
 
 
-def _format_releases(*releases):
+def _format_releases(*releases) -> dict:
     return {item['tag_name']: _format_release(item) for item in releases}
 
 
-def _format_release(item):
+def _format_release(item) -> dict:
     return {'url': item['zipball_url'],
             'tag': item['tag_name'],
             'date': item['published_at'],
