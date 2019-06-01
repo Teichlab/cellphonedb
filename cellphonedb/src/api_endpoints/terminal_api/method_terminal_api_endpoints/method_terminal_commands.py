@@ -1,9 +1,11 @@
+import os
 import sys
 import traceback
+from distutils.version import LooseVersion
 from typing import Optional, Any, Callable
 
 import click
-from click import Context
+from click import Context, Argument
 
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
@@ -17,7 +19,7 @@ from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 
 
-def check_subsampling_params(ctx: Context, argument: click.Argument, value) -> Any:
+def check_subsampling_params(ctx: Context, argument: Argument, value) -> Any:
     subsampling = ctx.params.get('subsampling')
 
     if not subsampling and value is not None:
@@ -58,6 +60,41 @@ def subsampling_options(f: Callable) -> Callable:
     return f
 
 
+def choose_database(ctx: Context, argument: Argument, value: str) -> Optional[str]:
+    if not value:
+        return None
+
+    file_candidate = os.path.expanduser(value)
+
+    if os.path.exists(file_candidate):
+        # todo: warning is perhaps not appropriate, logger doesn't allow info at this point
+        app_logger.warning('User selected database `{}` is available, using it'.format(file_candidate))
+
+        return file_candidate
+
+    user_databases_prefix = os.path.expanduser('~/.cpdb/releases/')
+    if not os.path.isdir(user_databases_prefix):
+        app_logger.error('No downloaded databases found, run the `tools download_database` command from the cli first')
+        # todo: should we abort in this case?
+        # ctx.abort()
+
+    if value == 'latest':
+        available = sorted(os.listdir(user_databases_prefix), key=LooseVersion)
+        latest_available = available[-1]
+        app_logger.warning('Latest dowloaded version is `{}`, using it'.format(latest_available))
+        value = latest_available
+
+    dw_candidate = os.path.join(user_databases_prefix, value, 'cellphone.db')
+    valid_database = os.path.exists(dw_candidate)
+
+    if valid_database:
+        # todo: warning is perhaps not appropriate, logger doesn't allow info at this point
+        app_logger.warning('User selected downloaded database `{}` is available, using it'.format(value))
+        return dw_candidate
+    else:
+        app_logger.warning('User selected database `{}` not available, using default one'.format(value))
+
+
 def common_options(f: Callable) -> Callable:
     options = [
         click.argument('meta-filename'),
@@ -75,7 +112,7 @@ def common_options(f: Callable) -> Callable:
         click.option('--deconvoluted-result-name', default='deconvoluted',
                      help='Deconvoluted result namefile [deconvoluted]'),
         click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]'),
-        click.option('--database'),
+        click.option('--database', callback=choose_database),
         subsampling_options
     ]
 
