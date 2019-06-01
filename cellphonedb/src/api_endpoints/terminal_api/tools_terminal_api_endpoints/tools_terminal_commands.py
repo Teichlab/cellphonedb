@@ -7,10 +7,9 @@ import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir, data_dir
+from cellphonedb.src.core.generators.complex_generator import complex_generator
 from cellphonedb.src.core.generators.gene_generator import gene_generator
-from cellphonedb.src.core.generators.generator_helper import set_defaults
 from cellphonedb.src.core.generators.protein_generator import protein_generator
-from cellphonedb.src.exceptions.MissingRequiredColumns import MissingRequiredColumns
 from cellphonedb.src.local_launchers.local_collector_launcher import LocalCollectorLauncher
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
@@ -237,18 +236,15 @@ def generate_proteins(user_protein: Optional[click.File],
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
 def generate_complex(user_complex: Optional[click.File], result_path: str, log_file: str):
-    result: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'sources/complex_curated.csv'))
-
     output_path = _set_paths(output_dir, result_path)
     log_path = '{}/{}'.format(output_path, log_file)
 
+    curated_complex = pd.read_csv(os.path.join(data_dir, 'sources/complex_curated.csv'))
     if user_complex:
         separator = _get_separator(os.path.splitext(user_complex.name)[-1])
-        user_df: pd.DataFrame = pd.read_csv(user_complex, sep=separator)
-        try:
-            result = _merge_complex(user_df, result, log_path)
-        except MissingRequiredColumns as e:
-            app_logger.error(e)
+        user_complex = pd.read_csv(user_complex, sep=separator)
+
+    result = complex_generator(curated_complex, user_complex, log_path)
 
     result.to_csv('{}/{}'.format(output_path, 'complex_input.csv'), index=False)
 
@@ -310,133 +306,6 @@ def _filter_complexes(complexes: pd.DataFrame, interacting_partners: pd.DataFram
     filtered_complexes = complexes[complexes['complex_name'].isin(interacting_partners)]
 
     return filtered_complexes
-
-
-def _merge_complex(curated, additional, log_file):
-    additional = additional.copy()
-
-    defaults = {
-        'uniprot_3': pd.np.nan,
-        'uniprot_4': pd.np.nan,
-        'receptor': False,
-        'integrin': False,
-        'other': False,
-        'other_desc': pd.np.nan,
-        'peripheral': False,
-        'receptor_desc': pd.np.nan,
-        'secreted_desc': pd.np.nan,
-        'secreted_highlight': False,
-        'secreted': False,
-        'transmembrane': False,
-        'pdb_structure': False,
-        'pdb_id': pd.np.nan,
-        'stoichiometry': pd.np.nan,
-        'comments_complex': pd.np.nan
-    }
-
-    default_types = {
-        'complex_name': str,
-        'uniprot_1': str,
-        'uniprot_2': str,
-        'uniprot_3': str,
-        'uniprot_4': str,
-        'transmembrane': bool,
-        'peripheral': bool,
-        'secreted': bool,
-        'secreted_desc': str,
-        'secreted_highlight': bool,
-        'receptor': bool,
-        'receptor_desc': str,
-        'integrin': bool,
-        'other': bool,
-        'other_desc': str,
-        'pdb_id': str,
-        'pdb_structure': str,
-        'stoichiometry': str,
-        'comments_complex': str,
-    }
-
-    required_columns = ['complex_name', 'uniprot_1', 'uniprot_2']
-
-    if not set(required_columns).issubset(additional):
-        raise MissingRequiredColumns(list(set(required_columns).difference(additional)))
-
-    used_cols = required_columns + list(defaults.keys())
-
-    # Here we set defaults for curated & user data
-    curated = set_defaults(curated, defaults)
-    additional = set_defaults(additional, defaults)
-
-    # Type casting to ensure they are equal
-    curated = curated.astype(default_types)
-    additional = additional.astype(default_types)
-
-    # we will only use these columns
-    additional: pd.DataFrame = additional[used_cols]
-    curated: pd.DataFrame = curated[used_cols]
-
-    join_key = 'complex_name'
-    additional_is_in_curated = additional[join_key].isin(curated[join_key])
-    curated_is_in_additional = curated[join_key].isin(additional[join_key])
-
-    common_additional: pd.DataFrame = additional.reindex(used_cols, axis=1)[additional_is_in_curated]
-    common_curated: pd.DataFrame = curated.reindex(used_cols, axis=1)[curated_is_in_additional]
-
-    distinct_additional = additional[~additional_is_in_curated]
-    distinct_curated = curated[~curated_is_in_additional]
-
-    result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
-                                     ignore_index=True).sort_values(by=join_key)
-
-    if not common_curated.equals(common_additional):
-        app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
-
-        common_curated['file'] = 'curated'
-        common_additional['file'] = 'additional'
-
-        log = common_curated.append(common_additional).sort_values(by=used_cols)
-        log.to_csv(log_file, index=False, sep='\t')
-
-    return result
-
-
-def _merge_df(curated_df, additional_df, log_file, used_cols: List, join_key):
-    additional_df = additional_df.copy()
-
-    # we will only use these columns
-    additional_df: pd.DataFrame = additional_df[used_cols]
-    curated_df: pd.DataFrame = curated_df[used_cols]
-
-    # type casting to ensure they are equal
-    for column in additional_df:
-        if additional_df[column].dtype == curated_df[column].dtype:
-            continue
-
-        print(f'converting `{column}` type from `{additional_df[column].dtype}` to `{curated_df[column].dtype}`')
-        additional_df[column] = additional_df[column].astype(curated_df[column].dtype)
-
-    additional_is_in_curated = additional_df[join_key].isin(curated_df[join_key])
-    curated_is_in_additional = curated_df[join_key].isin(additional_df[join_key])
-
-    common_additional: pd.DataFrame = additional_df.reindex(used_cols, axis=1)[additional_is_in_curated]
-    common_curated: pd.DataFrame = curated_df.reindex(used_cols, axis=1)[curated_is_in_additional]
-
-    distinct_additional = additional_df[~additional_is_in_curated]
-    distinct_curated = curated_df[~curated_is_in_additional]
-
-    result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
-                                     ignore_index=True).sort_values(by=join_key)
-
-    if not common_curated.equals(common_additional):
-        app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
-
-        common_curated['file'] = 'curated'
-        common_additional['file'] = 'additional'
-
-        log = common_curated.append(common_additional).sort_values(by=used_cols)
-        log.to_csv(log_file, index=False, sep='\t')
-
-    return result
 
 
 def _set_paths(output_path, subfolder):

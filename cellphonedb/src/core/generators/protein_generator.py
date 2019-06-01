@@ -2,6 +2,7 @@ import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.core.generators import generator_helper
+from cellphonedb.utils import dataframe_functions
 
 
 def protein_generator(uniprot_db: pd.DataFrame,
@@ -12,6 +13,7 @@ def protein_generator(uniprot_db: pd.DataFrame,
                       log_path: str) -> pd.DataFrame:
     result = _merge_proteins(curated_proteins, uniprot_db, default_values, default_types, log_path)
 
+    # TODO: Add missing mandatory check
     if user_protein:
         result = _merge_proteins(user_protein, result, default_values, default_types, log_path)
 
@@ -54,7 +56,7 @@ def _merge_proteins(base: pd.DataFrame,
     result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
                                      ignore_index=True).sort_values(by='uniprot')
 
-    if not common_curated.equals(common_additional):
+    if not dataframe_functions.dataframes_has_same_data(common_curated, common_additional):
         app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
 
         common_curated['file'] = 'curated'
