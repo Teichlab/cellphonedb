@@ -2,7 +2,6 @@ import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.core.generators import generator_helper
-from cellphonedb.utils import dataframe_functions
 
 
 def protein_generator(uniprot_db: pd.DataFrame,
@@ -10,59 +9,49 @@ def protein_generator(uniprot_db: pd.DataFrame,
                       user_protein: pd.DataFrame,
                       default_values: dict,
                       default_types: dict,
+                      result_columns: list,
                       log_path: str) -> pd.DataFrame:
-    result = _merge_proteins(curated_proteins, uniprot_db, default_values, default_types, log_path)
+    merged_proteins = _merge_proteins(uniprot_db, curated_proteins, default_values, default_types, result_columns,
+                                      log_path, quiet=True)
 
     # TODO: Add missing mandatory check
-    if user_protein:
-        result = _merge_proteins(user_protein, result, default_values, default_types, log_path)
+    if isinstance(user_protein, pd.DataFrame) and not user_protein.empty:
+        merged_proteins = _merge_proteins(merged_proteins, user_protein, default_values, default_types, result_columns,
+                                          log_path, quiet=False)
 
-    return result
+    return merged_proteins
 
 
-def _merge_proteins(base: pd.DataFrame,
+def _merge_proteins(base_protein: pd.DataFrame,
                     additional: pd.DataFrame,
                     default_values: dict,
                     default_types: dict,
-                    log_file: str) -> pd.DataFrame:
+                    result_columns: list,
+                    log_file: str,
+                    quiet: bool = False) -> pd.DataFrame:
     additional = additional.copy()
 
-    used_cols = ['uniprot', 'protein_name'] + list(default_values.keys())
-
-    # homogeneized column names
-    additional.rename(index=str, columns={'Entry': 'uniprot', 'Entry name': 'protein_name'}, inplace=True)
-
     # Here we set defaults for uniprot & curated data
-    base = generator_helper.set_defaults(base, default_values)
-    additional = generator_helper.set_defaults(additional, default_values)
+    base_protein = generator_helper.set_defaults(base_protein, default_values, quiet)
+    additional = generator_helper.set_defaults(additional, default_values, quiet)
 
     # we will only use these columns
-    additional: pd.DataFrame = additional[used_cols]
-    base: pd.DataFrame = base[used_cols]
+    additional: pd.DataFrame = additional[result_columns]
+    base_protein: pd.DataFrame = base_protein[result_columns]
 
     # Type casting to ensure they are equal
     additional = additional.astype(default_types)
-    base = base.astype(default_types)
+    base_protein = base_protein.astype(default_types)
 
-    additional_is_in_curated = additional['uniprot'].isin(base['uniprot'])
-    curated_is_in_additional = base['uniprot'].isin(additional['uniprot'])
+    join_key = 'uniprot'
 
-    common_additional: pd.DataFrame = additional.reindex(used_cols, axis=1)[additional_is_in_curated]
-    common_curated: pd.DataFrame = base.reindex(used_cols, axis=1)[curated_is_in_additional]
+    merged_protein = base_protein.append(additional, ignore_index=True, sort=False).drop_duplicates()
 
-    distinct_additional = additional[~additional_is_in_curated]
-    distinct_curated = base[~curated_is_in_additional]
-
-    result: pd.DataFrame = pd.concat([common_curated, distinct_additional, distinct_curated],
-                                     ignore_index=True).sort_values(by='uniprot')
-
-    if not dataframe_functions.dataframes_has_same_data(common_curated, common_additional):
+    if not quiet and merged_protein.duplicated(join_key).any():
         app_logger.warning('There are differences between merged files: logged to {}'.format(log_file))
 
-        common_curated['file'] = 'curated'
-        common_additional['file'] = 'additional'
-
-        log = common_curated.append(common_additional).sort_values(by=used_cols)
+        log = merged_protein[merged_protein.duplicated(join_key, keep=False)].sort_values(join_key)
         log.to_csv(log_file, index=False, sep='\t')
 
-    return result
+    merged_protein.drop_duplicates(join_key, keep='last', inplace=True)
+    return merged_protein

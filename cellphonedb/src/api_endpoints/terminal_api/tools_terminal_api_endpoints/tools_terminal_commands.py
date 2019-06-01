@@ -169,6 +169,11 @@ def generate_proteins(user_protein: Optional[click.File],
                       fetch_uniprot: bool,
                       result_path: str,
                       log_file: str):
+    uniprot_columns = {
+        'Entry': 'uniprot',
+        'Entry name': 'protein_name',
+    }
+
     # additional data comes from given file or uniprot remote url
     if fetch_uniprot:
         source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
@@ -177,10 +182,6 @@ def generate_proteins(user_protein: Optional[click.File],
                      '&compress=yes'
 
         uniprot_db = pd.read_csv(source_url, sep='\t', compression='gzip')
-
-        if user_protein:
-            separator = _get_separator(os.path.splitext(user_protein.name)[-1])
-            user_protein = pd.read_csv(user_protein, sep=separator)
 
         print('read remote uniprot file')
     else:
@@ -201,7 +202,6 @@ def generate_proteins(user_protein: Optional[click.File],
         'tags': 'To_add',
         'tags_reason': pd.np.nan,
         'tags_description': pd.np.nan,
-        'transporter': False
     }
 
     default_types = {
@@ -222,13 +222,20 @@ def generate_proteins(user_protein: Optional[click.File],
         'tags_description': str,
     }
 
+    result_columns = list(default_types.keys())
+
     output_path = _set_paths(output_dir, result_path)
     log_path = '{}/{}'.format(output_path, log_file)
+    uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
     curated_proteins: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
+    if user_protein:
+        separator = _get_separator(os.path.splitext(user_protein.name)[-1])
+        user_protein = pd.read_csv(user_protein, sep=separator)
 
-    result = protein_generator(uniprot_db, curated_proteins, user_protein, default_values, default_types, log_path)
+    result = protein_generator(uniprot_db, curated_proteins, user_protein, default_values, default_types,
+                               result_columns, log_path)
 
-    result.to_csv('{}/{}'.format(output_path, 'protein_input.csv'), index=False)
+    result[result_columns].to_csv('{}/{}'.format(output_path, 'protein_input.csv'), index=False)
 
 
 @click.command()
