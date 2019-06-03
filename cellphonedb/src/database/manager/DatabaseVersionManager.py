@@ -1,24 +1,85 @@
 import io
+import json
 import os
 import zipfile
+from distutils.dir_util import copy_tree
+from distutils.file_util import copy_file
+from distutils.version import LooseVersion
 from typing import Union
 
 import requests
 
 from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.src.app.cellphonedb_app import core_dir
 from cellphonedb.src.app.cpdb_app import create_app
 from cellphonedb.src.exceptions.NoReleasesException import NoReleasesException
 from cellphonedb.src.local_launchers.local_collector_launcher import LocalCollectorLauncher
 
+cpdb_releases = '~/.cpdb/releases'
+database_file = 'cellphone.db'
+
+def _ensure_core_version_in_user_dbs():
+    with open(os.path.join(core_dir, 'metadata.json')) as metadata_file:
+        metadata = json.load(metadata_file)
+        core_version = metadata.get('database_version', 'core')
+
+        user_databases_prefix = os.path.expanduser(cpdb_releases)
+        dest_folder = os.path.join(user_databases_prefix, core_version)
+        database_file_location = os.path.join(dest_folder, database_file)
+
+        if os.path.isfile(database_file_location):
+            return
+
+        os.makedirs(dest_folder, exist_ok=True)
+
+        copy_file(os.path.join(core_dir, database_file), dest_folder)
+        copy_tree(os.path.join(core_dir, 'data'), dest_folder)
+
+
+def find_database_for(value: str) -> str:
+    file_candidate = os.path.expanduser(value)
+
+    if os.path.exists(file_candidate):
+        # todo: warning is perhaps not appropriate, logger doesn't allow info at this point
+        app_logger.warning('User selected database `{}` is available, using it'.format(file_candidate))
+        return file_candidate
+
+    _ensure_core_version_in_user_dbs()
+    user_databases_prefix = os.path.expanduser(cpdb_releases)
+
+    if not os.path.isdir(user_databases_prefix):
+        app_logger.error('No downloaded databases found, run the `tools download_database` command from the cli first')
+        # todo: should we abort in this case?
+        exit(1)
+
+    if value == 'latest' or not value:
+        available = sorted(os.listdir(user_databases_prefix), key=LooseVersion)
+        latest_available = available[-1]
+        app_logger.warning('Latest dowloaded version is `{}`, using it'.format(latest_available))
+        value = latest_available
+
+    downloaded_candidate = os.path.join(user_databases_prefix, value, database_file)
+    valid_database = os.path.exists(downloaded_candidate)
+
+    if valid_database:
+        # todo: warning is perhaps not appropriate, logger doesn't allow info at this point
+        app_logger.warning('User selected downloaded database `{}` is available, using it'.format(value))
+    else:
+        app_logger.warning('User selected database `{}` not available, trying to download it'.format(value))
+        download_database(value)
+        return find_database_for(value)
+
+    return downloaded_candidate
+
 
 def collect_database(database, output_path):
-    database_file = os.path.join(output_path, database)
+    database_file_path = os.path.join(output_path, database)
 
-    app = create_app(verbose=True, database_file=database_file, collecting=True)
+    app = create_app(verbose=True, database_file=database_file_path, collecting=True)
     app.database_manager.database.drop_everything()
     app.database_manager.database.create_all()
 
-    getattr(LocalCollectorLauncher(database_file), 'all')(None)
+    getattr(LocalCollectorLauncher(database_file_path), 'all')(None)
 
 
 def download_database(version):
@@ -40,7 +101,7 @@ def download_database(version):
 
         print('Downloading {} release of database'.format(version))
 
-        output_folder = os.path.expanduser('~/.cpdb/releases/{}'.format(version))
+        output_folder = os.path.expanduser('{}/{}'.format(cpdb_releases, version))
         os.makedirs(output_folder, exist_ok=True)
 
         zip_response = requests.get(zip_to_download)
@@ -56,6 +117,7 @@ def download_database(version):
                 dest_folder = os.path.realpath(os.path.join(output_folder, os.path.relpath(file_folder, root_folder)))
                 dest_file = os.path.join(dest_folder, file_name)
                 os.makedirs(dest_folder, exist_ok=True)
+
                 with thezip.open(name) as zf:
                     with open(dest_file, 'wb') as fw:
                         fw.write(zf.read())
