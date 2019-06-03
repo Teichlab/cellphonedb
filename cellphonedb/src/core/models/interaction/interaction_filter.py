@@ -59,9 +59,3 @@ def filter_by_receptor_ligand_integrin(proteins: pd.DataFrame, interactions: pd.
     enabled_interactions.drop_duplicates(inplace=True)
 
     return enabled_interactions
-
-
-def filter_by_is_interactor(interactions: pd.DataFrame) -> pd.DataFrame:
-    interactions_filtered = interactions[interactions['is_cellphonedb_interactor']]
-
-    return interactions_filtered

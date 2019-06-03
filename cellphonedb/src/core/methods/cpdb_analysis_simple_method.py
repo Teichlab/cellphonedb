@@ -24,7 +24,8 @@ def call(meta: pd.DataFrame,
     core_logger.info('Running Simple Analysis')
     cluster_interactions = cpdb_statistical_analysis_helper.get_cluster_combinations(clusters['names'])
 
-    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions, separator)
+    base_result = cpdb_statistical_analysis_helper.build_result_matrix(interactions_filtered, cluster_interactions,
+                                                                       separator)
 
     mean_analysis = cpdb_statistical_analysis_helper.mean_analysis(interactions_filtered,
                                                                    clusters,
@@ -138,12 +139,11 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFram
 
     """
     core_logger.info('Running Simple Prefilters')
-    interactions_filtered = interaction_filter.filter_by_is_interactor(interactions)
 
     counts_filtered = counts[~counts.index.duplicated()]
     counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered, interactions)
     counts_filtered = cpdb_statistical_analysis_helper.filter_empty_cluster_counts(counts_filtered)
-    interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered, ('_1', '_2'))
+    interactions_filtered = filter_interactions_by_counts(interactions, counts_filtered, ('_1', '_2'))
 
     counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
                                                                                      interactions_filtered,

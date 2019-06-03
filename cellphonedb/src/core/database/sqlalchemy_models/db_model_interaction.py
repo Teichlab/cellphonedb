@@ -12,8 +12,5 @@ class Interaction(Base):
     multidata_1_id = Column(Integer, ForeignKey('multidata.id_multidata'), nullable=False)
     multidata_2_id = Column(Integer, ForeignKey('multidata.id_multidata'), nullable=False)
 
-
     source = Column(String)
     comments_interaction = Column(String)
-
-    is_cellphonedb_interactor = Column(Boolean)

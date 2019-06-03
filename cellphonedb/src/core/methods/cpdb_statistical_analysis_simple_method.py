@@ -177,12 +177,11 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFram
 
     """
     core_logger.info('Running Simple Prefilters')
-    interactions_filtered = interaction_filter.filter_by_is_interactor(interactions)
 
     counts_filtered = counts[~counts.index.duplicated()]
     counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered, interactions)
     counts_filtered = cpdb_statistical_analysis_helper.filter_empty_cluster_counts(counts_filtered)
-    interactions_filtered = filter_interactions_by_counts(interactions_filtered, counts_filtered, ('_1', '_2'))
+    interactions_filtered = filter_interactions_by_counts(interactions, counts_filtered, ('_1', '_2'))
 
     counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
                                                                                      interactions_filtered,

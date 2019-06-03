@@ -52,8 +52,7 @@ class MethodLauncher():
             counts = subsampler.subsample(counts)
             meta = meta.filter(items=(list(counts)), axis=0)
 
-        interactions = self.database_manager.get_repository('interaction').get_all_expanded(
-            only_cellphonedb_interactor=True)
+        interactions = self.database_manager.get_repository('interaction').get_all_expanded()
         genes = self.database_manager.get_repository('gene').get_all_expanded()
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
@@ -93,8 +92,7 @@ class MethodLauncher():
             counts = subsampler.subsample(counts)
             meta = meta.filter(items=list(counts), axis=0)
 
-        interactions = self.database_manager.get_repository('interaction').get_all_expanded(
-            only_cellphonedb_interactor=True)
+        interactions = self.database_manager.get_repository('interaction').get_all_expanded()
         genes = self.database_manager.get_repository('gene').get_all_expanded()
         complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
         complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
