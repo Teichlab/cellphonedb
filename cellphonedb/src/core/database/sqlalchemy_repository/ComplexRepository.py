@@ -169,10 +169,10 @@ class ComplexRepository(Repository):
 
             multidata_df = filters.remove_not_defined_columns(complexes.copy(),
                                                               self.database_manager.get_column_table_names(
-                                                                  'multidata'))
+                                                                  'multidata_table'))
 
             multidata_df = self._add_complex_optimitzations(multidata_df)
-            multidata_df.to_sql(name='multidata', if_exists='append', con=self.database_manager.database.engine,
+            multidata_df.to_sql(name='multidata_table', if_exists='append', con=self.database_manager.database.engine,
                                 index=False, chunksize=50)
 
         # Now find id's of new complex rows
@@ -196,14 +196,14 @@ class ComplexRepository(Repository):
         complex_table_df = pd.merge(complex_table_df, complexes, on='name')
 
         filters.remove_not_defined_columns(complex_table_df,
-                                           self.database_manager.get_column_table_names('complex'))
+                                           self.database_manager.get_column_table_names('complex_table'))
 
         complex_table_df.to_sql(
-            name='complex', if_exists='append',
+            name='complex_table', if_exists='append',
             con=self.database_manager.database.engine, index=False, chunksize=50)
 
         complex_set_df.to_sql(
-            name='complex_composition', if_exists='append',
+            name='complex_composition_table', if_exists='append',
             con=self.database_manager.database.engine, index=False, chunksize=50)
 
     @staticmethod

@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def call(interactions: pd.DataFrame()) -> pd.DataFrame():
-    interactions_filtered = interactions[interactions['is_cellphonedb_interactor']].copy()
+    interactions_filtered = interactions.copy()
 
     def simple_complex_indicator(interaction: pd.Series, suffix: str) -> str:
         if interaction['is_complex{}'.format(suffix)]:

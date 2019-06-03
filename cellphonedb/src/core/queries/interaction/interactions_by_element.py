@@ -5,8 +5,6 @@ import pandas as pd
 
 
 def call(element: str, interactions: pd.DataFrame, complex_composition: pd.DataFrame) -> pd.DataFrame:
-    interactions = interactions[interactions['is_cellphonedb_interactor']]
-
     elements = [name.strip() for name in element.split(',')]
     related_complexes = _find_complex_by_elements(elements, complex_composition)
 

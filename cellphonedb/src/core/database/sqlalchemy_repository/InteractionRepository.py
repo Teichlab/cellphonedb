@@ -40,12 +40,8 @@ class InteractionRepository(Repository):
         interactions_expanded = expand_interactions_multidatas(interactions, multidatas_expanded)
         return interactions_expanded
 
-    def get_all_expanded(self, include_gene=True, only_cellphonedb_interactor=False, suffixes=('_1', '_2')):
-        if only_cellphonedb_interactor == True:
-            interactions_query = self.database_manager.database.session.query(Interaction).filter_by(
-                is_cellphonedb_interactor=True)
-        else:
-            interactions_query = self.database_manager.database.session.query(Interaction)
+    def get_all_expanded(self, include_gene=True, suffixes=('_1', '_2')):
+        interactions_query = self.database_manager.database.session.query(Interaction)
 
         interactions = pd.read_sql(interactions_query.statement, self.database_manager.database.engine)
 
@@ -62,7 +58,8 @@ class InteractionRepository(Repository):
                                                self.database_manager.get_repository('multidata').get_all_name_id(),
                                                'name', 'multidata')
 
-        filters.remove_not_defined_columns(interaction_df, self.database_manager.get_column_table_names('interaction'))
+        filters.remove_not_defined_columns(interaction_df,
+                                           self.database_manager.get_column_table_names('interaction_table'))
 
-        interaction_df.to_sql(name='interaction', if_exists='append', con=self.database_manager.database.engine,
+        interaction_df.to_sql(name='interaction_table', if_exists='append', con=self.database_manager.database.engine,
                               index=False, chunksize=50)

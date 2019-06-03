@@ -35,9 +35,9 @@ class GeneRepository(Repository):
         genes = self._blend_multidata(genes, ['name'], multidatas)
 
         genes.rename(index=str, columns={'id_protein': 'protein_id'}, inplace=True)
-        genes = filters.remove_not_defined_columns(genes, self.database_manager.get_column_table_names('gene'))
+        genes = filters.remove_not_defined_columns(genes, self.database_manager.get_column_table_names('gene_table'))
 
-        genes.to_sql(name='gene', if_exists='append', con=self.database_manager.database.engine, index=False,
+        genes.to_sql(name='gene_table', if_exists='append', con=self.database_manager.database.engine, index=False,
                      chunksize=50)
 
     @staticmethod
