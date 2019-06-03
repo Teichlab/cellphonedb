@@ -15,11 +15,14 @@ from cellphonedb.src.core.database.sqlalchemy_repository.ProteinRepository impor
 
 
 class CellphonedbSqlalchemy(Cellphonedb):
-    def __init__(self, config: dict, database_file=None):
+    def __init__(self, config: dict, database_file=None, collecting=False):
         core_logger.setLevel(config['logger']['level'])
         core_logger.info('Initializing SqlAlchemy CellPhoneDB Core')
 
         if database_file:
+            if not collecting and not os.path.exists(database_file):
+                raise Exception('Given database file {} does not exist'.format(database_file))
+
             uri = self._build_sqlite_uri(database_file)
         else:
             # todo: Improve config stuff
@@ -41,24 +44,20 @@ class CellphonedbSqlalchemy(Cellphonedb):
 
     @staticmethod
     def _build_sqlite_uri(database_file):
-        if os.path.exists(database_file):
-            path = os.path.realpath(os.path.expanduser(database_file))
-            core_logger.info('Using custom database at {}'.format(path))
+        path = os.path.realpath(os.path.expanduser(database_file))
+        core_logger.info('Using custom database at {}'.format(path))
 
-            return 'sqlite:///{}'.format(path)
-        else:
-            raise Exception('Given database file {} does not exist'.format(database_file))
+        return 'sqlite:///{}'.format(path)
 
     @staticmethod
     def _build_uri(config):
         if config['sqlalchemy']['db_core']:
+
             file_path = os.path.dirname(os.path.realpath(__file__))
 
             if not config['sqlalchemy']['uri']:
                 return 'sqlite:///{}/cellphone.db'.format(file_path)
 
             return 'sqlite:///{}/{}'.format(file_path, config['sqlalchemy']['uri'])
-
-
         else:
             return config['sqlalchemy']['uri']
