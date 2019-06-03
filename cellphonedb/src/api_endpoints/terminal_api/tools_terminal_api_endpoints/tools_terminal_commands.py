@@ -18,8 +18,9 @@ from cellphonedb.tools.generate_data.mergers.add_curated import add_curated
 from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iuphar_imex_interactions
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
 from cellphonedb.tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
+from cellphonedb.tools import tools_helper
+from cellphonedb.utils.utils import _get_separator, write_to_file
 from cellphonedb.utils import utils
-from cellphonedb.utils.utils import _get_separator, read_data_table_from_file, write_to_file
 
 
 @click.command()
@@ -54,7 +55,7 @@ def generate_genes(user_gene: Optional[click.File],
         ensembl_db: pd.DataFrame = pd.read_csv(url)
         print('done')
     else:
-        ensembl_db: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
+        ensembl_db: pd.DataFrame = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
         print('read local ensembl file')
 
     # additional data comes from given file or uniprot remote url
@@ -68,14 +69,14 @@ def generate_genes(user_gene: Optional[click.File],
         uniprot_db = pd.read_csv(source_url, sep='\t', compression='gzip')
         print('done')
     else:
-        uniprot_db: pd.DataFrame = read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
+        uniprot_db: pd.DataFrame = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
         print('read local uniprot file')
 
     ensembl_columns = {
         'Gene name': 'gene_name',
         'Gene stable ID': 'ensembl',
         'HGNC symbol': 'hgnc_symbol',
-        'UniProtKB/Swiss-Prot ID': 'uniprot_ensembl'
+        'UniProtKB/Swiss-Prot ID': 'uniprot'
     }
 
     uniprot_columns = {
@@ -92,71 +93,85 @@ def generate_genes(user_gene: Optional[click.File],
 
     ensembl_db = ensembl_db[list(ensembl_columns.keys())].rename(columns=ensembl_columns)
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
-    hla_genes = read_data_table_from_file(os.path.join(data_dir, 'sources/hla_genes.csv'))
-    cpdb_interactions = pd.read_csv('cellphonedb/src/core/data/interaction_input.csv')
+    hla_genes = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/hla_genes.csv'))
     if user_gene:
         separator = _get_separator(os.path.splitext(user_gene.name)[-1])
         user_gene = pd.read_csv(user_gene, sep=separator)
 
-    cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, user_gene, cpdb_interactions, result_columns)
+    cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, user_gene, result_columns)
 
     cpdb_genes[result_columns].to_csv('{}/{}'.format(output_path, 'gene_input.csv'), index=False)
 
 
 @click.command()
-@click.argument('imex_raw_filename')
-@click.argument('iuphar_raw_filename')
-@click.argument('database_proteins_filename', default='protein.csv')
-@click.argument('database_gene_filename', default='gene.csv')
-@click.argument('database_complex_filename', default='complex.csv')
-@click.argument('interaction_to_remove_filename')
-@click.argument('interaction_curated_filename')
-@click.option('--result_path', default='')
-def generate_interactions(
-        imex_raw_filename: str,
-        iuphar_raw_filename: str,
-        database_proteins_filename: str,
-        database_gene_filename: str,
-        database_complex_filename: str,
-        interaction_to_remove_filename: str,
-        interaction_curated_filename: str,
-        result_path: str,
-) -> None:
-    interactions_base = utils.read_data_table_from_file(imex_raw_filename, na_values='-')
-    proteins = pd.read_csv(database_proteins_filename)
-    genes = pd.read_csv(database_gene_filename)
-    complexes = pd.read_csv(database_complex_filename)
-    interactions_to_remove = pd.read_csv(interaction_to_remove_filename)
-    interaction_curated = pd.read_csv(interaction_curated_filename)
+@click.argument('proteins', default='protein.csv')
+@click.argument('genes', default='gene.csv')
+@click.argument('complex', default='complex.csv')
+@click.option('--user-interactions', type=click.File('r'), default=None)
+@click.option('--result-path', type=str, default=None)
+def generate_interactions(proteins: str,
+                          genes: str,
+                          complex: str,
+                          user_interactions: Optional[click.File],
+                          result_path: str,
+                          ) -> None:
+    # TODO: Read imex from API
+    raw_imex = utils.read_data_table_from_file(os.path.join(data_dir, '../../../tools/data/interactionsMirjana.txt'),
+                                               na_values='-')
+    proteins = utils.read_data_table_from_file(proteins)
+    genes = utils.read_data_table_from_file(genes)
+    complexes = utils.read_data_table_from_file(complex)
+    interactions_to_remove = utils.read_data_table_from_file(
+        os.path.join(data_dir, 'sources/interaction_to_remove.csv'))
+    interaction_curated = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/interaction_curated.csv'))
 
-    print('generating imex file')
-    imex_interactions = parse_interactions_imex(interactions_base, proteins, genes)
+    if user_interactions:
+        separator = _get_separator(os.path.splitext(user_interactions.name)[-1])
+        user_interactions = pd.read_csv(user_interactions, sep=separator)
+
+    result_columns = [
+        'partner_a',
+        'partner_b',
+        'source',
+        'comments_interaction'
+    ]
+
+    print('Parsing IMEX file')
+    imex_interactions = parse_interactions_imex(raw_imex, proteins, genes)
+
+    imex_interactions.to_csv('TEST_IMEX_OUT.csv', index=False)
 
     output_path = _set_paths(output_dir, result_path)
     download_path = _set_paths(output_path, 'downloads')
 
     print('Getting Iuphar interactions')
-    iuphar_original = get_iuphar_guidetopharmacology.call(iuphar_raw_filename,
-                                                          download_path,
-                                                          default_download_response='no',
-                                                          )
+    # TODO: Refactorize, extract dowloader
+    iuphar_original = get_iuphar_guidetopharmacology.call(
+        os.path.join(data_dir, 'sources/interaction_iuphar_guidetopharmacology.csv'),
+        download_path,
+        default_download_response='no',
+    )
 
-    print('generating iuphar file')
+    print('Generating iuphar file')
     iuphar_interactions = parse_iuphar_guidetopharmacology.call(iuphar_original, genes, proteins)
 
-    print('merging iuphar/imex')
+    print('Merging iuphar/imex')
     merged_interactions = merge_iuphar_imex_interactions(iuphar_interactions, imex_interactions)
 
-    print('removing complex interactions')
+    print('Removing complex interactions')
     no_complex_interactions = only_noncomplex_interactions(merged_interactions, complexes)
 
-    print('removing selected interactions')
+    print('Removing selected interactions')
     clean_interactions = remove_interactions_in_file(no_complex_interactions, interactions_to_remove)
 
-    print('adding curated interaction')
+    print('Adding curated interaction')
     interactions_with_curated = add_curated(clean_interactions, interaction_curated)
 
-    interactions_with_curated[['partner_a', 'partner_b', 'source', 'comments_interaction']].to_csv(
+    tools_helper.normalize_interactions(
+        interactions_with_curated.append(user_interactions, ignore_index=True, sort=False), 'partner_a',
+        'partner_b').drop_duplicates(['partner_a', 'partner_b'], keep='last')
+
+    interactions_with_curated[result_columns].to_csv(
         '{}/interaction_input.csv'.format(output_path), index=False)
 
 
@@ -274,7 +289,7 @@ def filter_all(input_path, result_path):
     filtered_proteins, interacting_proteins = _filter_proteins(proteins, filtered_complexes, interacting_partners)
     write_to_file(filtered_proteins, 'protein_input.csv', output_path=output_path)
 
-    filtered_genes = _filter_genes(genes, interacting_proteins)
+    filtered_genes = _filter_genes(genes, filtered_proteins['uniprot'])
     write_to_file(filtered_genes, 'gene_input.csv', output_path=output_path)
 
     rejected_members = interacting_partners[~(interacting_partners.isin(filtered_complexes['complex_name']) |
@@ -292,7 +307,7 @@ def collect(table, file):
     getattr(LocalCollectorLauncher(), table)(file)
 
 
-def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.DataFrame) -> pd.DataFrame:
+def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.Series) -> pd.DataFrame:
     filtered_genes = genes[genes['uniprot'].isin(interacting_proteins)]
 
     return filtered_genes
