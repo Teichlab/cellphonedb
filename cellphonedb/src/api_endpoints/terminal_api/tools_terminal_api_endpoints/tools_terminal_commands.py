@@ -1,6 +1,7 @@
 import io
 import os
 import zipfile
+from datetime import datetime
 from typing import Union
 
 import click
@@ -9,6 +10,8 @@ import requests
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir
+from cellphonedb.src.app.cpdb_app import create_app
+from cellphonedb.src.local_launchers.local_collector_launcher import LocalCollectorLauncher
 from cellphonedb.tools.actions import gene_actions
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
@@ -18,6 +21,26 @@ from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iup
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
 from cellphonedb.tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
 from cellphonedb.utils import utils
+
+
+@click.command()
+@click.option('--database', default='cellphone_custom_{}.db'.format(datetime.now().strftime("%Y-%m-%d-%H_%M")),
+              help='output file name [cellphone_custom_<current date_time>.db]')
+@click.option('--result-path', default='', help='output folder for the collected database')
+def collect(database, result_path):
+    output_path = _set_paths(output_dir, result_path)
+
+    _collect_database(database, output_path)
+
+
+def _collect_database(database, output_path):
+    database_file = os.path.join(output_path, database)
+    
+    app = create_app(verbose=True, database_file=database_file, collecting=True)
+    app.database_manager.database.drop_everything()
+    app.database_manager.database.create_all()
+
+    getattr(LocalCollectorLauncher(database_file), 'all')(None)
 
 
 # TODO: move to separate modules
