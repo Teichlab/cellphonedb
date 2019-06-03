@@ -43,5 +43,5 @@ class ExporterLauncher(object):
 
     def gene(self):
         genes_expanded = self.database_manager.get_repository('gene').get_all_expanded()
-        output_columns = self.database_manager.get_column_table_names('gene') + ['name']
+        output_columns = self.database_manager.get_column_table_names('gene_table') + ['name']
         return gene_exporter.call(genes_expanded, output_columns)

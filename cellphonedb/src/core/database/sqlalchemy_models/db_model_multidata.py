@@ -5,7 +5,7 @@ from cellphonedb.src.core.database.sqlalchemy_models import Base
 
 
 class Multidata(Base):
-    __tablename__ = 'multidata'
+    __tablename__ = 'multidata_table'
     id_multidata = Column(Integer, nullable=False, primary_key=True)
 
     name = Column(String, nullable=False, unique=True)
@@ -22,5 +22,5 @@ class Multidata(Base):
     integrin = Column(Boolean)
     is_complex = Column(Boolean)
 
-    protein = relationship('Protein', backref='protein', lazy='subquery')
-    complex = relationship('Complex', backref='complex', lazy='subquery')
+    protein = relationship('Protein', backref='protein_table', lazy='subquery')
+    complex = relationship('Complex', backref='complex_table', lazy='subquery')

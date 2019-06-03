@@ -58,7 +58,8 @@ class InteractionRepository(Repository):
                                                self.database_manager.get_repository('multidata').get_all_name_id(),
                                                'name', 'multidata')
 
-        filters.remove_not_defined_columns(interaction_df, self.database_manager.get_column_table_names('interaction'))
+        filters.remove_not_defined_columns(interaction_df,
+                                           self.database_manager.get_column_table_names('interaction_table'))
 
-        interaction_df.to_sql(name='interaction', if_exists='append', con=self.database_manager.database.engine,
+        interaction_df.to_sql(name='interaction_table', if_exists='append', con=self.database_manager.database.engine,
                               index=False, chunksize=50)
