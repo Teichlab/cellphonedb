@@ -41,7 +41,5 @@ tools.add_command(tools_terminal_commands.generate_interactions)
 plot.add_command(plot_terminal_commands.dot_plot)
 plot.add_command(plot_terminal_commands.heatmap_plot)
 
-
-
 if __name__ == '__main__':
     cli()
