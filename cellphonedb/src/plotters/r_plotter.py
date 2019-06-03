@@ -1,4 +1,5 @@
 import os
+import tempfile
 from typing import Optional
 
 import pandas as pd
@@ -11,11 +12,11 @@ from cellphonedb.utils.utils import _get_separator
 
 
 def heatmaps_plot(meta_file: str,
-                   pvalues_file: str,
-                   output_path: str,
-                   count_name: str,
-                   log_name: str
-                   ) -> None:
+                  pvalues_file: str,
+                  output_path: str,
+                  count_name: str,
+                  log_name: str
+                  ) -> None:
     this_file_dir = os.path.dirname(os.path.realpath(__file__))
     robjects.r.source(os.path.join(this_file_dir, 'R/plot_heatmaps.R'))
     available_names = list(robjects.globalenv.keys())
@@ -23,21 +24,28 @@ def heatmaps_plot(meta_file: str,
     log_filename = os.path.join(output_path, log_name)
     plot_function: str = 'heatmaps_plot'
 
-    if plot_function in available_names:
-        function_name = plot_function
-    else:
-        raise MissingPlotterFunctionException()
+    with open(pvalues_file, 'rt') as original:
+        with tempfile.NamedTemporaryFile(suffix=os.path.splitext(pvalues_file)[-1], mode='wt', encoding='utf8') as new:
+            line = original.readline().replace('.', '_').replace('|', '.')
+            new.write(line)
+            for line in original.readlines():
+                new.write(line)
 
-    plotter = robjects.r[function_name]
+            if plot_function in available_names:
+                function_name = plot_function
+            else:
+                raise MissingPlotterFunctionException()
 
-    try:
-        plotter(meta_file=meta_file,
-                pvalues_file=pvalues_file,
-                count_filename=count_filename,
-                log_filename=log_filename
-                )
-    except RRuntimeError as e:
-        raise RRuntimeException(e)
+            plotter = robjects.r[function_name]
+
+            try:
+                plotter(meta_file=meta_file,
+                        pvalues_file=new.name,
+                        count_filename=count_filename,
+                        log_filename=log_filename
+                        )
+            except RRuntimeError as e:
+                raise RRuntimeException(e)
 
 
 def dot_plot(means_path: str,
