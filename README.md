@@ -214,6 +214,51 @@ A user can generate custom databases and use them (See advanced documentation re
 
 
 
+## Using different database versions
+Cellphone databases can be updated from remote repository through our tool. Available versions can be listed and downloaded to be used.
+
+To use one of those versions a user must provide the `--database <version_or_file>` to the method to be executed.
+
+If the given parameter is a readable database file it will be used as is. Otherwise it will use some of the versions matching the selected version.
+
+
+If the selected version does not exist in the local environment it will be downloaded from the remote repository. (See below)
+If no `--database` argument is given in methods execution it will use the latest local version available.
+
+Downloaded versions will be stored in a user folder under `~/.cpdb/releases`
+
+## Listing remote available versions
+The command to list available versions from the remote repository is:
+```shell
+cellphone database list_remote
+``` 
+
+## Listing local available versions
+The command to list available versions from the remote repository is:
+```shell
+cellphone database list_local
+``` 
+
+## Download version
+The command to download a version from the remote repository is:
+```shell
+cellphone database download
+``` 
+or 
+
+```shell 
+cellphone database download --version <version_spec|latest> 
+``` 
+
+`version_spec` must be one of the listed in the `database list_remote` command.
+If no version is specified or `latest` is used as a `version_spec` the newest available version will be downloaded
+
+
+## Generating Custom database
+A user can generate custom databases and use them (See advanced documentation regarding this issue) 
+
+
+
 ## Contributing to CellPhoneDB
 
 CellPhoneDB is Open Source project. If you are interesed to contribute to this project, please let us know.

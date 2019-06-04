@@ -42,6 +42,7 @@ query.add_command(query_terminal_commands.find_interactions_by_element)
 query.add_command(query_terminal_commands.get_interaction_gene)
 plot.add_command(plot_terminal_commands.dot_plot)
 plot.add_command(plot_terminal_commands.heatmap_plot)
+
 database.add_command(database_terminal_api_endpoints.database_terminal_commands.download)
 database.add_command(database_terminal_api_endpoints.database_terminal_commands.list_remote)
 database.add_command(database_terminal_api_endpoints.database_terminal_commands.list_local)

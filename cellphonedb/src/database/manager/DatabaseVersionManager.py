@@ -55,7 +55,7 @@ def find_database_for(value: str) -> str:
 
     if value == 'latest' or not value:
         available = list_local_versions()
-        latest_available = available[-1]
+        latest_available = available[0]
         app_logger.warning('Latest dowloaded version is `{}`, using it'.format(latest_available))
         value = latest_available
 
@@ -128,10 +128,13 @@ def download_database(version):
         exit(1)
 
 
-def list_local_versions():
-    releases_folder = os.path.expanduser(cpdb_releases)
+def list_local_versions() -> list:
+    try:
+        releases_folder = os.path.expanduser(cpdb_releases)
 
-    return sorted(os.listdir(releases_folder), key=LooseVersion)
+        return sorted(os.listdir(releases_folder), key=LooseVersion, reverse=True)
+    except FileNotFoundError:
+        return []
 
 
 def list_remote_database_versions():
@@ -154,7 +157,7 @@ def list_local_database_versions():
         print('There are no versions available')
         exit(1)
 
-    for idx, version in enumerate(reversed(releases)):
+    for idx, version in enumerate(releases):
         note = ' *latest' if idx == 0 else ''
         print('version {}{}'.format(version, note))
 

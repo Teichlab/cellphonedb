@@ -18,6 +18,7 @@ from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCounts
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.core.utils.subsampler import Subsampler
+from cellphonedb.src.database.manager.DatabaseVersionManager import list_local_versions, find_database_for
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.exceptions.PlotException import PlotException
@@ -51,8 +52,6 @@ def create_rabbit_connection():
         credentials=credentials
     ))
 
-
-app = cpdb_app.create_app()
 
 s3_resource = boto3.resource('s3', aws_access_key_id=s3_access_key,
                              aws_secret_access_key=s3_secret_key,
@@ -210,16 +209,23 @@ def process_method(method, properties, body) -> dict:
                             int(metadata['num_cells']) if metadata.get('num_cells', False) else None
                             ) if metadata.get('subsampling', False) else None
 
+    database_version = metadata.get('database_version', 'latest')
+
+    if database_version not in list_local_versions() + ['latest']:
+        database_version = 'latest'
+
+    app = cpdb_app.create_app(verbose=False, database_file=find_database_for(database_version))
+
     if metadata['iterations']:
-        response = statistical_analysis(meta, counts, job_id, metadata, subsampler)
+        response = statistical_analysis(app, meta, counts, job_id, metadata, subsampler)
     else:
-        response = non_statistical_analysis(meta, counts, job_id, metadata, subsampler)
+        response = non_statistical_analysis(app, meta, counts, job_id, metadata, subsampler)
 
     return response
 
 
-def statistical_analysis(meta, counts, job_id, metadata, subsampler):
-    pvalues, means, significant_means, deconvoluted = \
+def statistical_analysis(app, meta, counts, job_id, metadata, subsampler):
+    pvalues, means, significant_means, means_pvalues, deconvoluted = \
         app.method.cpdb_statistical_analysis_launcher(meta,
                                                       counts,
                                                       threshold=float(metadata['threshold']),
@@ -247,7 +253,7 @@ def statistical_analysis(meta, counts, job_id, metadata, subsampler):
     return response
 
 
-def non_statistical_analysis(meta, counts, job_id, metadata, subsampler):
+def non_statistical_analysis(app, meta, counts, job_id, metadata, subsampler):
     means, significant_means, deconvoluted = \
         app.method.cpdb_method_analysis_launcher(meta,
                                                  counts,
