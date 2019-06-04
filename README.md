@@ -115,12 +115,19 @@ cellphonedb method analysis yourmetafile.txt yourcountsfile.txt --subsampling --
 
 In order to plot results from statistical methods you need to run it first.
 
-Currently there is only one plot type available `dot_plot`
+Currently there are two plot types available `dot_plot` & `heatmap_plot`
 
 Once you have the needed files (`means` & `pvalues`) you can proceed as follows:
 ```shell
 cellphonedb plot dot_plot
 ```
+
+```shell
+cellphonedb plot heatmap_plot yourmeta.txt
+```
+
+### `dot_pot`
+This plot type requires `ggplot2` R package installed and working
 
 You can tweak the options for the plot with these arguments:
 - `--means-path`: Analysis output means [./out/means.txt]
@@ -131,10 +138,12 @@ You can tweak the options for the plot with these arguments:
 - `--columns`: File with a list of columns to plot, one per line [all available]
 - `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
 
-Available output formats are those supported by `R's ggplot2` package, among others tey are:
+Available output formats are those supported by `R's ggplot2` package, among others they are:
 - `pdf`
 - `png`
 - `jpeg`
+
+This format will be inferred from the `--output-name` argument
 
 To plot only desired rows/columns (samples for [rows](in/example_data/rows.txt) and [columns](in/example_data/columns.txt) based in example data files) :
 ```shell
@@ -142,7 +151,24 @@ cellphonedb plot dot_plot --rows in/rows.txt --columns in/columns.txt
 ```
 
 
-This format will be inferred from the `--output-name` argument
+### `heatmap_plot`
+This plot type requires `pheatmap` R package installed and working 
+This plot type includes to plots: `count` & `log_count` 
+
+You can tweak the options for the plot with these arguments:
+- `--pvalues-path`: Analysis output pvalues [./out/pvalues.txt]
+- `--output-path`: Path to write generated plots [./out]
+- `--count-name`: Analysis output pvalues [heatmap_count.pdf]
+- `--log-name`: Analysis output pvalues [heatmap_log_count.pdf]
+- `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
+
+Available output formats are those supported by `R's pheatmap` package, among others they are:
+- `pdf`
+- `png`
+- `jpeg`
+
+This format will be inferred from the `--count-name` & `--log-name` argument
+
 
 ## Contributing to CellPhoneDB
 
