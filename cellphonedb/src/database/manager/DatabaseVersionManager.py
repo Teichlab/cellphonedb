@@ -18,6 +18,7 @@ from cellphonedb.src.local_launchers.local_collector_launcher import LocalCollec
 cpdb_releases = '~/.cpdb/releases'
 database_file = 'cellphone.db'
 
+
 def _ensure_core_version_in_user_dbs():
     with open(os.path.join(core_dir, 'metadata.json')) as metadata_file:
         metadata = json.load(metadata_file)
@@ -53,7 +54,7 @@ def find_database_for(value: str) -> str:
         exit(1)
 
     if value == 'latest' or not value:
-        available = sorted(os.listdir(user_databases_prefix), key=LooseVersion)
+        available = list_local_versions()
         latest_available = available[-1]
         app_logger.warning('Latest dowloaded version is `{}`, using it'.format(latest_available))
         value = latest_available
@@ -127,7 +128,13 @@ def download_database(version):
         exit(1)
 
 
-def list_database_versions():
+def list_local_versions():
+    releases_folder = os.path.expanduser(cpdb_releases)
+
+    return sorted(os.listdir(releases_folder), key=LooseVersion)
+
+
+def list_remote_database_versions():
     try:
         releases: dict = _list_releases()
 
@@ -138,6 +145,18 @@ def list_database_versions():
     except NoReleasesException:
         print('There are no versions available (or connection could not be made to server to retrieve them)')
         exit(1)
+
+
+def list_local_database_versions():
+    releases: list = list_local_versions()
+
+    if not releases:
+        print('There are no versions available')
+        exit(1)
+
+    for idx, version in enumerate(reversed(releases)):
+        note = ' *latest' if idx == 0 else ''
+        print('version {}{}'.format(version, note))
 
 
 def _list_releases():

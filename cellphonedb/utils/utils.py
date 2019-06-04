@@ -6,6 +6,9 @@ from typing import TextIO
 import pandas as pd
 from werkzeug.datastructures import FileStorage
 
+from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.src.app.cellphonedb_app import output_dir
+
 from cellphonedb.src.exceptions.NotADataFrameException import NotADataFrameException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.exceptions.ReadFromPickleException import ReadFromPickleException
@@ -72,3 +75,23 @@ def _get_separator(mime_type_or_extension: str) -> str:
     default_separator = ','
 
     return extensions.get(mime_type_or_extension.lower(), default_separator)
+
+
+def set_paths(output_path, project_name):
+    if not output_path:
+        output_path = output_dir
+
+    if project_name:
+        output_path = os.path.realpath(os.path.expanduser('{}/{}'.format(output_path, project_name)))
+
+    os.makedirs(output_path, exist_ok=True)
+
+    if _path_is_not_empty(output_path):
+        app_logger.warning(
+            'Output directory ({}) exist and is not empty. Result can overwrite old results'.format(output_path))
+
+    return output_path
+
+
+def _path_is_not_empty(path):
+    return bool([f for f in os.listdir(path) if not f.startswith('.')])
