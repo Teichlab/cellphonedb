@@ -1,12 +1,7 @@
-import os
-from datetime import datetime
-
 import click
 import pandas as pd
 
-from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir
-from cellphonedb.src.database.manager import DatabaseVersionManager
 from cellphonedb.tools.actions import gene_actions
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
@@ -16,27 +11,6 @@ from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iup
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
 from cellphonedb.tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
 from cellphonedb.utils import utils
-
-
-@click.command()
-@click.option('--database', default='cellphone_custom_{}.db'.format(datetime.now().strftime("%Y-%m-%d-%H_%M")),
-              help='output file name [cellphone_custom_<current date_time>.db]')
-@click.option('--result-path', default='', help='output folder for the collected database')
-def collect(database, result_path):
-    output_path = _set_paths(output_dir, result_path)
-
-    DatabaseVersionManager.collect_database(database, output_path)
-
-
-@click.command()
-@click.option('--version', type=str, default='latest')
-def download(version: str):
-    DatabaseVersionManager.download_database(version)
-
-
-@click.command()
-def list_versions():
-    DatabaseVersionManager.list_database_versions()
 
 
 @click.command()
@@ -59,7 +33,7 @@ def generate_genes(
         result_path: str,
         gene_uniprot_ensembl_merged_result_filename: str,
         add_hla_result_filename: str) -> None:
-    output_path = _set_paths(output_dir, result_path)
+    output_path = utils.set_paths(output_dir, result_path)
 
     def prefix_output_path(filename: str) -> str:
         return '{}/{}'.format(output_path, filename)
@@ -112,8 +86,8 @@ def generate_interactions(
     print('generating imex file')
     imex_interactions = parse_interactions_imex(interactions_base, proteins, genes)
 
-    output_path = _set_paths(output_dir, result_path)
-    download_path = _set_paths(output_path, 'downloads')
+    output_path = utils.set_paths(output_dir, result_path)
+    download_path = utils.set_paths(output_path, 'downloads')
 
     print('Getting Iuphar interactions')
     iuphar_original = get_iuphar_guidetopharmacology.call(iuphar_raw_filename,
@@ -139,21 +113,3 @@ def generate_interactions(
     interactions_with_curated.to_csv('{}/interaction.csv'.format(output_path), index=False)
 
 
-def _set_paths(output_path, project_name):
-    if not output_path:
-        output_path = output_dir
-
-    if project_name:
-        output_path = os.path.realpath(os.path.expanduser('{}/{}'.format(output_path, project_name)))
-
-    os.makedirs(output_path, exist_ok=True)
-
-    if _path_is_not_empty(output_path):
-        app_logger.warning(
-            'Output directory ({}) exist and is not empty. Result can overwrite old results'.format(output_path))
-
-    return output_path
-
-
-def _path_is_not_empty(path):
-    return bool([f for f in os.listdir(path) if not f.startswith('.')])
