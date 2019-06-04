@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import os
-from distutils.util import strtobool
 
 import click
 
@@ -52,6 +51,7 @@ if os.getenv(advanced_flag_var, None):
     @cli.group()
     def tools():
         pass
+
 
     database.add_command(database_terminal_api_endpoints.database_terminal_commands.collect)
     tools.add_command(tools_terminal_commands.generate_genes)
