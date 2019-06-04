@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import os
-from distutils.util import strtobool
 
 import click
 
