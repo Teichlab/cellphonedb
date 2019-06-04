@@ -3,7 +3,7 @@ import traceback
 from typing import Optional, Any, Callable
 
 import click
-from click import Context
+from click import Context, Argument
 
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
@@ -11,13 +11,14 @@ from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCounts
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.core.utils.subsampler import Subsampler
+from cellphonedb.src.database.manager import DatabaseVersionManager
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.local_launchers.local_method_launcher import LocalMethodLauncher
 
 
-def check_subsampling_params(ctx: Context, argument: click.Argument, value) -> Any:
+def check_subsampling_params(ctx: Context, argument: Argument, value) -> Any:
     subsampling = ctx.params.get('subsampling')
 
     if not subsampling and value is not None:
@@ -58,6 +59,10 @@ def subsampling_options(f: Callable) -> Callable:
     return f
 
 
+def choose_database(ctx: Context, argument: Argument, value: str) -> Optional[str]:
+    return DatabaseVersionManager.find_database_for(value)
+
+
 def common_options(f: Callable) -> Callable:
     options = [
         click.argument('meta-filename'),
@@ -75,6 +80,7 @@ def common_options(f: Callable) -> Callable:
         click.option('--deconvoluted-result-name', default='deconvoluted',
                      help='Deconvoluted result namefile [deconvoluted]'),
         click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]'),
+        click.option('--database', default='latest', callback=choose_database),
         subsampling_options
     ]
 
@@ -102,6 +108,7 @@ def statistical_analysis(meta_filename: str,
                          significant_means_result_name: str,
                          deconvoluted_result_name: str,
                          verbose: bool,
+                         database: Optional[str],
                          subsampling: bool,
                          subsampling_log: bool,
                          subsampling_num_pc: int,
@@ -119,7 +126,7 @@ def statistical_analysis(meta_filename: str,
                                 subsampling_num_cells,
                                 verbose) if subsampling else None
 
-        LocalMethodLauncher(cpdb_app.create_app(verbose)). \
+        LocalMethodLauncher(cpdb_app.create_app(verbose, database)). \
             cpdb_statistical_analysis_local_method_launcher(meta_filename,
                                                             counts_filename,
                                                             project_name,
@@ -172,6 +179,7 @@ def analysis(meta_filename: str,
              significant_means_result_name: str,
              deconvoluted_result_name: str,
              verbose: bool,
+             database: Optional[str],
              subsampling: bool,
              subsampling_log: bool,
              subsampling_num_pc: int,
@@ -184,18 +192,19 @@ def analysis(meta_filename: str,
                                 subsampling_num_cells,
                                 verbose) if subsampling else None
 
-        LocalMethodLauncher(cpdb_app.create_app(verbose)).cpdb_analysis_local_method_launcher(meta_filename,
-                                                                                              counts_filename,
-                                                                                              project_name,
-                                                                                              threshold,
-                                                                                              output_path,
-                                                                                              output_format,
-                                                                                              means_result_name,
-                                                                                              significant_means_result_name,
-                                                                                              deconvoluted_result_name,
-                                                                                              result_precision,
-                                                                                              subsampler,
-                                                                                              )
+        LocalMethodLauncher(cpdb_app.create_app(verbose,
+                                                database)).cpdb_analysis_local_method_launcher(meta_filename,
+                                                                                               counts_filename,
+                                                                                               project_name,
+                                                                                               threshold,
+                                                                                               output_path,
+                                                                                               output_format,
+                                                                                               means_result_name,
+                                                                                               significant_means_result_name,
+                                                                                               deconvoluted_result_name,
+                                                                                               result_precision,
+                                                                                               subsampler,
+                                                                                               )
     except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
             AllCountsFilteredException) as e:
         app_logger.error(str(e) +
