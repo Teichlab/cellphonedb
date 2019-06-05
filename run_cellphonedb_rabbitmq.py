@@ -225,7 +225,7 @@ def process_method(method, properties, body) -> dict:
 
 
 def statistical_analysis(app, meta, counts, job_id, metadata, subsampler):
-    pvalues, means, significant_means, means_pvalues, deconvoluted = \
+    pvalues, means, significant_means, deconvoluted = \
         app.method.cpdb_statistical_analysis_launcher(meta,
                                                       counts,
                                                       threshold=float(metadata['threshold']),
