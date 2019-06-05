@@ -14,7 +14,7 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
 
     def test_gene(self):
         genes = cellphonedb_app.cellphonedb.database_manager.get_repository('gene').get_all()
-        self.assertEqual(1144, len(genes), 'Number of Gene entries are different')
+        self.assertEqual(1145, len(genes), 'Number of Gene entries are different')
 
     def test_complex(self):
         complex = cellphonedb_app.cellphonedb.database_manager.get_repository('complex').get_all()
