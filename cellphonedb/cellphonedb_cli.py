@@ -57,7 +57,11 @@ if os.getenv(advanced_flag_var, None):
 
     database.add_command(database_terminal_api_endpoints.database_terminal_commands.collect)
     tools.add_command(tools_terminal_commands.generate_genes)
+    tools.add_command(tools_terminal_commands.generate_proteins)
+    tools.add_command(tools_terminal_commands.generate_complex)
     tools.add_command(tools_terminal_commands.generate_interactions)
+    tools.add_command(tools_terminal_commands.collect)
+    tools.add_command(tools_terminal_commands.filter_all)
 
 if __name__ == '__main__':
     cli()

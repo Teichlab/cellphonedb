@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tools.tools_helper import normalize_interactions
+from cellphonedb.tools.tools_helper import normalize_interactions
 
 
 def call(iuphar_guidepharmacology: pd.DataFrame, genes: pd.DataFrame, proteins: pd.DataFrame) -> pd.DataFrame:

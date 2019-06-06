@@ -113,8 +113,6 @@ class ComplexRepository(Repository):
         proteins = self.database_manager.database.session.query(Multidata.name, Multidata.id_multidata).join(
             Protein).all()
         proteins = {p[0]: p[1] for p in proteins}
-        # Read in complexes
-        complexes.dropna(axis=1, inplace=True, how='all')
 
         # Get complex composition info
         complete_indices = []

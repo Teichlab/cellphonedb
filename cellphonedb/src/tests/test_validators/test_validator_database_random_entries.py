@@ -8,23 +8,23 @@ from cellphonedb.src.app.flask.flask_app import create_app
 complex_entries = [
     {
         'data': {
-            "name": "5HT3C5HT3A complex",
-            "receptor": True,
+            "name": "aVb3 complex",
+            "transmembrane": True,
+            "peripheral": False,
+            "secreted": False,
+            "secreted_desc": None,
+            "secreted_highlight": False,
+            "receptor": False,
             "receptor_desc": None,
+            "integrin": True,
             "other": False,
             "other_desc": None,
-            "secreted_highlight": False,
-            "secreted_desc": None,
-            "transmembrane": True,
-            "secreted": False,
-            "peripheral": False,
-            "pdb_structure": "False",
-            "pdb_id": None,
-            "stoichiometry": None,
-            "comments_complex": "Note: Presumably retained within the endoplasmic reticulum unless complexed with HTR3A.",
-            "integrin": False
+            "pdb_id": "1jv2",
+            "pdb_structure": "TRUE",
+            "stoichiometry": "ITGAV;ITGB3",
+            "comments_complex": "Well known integrin combination"
         },
-        'composition': ["Q8WXA8", "P46098"]
+        'composition': ["P06756", "P05106"]
     },
     {
         'data': {
@@ -38,7 +38,7 @@ complex_entries = [
             "transmembrane": True,
             "secreted": False,
             "peripheral": False,
-            "pdb_structure": "True",
+            "pdb_structure": "TRUE",
             "pdb_id": "1kup",
             "stoichiometry": "ITGA2B;ITGB3",
             "comments_complex": "Well known integrin combination",
@@ -48,401 +48,115 @@ complex_entries = [
         'composition':
             ["P08514", "P05106"]
     },
+
     {
         'data': {
-            "name": "Agrin complex",
+            "name": "IL2 receptor_HA",
+            "transmembrane": True,
+            "peripheral": False,
+            "secreted": False,
+            "secreted_desc": None,
+            "secreted_highlight": False,
             "receptor": True,
-            "receptor_desc": None,
+            "receptor_desc": "Cytokine receptor IL2 family",
+            "integrin": False,
             "other": False,
             "other_desc": None,
-            "secreted_highlight": False,
-            "secreted_desc": None,
-            "transmembrane": True,
-            "secreted": False,
-            "peripheral": False,
-            "pdb_structure": "partial",
-            "pdb_id": "3ml4",
-            "stoichiometry": "DOK7;DOK7;MUSK;MUSK",
-            "comments_complex": "MUSK Interacts with LRP4; the heterodimer forms an AGRIN receptor complex that binds AGRIN resulting in activation of MUSK",
-            "integrin": False,
+            "pdb_id": "2b5i",
+            "pdb_structure": "binding",
+            "stoichiometry": "IL2;IL2RA;IL2RB;IL2RG",
+            "comments_complex": "A high affinity dimer, an intermediate affinity monomer (beta subunit). The high and intermediate affinity forms also associate with a gamma subunit."
         },
         'composition':
-            ["O15146", "O00468", "O75096", "Q18PE1"]
-    },
-    {
-        'data': {
-            "name": "CD79_IGHM receptor",
-            "receptor": True,
-            "receptor_desc": None,
-            "other": False,
-            "other_desc": None,
-            "secreted_highlight": False,
-            "secreted_desc": None,
-            "transmembrane": True,
-            "secreted": False,
-            "peripheral": False,
-            "pdb_structure": "False",
-            "pdb_id": None,
-            "stoichiometry": None,
-            "comments_complex": "Membrane-bound IgM molecules are non-covalently associated with heterodimer of CD79A and CD79B",
-            "integrin": False,
-        },
-        'composition':
-            ["P11912", "P40259", "P01871"]
-    },
-    {
-        'data': {
-            "name": "BMPR1B_BMPR2",
-            "receptor": True,
-            "receptor_desc": "TGFBeta_receptor_add",
-            "other": False,
-            "other_desc": None,
-            "secreted_highlight": False,
-            "secreted_desc": None,
-            "transmembrane": True,
-            "secreted": False,
-            "peripheral": False,
-            "pdb_structure": "False",
-            "pdb_id": None,
-            "stoichiometry": None,
-            "comments_complex": "Serine/threonine kinase heterodimer upon ligand binding",
-            "integrin": False,
-        },
-        'composition':
-            ["O00238", "Q13873"]
-    },
-    {
-        'data': {
-            "name": "CD1A complex",
-            "receptor": False,
-            "receptor_desc": None,
-            "other": True,
-            "other_desc": "T cell",
-            "secreted_highlight": False,
-            "secreted_desc": None,
-            "transmembrane": True,
-            "secreted": False,
-            "peripheral": False,
-            "pdb_structure": "True",
-            "pdb_id": "1onq",
-            "stoichiometry": "B2M;CD1A",
-            "comments_complex": "Heterodimer with B2M (beta-2-microglobulin).",
-            "integrin": False,
-        },
-        'composition':
-            ["P61769", "P06126"]
-    },
-    {
-        'data': {
-            "name": "IL17 AF",
-            "receptor": False,
-            "receptor_desc": None,
-            "other": False,
-            "other_desc": None,
-            "secreted_highlight": True,
-            "secreted_desc": "Cytokine",
-            "transmembrane": False,
-            "secreted": True,
-            "peripheral": False,
-            "pdb_structure": "False",
-            "pdb_id": None,
-            "stoichiometry": None,
-            "comments_complex": None,
-            "integrin": False,
-        },
-        'composition':
-            ["Q16552", "Q96PD4"]
-    },
-    {
-        'data': {
-            "name": "IL17 receptor AC",
-            "receptor": True,
-            "receptor_desc": "Cytokine receptor IL17 family",
-            "other": False,
-            "other_desc": None,
-            "secreted_highlight": False,
-            "secreted_desc": None,
-            "transmembrane": True,
-            "secreted": False,
-            "peripheral": False,
-            "pdb_structure": "False",
-            "pdb_id": None,
-            "stoichiometry": None,
-            "comments_complex": "NA; the heterodimer binds IL17AF",
-            "integrin": False,
-        },
-        'composition':
-            ["Q96F46", "Q8NAC3"]
+            ["P01589", "P14784", "P31785"]
     }
 ]
 protein_entries = [
     {
-        "name": "A0A0B4J2F0",
-        "protein_name": "PIOS1_HUMAN",
+        "name": "P39019",
+        "protein_name": "RS19_HUMAN",
         "transmembrane": False,
-        "secreted": True,
         "peripheral": False,
+        "secreted": False,
+        "secreted_desc": None,
+        "secreted_highlight": False,
         "receptor": False,
         "receptor_desc": None,
+        "integrin": False,
         "other": False,
         "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    },
-    {
-        "name": "A0AVI2",
-        "protein_name": "FR1L5_HUMAN",
-        "transmembrane": True,
-        "secreted": False,
-        "peripheral": False,
-        "receptor": False,
-        "receptor_desc": None,
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    },
-    {
-        "name": "A1E959",
-        "protein_name": "ODAM_HUMAN",
-        "transmembrane": False,
-        "secreted": True,
-        "peripheral": False,
-        "receptor": False,
-        "receptor_desc": None,
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    },
-    {
-        "name": "O75970",
-        "protein_name": "MPDZ_HUMAN",
-        "transmembrane": False,
-        "secreted": False,
-        "peripheral": True,
-        "receptor": False,
-        "receptor_desc": None,
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    },
-    {
-        "name": "O76036",
-        "protein_name": "NCTR1_HUMAN",
-        "transmembrane": True,
-        "secreted": False,
-        "peripheral": False,
-        "receptor": True,
-        "receptor_desc": None,
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    },
-    {
-        "name": "O95256",
-        "protein_name": "I18RA_HUMAN",
-        "transmembrane": True,
-        "secreted": False,
-        "peripheral": False,
-        "receptor": True,
-        "receptor_desc": "Cytokine_receptor_add",
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
         "tags": "To_add",
         "tags_reason": None,
-        "tags_description": "Iglike",
-    },
-    {
-        "name": "P78357",
-        "protein_name": "CNTP1_HUMAN",
+        "tags_description": None,
+
+    }, {
+
+        "name": "P54760",
+        "protein_name": "EPHB4_HUMAN",
         "transmembrane": True,
-        "secreted": False,
         "peripheral": False,
-        "receptor": False,
-        "receptor_desc": None,
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
+        "secreted": False,
         "secreted_desc": None,
-        "tags": "To_add",
-        "tags_reason": None,
-        "tags_description": "complex",
-    },
-    {
-        "name": "Q13444",
-        "protein_name": "ADA15_HUMAN",
-        "transmembrane": True,
-        "secreted": False,
-        "peripheral": False,
-        "receptor": False,
-        "receptor_desc": None,
-        "other": False,
-        "other_desc": None,
         "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": "To_add",
-        "tags_reason": None,
-        "tags_description": "Active metalloproteinase with gelatinolytic and collagenolytic activity. (uniprot)",
-    },
-    {
-        "name": "A5X5Y0",
-        "protein_name": "5HT3E_HUMAN",
-        "transmembrane": True,
-        "secreted": False,
-        "peripheral": False,
         "receptor": True,
         "receptor_desc": None,
+        "integrin": False,
         "other": False,
         "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    },
-    {
-        "name": "Q9NPH3",
-        "protein_name": "IL1AP_HUMAN",
+        "tags": "To_comment",
+        "tags_reason": "Adhesion_add",
+        "tags_description": None
+
+    }, {
+        "name": "P52799",
+        "protein_name": "EFNB2_HUMAN",
         "transmembrane": True,
-        "secreted": True,
         "peripheral": False,
+        "secreted": False,
+        "secreted_desc": None,
+        "secreted_highlight": False,
         "receptor": True,
-        "receptor_desc": "Cytokine_receptor_add",
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": True,
-        "secreted_desc": "Cytokine",
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    },
-    {
-        "name": "O75325",
-        "protein_name": "LRRN2_HUMAN",
-        "transmembrane": True,
-        "secreted": False,
-        "peripheral": False,
-        "receptor": False,
         "receptor_desc": None,
+        "integrin": False,
         "other": False,
         "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": "To_add | To_comment",
-        "tags_reason": None,
-        "tags_description": "Iglike | Possible_receptor",
-    },
-    {
-        "name": "P05067",
-        "protein_name": "A4_HUMAN",
-        "transmembrane": True,
-        "secreted": False,
-        "peripheral": False,
-        "receptor": False,
-        "receptor_desc": None,
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
         "tags": "To_add",
         "tags_reason": None,
         "tags_description": "ligandIUPHAR",
     },
     {
-        "name": "Q9HC73",
-        "protein_name": "CRLF2_HUMAN",
-        "transmembrane": True,
-        "secreted": True,
+        "name": "P39059",
+        "protein_name": "COFA1_HUMAN",
+        "transmembrane": False,
         "peripheral": False,
-        "receptor": True,
+        "secreted": True,
+        "secreted_desc": None,
+        "secreted_highlight": False,
+        "receptor": False,
         "receptor_desc": None,
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": None,
+        "integrin": False,
+        "other": True,
+        "other_desc": "Collagen",
+        "tags": "To_add",
         "tags_reason": None,
-        "tags_description": None,
+        "tags_description": "Collagen"
     },
-    {
-        "name": "P48960",
-        "protein_name": "CD97_HUMAN",
-        "transmembrane": True,
-        "secreted": True,
-        "peripheral": False,
-        "receptor": True,
-        "receptor_desc": None,
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    },
-    {
-        "name": "Q01113",
-        "protein_name": "IL9R_HUMAN",
-        "transmembrane": True,
-        "secreted": True,
-        "peripheral": False,
-        "receptor": True,
-        "receptor_desc": "Cytokine_receptor_add",
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": True,
-        "secreted_desc": "Cytokine",
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    },
-    {
-        "name": "P16284",
-        "protein_name": "PECA1_HUMAN",
-        "transmembrane": True,
-        "secreted": False,
-        "peripheral": False,
-        "receptor": True,
-        "receptor_desc": "Inflammation",
-        "other": False,
-        "other_desc": None,
-        "secreted_highlight": False,
-        "secreted_desc": None,
-        "tags": None,
-        "tags_reason": None,
-        "tags_description": None,
-    }
 ]
 gene_entries = [
     {
-        "ensembl": "ENSG00000127837",
-        "gene_name": "AAMP",
-        "name": "Q13685"
+        "ensembl": "ENSG00000275555",
+        "gene_name": "DLL1",
+        "name": "O00548"
     },
     {
-        "ensembl": "ENSG00000102468",
-        "gene_name": "HTR2A",
-        "name": "P28223"
+        "ensembl": "ENSG00000169306",
+        "gene_name": "IL1RAPL1",
+        "name": "Q9NZN1"
+    },
+    {
+        "ensembl": "ENSG00000204642",
+        "gene_name": "HLA-F",
+        "name": "P30511"
     }
 ]
 interaction_entries = [
@@ -454,16 +168,16 @@ interaction_entries = [
         "source": "curated",
     },
     {
-        "id_cp_interaction": "CPI-SS0322F3EA0",
-        "name_1": "Q03167",
-        "name_2": "P01137",
+        "id_cp_interaction": "CPI-SS085EE60B1",
+        "name_1": "P01137",
+        "name_2": "Q03167",
         "comments_interaction": "uniprot",
         "source": "curated",
     },
     {
-        "id_cp_interaction": "CPI-SS0605AC9BF",
-        "name_1": "Q99731",
-        "name_2": "O00421",
+        "id_cp_interaction": "CPI-SS056BE1011",
+        "name_1": "O00421",
+        "name_2": "Q99731",
         "comments_interaction": None,
         "source": "guidetopharmacology.org",
     },
@@ -475,23 +189,23 @@ interaction_entries = [
         "source": "curated",
     },
     {
-        "id_cp_interaction": "CPI-SS005572B52",
-        "name_1": "P49767",
-        "name_2": "P35916",
+        "id_cp_interaction": "CPI-SS0F972435E",
+        "name_1": "P35916",
+        "name_2": "P49767",
         "comments_interaction": "uniprot",
         "source": "curated",
     },
     {
-        "id_cp_interaction": "CPI-SS0AEED3EB0",
-        "name_1": "Q9HC23",
-        "name_2": "Q8NFJ6",
+        "id_cp_interaction": "CPI-SS027E57635",
+        "name_1": "Q8NFJ6",
+        "name_2": "Q9HC23",
         "source": "guidetopharmacology.org",
         "comments_interaction": None
     },
     {
-        "id_cp_interaction": "CPI-SS0B1B18F2D",
-        "name_1": "P48061",
-        "name_2": "P27487",
+        "id_cp_interaction": "CPI-SS0DBA4D668",
+        "name_1": "P27487",
+        "name_2": "P48061",
         "source": "curated",
         "comments_interaction": "PMID: 24218476"
     }
@@ -561,6 +275,11 @@ class TestValidatorDatabaseRandomEntries(TestCase):
         for protein in protein_entries:
             db_protein = dataframe[dataframe['name'] == protein['name']]
 
+            if db_protein.empty:
+                print('Protein {} dindt exist'.format(protein['name']))
+                data_not_match = True
+                continue
+
             for column_name in protein:
                 if db_protein[column_name].iloc[0] != protein[column_name]:
                     app_logger.warning('Failed checking column \'%s\' of multidata/protein with name \'%s\'' % (
@@ -570,7 +289,7 @@ class TestValidatorDatabaseRandomEntries(TestCase):
                     app_logger.warning('---')
                     data_not_match = True
 
-        self.assertFalse(data_not_match, 'Some proteins doesnt match')
+        self.assertFalse(data_not_match, 'Some proteins doesnt match or doesnt exist')
 
     def test_complex_composition_table(self):
         df_multidata = cellphonedb_app.cellphonedb.database_manager.get_repository('multidata').get_all()
@@ -580,9 +299,15 @@ class TestValidatorDatabaseRandomEntries(TestCase):
         number_compositions_not_match = False
         some_protein_didnt_exists = False
         some_protein_not_part_of_complex = False
+        some_complex_not_exist = False
 
         for complex in complex_entries:
-            db_complex_id = df_multidata[df_multidata['name'] == complex['data']['name']]['id_multidata'].iloc[0]
+            try:
+                db_complex_id = df_multidata[df_multidata['name'] == complex['data']['name']]['id_multidata'].iloc[0]
+            except IndexError:
+                print('Complex {} didnt exist'.format(complex['data']['name']))
+                some_complex_not_exist = True
+                continue
 
             if len(df_complex_composition[df_complex_composition['complex_multidata_id'] != db_complex_id]) == len(
                     complex['composition']):
@@ -615,6 +340,7 @@ class TestValidatorDatabaseRandomEntries(TestCase):
         self.assertFalse(number_compositions_not_match, 'Number of complex composition doesnt match')
         self.assertFalse(some_protein_didnt_exists, 'Some complex_composition proteins doesnt match')
         self.assertFalse(some_protein_not_part_of_complex, 'Complex_composition proteins doesnt match')
+        self.assertFalse(some_complex_not_exist, 'Some Complex not exist')
 
     def test_complex(self):
 
