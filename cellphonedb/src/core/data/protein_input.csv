@@ -685,6 +685,7 @@ Q02223,TNR17_HUMAN,True,False,False,,False,True,TNF_receptor_add,False,False,,To
 Q02388,CO7A1_HUMAN,False,False,True,,False,False,,False,False,,To_add,,Collagen
 Q02413,DSG1_HUMAN,True,False,False,,False,False,,False,False,,To_add,,desmosome junctions
 Q02487,DSC2_HUMAN,True,False,False,,False,False,,False,False,,To_add,,desmosome junctions
+Q02643,GHRHR_HUMAN,True,False,False,,False,True,,False,False,,To_add,,
 Q03405,UPAR_HUMAN,True,False,True,,False,True,,False,False,,To_add,,
 Q03431,PTH1R_HUMAN,True,False,False,,False,True,,False,False,,To_add,,
 Q03692,COAA1_HUMAN,False,False,True,,False,False,,False,False,,To_add,,Collagen
