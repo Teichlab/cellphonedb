@@ -23,7 +23,7 @@ In addition, you need to provide:
 
 - _protein.csv_: CellPhoneDB protein list (to filter only the genes associated to CellPhoneDB proteins).
 - _remove_genes.csv_: Gene list needed to remove duplicated ensembls from imported data.
-- _hla_genes.csv_: HLA Gene list to attach to the input data
+- _hla_curated.csv_: HLA Gene list to attach to the input data
 
 
 #### Steps:
