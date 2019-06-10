@@ -101,7 +101,7 @@ def generate_genes(user_gene: Optional[click.File],
 
     cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, user_gene, result_columns)
 
-    cpdb_genes[result_columns].to_csv('{}/{}'.format(output_path, 'gene_input.csv'), index=False)
+    cpdb_genes[result_columns].to_csv('{}/{}'.format(output_path, 'gene_generated.csv'), index=False)
 
 
 @click.command()
@@ -173,7 +173,7 @@ def generate_interactions(proteins: str,
         'partner_b').drop_duplicates(['partner_a', 'partner_b'], keep='last')
 
     interactions_with_curated[result_columns].to_csv(
-        '{}/interaction_input.csv'.format(output_path), index=False)
+        '{}/interaction_generated.csv'.format(output_path), index=False)
 
 
 @click.command()
@@ -251,7 +251,7 @@ def generate_proteins(user_protein: Optional[click.File],
     result = protein_generator(uniprot_db, curated_proteins, user_protein, default_values, default_types,
                                result_columns, log_path)
 
-    result[result_columns].to_csv('{}/{}'.format(output_path, 'protein_input.csv'), index=False)
+    result[result_columns].to_csv('{}/{}'.format(output_path, 'protein_generated.csv'), index=False)
 
 
 @click.command()
@@ -269,17 +269,17 @@ def generate_complex(user_complex: Optional[click.File], result_path: str, log_f
 
     result = complex_generator(curated_complex, user_complex, log_path)
 
-    result.to_csv('{}/{}'.format(output_path, 'complex_input.csv'), index=False)
+    result.to_csv('{}/{}'.format(output_path, 'complex_generated.csv'), index=False)
 
 
 @click.command()
 @click.option('--input-path', type=str, default=data_dir)
 @click.option('--result-path', type=str, default='filtered')
 def filter_all(input_path, result_path):
-    interactions: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'interaction_input.csv'))
-    complexes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'complex_input.csv'))
-    proteins: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'protein_input.csv'))
-    genes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'gene_input.csv'))
+    interactions: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'interaction_generated.csv'))
+    complexes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'complex_generated.csv'))
+    proteins: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'protein_generated.csv'))
+    genes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'gene_generated.csv'))
     output_path = _set_paths(output_dir, result_path)
 
     interacting_partners = pd.concat([interactions['partner_a'], interactions['partner_b']]).drop_duplicates()
