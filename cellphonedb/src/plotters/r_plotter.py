@@ -3,12 +3,21 @@ import tempfile
 from typing import Optional
 
 import pandas as pd
-from rpy2 import robjects
-from rpy2.rinterface_lib.embedded import RRuntimeError
+from rpy2 import situation
 
 from cellphonedb.src.exceptions.MissingPlotterFunctionException import MissingPlotterFunctionException
+from cellphonedb.src.exceptions.MissingR import MissingR
 from cellphonedb.src.exceptions.RRuntimeException import RRuntimeException
 from cellphonedb.utils.utils import _get_separator
+
+try:
+    if not situation.get_r_home() or not situation.r_version_from_subprocess():
+        raise MissingR()
+
+    from rpy2 import robjects
+    from rpy2.rinterface_lib.embedded import RRuntimeError
+except MissingR as e:
+    raise e
 
 
 def heatmaps_plot(meta_file: str,
