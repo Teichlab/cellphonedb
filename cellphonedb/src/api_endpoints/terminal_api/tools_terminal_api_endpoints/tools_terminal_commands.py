@@ -327,7 +327,8 @@ def generate_filter_and_collect(ctx: Context, fetch: bool, result_path: Optional
     db_name = 'cellphone_custom_{}.db'.format(datetime.now().strftime("%Y-%m-%d-%H_%M"))
 
     collect_database(db_name, output_path, [name.replace('_generated', '_input') for name in
-                                            [proteins_file, genes_file, complex_file, 'interaction_input.csv']])
+                                            [proteins_file, genes_file, complex_file, 'interaction_input.csv',
+                                             output_path]])
 
 
 def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.Series) -> pd.DataFrame:
