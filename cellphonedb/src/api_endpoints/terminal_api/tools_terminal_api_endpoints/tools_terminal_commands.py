@@ -1,17 +1,19 @@
-import click
 import os
 import urllib.parse
-from typing import Optional, List
+from datetime import datetime
+from typing import Optional
 
 import click
 import pandas as pd
+from click import Context
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir, data_dir
 from cellphonedb.src.core.generators.complex_generator import complex_generator
 from cellphonedb.src.core.generators.gene_generator import gene_generator
 from cellphonedb.src.core.generators.protein_generator import protein_generator
-from cellphonedb.src.local_launchers.local_collector_launcher import LocalCollectorLauncher
+from cellphonedb.src.database.manager.DatabaseVersionManager import collect_database
+from cellphonedb.tools import tools_helper
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
 from cellphonedb.tools.generate_data.getters import get_iuphar_guidetopharmacology
@@ -19,9 +21,8 @@ from cellphonedb.tools.generate_data.mergers.add_curated import add_curated
 from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iuphar_imex_interactions
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
 from cellphonedb.tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
-from cellphonedb.tools import tools_helper
-from cellphonedb.utils.utils import _get_separator, write_to_file
 from cellphonedb.utils import utils
+from cellphonedb.utils.utils import _get_separator, write_to_file
 
 
 @click.command()
@@ -302,10 +303,31 @@ def filter_all(input_path, result_path):
 
 
 @click.command()
-@click.argument('table')
-@click.argument('file', default='')
-def collect(table, file):
-    getattr(LocalCollectorLauncher(), table)(file)
+@click.option('--fetch', is_flag=True)
+@click.option('--result-path', type=str, default=None)
+@click.option('--log-file', type=str, default='log.txt')
+@click.pass_context
+def generate_filter_and_collect(ctx: Context, fetch: bool, result_path: Optional[str], log_file: str):
+    ctx.invoke(generate_proteins, user_protein=None, fetch_uniprot=fetch, result_path=result_path, log_file=log_file)
+    ctx.invoke(generate_genes, user_gene=None, fetch_uniprot=fetch, fetch_ensembl=fetch, result_path=result_path,
+               log_file=log_file)
+    ctx.invoke(generate_complex, user_complex=None, result_path=result_path, log_file=log_file)
+
+    output_path = _set_paths(output_dir, result_path)
+
+    proteins_file = os.path.join(output_path, 'protein_generated.csv')
+    genes_file = os.path.join(output_path, 'gene_generated.csv')
+    complex_file = os.path.join(output_path, 'complex_generated.csv')
+
+    ctx.invoke(generate_interactions, proteins=proteins_file, genes=genes_file, complex=complex_file,
+               user_interactions=None, result_path=result_path)
+
+    ctx.invoke(filter_all, input_path=output_path, result_path=result_path)
+
+    db_name = 'cellphone_custom_{}.db'.format(datetime.now().strftime("%Y-%m-%d-%H_%M"))
+
+    collect_database(db_name, output_path, [name.replace('_generated', '_input') for name in
+                                            [proteins_file, genes_file, complex_file, 'interaction_input.csv']])
 
 
 def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.Series) -> pd.DataFrame:
