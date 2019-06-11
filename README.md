@@ -210,8 +210,27 @@ If no version is specified or `latest` is used as a `version_spec` the newest av
 
 
 ## Generating Custom database
-A user can generate custom databases and use them (See advanced documentation regarding this issue) 
+A user can generate custom databases and use them. In order to generate a new database a user can provide his/her own lists.
 
+These lists can be: genes, proteins, complexes and/or interactions. In the generation process they will get merged with the ones from
+the cellphone release sources. The user lists have higher precedence than the ones included in cellphone package.
+
+To generate such a database the user has to issue this command:
+```shell
+cellphone tools generate_filter_and_collect  
+```
+
+Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By the default the snapshots included in
+the cellphone package will be used, to enable a fresh copy `--fetch` must be appended to the command.
+
+In order to use specific lists those can be specified like this `--user-protein`, `--user-gene`, `--user-complex`, `--user-interactions`,
+followed by the corresponding file path.
+
+The database file can be then used as explained below. The intrermediate lists used for the generation will be saved along the database itself.
+As the lists as processed, then filtered, and lastly collected, two versions may exist: `_generated` is the unfiltered one 
+whereas `_input` is the final state prior being inserted in the database.
+
+As this functionality is considered advanced it is disabled by default, to enable it an `ADVANCED` environment variable must be set to any value in the running shell.  
 
 
 ## Using different database versions
