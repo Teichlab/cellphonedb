@@ -169,12 +169,11 @@ def generate_interactions(proteins: str,
     print('Adding curated interaction')
     interactions_with_curated = add_curated(clean_interactions, interaction_curated)
 
-    tools_helper.normalize_interactions(
+    interactions_with_curated = tools_helper.normalize_interactions(
         interactions_with_curated.append(user_interactions, ignore_index=True, sort=False), 'partner_a',
         'partner_b').drop_duplicates(['partner_a', 'partner_b'], keep='last')
 
-    interactions_with_curated[result_columns].to_csv(
-        '{}/interaction_generated.csv'.format(output_path), index=False)
+    interactions_with_curated[result_columns].to_csv('{}/interaction_input.csv'.format(output_path), index=False)
 
 
 @click.command()
@@ -277,7 +276,7 @@ def generate_complex(user_complex: Optional[click.File], result_path: str, log_f
 @click.option('--input-path', type=str, default=data_dir)
 @click.option('--result-path', type=str, default='filtered')
 def filter_all(input_path, result_path):
-    interactions: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'interaction_generated.csv'))
+    interactions: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'interaction_input.csv'))
     complexes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'complex_generated.csv'))
     proteins: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'protein_generated.csv'))
     genes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'gene_generated.csv'))
@@ -303,15 +302,28 @@ def filter_all(input_path, result_path):
 
 
 @click.command()
+@click.option('--user-protein', type=click.File('r'))
+@click.option('--user-gene', type=click.File('r'))
+@click.option('--user-complex', type=click.File('r'))
+@click.option('--user-interactions', type=click.File('r'))
 @click.option('--fetch', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
 @click.pass_context
-def generate_filter_and_collect(ctx: Context, fetch: bool, result_path: Optional[str], log_file: str):
-    ctx.invoke(generate_proteins, user_protein=None, fetch_uniprot=fetch, result_path=result_path, log_file=log_file)
-    ctx.invoke(generate_genes, user_gene=None, fetch_uniprot=fetch, fetch_ensembl=fetch, result_path=result_path,
+def generate_filter_and_collect(ctx: Context,
+                                user_protein: str,
+                                user_gene: str,
+                                user_complex: str,
+                                user_interactions: str,
+                                fetch: bool,
+                                result_path: Optional[str],
+                                log_file: str
+                                ):
+    ctx.invoke(generate_proteins, user_protein=user_protein, fetch_uniprot=fetch, result_path=result_path,
                log_file=log_file)
-    ctx.invoke(generate_complex, user_complex=None, result_path=result_path, log_file=log_file)
+    ctx.invoke(generate_genes, user_gene=user_gene, fetch_uniprot=fetch, fetch_ensembl=fetch, result_path=result_path,
+               log_file=log_file)
+    ctx.invoke(generate_complex, user_complex=user_complex, result_path=result_path, log_file=log_file)
 
     output_path = _set_paths(output_dir, result_path)
 
@@ -320,15 +332,18 @@ def generate_filter_and_collect(ctx: Context, fetch: bool, result_path: Optional
     complex_file = os.path.join(output_path, 'complex_generated.csv')
 
     ctx.invoke(generate_interactions, proteins=proteins_file, genes=genes_file, complex=complex_file,
-               user_interactions=None, result_path=result_path)
+               user_interactions=user_interactions, result_path=result_path)
 
     ctx.invoke(filter_all, input_path=output_path, result_path=result_path)
 
     db_name = 'cellphone_custom_{}.db'.format(datetime.now().strftime("%Y-%m-%d-%H_%M"))
 
-    collect_database(db_name, output_path, [name.replace('_generated', '_input') for name in
-                                            [proteins_file, genes_file, complex_file, 'interaction_input.csv',
-                                             output_path]])
+    collect_database(db_name, output_path,
+                     protein_filename='protein_input.csv',
+                     gene_filename='gene_input.csv',
+                     complex_filename='complex_input.csv',
+                     interaction_filename='interaction_input.csv',
+                     data_path=output_path)
 
 
 def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.Series) -> pd.DataFrame:
