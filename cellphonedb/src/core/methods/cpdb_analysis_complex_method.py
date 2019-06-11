@@ -111,6 +111,8 @@ def build_results(interactions: pd.DataFrame,
     interactions_data_result['secreted'] = (interactions['secreted_1'] | interactions['secreted_2'])
     interactions_data_result['is_integrin'] = (
             interactions['integrin_1'] | interactions['integrin_2'])
+    interactions_data_result['receptor'] = (
+            interactions['receptor_1'] | interactions['receptor_2'])
 
     interactions_data_result.rename(
         columns={'ensembl_1': 'gene_a', 'ensembl_2': 'gene_b'},
@@ -172,10 +174,10 @@ def deconvolute_interaction_component(interactions, suffix):
     interactions = interactions[~interactions['is_complex{}'.format(suffix)]]
     deconvoluted_result = pd.DataFrame()
     deconvoluted_result[
-        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction']] = \
+        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
         interactions[
             ['ensembl{}'.format(suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
-             'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction']]
+             'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction', 'receptor{}'.format(suffix)]]
 
     return deconvoluted_result
 
@@ -185,20 +187,21 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     component = pd.DataFrame()
     component[
         ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction',
-         'id_multidata']] = \
+         'id_multidata', 'receptor']] = \
         interactions[
             ['ensembl{}'.format(suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
              'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction',
-             'id_multidata{}'.format(suffix)]]
+             'id_multidata{}'.format(suffix), 'receptor{}'.format(suffix)]]
 
     deconvolution_complex = pd.merge(complex_compositions, component, left_on='complex_multidata_id',
                                      right_on='id_multidata')
     deconvolution_complex = pd.merge(deconvolution_complex, genes_filtered, left_on='protein_multidata_id',
                                      right_on='protein_multidata_id', suffixes=['_complex', '_simple'])
+
     deconvoluted_result[
-        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'id_cp_interaction']] = \
+        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'id_cp_interaction', 'receptor']] = \
         deconvolution_complex[['ensembl_simple', 'protein_name_simple', 'gene_name_simple', 'name_simple',
-                               'is_complex_complex', 'name_complex', 'id_cp_interaction']]
+                               'is_complex_complex', 'name_complex', 'id_cp_interaction', 'receptor_simple']]
 
     return deconvoluted_result
 
