@@ -1,11 +1,22 @@
 #!/bin/bash
 
-for version in 3.5 3.6 3.7
+set -e
+
+COMMON_VERSIONS=(3.5 3.6 3.7)
+
+build(){
+    docker build . -t cpdb:${1} --build-arg PYTHON_VERSION=${1}
+}
+
+run(){
+    docker run --rm cpdb:${1}
+}
+
+for version in ${@-${COMMON_VERSIONS[@]}}
 do
-    docker build . -t cpdb:${version} --build-arg PYTHON_VERSION=${version}
+    echo "building image for version $version"
+    build ${version}
+    echo "running tests for version $version"
+    run ${version}
 done
 
-for version in 3.5 3.6 3.7
-do
-    docker run --rm cpdb:${version}
-done
