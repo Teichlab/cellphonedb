@@ -69,6 +69,7 @@ class LocalMethodLauncher(object):
 
     def cpdb_analysis_local_method_launcher(self, meta_filename: str,
                                             counts_filename: str,
+                                            counts_data: str,
                                             project_name: str = '',
                                             threshold: float = 0.1,
                                             output_path: str = '',
@@ -89,6 +90,7 @@ class LocalMethodLauncher(object):
         means, significant_means, deconvoluted = \
             self.cellphonedb_app.method.cpdb_method_analysis_launcher(meta,
                                                                       counts,
+                                                                      counts_data,
                                                                       threshold,
                                                                       result_precision,
                                                                       subsampler)

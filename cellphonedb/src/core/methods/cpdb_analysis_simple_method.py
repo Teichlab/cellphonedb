@@ -1,12 +1,12 @@
 import pandas as pd
 
-from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper, cpdb_analysis_helper
 from cellphonedb.src.core.core_logger import core_logger
-from cellphonedb.src.core.models.interaction import interaction_filter
+from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper, cpdb_analysis_helper
 
 
 def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
+         counts_data: str,
          interactions: pd.DataFrame,
          separator: str,
          threshold: float = 0.1,
@@ -15,7 +15,7 @@ def call(meta: pd.DataFrame,
     core_logger.info(
         '[Non Statistical Method] Threshold:{} Precission:{}'.format(threshold, result_precision))
 
-    interactions_filtered, counts_filtered = prefilters(counts, interactions)
+    interactions_filtered, counts_filtered = prefilters(counts, interactions, counts_data)
 
     if interactions_filtered.empty or counts_filtered.empty:
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
@@ -32,7 +32,8 @@ def call(meta: pd.DataFrame,
                                                                    cluster_interactions,
                                                                    base_result,
                                                                    separator,
-                                                                   suffixes=('_1', '_2'))
+                                                                   suffixes=('_1', '_2'),
+                                                                   counts_data=counts_data)
 
     percent_analysis = cpdb_analysis_helper.percent_analysis(clusters,
                                                              threshold,
@@ -40,7 +41,8 @@ def call(meta: pd.DataFrame,
                                                              cluster_interactions,
                                                              base_result,
                                                              separator,
-                                                             suffixes=('_1', '_2'))
+                                                             suffixes=('_1', '_2'),
+                                                             counts_data=counts_data)
 
     means_result, significant_means, deconvoluted_result = build_results(
         interactions_filtered,
@@ -130,9 +132,9 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) 
     return deconvoluted_result
 
 
-def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
+def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame, counts_data: str) -> (pd.DataFrame, pd.DataFrame):
     """
-    This is where _counts_ input and interactions are filtrated. We remove
+    This is where _counts_ input and interactions are filtered. We remove:
         - Duplicated ensembl: Keep the first.
         - If ensembl is not in CellPhoneDB interactions.
         - Empty counts: Remove counts if all row values are 0.
@@ -143,13 +145,19 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFram
     core_logger.info('Running Simple Prefilters')
 
     counts_filtered = counts[~counts.index.duplicated()]
-    counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered, interactions)
+    counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
+                                                                                     interactions,
+                                                                                     counts_data=counts_data)
     counts_filtered = cpdb_statistical_analysis_helper.filter_empty_cluster_counts(counts_filtered)
-    interactions_filtered = filter_interactions_by_counts(interactions, counts_filtered, ('_1', '_2'))
+    interactions_filtered = filter_interactions_by_counts(interactions,
+                                                          counts_filtered,
+                                                          ('_1', '_2'),
+                                                          counts_data=counts_data)
 
     counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
                                                                                      interactions_filtered,
-                                                                                     ('_1', '_2'))
+                                                                                     ('_1', '_2'),
+                                                                                     counts_data=counts_data)
 
     interactions_filtered.reset_index(inplace=True, drop=True)
 
@@ -157,13 +165,13 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame) -> (pd.DataFram
 
 
 def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame,
-                                  suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+                                  suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> pd.DataFrame:
     """
     Remove interaction if both components are not in counts lists
     """
-    ensembl_counts = list(counts.index)
+    counts_index = list(counts.index)
     interactions_filtered = interactions[interactions.apply(
-        lambda row: row['ensembl{}'.format(suffixes[0])] in ensembl_counts and row[
-            'ensembl{}'.format(suffixes[1])] in ensembl_counts, axis=1
+        lambda row: row['{}{}'.format(counts_data, suffixes[0])] in counts_index and row[
+            '{}{}'.format(counts_data, suffixes[1])] in counts_index, axis=1
     )]
     return interactions_filtered

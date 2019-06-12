@@ -77,6 +77,7 @@ class MethodLauncher():
     def cpdb_method_analysis_launcher(self,
                                       raw_meta: pd.DataFrame,
                                       counts: pd.DataFrame,
+                                      counts_data: str,
                                       threshold: float,
                                       result_precision: int,
                                       subsampler: Subsampler = None,
@@ -100,6 +101,7 @@ class MethodLauncher():
         means, significant_means, deconvoluted = cpdb_analysis_method.call(
             meta,
             counts,
+            counts_data,
             interactions,
             genes,
             complex_expanded,
@@ -110,7 +112,8 @@ class MethodLauncher():
 
         return means, significant_means, deconvoluted
 
-    def _counts_validations(self, counts: pd.DataFrame, meta: pd.DataFrame) -> pd.DataFrame:
+    @staticmethod
+    def _counts_validations(counts: pd.DataFrame, meta: pd.DataFrame) -> pd.DataFrame:
         if not len(counts.columns):
             raise ParseCountsException('Counts values are not decimal values', 'Incorrect file format')
         try:

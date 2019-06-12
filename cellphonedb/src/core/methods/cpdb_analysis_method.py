@@ -6,6 +6,7 @@ from cellphonedb.src.core.methods import cpdb_analysis_simple_method, cpdb_analy
 
 def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
+         counts_data: str,
          interactions: pd.DataFrame,
          genes: pd.DataFrame,
          complexes: pd.DataFrame,
@@ -16,6 +17,7 @@ def call(meta: pd.DataFrame,
     means_simple, significant_means_simple, deconvoluted_simple = \
         cpdb_analysis_simple_method.call(meta.copy(),
                                          counts.copy(),
+                                         counts_data,
                                          interactions.copy(),
                                          separator,
                                          threshold,
@@ -23,6 +25,7 @@ def call(meta: pd.DataFrame,
     means_complex, significant_means_complex, deconvoluted_complex = \
         cpdb_analysis_complex_method.call(meta.copy(),
                                           counts.copy(),
+                                          counts_data,
                                           interactions.copy(),
                                           genes,
                                           complexes,
