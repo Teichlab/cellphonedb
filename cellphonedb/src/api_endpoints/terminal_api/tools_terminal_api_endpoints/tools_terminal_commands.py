@@ -94,7 +94,7 @@ def generate_genes(user_gene: Optional[click.File],
 
     ensembl_db = ensembl_db[list(ensembl_columns.keys())].rename(columns=ensembl_columns)
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
-    hla_genes = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/hla_genes.csv'))
+    hla_genes = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/hla_curated.csv'))
     if user_gene:
         separator = _get_separator(os.path.splitext(user_gene.name)[-1])
         user_gene = pd.read_csv(user_gene, sep=separator)
@@ -117,7 +117,7 @@ def generate_interactions(proteins: str,
                           result_path: str,
                           ) -> None:
     # TODO: Read imex from API
-    raw_imex = utils.read_data_table_from_file(os.path.join(data_dir, '../../../tools/data/interactionsMirjana.txt'),
+    raw_imex = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/IMEX_all_sources.csv'),
                                                na_values='-')
     proteins = utils.read_data_table_from_file(proteins)
     genes = utils.read_data_table_from_file(genes)
@@ -139,8 +139,6 @@ def generate_interactions(proteins: str,
 
     print('Parsing IMEX file')
     imex_interactions = parse_interactions_imex(raw_imex, proteins, genes)
-
-    imex_interactions.to_csv('TEST_IMEX_OUT.csv', index=False)
 
     output_path = utils.set_paths(output_dir, result_path)
     download_path = utils.set_paths(output_path, 'downloads')
@@ -172,7 +170,7 @@ def generate_interactions(proteins: str,
         interactions_with_curated.append(user_interactions, ignore_index=True, sort=False), 'partner_a',
         'partner_b').drop_duplicates(['partner_a', 'partner_b'], keep='last')
 
-    interactions_with_curated[result_columns].to_csv(
+    interactions_with_curated[result_columns].sort_values(['partner_a', 'partner_b']).to_csv(
         '{}/interaction_input.csv'.format(output_path), index=False)
 
 

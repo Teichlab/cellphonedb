@@ -1,6 +1,6 @@
 import pandas as pd
 
-from tools.tools_helper import interaction_exist
+from cellphonedb.tools.tools_helper import interaction_exist
 
 
 def remove_interactions_in_file(interactions, interactions_to_remove):

@@ -1,1169 +1,1397 @@
 partner_a,partner_b,source,comments_interaction
-P09917,P20292,guidetopharmacology.org,
-P25106,P48061,guidetopharmacology.org,
-P48061,P49682,guidetopharmacology.org,
-O14625,P25106,guidetopharmacology.org,
-O00421,Q99731,guidetopharmacology.org,
-P49682,Q99731,guidetopharmacology.org,
-P0DMC3,P35414,guidetopharmacology.org,
-P35414,Q9ULZ1,guidetopharmacology.org,
-P01019,P30556,guidetopharmacology.org,
-P01019,P50052,guidetopharmacology.org,
-P30530,Q14393,guidetopharmacology.org,
-Q12866,Q14393,guidetopharmacology.org,
-Q06418,Q14393,guidetopharmacology.org,
-P07225,P30530,guidetopharmacology.org,
-P07225,Q06418,guidetopharmacology.org,
-Q96RJ3,Q9Y275,guidetopharmacology.org,
-P07492,P30550,guidetopharmacology.org,
-P01042,P46663,guidetopharmacology.org,
-P01024,Q16581,guidetopharmacology.org,
-P01031,P21730,guidetopharmacology.org,
-P01031,Q9P296,guidetopharmacology.org,
-P21730,P39019,guidetopharmacology.org,
-P06307,P32238,guidetopharmacology.org,
-P06307,P32239,guidetopharmacology.org,
-P01350,P32239,guidetopharmacology.org,
-P32246,Q99616,guidetopharmacology.org,
-O95800,P13501,guidetopharmacology.org,
-P32246,P55774,guidetopharmacology.org,
-P46092,Q9NRJ3,guidetopharmacology.org,
-P51677,Q9NRJ3,guidetopharmacology.org,
-O15467,Q9H3N8,guidetopharmacology.org,
-P41597,P51671,guidetopharmacology.org,
+A4D1S0,O96014,InnateDB-All,
+A4D1S0,P41273,InnateDB-All,
+A4D1S0,Q9H1J7,InnateDB-All,
+A6NMZ7,a10b1 complex,curated,uniprot
+A6NMZ7,a11b1 complex,curated,uniprot
+A6NMZ7,a1b1 complex,curated,uniprot
+A6NMZ7,a2b1 complex,curated,uniprot
+A8TX70,a10b1 complex,curated,uniprot
+A8TX70,a11b1 complex,curated,uniprot
+A8TX70,a1b1 complex,curated,uniprot
+A8TX70,a2b1 complex,curated,uniprot
+ACVL1_BMPR2,O95393,curated,PMID: 22710174
+ACVL1_BMPR2,Q9UK05,curated,PMID: 22710174
+ACVR1_BMPR2,P18075,curated,PMID: 22710174
+ACVR1_BMPR2,P22003,curated,PMID: 22710174
+ACVR1_BMPR2,P22004,curated,PMID: 22710174
+ACVR1_BMPR2,Q7Z5Y6,curated,PMID: 22710174
+ACVR_1A2A receptor,Activin ligand ab,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
+ACVR_1A2A receptor,P08476,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
+ACVR_1A2A receptor,P09529,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
+ACVR_1A2A receptor,P18075,curated,PMID: 22710174
+ACVR_1A2A receptor,P22003,curated,PMID: 22710174
+ACVR_1A2A receptor,P22004,curated,PMID: 22710174
+ACVR_1A2A receptor,Q7Z5Y6,curated,PMID: 22710174
+ACVR_1A2B receptor,Activin ligand ab,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
+ACVR_1A2B receptor,P08476,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
+ACVR_1A2B receptor,P09529,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
+ACVR_1A2B receptor,P18075,curated,PMID: 22710174
+ACVR_1A2B receptor,P22003,curated,PMID: 22710174
+ACVR_1A2B receptor,P22004,curated,PMID: 22710174
+ACVR_1A2B receptor,Q7Z5Y6,curated,PMID: 22710174
+ACVR_1B2A receptor,Activin ligand ab,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1B2A receptor,O14793,curated,PMID: 22710174
+ACVR_1B2A receptor,O95390,curated,PMID: 22710174
+ACVR_1B2A receptor,P08476,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1B2A receptor,P09529,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1B2A receptor,P12645,curated,PMID: 22710174
+ACVR_1B2B receptor,Activin ligand ab,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1B2B receptor,O14793,curated,PMID: 22710174
+ACVR_1B2B receptor,O95390,curated,PMID: 22710174
+ACVR_1B2B receptor,P08476,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1B2B receptor,P09529,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1B2B receptor,P27539,curated,PMID: 22710174
+ACVR_1B2B receptor,P55107,curated,PMID: 22710174
+ACVR_1B2B receptor,Q9NR23,curated,PMID: 22710174
+ACVR_1C2A receptor,Activin ligand ab,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1C2A receptor,P08476,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1C2A receptor,P09529,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1C2B receptor,Activin ligand ab,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1C2B receptor,P08476,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+ACVR_1C2B receptor,P09529,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
+BMPR1A_BMPR2,P12643,curated,PMID: 22710174
+BMPR1A_BMPR2,P12644,curated,PMID: 22710174
+BMPR1A_BMPR2,P18075,curated,PMID: 22710174
+BMPR1A_BMPR2,P22003,curated,PMID: 22710174
+BMPR1A_BMPR2,P22004,curated,PMID: 22710174
+BMPR1A_BMPR2,P43026,curated,PMID: 22710174
+BMPR1A_BMPR2,Q6KF10,curated,PMID: 22710174
+BMPR1A_BMPR2,Q7Z4P5,curated,PMID: 22710174
+BMPR1A_BMPR2,Q7Z5Y6,curated,PMID: 22710174
+BMPR1B_BMPR2,O95972,curated,PMID: 22710174
+BMPR1B_BMPR2,P12643,curated,PMID: 22710174
+BMPR1B_BMPR2,P12644,curated,PMID: 22710174
+BMPR1B_BMPR2,P18075,curated,PMID: 22710174
+BMPR1B_BMPR2,P22003,curated,PMID: 22710174
+BMPR1B_BMPR2,P22004,curated,PMID: 22710174
+BMPR1B_BMPR2,P36894,curated,"3evs,  PDB complex higher affinity"
+BMPR1B_BMPR2,P43026,curated,PMID: 22710174
+BMPR1B_BMPR2,Q6KF10,curated,PMID: 22710174
+BMPR1B_BMPR2,Q7Z4P5,curated,PMID: 22710174
+BMPR1B_BMPR2,Q7Z5Y6,curated,PMID: 22710174
+BMR1A_ACR2A,P12643,curated,PMID: 22710174
+BMR1A_ACR2A,P12644,curated,PMID: 22710174
+BMR1A_ACR2A,P18075,curated,PMID: 22710174
+BMR1A_ACR2A,P22003,curated,PMID: 22710174
+BMR1A_ACR2A,P22004,curated,PMID: 22710174
+BMR1A_ACR2A,P43026,curated,PMID: 22710174
+BMR1A_ACR2A,Q6KF10,curated,PMID: 22710174
+BMR1A_ACR2A,Q7Z4P5,curated,PMID: 22710174
+BMR1A_ACR2A,Q7Z5Y6,curated,PMID: 22710174
+BMR1A_AVR2B,P12643,curated,PMID: 22710174
+BMR1A_AVR2B,P12644,curated,PMID: 22710174
+BMR1A_AVR2B,P18075,curated,PMID: 22710174
+BMR1A_AVR2B,P22003,curated,PMID: 22710174
+BMR1A_AVR2B,P22004,curated,PMID: 22710174
+BMR1A_AVR2B,P43026,curated,PMID: 22710174
+BMR1A_AVR2B,Q6KF10,curated,PMID: 22710174
+BMR1A_AVR2B,Q7Z4P5,curated,PMID: 22710174
+BMR1A_AVR2B,Q7Z5Y6,curated,PMID: 22710174
+BMR1B_AVR2A,P12643,curated,PMID: 22710174
+BMR1B_AVR2A,P12644,curated,PMID: 22710174
+BMR1B_AVR2A,P18075,curated,PMID: 22710174
+BMR1B_AVR2A,P22003,curated,PMID: 22710174
+BMR1B_AVR2A,P22004,curated,PMID: 22710174
+BMR1B_AVR2A,P43026,curated,PMID: 22710174
+BMR1B_AVR2A,Q6KF10,curated,PMID: 22710174
+BMR1B_AVR2A,Q7Z4P5,curated,PMID: 22710174
+BMR1B_AVR2A,Q7Z5Y6,curated,PMID: 22710174
+BMR1B_AVR2B,P12643,curated,PMID: 22710174
+BMR1B_AVR2B,P12644,curated,PMID: 22710174
+BMR1B_AVR2B,P18075,curated,PMID: 22710174
+BMR1B_AVR2B,P22003,curated,PMID: 22710174
+BMR1B_AVR2B,P22004,curated,PMID: 22710174
+BMR1B_AVR2B,P43026,curated,PMID: 22710174
+BMR1B_AVR2B,Q6KF10,curated,PMID: 22710174
+BMR1B_AVR2B,Q7Z4P5,curated,PMID: 22710174
+BMR1B_AVR2B,Q7Z5Y6,curated,PMID: 22710174
+CD8 receptor,P06239,curated,"1q69, PDB partially"
+CD94:NKG2A,P13747,curated,PMID: 28484462
+CD94:NKG2C,P13747,curated,PMID: 28484462
+CD94:NKG2E,P13747,curated,PMID: 28484462
+CNTF-1R,P26441,curated,uniprot
+CNTF-1R,Q9UBD9,curated,uniprot
+D3W0D1,Q6UVW9,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
+FLT1 complex,P15692,curated,uniprot
+FLT1 complex,P49763,curated,uniprot
+FLT1 complex,P49765,curated,uniprot
+FcRn complex,P02768,curated,"4n0u, PDB & 4k71, PDB"
+GMCSFR,P04141,curated,"4nkq, PDB"
+Glycoprotein Ib  complex,P00734,curated,"1hyr, PDB partially"
+Glycoprotein Ib  complex,P04275,curated,"1m10, PDB partially . Platets needed for its activation."
+HLAA,P43629,curated,uniprot
+HLAB,P43630,curated,uniprot
+HLAC,P01222,InnateDB-All,
+HLAC,P43626,curated,PMID: 28484462
+HLAC,P43628,curated,PMID: 28484462
+HLAC,Q92520,InnateDB-All,
+HLADPA1,P22466,InnateDB-All,
+HLADPA1,P41273,InnateDB-All,
+HLADPB1,Q02297,InnateDB-All,
+HLADPB1,Q9Y275,InnateDB-All,
+HLADQB2,P01236,InnateDB-All,
+HLADRB1,P20774,InnateDB-All,
+IL1 receptor,P01583,curated,uniprot
+IL1 receptor,P01584,curated,"4dep, PDB"
+IL1 receptor,P18510,curated,"1ira, PDB partially"
+IL1 receptor inhibitor,P01583,curated,"low affinity, uniprot"
+IL1 receptor inhibitor,P01584,curated,"3o4o, PDB"
+IL1 receptor inhibitor,P18510,curated,low affinity
+IL10 receptor,P22301,curated,"1j7v, PDB partially"
+IL11 receptor,P20809,curated,uniprot
+IL12,IL12 receptor,curated,uniprot
+IL13 receptor,P05112,curated,"3bpn, PDB"
+IL13 receptor,P35225,curated,"3bpo, PDB"
+IL15 receptor,P40933,curated,"Need expression of IL15RA (Q13261) in other cells. 2z3q, PDB partially"
+IL17 AF,IL17 receptor AC,curated,uniprot
+IL17 receptor AB,Q9H293,curated,NA IL17E called IL25
+IL17 receptor AC,Q16552,curated,uniprot
+IL17 receptor AC,Q96PD4,curated,uniprot
+IL17 receptor AE,Q9P0M4,curated,uniprot
+IL18 receptor,Q14116,curated,"3wo3, PDB partially"
+IL2 receptor_HA,P60568,curated,"2b5i, PDB"
+IL2 receptor_I,P60568,curated,"3qaz, PDB"
+IL20 receptor Type I,Q13007,curated,uniprot
+IL20 receptor Type I,Q9NYY1,curated,uniprot
+IL20 receptor Type I,Q9UHD0,curated,uniprot
+IL20 receptor Type II,Q13007,curated,uniprot
+IL20 receptor Type II,Q9NYY1,curated,uniprot
+IL21 receptor,Q9HBE4,curated,"3tgx, PDB partially, uniprot"
+IL22 receptor,Q9GZX6,curated,"3dgc, PDB"
+IL23,IL23 receptor,curated,uniprot
+IL26 receptor,Q9NPH9,curated,"Rutz et al., Nat Rev. 2014"
+IL27,IL27 receptor,curated,uniprot
+IL28 receptor,Q8IZI9,curated,"5t5w, PDB"
+IL3 receptor,P08700,curated,uniprot
+IL33 receptor,O95760,curated,uniprot
+IL35,IL35 receptor,curated,uniprot
+IL36 receptor,Q8WWZ1,curated,to check
+IL36 receptor,Q9NZH7,curated,uniprot
+IL36 receptor,Q9NZH8,curated,uniprot
+IL36 receptor,Q9UBH0,curated,uniprot
+IL36 receptor,Q9UHA7,curated,uniprot
+IL37 receptor,Q9NZH6,curated,"See paper Nold-Petry et al., 2015"
+IL4 receptor,P05112,curated,"3qb7, PDB"
+IL5 receptor,P05113,curated,"3qt2, PDB partially"
+IL6 receptor,P05231,curated,"1p9m, PDB"
+IL7 receptor,P13232,curated,"3di2, PDB partially"
+IL9 receptor,P15248,curated,uniprot
+LIFR,P13725,curated,uniprot
+LIFR,P15018,curated,"1pvh, PDB partially"
+MIS receptor 1,P03971,curated,PMID: 22710174
+MIS receptor 2,P03971,curated,PMID: 22710174
+MIS receptor 3,P03971,curated,PMID: 22710174
+NKG2D II receptor,Q29980,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
+NKG2D II receptor,Q29983,curated,"1hyr, PDB partially, Induces NK Cell Activation. Reviewed in PMID: 24223577"
+NKG2D II receptor,Q5VY80,curated,"Induces NK Cell Activation. Reviewed in PMID: 24223577. 4s0u, PDB partially"
+NKG2D II receptor,Q6H3X3,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
+NKG2D II receptor,Q8TD07,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
+NKG2D II receptor,Q9BZM4,curated,"Induces NK Cell Activation. Reviewed in PMID: 24223577. 1kcg, PDB partially"
+NKG2D II receptor,Q9BZM5,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
+NKG2D II receptor,Q9BZM6,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
+NODAL receptor,Q96S42,curated,PMID: 22710174
+O00144,O00755,"I2D,MBInfo,UniProt",
+O00144,P04628,"I2D,MBInfo,UniProt",
+O00144,P09544,curated,PMID: 24032637
+O00155,Q9HD89,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
 O00175,P41597,guidetopharmacology.org,
-P49682,P78556,guidetopharmacology.org,
-Q99788,Q99969,guidetopharmacology.org,
-P46091,Q99969,guidetopharmacology.org,
-P07333,P09919,guidetopharmacology.org,
-P04141,P07333,guidetopharmacology.org,
-P55089,Q13324,guidetopharmacology.org,
-Q13324,Q96RP3,guidetopharmacology.org,
-Q13324,Q969E3,guidetopharmacology.org,
-P30988,P35318,guidetopharmacology.org,
-P35318,Q96LB1,guidetopharmacology.org,
-P30988,Q7Z4H4,guidetopharmacology.org,
-P06881,P30988,guidetopharmacology.org,
-P01258,P30988,guidetopharmacology.org,
-P10997,P30988,guidetopharmacology.org,
-P10092,P30988,guidetopharmacology.org,
-P25024,P54577,guidetopharmacology.org,
-O00574,Q9H2A7,guidetopharmacology.org,
-O95150,Q93038,guidetopharmacology.org,
-P01189,Q01726,guidetopharmacology.org,
-P01189,P41968,guidetopharmacology.org,
-P01189,P32245,guidetopharmacology.org,
-P01189,P33032,guidetopharmacology.org,
-Q92838,Q9UNE0,guidetopharmacology.org,
-Q92838,Q9HAV5,guidetopharmacology.org,
-P20800,P25101,guidetopharmacology.org,
-P35916,Q9NRA1,guidetopharmacology.org,
-P04083,P21462,guidetopharmacology.org,
-P04083,P25089,guidetopharmacology.org,
-P05067,P25090,guidetopharmacology.org,
-P25090,P49913,guidetopharmacology.org,
-P0DJI8,P25090,guidetopharmacology.org,
-P25089,Q9NRV9,guidetopharmacology.org,
-P47211,Q9UBC7,guidetopharmacology.org,
-O43603,Q9UBC7,guidetopharmacology.org,
-O60755,Q9UBC7,guidetopharmacology.org,
-P22466,P47211,guidetopharmacology.org,
-O43603,P22466,guidetopharmacology.org,
-O60755,P22466,guidetopharmacology.org,
-Q6UXV0,Q99988,guidetopharmacology.org,
-Q92847,Q9UBU3,guidetopharmacology.org,
-Q92847,Q969E1,guidetopharmacology.org,
-P01286,Q02643,guidetopharmacology.org,
-P01286,P32241,guidetopharmacology.org,
-O95838,P01275,guidetopharmacology.org,
-O43555,P30968,guidetopharmacology.org,
-P01241,P10912,guidetopharmacology.org,
-P01242,P10912,guidetopharmacology.org,
-P01160,P16066,guidetopharmacology.org,
-P16066,P16860,guidetopharmacology.org,
-P20594,P23582,guidetopharmacology.org,
-P25092,Q02747,guidetopharmacology.org,
-P25092,Q16661,guidetopharmacology.org,
-Q7Z6A9,Q92956,guidetopharmacology.org,
-Q15760,Q6UWT2,guidetopharmacology.org,
-Q6UXB2,Q9HC97,guidetopharmacology.org,
-O15354,P07602,guidetopharmacology.org,
-O60883,P07602,guidetopharmacology.org,
-Q2MKA7,Q9BXB1,guidetopharmacology.org,
-O75473,Q2MKA7,guidetopharmacology.org,
-Q2MKA7,Q9HBX8,guidetopharmacology.org,
-Q6UXX9,Q9BXB1,guidetopharmacology.org,
-O75473,Q6UXX9,guidetopharmacology.org,
-Q6UXX9,Q9HBX8,guidetopharmacology.org,
-Q9BXB1,Q9BXY4,guidetopharmacology.org,
-O75473,Q9BXY4,guidetopharmacology.org,
-Q9BXY4,Q9HBX8,guidetopharmacology.org,
-Q2I0M5,Q9BXB1,guidetopharmacology.org,
-O75473,Q2I0M5,guidetopharmacology.org,
-Q2I0M5,Q9HBX8,guidetopharmacology.org,
-P01210,Q96LB2,guidetopharmacology.org,
-P40933,Q13261,guidetopharmacology.org,
-Q15726,Q969F8,guidetopharmacology.org,
-O00253,P41968,guidetopharmacology.org,
-O00253,P32245,guidetopharmacology.org,
-O00253,P33032,guidetopharmacology.org,
-P17342,P61366,guidetopharmacology.org,
-Q5H8A3,Q9HB89,guidetopharmacology.org,
-Q5H8A3,Q9GZQ4,guidetopharmacology.org,
-P48645,Q9HB89,guidetopharmacology.org,
-P48645,Q9GZQ4,guidetopharmacology.org,
-P48145,Q8NG41,guidetopharmacology.org,
-P48146,Q8NG41,guidetopharmacology.org,
-P48145,Q8N729,guidetopharmacology.org,
-P48146,Q8N729,guidetopharmacology.org,
-Q9GZQ6,Q9HCQ7,guidetopharmacology.org,
-P0C0P6,Q6W5P4,guidetopharmacology.org,
-P30989,P30990,guidetopharmacology.org,
-O43612,O43613,guidetopharmacology.org,
-O43612,O43614,guidetopharmacology.org,
-P58294,Q8TCW9,guidetopharmacology.org,
-P58294,Q8NFJ6,guidetopharmacology.org,
-Q8TCW9,Q9HC23,guidetopharmacology.org,
-Q8NFJ6,Q9HC23,guidetopharmacology.org,
-O14939,P84077,guidetopharmacology.org,
-P16471,Q14406,guidetopharmacology.org,
-P49683,P81277,guidetopharmacology.org,
-P12272,P49683,guidetopharmacology.org,
-P12272,Q03431,guidetopharmacology.org,
-P12272,P49190,guidetopharmacology.org,
-P83859,Q96P65,guidetopharmacology.org,
-P51460,Q9HBX9,guidetopharmacology.org,
-P51460,Q8WXD0,guidetopharmacology.org,
-P04090,Q9HBX9,guidetopharmacology.org,
-P04090,Q8WXD0,guidetopharmacology.org,
-P04090,Q9NSD7,guidetopharmacology.org,
-P04808,Q9HBX9,guidetopharmacology.org,
-P04808,Q8WXD0,guidetopharmacology.org,
-Q8WXF3,Q9HBX9,guidetopharmacology.org,
-Q8WXD0,Q8WXF3,guidetopharmacology.org,
-Q8WXF3,Q9NSD7,guidetopharmacology.org,
-Q8TDU9,Q8WXF3,guidetopharmacology.org,
-Q9NSD7,Q9Y5Q6,guidetopharmacology.org,
-Q8TDU9,Q9Y5Q6,guidetopharmacology.org,
-P09683,P47872,guidetopharmacology.org,
+O00175,P51677,curated,PMID: 24218476
+O00182,P08581,InnateDB-All,
+O00182,P16070,InnateDB,
+O00182,Q07954,InnateDB-All,
+O00182,Q08722,InnateDB-All,
+O00182,Q14118,InnateDB-All,
+O00182,Q15262,InnateDB-All,
+O00182,Q15758,"I2D,InnateDB-All,MBInfo,UniProt",
+O00182,Q5KU26,InnateDB-All,
+O00182,Q8TDQ0,curated,Reviewed in PMID: 27192565
+O00182,Q92673,InnateDB-All,
+O00182,Q9UBG0,InnateDB-All,
+O00220,P22455,InnateDB-All,
+O00220,P50591,curated,uniprot
 O00230,P30872,guidetopharmacology.org,
 O00230,P31391,guidetopharmacology.org,
-O95399,Q9UKP6,guidetopharmacology.org,
-P01282,P32241,guidetopharmacology.org,
-P10082,P25929,guidetopharmacology.org,
-P10082,P49146,guidetopharmacology.org,
-P10082,P50391,guidetopharmacology.org,
-P01298,P50391,guidetopharmacology.org,
-P01298,Q15761,guidetopharmacology.org,
-P00533,Q02297,"InnateDB-All,IntAct",
-P46531,P48745,InnateDB-All,
-P19438,P28799,"InnateDB-All,MINT",
-P20333,P28799,"InnateDB-All,MINT",
-P28799,Q99523,"InnateDB-All,MINT",
-P01588,P54760,IntAct,
-P01236,P16471,"InnateDB,InnateDB-All,IntAct",
-P01241,P16471,"InnateDB-All,IntAct",
-P21246,Q13332,"InnateDB-All,IntAct",
-P00533,P01137,MINT,
-P23560,Q9Y624,"InnateDB-All,IntAct",
-P41221,Q01973,InnateDB-All,
-P19438,P48023,InnateDB-All,
-O14763,P48023,InnateDB-All,
-P49286,P53621,"InnateDB-All,IntAct",
-P53621,Q99523,IntAct,
-P05230,P22455,"InnateDB-All,IntAct",
-P12034,P22455,"InnateDB-All,IntAct",
-P22455,Q96QR1,MINT,
-P11362,P55075,"InnateDB-All,IntAct",
-P11362,Q9GZV9,InnateDB-All,
-P01160,P17342,InnateDB-All,
-P16860,P17342,InnateDB-All,
-P17342,P23582,InnateDB-All,
-P01375,P36941,InnateDB-All,
-P14174,Q9UBN6,IntAct,
-P01375,Q13546,"InnateDB,InnateDB-All,InnateDB-IMEx,IntAct,MINT",
-P01374,Q13546,"InnateDB-All,MINT",
-P04233,P14174,InnateDB-All,
-O15031,P21246,"InnateDB-All,IntAct",
-P01344,P14735,InnateDB-All,
-P10147,P14735,"InnateDB-All,MINT",
-P01275,P14735,InnateDB-All,
-P01308,P14735,InnateDB-All,
-P16070,Q99075,InnateDB-All,
-O00182,P16070,"InnateDB,InnateDB-All",
-P10451,P16070,"InnateDB-All,IntAct",
-P01160,P20594,InnateDB-All,
-P16860,P20594,InnateDB-All,
-P04155,P21802,MINT,
-P05230,P21802,"InnateDB-All,IntAct,MINT",
-P21802,P55075,"InnateDB-All,IntAct",
-P21802,Q9GZV9,"InnateDB-All,IntAct",
-P10767,P21802,InnateDB-All,
-P21802,P31371,InnateDB-All,
-P21781,P21802,"InnateDB-All,IntAct",
-P01215,P23945,InnateDB-All,
-P01225,P23945,"InnateDB-All,IntAct",
-P05231,P35367,"InnateDB-All,IntAct",
-P43119,Q9UBU3,InnateDB-All,
-P29274,P43490,"InnateDB-All,MINT",
-P04628,Q01974,InnateDB-All,
-Q04721,Q13007,MINT,
-P02766,Q08345,"InnateDB-All,IntAct",
-O15399,Q14005,InnateDB-All,
-Q13224,Q14005,InnateDB-All,
-Q12879,Q14005,InnateDB-All,
-Q14005,Q14957,InnateDB-All,
-P56704,Q14332,InnateDB-All,
-P04141,Q99062,InnateDB-All,
-P34130,Q16620,"InnateDB-All,IntAct",
-P23560,Q99523,InnateDB-All,
-P01375,P25445,InnateDB-All,
-P02766,Q15109,"InnateDB-All,MINT",
-P21802,P22607,InnateDB-All,
-P05230,P22607,"InnateDB-All,IntAct",
-P22607,P55075,InnateDB-All,
-P22607,P31371,InnateDB-All,
-P02766,P08138,"InnateDB-All,MINT",
-P25942,Q9Y275,"InnateDB,InnateDB-All",
-O75888,P25445,InnateDB-All,
-O75888,P19438,InnateDB-All,
-O75888,Q92956,InnateDB-All,
-Q15848,Q9UHP7,IntAct,
-Q15848,Q8NFJ6,IntAct,
-P07307,Q15848,IntAct,
-P56704,Q9H461,"InnateDB-All,IntAct",
-P04628,Q9H461,InnateDB-All,
-P50591,Q13546,InnateDB-All,
-P01562,P20023,"InnateDB,InnateDB-All",
-P14174,Q92956,IntAct,
-P16860,P27487,"InnateDB-All,MINT",
-P01275,P27487,"InnateDB-All,MINT",
-P09681,P27487,"InnateDB-All,MINT",
-P01282,P27487,"InnateDB-All,MINT",
-P18509,P27487,"InnateDB-All,MINT",
-P21731,Q9UBU3,InnateDB-All,
-P04155,Q96PJ5,"InnateDB-All,IntAct",
-P01374,P36941,InnateDB-All,
-P04628,P16671,"InnateDB,InnateDB-All",
-P11487,P21802,InnateDB-All,
-P01282,P37288,IntAct,
-P10082,P27487,"InnateDB-All,MINT",
-P01588,P52799,IntAct,
-P08620,P22607,InnateDB-All,
-O15467,P51685,InnateDB-All,
-P02776,Q16570,"InnateDB,InnateDB-All",
-P01270,Q03431,InnateDB-All,
-O00182,Q15758,InnateDB-All,
-P34925,P56704,InnateDB-All,
-P56704,Q9UP38,InnateDB-All,
-P04628,P34925,InnateDB-All,
-P01185,P37288,IntAct,
-P21741,Q07954,InnateDB-All,
-P11362,P12034,InnateDB-All,
-P12034,P21802,"InnateDB-All,IntAct",
-P12034,P22607,InnateDB-All,
-O95750,P11362,InnateDB-All,
-O95750,P22455,InnateDB-All,
-P01127,Q07954,InnateDB-All,
-P01270,P49190,InnateDB-All,
-P09683,P32241,InnateDB-All,
-P21781,P22607,InnateDB-All,
-P18509,P41586,InnateDB-All,
-P18509,P47872,InnateDB-All,
-P14210,P16070,IntAct,
-Q02297,Q96JQ5,IntAct,
-P43115,Q9UBU3,InnateDB-All,
-Q9NZH6,Q9NZN1,"InnateDB,InnateDB-All",
-P01215,P22888,InnateDB-All,
-P01138,Q01973,InnateDB-All,
-P07550,P49765,InnateDB-All,
-Q92520,Q9UHP7,IntAct,
-O15520,P21802,"InnateDB-All,IntAct",
-P16066,P23582,InnateDB-All,
-O43193,Q9UBU3,InnateDB-All,
-P10997,P14735,InnateDB-All,
-P06850,Q13324,InnateDB-All,
-O00155,Q9HD89,IntAct,
-Q6UW32,Q9H665,"InnateDB-All,UniProt",
-Q6UWQ7,Q9H665,"InnateDB-All,UniProt",
-Q6UXB1,Q9H665,"InnateDB-All,UniProt",
-Q765I0,Q9UKP6,InnateDB-All,
-Q96QR1,Q9UEW3,InnateDB-All,
-IL12,IL12 receptor,curated,uniprot
-ACVR_1B2A receptor,Activin ligand ab,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-ACVR_1A2A receptor,Activin ligand ab,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
-ACVR_1B2B receptor,Activin ligand ab,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-aMb2 complex,fibrinogen,curated,uniprot
-ACVR_1C2A receptor,Activin ligand ab,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-ACVR_1A2B receptor,Activin ligand ab,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
-IL35,IL35 receptor,curated,uniprot
-IL27,IL27 receptor,curated,uniprot
-ACVR_1C2B receptor,Activin ligand ab,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-IL17 AF,IL17 receptor AC,curated,uniprot
-a2Bb3 complex,fibrinogen,curated,uniprot
-IL23,IL23 receptor,curated,uniprot
-aXb2 complex,fibrinogen,curated,uniprot
-NKG2D II receptor,Q9BZM6,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
-A6NMZ7,a1b1 complex,curated,uniprot
-Q96P44,a10b1 complex,curated,uniprot
-CD94:NKG2E,P13747,curated,PMID: 28484462
-P02462,a2b1 complex,curated,uniprot
-P13942,a11b1 complex,curated,uniprot
-Q14050,a1b1 complex,curated,uniprot
-P19320,a4b7 complex,curated,uniprot
-Q03692,a11b1 complex,curated,uniprot
-Q14050,a10b1 complex,curated,uniprot
-P02458,a2b1 complex,curated,uniprot
-Q5TAT6,a11b1 complex,curated,uniprot
-Q14031,a11b1 complex,curated,uniprot
-ACVR_1C2A receptor,P09529,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-IL1 receptor inhibitor,P01584,curated,"3o4o, PDB"
-P11047,a6b1 complex,curated,uniprot
-P08253,aVb3 complex,curated,uniprot
-P12111,a2b1 complex,curated,uniprot
-IL13 receptor,P05112,curated,"3bpn, PDB"
-P27658,a1b1 complex,curated,uniprot
-P01127,PDGFR complex,curated,uniprot
-P01563,Type I IFNR,curated,"3se3, PDB"
-Q14993,a2b1 complex,curated,uniprot
-P29400,a1b1 complex,curated,uniprot
-P61812,TGFbeta receptor2,curated,uniprot
-P08123,a10b1 complex,curated,uniprot
-P04004,aVb3 complex,curated,uniprot
-P02461,a2b1 complex,curated,uniprot
-P02751,a3b1 complex,curated,uniprot
-Q14031,a1b1 complex,curated,uniprot
-P05362,aLb2 complex,curated,uniprot
-Glycoprotein Ib  complex,P04275,curated,"1m10, PDB partially . Platets needed for its activation."
-Q96A83,a2b1 complex,curated,uniprot
-Q14773,aLb2 complex,curated,uniprot
-P24821,a9b1 complex,curated,uniprot
-P07996,a3b1 complex,curated,uniprot
-Q14031,a2b1 complex,curated,uniprot
-Q13477,a4b7 complex,curated,uniprot
-Q07092,a1b1 complex,curated,uniprot
-GMCSFR,P04141,curated,"4nkq, PDB"
-P27658,a11b1 complex,curated,uniprot
-P39060,a1b1 complex,curated,uniprot
-Q16787,a3b1 complex,curated,uniprot
-Q14055,a10b1 complex,curated,uniprot
-P12110,a2b1 complex,curated,uniprot
-ACVR_1B2A receptor,P09529,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-P02751,aVb3 complex,curated,uniprot
-Glycoprotein Ib  complex,P00734,curated,"1hyr, PDB partially"
-Q17RW2,a11b1 complex,curated,uniprot
-Q8IZC6,a1b1 complex,curated,uniprot
-IL3 receptor,P08700,curated,uniprot
-P00734,a2Bb3 complex,curated,uniprot
-IL26 receptor,Q9NPH9,curated,"Rutz et al., Nat Rev. 2014"
-P08123,a11b1 complex,curated,uniprot
-P25067,a11b1 complex,curated,uniprot
-P13942,a10b1 complex,curated,uniprot
-P12109,a2b1 complex,curated,uniprot
-Q05707,a2b1 complex,curated,uniprot
-P29400,a11b1 complex,curated,uniprot
-P11047,aVb3 complex,curated,uniprot
-Q14055,a2b1 complex,curated,uniprot
-Q2UY09,a10b1 complex,curated,uniprot
-NKG2D II receptor,Q9BZM4,curated,"Induces NK Cell Activation. Reviewed in PMID: 24223577. 1kcg, PDB partially"
-Q5TAT6,a1b1 complex,curated,uniprot
-Q99715,a1b1 complex,curated,uniprot
-Q14031,a10b1 complex,curated,uniprot
-P02751,a5b1 complex,curated,uniprot
-Q9P218,a10b1 complex,curated,uniprot
-Q96P44,a1b1 complex,curated,uniprot
-P61812,TGFbeta receptor1,curated,uniprot
-P01137,TGFbeta receptor2,curated,uniprot
-P12107,a11b1 complex,curated,uniprot
-Q99983,aVb3 complex,curated,uniprot
-IL37 receptor,Q9NZH6,curated,"See paper Nold-Petry et al., 2015"
-Q8NFW1,a1b1 complex,curated,uniprot
-Q14050,a11b1 complex,curated,uniprot
-Q9HC73,TSLPR,curated,DOI  10.1038/ncomms14937
-P05997,a10b1 complex,curated,uniprot
-Q02388,a11b1 complex,curated,uniprot
-IL17 receptor AB,Q9H293,curated,NA IL17E called IL25
-Q99715,a11b1 complex,curated,uniprot
-P12109,a1b1 complex,curated,uniprot
-ACVR_1A2B receptor,P09529,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
-IL36 receptor,Q9UBH0,curated,uniprot
-IL36 receptor,Q8WWZ1,curated,to check
-IL10 receptor,P22301,curated,"1j7v, PDB partially"
-ACVR_1A2B receptor,P08476,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
-P02461,a10b1 complex,curated,uniprot
-P08123,a1b1 complex,curated,uniprot
-Q99715,a2b1 complex,curated,uniprot
-IL17 receptor AC,Q16552,curated,uniprot
-P12110,a1b1 complex,curated,uniprot
-Q8NFW1,a10b1 complex,curated,uniprot
-A6NMZ7,a11b1 complex,curated,uniprot
-Q08722,SIRB1 complex,curated,"2jjs, PDB partially"
-P32942,aLb2 complex,curated,uniprot
-ACVR_1B2A receptor,P08476,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-IL1 receptor,P01584,curated,"4dep, PDB"
-P25067,a1b1 complex,curated,uniprot
-Q96A83,a1b1 complex,curated,uniprot
-IL20 receptor Type I,Q13007,curated,uniprot
-IL17 receptor AC,Q96PD4,curated,uniprot
-BMPR1B_BMPR2,P36894,curated,"3evs,  PDB complex higher affinity"
-P02458,a11b1 complex,curated,uniprot
-CD94:NKG2C,P13747,curated,PMID: 28484462
-P53420,a1b1 complex,curated,uniprot
-P39059,a10b1 complex,curated,uniprot
-IL1 receptor,P01583,curated,uniprot
-Q8IZC6,a2b1 complex,curated,uniprot
-P12109,a10b1 complex,curated,uniprot
-P24821,a4b1 complex,curated,uniprot
-IL6 receptor,P05231,curated,"1p9m, PDB"
-Q8NFW1,a11b1 complex,curated,uniprot
-IL20 receptor Type I,Q9UHD0,curated,uniprot
-P29400,a10b1 complex,curated,uniprot
-P04004,a2Bb3 complex,curated,uniprot
-FLT1 complex,P15692,curated,uniprot
-P12111,a10b1 complex,curated,uniprot
-P25067,a10b1 complex,curated,uniprot
-P02461,a1b1 complex,curated,uniprot
-Q02297,a6b4 complex,curated,uniprot
-Q03692,a1b1 complex,curated,uniprot
-P53420,a2b1 complex,curated,uniprot
-P29400,a2b1 complex,curated,uniprot
-Q05707,a10b1 complex,curated,uniprot
-IL9 receptor,P15248,curated,uniprot
-P02452,a2b1 complex,curated,uniprot
-NKG2D II receptor,Q29983,curated,"1hyr, PDB partially, Induces NK Cell Activation. Reviewed in PMID: 24223577"
-P02751,a4b1 complex,curated,uniprot
-Q14993,a10b1 complex,curated,uniprot
-OSMR,P13725,curated,uniprot
-IL15 receptor,P40933,curated,"Need expression of IL15RA (Q13261) in other cells. 2z3q, PDB partially"
-CD94:NKG2A,P13747,curated,PMID: 28484462
-ACVR_1A2A receptor,P09529,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
-P02751,a2Bb3 complex,curated,uniprot
-FLT1 complex,P49763,curated,uniprot
-P08572,a1b1 complex,curated,uniprot
-Q07092,a11b1 complex,curated,uniprot
-P02462,a1b1 complex,curated,uniprot
-Q17RW2,a2b1 complex,curated,uniprot
-FLT1 complex,P49765,curated,uniprot
-Q02388,a1b1 complex,curated,uniprot
-P35555,a5b1 complex,curated,uniprot
-Q02388,a2b1 complex,curated,uniprot
-P10451,aVb3 complex,curated,PMID: 24442579
-LIFR,P15018,curated,"1pvh, PDB partially"
-P04275,aVb3 complex,curated,uniprot
-P07996,aVb3 complex,curated,uniprot
-P25067,a2b1 complex,curated,uniprot
-P20908,a2b1 complex,curated,uniprot
-P13942,a2b1 complex,curated,uniprot
-P02452,a11b1 complex,curated,uniprot
-P20908,a1b1 complex,curated,uniprot
-IL1 receptor inhibitor,P18510,curated,low affinity
-ACVR_1B2B receptor,P09529,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-Q07092,a10b1 complex,curated,uniprot
-P20849,a1b1 complex,curated,uniprot
-P12110,a10b1 complex,curated,uniprot
-P08572,a11b1 complex,curated,uniprot
-P39059,a2b1 complex,curated,uniprot
-P27658,a10b1 complex,curated,uniprot
-Q05707,a1b1 complex,curated,uniprot
-A6NMZ7,a10b1 complex,curated,uniprot
-Q8IZC6,a10b1 complex,curated,uniprot
-NKG2D II receptor,Q5VY80,curated,"Induces NK Cell Activation. Reviewed in PMID: 24223577. 4s0u, PDB partially"
-ACVR_1A2A receptor,P08476,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage
-ACVR_1C2A receptor,P08476,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-Q14993,a1b1 complex,curated,uniprot
-Q14055,a1b1 complex,curated,uniprot
-P02751,a11b1 complex,curated,uniprot
-P08572,a2b1 complex,curated,uniprot
-Q14055,a11b1 complex,curated,uniprot
-Q2UY09,a11b1 complex,curated,uniprot
-Q01955,a11b1 complex,curated,uniprot
-IL18 receptor,Q14116,curated,"3wo3, PDB partially"
-P08572,a10b1 complex,curated,uniprot
-P32942,aDb2 complex,curated,uniprot
-P02751,a4b7 complex,curated,uniprot
-P08123,a2b1 complex,curated,uniprot
-NKG2D II receptor,Q8TD07,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
-P19320,aDb2 complex,curated,uniprot
-A8TX70,a2b1 complex,curated,uniprot
-P02458,a1b1 complex,curated,uniprot
-P25940,a11b1 complex,curated,uniprot
-P05997,a2b1 complex,curated,uniprot
-NKG2D II receptor,Q9BZM5,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
-P13598,aLb2 complex,curated,uniprot
-IL2 receptor_I,P60568,curated,"3qaz, PDB"
-P02452,a1b1 complex,curated,uniprot
-ACVR_1C2B receptor,P09529,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-IL28 receptor,Q8IZI9,curated,"5t5w, PDB"
-CD8 receptor,P06239,curated,"1q69, PDB partially"
-Q99715,a10b1 complex,curated,uniprot
-IL36 receptor,Q9NZH7,curated,uniprot
-P14555,a4b1 complex,curated,uniprot
-NKG2D II receptor,Q6H3X3,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
-P11047,a2b1 complex,curated,uniprot
-P53420,a10b1 complex,curated,uniprot
-IL22 receptor,Q9GZX6,curated,"3dgc, PDB"
-NKG2D II receptor,Q29980,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
-Q14993,a11b1 complex,curated,uniprot
-IL20 receptor Type I,Q9NYY1,curated,uniprot
-IL7 receptor,P13232,curated,"3di2, PDB partially"
-IL1 receptor inhibitor,P01583,curated,"low affinity, uniprot"
-Q9UMD9,a1b1 complex,curated,uniprot
-P12109,a11b1 complex,curated,uniprot
-A8TX70,a11b1 complex,curated,uniprot
-P02751,aVb1 complex,curated,uniprot
-P20908,a11b1 complex,curated,uniprot
-CNTF-1R,P26441,curated,uniprot
-P10600,TGFbeta receptor1,curated,uniprot
-P12107,a10b1 complex,curated,uniprot
-Q17RW2,a1b1 complex,curated,uniprot
-P39059,a1b1 complex,curated,uniprot
-Q07092,a2b1 complex,curated,uniprot
-P01024,aMb2 complex,curated,uniprot
-P05362,aMb2 complex,curated,uniprot
-P10600,TGFbeta receptor2,curated,uniprot
-ACVR_1C2B receptor,P08476,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-P10451,a9b1 complex,curated,"PMID: 1830891, PMID: 8970045"
-Q5TAT6,a10b1 complex,curated,uniprot
-IL17 receptor AE,Q9P0M4,curated,uniprot
-P53420,a11b1 complex,curated,uniprot
-Q9P218,a2b1 complex,curated,uniprot
-PDGFR complex,Q9GZP0,curated,uniprot
-P00747,a2Bb3 complex,curated,uniprot
-P02458,a10b1 complex,curated,uniprot
-P01137,aVb6 complex,curated,"5ffo, PDB"
-P02751,aVb5 complex,curated,uniprot
-P25940,a1b1 complex,curated,uniprot
-Q03692,a10b1 complex,curated,uniprot
-ACVR_1B2B receptor,P08476,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
-P12111,a11b1 complex,curated,uniprot
-P12110,a11b1 complex,curated,uniprot
-P19320,a9b1 complex,curated,uniprot
-Q8NFW1,a2b1 complex,curated,uniprot
-P02751,a10b1 complex,curated,uniprot
-IL33 receptor,O95760,curated,uniprot
-P11047,a7b1 complex,curated,uniprot
-Q9UMD9,a2b1 complex,curated,uniprot
-P24821,aVb6 complex,curated,uniprot
-P12107,a1b1 complex,curated,uniprot
-Q9P218,a1b1 complex,curated,uniprot
-Q96A83,a11b1 complex,curated,uniprot
-Q969D9,TSLPR,curated,"5j11, PDB"
-FcRn complex,P02768,curated,"4n0u, PDB & 4k71, PDB"
-A8TX70,a10b1 complex,curated,uniprot
-Q05707,a11b1 complex,curated,uniprot
-Q9UMD9,a11b1 complex,curated,uniprot
-P24821,a8b1 complex,curated,uniprot
-P02462,a11b1 complex,curated,uniprot
-P00742,aMb2 complex,curated,uniprot
-Q01955,a10b1 complex,curated,uniprot
-IL20 receptor Type II,Q13007,curated,uniprot
-P25940,a2b1 complex,curated,uniprot
-Q96P44,a2b1 complex,curated,uniprot
-P39060,a10b1 complex,curated,uniprot
-IL2 receptor_HA,P60568,curated,"2b5i, PDB"
-A6NMZ7,a2b1 complex,curated,uniprot
-P05997,a11b1 complex,curated,uniprot
-Q2UY09,a1b1 complex,curated,uniprot
-Q01955,a2b1 complex,curated,uniprot
-P02452,a10b1 complex,curated,uniprot
-P13942,a1b1 complex,curated,uniprot
-IL36 receptor,Q9NZH8,curated,uniprot
-Q96A83,a10b1 complex,curated,uniprot
-Q2UY09,a2b1 complex,curated,uniprot
-P25940,a10b1 complex,curated,uniprot
-P12107,a2b1 complex,curated,uniprot
-P05997,a1b1 complex,curated,uniprot
-IL11 receptor,P20809,curated,uniprot
-P01137,TGFbeta receptor1,curated,uniprot
-IL1 receptor,P18510,curated,"1ira, PDB partially"
-P02462,a10b1 complex,curated,uniprot
-P07996,a2Bb3 complex,curated,uniprot
-P10451,a4b1 complex,curated,"PMID: 1830891, PMID: 8970045"
-P02751,a2b1 complex,curated,uniprot
-Q17RW2,a10b1 complex,curated,uniprot
-P20849,a10b1 complex,curated,uniprot
-A8TX70,a1b1 complex,curated,uniprot
-P12830,aEb7 complex,curated,uniprot
-LIFR,P13725,curated,uniprot
-Q14050,a2b1 complex,curated,uniprot
-P05019,a6b4 complex,curated,uniprot
-P14555,a5b1 complex,curated,uniprot
-Q9UMD9,a10b1 complex,curated,uniprot
-IL21 receptor,Q9HBE4,curated,"3tgx, PDB partially, uniprot"
-IL20 receptor Type II,Q9NYY1,curated,uniprot
-P24821,aVb3 complex,curated,uniprot
-Q6UVK1,a3b1 complex,curated,uniprot
-CNTF-1R,Q9UBD9,curated,uniprot
-Q96P44,a11b1 complex,curated,uniprot
-Q01955,a1b1 complex,curated,uniprot
-P02461,a11b1 complex,curated,uniprot
-IL13 receptor,P35225,curated,"3bpo, PDB"
-Q5TAT6,a2b1 complex,curated,uniprot
-P20849,a2b1 complex,curated,uniprot
-P12111,a1b1 complex,curated,uniprot
-P27658,a2b1 complex,curated,uniprot
-P39060,a2b1 complex,curated,uniprot
-P39060,a11b1 complex,curated,uniprot
-Q9P218,a11b1 complex,curated,uniprot
-IL36 receptor,Q9UHA7,curated,uniprot
-Q8IZC6,a11b1 complex,curated,uniprot
-P39059,a11b1 complex,curated,uniprot
-IL5 receptor,P05113,curated,"3qt2, PDB partially"
-IL4 receptor,P05112,curated,"3qb7, PDB"
-Q02388,a10b1 complex,curated,uniprot
-Q9Y624,aLb2 complex,curated,"(PubMed:11812992, PubMed:15528364)"
-P20849,a11b1 complex,curated,uniprot
-P20908,a10b1 complex,curated,uniprot
-Q03692,a2b1 complex,curated,uniprot
-P02751,a8b1 complex,curated,uniprot
-P04004,aVb1 complex,curated,uniprot
-P00734,aVb3 complex,curated,uniprot
-ACVR_1A2B receptor,Q7Z5Y6,curated,PMID: 22710174
-O95390,TGFR_AVR2A,curated,PMID: 22710174
-Q99748,RET receptor 2,curated,uniprot
-BMR1A_ACR2A,Q6KF10,curated,PMID: 22710174
-P04216,aVb3 complex,curated,"https://www.ncbi.nlm.nih.gov/pubmed/29212879,https://www.ncbi.nlm.nih.gov/pubmed/18346467/,https://www.ncbi.nlm.nih.gov/"
-BMR1B_AVR2A,Q7Z5Y6,curated,PMID: 22710174
-P39905,RET receptor 1,curated,uniprot
-BMR1B_AVR2A,P22003,curated,PMID: 22710174
-BMPR1A_BMPR2,P22004,curated,PMID: 22710174
-BMR1B_AVR2A,P12644,curated,PMID: 22710174
-ACVR1_BMPR2,P22004,curated,PMID: 22710174
-BMR1B_AVR2A,P43026,curated,PMID: 22710174
-ACVR_1B2A receptor,O95390,curated,PMID: 22710174
-O95390,TGFR_AVR2B,curated,PMID: 22710174
-PlexinA2_complex1,Q14563,curated,PMID: 22325954
-BMR1B_AVR2B,P12644,curated,PMID: 22710174
-BMR1A_AVR2B,P12644,curated,PMID: 22710174
-O14793,TGFR_AVR2A,curated,PMID: 22710174
-ACVR_1B2B receptor,P55107,curated,PMID: 22710174
-Q5T4W7,RET receptor 3,curated,uniprot
-ACVR_1A2A receptor,P18075,curated,PMID: 22710174
-BMR1A_AVR2B,P43026,curated,PMID: 22710174
-BMPR1A_BMPR2,Q7Z5Y6,curated,PMID: 22710174
-BMR1A_AVR2B,Q7Z4P5,curated,PMID: 22710174
-MIS receptor 3,P03971,curated,PMID: 22710174
-P06734,aXb2 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/7621072
-BMPR1B_BMPR2,Q7Z4P5,curated,PMID: 22710174
-PlexinA1_complex1,Q8NFY4,curated,PMID: 22325954
-BMR1A_AVR2B,P12643,curated,PMID: 22710174
-ACVR_1A2B receptor,P22004,curated,PMID: 22710174
-P09038,aVb3 complex,curated,uniprot
-BMR1A_ACR2A,P12643,curated,PMID: 22710174
-ACVR1_BMPR2,P18075,curated,PMID: 22710174
-BMR1A_AVR2B,P18075,curated,PMID: 22710174
-BMR1A_ACR2A,P12644,curated,PMID: 22710174
-MIS receptor 2,P03971,curated,PMID: 22710174
-BMPR1A_BMPR2,P43026,curated,PMID: 22710174
-ACVR_1A2A receptor,P22004,curated,PMID: 22710174
-BMR1B_AVR2B,P18075,curated,PMID: 22710174
-BMPR1B_BMPR2,O95972,curated,PMID: 22710174
-P32004,a5b1 complex,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2120661/
-P06734,aVb3 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/10037797/
-ACVL1_BMPR2,Q9UK05,curated,PMID: 22710174
-PlexinA3_complex1,Q14563,curated,PMID: 22325954
-BMR1B_AVR2A,P12643,curated,PMID: 22710174
-BMR1A_ACR2A,P43026,curated,PMID: 22710174
-P01562,Type I IFNR,curated,PMID: 9208871
-P32004,aVb3 complex,curated,"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2132622/"""
-BMR1B_AVR2B,Q7Z4P5,curated,PMID: 22710174
-BMPR1A_BMPR2,P12643,curated,PMID: 22710174
-P57087,a4b1 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/12070135/
-BMR1B_AVR2B,Q7Z5Y6,curated,PMID: 22710174
-ACVR_1B2B receptor,P27539,curated,PMID: 22710174
-P06734,aMb2 complex,curated,"https://www.ncbi.nlm.nih.gov/pubmed/7621072,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2143337/"
-Q8IZJ0,Type III IFNR,curated,PMID: 9208871
-P01566,Type I IFNR,curated,uniprot
-P01571,Type I IFNR,curated,uniprot
-Q8IU54,Type III IFNR,curated,PMID: 9208871
-ACVL1_BMPR2,O95393,curated,PMID: 22710174
-BMPR1B_BMPR2,P12644,curated,PMID: 22710174
-BMR1B_AVR2A,Q7Z4P5,curated,PMID: 22710174
-BMPR1A_BMPR2,P22003,curated,PMID: 22710174
-Q86WN2,Type I IFNR,curated,PMID: 9208871
-BMR1B_AVR2B,Q6KF10,curated,PMID: 22710174
-O14793,TGFR_AVR2B,curated,PMID: 22710174
-ACVR_1B2A receptor,O14793,curated,PMID: 22710174
-BMPR1B_BMPR2,P22003,curated,PMID: 22710174
-ACVR_1A2A receptor,P22003,curated,PMID: 22710174
-BMR1A_ACR2A,Q7Z4P5,curated,PMID: 22710174
-BMPR1B_BMPR2,Q6KF10,curated,PMID: 22710174
-BMPR1A_BMPR2,P12644,curated,PMID: 22710174
-NODAL receptor,Q96S42,curated,PMID: 22710174
-P01574,Type I IFNR,curated,PMID: 9208871
-P01569,Type I IFNR,curated,uniprot
-Q03405,aVb3 complex,curated,"https://www.ncbi.nlm.nih.gov/pubmed/11053440,https://www.ncbi.nlm.nih.gov/pubmed/15863511"
-PlexinA4_complex1,Q14563,curated,PMID: 22325954
-P29965,a2Bb3 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/11875495
-P32881,Type I IFNR,curated,uniprot
-BMR1B_AVR2B,P43026,curated,PMID: 22710174
-BMR1A_AVR2B,P22003,curated,PMID: 22710174
-P01579,Type II IFNR,curated,PMID: 9208871
-BMR1A_ACR2A,P22003,curated,PMID: 22710174
-P04216,aMb2 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/15850796
-BMPR1A_BMPR2,Q7Z4P5,curated,PMID: 22710174
-BMR1A_AVR2B,Q6KF10,curated,PMID: 22710174
-BMR1A_AVR2B,Q7Z5Y6,curated,PMID: 22710174
-BMPR1B_BMPR2,P43026,curated,PMID: 22710174
-P01568,Type I IFNR,curated,uniprot
-P05362,aXb2 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/16252253
-P19320,a4b1 complex,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4368157/
-ACVR_1B2B receptor,O95390,curated,PMID: 22710174
-P01570,Type I IFNR,curated,uniprot
-P05015,Type I IFNR,curated,uniprot
-BMPR1A_BMPR2,Q6KF10,curated,PMID: 22710174
-BMPR1A_BMPR2,P18075,curated,PMID: 22710174
-P07359,aMb2 complex,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2194217/
-ACVR_1A2A receptor,Q7Z5Y6,curated,PMID: 22710174
-P01567,Type I IFNR,curated,uniprot
-BMR1A_ACR2A,P18075,curated,PMID: 22710174
-ACVR1_BMPR2,Q7Z5Y6,curated,PMID: 22710174
-O60542,RET receptor 4,curated,uniprot
-P05013,Type I IFNR,curated,uniprot
-BMPR1B_BMPR2,P12643,curated,PMID: 22710174
-ACVR_1A2B receptor,P22003,curated,PMID: 22710174
-BMR1B_AVR2A,P22004,curated,PMID: 22710174
-P04216,aXb2 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/15850796
-PlexinA1_complex3,Q14563,curated,PMID: 22325954
-P29965,a5b1 complex,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3365732/
-BMR1A_ACR2A,P22004,curated,PMID: 22710174
-BMR1A_AVR2B,P22004,curated,PMID: 22710174
-ACVR1_BMPR2,P22003,curated,PMID: 22710174
-Q9P0W0,Type I IFNR,curated,PMID: 9208871
-BMR1B_AVR2A,P18075,curated,PMID: 22710174
-BMR1B_AVR2B,P22003,curated,PMID: 22710174
-P12830,a2b1 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/12392763
-BMPR1B_BMPR2,P18075,curated,PMID: 22710174
-BMPR1B_BMPR2,P22004,curated,PMID: 22710174
-P05000,Type I IFNR,curated,PMID: 9208871
-P05230,aVb3 complex,curated,uniprot
-PlexinA1_complex2,Q8NFY4,curated,PMID: 22325954
-BMR1B_AVR2A,Q6KF10,curated,PMID: 22710174
-BMPR1B_BMPR2,Q7Z5Y6,curated,PMID: 22710174
-Q03405,a4b1 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/11053440
-O75326,a1b1 complex,curated,PMID: 22325954
-Q5T4W7,RET receptor 1,curated,uniprot
-P05014,Type I IFNR,curated,uniprot
-ACVR_1B2B receptor,O14793,curated,PMID: 22710174
-Q8IZI9,Type III IFNR,curated,PMID: 9208871
-BMR1A_ACR2A,Q7Z5Y6,curated,PMID: 22710174
-BMR1B_AVR2B,P22004,curated,PMID: 22710174
-Q9BX67,aMb2 complex,curated,"https://www.ncbi.nlm.nih.gov/pubmed/16118203,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2194005/"
-ACVR_1B2A receptor,P12645,curated,PMID: 22710174
-BMR1B_AVR2B,P12643,curated,PMID: 22710174
-ACVR_1A2B receptor,P18075,curated,PMID: 22710174
-MIS receptor 1,P03971,curated,PMID: 22710174
-ACVR_1B2B receptor,Q9NR23,curated,PMID: 22710174
-O60383,TGFR_BMPR2,curated,PMID: 22710174
-P06734,P20023,curated,"https://www.ncbi.nlm.nih.gov/pubmed/16785534,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2212946/"
-P52798,P54756,curated,PMID: 15114347
-O95407,P48023,curated,uniprot
-P30511,Q8NHL6,curated,https://www.ncbi.nlm.nih.gov/pubmed/11169396
-P41221,Q9NPG1,curated,PMID: 24032637
-HLAC,P43626,curated,PMID: 28484462
-P80370,Q9UM47,curated,PMID: 22353464
-P52803,Q15375,curated,PMID: 15114347
-P32942,Q9H2X3,curated,https://www.ncbi.nlm.nih.gov/pubmed/15795245
-Q15762,Q92692,curated,"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149"
-Q08554,Q14126,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
-O15031,Q9NTN9,curated,uniprot
-P21741,Q9UM73,curated,uniprot
-O15031,Q92854,curated,PMID: 22325954
-P16109,P28906,curated,https://www.ncbi.nlm.nih.gov/pubmed/18606703
-Q93097,Q9ULV1,curated,PMID: 24032637
-P14209,Q9UKJ1,curated,https://www.ncbi.nlm.nih.gov/pubmed/18234675
-P15529,P78504,curated,https://www.ncbi.nlm.nih.gov/pubmed/23086448
-P54753,Q15768,curated,PMID: 15114347
-P21709,P52797,curated,PMID: 15114347
-P13688,P31997,curated,https://www.ncbi.nlm.nih.gov/pubmed/24743304
-O60462,Q99985,curated,uniprot
-Q92478,Q9NZS2,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
-Q9UM47,Q9Y219,curated,PMID: 22353464
-P30542,P49961,curated,uniprot
-P35968,P49767,curated,uniprot
-P0DMS8,P49961,curated,uniprot
-O14931,P46379,curated,activating interaction from uniprot
-P06729,P19256,curated,Reviewed in PMID: 23602662
-P16150,Q9BZZ2,curated,https://www.ncbi.nlm.nih.gov/pubmed/11238599
-O60486,O75326,curated,PMID: 22325954
-P16109,Q14242,curated,"https://www.ncbi.nlm.nih.gov/pubmed/19118202,https://www.ncbi.nlm.nih.gov/pubmed/9829984,https://www.ncbi.nlm.nih.gov/pubmed/12393589"
-P21860,Q02297,curated,uniprot
-P09544,Q14332,curated,PMID: 24032637
-P36941,Q06643,curated,uniprot
-Q92692,Q9NQS3,curated,"https://www.ncbi.nlm.nih.gov/pubmed/19011627,https://www.ncbi.nlm.nih.gov/pubmed/12740392/"
-P13747,P26718,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
-P78324,Q08722,curated,Reviewed in PMID: 23602662
+O00230,Q92847,"I2D,MBInfo,UniProt",
+O00230,Q96LB1,"I2D,MBInfo,UniProt",
+O00253,P32245,guidetopharmacology.org,
+O00253,P33032,guidetopharmacology.org,
+O00253,P41968,guidetopharmacology.org,
 O00292,P13385,curated,PMID: 22710174
-O14786,P49765,curated,uniprot
-HLAB,P43630,curated,uniprot
-P54764,P98172,curated,PMID: 15114347
-Q9NYJ7,Q9UM47,curated,PMID: 22353464
-P20827,P29322,curated,PMID: 15114347
-Q495A1,Q9NQS3,curated,PMID: 1313846
-P16109,P25063,curated,https://www.ncbi.nlm.nih.gov/pubmed/9129046
-P11362,P13591,curated,https://www.ncbi.nlm.nih.gov/pubmed/12791257
-P21741,P23471,curated,PMID: 10212223
-P54762,P98172,curated,PMID: 15114347
-P20827,Q15375,curated,PMID: 15114347
-P13236,P51681,curated,uniprot
-P13747,P26715,curated,Induces NK Cell Inhibition. Reviewed in PMID: 24223577
-P40200,Q15223,curated,PMID: 17971293
-O15197,P98172,curated,PMID: 15114347
-P30203,Q13740,curated,Reviewed in PMID: 23602662
-P30511,Q14943,curated,https://www.ncbi.nlm.nih.gov/pubmed/27455421
-P15692,P35968,curated,uniprot
-Q9H3S1,Q9Y4D7,curated,PMID: 22325954
-P20827,P29317,curated,PMID: 15114347
-O00548,Q9UM47,curated,PMID: 22353464
-P29317,P52798,curated,PMID: 15114347
-P30511,P43629,curated,https://www.ncbi.nlm.nih.gov/pubmed/27455421
-O00548,P46531,curated,PMID: 22353464
-P01732,P06731,curated,https://www.ncbi.nlm.nih.gov/pubmed/24104458
-P21709,P52803,curated,PMID: 15114347
-P16581,Q92896,curated,https://www.ncbi.nlm.nih.gov/pubmed/11404363/
-O00592,P14151,curated,https://www.ncbi.nlm.nih.gov/pubmed/22814396
-P21246,P23471,curated,PMID: 25644401
-P46531,P78504,curated,PMID: 22353464
-O14511,P21860,curated,uniprot
-O00755,Q13467,curated,PMID: 24032637
-Q99466,Q9NR61,curated,PMID: 22353464
-P13688,Q9NNX6,curated,"https://www.ncbi.nlm.nih.gov/pubmed/16282604,https://www.ncbi.nlm.nih.gov/pubmed/16246332"
-P09326,Q9BZW8,curated,activating interaction. uniprot & PMID: 26697006
-P29323,P52803,curated,PMID:15107857; PMID: 15114347
-P01127,P09619,curated,uniprot
-O00300,P50591,curated,uniprot
-P21860,P35070,curated,uniprot
-O15197,P52799,curated,PMID: 15114347
-P52797,P54764,curated,PMID: 15114347
-P21709,P52798,curated,PMID: 15114347
-O43157,Q92854,curated,PMID: 22325954
-P78504,Q04721,curated,PMID: 22353464
-Q15303,Q99075,curated,uniprot
-Q15303,Q8WWG1,curated,uniprot
-P52798,P54764,curated,PMID: 15114347
-O43915,P35968,curated,uniprot
-Q04721,Q9Y219,curated,PMID: 22353464
-P41159,P48357,curated,uniprot
-Q04721,Q9NYJ7,curated,PMID: 22353464
-O60353,P41221,curated,PMID: 24032637
-Q02487,Q14126,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
-P16234,Q9NRA1,curated,uniprot
-P29323,P98172,curated,PMID: 15114347
-P31358,Q96LC7,curated,https://www.ncbi.nlm.nih.gov/pubmed/23685786
-P20827,P54756,curated,PMID: 15114347
-P10747,P42081,curated,antigen-stimulated T cells become activated. Reviewed in PMID: 23954143
-O95150,O95407,curated,uniprot
-P52797,P54756,curated,PMID: 15114347
-O14786,Q14563,curated,uniprot
-P04233,P05067,curated,https://www.ncbi.nlm.nih.gov/pubmed/19849849
-P31997,P40199,curated,https://www.ncbi.nlm.nih.gov/pubmed/11590190
-P08575,P22897,curated,"https://www.ncbi.nlm.nih.gov/pubmed/27601670,https://www.ncbi.nlm.nih.gov/pubmed/10575006"
-P52799,P54753,curated,PMID: 15114347
-O43921,P29322,curated,PMID: 15114347
-P78504,Q99466,curated,PMID: 22353464
-P54764,Q15768,curated,PMID: 15114347
-P15151,Q495A1,curated,"PMID: 19815499, Induces NK Cell Inhibition. Reviewed in PMID:24987108"
-P12830,Q96E93,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3030123/
-O14786,P49763,curated,uniprot
-P16581,Q14242,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4571854/
-P14151,Q14242,curated,"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2431087/,https://www.ncbi.nlm.nih.gov/pubmed/8892633,https://www.ncbi.nlm.nih.gov/pubmed/8896607"
-O95971,Q92956,curated,https://www.ncbi.nlm.nih.gov/pubmed/21959263
-P57087,Q9BX67,curated,"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1237098/,https://www.ncbi.nlm.nih.gov/pubmed/11590146"
-P52799,P54764,curated,PMID: 15114347
-O15031,Q9C0C4,curated,uniprot
-O43921,P29317,curated,PMID: 15114347
-P29275,P49961,curated,uniprot
-P52799,P54760,curated,PMID: 15114347
-Q15116,Q9BQ51,curated,antigen-stimulated T cells become anergic. PMID: 23954143
-Q04721,Q9NR61,curated,PMID: 22353464
-P16410,P33681,curated,antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143
-Q02413,Q14574,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
-HLAC,P43628,curated,PMID: 28484462
-P05362,P16150,curated,https://www.ncbi.nlm.nih.gov/pubmed/1683685
-Q9NR61,Q9UM47,curated,PMID: 22353464
-P17948,P49765,curated,uniprot
-P29317,P52803,curated,PMID: 15114347
-Q99466,Q9Y219,curated,PMID: 22353464
-O60353,P56705,curated,PMID: 24032637
-Q99466,Q9NYJ7,curated,PMID: 22353464
-P27037,P58166,curated,PMID: 22710174
-P51681,P80098,curated,PMID: 24218476
-P20827,P29320,curated,PMID: 15114347
-P54760,P98172,curated,PMID: 15114347
-P01344,P08069,curated,PMID: 27102148
-P52803,P54756,curated,PMID: 15114347
-HLAA,P43629,curated,uniprot
-O43921,Q15375,curated,PMID: 15114347
-O15197,Q15768,curated,PMID: 15114347
-Q495A1,Q92692,curated,"PMID: 1313846, Induces NK Cell Inhibition. Reviewed in PMID:24987108"
-P56706,Q9ULW2,curated,PMID: 24032637
-P16410,P42081,curated,antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143
-P30511,Q8N423,curated,https://www.ncbi.nlm.nih.gov/pubmed/11169396
-P15151,Q15762,curated,"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149"
-P41217,Q8TD46,curated,"PMID: 22020332, also called CD200-CD200R"
-P29322,P52798,curated,PMID: 15114347
-P16284,Q8N6Q3,curated,https://www.ncbi.nlm.nih.gov/pubmed/17580308
-P15151,P40200,curated,uniprot
-P06731,P15813,curated,https://www.ncbi.nlm.nih.gov/pubmed/24104458
-O00144,P09544,curated,PMID: 24032637
-P46531,Q9NR61,curated,PMID: 22353464
-P13501,P51681,curated,PMID: 24218476
-Q02413,Q02487,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
-O43921,P21709,curated,PMID: 15114347
-P09619,Q9GZP0,curated,uniprot
-P06731,P13688,curated,Induces NK Cell Inhibition. Reviewed in PMID:24987108
-Q14126,Q14574,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
-P04085,P16234,curated,uniprot
-P56706,Q9ULV1,curated,PMID: 24032637
-P78504,Q9UM47,curated,PMID: 22353464
-O15123,Q02763,curated,uniprot
-P17693,Q8NHL6,curated,"uniprot, Induces NK Cell Inhibition. Reviewed in PMID:24987108"
-O43921,P54764,curated,PMID: 15114347
-P21854,Q92854,curated,PMID: 22325954
-Q02297,Q15303,curated,uniprot
-P13688,P16581,curated,https://www.ncbi.nlm.nih.gov/pubmed/1378450
-P30511,P43630,curated,https://www.ncbi.nlm.nih.gov/pubmed/27455421
-P01308,P06213,curated,uniprot
-P08174,P48960,curated,https://www.ncbi.nlm.nih.gov/pubmed/11297558
-P52799,P54762,curated,PMID: 15114347
-P10147,P51681,curated,PMID: 15251452
-Q02413,Q08554,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
-P54753,P98172,curated,PMID: 15114347
-P09544,Q9ULV1,curated,PMID: 24032637
-P51681,P80075,curated,PMID: 24218476
-Q15223,Q9NQS3,curated,https://www.ncbi.nlm.nih.gov/pubmed/12740392/
-P29320,P52803,curated,PMID: 15114347
-P05019,P08069,curated,uniprot
-O43921,P29320,curated,PMID: 15114347
-Q6GTX8,Q8NHJ6,curated,https://www.ncbi.nlm.nih.gov/pubmed/19283782/
-P29322,P52797,curated,PMID: 15114347
-P15692,P17948,curated,uniprot
-O43557,O95407,curated,uniprot
-P08575,P20273,curated,https://www.ncbi.nlm.nih.gov/pubmed/12115612/
-P29317,P52797,curated,PMID: 15114347
-D3W0D1,Q6UVW9,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
-P54762,Q15768,curated,PMID: 15114347
-Q13591,Q9ULL4,curated,uniprot
-P29320,P52798,curated,PMID: 15114347
-O60462,P49763,curated,uniprot
-P59901,Q10589,curated,https://www.ncbi.nlm.nih.gov/pubmed/19564354/
-P16070,P16581,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4571854/
-P80370,Q99466,curated,PMID: 22353464
-P27037,P55103,curated,PMID: 22710174
-P52797,Q15375,curated,PMID: 15114347
-P56975,Q15303,curated,uniprot
-P33681,Q9NZQ7,curated,"https://www.ncbi.nlm.nih.gov/pubmed/17629517,https://www.ncbi.nlm.nih.gov/pubmed/18585785,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3168865/"
-P56706,Q9UP38,curated,PMID: 24032637
-O43921,P54756,curated,PMID: 15114347
-Q02763,Q9Y264,curated,uniprot
-P46531,Q9Y219,curated,PMID: 22353464
-P17693,Q8N423,curated,uniprot
-P04628,Q9UP38,curated,PMID: 24032637
-P10747,P33681,curated,antigen-stimulated T cells become activated. Reviewed in PMID: 23954143
-O14786,P15692,curated,uniprot
-Q02763,Q15389,curated,uniprot
-O75144,Q9Y6W8,curated,important for T follicular helper cells (Tfh) and type 2 T helper cell (Th2) responses. Reviewed in PMID: 23954143
-O95727,Q9BY67,curated,uniprot
-O14511,Q15303,curated,uniprot
-P16284,P28907,curated,"https://www.ncbi.nlm.nih.gov/pubmed/9551996,https://www.ncbi.nlm.nih.gov/pubmed/26407101"
-P80370,Q04721,curated,PMID: 22353464
-P13688,P40199,curated,https://www.ncbi.nlm.nih.gov/pubmed/21982860
-P58166,Q13705,curated,PMID: 22710174
-Q12918,Q9UHP7,curated,Induces NK Cell Inhibition. Reviewed in PMID: 24223577
-P46531,Q9NYJ7,curated,PMID: 22353464
-P17948,P49763,curated,uniprot
-P55103,Q13705,curated,PMID: 22710174
-Q08722,Q9P1W8,curated,https://www.ncbi.nlm.nih.gov/pubmed/15294972
-P29274,P49961,curated,uniprot
-P05362,P20701,curated,Reviewed in PMID: 23602662
-O75610,P13385,curated,PMID: 22710174
-P13501,P51679,curated,PMID: 24218476
-P15813,Q8N423,curated,https://www.ncbi.nlm.nih.gov/pubmed/19124746/
-P14151,P28906,curated,"https://www.ncbi.nlm.nih.gov/pubmed/7692600,https://www.ncbi.nlm.nih.gov/pubmed/8977216"
-P20827,P54764,curated,PMID: 15114347
-P29323,P52799,curated,PMID: 15114347
-P29323,Q15768,curated,PMID: 15114347
-P29320,P52797,curated,PMID: 15114347
-P35070,Q15303,curated,uniprot
-O60462,Q13275,curated,uniprot
-P15151,Q9NQS3,curated,"https://www.ncbi.nlm.nih.gov/pubmed/19011627,https://www.ncbi.nlm.nih.gov/pubmed/12740392/"
-O00548,Q04721,curated,PMID: 22353464
-P09544,Q9NPG1,curated,PMID: 24032637
-P32942,Q9NNX6,curated,https://www.ncbi.nlm.nih.gov/pubmed/15795245
-O15041,Q9Y4D7,curated,PMID: 22325954
-P29322,P52803,curated,PMID: 15114347
-P54760,Q15768,curated,PMID: 15114347
-P52798,Q15375,curated,PMID: 15114347
 O00300,O14788,curated,uniprot
-O14931,Q68D85,curated,activating interaction from uniprot
-P13747,P26717,curated,activating interaction. uniprot & PMID: 26697006
+O00300,P50591,curated,uniprot
+O00421,Q99731,guidetopharmacology.org,
+O00548,P46531,curated,PMID: 22353464
+O00548,Q04721,curated,PMID: 22353464
 O00548,Q99466,curated,PMID: 22353464
-P52803,P54764,curated,PMID: 15114347
-O14944,Q15303,curated,uniprot
-P46531,P80370,curated,PMID: 22353464
-P01127,P16234,curated,uniprot
-P20827,P21709,curated,PMID: 15114347
-Q15223,Q96NY8,curated,https://www.ncbi.nlm.nih.gov/pubmed/22902367
-P06731,P40199,curated,uniprot
-Q8N126,Q9BY67,curated,uniprot
-Q9BY67,Q9NQS3,curated,uniprot
-Q8N126,Q8NFZ8,curated,uniprot
-Q15223,Q8N126,curated,uniprot
-Q8N126,Q9NQS3,curated,uniprot
-Q8N126,Q9H4G0,curated,uniprot
-Q9BX67,Q9BX67,curated,https://www.ncbi.nlm.nih.gov/pubmed/16118203
-P32004,P32004,curated,https://www.ncbi.nlm.nih.gov/pubmed/18701456/
-Q96AP7,Q96AP7,curated,https://www.ncbi.nlm.nih.gov/pubmed/11279107
-P40199,P40199,curated,https://www.ncbi.nlm.nih.gov/pubmed/11590190
-Q9BY67,Q9BY67,curated,https://www.ncbi.nlm.nih.gov/pubmed/24503895
-P41273,Q07011,curated,uniprot
-P48061,P61073,curated,PMID: 24218476
-O14625,P49682,curated,PMID: 24218476
-Q99731,Q9NPB9,curated,PMID: 24218476
-P32248,Q99731,curated,PMID: 24218476
-O00585,Q9NPB9,curated,PMID: 24218476
+O00548,Q9UM47,curated,PMID: 22353464
+O00574,Q9H2A7,guidetopharmacology.org,
 O00585,P32248,curated,PMID: 24218476
-O15444,Q9NPB9,curated,PMID: 24218476
-O15444,P51686,curated,PMID: 24218476
-Q02223,Q9Y275,curated,uniprot
-O14836,Q9Y275,curated,uniprot
-O75888,Q02223,curated,uniprot
-P41597,Q99616,curated,PMID: 24218476
-P51677,Q99616,curated,PMID: 24218476
-P32246,P80075,curated,PMID: 24218476
-P41597,P80075,curated,PMID: 24218476
-P51677,P80075,curated,PMID: 24218476
-P32246,Q16627,curated,PMID: 24218476
-P32246,Q16663,curated,uniprot
-P51677,Q16663,curated,uniprot
-P32246,P55773,curated,PMID: 24218476
-P10147,P32246,curated,PMID: 24218476
-P13501,P32246,curated,PMID: 24218476
-P13501,P51677,curated,PMID: 24218476
-P32246,P80098,curated,PMID: 24218476
-P41597,P80098,curated,PMID: 24218476
-P51677,P80098,curated,PMID: 24218476
-P46092,Q9Y4X3,curated,PMID: 24218476
-O15467,P41597,curated,PMID: 24218476
-P13500,P41597,curated,PMID: 24218476
-P51671,P51677,curated,PMID: 24218476
-O00175,P51677,curated,PMID: 24218476
-P41597,Q9Y258,curated,PMID: 24218476
-P51677,Q9Y258,curated,PMID: 24218476
-P02778,P49682,curated,PMID: 24218476
-P49682,Q07325,curated,PMID: 24218476
-P51679,Q92583,curated,PMID: 24218476
-O00626,P51679,curated,PMID: 24218476
-P51684,P78556,curated,PMID: 24218476
-P22362,P51685,curated,PMID: 24218476
-P26842,P32970,curated,activating interaction for NK and T cells. uniprot & PMID: 26697006
-P28908,P32971,curated,uniprot
-P25942,P29965,curated,Reviewed in PMID: 23602662
-P07333,Q6ZMJ4,curated,uniprot
-P09919,Q99062,curated,uniprot
-P07333,P09603,curated,uniprot
-P10145,P25024,curated,PMID: 24218476
-P10145,P25025,curated,PMID: 24218476
-P09341,P25024,curated,PMID: 24218476
-P09341,P25025,curated,PMID: 24218476
-P25024,P80162,curated,PMID: 24218476
-P25025,P80162,curated,PMID: 24218476
-P19875,P25025,curated,PMID: 24218476
-P19876,P25025,curated,PMID: 24218476
-P25025,P42830,curated,PMID: 24218476
-P02775,P25025,curated,PMID: 24218476
-O43927,P32302,curated,PMID: 24218476
-P49238,P78423,curated,PMID: 24218476
-O00220,P50591,curated,uniprot
-O14763,P50591,curated,uniprot
-P00533,P15514,curated,uniprot
-P00533,P35070,curated,uniprot
-P00533,P01133,curated,uniprot
-P00533,Q6UW88,curated,uniprot
-O14944,P00533,curated,uniprot
-P00533,Q99075,curated,uniprot
-P00533,P01135,curated,uniprot
-P01588,P19235,curated,uniprot
-P25445,P48023,curated,uniprot
-P36888,P49771,curated,uniprot
-P35916,P49767,curated,uniprot
-O43915,P35916,curated,uniprot
-P04083,P25090,curated,PMID: 22610094
-Q9UNG2,Q9Y5U5,curated,uniprot
-O43557,Q92956,curated,uniprot
-O43557,P36941,curated,uniprot
-P01374,Q92956,curated,uniprot
-P01374,P19438,curated,uniprot
-P01374,P20333,curated,uniprot
-P10721,P21583,curated,uniprot
-P26927,Q04912,curated,PMID: 23792360
-P08581,P14210,curated,uniprot
-P08138,P23560,curated,uniprot
-P08138,P20783,curated,uniprot
-P20783,Q16288,curated,uniprot
-P08138,P34130,curated,uniprot
-P01138,P08138,curated,uniprot
-P23510,P43489,curated,uniprot
-Q15116,Q9NZQ7,curated,antigen-stimulated T cells become anergic. PMID: 23954143
-O14788,Q9Y6Q6,curated,uniprot
-P40225,P40238,curated,uniprot
-P01375,P19438,curated,uniprot
-P01375,P20333,curated,uniprot
-O43508,Q9NP84,curated,uniprot
-P46094,P47992,curated,PMID: 24218476
-P46094,Q9UBD3,curated,uniprot
-O00626,P27487,curated,PMID: 24218476
-P13500,Q16570,curated,PMID: 24218476
-O00590,P13500,curated,PMID: 24218476
-P27487,P51671,curated,PMID: 24218476
-O00590,P51671,curated,PMID: 24218476
-O43927,Q9NPB9,curated,PMID: 24218476
-O60462,P15692,curated,uniprot
-P01137,Q03167,curated,uniprot
-P23560,Q16620,curated,uniprot
-P41221,Q9UP38,curated,PMID: 24032637
-P09038,P22455,curated,uniprot
-P05230,P11362,curated,uniprot
-P09038,P11362,curated,uniprot
-P50591,Q9UBN6,curated,uniprot
-O75084,P56703,curated,PMID: 24032637
-P01138,P04629,curated,uniprot
-P09038,P21802,curated,uniprot
-P41221,Q14332,curated,PMID: 24032637
-P35225,Q14627,curated,PMID: 26471366
-P21246,Q9UM73,curated,uniprot
-P25024,P42830,curated,PMID: 24218476
-O14798,P50591,curated,uniprot
-P13501,Q16570,curated,PMID: 24218476
-P10145,Q16570,curated,PMID: 24218476
-P19875,P27487,curated,PMID: 24218476
-P01344,P11717,curated,uniprot
-P27487,P48061,curated,PMID: 24218476
-O14625,P27487,curated,PMID: 24218476
-P27487,Q07325,curated,PMID: 24218476
-P02778,P27487,curated,PMID: 24218476
-P09038,P22607,curated,uniprot
-P02775,P25024,curated,PMID: 24218476
-P51685,P55774,curated,PMID: 24218476
-P10147,P51677,curated,PMID: 24218476
-O00182,Q8TDQ0,curated,Reviewed in PMID: 27192565
-O00590,P80098,curated,PMID: 24218476
-O00590,P80075,curated,PMID: 24218476
-O00590,Q99616,curated,PMID: 24218476
+O00585,Q9NPB9,curated,PMID: 24218476
 O00590,P10147,curated,PMID: 24218476
 O00590,P13236,curated,PMID: 24218476
+O00590,P13500,curated,PMID: 24218476
 O00590,P13501,curated,PMID: 24218476
+O00590,P16619,"I2D,MBInfo,UniProt",
+O00590,P51671,curated,PMID: 24218476
+O00590,P80075,curated,PMID: 24218476
+O00590,P80098,curated,PMID: 24218476
 O00590,Q16627,curated,PMID: 24218476
-P16619,P51677,curated,PMID: 24218476
-P16619,P32246,curated,PMID: 24218476
-O15467,P32246,curated,PMID: 24218476
-P09341,Q16570,curated,PMID: 24218476
-P32246,Q9Y258,curated,PMID: 24218476
-P51677,Q16627,curated,PMID: 24218476
-P41221,Q13467,curated,PMID: 24032637
-P10600,Q03167,curated,uniprot
-P61812,Q03167,curated,uniprot
-P02776,P49682,curated,PMID: 24218476
-P04629,P20783,curated,uniprot
-P20783,Q16620,curated,uniprot
+O00590,Q99616,curated,PMID: 24218476
+O00590,Q9NRJ3,"I2D,MBInfo,UniProt",
+O00590,Q9Y4X3,"I2D,MBInfo,UniProt",
+O00592,P14151,curated,https://www.ncbi.nlm.nih.gov/pubmed/22814396
+O00626,P27487,curated,PMID: 24218476
+O00626,P51679,curated,PMID: 24218476
+O00755,P01130,InnateDB-All,
+O00755,Q13467,curated,PMID: 24032637
+O14511,P21860,curated,uniprot
+O14511,Q15303,curated,uniprot
+O14625,P25106,guidetopharmacology.org,
+O14625,P27487,curated,PMID: 24218476
+O14625,P49682,curated,PMID: 24218476
+O14763,P48023,"I2D,InnateDB-All,MBInfo,UniProt",
+O14763,P50591,curated,uniprot
+O14786,P15692,curated,uniprot
+O14786,P49763,curated,uniprot
+O14786,P49765,curated,uniprot
+O14786,Q14563,curated,uniprot
+O14788,Q9Y6Q6,curated,uniprot
+O14793,TGFR_AVR2A,curated,PMID: 22710174
+O14793,TGFR_AVR2B,curated,PMID: 22710174
+O14798,P50591,curated,uniprot
 O14836,O75888,curated,uniprot
+O14836,P32970,InnateDB-All,
+O14836,Q9Y275,curated,uniprot
+O14931,P46379,curated,activating interaction from uniprot
+O14931,Q68D85,curated,activating interaction from uniprot
+O14939,P84077,guidetopharmacology.org,
+O14944,P00533,curated,uniprot
+O14944,Q15303,curated,uniprot
+O15031,P21246,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O15031,Q92854,curated,PMID: 22325954
+O15031,Q9C0C4,curated,uniprot
+O15031,Q9NTN9,curated,uniprot
+O15041,Q9Y4D7,curated,PMID: 22325954
+O15123,Q02763,curated,uniprot
+O15173,Q8NHW4,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O15197,P52799,curated,PMID: 15114347
+O15197,P98172,curated,PMID: 15114347
+O15197,Q15768,curated,PMID: 15114347
+O15240,P04629,InnateDB-All,
+O15354,P07602,guidetopharmacology.org,
+O15399,Q14005,"I2D,MBInfo,UniProt",
+O15444,P51686,curated,PMID: 24218476
+O15444,Q9NPB9,curated,PMID: 24218476
+O15467,P32246,curated,PMID: 24218476
+O15467,P41597,curated,PMID: 24218476
+O15467,P51685,"I2D,MBInfo,UniProt",
+O15467,Q9H3N8,guidetopharmacology.org,
+O15520,P11362,InnateDB-All,
+O15520,P21802,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O15529,Q15848,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O15529,Q8NHW4,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O15529,Q92520,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O15552,O95393,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O15552,P01375,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O15552,Q8NHW4,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O15552,Q92520,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O43157,Q92854,curated,PMID: 22325954
+O43193,P12872,"I2D,MBInfo,UniProt",
+O43193,Q9UBU3,"I2D,InnateDB-All,MBInfo,UniProt",
+O43508,Q93038,"I2D,MBInfo,UniProt",
+O43508,Q9NP84,curated,uniprot
+O43555,P30968,guidetopharmacology.org,
+O43557,O95407,curated,uniprot
+O43557,P36941,curated,uniprot
+O43557,Q92956,curated,uniprot
+O43603,P22466,guidetopharmacology.org,
+O43603,Q9UBC7,guidetopharmacology.org,
+O43612,O43613,guidetopharmacology.org,
+O43612,O43614,guidetopharmacology.org,
+O43915,P35916,curated,uniprot
+O43915,P35968,curated,uniprot
+O43921,P21709,curated,PMID: 15114347
+O43921,P29317,curated,PMID: 15114347
+O43921,P29320,curated,PMID: 15114347
+O43921,P29322,curated,PMID: 15114347
+O43921,P54756,curated,PMID: 15114347
+O43921,P54764,curated,PMID: 15114347
+O43921,Q15375,curated,PMID: 15114347
+O43927,P32302,curated,PMID: 24218476
+O43927,Q9NPB9,curated,PMID: 24218476
+O60258,P11362,"I2D,InnateDB-All,MBInfo,UniProt",
+O60258,P21802,"I2D,InnateDB-All,MBInfo,UniProt",
+O60258,P22455,"I2D,MBInfo,UniProt",
+O60258,P22607,"I2D,MBInfo,UniProt",
+O60353,P41221,curated,PMID: 24032637
+O60353,P56705,curated,PMID: 24032637
+O60383,TGFR_BMPR2,curated,PMID: 22710174
+O60462,P15692,curated,uniprot
+O60462,P49763,curated,uniprot
+O60462,Q13275,curated,uniprot
+O60462,Q99985,curated,uniprot
+O60486,O75326,curated,PMID: 22325954
+O60542,RET receptor 4,curated,uniprot
+O60755,P22466,guidetopharmacology.org,
+O60755,Q9UBC7,guidetopharmacology.org,
+O60883,P07602,guidetopharmacology.org,
+O75084,P56703,curated,PMID: 24032637
+O75144,Q9Y6W8,curated,important for T follicular helper cells (Tfh) and type 2 T helper cell (Th2) responses. Reviewed in PMID: 23954143
+O75197,P58499,InnateDB-All,
+O75326,a1b1 complex,curated,PMID: 22325954
+O75473,Q2I0M5,guidetopharmacology.org,
+O75473,Q2MKA7,guidetopharmacology.org,
+O75473,Q6UXX9,guidetopharmacology.org,
+O75473,Q9BXY4,guidetopharmacology.org,
+O75581,Q9UBR5,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O75610,P13385,curated,PMID: 22710174
+O75888,P19438,"I2D,InnateDB-All,MBInfo,UniProt",
+O75888,P25445,"I2D,InnateDB-All,MBInfo,UniProt",
+O75888,Q02223,curated,uniprot
+O75888,Q92956,"I2D,InnateDB-All,MBInfo,UniProt",
+O76093,P11362,"I2D,MBInfo,UniProt",
+O76093,P21802,"I2D,MBInfo,UniProt",
+O76093,P22455,"I2D,MBInfo,UniProt",
+O76093,P22607,"I2D,MBInfo,UniProt",
+O94910,Q02297,InnateDB-All,
+O95150,O95407,curated,uniprot
+O95150,Q93038,guidetopharmacology.org,
+O95389,Q92673,InnateDB-All,
+O95390,Q9H6X2,InnateDB-All,
+O95390,TGFR_AVR2A,curated,PMID: 22710174
+O95390,TGFR_AVR2B,curated,PMID: 22710174
+O95393,P43628,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O95393,P43629,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O95393,Q14943,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O95393,Q8TDT2,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O95393,Q9H7M9,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O95399,Q9UKP6,guidetopharmacology.org,
+O95407,P48023,curated,uniprot
+O95727,Q9BY67,curated,uniprot
+O95750,P11362,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O95750,P22455,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+O95800,P13501,guidetopharmacology.org,
+O95813,Q9UBG0,InnateDB-All,
+O95838,P01275,guidetopharmacology.org,
+O95971,Q92956,curated,https://www.ncbi.nlm.nih.gov/pubmed/21959263
+OSMR,P13725,curated,uniprot
+P00533,P01133,curated,uniprot
+P00533,P01135,curated,uniprot
+P00533,P01137,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P00533,P14174,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P00533,P15514,curated,uniprot
+P00533,P26441,InnateDB-All,
+P00533,P28799,InnateDB-All,
+P00533,P35070,curated,uniprot
+P00533,P53621,InnateDB-All,
+P00533,Q02297,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P00533,Q6UW88,curated,uniprot
+P00533,Q99075,curated,uniprot
+P00734,a2Bb3 complex,curated,uniprot
+P00734,aVb3 complex,curated,uniprot
+P00742,aMb2 complex,curated,uniprot
+P00747,a2Bb3 complex,curated,uniprot
+P01019,P30556,guidetopharmacology.org,
+P01019,P50052,guidetopharmacology.org,
+P01024,Q16581,guidetopharmacology.org,
+P01024,aMb2 complex,curated,uniprot
+P01031,P21730,guidetopharmacology.org,
+P01031,Q9P296,guidetopharmacology.org,
+P01033,P21802,InnateDB-All,
+P01042,P46663,guidetopharmacology.org,
+P01127,P09619,curated,uniprot
+P01127,P16234,curated,uniprot
+P01127,PDGFR complex,curated,uniprot
+P01127,Q07954,"I2D,InnateDB-All,MBInfo,UniProt",
+P01127,Q8WXG9,InnateDB-All,
+P01133,Q02297,"I2D,MBInfo,UniProt",
+P01137,Q03167,curated,uniprot
+P01137,TGFbeta receptor1,curated,uniprot
+P01137,TGFbeta receptor2,curated,uniprot
+P01137,aVb6 complex,curated,"5ffo, PDB"
+P01138,P04629,curated,uniprot
+P01138,P08138,curated,uniprot
+P01148,P30968,"I2D,MBInfo,UniProt",
+P01160,P16066,guidetopharmacology.org,
+P01160,P17342,"I2D,InnateDB-All,MBInfo,UniProt",
+P01160,P20594,"I2D,InnateDB-All,MBInfo,UniProt",
+P01178,P30559,"I2D,MBInfo,UniProt",
+P01185,P30518,"I2D,InnateDB-All,MBInfo,UniProt",
+P01185,P30559,"I2D,MBInfo,UniProt",
+P01185,P37288,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01185,P47901,"I2D,MBInfo,UniProt",
+P01189,P32245,guidetopharmacology.org,
+P01189,P33032,guidetopharmacology.org,
+P01189,P41968,guidetopharmacology.org,
+P01189,Q01718,"I2D,MBInfo,UniProt",
+P01189,Q01726,guidetopharmacology.org,
+P01210,Q96LB2,guidetopharmacology.org,
+P01215,P22888,"I2D,InnateDB-All,MBInfo,UniProt",
+P01215,P23945,"I2D,InnateDB-All,MBInfo,UniProt",
+P01222,P16473,"I2D,MBInfo,UniProt",
+P01225,P23945,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01229,P22888,"I2D,MBInfo,UniProt",
+P01236,P16471,"I2D,IMEx,InnateDB,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01241,P10912,guidetopharmacology.org,
+P01241,P16471,"I2D,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01242,P10912,guidetopharmacology.org,
+P01258,P30988,guidetopharmacology.org,
+P01266,P07306,"I2D,MBInfo,UniProt",
+P01270,P49190,"I2D,InnateDB-All,MBInfo,UniProt",
+P01270,Q03431,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01275,P14735,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01275,P27487,"I2D,InnateDB-All,MBInfo,MINT,UniProt",
+P01275,P47871,"I2D,MBInfo,UniProt",
+P01282,P27487,"I2D,InnateDB-All,MBInfo,MINT,UniProt",
+P01282,P32241,guidetopharmacology.org,
+P01282,P37288,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01282,P41587,"I2D,MBInfo,UniProt",
+P01286,P32241,guidetopharmacology.org,
+P01286,Q02643,guidetopharmacology.org,
+P01298,P50391,guidetopharmacology.org,
+P01298,Q15761,guidetopharmacology.org,
+P01308,P06213,curated,uniprot
+P01308,P14735,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01308,Q8N423,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01308,Q8NHL6,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01344,P08069,curated,PMID: 27102148
+P01344,P11717,curated,uniprot
+P01344,P14735,"I2D,InnateDB-All,MBInfo,UniProt",
+P01344,Q8TDT2,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01350,P32239,guidetopharmacology.org,
+P01350,P43628,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01350,Q8TDT2,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01374,P19438,curated,uniprot
+P01374,P20333,curated,uniprot
+P01374,P36941,"I2D,MBInfo,UniProt",
+P01374,Q13546,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01374,Q92956,curated,uniprot
+P01375,P19438,curated,uniprot
+P01375,P20333,curated,uniprot
+P01375,P25445,InnateDB-All,
+P01375,P35916,InnateDB-All,
+P01375,P46531,"I2D,MBInfo,UniProt",
+P01375,Q13332,InnateDB-All,
+P01375,Q13546,"I2D,IMEx,InnateDB,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01375,Q14118,InnateDB-All,
+P01375,Q9C0C4,InnateDB-All,
+P01375,Q9H7M9,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01375,Q9HCU4,InnateDB-All,
+P01375,Q9Y6W8,InnateDB-All,
+P01562,P20023,"I2D,InnateDB,InnateDB-All,MBInfo,UniProt",
+P01562,Type I IFNR,curated,PMID: 9208871
+P01563,Type I IFNR,curated,"3se3, PDB"
+P01566,Type I IFNR,curated,uniprot
+P01567,Type I IFNR,curated,uniprot
+P01568,Type I IFNR,curated,uniprot
+P01569,Type I IFNR,curated,uniprot
+P01570,Type I IFNR,curated,uniprot
+P01571,Type I IFNR,curated,uniprot
+P01574,Type I IFNR,curated,PMID: 9208871
+P01579,Type II IFNR,curated,PMID: 9208871
+P01584,P07550,"I2D,MBInfo,UniProt",
+P01588,P19235,curated,uniprot
+P01588,P52799,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01588,P54760,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P01732,P06731,curated,https://www.ncbi.nlm.nih.gov/pubmed/24104458
+P02452,a10b1 complex,curated,uniprot
+P02452,a11b1 complex,curated,uniprot
+P02452,a1b1 complex,curated,uniprot
+P02452,a2b1 complex,curated,uniprot
+P02458,a10b1 complex,curated,uniprot
+P02458,a11b1 complex,curated,uniprot
+P02458,a1b1 complex,curated,uniprot
+P02458,a2b1 complex,curated,uniprot
+P02461,a10b1 complex,curated,uniprot
+P02461,a11b1 complex,curated,uniprot
+P02461,a1b1 complex,curated,uniprot
+P02461,a2b1 complex,curated,uniprot
+P02462,a10b1 complex,curated,uniprot
+P02462,a11b1 complex,curated,uniprot
+P02462,a1b1 complex,curated,uniprot
+P02462,a2b1 complex,curated,uniprot
+P02751,a10b1 complex,curated,uniprot
+P02751,a11b1 complex,curated,uniprot
+P02751,a2Bb3 complex,curated,uniprot
+P02751,a2b1 complex,curated,uniprot
+P02751,a3b1 complex,curated,uniprot
+P02751,a4b1 complex,curated,uniprot
+P02751,a4b7 complex,curated,uniprot
+P02751,a5b1 complex,curated,uniprot
+P02751,a8b1 complex,curated,uniprot
+P02751,aVb1 complex,curated,uniprot
+P02751,aVb3 complex,curated,uniprot
+P02751,aVb5 complex,curated,uniprot
+P02766,P08138,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P02766,Q08345,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P02766,Q15109,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P02775,P25024,curated,PMID: 24218476
+P02775,P25025,curated,PMID: 24218476
+P02776,P49682,curated,PMID: 24218476
+P02776,Q16570,"I2D,InnateDB,MBInfo,UniProt",
+P02778,P27487,curated,PMID: 24218476
+P02778,P49682,curated,PMID: 24218476
+P02786,Q9Y275,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P04004,a2Bb3 complex,curated,uniprot
+P04004,aVb1 complex,curated,uniprot
+P04004,aVb3 complex,curated,uniprot
+P04083,P21462,guidetopharmacology.org,
+P04083,P25089,guidetopharmacology.org,
+P04083,P25090,curated,PMID: 22610094
+P04085,P16234,curated,uniprot
+P04090,Q8WXD0,guidetopharmacology.org,
+P04090,Q9HBX9,guidetopharmacology.org,
+P04090,Q9NSD7,guidetopharmacology.org,
+P04141,P07333,guidetopharmacology.org,
+P04155,P21802,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P04155,Q96PJ5,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P04216,aMb2 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/15850796
+P04216,aVb3 complex,curated,"https://www.ncbi.nlm.nih.gov/pubmed/29212879,https://www.ncbi.nlm.nih.gov/pubmed/18346467/,https://www.ncbi.nlm.nih.gov/"
+P04216,aXb2 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/15850796
+P04233,P05067,curated,https://www.ncbi.nlm.nih.gov/pubmed/19849849
+P04233,P14174,"I2D,InnateDB-All,MBInfo,UniProt",
+P04233,P53621,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P04275,aVb3 complex,curated,uniprot
+P04628,P16671,InnateDB,
+P04628,P34925,"I2D,MBInfo,UniProt",
+P04628,Q01974,InnateDB-All,
+P04628,Q9H461,"I2D,InnateDB-All,MBInfo,UniProt",
+P04628,Q9NPG1,"I2D,MBInfo,UniProt",
+P04628,Q9UP38,curated,PMID: 24032637
+P04629,P06744,InnateDB-All,
+P04629,P20783,curated,uniprot
+P04629,P28799,InnateDB-All,
+P04629,P43490,InnateDB-All,
+P04629,P53621,InnateDB-All,
+P04629,Q12904,InnateDB-All,
+P04808,Q8WXD0,guidetopharmacology.org,
+P04808,Q9HBX9,guidetopharmacology.org,
+P05000,Type I IFNR,curated,PMID: 9208871
+P05013,Type I IFNR,curated,uniprot
+P05014,Type I IFNR,curated,uniprot
+P05015,Type I IFNR,curated,uniprot
+P05019,P08069,curated,uniprot
+P05019,a6b4 complex,curated,uniprot
+P05067,P25090,guidetopharmacology.org,
+P05111,Q03167,"I2D,MBInfo,UniProt",
+P05112,Q14627,"I2D,MBInfo,UniProt",
+P05230,P11362,curated,uniprot
+P05230,P21802,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P05230,P22455,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P05230,P22607,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P05230,Q03167,InnateDB-All,
+P05230,aVb3 complex,curated,uniprot
+P05231,P35367,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P05362,P15514,InnateDB-All,
+P05362,P16150,curated,https://www.ncbi.nlm.nih.gov/pubmed/1683685
+P05362,P20701,curated,Reviewed in PMID: 23602662
+P05362,aLb2 complex,curated,uniprot
+P05362,aMb2 complex,curated,uniprot
+P05362,aXb2 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/16252253
+P05997,a10b1 complex,curated,uniprot
+P05997,a11b1 complex,curated,uniprot
+P05997,a1b1 complex,curated,uniprot
+P05997,a2b1 complex,curated,uniprot
+P06307,P32238,guidetopharmacology.org,
+P06307,P32239,guidetopharmacology.org,
+P06729,P19256,curated,Reviewed in PMID: 23602662
+P06731,P13688,curated,Induces NK Cell Inhibition. Reviewed in PMID:24987108
+P06731,P15813,curated,https://www.ncbi.nlm.nih.gov/pubmed/24104458
+P06731,P40199,curated,uniprot
+P06734,P20023,curated,"https://www.ncbi.nlm.nih.gov/pubmed/16785534,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2212946/"
+P06734,aMb2 complex,curated,"https://www.ncbi.nlm.nih.gov/pubmed/7621072,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2143337/"
+P06734,aVb3 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/10037797/
+P06734,aXb2 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/7621072
+P06850,Q13324,"I2D,InnateDB-All,MBInfo,UniProt",
+P06881,P30988,guidetopharmacology.org,
+P07225,P30530,guidetopharmacology.org,
+P07225,Q06418,guidetopharmacology.org,
+P07307,Q15848,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P07333,P09603,curated,uniprot
+P07333,P09919,guidetopharmacology.org,
+P07333,Q6ZMJ4,curated,uniprot
+P07359,aMb2 complex,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2194217/
+P07492,P30550,guidetopharmacology.org,
+P07550,P49765,InnateDB-All,
+P07996,a2Bb3 complex,curated,uniprot
+P07996,a3b1 complex,curated,uniprot
+P07996,aVb3 complex,curated,uniprot
+P08123,a10b1 complex,curated,uniprot
+P08123,a11b1 complex,curated,uniprot
+P08123,a1b1 complex,curated,uniprot
+P08123,a2b1 complex,curated,uniprot
+P08138,P20783,curated,uniprot
+P08138,P23560,curated,uniprot
+P08138,P34130,curated,uniprot
+P08138,P60568,"I2D,MBInfo,UniProt",
+P08174,P48960,curated,https://www.ncbi.nlm.nih.gov/pubmed/11297558
+P08253,aVb3 complex,curated,uniprot
+P08572,a10b1 complex,curated,uniprot
+P08572,a11b1 complex,curated,uniprot
+P08572,a1b1 complex,curated,uniprot
+P08572,a2b1 complex,curated,uniprot
+P08575,P20273,curated,https://www.ncbi.nlm.nih.gov/pubmed/12115612/
+P08575,P22897,curated,"https://www.ncbi.nlm.nih.gov/pubmed/27601670,https://www.ncbi.nlm.nih.gov/pubmed/10575006"
+P08581,P14210,curated,uniprot
+P08620,P11362,"I2D,MBInfo,UniProt",
+P08620,P21802,"I2D,MBInfo,UniProt",
+P08620,P22455,"I2D,MBInfo,UniProt",
+P08620,P22607,"I2D,MBInfo,UniProt",
+P08922,P21802,"I2D,MBInfo,UniProt",
+P09038,P11362,curated,uniprot
+P09038,P16070,"I2D,InnateDB-All,MBInfo,UniProt",
+P09038,P21802,curated,uniprot
+P09038,P22455,curated,uniprot
+P09038,P22607,curated,uniprot
+P09038,Q8N441,"I2D,MBInfo,UniProt",
+P09038,aVb3 complex,curated,uniprot
+P09326,Q9BZW8,curated,activating interaction. uniprot & PMID: 26697006
+P09341,P25024,curated,PMID: 24218476
+P09341,P25025,curated,PMID: 24218476
+P09341,Q16570,curated,PMID: 24218476
+P09544,Q14332,curated,PMID: 24032637
+P09544,Q9NPG1,curated,PMID: 24032637
+P09544,Q9ULV1,curated,PMID: 24032637
+P09544,Q9UP38,"I2D,MBInfo,UniProt",
+P09603,P30825,"I2D,MBInfo,UniProt",
+P09603,P78324,"I2D,MBInfo,UniProt",
+P09603,Q9NYQ7,"I2D,MBInfo,UniProt",
+P09619,Q9GZP0,curated,uniprot
+P09681,P27487,"I2D,InnateDB-All,MBInfo,MINT,UniProt",
+P09683,P32241,"I2D,InnateDB-All,MBInfo,UniProt",
+P09683,P47872,guidetopharmacology.org,
+P09917,P20292,guidetopharmacology.org,
+P09919,Q99062,curated,uniprot
+P0C0P6,Q6W5P4,guidetopharmacology.org,
+P0DJI8,P25090,guidetopharmacology.org,
+P0DMC3,P35414,guidetopharmacology.org,
+P0DMS8,P49961,curated,uniprot
+P10082,P25929,guidetopharmacology.org,
+P10082,P27487,"I2D,InnateDB-All,MBInfo,MINT,UniProt",
+P10082,P49146,guidetopharmacology.org,
+P10082,P50391,guidetopharmacology.org,
+P10082,Q15761,"I2D,MBInfo,UniProt",
+P10092,P30988,guidetopharmacology.org,
+P10145,P25024,curated,PMID: 24218476
+P10145,P25025,curated,PMID: 24218476
+P10145,Q16570,curated,PMID: 24218476
+P10147,P14735,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P10147,P32246,curated,PMID: 24218476
+P10147,P51677,curated,PMID: 24218476
+P10147,P51681,curated,PMID: 15251452
+P10451,P16070,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P10451,P35408,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P10451,P51685,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P10451,a4b1 complex,curated,"PMID: 1830891, PMID: 8970045"
+P10451,a9b1 complex,curated,"PMID: 1830891, PMID: 8970045"
+P10451,aVb3 complex,curated,PMID: 24442579
+P10600,Q03167,curated,uniprot
+P10600,TGFbeta receptor1,curated,uniprot
+P10600,TGFbeta receptor2,curated,uniprot
+P10721,P21583,curated,uniprot
+P10747,P33681,curated,antigen-stimulated T cells become activated. Reviewed in PMID: 23954143
+P10747,P42081,curated,antigen-stimulated T cells become activated. Reviewed in PMID: 23954143
+P10767,P11362,"I2D,InnateDB-All,MBInfo,UniProt",
+P10767,P21802,"I2D,InnateDB-All,MBInfo,UniProt",
+P10767,P22455,"I2D,MBInfo,UniProt",
+P10767,P22607,"I2D,MBInfo,UniProt",
+P10997,P14735,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P10997,P30988,guidetopharmacology.org,
+P11047,a2b1 complex,curated,uniprot
+P11047,a6b1 complex,curated,uniprot
+P11047,a7b1 complex,curated,uniprot
+P11047,aVb3 complex,curated,uniprot
+P11279,Q6UX27,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P11279,Q92520,InnateDB-All,
+P11362,P11487,"I2D,InnateDB-All,MBInfo,UniProt",
+P11362,P12034,"I2D,InnateDB-All,MBInfo,UniProt",
+P11362,P13591,curated,https://www.ncbi.nlm.nih.gov/pubmed/12791257
+P11362,P21781,"I2D,MBInfo,UniProt",
+P11362,P21802,InnateDB-All,
+P11362,P31371,"I2D,InnateDB-All,MBInfo,UniProt",
+P11362,P55075,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P11362,Q9GZV9,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P11362,Q9UEF7,"I2D,MBInfo,UniProt",
+P11487,P21802,"I2D,InnateDB-All,MBInfo,UniProt",
+P11487,P22455,"I2D,MBInfo,UniProt",
+P11487,P22607,"I2D,MBInfo,UniProt",
+P12034,P21802,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P12034,P22455,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P12034,P22607,"I2D,MBInfo,UniProt",
+P12107,a10b1 complex,curated,uniprot
+P12107,a11b1 complex,curated,uniprot
+P12107,a1b1 complex,curated,uniprot
+P12107,a2b1 complex,curated,uniprot
+P12109,a10b1 complex,curated,uniprot
+P12109,a11b1 complex,curated,uniprot
+P12109,a1b1 complex,curated,uniprot
+P12109,a2b1 complex,curated,uniprot
+P12110,a10b1 complex,curated,uniprot
+P12110,a11b1 complex,curated,uniprot
+P12110,a1b1 complex,curated,uniprot
+P12110,a2b1 complex,curated,uniprot
+P12111,a10b1 complex,curated,uniprot
+P12111,a11b1 complex,curated,uniprot
+P12111,a1b1 complex,curated,uniprot
+P12111,a2b1 complex,curated,uniprot
+P12272,P49190,guidetopharmacology.org,
+P12272,P49683,guidetopharmacology.org,
+P12272,Q03431,guidetopharmacology.org,
+P12318,Q07325,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P12643,Q99835,"I2D,MBInfo,UniProt",
+P12830,Q96E93,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3030123/
+P12830,a2b1 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/12392763
+P12830,aEb7 complex,curated,uniprot
+P13236,P30825,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P13236,P34972,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P13236,P51681,curated,uniprot
+P13236,P51685,"I2D,MBInfo,UniProt",
+P13236,Q8TDT2,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P13236,Q9NZD1,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P13500,P41597,curated,PMID: 24218476
+P13500,P46092,"I2D,MBInfo,UniProt",
+P13500,Q16570,curated,PMID: 24218476
+P13501,P32246,curated,PMID: 24218476
+P13501,P51677,curated,PMID: 24218476
+P13501,P51679,curated,PMID: 24218476
+P13501,P51681,curated,PMID: 24218476
+P13501,Q16570,curated,PMID: 24218476
+P13501,Q9NPB9,"I2D,MBInfo,UniProt",
+P13591,P23560,"I2D,MBInfo,UniProt",
+P13591,P39905,"I2D,MBInfo,UniProt",
+P13598,aLb2 complex,curated,uniprot
+P13688,P16581,curated,https://www.ncbi.nlm.nih.gov/pubmed/1378450
+P13688,P31997,curated,https://www.ncbi.nlm.nih.gov/pubmed/24743304
+P13688,P40199,curated,https://www.ncbi.nlm.nih.gov/pubmed/21982860
+P13688,Q9NNX6,curated,"https://www.ncbi.nlm.nih.gov/pubmed/16282604,https://www.ncbi.nlm.nih.gov/pubmed/16246332"
+P13747,P26715,curated,Induces NK Cell Inhibition. Reviewed in PMID: 24223577
+P13747,P26717,curated,activating interaction. uniprot & PMID: 26697006
+P13747,P26718,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
+P13942,a10b1 complex,curated,uniprot
+P13942,a11b1 complex,curated,uniprot
+P13942,a1b1 complex,curated,uniprot
+P13942,a2b1 complex,curated,uniprot
+P14151,P28906,curated,"https://www.ncbi.nlm.nih.gov/pubmed/7692600,https://www.ncbi.nlm.nih.gov/pubmed/8977216"
+P14151,Q14242,curated,"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2431087/,https://www.ncbi.nlm.nih.gov/pubmed/8892633,https://www.ncbi.nlm.nih.gov/pubmed/8896607"
+P14174,Q92956,"I2D,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P14174,Q9UBN6,"I2D,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P14209,Q9UKJ1,curated,https://www.ncbi.nlm.nih.gov/pubmed/18234675
+P14210,P16070,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P14555,a4b1 complex,curated,uniprot
+P14555,a5b1 complex,curated,uniprot
+P14735,P55773,InnateDB-All,
+P15151,P40200,curated,uniprot
+P15151,P41273,InnateDB-All,
+P15151,Q15762,curated,"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149"
+P15151,Q495A1,curated,"PMID: 19815499, Induces NK Cell Inhibition. Reviewed in PMID:24987108"
+P15151,Q9NQS3,curated,"https://www.ncbi.nlm.nih.gov/pubmed/19011627,https://www.ncbi.nlm.nih.gov/pubmed/12740392/"
+P15529,P78504,curated,https://www.ncbi.nlm.nih.gov/pubmed/23086448
+P15692,P17948,curated,uniprot
+P15692,P29323,"I2D,MBInfo,UniProt",
+P15692,P35968,curated,uniprot
+P15692,Q13224,"I2D,MBInfo,UniProt",
+P15813,Q8N423,curated,https://www.ncbi.nlm.nih.gov/pubmed/19124746/
+P16066,P16860,guidetopharmacology.org,
+P16066,P23582,InnateDB-All,
+P16070,P16581,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4571854/
+P16070,P21802,InnateDB-All,
+P16070,Q99075,"I2D,InnateDB-All,MBInfo,UniProt",
+P16109,P25063,curated,https://www.ncbi.nlm.nih.gov/pubmed/9129046
+P16109,P28906,curated,https://www.ncbi.nlm.nih.gov/pubmed/18606703
+P16109,Q14242,curated,"https://www.ncbi.nlm.nih.gov/pubmed/19118202,https://www.ncbi.nlm.nih.gov/pubmed/9829984,https://www.ncbi.nlm.nih.gov/pubmed/12393589"
+P16150,Q9BZZ2,curated,https://www.ncbi.nlm.nih.gov/pubmed/11238599
+P16234,Q9NRA1,curated,uniprot
+P16284,P28907,curated,"https://www.ncbi.nlm.nih.gov/pubmed/9551996,https://www.ncbi.nlm.nih.gov/pubmed/26407101"
+P16284,Q8N6Q3,curated,https://www.ncbi.nlm.nih.gov/pubmed/17580308
+P16410,P33681,curated,antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143
+P16410,P42081,curated,antigen-stimulated T cells become anergic. Reviewed in PMID: 23954143
+P16471,Q14406,guidetopharmacology.org,
+P16581,Q14242,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4571854/
+P16581,Q92896,curated,https://www.ncbi.nlm.nih.gov/pubmed/11404363/
+P16619,P27487,"I2D,MBInfo,UniProt",
+P16619,P32246,curated,PMID: 24218476
+P16619,P51677,curated,PMID: 24218476
+P16860,P17342,"I2D,InnateDB-All,MBInfo,UniProt",
+P16860,P20594,"I2D,InnateDB-All,MBInfo,UniProt",
+P16860,P27487,"I2D,InnateDB-All,MBInfo,MINT,UniProt",
+P17342,P23582,"I2D,InnateDB-All,MBInfo,UniProt",
+P17342,P61366,guidetopharmacology.org,
+P17693,Q8N423,curated,uniprot
+P17693,Q8NHL6,curated,"uniprot, Induces NK Cell Inhibition. Reviewed in PMID:24987108"
+P17948,P49763,curated,uniprot
+P17948,P49765,curated,uniprot
+P18075,Q13291,InnateDB-All,
+P18075,Q15262,InnateDB-All,
+P18509,P27487,"I2D,InnateDB-All,MBInfo,MINT,UniProt",
+P18509,P32241,"I2D,MBInfo,UniProt",
+P18509,P41586,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P18509,P41587,"I2D,MBInfo,UniProt",
+P18509,P47872,"I2D,InnateDB-All,MBInfo,UniProt",
+P19235,P21583,"I2D,MBInfo,UniProt",
+P19320,a4b1 complex,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4368157/
+P19320,a4b7 complex,curated,uniprot
+P19320,a9b1 complex,curated,uniprot
+P19320,aDb2 complex,curated,uniprot
+P19438,P28799,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P19438,P48023,"I2D,InnateDB-All,MBInfo,UniProt",
+P19875,P25024,"I2D,MBInfo,UniProt",
+P19875,P25025,curated,PMID: 24218476
+P19875,P27487,curated,PMID: 24218476
+P19876,P25024,"I2D,MBInfo,UniProt",
+P19876,P25025,curated,PMID: 24218476
+P20333,P28799,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P20382,Q969V1,"I2D,MBInfo,UniProt",
+P20382,Q99705,"I2D,MBInfo,UniProt",
+P20396,P34981,"I2D,MBInfo,UniProt",
+P20594,P23582,guidetopharmacology.org,
+P20783,Q16288,curated,uniprot
+P20783,Q16620,curated,uniprot
+P20800,P25101,guidetopharmacology.org,
+P20827,P21709,curated,PMID: 15114347
+P20827,P29317,curated,PMID: 15114347
+P20827,P29320,curated,PMID: 15114347
+P20827,P29322,curated,PMID: 15114347
+P20827,P54756,curated,PMID: 15114347
+P20827,P54764,curated,PMID: 15114347
+P20827,Q15375,curated,PMID: 15114347
+P20849,a10b1 complex,curated,uniprot
+P20849,a11b1 complex,curated,uniprot
+P20849,a1b1 complex,curated,uniprot
+P20849,a2b1 complex,curated,uniprot
+P20908,a10b1 complex,curated,uniprot
+P20908,a11b1 complex,curated,uniprot
+P20908,a1b1 complex,curated,uniprot
+P20908,a2b1 complex,curated,uniprot
+P21246,P23471,curated,PMID: 25644401
+P21246,Q13332,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P21246,Q9UM73,curated,uniprot
+P21709,P52797,curated,PMID: 15114347
+P21709,P52798,curated,PMID: 15114347
+P21709,P52803,curated,PMID: 15114347
+P21730,P39019,guidetopharmacology.org,
+P21731,Q9UBU3,InnateDB-All,
+P21741,P23471,curated,PMID: 10212223
+P21741,Q07954,"I2D,InnateDB-All,MBInfo,UniProt",
+P21741,Q92673,InnateDB-All,
+P21741,Q9UM73,curated,uniprot
+P21781,P21802,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P21781,P22455,"I2D,MBInfo,UniProt",
+P21781,P22607,"I2D,MBInfo,UniProt",
+P21802,P22607,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P21802,P31371,"I2D,InnateDB-All,MBInfo,UniProt",
+P21802,P54764,"I2D,InnateDB-All,MBInfo,UniProt",
+P21802,P55075,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P21802,Q01151,InnateDB-All,
+P21802,Q15223,InnateDB-All,
+P21802,Q15256,InnateDB-All,
+P21802,Q9GZV9,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P21802,Q9UBH6,InnateDB-All,
+P21854,Q92854,curated,PMID: 22325954
+P21860,P35070,curated,uniprot
+P21860,Q02297,curated,uniprot
+P22362,P51685,curated,PMID: 24218476
+P22455,P31371,"I2D,MBInfo,UniProt",
+P22455,P54764,"I2D,InnateDB-All,MBInfo,UniProt",
+P22455,P55075,"I2D,MBInfo,UniProt",
+P22455,Q15256,InnateDB-All,
+P22455,Q96QR1,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P22466,P47211,guidetopharmacology.org,
+P22466,Q8TDV0,"I2D,MBInfo,UniProt",
+P22607,P31371,"I2D,InnateDB-All,MBInfo,UniProt",
+P22607,P54764,"I2D,InnateDB-All,MBInfo,UniProt",
+P22607,P55075,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P22607,Q15223,InnateDB-All,
+P22607,Q9GZV9,"I2D,MBInfo,UniProt",
+P23416,Q92520,InnateDB-All,
+P23510,P43489,curated,uniprot
+P23560,Q16620,curated,uniprot
+P23560,Q8TDT2,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P23560,Q99523,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P23560,Q9Y624,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P24821,a4b1 complex,curated,uniprot
+P24821,a8b1 complex,curated,uniprot
+P24821,a9b1 complex,curated,uniprot
+P24821,aVb3 complex,curated,uniprot
+P24821,aVb6 complex,curated,uniprot
+P25024,P42830,curated,PMID: 24218476
+P25024,P54577,guidetopharmacology.org,
+P25024,P80162,curated,PMID: 24218476
+P25025,P42830,curated,PMID: 24218476
+P25025,P80162,curated,PMID: 24218476
+P25067,a10b1 complex,curated,uniprot
+P25067,a11b1 complex,curated,uniprot
+P25067,a1b1 complex,curated,uniprot
+P25067,a2b1 complex,curated,uniprot
+P25089,Q9NRV9,guidetopharmacology.org,
+P25090,P49913,guidetopharmacology.org,
+P25092,Q02747,guidetopharmacology.org,
+P25092,Q16661,guidetopharmacology.org,
+P25106,P48061,guidetopharmacology.org,
+P25445,P48023,curated,uniprot
+P25940,a10b1 complex,curated,uniprot
+P25940,a11b1 complex,curated,uniprot
+P25940,a1b1 complex,curated,uniprot
+P25940,a2b1 complex,curated,uniprot
+P25942,P29965,curated,Reviewed in PMID: 23602662
+P25942,P51460,"I2D,MBInfo,UniProt",
+P25942,Q9Y275,"I2D,InnateDB,MBInfo,UniProt",
+P26842,P32970,curated,activating interaction for NK and T cells. uniprot & PMID: 26697006
+P26927,Q04912,curated,PMID: 23792360
+P27037,P55103,curated,PMID: 22710174
+P27037,P58166,curated,PMID: 22710174
+P27487,P48061,curated,PMID: 24218476
+P27487,P51671,curated,PMID: 24218476
+P27487,Q07325,curated,PMID: 24218476
+P27539,Q13639,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P27658,a10b1 complex,curated,uniprot
+P27658,a11b1 complex,curated,uniprot
+P27658,a1b1 complex,curated,uniprot
+P27658,a2b1 complex,curated,uniprot
+P28799,Q99523,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P28799,Q9H2X3,InnateDB-All,
+P28908,P32971,curated,uniprot
+P29274,P43490,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P29274,P49961,curated,uniprot
+P29275,P49961,curated,uniprot
+P29317,P52797,curated,PMID: 15114347
+P29317,P52798,curated,PMID: 15114347
+P29317,P52803,curated,PMID: 15114347
+P29320,P52797,curated,PMID: 15114347
+P29320,P52798,curated,PMID: 15114347
+P29320,P52803,curated,PMID: 15114347
+P29322,P52797,curated,PMID: 15114347
+P29322,P52798,curated,PMID: 15114347
+P29322,P52803,curated,PMID: 15114347
+P29323,P52799,curated,PMID: 15114347
+P29323,P52803,curated,PMID:15107857; PMID: 15114347
+P29323,P98172,curated,PMID: 15114347
+P29323,Q15768,curated,PMID: 15114347
+P29400,a10b1 complex,curated,uniprot
+P29400,a11b1 complex,curated,uniprot
+P29400,a1b1 complex,curated,uniprot
+P29400,a2b1 complex,curated,uniprot
+P29965,a2Bb3 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/11875495
+P29965,a5b1 complex,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3365732/
+P30203,Q13740,curated,Reviewed in PMID: 23602662
+P30511,P43629,curated,https://www.ncbi.nlm.nih.gov/pubmed/27455421
+P30511,P43630,curated,https://www.ncbi.nlm.nih.gov/pubmed/27455421
+P30511,Q14943,curated,https://www.ncbi.nlm.nih.gov/pubmed/27455421
+P30511,Q8N423,curated,https://www.ncbi.nlm.nih.gov/pubmed/11169396
+P30511,Q8NHL6,curated,https://www.ncbi.nlm.nih.gov/pubmed/11169396
+P30530,Q13261,"I2D,MBInfo,UniProt",
+P30530,Q14393,guidetopharmacology.org,
+P30542,P49961,curated,uniprot
+P30872,P61278,"I2D,MBInfo,UniProt",
+P30988,P35318,guidetopharmacology.org,
+P30988,Q7Z4H4,guidetopharmacology.org,
+P30989,P30990,guidetopharmacology.org,
+P31358,Q96LC7,curated,https://www.ncbi.nlm.nih.gov/pubmed/23685786
+P31391,P61278,"I2D,MBInfo,UniProt",
+P31997,P40199,curated,https://www.ncbi.nlm.nih.gov/pubmed/11590190
+P32004,P32004,curated,https://www.ncbi.nlm.nih.gov/pubmed/18701456/
+P32004,a5b1 complex,curated,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2120661/
+P32004,aVb3 complex,curated,"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2132622/"""
+P32246,P55773,curated,PMID: 24218476
+P32246,P55774,guidetopharmacology.org,
+P32246,P80075,curated,PMID: 24218476
+P32246,P80098,curated,PMID: 24218476
+P32246,Q16627,curated,PMID: 24218476
+P32246,Q16663,curated,uniprot
+P32246,Q99616,guidetopharmacology.org,
+P32246,Q9Y258,curated,PMID: 24218476
+P32248,Q99731,curated,PMID: 24218476
+P32881,Q8TDT2,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P32881,Type I IFNR,curated,uniprot
+P32942,Q9H2X3,curated,https://www.ncbi.nlm.nih.gov/pubmed/15795245
+P32942,Q9NNX6,curated,https://www.ncbi.nlm.nih.gov/pubmed/15795245
+P32942,aDb2 complex,curated,uniprot
+P32942,aLb2 complex,curated,uniprot
+P32970,Q02223,InnateDB-All,
+P32970,Q9NZH0,InnateDB-All,
+P33681,Q9NZQ7,curated,"https://www.ncbi.nlm.nih.gov/pubmed/17629517,https://www.ncbi.nlm.nih.gov/pubmed/18585785,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3168865/"
+P34130,Q16620,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P34820,Q03405,InnateDB-All,
+P34925,P56704,"I2D,MBInfo,UniProt",
+P34972,Q15848,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P35070,Q15303,curated,uniprot
+P35225,Q14627,curated,PMID: 26471366
+P35225,Q86XT9,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P35318,Q96LB1,guidetopharmacology.org,
+P35414,Q9ULZ1,guidetopharmacology.org,
+P35555,a5b1 complex,curated,uniprot
+P35916,P49767,curated,uniprot
+P35916,Q9NRA1,guidetopharmacology.org,
+P35968,P49767,curated,uniprot
+P36544,P55000,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P36888,P49771,curated,uniprot
+P36941,Q06643,curated,uniprot
+P39059,a10b1 complex,curated,uniprot
+P39059,a11b1 complex,curated,uniprot
+P39059,a1b1 complex,curated,uniprot
+P39059,a2b1 complex,curated,uniprot
+P39060,a10b1 complex,curated,uniprot
+P39060,a11b1 complex,curated,uniprot
+P39060,a1b1 complex,curated,uniprot
+P39060,a2b1 complex,curated,uniprot
+P39905,RET receptor 1,curated,uniprot
+P40199,P40199,curated,https://www.ncbi.nlm.nih.gov/pubmed/11590190
+P40200,Q15223,curated,PMID: 17971293
+P40225,P40238,curated,uniprot
+P40933,Q13261,guidetopharmacology.org,
+P41159,P48357,curated,uniprot
+P41217,Q8TD46,curated,"PMID: 22020332, also called CD200-CD200R"
+P41221,Q01973,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P41221,Q01974,"I2D,MBInfo,UniProt",
+P41221,Q13467,curated,PMID: 24032637
+P41221,Q14332,curated,PMID: 24032637
+P41221,Q15262,InnateDB-All,
+P41221,Q15375,InnateDB-All,
+P41221,Q9H6X2,InnateDB-All,
+P41221,Q9NPG1,curated,PMID: 24032637
+P41221,Q9UP38,curated,PMID: 24032637
+P41273,Q07011,curated,uniprot
+P41273,Q14627,InnateDB-All,
+P41273,Q8IZF4,InnateDB-All,
+P41597,P51671,guidetopharmacology.org,
+P41597,P80075,curated,PMID: 24218476
+P41597,P80098,curated,PMID: 24218476
+P41597,Q99616,curated,PMID: 24218476
+P41597,Q9Y258,curated,PMID: 24218476
+P42830,Q16570,"I2D,MBInfo,UniProt",
+P43115,Q9UBU3,InnateDB-All,
+P43119,Q9UBU3,InnateDB-All,
+P43490,Q14627,InnateDB-All,
+P43490,Q15077,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P43628,Q07325,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P43628,Q92520,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P46091,Q99969,guidetopharmacology.org,
+P46092,P80098,"I2D,MBInfo,UniProt",
+P46092,Q9NRJ3,guidetopharmacology.org,
+P46092,Q9Y4X3,curated,PMID: 24218476
+P46094,P47992,curated,PMID: 24218476
+P46094,Q9UBD3,curated,uniprot
+P46531,P48745,"I2D,InnateDB-All,MBInfo,UniProt",
+P46531,P56705,"I2D,MBInfo,UniProt",
+P46531,P78504,curated,PMID: 22353464
+P46531,P80370,curated,PMID: 22353464
+P46531,Q9NR61,curated,PMID: 22353464
+P46531,Q9NYJ7,curated,PMID: 22353464
+P46531,Q9Y219,curated,PMID: 22353464
+P47211,Q9UBC7,guidetopharmacology.org,
+P47992,Q8WXG9,InnateDB-All,
+P48061,P49682,guidetopharmacology.org,
+P48061,P61073,curated,PMID: 24218476
+P48145,Q8N729,guidetopharmacology.org,
+P48145,Q8NG41,guidetopharmacology.org,
+P48146,Q8N729,guidetopharmacology.org,
+P48146,Q8NG41,guidetopharmacology.org,
+P48645,Q9GZQ4,guidetopharmacology.org,
+P48645,Q9HB89,guidetopharmacology.org,
+P49238,P78423,curated,PMID: 24218476
+P49286,P53621,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P49682,P78556,guidetopharmacology.org,
+P49682,Q07325,curated,PMID: 24218476
+P49682,Q99731,guidetopharmacology.org,
+P49683,P81277,guidetopharmacology.org,
+P50591,Q13546,InnateDB-All,
+P50591,Q9UBN6,curated,uniprot
+P51460,Q8WXD0,guidetopharmacology.org,
+P51460,Q9HBX9,guidetopharmacology.org,
+P51671,P51677,curated,PMID: 24218476
+P51671,Q9NPB9,"I2D,MBInfo,UniProt",
+P51677,P80075,curated,PMID: 24218476
+P51677,P80098,curated,PMID: 24218476
+P51677,Q16627,curated,PMID: 24218476
+P51677,Q16663,curated,uniprot
+P51677,Q99616,curated,PMID: 24218476
+P51677,Q9NRJ3,guidetopharmacology.org,
+P51677,Q9Y258,curated,PMID: 24218476
+P51679,Q92583,curated,PMID: 24218476
+P51681,P80075,curated,PMID: 24218476
+P51681,P80098,curated,PMID: 24218476
+P51684,P78556,curated,PMID: 24218476
+P51685,P55774,curated,PMID: 24218476
+P52797,P54756,curated,PMID: 15114347
+P52797,P54764,curated,PMID: 15114347
+P52797,Q15375,curated,PMID: 15114347
+P52798,P54756,curated,PMID: 15114347
+P52798,P54764,curated,PMID: 15114347
+P52798,Q15375,curated,PMID: 15114347
+P52799,P54753,curated,PMID: 15114347
+P52799,P54760,curated,PMID: 15114347
+P52799,P54762,curated,PMID: 15114347
+P52799,P54764,curated,PMID: 15114347
+P52803,P54756,curated,PMID: 15114347
+P52803,P54764,curated,PMID: 15114347
+P52803,Q15375,curated,PMID: 15114347
+P53420,a10b1 complex,curated,uniprot
+P53420,a11b1 complex,curated,uniprot
+P53420,a1b1 complex,curated,uniprot
+P53420,a2b1 complex,curated,uniprot
+P53621,Q15077,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P53621,Q99523,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P54753,P98172,curated,PMID: 15114347
+P54753,Q15768,curated,PMID: 15114347
+P54760,P98172,curated,PMID: 15114347
+P54760,Q15768,curated,PMID: 15114347
+P54762,P98172,curated,PMID: 15114347
+P54762,Q15768,curated,PMID: 15114347
+P54764,P98172,curated,PMID: 15114347
+P54764,Q15768,curated,PMID: 15114347
+P55089,Q13324,guidetopharmacology.org,
+P55103,Q13705,curated,PMID: 22710174
+P56703,Q9UP38,"I2D,MBInfo,UniProt",
+P56704,Q07954,"I2D,MBInfo,UniProt",
+P56704,Q14332,InnateDB-All,
+P56704,Q9H461,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P56704,Q9UP38,"I2D,InnateDB-All,MBInfo,UniProt",
+P56705,Q99835,"I2D,MBInfo,UniProt",
+P56705,Q9H461,"I2D,MBInfo,UniProt",
+P56705,Q9UP38,"I2D,MBInfo,UniProt",
+P56706,Q9ULV1,curated,PMID: 24032637
+P56706,Q9ULW2,curated,PMID: 24032637
+P56706,Q9UP38,curated,PMID: 24032637
+P56975,Q15303,curated,uniprot
+P57087,Q9BX67,curated,"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1237098/,https://www.ncbi.nlm.nih.gov/pubmed/11590146"
+P57087,a4b1 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/12070135/
+P58166,Q13705,curated,PMID: 22710174
+P58294,Q8NFJ6,guidetopharmacology.org,
+P58294,Q8TCW9,guidetopharmacology.org,
+P59901,Q10589,curated,https://www.ncbi.nlm.nih.gov/pubmed/19564354/
+P61812,Q03167,curated,uniprot
+P61812,TGFbeta receptor1,curated,uniprot
+P61812,TGFbeta receptor2,curated,uniprot
+P78310,Q92520,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+P78324,Q08722,curated,Reviewed in PMID: 23602662
+P78504,Q04721,curated,PMID: 22353464
+P78504,Q99466,curated,PMID: 22353464
+P78504,Q9UM47,curated,PMID: 22353464
+P80075,Q16570,"I2D,MBInfo,UniProt",
+P80098,Q16570,"I2D,MBInfo,UniProt",
+P80370,Q04721,curated,PMID: 22353464
+P80370,Q99466,curated,PMID: 22353464
+P80370,Q9UM47,curated,PMID: 22353464
+P83859,Q96P65,guidetopharmacology.org,
+PDGFR complex,Q9GZP0,curated,uniprot
+PlexinA1_complex1,Q8NFY4,curated,PMID: 22325954
+PlexinA1_complex2,Q8NFY4,curated,PMID: 22325954
+PlexinA1_complex3,Q14563,curated,PMID: 22325954
+PlexinA2_complex1,Q14563,curated,PMID: 22325954
+PlexinA3_complex1,Q14563,curated,PMID: 22325954
+PlexinA4_complex1,Q14563,curated,PMID: 22325954
+Q01955,a10b1 complex,curated,uniprot
+Q01955,a11b1 complex,curated,uniprot
+Q01955,a1b1 complex,curated,uniprot
+Q01955,a2b1 complex,curated,uniprot
+Q02223,Q9Y275,curated,uniprot
+Q02297,Q15303,curated,uniprot
+Q02297,Q86X29,InnateDB-All,
+Q02297,Q8NC67,InnateDB-All,
+Q02297,Q96JQ5,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q02297,Q9BXB1,InnateDB-All,
+Q02297,a6b4 complex,curated,uniprot
+Q02388,a10b1 complex,curated,uniprot
+Q02388,a11b1 complex,curated,uniprot
+Q02388,a1b1 complex,curated,uniprot
+Q02388,a2b1 complex,curated,uniprot
+Q02413,Q02487,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
+Q02413,Q08554,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
+Q02413,Q14574,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
+Q02487,Q14126,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
+Q02643,Q9UBU3,"I2D,MBInfo,UniProt",
+Q02763,Q15389,curated,uniprot
+Q02763,Q9Y264,curated,uniprot
+Q03405,a4b1 complex,curated,https://www.ncbi.nlm.nih.gov/pubmed/11053440
+Q03405,aVb3 complex,curated,"https://www.ncbi.nlm.nih.gov/pubmed/11053440,https://www.ncbi.nlm.nih.gov/pubmed/15863511"
+Q03692,a10b1 complex,curated,uniprot
+Q03692,a11b1 complex,curated,uniprot
+Q03692,a1b1 complex,curated,uniprot
+Q03692,a2b1 complex,curated,uniprot
+Q04721,Q13007,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q04721,Q9NR61,curated,PMID: 22353464
+Q04721,Q9NYJ7,curated,PMID: 22353464
+Q04721,Q9Y219,curated,PMID: 22353464
+Q05707,a10b1 complex,curated,uniprot
+Q05707,a11b1 complex,curated,uniprot
+Q05707,a1b1 complex,curated,uniprot
+Q05707,a2b1 complex,curated,uniprot
+Q06418,Q14393,guidetopharmacology.org,
+Q07092,a10b1 complex,curated,uniprot
+Q07092,a11b1 complex,curated,uniprot
+Q07092,a1b1 complex,curated,uniprot
+Q07092,a2b1 complex,curated,uniprot
+Q07954,Q4G0M1,InnateDB-All,
+Q08554,Q14126,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
+Q08722,Q9P1W8,curated,https://www.ncbi.nlm.nih.gov/pubmed/15294972
+Q08722,SIRB1 complex,curated,"2jjs, PDB partially"
+Q12866,Q14393,guidetopharmacology.org,
+Q12879,Q14005,"I2D,MBInfo,UniProt",
+Q12918,Q9UHP7,curated,Induces NK Cell Inhibition. Reviewed in PMID: 24223577
+Q13224,Q14005,"I2D,MBInfo,UniProt",
+Q13324,Q969E3,guidetopharmacology.org,
+Q13324,Q96RP3,guidetopharmacology.org,
+Q13477,a4b7 complex,curated,uniprot
+Q13591,Q9ULL4,curated,uniprot
+Q14005,Q14957,"I2D,MBInfo,UniProt",
+Q14031,a10b1 complex,curated,uniprot
+Q14031,a11b1 complex,curated,uniprot
+Q14031,a1b1 complex,curated,uniprot
+Q14031,a2b1 complex,curated,uniprot
+Q14050,a10b1 complex,curated,uniprot
+Q14050,a11b1 complex,curated,uniprot
+Q14050,a1b1 complex,curated,uniprot
+Q14050,a2b1 complex,curated,uniprot
+Q14055,a10b1 complex,curated,uniprot
+Q14055,a11b1 complex,curated,uniprot
+Q14055,a1b1 complex,curated,uniprot
+Q14055,a2b1 complex,curated,uniprot
+Q14126,Q14574,curated,https://www.ncbi.nlm.nih.gov/pubmed/27298358
+Q14773,aLb2 complex,curated,uniprot
+Q14993,a10b1 complex,curated,uniprot
+Q14993,a11b1 complex,curated,uniprot
+Q14993,a1b1 complex,curated,uniprot
+Q14993,a2b1 complex,curated,uniprot
+Q15116,Q92520,InnateDB-All,
+Q15116,Q9BQ51,curated,antigen-stimulated T cells become anergic. PMID: 23954143
+Q15116,Q9NZQ7,curated,antigen-stimulated T cells become anergic. PMID: 23954143
+Q15223,Q8N126,curated,uniprot
+Q15223,Q96NY8,curated,https://www.ncbi.nlm.nih.gov/pubmed/22902367
+Q15223,Q9NQS3,curated,https://www.ncbi.nlm.nih.gov/pubmed/12740392/
+Q15303,Q8WWG1,curated,uniprot
+Q15303,Q99075,curated,uniprot
+Q15726,Q969F8,guidetopharmacology.org,
+Q15760,Q6UWT2,guidetopharmacology.org,
+Q15762,Q92692,curated,"activating interaction PMID: 15607800, NK cell cytotoxicity. PMID: 24440149"
+Q15848,Q8NFJ6,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q15848,Q8TD46,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q15848,Q8TDT2,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q15848,Q9UHP7,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q16570,Q92583,"I2D,MBInfo,UniProt",
+Q16787,a3b1 complex,curated,uniprot
+Q17RW2,a10b1 complex,curated,uniprot
+Q17RW2,a11b1 complex,curated,uniprot
+Q17RW2,a1b1 complex,curated,uniprot
+Q17RW2,a2b1 complex,curated,uniprot
+Q2I0M5,Q9BXB1,guidetopharmacology.org,
+Q2I0M5,Q9HBX8,guidetopharmacology.org,
+Q2MKA7,Q9BXB1,guidetopharmacology.org,
+Q2MKA7,Q9HBX8,guidetopharmacology.org,
+Q2UY09,a10b1 complex,curated,uniprot
+Q2UY09,a11b1 complex,curated,uniprot
+Q2UY09,a1b1 complex,curated,uniprot
+Q2UY09,a2b1 complex,curated,uniprot
+Q495A1,Q92692,curated,"PMID: 1313846, Induces NK Cell Inhibition. Reviewed in PMID:24987108"
+Q495A1,Q9NQS3,curated,PMID: 1313846
+Q5H8A3,Q9GZQ4,guidetopharmacology.org,
+Q5H8A3,Q9HB89,guidetopharmacology.org,
+Q5T4W7,RET receptor 1,curated,uniprot
+Q5T4W7,RET receptor 3,curated,uniprot
+Q5TAT6,a10b1 complex,curated,uniprot
+Q5TAT6,a11b1 complex,curated,uniprot
+Q5TAT6,a1b1 complex,curated,uniprot
+Q5TAT6,a2b1 complex,curated,uniprot
+Q6GTX8,Q8NHJ6,curated,https://www.ncbi.nlm.nih.gov/pubmed/19283782/
+Q6UVK1,a3b1 complex,curated,uniprot
+Q6UW32,Q9H665,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q6UWQ7,Q9H665,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q6UX27,Q86Y34,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q6UXB1,Q9H665,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q6UXB2,Q9HC97,guidetopharmacology.org,
+Q6UXV0,Q99988,guidetopharmacology.org,
+Q6UXX9,Q9BXB1,guidetopharmacology.org,
+Q6UXX9,Q9HBX8,guidetopharmacology.org,
+Q765I0,Q9UKP6,"I2D,InnateDB-All,MBInfo,UniProt",
+Q7Z6A9,Q92956,guidetopharmacology.org,
+Q86WN2,Q8WXG9,InnateDB-All,
+Q86WN2,Type I IFNR,curated,PMID: 9208871
+Q8IU54,Type III IFNR,curated,PMID: 9208871
+Q8IZC6,a10b1 complex,curated,uniprot
+Q8IZC6,a11b1 complex,curated,uniprot
+Q8IZC6,a1b1 complex,curated,uniprot
+Q8IZC6,a2b1 complex,curated,uniprot
+Q8IZF4,Q92520,InnateDB-All,
+Q8IZI9,Type III IFNR,curated,PMID: 9208871
+Q8IZJ0,Type III IFNR,curated,PMID: 9208871
+Q8N126,Q8NFZ8,curated,uniprot
+Q8N126,Q9BY67,curated,uniprot
+Q8N126,Q9H4G0,curated,uniprot
+Q8N126,Q9NQS3,curated,uniprot
+Q8NFJ6,Q9HC23,guidetopharmacology.org,
+Q8NFW1,a10b1 complex,curated,uniprot
+Q8NFW1,a11b1 complex,curated,uniprot
+Q8NFW1,a1b1 complex,curated,uniprot
+Q8NFW1,a2b1 complex,curated,uniprot
+Q8NHW4,Q8TDT2,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q8NHW4,Q8TDV0,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q8NHW4,Q96P66,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q8NHW4,Q9H7M9,"I2D,IMEx,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q8TCW9,Q9HC23,guidetopharmacology.org,
+Q8TDU9,Q8WXF3,guidetopharmacology.org,
+Q8TDU9,Q9Y5Q6,guidetopharmacology.org,
+Q8WXD0,Q8WXF3,guidetopharmacology.org,
+Q8WXF3,Q9HBX9,guidetopharmacology.org,
+Q8WXF3,Q9NSD7,guidetopharmacology.org,
+Q8WXG9,Q96T91,InnateDB-All,
+Q92478,Q9NZS2,curated,Induces NK Cell Activation. Reviewed in PMID: 24223577
+Q92520,Q9UHP7,"I2D,IMEx,InnateDB-All,IntAct,MBInfo,MINT,MatrixDB,UniProt,bhf-ucl",
+Q92692,Q9NQS3,curated,"https://www.ncbi.nlm.nih.gov/pubmed/19011627,https://www.ncbi.nlm.nih.gov/pubmed/12740392/"
+Q92838,Q9HAV5,guidetopharmacology.org,
+Q92838,Q9UNE0,guidetopharmacology.org,
+Q92847,Q969E1,guidetopharmacology.org,
+Q92847,Q9UBU3,guidetopharmacology.org,
+Q93097,Q9ULV1,curated,PMID: 24032637
+Q969D9,TSLPR,curated,"5j11, PDB"
+Q96A83,a10b1 complex,curated,uniprot
+Q96A83,a11b1 complex,curated,uniprot
+Q96A83,a1b1 complex,curated,uniprot
+Q96A83,a2b1 complex,curated,uniprot
+Q96AP7,Q96AP7,curated,https://www.ncbi.nlm.nih.gov/pubmed/11279107
+Q96P44,a10b1 complex,curated,uniprot
+Q96P44,a11b1 complex,curated,uniprot
+Q96P44,a1b1 complex,curated,uniprot
+Q96P44,a2b1 complex,curated,uniprot
+Q96QR1,Q9UEW3,"I2D,InnateDB-All,MBInfo,UniProt",
+Q96QR1,Q9UM47,InnateDB-All,
+Q96RJ3,Q9Y275,guidetopharmacology.org,
+Q96T91,Q9UF33,InnateDB-All,
+Q99466,Q9NR61,curated,PMID: 22353464
+Q99466,Q9NYJ7,curated,PMID: 22353464
+Q99466,Q9Y219,curated,PMID: 22353464
+Q99715,a10b1 complex,curated,uniprot
+Q99715,a11b1 complex,curated,uniprot
+Q99715,a1b1 complex,curated,uniprot
+Q99715,a2b1 complex,curated,uniprot
+Q99731,Q9NPB9,curated,PMID: 24218476
+Q99748,RET receptor 2,curated,uniprot
+Q99788,Q99969,guidetopharmacology.org,
+Q99983,aVb3 complex,curated,uniprot
+Q9BX67,Q9BX67,curated,https://www.ncbi.nlm.nih.gov/pubmed/16118203
+Q9BX67,aMb2 complex,curated,"https://www.ncbi.nlm.nih.gov/pubmed/16118203,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2194005/"
+Q9BXB1,Q9BXY4,guidetopharmacology.org,
+Q9BXY4,Q9HBX8,guidetopharmacology.org,
+Q9BY67,Q9BY67,curated,https://www.ncbi.nlm.nih.gov/pubmed/24503895
+Q9BY67,Q9NQS3,curated,uniprot
+Q9BYF1,Q9UBU3,"I2D,MBInfo,UniProt",
+Q9GZQ6,Q9HCQ7,guidetopharmacology.org,
+Q9H3S1,Q9Y4D7,curated,PMID: 22325954
+Q9HC73,TSLPR,curated,DOI  10.1038/ncomms14937
+Q9NR61,Q9UM47,curated,PMID: 22353464
+Q9NSD7,Q9Y5Q6,guidetopharmacology.org,
+Q9NYJ7,Q9UM47,curated,PMID: 22353464
+Q9NZH6,Q9NZN1,InnateDB,
+Q9P0W0,Type I IFNR,curated,PMID: 9208871
+Q9P218,a10b1 complex,curated,uniprot
+Q9P218,a11b1 complex,curated,uniprot
+Q9P218,a1b1 complex,curated,uniprot
+Q9P218,a2b1 complex,curated,uniprot
+Q9UM47,Q9Y219,curated,PMID: 22353464
+Q9UMD9,a10b1 complex,curated,uniprot
+Q9UMD9,a11b1 complex,curated,uniprot
+Q9UMD9,a1b1 complex,curated,uniprot
+Q9UMD9,a2b1 complex,curated,uniprot
+Q9UNG2,Q9Y5U5,curated,uniprot
+Q9Y624,aLb2 complex,curated,"(PubMed:11812992, PubMed:15528364)"
+a2Bb3 complex,fibrinogen,curated,uniprot
+aMb2 complex,fibrinogen,curated,uniprot
+aXb2 complex,fibrinogen,curated,uniprot
