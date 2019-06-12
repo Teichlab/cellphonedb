@@ -139,7 +139,7 @@ def build_results(interactions: pd.DataFrame,
             interactions['integrin_1'] | interactions['integrin_2'])
 
     interactions_data_result.rename(
-        columns={'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
+        columns={'ensembl_1': 'gene_a', 'ensembl_2': 'gene_b'},
         inplace=True)
 
     significant_mean_rank, significant_means = cpdb_statistical_analysis_helper.build_significant_means(

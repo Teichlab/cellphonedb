@@ -113,7 +113,7 @@ def build_results(interactions: pd.DataFrame,
             interactions['integrin_1'] | interactions['integrin_2'])
 
     interactions_data_result.rename(
-        columns={'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
+        columns={'ensembl_1': 'gene_a', 'ensembl_2': 'gene_b'},
         inplace=True)
 
     mean_analysis = mean_analysis.round(result_precision)

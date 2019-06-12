@@ -105,7 +105,7 @@ def build_results(interactions: pd.DataFrame,
             interactions['integrin_1'] | interactions['integrin_2'])
 
     interactions_data_result.rename(
-        columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'ensembl_a', 'ensembl_2': 'ensembl_b'},
+        columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'gene_a', 'ensembl_2': 'gene_b'},
         inplace=True)
 
     interactions_data_result['partner_a'] = interactions_data_result['partner_a'].apply(
