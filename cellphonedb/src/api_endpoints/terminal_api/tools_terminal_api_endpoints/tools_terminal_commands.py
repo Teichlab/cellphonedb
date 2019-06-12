@@ -94,7 +94,7 @@ def generate_genes(user_gene: Optional[click.File],
 
     ensembl_db = ensembl_db[list(ensembl_columns.keys())].rename(columns=ensembl_columns)
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
-    hla_genes = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/hla_genes.csv'))
+    hla_genes = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/hla_curated.csv'))
     if user_gene:
         separator = _get_separator(os.path.splitext(user_gene.name)[-1])
         user_gene = pd.read_csv(user_gene, sep=separator)
