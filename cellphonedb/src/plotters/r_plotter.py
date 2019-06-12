@@ -62,7 +62,7 @@ def dot_plot(means_path: str,
 
     means_df = pd.read_csv(means_path, sep=means_separator)
     n_rows, n_cols = means_df.shape
-    n_cols -= 9
+    n_cols -= 10
 
     n_rows, selected_rows = selected_items(rows, n_rows)
     n_cols, selected_columns = selected_items(columns, n_cols)
