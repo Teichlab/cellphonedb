@@ -107,8 +107,8 @@ carry = pd.DataFrame(columns=['A', 'B', 'altA', 'altB', 'provider'])
 
 for source in sources:
     print(source['name'])
-source_data = pd.read_csv('out/psicquic/{}_interaction_raw.csv'.format(source['name']))
-source_data.rename(columns={'0': 'A', '1': 'B', '2': 'altA', '3': 'altB'}, index=str, inplace=True)
-carry = carry.append(source_data[['A', 'B', 'altA', 'altB', 'provider']], sort=False, ignore_index=True)
+    source_data = pd.read_csv('out/psicquic/{}_interaction_raw.csv'.format(source['name']))
+    source_data.rename(columns={'0': 'A', '1': 'B', '2': 'altA', '3': 'altB'}, index=str, inplace=True)
+    carry = carry.append(source_data[['A', 'B', 'altA', 'altB', 'provider']], sort=False, ignore_index=True)
 
 carry.to_csv('out/IMEX_all_sources.csv', index=False)
