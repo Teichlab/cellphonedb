@@ -7,6 +7,7 @@ from cellphonedb.src.core.methods import cpdb_statistical_analysis_simple_method
 
 def call(meta: pd.DataFrame,
          count: pd.DataFrame,
+         counts_data: str,
          interactions: pd.DataFrame,
          genes: pd.DataFrame,
          complex_expanded: pd.DataFrame,
@@ -22,6 +23,7 @@ def call(meta: pd.DataFrame,
     pvalues_simple, means_simple, significant_means_simple, deconvoluted_simple = \
         cpdb_statistical_analysis_simple_method.call(meta.copy(),
                                                      count.copy(),
+                                                     counts_data,
                                                      interactions,
                                                      pvalue,
                                                      separator,
@@ -35,6 +37,7 @@ def call(meta: pd.DataFrame,
     pvalues_complex, means_complex, significant_means_complex, deconvoluted_complex = \
         cpdb_statistical_analysis_complex_method.call(meta.copy(),
                                                       count.copy(),
+                                                      counts_data,
                                                       interactions,
                                                       genes,
                                                       complex_expanded,
@@ -60,8 +63,6 @@ def call(meta: pd.DataFrame,
     significant_means.sort_values('rank', inplace=True)
 
     deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
-
-    if not 'complex_name' in deconvoluted:
-        deconvoluted['complex_name'] = ''
+    deconvoluted.drop_duplicates(inplace=True)
 
     return deconvoluted, means, pvalues, significant_means

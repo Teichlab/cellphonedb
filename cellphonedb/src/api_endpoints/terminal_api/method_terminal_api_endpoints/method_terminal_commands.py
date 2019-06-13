@@ -131,6 +131,7 @@ def statistical_analysis(meta_filename: str,
         LocalMethodLauncher(cpdb_app.create_app(verbose, database)). \
             cpdb_statistical_analysis_local_method_launcher(meta_filename,
                                                             counts_filename,
+                                                            counts_data,
                                                             project_name,
                                                             iterations,
                                                             threshold,

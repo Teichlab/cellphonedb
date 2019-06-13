@@ -47,6 +47,7 @@ def cluster_interaction_percent(cluster_interaction: tuple,
                                 ) -> int:
     percent_cluster_receptors = clusters_percents[cluster_interaction[0]]
     percent_cluster_ligands = clusters_percents[cluster_interaction[1]]
+
     percent_receptor = percent_cluster_receptors[interaction['{}{}'.format(counts_data, suffixes[0])]]
     percent_ligand = percent_cluster_ligands[interaction['{}{}'.format(counts_data, suffixes[1])]]
 

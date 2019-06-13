@@ -24,6 +24,7 @@ class LocalMethodLauncher(object):
 
     def cpdb_statistical_analysis_local_method_launcher(self, meta_filename: str,
                                                         counts_filename: str,
+                                                        counts_data: str,
                                                         project_name: str = '',
                                                         iterations: int = 1000,
                                                         threshold: float = 0.1,
@@ -53,6 +54,7 @@ class LocalMethodLauncher(object):
             self.cellphonedb_app.method.cpdb_statistical_analysis_launcher(
                 meta,
                 counts,
+                counts_data,
                 iterations,
                 threshold,
                 threads,

@@ -78,15 +78,15 @@ def build_results(interactions: pd.DataFrame,
     interactions_data_result['receptor'] = (
             interactions['receptor_1'] | interactions['receptor_2'])
 
-    interactions_data_result.rename(
-        columns={'name_1': 'partner_a', 'name_2': 'partner_b', **gene_renames},
-        inplace=True)
+    interactions_data_result.rename(columns={'name_1': 'partner_a', 'name_2': 'partner_b', **gene_renames},
+                                    inplace=True)
 
     interactions_data_result['partner_a'] = interactions_data_result['partner_a'].apply(
         lambda name: 'simple:{}'.format(name))
     interactions_data_result['partner_b'] = interactions_data_result['partner_b'].apply(
         lambda name: 'simple:{}'.format(name))
 
+    # Dedupe rows and filter only desired columns
     interactions_data_result.drop_duplicates(inplace=True)
 
     means_columns = ['id_cp_interaction', 'interacting_pair', 'partner_a', 'partner_b', 'gene_a', 'gene_b', 'secreted',
@@ -171,10 +171,10 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame, counts_data: st
                                                                                      interactions,
                                                                                      counts_data=counts_data)
     counts_filtered = cpdb_statistical_analysis_helper.filter_empty_cluster_counts(counts_filtered)
-    interactions_filtered = filter_interactions_by_counts(interactions,
-                                                          counts_filtered,
-                                                          ('_1', '_2'),
-                                                          counts_data=counts_data)
+    interactions_filtered = cpdb_statistical_analysis_helper.filter_interactions_by_counts(interactions,
+                                                                                           counts_filtered,
+                                                                                           ('_1', '_2'),
+                                                                                           counts_data=counts_data)
 
     counts_filtered = cpdb_statistical_analysis_helper.filter_counts_by_interactions(counts_filtered,
                                                                                      interactions_filtered,
@@ -184,16 +184,3 @@ def prefilters(counts: pd.DataFrame, interactions: pd.DataFrame, counts_data: st
     interactions_filtered.reset_index(inplace=True, drop=True)
 
     return interactions_filtered, counts_filtered
-
-
-def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame,
-                                  suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> pd.DataFrame:
-    """
-    Remove interaction if both components are not in counts lists
-    """
-    counts_index = list(counts.index)
-    interactions_filtered = interactions[interactions.apply(
-        lambda row: row['{}{}'.format(counts_data, suffixes[0])] in counts_index and row[
-            '{}{}'.format(counts_data, suffixes[1])] in counts_index, axis=1
-    )]
-    return interactions_filtered

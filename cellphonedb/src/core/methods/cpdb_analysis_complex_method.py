@@ -128,6 +128,7 @@ def build_results(interactions: pd.DataFrame,
         columns=gene_renames,
         inplace=True)
 
+    # Dedupe rows and filter only desired columns
     interactions_data_result.drop_duplicates(inplace=True)
 
     means_columns = ['id_cp_interaction', 'interacting_pair', 'partner_a', 'partner_b', 'gene_a', 'gene_b', 'secreted',
