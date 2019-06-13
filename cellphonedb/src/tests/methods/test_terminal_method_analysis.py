@@ -22,6 +22,13 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
         result_precision = 1
         self._method_call(data, project_name, threshold, result_precision)
 
+    def test_non_statistical_method__data_test__threshold__01__precision_1_hgnc(self):
+        data = 'test_hgnc'
+        project_name = 'test_data'
+        threshold = 0.1
+        result_precision = 1
+        self._method_call(data, project_name, threshold, result_precision, counts_data='hgnc_symbol')
+
     def test_non_statistical_method__data_test__threshold__01__precision_3(self):
         data = 'test'
         project_name = 'test_data'
@@ -38,7 +45,7 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
         self._method_call(data, project_name, threshold, result_precision, subsampler)
 
     def _method_call(self, data: str, project_name: str, threshold: float, result_precision: int,
-                     subsampler: Optional[Subsampler] = None):
+                     subsampler: Optional[Subsampler] = None, counts_data: str = 'ensembl'):
         result_names_as_fixture = False
         if result_names_as_fixture:
             result_deconvoluted_filename, result_means_filename, result_significant_means_filename = self._original_names(
@@ -50,10 +57,17 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
             result_deconvoluted_filename = self._get_result_filename('deconvoluted', data, threshold, result_precision)
 
         meta_filename = os.path.realpath('{}/hi_{}_meta.txt'.format(data_test_dir, data))
-        counts_filename = os.path.realpath('{}/hi_{}_counts.txt'.format(data_test_dir, data))
+
+        if counts_data == 'ensembl':
+            counts_file = '{}/hi_{}_counts.txt'.format(data_test_dir, data)
+        else:
+            counts_file = '{}/hi_{}_counts_{}.txt'.format(data_test_dir, data, counts_data)
+
+        counts_filename = os.path.realpath(counts_file)
 
         LocalMethodLauncher(cellphonedb_app.cellphonedb).cpdb_analysis_local_method_launcher(meta_filename,
                                                                                              counts_filename,
+                                                                                             counts_data,
                                                                                              project_name,
                                                                                              threshold,
                                                                                              output_test_dir,
