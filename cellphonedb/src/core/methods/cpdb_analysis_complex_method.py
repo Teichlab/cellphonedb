@@ -130,6 +130,11 @@ def build_results(interactions: pd.DataFrame,
 
     interactions_data_result.drop_duplicates(inplace=True)
 
+    means_columns = ['id_cp_interaction', 'interacting_pair', 'partner_a', 'partner_b', 'gene_a', 'gene_b', 'secreted',
+                     'receptor', 'source', 'is_integrin']
+
+    interactions_data_result = interactions_data_result[means_columns]
+
     mean_analysis = mean_analysis.round(result_precision)
 
     # Round result decimals
@@ -176,9 +181,16 @@ def deconvoluted_complex_result_build(clusters_means: dict, interactions: pd.Dat
 
     cluster_counts = cluster_counts.reindex(sorted(cluster_counts.columns), axis=1)
 
+    # Here we sort and filter unwanted columns
+    deconvoluted_columns = ['gene_name', 'name', 'is_complex', 'protein_name', 'id_cp_interaction']
+
+    deconvoluted_result = deconvoluted_result[deconvoluted_columns]
+    deconvoluted_result.rename({'name': 'uniprot'}, axis=1, inplace=True)
+
     deconvoluted_result = pd.concat([deconvoluted_result, cluster_counts], axis=1, join='inner', sort=False)
 
     deconvoluted_result.reset_index(inplace=True)
+    deconvoluted_result.drop(columns='gene', inplace=True)
     return deconvoluted_result
 
 
@@ -210,12 +222,10 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvolution_complex = pd.merge(deconvolution_complex, genes_filtered, left_on='protein_multidata_id',
                                      right_on='protein_multidata_id', suffixes=['_complex', '_simple'])
 
-    deconvoluted_result[
-        ['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'id_cp_interaction',
-         'receptor']] = \
-        deconvolution_complex[
-            ['{}_simple'.format(counts_data), 'protein_name_simple', 'gene_name_simple', 'name_simple',
-             'is_complex_complex', 'name_complex', 'id_cp_interaction', 'receptor_simple']]
+    deconvoluted_result[['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction',
+                         'receptor']] = deconvolution_complex[
+        ['{}_simple'.format(counts_data), 'protein_name_simple', 'gene_name_simple', 'name_simple',
+         'is_complex_complex', 'id_cp_interaction', 'receptor_simple']]
 
     return deconvoluted_result
 

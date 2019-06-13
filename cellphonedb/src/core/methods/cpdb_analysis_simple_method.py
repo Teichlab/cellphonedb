@@ -89,6 +89,11 @@ def build_results(interactions: pd.DataFrame,
 
     interactions_data_result.drop_duplicates(inplace=True)
 
+    means_columns = ['id_cp_interaction', 'interacting_pair', 'partner_a', 'partner_b', 'gene_a', 'gene_b', 'secreted',
+                     'receptor', 'source', 'is_integrin']
+
+    interactions_data_result = interactions_data_result[means_columns]
+
     significant_mean_rank, significant_means = cpdb_analysis_helper.build_significant_means(mean_analysis,
                                                                                             percent_analysis)
     significant_means = significant_means.round(result_precision)
@@ -135,9 +140,17 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame, 
 
     cluster_counts = cluster_counts.reindex(sorted(cluster_counts.columns), axis=1)
 
+    # Here we sort and filter unwanted columns
+    deconvoluted_columns = ['gene_name', 'name', 'is_complex', 'protein_name', 'id_cp_interaction']
+
+    deconvoluted_result = deconvoluted_result[deconvoluted_columns]
+    deconvoluted_result.rename({'name': 'uniprot'}, axis=1, inplace=True)
+
     deconvoluted_result = pd.concat([deconvoluted_result, cluster_counts], axis=1, join='inner', sort=False)
 
     deconvoluted_result.reset_index(inplace=True)
+    deconvoluted_result.drop(columns='gene', inplace=True)
+
     return deconvoluted_result
 
 
