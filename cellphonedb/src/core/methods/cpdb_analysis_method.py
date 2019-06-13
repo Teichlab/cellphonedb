@@ -37,6 +37,7 @@ def call(meta: pd.DataFrame,
     means = means_simple.append(means_complex, sort=False)
     significant_means = significant_means_simple.append(significant_means_complex, sort=False)
     deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
+    deconvoluted.drop_duplicates(inplace=True)
 
     if means.empty:
         raise EmptyResultException
