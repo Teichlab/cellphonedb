@@ -49,7 +49,8 @@ def call(meta: pd.DataFrame,
         mean_analysis,
         percent_analysis,
         clusters['means'],
-        result_precision)
+        result_precision,
+        counts_data)
 
     return means_result, significant_means, deconvoluted_result
 
@@ -58,12 +59,16 @@ def build_results(interactions: pd.DataFrame,
                   mean_analysis: pd.DataFrame,
                   percent_analysis: pd.DataFrame,
                   clusters_means: dict,
-                  result_precision: int) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
+                  result_precision: int,
+                  counts_data: str) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info('Building Simple results')
     interacting_pair = cpdb_statistical_analysis_helper.interacting_pair_build(interactions)
 
-    interactions_data_result = pd.DataFrame(interactions[['id_cp_interaction', 'name_1', 'name_2', 'ensembl_1',
-                                                          'ensembl_2', 'source']].copy())
+    gene_columns = ['{}_{}'.format(counts_data, suffix) for suffix in ('1', '2')]
+    gene_renames = {column: 'gene_{}'.format(suffix) for column, suffix in zip(gene_columns, ['a', 'b'])}
+
+    interactions_data_result = pd.DataFrame(
+        interactions[['id_cp_interaction', 'name_1', 'name_2', *gene_columns, 'source']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
@@ -74,13 +79,15 @@ def build_results(interactions: pd.DataFrame,
             interactions['receptor_1'] | interactions['receptor_2'])
 
     interactions_data_result.rename(
-        columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'ensembl_1': 'gene_a', 'ensembl_2': 'gene_b'},
+        columns={'name_1': 'partner_a', 'name_2': 'partner_b', **gene_renames},
         inplace=True)
 
     interactions_data_result['partner_a'] = interactions_data_result['partner_a'].apply(
         lambda name: 'simple:{}'.format(name))
     interactions_data_result['partner_b'] = interactions_data_result['partner_b'].apply(
         lambda name: 'simple:{}'.format(name))
+
+    interactions_data_result.drop_duplicates(inplace=True)
 
     significant_mean_rank, significant_means = cpdb_analysis_helper.build_significant_means(mean_analysis,
                                                                                             percent_analysis)
@@ -99,26 +106,28 @@ def build_results(interactions: pd.DataFrame,
                                          join='inner', sort=False)
 
     # Document 5
-    deconvoluted_result = deconvoluted_result_build(clusters_means, interactions)
+    deconvoluted_result = deconvoluted_result_build(clusters_means, interactions, counts_data)
 
     return means_result, significant_means_result, deconvoluted_result
 
 
-def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame) -> pd.DataFrame:
+def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame, counts_data: str) -> pd.DataFrame:
     deconvoluted_result_1 = pd.DataFrame()
     deconvoluted_result_2 = pd.DataFrame()
     deconvoluted_result_1[
-        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
+        ['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
         interactions[
-            ['ensembl_1', 'protein_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_cp_interaction', 'receptor_1']]
+            ['{}_1'.format(counts_data), 'protein_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_cp_interaction',
+             'receptor_1']]
     deconvoluted_result_2[
-        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
+        ['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
         interactions[
-            ['ensembl_2', 'protein_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_cp_interaction', 'receptor_2']]
+            ['{}_2'.format(counts_data), 'protein_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_cp_interaction',
+             'receptor_2']]
 
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
 
-    deconvoluted_result.set_index('ensembl', inplace=True)
+    deconvoluted_result.set_index('gene', inplace=True)
 
     cluster_counts = pd.DataFrame(index=deconvoluted_result.index)
     for key, cluster_means in clusters_means.items():

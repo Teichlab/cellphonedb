@@ -68,7 +68,8 @@ def call(meta: pd.DataFrame,
         complex_compositions,
         counts,
         genes,
-        result_precision
+        result_precision,
+        counts_data
     )
     return means_result, significant_means, deconvoluted_result
 
@@ -80,7 +81,8 @@ def build_results(interactions: pd.DataFrame,
                   complex_compositions: pd.DataFrame,
                   counts: pd.DataFrame,
                   genes: pd.DataFrame,
-                  result_precision: int) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
+                  result_precision: int,
+                  counts_data: str) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     """
     Sets the results data structure from method generated data. Results documents are defined by specs.
     """
@@ -107,10 +109,12 @@ def build_results(interactions: pd.DataFrame,
         mean_analysis, percent_analysis)
     significant_means = significant_means.round(result_precision)
 
+    gene_columns = ['{}_{}'.format(counts_data, suffix) for suffix in ('1', '2')]
+    gene_renames = {column: 'gene_{}'.format(suffix) for column, suffix in zip(gene_columns, ['a', 'b'])}
+
     # Remove useless columns
-    interactions_data_result = pd.DataFrame(interactions[
-                                                ['id_cp_interaction', 'partner_a', 'partner_b', 'ensembl_1',
-                                                 'ensembl_2', 'source']].copy())
+    interactions_data_result = pd.DataFrame(
+        interactions[['id_cp_interaction', 'partner_a', 'partner_b', *gene_columns, 'source']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
@@ -121,8 +125,10 @@ def build_results(interactions: pd.DataFrame,
             interactions['receptor_1'] | interactions['receptor_2'])
 
     interactions_data_result.rename(
-        columns={'ensembl_1': 'gene_a', 'ensembl_2': 'gene_b'},
+        columns=gene_renames,
         inplace=True)
+
+    interactions_data_result.drop_duplicates(inplace=True)
 
     mean_analysis = mean_analysis.round(result_precision)
 
@@ -139,29 +145,29 @@ def build_results(interactions: pd.DataFrame,
 
     # Document 5
     deconvoluted_result = deconvoluted_complex_result_build(clusters_means, interactions, complex_compositions, counts,
-                                                            genes)
+                                                            genes, counts_data)
 
     return means_result, significant_means_result, deconvoluted_result
 
 
 def deconvoluted_complex_result_build(clusters_means: dict, interactions: pd.DataFrame,
                                       complex_compositions: pd.DataFrame, counts: pd.DataFrame,
-                                      genes: pd.DataFrame) -> pd.DataFrame:
+                                      genes: pd.DataFrame, counts_data: str) -> pd.DataFrame:
     genes_counts = list(counts.index)
-    genes_filtered = genes[genes['ensembl'].apply(lambda gene: gene in genes_counts)]
+    genes_filtered = genes[genes[counts_data].apply(lambda gene: gene in genes_counts)]
 
     deconvoluted_complex_result_1 = deconvolute_complex_interaction_component(complex_compositions, genes_filtered,
-                                                                              interactions, '_1')
-    deconvoluted_simple_result_1 = deconvolute_interaction_component(interactions, '_1')
+                                                                              interactions, '_1', counts_data)
+    deconvoluted_simple_result_1 = deconvolute_interaction_component(interactions, '_1', counts_data)
 
     deconvoluted_complex_result_2 = deconvolute_complex_interaction_component(complex_compositions, genes_filtered,
-                                                                              interactions, '_2')
-    deconvoluted_simple_result_2 = deconvolute_interaction_component(interactions, '_2')
+                                                                              interactions, '_2', counts_data)
+    deconvoluted_simple_result_2 = deconvolute_interaction_component(interactions, '_2', counts_data)
 
     deconvoluted_result = deconvoluted_complex_result_1.append(
         [deconvoluted_simple_result_1, deconvoluted_complex_result_2, deconvoluted_simple_result_2], sort=False)
 
-    deconvoluted_result.set_index('ensembl', inplace=True)
+    deconvoluted_result.set_index('gene', inplace=True)
 
     cluster_counts = pd.DataFrame(index=deconvoluted_result.index)
 
@@ -176,26 +182,26 @@ def deconvoluted_complex_result_build(clusters_means: dict, interactions: pd.Dat
     return deconvoluted_result
 
 
-def deconvolute_interaction_component(interactions, suffix):
+def deconvolute_interaction_component(interactions, suffix, counts_data):
     interactions = interactions[~interactions['is_complex{}'.format(suffix)]]
     deconvoluted_result = pd.DataFrame()
     deconvoluted_result[
-        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
+        ['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
         interactions[
-            ['ensembl{}'.format(suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
+            ['{}{}'.format(counts_data, suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
              'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction', 'receptor{}'.format(suffix)]]
 
     return deconvoluted_result
 
 
-def deconvolute_complex_interaction_component(complex_compositions, genes_filtered, interactions, suffix):
+def deconvolute_complex_interaction_component(complex_compositions, genes_filtered, interactions, suffix, counts_data):
     deconvoluted_result = pd.DataFrame()
     component = pd.DataFrame()
     component[
-        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction',
+        [counts_data, 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction',
          'id_multidata', 'receptor']] = \
         interactions[
-            ['ensembl{}'.format(suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
+            ['{}{}'.format(counts_data, suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
              'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction',
              'id_multidata{}'.format(suffix), 'receptor{}'.format(suffix)]]
 
@@ -205,9 +211,11 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
                                      right_on='protein_multidata_id', suffixes=['_complex', '_simple'])
 
     deconvoluted_result[
-        ['ensembl', 'protein_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'id_cp_interaction', 'receptor']] = \
-        deconvolution_complex[['ensembl_simple', 'protein_name_simple', 'gene_name_simple', 'name_simple',
-                               'is_complex_complex', 'name_complex', 'id_cp_interaction', 'receptor_simple']]
+        ['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'complex_name', 'id_cp_interaction',
+         'receptor']] = \
+        deconvolution_complex[
+            ['{}_simple'.format(counts_data), 'protein_name_simple', 'gene_name_simple', 'name_simple',
+             'is_complex_complex', 'name_complex', 'id_cp_interaction', 'receptor_simple']]
 
     return deconvoluted_result
 
