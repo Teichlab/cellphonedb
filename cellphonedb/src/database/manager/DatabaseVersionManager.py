@@ -73,14 +73,14 @@ def find_database_for(value: str) -> str:
     return downloaded_candidate
 
 
-def collect_database(database, output_path):
+def collect_database(database, output_path, **kwargs):
     database_file_path = os.path.join(output_path, database)
 
     app = create_app(verbose=True, database_file=database_file_path, collecting=True)
     app.database_manager.database.drop_everything()
     app.database_manager.database.create_all()
 
-    getattr(LocalCollectorLauncher(database_file_path), 'all')(None)
+    LocalCollectorLauncher(database_file_path).all(**kwargs)
 
 
 def download_database(version):

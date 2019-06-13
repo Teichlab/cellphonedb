@@ -1,7 +1,6 @@
-import click
 import os
 import urllib.parse
-from typing import Optional, List
+from typing import Optional
 
 import click
 import pandas as pd
@@ -11,7 +10,7 @@ from cellphonedb.src.app.cellphonedb_app import output_dir, data_dir
 from cellphonedb.src.core.generators.complex_generator import complex_generator
 from cellphonedb.src.core.generators.gene_generator import gene_generator
 from cellphonedb.src.core.generators.protein_generator import protein_generator
-from cellphonedb.src.local_launchers.local_collector_launcher import LocalCollectorLauncher
+from cellphonedb.tools import tools_helper
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
 from cellphonedb.tools.generate_data.getters import get_iuphar_guidetopharmacology
@@ -19,9 +18,8 @@ from cellphonedb.tools.generate_data.mergers.add_curated import add_curated
 from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iuphar_imex_interactions
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
 from cellphonedb.tools.generate_data.parsers.parse_interactions_imex import parse_interactions_imex
-from cellphonedb.tools import tools_helper
-from cellphonedb.utils.utils import _get_separator, write_to_file
 from cellphonedb.utils import utils
+from cellphonedb.utils.utils import _get_separator, write_to_file
 
 
 @click.command()
@@ -101,7 +99,7 @@ def generate_genes(user_gene: Optional[click.File],
 
     cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, user_gene, result_columns)
 
-    cpdb_genes[result_columns].to_csv('{}/{}'.format(output_path, 'gene_input.csv'), index=False)
+    cpdb_genes[result_columns].to_csv('{}/{}'.format(output_path, 'gene_generated.csv'), index=False)
 
 
 @click.command()
@@ -168,12 +166,11 @@ def generate_interactions(proteins: str,
     print('Adding curated interaction')
     interactions_with_curated = add_curated(clean_interactions, interaction_curated)
 
-    tools_helper.normalize_interactions(
+    interactions_with_curated = tools_helper.normalize_interactions(
         interactions_with_curated.append(user_interactions, ignore_index=True, sort=False), 'partner_a',
         'partner_b').drop_duplicates(['partner_a', 'partner_b'], keep='last')
 
-    interactions_with_curated[result_columns].to_csv(
-        '{}/interaction_input.csv'.format(output_path), index=False)
+    interactions_with_curated[result_columns].to_csv('{}/interaction_input.csv'.format(output_path), index=False)
 
 
 @click.command()
@@ -251,7 +248,7 @@ def generate_proteins(user_protein: Optional[click.File],
     result = protein_generator(uniprot_db, curated_proteins, user_protein, default_values, default_types,
                                result_columns, log_path)
 
-    result[result_columns].to_csv('{}/{}'.format(output_path, 'protein_input.csv'), index=False)
+    result[result_columns].to_csv('{}/{}'.format(output_path, 'protein_generated.csv'), index=False)
 
 
 @click.command()
@@ -269,7 +266,7 @@ def generate_complex(user_complex: Optional[click.File], result_path: str, log_f
 
     result = complex_generator(curated_complex, user_complex, log_path)
 
-    result.to_csv('{}/{}'.format(output_path, 'complex_input.csv'), index=False)
+    result.to_csv('{}/{}'.format(output_path, 'complex_generated.csv'), index=False)
 
 
 @click.command()
@@ -277,9 +274,9 @@ def generate_complex(user_complex: Optional[click.File], result_path: str, log_f
 @click.option('--result-path', type=str, default='filtered')
 def filter_all(input_path, result_path):
     interactions: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'interaction_input.csv'))
-    complexes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'complex_input.csv'))
-    proteins: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'protein_input.csv'))
-    genes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'gene_input.csv'))
+    complexes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'complex_generated.csv'))
+    proteins: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'protein_generated.csv'))
+    genes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'gene_generated.csv'))
     output_path = _set_paths(output_dir, result_path)
 
     interacting_partners = pd.concat([interactions['partner_a'], interactions['partner_b']]).drop_duplicates()
@@ -299,13 +296,6 @@ def filter_all(input_path, result_path):
     if len(rejected_members):
         app_logger.warning('There are some proteins or complexes not interacting properly: `{}`'.format(
             ', '.join(rejected_members)))
-
-
-@click.command()
-@click.argument('table')
-@click.argument('file', default='')
-def collect(table, file):
-    getattr(LocalCollectorLauncher(), table)(file)
 
 
 def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.Series) -> pd.DataFrame:
