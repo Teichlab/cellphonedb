@@ -9,59 +9,106 @@ import tqdm as tqdm
 proteins = pd.read_csv(sys.argv[1])['uniprot'].tolist()
 
 sources = \
-    {
-        # 'InnateDB': 'https://psicquic.curated.innatedb.com/webservices/current/search/query/',
-        # 'InnateDB-All': 'https://psicquic.all.innatedb.com/webservices/current/search/query/{}',
-        'IMEx': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/imex/webservices/current/search/query/{}',
-        'IntAct': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/intact/webservices/current/search/query/{}',
-        'bhf-ucl': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/bhf-ucl/webservices/current/search/query/{}',
-        'MatrixDB': 'http://matrixdb.univ-lyon1.fr:8080/psicquic/webservices/current/search/query/{}',
-        'MINT': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/mint/webservices/current/search/query/{}',
-        'I2D': 'http://ophid.utoronto.ca/psicquic-ws/webservices/current/search/query/{}',
-        'UniProt': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/uniprot/webservices/current/search/query/{}',
-        'MBInfo': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/mbinfo/webservices/current/search/query/{}',
+    [
+        {
+            'name': 'InnateDB',
+            'base_url': 'https://psicquic.curated.innatedb.com/webservices/current/search/query/species:human',
+            'query_parameters': False,
+        },
+        {
+            'name': 'InnateDB-All',
+            'base_url': 'https://psicquic.all.innatedb.com/webservices/current/search/query/species:human',
+            'query_parameters': False,
+        },
+        {
+            'name': 'IMEx',
+            'base_url': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/imex/webservices/current/search/query/{}',
+            'query_parameters': True,
+        },
+        {
+            'name': 'IntAct',
+            'base_url': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/intact/webservices/current/search/query/{}',
+            'query_parameters': True,
+        },
+        {
+            'name': 'bhf-ucl',
+            'base_url': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/bhf-ucl/webservices/current/search/query/{}',
+            'query_parameters': True,
+        },
+        {
+            'name': 'MatrixDB',
+            'base_url': 'http://matrixdb.univ-lyon1.fr:8080/psicquic/webservices/current/search/query/{}',
+            'query_parameters': True,
+        },
+        {
+            'name': ' MINT',
+            'base_url': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/mint/webservices/current/search/query/{}',
+            'query_parameters': True,
+        },
+        {
+            'name': 'I2D',
+            'base_url': 'http://ophid.utoronto.ca/psicquic-ws/webservices/current/search/query/{}',
+            'query_parameters': True,
+        },
+        {
+            'name': 'UniProt',
+            'base_url': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/uniprot/webservices/current/search/query/{}',
+            'query_parameters': True,
+        },
+        {
+            'name': ' MBInfo',
+            'base_url': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/mbinfo/webservices/current/search/query/{}',
+            'query_parameters': True,
+        },
         # 'DIP': 'http://imex.mbi.ucla.edu/xpsq-dip-all/service/rest/current/search/query/{}',
 
-    }
+    ]
 
-# # Create interaction_imex_raw.csv with all sources
-#
-# carry = pd.DataFrame()
-#
-# for source in sources.keys():
-#     print('\n')
-#     print(source)
-#     for idx, chunk in tqdm.tqdm(enumerate(zip(*[iter(proteins)] * 300))):
-#         url = sources[source].format('{}'.format(' or '.join(chunk)))
-#         response = requests.get(url)
-#
-#         if response.text:
-#             s = StringIO(response.text)
-#             df = pd.read_csv(s, sep='\t', header=None)
-#             carry = pd.concat([carry, df], sort=False, axis=0)
-#         else:
-#             print(url)
-#             print('{} it {} is empty. Status code: {}'.format(source, idx, response.status_code))
-#     carry['provider'] = source
-#     carry.to_csv('out/psicquic/{}_interaction_raw.csv'.format(source), index=False)
-#
+# Create interaction_imex_raw.csv with all sources
+
+
+for source in sources:
+    print('\n')
+    print(source['name'])
+    carry = pd.DataFrame()
+    if source['query_parameters']:
+        for idx, chunk in tqdm.tqdm(enumerate(zip(*[iter(proteins)] * 500))):
+            url = source['base_url'].format('{}'.format(' or '.join(chunk)))
+            print(url)
+            response = requests.get(url)
+
+            if response.text:
+                s = StringIO(response.text)
+                df = pd.read_csv(s, sep='\t', header=None)
+                carry = pd.concat([carry, df], sort=False, axis=0)
+                carry.drop_duplicates(inplace=True)
+            else:
+                print(url)
+                print('{} it {} is empty. Status code: {}'.format(source['name'], idx, response.status_code))
+
+    else:
+        url = source['base_url']
+        response = requests.get(url)
+
+        if response.text:
+            s = StringIO(response.text)
+            df = pd.read_csv(s, sep='\t', names=['A', 'B', 'altA', 'altB'], usecols=range(4))
+            print(df)
+            carry = pd.concat([carry, df], sort=False, axis=0)
+            carry.drop_duplicates(inplace=True)
+        else:
+            print(url)
+            print('{} is empty. Status code: {}'.format(source['name'], response.status_code))
+
+    carry['provider'] = source['name']
+    carry.to_csv('out/psicquic/{}_interaction_raw.csv'.format(source['name']), index=False)
+
 carry = pd.DataFrame(columns=['A', 'B', 'altA', 'altB', 'provider'])
 
-print('InnateDB')
-innatedb = pd.read_csv('out/psicquic/InnateDB_interaction_raw.txt', sep='\t')[['A', 'B', 'altA', 'altB']]
-innatedb['provider'] = 'InnateDB'
-carry = carry.append(innatedb)
-
-print('InnateDB-All')
-innatedb_all = pd.read_csv('out/psicquic/InnateDB-All_interaction_raw.txt', sep='\t')[
-    ['A', 'B', 'altA', 'altB']]
-innatedb_all['provider'] = 'InnateDB-All'
-carry = carry.append(innatedb_all)
-
-for source in sources.keys():
-    print(source)
-    source_data = pd.read_csv('out/psicquic/{}_interaction_raw.csv'.format(source))
-    source_data.rename(columns={'0': 'A', '1': 'B', '2': 'altA', '3': 'altB'}, index=str, inplace=True)
-    carry = carry.append(source_data[['A', 'B', 'altA', 'altB', 'provider']], sort=False, ignore_index=True)
+for source in sources:
+    print(source['name'])
+source_data = pd.read_csv('out/psicquic/{}_interaction_raw.csv'.format(source['name']))
+source_data.rename(columns={'0': 'A', '1': 'B', '2': 'altA', '3': 'altB'}, index=str, inplace=True)
+carry = carry.append(source_data[['A', 'B', 'altA', 'altB', 'provider']], sort=False, ignore_index=True)
 
 carry.to_csv('out/IMEX_all_sources.csv', index=False)
