@@ -28,7 +28,7 @@ python -m venv cpdb-venv
 source cpdb-venv/bin/activate
 ```
 
-3. Install cellphonedb
+3. Install CellPhoneDB
 ```shell
 pip install cellphonedb
 ```
@@ -76,7 +76,7 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 - `--means-result-name`: Means result filename [means]
 - `--significant-means-result-name`: Significant result filename [significant_means]
 - `--deconvoluted-result-name`: Deconvoluted result filename [deconvoluted]
-- `--verbose/--quiet`: Print or hide cellphonedb logs [verbose]
+- `--verbose/--quiet`: Print or hide CellPhoneDB logs [verbose]
 - `--subsampling`: Enable Cells subsampling
 - `--subsampling-log`: Enable subsampling log1p for non transformed data inputs !!mandatory!!
 - `--subsampling-num-pc`: Subsampling NumPC argument [100]
@@ -136,7 +136,7 @@ You can tweak the options for the plot with these arguments:
 - `--output-name`: Output file with plot [plot.pdf]
 - `--rows`: File with a list of rows to plot, one per line [all available]
 - `--columns`: File with a list of columns to plot, one per line [all available]
-- `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
+- `--verbose / --quiet`: Print or hide CellPhoneDB logs [verbose]
 
 Available output formats are those supported by `R's ggplot2` package, among others they are:
 - `pdf`
@@ -170,7 +170,7 @@ This format will be inferred from the `--count-name` & `--log-name` argument
 
 
 ## Using different database versions
-Cellphone databases can be updated from remote repository through our tool. Available versions can be listed and downloaded to be used.
+CellPhoneDB databases can be updated from remote repository through our tool. Available versions can be listed and downloaded to be used.
 
 To use one of those versions a user must provide the `--database <version_or_file>` to the method to be executed.
 
@@ -185,43 +185,49 @@ Downloaded versions will be stored in a user folder under `~/.cpdb/releases`
 ## Listing remote available versions
 The command to list available versions from the remote repository is:
 ```shell
-cellphone database list_remote
+cellphonedb database list_remote
 ``` 
 
 ## Listing local available versions
 The command to list available versions from the remote repository is:
 ```shell
-cellphone database list_local
+cellphonedb database list_local
 ``` 
 
 ## Download version
 The command to download a version from the remote repository is:
 ```shell
-cellphone database download
+cellphonedb database download
 ``` 
 or 
 
 ```shell 
-cellphone database download --version <version_spec|latest> 
+cellphonedb database download --version <version_spec|latest> 
 ``` 
 
 `version_spec` must be one of the listed in the `database list_remote` command.
 If no version is specified or `latest` is used as a `version_spec` the newest available version will be downloaded
 
 
-## Generating Custom database
+## Generating User database
 A user can generate custom databases and use them. In order to generate a new database a user can provide his/her own lists.
 
 These lists can be: genes, proteins, complexes and/or interactions. In the generation process they will get merged with the ones from
-the cellphone release sources. The user lists have higher precedence than the ones included in cellphone package.
+the CellPhoneDB release sources. The user lists have higher precedence than the ones included in CellPhoneDB package.
 
 To generate such a database the user has to issue this command:
 ```shell
-cellphone tools generate_filter_and_collect  
+cellphonedb tools generate_filter_and_collect  
+```
+
+Result database file is generated in `out` with `cellphonedb_user_{datetime}.db`. To use this database, please use `--database` parameter in methods.
+E.g:
+```
+ cellphonedb method statistical_analysis in/example_data/test_meta.txt in/example_data/test_counts.txt --database out/cellphonedb_user_2019-05-10-11_10.db
 ```
 
 Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By the default the snapshots included in
-the cellphone package will be used, to enable a fresh copy `--fetch` must be appended to the command.
+the CellPhoneDB package will be used, to enable a fresh copy `--fetch` must be appended to the command.
 
 In order to use specific lists those can be specified like this `--user-protein`, `--user-gene`, `--user-complex`, `--user-interactions`,
 followed by the corresponding file path.
@@ -230,11 +236,11 @@ The database file can be then used as explained below. The intrermediate lists u
 As the lists as processed, then filtered, and lastly collected, two versions may exist: `_generated` is the unfiltered one 
 whereas `_input` is the final state prior being inserted in the database.
 
-As this functionality is considered advanced it is disabled by default, to enable it an `ADVANCED` environment variable must be set to any value in the running shell.  
+Generating individually lists is considered advanced it is disabled by default, to enable it an `ADVANCED` environment variable must be set to any value in the running shell.  
 
 
 ## Using different database versions
-Cellphone databases can be updated from remote repository through our tool. Available versions can be listed and downloaded to be used.
+CellPhoneDB databases can be updated from remote repository through our tool. Available versions can be listed and downloaded to be used.
 
 To use one of those versions a user must provide the `--database <version_or_file>` to the method to be executed.
 
@@ -249,24 +255,24 @@ Downloaded versions will be stored in a user folder under `~/.cpdb/releases`
 ## Listing remote available versions
 The command to list available versions from the remote repository is:
 ```shell
-cellphone database list_remote
+cellphonedb database list_remote
 ``` 
 
 ## Listing local available versions
 The command to list available versions from the remote repository is:
 ```shell
-cellphone database list_local
+cellphonedb database list_local
 ``` 
 
 ## Download version
 The command to download a version from the remote repository is:
 ```shell
-cellphone database download
+cellphonedb database download
 ``` 
 or 
 
 ```shell 
-cellphone database download --version <version_spec|latest> 
+cellphonedb database download --version <version_spec|latest> 
 ``` 
 
 `version_spec` must be one of the listed in the `database list_remote` command.

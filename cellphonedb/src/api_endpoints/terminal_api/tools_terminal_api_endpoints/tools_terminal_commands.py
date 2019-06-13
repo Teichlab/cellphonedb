@@ -336,7 +336,7 @@ def generate_filter_and_collect(ctx: Context,
 
     ctx.invoke(filter_all, input_path=output_path, result_path=result_path)
 
-    db_name = 'cellphone_custom_{}.db'.format(datetime.now().strftime("%Y-%m-%d-%H_%M"))
+    db_name = 'cellphonedb_user_{}.db'.format(datetime.now().strftime("%Y-%m-%d-%H_%M"))
 
     collect_database(db_name, output_path,
                      protein_filename='protein_input.csv',
