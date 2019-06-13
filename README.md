@@ -217,7 +217,7 @@ the CellPhoneDB release sources. The user lists have higher precedence than the 
 
 To generate such a database the user has to issue this command:
 ```shell
-cellphonedb tools generate_filter_and_collect  
+cellphonedb database generate  
 ```
 
 Result database file is generated in `out` with `cellphonedb_user_{datetime}.db`. To use this database, please use `--database` parameter in methods.

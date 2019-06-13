@@ -45,7 +45,7 @@ query.add_command(query_terminal_commands.get_interaction_gene)
 database.add_command(database_terminal_api_endpoints.database_terminal_commands.download)
 database.add_command(database_terminal_api_endpoints.database_terminal_commands.list_remote)
 database.add_command(database_terminal_api_endpoints.database_terminal_commands.list_local)
-
+database.add_command(database_terminal_api_endpoints.database_terminal_commands.generate)
 if locals().get('plot_terminal_commands'):
     @cli.group()
     def plot():
@@ -69,7 +69,6 @@ if os.getenv(advanced_flag_var, None):
     tools.add_command(tools_terminal_commands.generate_complex)
     tools.add_command(tools_terminal_commands.generate_interactions)
     tools.add_command(tools_terminal_commands.filter_all)
-    tools.add_command(tools_terminal_commands.generate_filter_and_collect)
 
 if __name__ == '__main__':
     cli()
