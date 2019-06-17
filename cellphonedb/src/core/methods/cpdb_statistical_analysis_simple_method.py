@@ -171,6 +171,7 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame, 
              'receptor_2']]
 
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
+    deconvoluted_result['complex_name'] = pd.np.nan
 
     deconvoluted_result.set_index('gene', inplace=True)
 
@@ -181,7 +182,7 @@ def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame, 
     cluster_counts = cluster_counts.reindex(sorted(cluster_counts.columns), axis=1)
 
     # Here we sort and filter unwanted columns
-    deconvoluted_columns = ['gene_name', 'name', 'is_complex', 'protein_name', 'id_cp_interaction']
+    deconvoluted_columns = ['gene_name', 'name', 'is_complex', 'protein_name', 'complex_name', 'id_cp_interaction']
 
     deconvoluted_result = deconvoluted_result[deconvoluted_columns]
     deconvoluted_result.rename({'name': 'uniprot'}, axis=1, inplace=True)
