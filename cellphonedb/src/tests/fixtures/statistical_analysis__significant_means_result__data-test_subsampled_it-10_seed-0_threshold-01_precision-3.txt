@@ -1,76 +1,76 @@
-id_cp_interaction	interacting_pair	partner_a	partner_b	gene_a	gene_b	secreted	receptor	source	is_integrin	rank	Myeloid|Myeloid	Myeloid|NKcells_0	Myeloid|NKcells_1	Myeloid|Tcells	NKcells_0|Myeloid	NKcells_0|NKcells_0	NKcells_0|NKcells_1	NKcells_0|Tcells	NKcells_1|Myeloid	NKcells_1|NKcells_0	NKcells_1|NKcells_1	NKcells_1|Tcells	Tcells|Myeloid	Tcells|NKcells_0	Tcells|NKcells_1	Tcells|Tcells
-CPI-SS0F00D756A	CD40_TNFSF13B	simple:P25942	simple:Q9Y275	ENSG00000101017	ENSG00000102524	True	True	InnateDB,InnateDB-All	False	0.062	1.127															
-CPI-SS06CBC985C	LTBR_LTB	simple:P36941	simple:Q06643	ENSG00000111321	ENSG00000227507	False	True	curated	False	0.062				1.114												
-CPI-SS027AFFC0E	NCR3_BAG6	simple:O14931	simple:P46379	ENSG00000204475	ENSG00000204463	False	True	curated	False	0.062							1.372									
-CPI-SS0B84DAE3D	PVR_CD96	simple:P15151	simple:P40200	ENSG00000073008	ENSG00000153283	True	True	curated	False	0.062		1.428														
-CPI-SS00561BBD7	PVR_TIGIT	simple:P15151	simple:Q495A1	ENSG00000073008	ENSG00000181847	True	True	curated	False	0.062				1.114												
-CPI-SS0E0DEA7D5	PECAM1_CD38	simple:P16284	simple:P28907	ENSG00000261371	ENSG00000004468	False	True	curated	False	0.062		1.03														
-CPI-SS067BA9202	LAIR1_LILRB4	simple:Q6GTX8	simple:Q8NHJ6	ENSG00000167613	ENSG00000186818	False	True	curated	False	0.062	1.555															
-CPI-SC0B6D68FD5	ICAM1_aMb2 complex	simple:P05362	complex:aMb2 complex	ENSG00000090339		False	True	curated	True	0.062	1.385															
-CPI-SC0F4AC5AA2	ICAM1_aLb2 complex	simple:P05362	complex:aLb2 complex	ENSG00000090339		False	True	curated	True	0.062			1.456													
-CPI-SS05CE87F88	HLA-G_LILRB1	simple:P17693	simple:Q8NHL6	ENSG00000204632	ENSG00000104972	True	True	curated	False	0.062													2.037			
-CPI-SC0329D5397	ICAM3_aLb2 complex	simple:P32942	complex:aLb2 complex	ENSG00000076662		False	False	curated	True	0.062			1.197													
-CPI-SC063BC3DDE	ICAM2_aLb2 complex	simple:P13598	complex:aLb2 complex	ENSG00000108622		False	False	curated	True	0.062			1.197													
-CPI-SS033E6DE7E	NRP1_VEGFB	simple:O14786	simple:P49765	ENSG00000099250	ENSG00000173511	True	True	curated	False	0.062			1.197													
-CPI-SC0A9458008	ICAM1_aXb2 complex	simple:P05362	complex:aXb2 complex	ENSG00000090339		False	True	curated	True	0.062		1.686														
-CPI-SS098425155	ADRB2_VEGFB	simple:P07550	simple:P49765	ENSG00000169252	ENSG00000173511	True	True	InnateDB-All	False	0.062			1.456													
-CPI-SC06364D669	FN1_a4b1 complex	simple:P02751	complex:a4b1 complex	ENSG00000115414		True	False	curated	True	0.062				2.812												
-CPI-SS0E9A581F8	ICAM1_ITGAL	simple:P05362	simple:P20701	ENSG00000090339	ENSG00000005844	False	True	curated	False	0.062			1.456													
-CPI-SS0A4F27388	TNFRSF1A_FASLG	simple:P19438	simple:P48023	ENSG00000067182	ENSG00000117560	True	True	InnateDB-All	False	0.062														1.017		
-CPI-SS0C4E86714	TNFRSF1B_GRN	simple:P20333	simple:P28799	ENSG00000028137	ENSG00000030582	True	True	InnateDB-All,MINT	False	0.062					1.982											
-CPI-SS0DA033F03	TNFRSF1A_GRN	simple:P19438	simple:P28799	ENSG00000067182	ENSG00000030582	True	True	InnateDB-All,MINT	False	0.062													1.668			
-CPI-SC0E8575642	ICAM3_aDb2 complex	simple:P32942	complex:aDb2 complex	ENSG00000076662		False	False	curated	True	0.062		1.428														
-CPI-SC0B4D7E0FF	FN1_a4b7 complex	simple:P02751	complex:a4b7 complex	ENSG00000115414		True	False	curated	True	0.062				2.812												
-CPI-SS0E23CEB91	LGALS9_HAVCR2	simple:O00182	simple:Q8TDQ0	ENSG00000168961	ENSG00000135077	True	True	curated	False	0.062	1.813															
-CPI-SC0E9C058EB	PLAUR_a4b1 complex	simple:Q03405	complex:a4b1 complex	ENSG00000011422		True	True	curated	True	0.062				1.369												
-CPI-SS00B1BEE64	CD2_CD58	simple:P06729	simple:P19256	ENSG00000116824	ENSG00000116815	False	True	curated	False	0.125						1.55								1.567		
-CPI-SS01560CA22	CD99_PILRA	simple:P14209	simple:Q9UKJ1	ENSG00000002586	ENSG00000085514	True	True	curated	False	0.125	1.385				1.268											
-CPI-SS002DF6C31	LGALS9_SLC1A5	simple:O00182	simple:Q15758	ENSG00000168961	ENSG00000105281	True	True	InnateDB-All	False	0.125		1.526	1.456													
-CPI-SS02A0FF87F	FAM3C_CLEC2D	simple:Q92520	simple:Q9UHP7	ENSG00000196937	ENSG00000069493	True	True	IntAct	False	0.125										1.338		1.734				
-CPI-SS06AA638A8	CD72_SEMA4D	simple:P21854	simple:Q92854	ENSG00000137101	ENSG00000187764	False	True	curated	False	0.125	1.127		1.197													
-CPI-SS0703338F5	LGALS9_CD44	simple:O00182	simple:P16070	ENSG00000168961	ENSG00000026508	True	True	InnateDB,InnateDB-All	False	0.125	1.939			2.177												
-CPI-SC07BE7830D	SPP1_a4b1 complex	simple:P10451	complex:a4b1 complex	ENSG00000118785		True	False	curated	True	0.188				2.394				1.51				1.44				
-CPI-CS0715DE78D	CD94:NKG2A_HLA-E	complex:CD94:NKG2A	simple:P13747		ENSG00000204592	False	True	curated	False	0.188						2.827		2.708				2.553				
-CPI-SS056FF4363	CD48_CD244	simple:P09326	simple:Q9BZW8	ENSG00000117091	ENSG00000122223	False	True	curated	False	0.188						1.171				1.338				1.254		
-CPI-CS05AB368CE	CD94:NKG2C_HLA-E	complex:CD94:NKG2C	simple:P13747		ENSG00000204592	False	True	curated	False	0.188						2.457				2.672		2.553				
-CPI-SS0C4FA643F	HLA-E_KLRC2	simple:P13747	simple:P26717	ENSG00000204592	ENSG00000205809	False	True	curated	False	0.188						2.457	2.672								2.553	
-CPI-SS0822AEF5F	PTPRC_MRC1	simple:P08575	simple:P22897	ENSG00000081237	ENSG00000260314	False	True	curated	False	0.188	2.209				2.287								2.56			
-CPI-SS03339363E	HLA-E_KLRK1	simple:P13747	simple:P26718	ENSG00000204592	ENSG00000213809	False	True	curated	False	0.188						2.457				2.175				2.338		
-CPI-SS0F739D3DB	ANXA1_FPR1	simple:P04083	simple:P21462	ENSG00000135046	ENSG00000171051	True	True	guidetopharmacology.org	False	0.188			1.625				1.338				1.268					
-CPI-SS06CCF5A54	ANXA1_FPR3	simple:P04083	simple:P25089	ENSG00000135046	ENSG00000187474	True	True	guidetopharmacology.org	False	0.188	1.555				1.268								1.538			
-CPI-SS0E292C126	KLRB1_CLEC2D	simple:Q12918	simple:Q9UHP7	ENSG00000111796	ENSG00000069493	False	True	curated	False	0.188						2.149		2.545						1.254		
-CPI-SS03EF699C7	HLA-E_KLRC1	simple:P13747	simple:P26715	ENSG00000204592	ENSG00000134545	False	True	curated	False	0.188						3.245				2.964				3.126		
-CPI-SS0ABC5C1B8	CD74_MIF	simple:P04233	simple:P14174	ENSG00000019582	ENSG00000240972	True	True	InnateDB-All	False	0.188	2.232	2.964								1.93						
-CPI-SS0E9015902	CD47_SIRPG	simple:Q08722	simple:Q9P1W8	ENSG00000196776	ENSG00000089012	False	True	curated	False	0.188								1.017				1.184				1.1
-CPI-SS00150FB64	HLA-F_LILRB1	simple:P30511	simple:Q8NHL6	ENSG00000204642	ENSG00000104972	True	True	curated	False	0.188	1.127								1.468				1.369			
-CPI-SS048242083	HLA-F_KIR3DL1	simple:P30511	simple:P43629	ENSG00000204642	ENSG00000167633	False	True	curated	False	0.188							1.913				2.113				2.014	
-CPI-SS09C4FCB90	ICAM1_SPN	simple:P05362	simple:P16150	ENSG00000090339	ENSG00000197471	False	True	curated	False	0.188	1.385		1.456	1.372												
-CPI-SS025C8F785	CLEC2B_KLRF1	simple:Q92478	simple:Q9NZS2	ENSG00000110852	ENSG00000150045	False	True	curated	False	0.188			1.456				1.93				1.268					
-CPI-SS0CBAA9BCC	HLA-A_KIR3DL1	simple:HLAA	simple:P43629	ENSG00000206503	ENSG00000167633	False	True	curated	False	0.188							3.184				3.076				3.281	
-CPI-SS01946BE5C	C5AR1_RPS19	simple:P21730	simple:P39019	ENSG00000197405	ENSG00000105372	False	True	guidetopharmacology.org	False	0.188	1.782	2.68	2.608													
-CPI-SS0ABD11350	HLA-C_KIR2DL1	simple:HLAC	simple:P43626	ENSG00000204525	ENSG00000125498	False	True	curated	False	0.25							3.007				2.741				2.988	2.329
-CPI-SS02AB0C3E0	SPP1_CD44	simple:P10451	simple:P16070	ENSG00000118785	ENSG00000026508	True	True	InnateDB-All,IntAct	False	0.312	2.705			2.943				2.059			1.268	1.989				
-CPI-SS061A7E099	CD55_ADGRE5	simple:P08174	simple:P48960	ENSG00000196352	ENSG00000123146	True	True	curated	False	0.312	1.385	1.03		1.538		1.331		1.838								
-CPI-SS0917CBD53	HLA-C_KIR2DL3	simple:HLAC	simple:P43628	ENSG00000204525	ENSG00000243772	False	True	curated	False	0.438				2.138			2.878	2.349			2.612	2.082			2.858	2.329
-CPI-CS0A9D23000	NKG2D II receptor_MICB	complex:NKG2D II receptor	simple:Q29980		ENSG00000204516	False	True	curated	False	1.438																
-CPI-SC08E97F7CA	VCAM1_a4b7 complex	simple:P19320	complex:a4b7 complex	ENSG00000162692		False	False	curated	True	1.438																
-CPI-SC098B43B5A	MADCAM1_a4b7 complex	simple:Q13477	complex:a4b7 complex	ENSG00000099866		False	False	curated	True	1.438																
-CPI-CS0A269FA16	NKG2D II receptor_ULBP2	complex:NKG2D II receptor	simple:Q9BZM5		ENSG00000131015	True	True	curated	False	1.438																
-CPI-SC01833C7FC	PLA2G2A_a4b1 complex	simple:P14555	complex:a4b1 complex	ENSG00000188257		True	False	curated	True	1.438																
-CPI-SC0A9EB628A	VCAM1_a4b1 complex	simple:P19320	complex:a4b1 complex	ENSG00000162692		False	False	curated	True	1.438																
-CPI-CS0D238C22B	PlexinA2_complex1_SEMA3A	complex:PlexinA2_complex1	simple:Q14563		ENSG00000075213	True	True	curated	False	1.438																
-CPI-SC070D5A96F	JAM2_a4b1 complex	simple:P57087	complex:a4b1 complex	ENSG00000154721		False	False	curated	True	1.438																
-CPI-CS06C6E2321	NKG2D II receptor_MICA	complex:NKG2D II receptor	simple:Q29983		ENSG00000204520	False	True	curated	False	1.438																
-CPI-SC03446A95E	FCER2_aXb2 complex	simple:P06734	complex:aXb2 complex	ENSG00000104921		True	True	curated	True	1.438																
-CPI-SC019DBDA78	VCAM1_aDb2 complex	simple:P19320	complex:aDb2 complex	ENSG00000162692		False	False	curated	True	1.438																
-CPI-SC0C6B54D7A	THY1_aXb2 complex	simple:P04216	complex:aXb2 complex	ENSG00000154096		False	False	curated	True	1.438																
-CPI-SC08923F7F7	F11R_aLb2 complex	simple:Q9Y624	complex:aLb2 complex	ENSG00000158769		False	True	curated	True	1.438																
-CPI-SC092659F65	ICAM4_aLb2 complex	simple:Q14773	complex:aLb2 complex	ENSG00000105371		True	False	curated	True	1.438																
-CPI-SC0F9DD28F3	JAM3_aMb2 complex	simple:Q9BX67	complex:aMb2 complex	ENSG00000166086		True	False	curated	True	1.438																
-CPI-SC0B292AEE6	GP1BA_aMb2 complex	simple:P07359	complex:aMb2 complex	ENSG00000185245		False	False	curated	True	1.438																
-CPI-SC07312BD5C	FCER2_aMb2 complex	simple:P06734	complex:aMb2 complex	ENSG00000104921		True	True	curated	True	1.438																
-CPI-SC0A05D3880	THY1_aMb2 complex	simple:P04216	complex:aMb2 complex	ENSG00000154096		False	False	curated	True	1.438																
-CPI-SC0C3E2D267	F10_aMb2 complex	simple:P00742	complex:aMb2 complex	ENSG00000126218		True	False	curated	True	1.438																
-CPI-SC0527EEE7A	C3_aMb2 complex	simple:P01024	complex:aMb2 complex	ENSG00000125730		True	False	curated	True	1.438																
-CPI-SC0BC542ACC	TNC_a4b1 complex	simple:P24821	complex:a4b1 complex	ENSG00000041982		True	False	curated	True	1.438																
-CPI-CS06E556972	IL15 receptor_IL15	complex:IL15 receptor	simple:P40933		ENSG00000164136	True	True	curated	False	1.438																
+id_cp_interaction	interacting_pair	partner_a	partner_b	gene_a	gene_b	secreted	receptor_a	receptor_b	source	is_integrin	rank	Myeloid|Myeloid	Myeloid|NKcells_0	Myeloid|NKcells_1	Myeloid|Tcells	NKcells_0|Myeloid	NKcells_0|NKcells_0	NKcells_0|NKcells_1	NKcells_0|Tcells	NKcells_1|Myeloid	NKcells_1|NKcells_0	NKcells_1|NKcells_1	NKcells_1|Tcells	Tcells|Myeloid	Tcells|NKcells_0	Tcells|NKcells_1	Tcells|Tcells
+CPI-SS0F00D756A	CD40_TNFSF13B	simple:P25942	simple:Q9Y275	ENSG00000101017	ENSG00000102524	True	True	False	InnateDB,InnateDB-All	False	0.062	1.127															
+CPI-SS06CBC985C	LTBR_LTB	simple:P36941	simple:Q06643	ENSG00000111321	ENSG00000227507	False	True	False	curated	False	0.062				1.114												
+CPI-SS027AFFC0E	NCR3_BAG6	simple:O14931	simple:P46379	ENSG00000204475	ENSG00000204463	False	True	False	curated	False	0.062							1.372									
+CPI-SS0B84DAE3D	PVR_CD96	simple:P15151	simple:P40200	ENSG00000073008	ENSG00000153283	True	True	True	curated	False	0.062		1.428														
+CPI-SS00561BBD7	PVR_TIGIT	simple:P15151	simple:Q495A1	ENSG00000073008	ENSG00000181847	True	True	False	curated	False	0.062				1.114												
+CPI-SS0E0DEA7D5	PECAM1_CD38	simple:P16284	simple:P28907	ENSG00000261371	ENSG00000004468	False	True	True	curated	False	0.062		1.03														
+CPI-SS067BA9202	LAIR1_LILRB4	simple:Q6GTX8	simple:Q8NHJ6	ENSG00000167613	ENSG00000186818	False	True	True	curated	False	0.062	1.555															
+CPI-SC0B6D68FD5	ICAM1_aMb2 complex	simple:P05362	complex:aMb2 complex	ENSG00000090339		False	True	False	curated	True	0.062	1.385															
+CPI-SC0F4AC5AA2	ICAM1_aLb2 complex	simple:P05362	complex:aLb2 complex	ENSG00000090339		False	True	False	curated	True	0.062			1.456													
+CPI-SS05CE87F88	HLA-G_LILRB1	simple:P17693	simple:Q8NHL6	ENSG00000204632	ENSG00000104972	True	True	True	curated	False	0.062													2.037			
+CPI-SC0329D5397	ICAM3_aLb2 complex	simple:P32942	complex:aLb2 complex	ENSG00000076662		False	False	False	curated	True	0.062			1.197													
+CPI-SC063BC3DDE	ICAM2_aLb2 complex	simple:P13598	complex:aLb2 complex	ENSG00000108622		False	False	False	curated	True	0.062			1.197													
+CPI-SS033E6DE7E	NRP1_VEGFB	simple:O14786	simple:P49765	ENSG00000099250	ENSG00000173511	True	True	False	curated	False	0.062			1.197													
+CPI-SC0A9458008	ICAM1_aXb2 complex	simple:P05362	complex:aXb2 complex	ENSG00000090339		False	True	False	curated	True	0.062		1.686														
+CPI-SS098425155	ADRB2_VEGFB	simple:P07550	simple:P49765	ENSG00000169252	ENSG00000173511	True	True	False	InnateDB-All	False	0.062			1.456													
+CPI-SC06364D669	FN1_a4b1 complex	simple:P02751	complex:a4b1 complex	ENSG00000115414		True	False	False	curated	True	0.062				2.812												
+CPI-SS0E9A581F8	ICAM1_ITGAL	simple:P05362	simple:P20701	ENSG00000090339	ENSG00000005844	False	True	True	curated	False	0.062			1.456													
+CPI-SS0A4F27388	TNFRSF1A_FASLG	simple:P19438	simple:P48023	ENSG00000067182	ENSG00000117560	True	True	False	InnateDB-All	False	0.062														1.017		
+CPI-SS0C4E86714	TNFRSF1B_GRN	simple:P20333	simple:P28799	ENSG00000028137	ENSG00000030582	True	True	False	InnateDB-All,MINT	False	0.062					1.982											
+CPI-SS0DA033F03	TNFRSF1A_GRN	simple:P19438	simple:P28799	ENSG00000067182	ENSG00000030582	True	True	False	InnateDB-All,MINT	False	0.062													1.668			
+CPI-SC0E8575642	ICAM3_aDb2 complex	simple:P32942	complex:aDb2 complex	ENSG00000076662		False	False	False	curated	True	0.062		1.428														
+CPI-SC0B4D7E0FF	FN1_a4b7 complex	simple:P02751	complex:a4b7 complex	ENSG00000115414		True	False	False	curated	True	0.062				2.812												
+CPI-SS0E23CEB91	LGALS9_HAVCR2	simple:O00182	simple:Q8TDQ0	ENSG00000168961	ENSG00000135077	True	False	True	curated	False	0.062	1.813															
+CPI-SC0E9C058EB	PLAUR_a4b1 complex	simple:Q03405	complex:a4b1 complex	ENSG00000011422		True	True	False	curated	True	0.062				1.369												
+CPI-SS00B1BEE64	CD2_CD58	simple:P06729	simple:P19256	ENSG00000116824	ENSG00000116815	False	True	False	curated	False	0.125						1.55								1.567		
+CPI-SS01560CA22	CD99_PILRA	simple:P14209	simple:Q9UKJ1	ENSG00000002586	ENSG00000085514	True	False	True	curated	False	0.125	1.385				1.268											
+CPI-SS002DF6C31	LGALS9_SLC1A5	simple:O00182	simple:Q15758	ENSG00000168961	ENSG00000105281	True	False	True	InnateDB-All	False	0.125		1.526	1.456													
+CPI-SS02A0FF87F	FAM3C_CLEC2D	simple:Q92520	simple:Q9UHP7	ENSG00000196937	ENSG00000069493	True	False	True	IntAct	False	0.125										1.338		1.734				
+CPI-SS06AA638A8	CD72_SEMA4D	simple:P21854	simple:Q92854	ENSG00000137101	ENSG00000187764	False	False	True	curated	False	0.125	1.127		1.197													
+CPI-SS0703338F5	LGALS9_CD44	simple:O00182	simple:P16070	ENSG00000168961	ENSG00000026508	True	False	True	InnateDB,InnateDB-All	False	0.125	1.939			2.177												
+CPI-SC07BE7830D	SPP1_a4b1 complex	simple:P10451	complex:a4b1 complex	ENSG00000118785		True	False	False	curated	True	0.188				2.394				1.51				1.44				
+CPI-CS0715DE78D	CD94:NKG2A_HLA-E	complex:CD94:NKG2A	simple:P13747		ENSG00000204592	False	True	False	curated	False	0.188						2.827		2.708				2.553				
+CPI-SS056FF4363	CD48_CD244	simple:P09326	simple:Q9BZW8	ENSG00000117091	ENSG00000122223	False	False	True	curated	False	0.188						1.171				1.338				1.254		
+CPI-CS05AB368CE	CD94:NKG2C_HLA-E	complex:CD94:NKG2C	simple:P13747		ENSG00000204592	False	True	False	curated	False	0.188						2.457				2.672		2.553				
+CPI-SS0C4FA643F	HLA-E_KLRC2	simple:P13747	simple:P26717	ENSG00000204592	ENSG00000205809	False	False	True	curated	False	0.188						2.457	2.672								2.553	
+CPI-SS0822AEF5F	PTPRC_MRC1	simple:P08575	simple:P22897	ENSG00000081237	ENSG00000260314	False	False	True	curated	False	0.188	2.209				2.287								2.56			
+CPI-SS03339363E	HLA-E_KLRK1	simple:P13747	simple:P26718	ENSG00000204592	ENSG00000213809	False	False	True	curated	False	0.188						2.457				2.175				2.338		
+CPI-SS0F739D3DB	ANXA1_FPR1	simple:P04083	simple:P21462	ENSG00000135046	ENSG00000171051	True	False	True	guidetopharmacology.org	False	0.188			1.625				1.338				1.268					
+CPI-SS06CCF5A54	ANXA1_FPR3	simple:P04083	simple:P25089	ENSG00000135046	ENSG00000187474	True	False	True	guidetopharmacology.org	False	0.188	1.555				1.268								1.538			
+CPI-SS0E292C126	KLRB1_CLEC2D	simple:Q12918	simple:Q9UHP7	ENSG00000111796	ENSG00000069493	False	True	True	curated	False	0.188						2.149		2.545						1.254		
+CPI-SS03EF699C7	HLA-E_KLRC1	simple:P13747	simple:P26715	ENSG00000204592	ENSG00000134545	False	False	True	curated	False	0.188						3.245				2.964				3.126		
+CPI-SS0ABC5C1B8	CD74_MIF	simple:P04233	simple:P14174	ENSG00000019582	ENSG00000240972	True	True	False	InnateDB-All	False	0.188	2.232	2.964								1.93						
+CPI-SS0E9015902	CD47_SIRPG	simple:Q08722	simple:Q9P1W8	ENSG00000196776	ENSG00000089012	False	True	False	curated	False	0.188								1.017				1.184				1.1
+CPI-SS00150FB64	HLA-F_LILRB1	simple:P30511	simple:Q8NHL6	ENSG00000204642	ENSG00000104972	True	False	True	curated	False	0.188	1.127								1.468				1.369			
+CPI-SS048242083	HLA-F_KIR3DL1	simple:P30511	simple:P43629	ENSG00000204642	ENSG00000167633	False	False	True	curated	False	0.188							1.913				2.113				2.014	
+CPI-SS09C4FCB90	ICAM1_SPN	simple:P05362	simple:P16150	ENSG00000090339	ENSG00000197471	False	True	False	curated	False	0.188	1.385		1.456	1.372												
+CPI-SS025C8F785	CLEC2B_KLRF1	simple:Q92478	simple:Q9NZS2	ENSG00000110852	ENSG00000150045	False	True	True	curated	False	0.188			1.456				1.93				1.268					
+CPI-SS0CBAA9BCC	HLA-A_KIR3DL1	simple:HLAA	simple:P43629	ENSG00000206503	ENSG00000167633	False	True	True	curated	False	0.188							3.184				3.076				3.281	
+CPI-SS01946BE5C	C5AR1_RPS19	simple:P21730	simple:P39019	ENSG00000197405	ENSG00000105372	False	True	False	guidetopharmacology.org	False	0.188	1.782	2.68	2.608													
+CPI-SS0ABD11350	HLA-C_KIR2DL1	simple:HLAC	simple:P43626	ENSG00000204525	ENSG00000125498	False	True	True	curated	False	0.25							3.007				2.741				2.988	2.329
+CPI-SS02AB0C3E0	SPP1_CD44	simple:P10451	simple:P16070	ENSG00000118785	ENSG00000026508	True	False	True	InnateDB-All,IntAct	False	0.312	2.705			2.943				2.059			1.268	1.989				
+CPI-SS061A7E099	CD55_ADGRE5	simple:P08174	simple:P48960	ENSG00000196352	ENSG00000123146	True	True	True	curated	False	0.312	1.385	1.03		1.538		1.331		1.838								
+CPI-SS0917CBD53	HLA-C_KIR2DL3	simple:HLAC	simple:P43628	ENSG00000204525	ENSG00000243772	False	True	True	curated	False	0.438				2.138			2.878	2.349			2.612	2.082			2.858	2.329
+CPI-CS0A9D23000	NKG2D II receptor_MICB	complex:NKG2D II receptor	simple:Q29980		ENSG00000204516	False	True	False	curated	False	1.438																
+CPI-SC08E97F7CA	VCAM1_a4b7 complex	simple:P19320	complex:a4b7 complex	ENSG00000162692		False	False	False	curated	True	1.438																
+CPI-SC098B43B5A	MADCAM1_a4b7 complex	simple:Q13477	complex:a4b7 complex	ENSG00000099866		False	False	False	curated	True	1.438																
+CPI-CS0A269FA16	NKG2D II receptor_ULBP2	complex:NKG2D II receptor	simple:Q9BZM5		ENSG00000131015	True	True	False	curated	False	1.438																
+CPI-SC01833C7FC	PLA2G2A_a4b1 complex	simple:P14555	complex:a4b1 complex	ENSG00000188257		True	False	False	curated	True	1.438																
+CPI-SC0A9EB628A	VCAM1_a4b1 complex	simple:P19320	complex:a4b1 complex	ENSG00000162692		False	False	False	curated	True	1.438																
+CPI-CS0D238C22B	PlexinA2_complex1_SEMA3A	complex:PlexinA2_complex1	simple:Q14563		ENSG00000075213	True	True	False	curated	False	1.438																
+CPI-SC070D5A96F	JAM2_a4b1 complex	simple:P57087	complex:a4b1 complex	ENSG00000154721		False	False	False	curated	True	1.438																
+CPI-CS06C6E2321	NKG2D II receptor_MICA	complex:NKG2D II receptor	simple:Q29983		ENSG00000204520	False	True	False	curated	False	1.438																
+CPI-SC03446A95E	FCER2_aXb2 complex	simple:P06734	complex:aXb2 complex	ENSG00000104921		True	True	False	curated	True	1.438																
+CPI-SC019DBDA78	VCAM1_aDb2 complex	simple:P19320	complex:aDb2 complex	ENSG00000162692		False	False	False	curated	True	1.438																
+CPI-SC0C6B54D7A	THY1_aXb2 complex	simple:P04216	complex:aXb2 complex	ENSG00000154096		False	False	False	curated	True	1.438																
+CPI-SC08923F7F7	F11R_aLb2 complex	simple:Q9Y624	complex:aLb2 complex	ENSG00000158769		False	True	False	curated	True	1.438																
+CPI-SC092659F65	ICAM4_aLb2 complex	simple:Q14773	complex:aLb2 complex	ENSG00000105371		True	False	False	curated	True	1.438																
+CPI-SC0F9DD28F3	JAM3_aMb2 complex	simple:Q9BX67	complex:aMb2 complex	ENSG00000166086		True	False	False	curated	True	1.438																
+CPI-SC0B292AEE6	GP1BA_aMb2 complex	simple:P07359	complex:aMb2 complex	ENSG00000185245		False	False	False	curated	True	1.438																
+CPI-SC07312BD5C	FCER2_aMb2 complex	simple:P06734	complex:aMb2 complex	ENSG00000104921		True	True	False	curated	True	1.438																
+CPI-SC0A05D3880	THY1_aMb2 complex	simple:P04216	complex:aMb2 complex	ENSG00000154096		False	False	False	curated	True	1.438																
+CPI-SC0C3E2D267	F10_aMb2 complex	simple:P00742	complex:aMb2 complex	ENSG00000126218		True	False	False	curated	True	1.438																
+CPI-SC0527EEE7A	C3_aMb2 complex	simple:P01024	complex:aMb2 complex	ENSG00000125730		True	False	False	curated	True	1.438																
+CPI-SC0BC542ACC	TNC_a4b1 complex	simple:P24821	complex:a4b1 complex	ENSG00000041982		True	False	False	curated	True	1.438																
+CPI-CS06E556972	IL15 receptor_IL15	complex:IL15 receptor	simple:P40933		ENSG00000164136	True	True	False	curated	False	1.438																
