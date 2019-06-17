@@ -139,7 +139,7 @@ def list_local_versions() -> list:
 
 def list_remote_database_versions():
     try:
-        releases: dict = _list_releases()
+        releases = _list_releases()
 
         for idx, (_, version) in enumerate(releases.items()):
             note = ' *latest' if idx == 0 else ''
@@ -151,7 +151,7 @@ def list_remote_database_versions():
 
 
 def list_local_database_versions():
-    releases: list = list_local_versions()
+    releases = list_local_versions()
 
     if not releases:
         print('There are no versions available')
