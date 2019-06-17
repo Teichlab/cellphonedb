@@ -114,25 +114,23 @@ def build_results(interactions: pd.DataFrame,
 
     # Remove useless columns
     interactions_data_result = pd.DataFrame(
-        interactions[['id_cp_interaction', 'partner_a', 'partner_b', *gene_columns, 'source']].copy())
+        interactions[['id_cp_interaction', 'partner_a', 'partner_b', 'receptor_1', 'receptor_2', *gene_columns,
+                      'source']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
     interactions_data_result['secreted'] = (interactions['secreted_1'] | interactions['secreted_2'])
-    interactions_data_result['is_integrin'] = (
-            interactions['integrin_1'] | interactions['integrin_2'])
-    interactions_data_result['receptor'] = (
-            interactions['receptor_1'] | interactions['receptor_2'])
+    interactions_data_result['is_integrin'] = (interactions['integrin_1'] | interactions['integrin_2'])
 
     interactions_data_result.rename(
-        columns=gene_renames,
+        columns={**gene_renames, 'receptor_1': 'receptor_a', 'receptor_2': 'receptor_b'},
         inplace=True)
 
     # Dedupe rows and filter only desired columns
     interactions_data_result.drop_duplicates(inplace=True)
 
     means_columns = ['id_cp_interaction', 'interacting_pair', 'partner_a', 'partner_b', 'gene_a', 'gene_b', 'secreted',
-                     'receptor', 'source', 'is_integrin']
+                     'receptor_a', 'receptor_b', 'source', 'is_integrin']
 
     interactions_data_result = interactions_data_result[means_columns]
 

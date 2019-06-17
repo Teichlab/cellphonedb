@@ -68,7 +68,8 @@ def build_results(interactions: pd.DataFrame,
     gene_renames = {column: 'gene_{}'.format(suffix) for column, suffix in zip(gene_columns, ['a', 'b'])}
 
     interactions_data_result = pd.DataFrame(
-        interactions[['id_cp_interaction', 'name_1', 'name_2', *gene_columns, 'source']].copy())
+        interactions[
+            ['id_cp_interaction', 'name_1', 'name_2', 'receptor_1', 'receptor_2', *gene_columns, 'source']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
@@ -78,8 +79,10 @@ def build_results(interactions: pd.DataFrame,
     interactions_data_result['receptor'] = (
             interactions['receptor_1'] | interactions['receptor_2'])
 
-    interactions_data_result.rename(columns={'name_1': 'partner_a', 'name_2': 'partner_b', **gene_renames},
-                                    inplace=True)
+    interactions_data_result.rename(
+        columns={'name_1': 'partner_a', 'name_2': 'partner_b', 'receptor_1': 'receptor_a', 'receptor_2': 'receptor_b',
+                 **gene_renames},
+        inplace=True)
 
     interactions_data_result['partner_a'] = interactions_data_result['partner_a'].apply(
         lambda name: 'simple:{}'.format(name))
@@ -90,7 +93,7 @@ def build_results(interactions: pd.DataFrame,
     interactions_data_result.drop_duplicates(inplace=True)
 
     means_columns = ['id_cp_interaction', 'interacting_pair', 'partner_a', 'partner_b', 'gene_a', 'gene_b', 'secreted',
-                     'receptor', 'source', 'is_integrin']
+                     'receptor_a', 'receptor_b', 'source', 'is_integrin']
 
     interactions_data_result = interactions_data_result[means_columns]
 
