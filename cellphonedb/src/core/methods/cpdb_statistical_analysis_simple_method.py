@@ -31,7 +31,7 @@ def call(meta: pd.DataFrame,
     interactions_filtered, counts_filtered = prefilters(counts, interactions, counts_data)
 
     if interactions_filtered.empty or counts_filtered.empty:
-        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
     clusters = cpdb_statistical_analysis_helper.build_clusters(meta, counts_filtered)
     core_logger.info('Running Real Simple Analysis')
