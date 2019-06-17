@@ -51,10 +51,10 @@ def generate_genes(user_gene: Optional[click.File],
                 '</Query>'
 
         url = source_url.format(urllib.parse.quote(query))
-        ensembl_db: pd.DataFrame = pd.read_csv(url)
+        ensembl_db = pd.read_csv(url)
         print('done')
     else:
-        ensembl_db: pd.DataFrame = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
+        ensembl_db = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/ensembl.txt'))
         print('read local ensembl file')
 
     # additional data comes from given file or uniprot remote url
@@ -68,7 +68,7 @@ def generate_genes(user_gene: Optional[click.File],
         uniprot_db = pd.read_csv(source_url, sep='\t', compression='gzip')
         print('done')
     else:
-        uniprot_db: pd.DataFrame = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
+        uniprot_db = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
         print('read local uniprot file')
 
     ensembl_columns = {
@@ -240,7 +240,7 @@ def generate_proteins(user_protein: Optional[click.File],
     output_path = _set_paths(output_dir, result_path)
     log_path = '{}/{}'.format(output_path, log_file)
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
-    curated_proteins: pd.DataFrame = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
+    curated_proteins = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
     if user_protein:
         separator = _get_separator(os.path.splitext(user_protein.name)[-1])
         user_protein = pd.read_csv(user_protein, sep=separator)
@@ -273,10 +273,10 @@ def generate_complex(user_complex: Optional[click.File], result_path: str, log_f
 @click.option('--input-path', type=str, default=data_dir)
 @click.option('--result-path', type=str, default='filtered')
 def filter_all(input_path, result_path):
-    interactions: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'interaction_input.csv'))
-    complexes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'complex_generated.csv'))
-    proteins: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'protein_generated.csv'))
-    genes: pd.DataFrame = pd.read_csv(os.path.join(input_path, 'gene_generated.csv'))
+    interactions = pd.read_csv(os.path.join(input_path, 'interaction_input.csv'))
+    complexes = pd.read_csv(os.path.join(input_path, 'complex_generated.csv'))
+    proteins = pd.read_csv(os.path.join(input_path, 'protein_generated.csv'))
+    genes = pd.read_csv(os.path.join(input_path, 'gene_generated.csv'))
     output_path = _set_paths(output_dir, result_path)
 
     interacting_partners = pd.concat([interactions['partner_a'], interactions['partner_b']]).drop_duplicates()
@@ -307,7 +307,7 @@ def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.Series) -> pd.Da
 def _filter_proteins(proteins: pd.DataFrame,
                      filtered_complexes: pd.DataFrame,
                      interacting_partners: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
-    interacting_proteins = pd.concat([filtered_complexes[f'uniprot_{i}'] for i in range(1, 5)]).drop_duplicates()
+    interacting_proteins = pd.concat([filtered_complexes['uniprot_{}'.format(i)] for i in range(1, 5)]).drop_duplicates()
 
     filtered_proteins = proteins[
         proteins['uniprot'].isin(interacting_partners) | proteins['uniprot'].isin(interacting_proteins)]

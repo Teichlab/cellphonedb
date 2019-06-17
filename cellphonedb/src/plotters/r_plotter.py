@@ -31,7 +31,7 @@ def heatmaps_plot(meta_file: str,
     available_names = list(robjects.globalenv.keys())
     count_filename = os.path.join(output_path, count_name)
     log_filename = os.path.join(output_path, log_name)
-    plot_function: str = 'heatmaps_plot'
+    plot_function = 'heatmaps_plot'
 
     with open(pvalues_file, 'rt') as original:
         with tempfile.NamedTemporaryFile(suffix=os.path.splitext(pvalues_file)[-1], mode='wt', encoding='utf8') as new:
@@ -79,7 +79,7 @@ def dot_plot(means_path: str,
     this_file_dir = os.path.dirname(os.path.realpath(__file__))
     robjects.r.source(os.path.join(this_file_dir, 'R/plot_dot_by_column_name.R'))
     available_names = list(robjects.globalenv.keys())
-    plot_function: str = 'dot_plot'
+    plot_function= 'dot_plot'
 
     if plot_function in available_names:
         function_name = plot_function
