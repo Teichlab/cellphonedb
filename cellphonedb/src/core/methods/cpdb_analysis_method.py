@@ -6,6 +6,7 @@ from cellphonedb.src.core.methods import cpdb_analysis_simple_method, cpdb_analy
 
 def call(meta: pd.DataFrame,
          counts: pd.DataFrame,
+         counts_data: str,
          interactions: pd.DataFrame,
          genes: pd.DataFrame,
          complexes: pd.DataFrame,
@@ -16,6 +17,7 @@ def call(meta: pd.DataFrame,
     means_simple, significant_means_simple, deconvoluted_simple = \
         cpdb_analysis_simple_method.call(meta.copy(),
                                          counts.copy(),
+                                         counts_data,
                                          interactions.copy(),
                                          separator,
                                          threshold,
@@ -23,6 +25,7 @@ def call(meta: pd.DataFrame,
     means_complex, significant_means_complex, deconvoluted_complex = \
         cpdb_analysis_complex_method.call(meta.copy(),
                                           counts.copy(),
+                                          counts_data,
                                           interactions.copy(),
                                           genes,
                                           complexes,
@@ -33,7 +36,9 @@ def call(meta: pd.DataFrame,
 
     means = means_simple.append(means_complex, sort=False)
     significant_means = significant_means_simple.append(significant_means_complex, sort=False)
+
     deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
+    deconvoluted.drop_duplicates(inplace=True)
 
     if means.empty:
         raise EmptyResultException
@@ -42,6 +47,4 @@ def call(meta: pd.DataFrame,
     significant_means['rank'] = significant_means['rank'].apply(lambda rank: rank if rank != 0 else (1 + max_rank))
     significant_means.sort_values('rank', inplace=True)
 
-    if not 'complex_name' in deconvoluted:
-        deconvoluted['complex_name'] = ''
     return means, significant_means, deconvoluted

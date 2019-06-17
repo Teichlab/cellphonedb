@@ -75,6 +75,7 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
         LocalMethodLauncher(cellphonedb_app.cellphonedb). \
             cpdb_statistical_analysis_local_method_launcher(meta_filename,
                                                             counts_filename,
+                                                            'ensembl',
                                                             project_name,
                                                             iterations,
                                                             threshold,
