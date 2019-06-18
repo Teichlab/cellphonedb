@@ -13,4 +13,4 @@ class Interaction(Base):
     multidata_2_id = Column(Integer, ForeignKey('multidata_table.id_multidata'), nullable=False)
 
     source = Column(String)
-    comments_interaction = Column(String)
+    annotation_strategy = Column(String)

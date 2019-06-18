@@ -1,4 +1,4 @@
-id_cp_interaction,partner_a,partner_b,protein_name_a,protein_name_b,source,comments_interaction
+id_cp_interaction,partner_a,partner_b,protein_name_a,protein_name_b,annotation_strategy,source
 CPI-CC00A20C8D9,IL12 receptor,IL12,,,curated,uniprot
 CPI-CC0104F2A96,ACVR_1B2A receptor,Activin ligand ab,,,curated,PMID: 22710174 & rndsystem webpage; PMID: 22991378
 CPI-CC045C36F28,ACVR_1A2A receptor,Activin ligand ab,,,curated,less common binding; PMID: 22710174; PMID: 22991378  & rndsystem webpage

@@ -129,12 +129,13 @@ def generate_interactions(proteins: str,
     if user_interactions:
         separator = _get_separator(os.path.splitext(user_interactions.name)[-1])
         user_interactions = pd.read_csv(user_interactions, sep=separator)
+        user_interactions['annotation_strategy'] = 'user_curated'
 
     result_columns = [
         'partner_a',
         'partner_b',
-        'source',
-        'comments_interaction'
+        'annotation_strategy',
+        'source'
     ]
 
     print('Parsing IMEX file')

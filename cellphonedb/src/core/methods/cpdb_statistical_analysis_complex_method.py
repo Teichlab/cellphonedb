@@ -130,7 +130,7 @@ def build_results(interactions: pd.DataFrame,
     # Remove useless columns
     interactions_data_result = pd.DataFrame(interactions[
                                                 ['id_cp_interaction', 'partner_a', 'partner_b', 'ensembl_1',
-                                                 'ensembl_2', 'source']].copy())
+                                                 'ensembl_2', 'annotation_strategy']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 

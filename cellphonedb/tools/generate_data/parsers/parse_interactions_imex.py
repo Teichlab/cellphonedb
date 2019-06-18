@@ -40,7 +40,7 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
         interactions_base_df['B'].apply(lambda value: value.split(':')[0] == 'uniprotkb')]['B'].apply(
         lambda value: value.split(':')[1].split('-')[0])
 
-    custom_interactions['source'] = interactions_base_df['provider']
+    custom_interactions['annotation_strategy'] = interactions_base_df['provider']
 
     # Extract ensembl for a_raw_ensembl data. Only if value is not null and has ensembl: prefix
     custom_interactions['ensembl_1'] = custom_interactions.dropna(subset=['a_raw_ensembl'])[
@@ -71,7 +71,7 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
 
     custom_interactions['protein_1'] = custom_interactions.apply(lambda row: get_protein(row, 1), axis=1)
     custom_interactions['protein_2'] = custom_interactions.apply(lambda row: get_protein(row, 2), axis=1)
-    custom_interactions = custom_interactions[['protein_1', 'protein_2', 'source']]
+    custom_interactions = custom_interactions[['protein_1', 'protein_2', 'annotation_strategy']]
 
     custom_interactions.dropna(how='any', subset=['protein_1', 'protein_2'], inplace=True)
 
@@ -80,11 +80,12 @@ def parse_interactions_imex(interactions_base_df, protein_df, gene_df):
 
     custom_interactions = sort_interactions_partners_alphabetically(custom_interactions, ('protein_1', 'protein_2'))
 
-    custom_interactions['source'] = custom_interactions.groupby(['protein_1', 'protein_2'])['source'].transform(
+    custom_interactions['annotation_strategy'] = custom_interactions.groupby(['protein_1', 'protein_2'])[
+        'annotation_strategy'].transform(
         lambda sources: ','.join(sorted(set(sources))))
 
     custom_interactions_unique = custom_interactions.drop_duplicates(['protein_1', 'protein_2'], keep='first')
-    custom_interactions_unique = custom_interactions_unique[['protein_1', 'protein_2', 'source']]
+    custom_interactions_unique = custom_interactions_unique[['protein_1', 'protein_2', 'annotation_strategy']]
 
     custom_interactions_unique.rename(index=str, columns={'protein_1': 'uniprot_1', 'protein_2': 'uniprot_2'},
                                       inplace=True)

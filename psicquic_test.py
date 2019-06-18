@@ -41,7 +41,7 @@ sources = \
             'query_parameters': True,
         },
         {
-            'name': ' MINT',
+            'name': 'MINT',
             'base_url': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/mint/webservices/current/search/query/{}',
             'query_parameters': True,
         },
@@ -56,7 +56,7 @@ sources = \
             'query_parameters': True,
         },
         {
-            'name': ' MBInfo',
+            'name': 'MBInfo',
             'base_url': 'http://www.ebi.ac.uk/Tools/webservices/psicquic/mbinfo/webservices/current/search/query/{}',
             'query_parameters': True,
         },
@@ -70,21 +70,22 @@ sources = \
 for source in sources:
     print('\n')
     print(source['name'])
-    carry = pd.DataFrame()
+    carry = pd.DataFrame(columns=['A', 'B', 'altA', 'altB', 'provider'])
     if source['query_parameters']:
-        for idx, chunk in tqdm.tqdm(enumerate(zip(*[iter(proteins)] * 500))):
+        for idx, chunk in tqdm.tqdm(enumerate(zip(*[iter(proteins)] * 500)), total=int(len(proteins) / 500)):
             url = source['base_url'].format('{}'.format(' or '.join(chunk)))
-            print(url)
+            # print(url)
             response = requests.get(url)
 
             if response.text:
                 s = StringIO(response.text)
-                df = pd.read_csv(s, sep='\t', header=None)
-                carry = pd.concat([carry, df], sort=False, axis=0)
+                df = pd.read_csv(s, sep='\t', names=['A', 'B', 'altA', 'altB'], usecols=range(4))
+                carry = pd.concat([carry, df], sort=False, axis=0, ignore_index=True)
                 carry.drop_duplicates(inplace=True)
             else:
-                print(url)
-                print('{} it {} is empty. Status code: {}'.format(source['name'], idx, response.status_code))
+                if response.status_code != 200:
+                    print(url)
+                    print('{} it {} is empty. Status code: {}'.format(source['name'], idx, response.status_code))
 
     else:
         url = source['base_url']
@@ -93,16 +94,17 @@ for source in sources:
         if response.text:
             s = StringIO(response.text)
             df = pd.read_csv(s, sep='\t', names=['A', 'B', 'altA', 'altB'], usecols=range(4))
-            print(df)
-            carry = pd.concat([carry, df], sort=False, axis=0)
+            carry = pd.concat([carry, df], sort=False, axis=0, ignore_index=True)
             carry.drop_duplicates(inplace=True)
         else:
             print(url)
             print('{} is empty. Status code: {}'.format(source['name'], response.status_code))
 
     carry['provider'] = source['name']
+    carry.drop_duplicates(inplace=True)
     carry.to_csv('out/psicquic/{}_interaction_raw.csv'.format(source['name']), index=False)
 
+# Merge in a file
 carry = pd.DataFrame(columns=['A', 'B', 'altA', 'altB', 'provider'])
 
 for source in sources:
@@ -111,4 +113,8 @@ for source in sources:
     source_data.rename(columns={'0': 'A', '1': 'B', '2': 'altA', '3': 'altB'}, index=str, inplace=True)
     carry = carry.append(source_data[['A', 'B', 'altA', 'altB', 'provider']], sort=False, ignore_index=True)
 
+print('Merging providers')
+carry.drop_duplicates(inplace=True)
+# carry['provider'] = carry.groupby(['A', 'B'])['provider'].transform(
+#     lambda providers: ','.join(sorted(set(providers))))
 carry.to_csv('out/IMEX_all_sources.csv', index=False)
