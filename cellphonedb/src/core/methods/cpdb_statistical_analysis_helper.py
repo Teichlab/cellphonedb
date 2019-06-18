@@ -78,12 +78,12 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
 
 
 def filter_counts_by_interactions(counts: pd.DataFrame, interactions: pd.DataFrame,
-                                  suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+                                  suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> pd.DataFrame:
     """
     Removes count if is not in interaction component
     """
-    genes = interactions['ensembl{}'.format(suffixes[0])].append(
-        interactions['ensembl{}'.format(suffixes[1])]).drop_duplicates()
+    genes = interactions['{}{}'.format(counts_data, suffixes[0])].append(
+        interactions['{}{}'.format(counts_data, suffixes[1])]).drop_duplicates()
 
     counts_filtered = counts.filter(genes, axis=0)
 
@@ -149,7 +149,8 @@ def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list, 
 
 
 def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list,
-                  base_result: pd.DataFrame, separator: str, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+                  base_result: pd.DataFrame, separator: str, suffixes: tuple = ('_1', '_2'),
+                  counts_data: str = 'ensembl') -> pd.DataFrame:
     """
     Calculates the mean for the list of interactions and for each cluster
 
@@ -181,7 +182,8 @@ def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactio
         for cluster_interaction in cluster_interactions:
             cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
 
-            interaction_mean = cluster_interaction_mean(cluster_interaction, interaction, clusters['means'], suffixes)
+            interaction_mean = cluster_interaction_mean(cluster_interaction, interaction, clusters['means'], suffixes,
+                                                        counts_data=counts_data)
 
             result.at[interaction_index, cluster_interaction_string] = interaction_mean
 
@@ -189,7 +191,8 @@ def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactio
 
 
 def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFrame, cluster_interactions: list,
-                     base_result: pd.DataFrame, separator: str, suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+                     base_result: pd.DataFrame, separator: str, suffixes: tuple = ('_1', '_2'),
+                     counts_data: str = 'ensembl') -> pd.DataFrame:
     """
     Calculates the percents for cluster interactions and foreach gene interaction
 
@@ -239,7 +242,8 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
         for cluster_interaction in cluster_interactions:
             cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
 
-            interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents, suffixes)
+            interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents, suffixes,
+                                                              counts_data=counts_data)
             result.at[interaction_index, cluster_interaction_string] = interaction_percent
 
     return result
@@ -247,37 +251,38 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
 
 def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame,
                       cluster_interactions: list, base_result: pd.DataFrame, threads: int, separator: str,
-                      suffixes: tuple = ('_1', '_2')) -> list:
+                      suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> list:
     """
     Shuffles meta and calculates the means for each and saves it in a list.
 
-    Runs it in a multiple threads to run it fasters
+    Runs it in a multiple threads to run it faster
     """
     core_logger.info('Running Statistical Analysis')
     with Pool(processes=threads) as pool:
-        statidstical_analysis_thread = partial(_statistical_analysis,
-                                               base_result,
-                                               cluster_interactions,
-                                               counts,
-                                               interactions,
-                                               meta,
-                                               separator,
-                                               suffixes
-                                               )
-        results = pool.map(statidstical_analysis_thread, range(iterations))
+        statistical_analysis_thread = partial(_statistical_analysis,
+                                              base_result,
+                                              cluster_interactions,
+                                              counts,
+                                              interactions,
+                                              meta,
+                                              separator,
+                                              suffixes,
+                                              counts_data=counts_data
+                                              )
+        results = pool.map(statistical_analysis_thread, range(iterations))
 
     return results
 
 
 def _statistical_analysis(base_result, cluster_interactions, counts, interactions, meta, separator, suffixes,
-                          iteration_number) -> pd.DataFrame:
+                          iteration_number, counts_data: str = 'ensembl') -> pd.DataFrame:
     """
     Shuffles meta dataset and calculates calculates the means
     """
     shuffled_meta = shuffle_meta(meta)
     shuffled_clusters = build_clusters(shuffled_meta, counts)
     result_mean_analysis = mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, separator,
-                                         suffixes)
+                                         suffixes, counts_data=counts_data)
     return result_mean_analysis
 
 
@@ -392,8 +397,12 @@ def build_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd
     return significant_mean_rank, significant_means
 
 
-def cluster_interaction_percent(cluster_interaction: tuple, interaction: pd.Series, clusters_percents: dict,
-                                suffixes: tuple = ('_1', '_2')) -> int:
+def cluster_interaction_percent(cluster_interaction: tuple,
+                                interaction: pd.Series,
+                                clusters_percents: dict,
+                                suffixes: tuple = ('_1', '_2'),
+                                counts_data: str = 'ensembl'
+                                ) -> int:
     """
     If one of both is not 0 the result is 0 other cases are 1
     """
@@ -401,8 +410,8 @@ def cluster_interaction_percent(cluster_interaction: tuple, interaction: pd.Seri
     percent_cluster_receptors = clusters_percents[cluster_interaction[0]]
     percent_cluster_ligands = clusters_percents[cluster_interaction[1]]
 
-    percent_receptor = percent_cluster_receptors[interaction['ensembl{}'.format(suffixes[0])]]
-    percent_ligand = percent_cluster_ligands[interaction['ensembl{}'.format(suffixes[1])]]
+    percent_receptor = percent_cluster_receptors[interaction['{}{}'.format(counts_data, suffixes[0])]]
+    percent_ligand = percent_cluster_ligands[interaction['{}{}'.format(counts_data, suffixes[1])]]
 
     if percent_receptor or percent_ligand:
         interaction_percent = 0
@@ -439,7 +448,7 @@ def counts_percent(counts: pd.Series, threshold: float) -> int:
 
 
 def cluster_interaction_mean(cluster_interaction: tuple, interaction: pd.Series, clusters_means: dict,
-                             suffixes: tuple = ('_1', '_2')) -> float:
+                             suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> float:
     """
     Calculates the mean value for two clusters.
 
@@ -449,8 +458,9 @@ def cluster_interaction_mean(cluster_interaction: tuple, interaction: pd.Series,
     means_cluster_receptors = clusters_means[cluster_interaction[0]]
     means_cluster_ligands = clusters_means[cluster_interaction[1]]
 
-    mean_receptor = means_cluster_receptors[interaction['ensembl{}'.format(suffixes[0])]]
-    mean_ligand = means_cluster_ligands[interaction['ensembl{}'.format(suffixes[1])]]
+    receptor = interaction['{}{}'.format(counts_data, suffixes[0])]
+    mean_receptor = means_cluster_receptors[receptor]
+    mean_ligand = means_cluster_ligands[interaction['{}{}'.format(counts_data, suffixes[1])]]
 
     if mean_receptor == 0 or mean_ligand == 0:
         interaction_mean = 0
@@ -458,3 +468,16 @@ def cluster_interaction_mean(cluster_interaction: tuple, interaction: pd.Series,
         interaction_mean = (mean_receptor + mean_ligand) / 2
 
     return interaction_mean
+
+
+def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame,
+                                  suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> pd.DataFrame:
+    """
+    Remove interaction if both components are not in counts lists
+    """
+    counts_index = list(counts.index)
+    interactions_filtered = interactions[interactions.apply(
+        lambda row: row['{}{}'.format(counts_data, suffixes[0])] in counts_index and row[
+            '{}{}'.format(counts_data, suffixes[1])] in counts_index, axis=1
+    )]
+    return interactions_filtered

@@ -22,7 +22,7 @@ def gene_generator(ensembl_db: pd.DataFrame,
     no_hla_uniprots = uniprot_db[~uniprot_db['gene_name'].str.contains('HLA')]
 
     # Merge with ensembl database
-    cpdb_genes: pd.DataFrame = no_hla_uniprots.merge(ensembl_db, how='inner', on='gene_name',
+    cpdb_genes = no_hla_uniprots.merge(ensembl_db, how='inner', on='gene_name',
                                                      sort=False, suffixes=('', '_ensembl')).drop_duplicates(
         ['ensembl', 'uniprot', 'gene_name'])
 

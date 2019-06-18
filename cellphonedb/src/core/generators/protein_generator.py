@@ -36,8 +36,8 @@ def _merge_proteins(base_protein: pd.DataFrame,
     additional = generator_helper.set_defaults(additional, default_values, quiet)
 
     # we will only use these columns
-    additional: pd.DataFrame = additional[result_columns]
-    base_protein: pd.DataFrame = base_protein[result_columns]
+    additional = additional[result_columns]
+    base_protein = base_protein[result_columns]
 
     # Type casting to ensure they are equal
     additional = additional.astype(default_types)

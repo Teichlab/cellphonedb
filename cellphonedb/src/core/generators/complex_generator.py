@@ -72,8 +72,8 @@ def _merge_complex(base_complex: pd.DataFrame, additional: pd.DataFrame, log_fil
     additional = set_defaults(additional, defaults)
 
     # we will only use these columns
-    additional: pd.DataFrame = additional[result_columns]
-    base_complex: pd.DataFrame = base_complex[result_columns]
+    additional = additional[result_columns]
+    base_complex = base_complex[result_columns]
 
     # Type casting to ensure they are equal
     base_complex = base_complex.astype(default_types)

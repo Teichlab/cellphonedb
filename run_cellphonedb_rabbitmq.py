@@ -228,6 +228,7 @@ def statistical_analysis(app, meta, counts, job_id, metadata, subsampler):
     pvalues, means, significant_means, deconvoluted = \
         app.method.cpdb_statistical_analysis_launcher(meta,
                                                       counts,
+                                                      counts_data=metadata.get('counts_data', 'ensembl'),
                                                       threshold=float(metadata['threshold']),
                                                       iterations=int(metadata['iterations']),
                                                       debug_seed=-1,
@@ -257,6 +258,7 @@ def non_statistical_analysis(app, meta, counts, job_id, metadata, subsampler):
     means, significant_means, deconvoluted = \
         app.method.cpdb_method_analysis_launcher(meta,
                                                  counts,
+                                                 counts_data=metadata.get('counts_data', 'ensembl'),
                                                  threshold=float(metadata['threshold']),
                                                  result_precision=int(metadata['result_precision']),
                                                  subsampler=subsampler,

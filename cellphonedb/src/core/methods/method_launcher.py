@@ -9,7 +9,7 @@ from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 
 
-class MethodLauncher():
+class MethodLauncher:
     def __init__(self, database_manager: DatabaseManager, default_threads: int, separator: str = '|'):
         self.database_manager = database_manager
         self.default_threads = default_threads
@@ -29,6 +29,7 @@ class MethodLauncher():
     def cpdb_statistical_analysis_launcher(self,
                                            raw_meta: pd.DataFrame,
                                            counts: pd.DataFrame,
+                                           counts_data: str,
                                            iterations: int,
                                            threshold: float,
                                            threads: int,
@@ -60,6 +61,7 @@ class MethodLauncher():
         deconvoluted, means, pvalues, significant_means = \
             cpdb_statistical_analysis_method.call(meta,
                                                   counts,
+                                                  counts_data,
                                                   interactions,
                                                   genes,
                                                   complex_expanded,
@@ -77,6 +79,7 @@ class MethodLauncher():
     def cpdb_method_analysis_launcher(self,
                                       raw_meta: pd.DataFrame,
                                       counts: pd.DataFrame,
+                                      counts_data: str,
                                       threshold: float,
                                       result_precision: int,
                                       subsampler: Subsampler = None,
@@ -100,6 +103,7 @@ class MethodLauncher():
         means, significant_means, deconvoluted = cpdb_analysis_method.call(
             meta,
             counts,
+            counts_data,
             interactions,
             genes,
             complex_expanded,
@@ -110,7 +114,8 @@ class MethodLauncher():
 
         return means, significant_means, deconvoluted
 
-    def _counts_validations(self, counts: pd.DataFrame, meta: pd.DataFrame) -> pd.DataFrame:
+    @staticmethod
+    def _counts_validations(counts: pd.DataFrame, meta: pd.DataFrame) -> pd.DataFrame:
         if not len(counts.columns):
             raise ParseCountsException('Counts values are not decimal values', 'Incorrect file format')
         try:

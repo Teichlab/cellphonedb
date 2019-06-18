@@ -1,12 +1,12 @@
 import pandas as pd
 
 
-def filter_by_gene(cluster_counts: pd.DataFrame, genes: pd.DataFrame) -> pd.DataFrame:
+def filter_by_gene(cluster_counts: pd.DataFrame, genes: pd.DataFrame, counts_data: str = 'ensembl') -> pd.DataFrame:
     """
     Returns only the clusters in genes
     """
 
-    right_column = 'ensembl'
+    right_column = counts_data
 
     clusters_filtered = pd.merge(cluster_counts, genes, left_on='gene', right_on=right_column)
 
