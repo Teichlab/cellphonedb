@@ -4,7 +4,7 @@ import os
 import zipfile
 from distutils.dir_util import copy_tree
 from distutils.file_util import copy_file
-from distutils.version import LooseVersion, Version
+from distutils.version import LooseVersion
 from typing import Union
 
 import requests
@@ -19,13 +19,13 @@ cpdb_releases = '~/.cpdb/releases'
 database_file = 'cellphone.db'
 
 
-def _major(version: Version) -> int:
+def _major(version: LooseVersion) -> int:
     for component in version.version:
         if isinstance(component, int):
             return component
 
 
-def _core_version() -> Version:
+def _get_core_version() -> LooseVersion:
     with open(os.path.join(core_dir, 'metadata.json')) as metadata_file:
         metadata = json.load(metadata_file)
         core_version = metadata.get('database_version', 'core')
@@ -34,7 +34,7 @@ def _core_version() -> Version:
 
 
 def _ensure_core_version_in_user_dbs():
-    core_version = _core_version()
+    core_version = _get_core_version()
 
     user_databases_prefix = os.path.expanduser(cpdb_releases)
     dest_folder = os.path.join(user_databases_prefix, str(core_version))
@@ -143,11 +143,11 @@ def download_database(version):
 def list_local_versions() -> list:
     try:
         releases_folder = os.path.expanduser(cpdb_releases)
-        core = _core_version()
+        core = _get_core_version()
 
         local_versions = os.listdir(releases_folder)
 
-        compatible_versions = [version for version in local_versions if _major(LooseVersion(version)) == _major(core)]
+        compatible_versions = [version for version in local_versions if _matching_major(core, version)]
 
         return sorted(compatible_versions, key=LooseVersion, reverse=True)
     except FileNotFoundError:
@@ -156,7 +156,7 @@ def list_local_versions() -> list:
 
 def list_remote_database_versions():
     try:
-        releases: dict = _list_releases()
+        releases = _list_releases()
 
         for idx, (_, version) in enumerate(releases.items()):
             note = ' *latest' if idx == 0 else ''
@@ -227,17 +227,21 @@ def _github_query(kind) -> Union[dict, list]:
 
 
 def _format_releases(*releases) -> dict:
-    core_version = _core_version()
+    core_version = _get_core_version()
 
     return {item['tag_name']: _format_release(item, core_version) for item in releases}
 
 
-def _format_release(item: dict, core: Version) -> dict:
+def _format_release(item: dict, core: LooseVersion) -> dict:
     tag_name = item['tag_name']
 
     return {'url': item['zipball_url'],
             'tag': tag_name,
             'date': item['published_at'],
             'link': item['html_url'],
-            'compatible': _major(LooseVersion(tag_name)) == _major(core)
+            'compatible': _matching_major(core, tag_name)
             }
+
+
+def _matching_major(core, candidate):
+    return _major(LooseVersion(candidate)) == _major(core)
