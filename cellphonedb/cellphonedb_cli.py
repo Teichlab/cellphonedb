@@ -6,12 +6,7 @@ import click
 import cellphonedb.src.api_endpoints.terminal_api.database_terminal_api_endpoints.database_terminal_commands
 from cellphonedb.src.api_endpoints.terminal_api import database_terminal_api_endpoints
 from cellphonedb.src.api_endpoints.terminal_api.method_terminal_api_endpoints import method_terminal_commands
-from cellphonedb.src.exceptions.MissingR import MissingR
-
-try:
-    from cellphonedb.src.api_endpoints.terminal_api.plot_terminal_api_endpoints import plot_terminal_commands
-except MissingR:
-    print('As there is no R environment set up, some functionalities will be disabled, e.g. plot')
+from cellphonedb.src.api_endpoints.terminal_api.plot_terminal_api_endpoints import plot_terminal_commands
 
 from cellphonedb.src.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
 from cellphonedb.src.api_endpoints.terminal_api.tools_terminal_api_endpoints import tools_terminal_commands
@@ -37,6 +32,11 @@ def database():
     pass
 
 
+@cli.group()
+def plot():
+    pass
+
+
 method.add_command(method_terminal_commands.statistical_analysis)
 method.add_command(method_terminal_commands.analysis)
 query.add_command(query_terminal_commands.find_interactions_by_element)
@@ -46,14 +46,9 @@ database.add_command(database_terminal_api_endpoints.database_terminal_commands.
 database.add_command(database_terminal_api_endpoints.database_terminal_commands.list_remote)
 database.add_command(database_terminal_api_endpoints.database_terminal_commands.list_local)
 database.add_command(database_terminal_api_endpoints.database_terminal_commands.generate)
-if locals().get('plot_terminal_commands'):
-    @cli.group()
-    def plot():
-        pass
 
-
-    plot.add_command(plot_terminal_commands.dot_plot)
-    plot.add_command(plot_terminal_commands.heatmap_plot)
+plot.add_command(plot_terminal_commands.dot_plot)
+plot.add_command(plot_terminal_commands.heatmap_plot)
 
 advanced_flag_var = 'ADVANCED'
 

@@ -10,14 +10,14 @@ from cellphonedb.src.exceptions.MissingR import MissingR
 from cellphonedb.src.exceptions.RRuntimeException import RRuntimeException
 from cellphonedb.utils.utils import _get_separator
 
-try:
-    if not situation.get_r_home() or not situation.r_version_from_subprocess():
-        raise MissingR()
 
-    from rpy2 import robjects
-    from rpy2.rinterface_lib.embedded import RRuntimeError
-except MissingR as e:
-    raise e
+def ensure_R_setup():
+    try:
+        if not situation.get_r_home() or not situation.r_version_from_subprocess():
+            raise MissingR()
+
+    except MissingR as e:
+        raise e
 
 
 def heatmaps_plot(meta_file: str,
@@ -26,6 +26,9 @@ def heatmaps_plot(meta_file: str,
                   count_name: str,
                   log_name: str
                   ) -> None:
+    ensure_R_setup()
+    from rpy2.rinterface_lib.embedded import RRuntimeError
+    from rpy2 import robjects
     this_file_dir = os.path.dirname(os.path.realpath(__file__))
     robjects.r.source(os.path.join(this_file_dir, 'R/plot_heatmaps.R'))
     available_names = list(robjects.globalenv.keys())
@@ -64,6 +67,9 @@ def dot_plot(means_path: str,
              rows: Optional[str] = None,
              columns: Optional[str] = None
              ) -> None:
+    ensure_R_setup()
+    from rpy2.rinterface_lib.embedded import RRuntimeError
+    from rpy2 import robjects
     pvalues_separator = _get_separator(os.path.splitext(pvalues_path)[-1])
     means_separator = _get_separator(os.path.splitext(means_path)[-1])
     output_extension = os.path.splitext(output_name)[-1].lower()
@@ -79,7 +85,7 @@ def dot_plot(means_path: str,
     this_file_dir = os.path.dirname(os.path.realpath(__file__))
     robjects.r.source(os.path.join(this_file_dir, 'R/plot_dot_by_column_name.R'))
     available_names = list(robjects.globalenv.keys())
-    plot_function= 'dot_plot'
+    plot_function = 'dot_plot'
 
     if plot_function in available_names:
         function_name = plot_function
