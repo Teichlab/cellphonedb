@@ -62,7 +62,6 @@ def find_database_for(value: str) -> str:
 
     if not os.path.isdir(user_databases_prefix):
         app_logger.error('No downloaded databases found, run the `database download` command from the cli first')
-        # todo: should we abort in this case?
         exit(1)
 
     if value == 'latest' or not value:
@@ -112,7 +111,7 @@ def download_database(version):
 
             zip_to_download = releases[version]['url']
 
-        print('Downloading {} release of database'.format(version))
+        print('Downloading `{}` release of CellPhoneDB database'.format(version))
 
         output_folder = os.path.expanduser('{}/{}'.format(cpdb_releases, version))
         os.makedirs(output_folder, exist_ok=True)
