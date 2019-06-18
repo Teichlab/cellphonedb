@@ -15,7 +15,7 @@ def call(iuphar_guidepharmacology: pd.DataFrame, genes: pd.DataFrame, proteins: 
     iuphar_filtered_cellphone_format[['uniprot_1', 'uniprot_2']] = iuphar_filtered[
         ['uniprot', 'target_uniprot']]
 
-    iuphar_filtered_cellphone_format['source'] = 'guidetopharmacology.org'
+    iuphar_filtered_cellphone_format['annotation_strategy'] = 'guidetopharmacology.org'
     iuphar_filtered_cellphone_format['iuphar'] = True
 
     iuphar_procesed = _drop_duplicates(iuphar_filtered_cellphone_format)
@@ -28,9 +28,9 @@ def _drop_duplicates(iuphar_filtered_cellphone_format: pd.DataFrame) -> pd.DataF
                                                      'uniprot_2')
     interactions_duplicated = interactions_normalized[
         interactions_normalized.duplicated(['uniprot_1', 'uniprot_2'])]
-    if not interactions_duplicated.empty:
-        print('WARNING: SOME IUPHAR INTERACTIONS ARE DUPLICATED')
-        print(interactions_duplicated.sort_values(['uniprot_1', 'uniprot_2']).to_csv(index=False))
+    # if not interactions_duplicated.empty:
+    #     print('WARNING: SOME IUPHAR INTERACTIONS ARE DUPLICATED')
+    #     print(interactions_duplicated.sort_values(['uniprot_1', 'uniprot_2']).to_csv(index=False))
     iuphar_procesed = interactions_normalized.drop_duplicates(['uniprot_1', 'uniprot_2'])
     return iuphar_procesed
 

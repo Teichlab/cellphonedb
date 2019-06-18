@@ -10,11 +10,11 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def test_protein(self):
         proteins = cellphonedb_app.cellphonedb.database_manager.get_repository('protein').get_all()
 
-        self.assertEqual(885, len(proteins), 'Number of Protein entries are different')
+        self.assertEqual(978, len(proteins), 'Number of Protein entries are different')
 
     def test_gene(self):
         genes = cellphonedb_app.cellphonedb.database_manager.get_repository('gene').get_all()
-        self.assertEqual(1146, len(genes), 'Number of Gene entries are different')
+        self.assertEqual(1252, len(genes), 'Number of Gene entries are different')
 
     def test_complex(self):
         complex = cellphonedb_app.cellphonedb.database_manager.get_repository('complex').get_all()
@@ -23,7 +23,7 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
     def test_multidata(self):
         multidatas = cellphonedb_app.cellphonedb.database_manager.get_repository(
             'multidata').get_all()
-        self.assertEqual(997, len(multidatas), 'Number of Multidata entries are different')
+        self.assertEqual(1090, len(multidatas), 'Number of Multidata entries are different')
 
     def test_protein_complex(self):
         multidatas = cellphonedb_app.cellphonedb.database_manager.get_repository('multidata').get_all()
@@ -42,18 +42,18 @@ class TestValidatorDatabaseNumberOfEntries(CellphoneFlaskTestCase):
         interactions = cellphonedb_app.cellphonedb.database_manager.get_repository(
             'interaction').get_all()
 
-        self.assertEqual(1168, len(interactions), 'Number of interactions are not equal')
+        self.assertEqual(1396, len(interactions), 'Number of interactions are not equal')
 
     def test_interaction_curated(self):
         interactions = cellphonedb_app.cellphonedb.database_manager.get_repository(
             'interaction').get_all()
-        self.assertEqual(878, len(interactions[interactions['source'] == 'curated']),
+        self.assertEqual(878, len(interactions[interactions['annotation_strategy'] == 'curated']),
                          'Number of curated interactions not equal')
 
     def test_interaction_guidetopharmacology(self):
         interactions = cellphonedb_app.cellphonedb.database_manager.get_repository(
             'interaction').get_all()
-        self.assertEqual(156, len(interactions[interactions['source'] == 'guidetopharmacology.org']),
+        self.assertEqual(156, len(interactions[interactions['annotation_strategy'] == 'guidetopharmacology.org']),
                          'Number of source=guidetopharmacology.org (iphar) entries is different')
 
     def test_complex_composition(self):

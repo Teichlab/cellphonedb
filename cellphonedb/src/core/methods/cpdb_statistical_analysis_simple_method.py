@@ -105,7 +105,7 @@ def build_results(interactions: pd.DataFrame,
 
     interactions_data_result = pd.DataFrame(
         interactions[
-            ['id_cp_interaction', 'name_1', 'name_2', 'receptor_1', 'receptor_2', *gene_columns, 'source']].copy())
+            ['id_cp_interaction', 'name_1', 'name_2', 'receptor_1', 'receptor_2', *gene_columns, 'annotation_strategy']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
@@ -127,7 +127,7 @@ def build_results(interactions: pd.DataFrame,
     interactions_data_result.drop_duplicates(inplace=True)
 
     means_columns = ['id_cp_interaction', 'interacting_pair', 'partner_a', 'partner_b', 'gene_a', 'gene_b', 'secreted',
-                     'receptor_a', 'receptor_b', 'source', 'is_integrin']
+                     'receptor_a', 'receptor_b', 'annotation_strategy', 'is_integrin']
 
     interactions_data_result = interactions_data_result[means_columns]
 

@@ -24,6 +24,7 @@ def merge_iuphar_imex_interactions(iuphar_interactions: pd.DataFrame,
     return merge_result
 
 
+# TODO: Make it easier
 def merge_iuphar_other_and_curated_interactions(iuphar_other_interactions: pd.DataFrame,
                                                 curated_interactions: pd.DataFrame) -> pd.DataFrame:
     all_interactions = iuphar_other_interactions.append(curated_interactions)
@@ -42,8 +43,8 @@ def merge_iuphar_other_and_curated_interactions(iuphar_other_interactions: pd.Da
             (duplicated_interactions['partner_a'] == interaction['partner_a']) & (
                     duplicated_interactions['partner_b'] == interaction['partner_b'])]
 
-        if not duplicated[duplicated['source'] == 'curated'].empty:
-            interaction = duplicated[duplicated['source'] == 'curated'].iloc[0]
+        if not duplicated[duplicated['annotation_strategy'] == 'curated'].empty:
+            interaction = duplicated[duplicated['annotation_strategy'] == 'curated'].iloc[0]
 
         if duplicated['iuphar'].any():
             interaction['iuphar'] = True

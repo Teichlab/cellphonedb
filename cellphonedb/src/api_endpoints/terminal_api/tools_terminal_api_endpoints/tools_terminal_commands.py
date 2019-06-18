@@ -115,7 +115,7 @@ def generate_interactions(proteins: str,
                           result_path: str,
                           ) -> None:
     # TODO: Read imex from API
-    raw_imex = utils.read_data_table_from_file(os.path.join(data_dir, '../../../tools/data/interactionsMirjana.txt'),
+    raw_imex = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/IMEX_all_sources.csv'),
                                                na_values='-')
     proteins = utils.read_data_table_from_file(proteins)
     genes = utils.read_data_table_from_file(genes)
@@ -127,18 +127,17 @@ def generate_interactions(proteins: str,
     if user_interactions:
         separator = _get_separator(os.path.splitext(user_interactions.name)[-1])
         user_interactions = pd.read_csv(user_interactions, sep=separator)
+        user_interactions['annotation_strategy'] = 'user_curated'
 
     result_columns = [
         'partner_a',
         'partner_b',
-        'source',
-        'comments_interaction'
+        'annotation_strategy',
+        'source'
     ]
 
     print('Parsing IMEX file')
     imex_interactions = parse_interactions_imex(raw_imex, proteins, genes)
-
-    imex_interactions.to_csv('TEST_IMEX_OUT.csv', index=False)
 
     output_path = utils.set_paths(output_dir, result_path)
     download_path = utils.set_paths(output_path, 'downloads')
@@ -170,7 +169,8 @@ def generate_interactions(proteins: str,
         interactions_with_curated.append(user_interactions, ignore_index=True, sort=False), 'partner_a',
         'partner_b').drop_duplicates(['partner_a', 'partner_b'], keep='last')
 
-    interactions_with_curated[result_columns].to_csv('{}/interaction_input.csv'.format(output_path), index=False)
+    interactions_with_curated[result_columns].sort_values(['partner_a', 'partner_b']).to_csv(
+        '{}/interaction_input.csv'.format(output_path), index=False)
 
 
 @click.command()

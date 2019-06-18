@@ -164,50 +164,50 @@ interaction_entries = [
         "id_cp_interaction": "CPI-CS0A66DB1CA",
         "name_1": "CD8 receptor",
         "name_2": "P06239",
-        "comments_interaction": "1q69, PDB partially",
-        "source": "curated",
+        "source": "1q69, PDB partially",
+        "annotation_strategy": "curated",
     },
     {
         "id_cp_interaction": "CPI-SS085EE60B1",
         "name_1": "P01137",
         "name_2": "Q03167",
-        "comments_interaction": "uniprot",
-        "source": "curated",
+        "source": "uniprot",
+        "annotation_strategy": "curated",
     },
     {
         "id_cp_interaction": "CPI-SS056BE1011",
         "name_1": "O00421",
         "name_2": "Q99731",
-        "comments_interaction": None,
-        "source": "guidetopharmacology.org",
+        "source": None,
+        "annotation_strategy": "guidetopharmacology.org",
     },
     {
         "id_cp_interaction": "CPI-SS03165AD8C",
         "name_1": "O00590",
         "name_2": "P13500",
-        "comments_interaction": "PMID: 24218476",
-        "source": "curated",
+        "source": "PMID: 24218476",
+        "annotation_strategy": "curated",
     },
     {
         "id_cp_interaction": "CPI-SS0F972435E",
         "name_1": "P35916",
         "name_2": "P49767",
-        "comments_interaction": "uniprot",
-        "source": "curated",
+        "source": "uniprot",
+        "annotation_strategy": "curated",
     },
     {
         "id_cp_interaction": "CPI-SS027E57635",
         "name_1": "Q8NFJ6",
         "name_2": "Q9HC23",
-        "source": "guidetopharmacology.org",
-        "comments_interaction": None
+        "annotation_strategy": "guidetopharmacology.org",
+        "source": None
     },
     {
         "id_cp_interaction": "CPI-SS0DBA4D668",
         "name_1": "P27487",
         "name_2": "P48061",
-        "source": "curated",
-        "comments_interaction": "PMID: 24218476"
+        "annotation_strategy": "curated",
+        "source": "PMID: 24218476"
     }
 ]
 

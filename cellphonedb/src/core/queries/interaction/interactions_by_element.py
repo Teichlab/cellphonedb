@@ -35,7 +35,7 @@ def _build_result(interactions: pd.DataFrame) -> pd.DataFrame:
         lambda interaction: simple_complex_indicator(interaction, '_b'), axis=1)
     interactions = interactions[
         ['id_cp_interaction', 'partner_a', 'partner_b', 'gene_name_a', 'gene_name_b', 'gene_a', 'gene_b',
-         'source']]
+         'annotation_strategy']]
     return interactions
 
 
