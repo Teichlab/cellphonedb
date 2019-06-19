@@ -5,7 +5,7 @@
   "interaction_curated": {
     "date": "20190527"
   },
-  "interaction_to_remove": {
+  "excluded_interaction": {
     "date": "20180330"
   },
   "uniprot": {

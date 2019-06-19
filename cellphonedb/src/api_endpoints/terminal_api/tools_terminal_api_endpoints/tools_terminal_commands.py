@@ -121,7 +121,7 @@ def generate_interactions(proteins: str,
     genes = utils.read_data_table_from_file(genes)
     complexes = utils.read_data_table_from_file(complex)
     interactions_to_remove = utils.read_data_table_from_file(
-        os.path.join(data_dir, 'sources/interaction_to_remove.csv'))
+        os.path.join(data_dir, 'sources/excluded_interaction.csv'))
     interaction_curated = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/interaction_curated.csv'))
 
     if user_interactions:
