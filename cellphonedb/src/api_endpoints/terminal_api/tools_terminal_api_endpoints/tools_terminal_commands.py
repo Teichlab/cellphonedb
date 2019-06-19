@@ -14,6 +14,7 @@ from cellphonedb.tools import tools_helper
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
 from cellphonedb.tools.generate_data.getters import get_iuphar_guidetopharmacology
+from cellphonedb.tools.generate_data.getters.get_imex import read_imex_data
 from cellphonedb.tools.generate_data.mergers.add_curated import add_curated
 from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iuphar_imex_interactions
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
@@ -103,23 +104,30 @@ def generate_genes(user_gene: Optional[click.File],
 
 
 @click.command()
-@click.argument('proteins', default='protein.csv')
-@click.argument('genes', default='gene.csv')
-@click.argument('complex', default='complex.csv')
+@click.argument('proteins', default='protein.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.argument('genes', default='gene.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.argument('complex', default='complex.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.option('--fetch-imex', is_flag=True)
+@click.option('--fetch-iuphar', is_flag=True)
 @click.option('--user-interactions', type=click.File('r'), default=None)
 @click.option('--result-path', type=str, default=None)
 def generate_interactions(proteins: str,
                           genes: str,
                           complex: str,
+                          fetch_imex: bool,
+                          fetch_iuphar: bool,
                           user_interactions: Optional[click.File],
                           result_path: str,
                           ) -> None:
-    # TODO: Read imex from API
-    raw_imex = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/IMEX_all_sources.csv'),
-                                               na_values='-')
+    output_path = utils.set_paths(output_dir, result_path)
+    downloads_path = utils.set_paths(output_path, 'downloads')
+
     proteins = utils.read_data_table_from_file(proteins)
     genes = utils.read_data_table_from_file(genes)
     complexes = utils.read_data_table_from_file(complex)
+
+    raw_imex = read_imex_data(genes, downloads_path, fetch_imex)
+
     interactions_to_remove = utils.read_data_table_from_file(
         os.path.join(data_dir, 'sources/excluded_interaction.csv'))
     interaction_curated = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/interaction_curated.csv'))
@@ -139,14 +147,11 @@ def generate_interactions(proteins: str,
     print('Parsing IMEX file')
     imex_interactions = parse_interactions_imex(raw_imex, proteins, genes)
 
-    output_path = utils.set_paths(output_dir, result_path)
-    download_path = utils.set_paths(output_path, 'downloads')
-
     print('Getting Iuphar interactions')
     # TODO: Refactorize, extract dowloader
     iuphar_original = get_iuphar_guidetopharmacology.call(
         os.path.join(data_dir, 'sources/interaction_iuphar_guidetopharmacology.csv'),
-        download_path,
+        downloads_path,
         default_download_response='no',
     )
 
@@ -307,7 +312,8 @@ def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.Series) -> pd.Da
 def _filter_proteins(proteins: pd.DataFrame,
                      filtered_complexes: pd.DataFrame,
                      interacting_partners: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
-    interacting_proteins = pd.concat([filtered_complexes['uniprot_{}'.format(i)] for i in range(1, 5)]).drop_duplicates()
+    interacting_proteins = pd.concat(
+        [filtered_complexes['uniprot_{}'.format(i)] for i in range(1, 5)]).drop_duplicates()
 
     filtered_proteins = proteins[
         proteins['uniprot'].isin(interacting_partners) | proteins['uniprot'].isin(interacting_proteins)]
