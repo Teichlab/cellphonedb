@@ -37,6 +37,7 @@ try:
     rabbit_password = os.environ['RABBIT_PASSWORD']
     jobs_queue_name = os.environ['RABBIT_JOB_QUEUE']
     result_queue_name = os.environ['RABBIT_RESULT_QUEUE']
+    queue_type = os.environ['QUEUE_TYPE']
 
 
 except KeyError as e:
@@ -292,10 +293,12 @@ while jobs_runned < 3 and consume_more_jobs:
 
     if all(job):
         try:
-            if jobs_queue_name == 'cpdb-plot-jobs':
+            if queue_type == 'plot':
                 job_response = process_plot(*job)
-            else:
+            elif queue_type == 'method':
                 job_response = process_method(*job)
+            else:
+                raise Exception('Unknown queue type')
 
             # TODO: Find more elegant solution
             connection = create_rabbit_connection()
