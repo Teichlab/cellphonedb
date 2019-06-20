@@ -1,6 +1,4 @@
-import json
 import os
-from datetime import datetime
 from io import StringIO
 
 import pandas as pd
@@ -9,6 +7,7 @@ import tqdm
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import data_dir
+from cellphonedb.tools.tools_helper import add_to_meta
 
 
 def call(genes: pd.DataFrame, downloads_path: str, fetch: bool, save_backup: bool = True) -> pd.DataFrame:
@@ -89,14 +88,6 @@ def _get_source(source, proteins, downloads_path, significant_columns, fetch: bo
     file_name = '{}_interaction_raw.csv.{}'.format(source['name'], compression)
     download_file_path = os.path.join(downloads_path, file_name)
 
-    def add_to_meta(file):
-        with open(os.path.join(downloads_path, 'meta.json'), 'r+') as metafile:
-            meta = json.load(metafile)
-            meta[file] = {
-                'date': datetime.now().strftime('%Y%m%d')
-            }
-            json.dump(meta, metafile, indent=2)
-
     def best_path_for(name: str):
         saved_file_path = os.path.join(data_dir, 'sources', name)
 
@@ -120,7 +111,7 @@ def _get_source(source, proteins, downloads_path, significant_columns, fetch: bo
             carry.drop_duplicates(inplace=True)
             if save_backup:
                 carry.to_csv(download_file_path, index=False, compression=compression)
-                add_to_meta(file_name)
+                add_to_meta(file_name, os.path.join(downloads_path, 'meta.json'))
 
         else:
             app_logger.warning('Using local version for source {}'.format(source['name']))
@@ -142,8 +133,8 @@ class CouldNotFetchFromApiException(Exception):
 def _get_chunked_api_results(carry, columns_to_save, proteins, source):
     chunk_size = 500
     for idx, chunk in enumerate(tqdm.tqdm(zip(*[iter(proteins)] * chunk_size),
-                                desc=source['name'].ljust(20),
-                                total=int(len(proteins) / chunk_size))):
+                                          desc=source['name'].ljust(20),
+                                          total=int(len(proteins) / chunk_size))):
         url = source['base_url'].format(' or '.join(chunk))
         try:
             response = requests.get(url)

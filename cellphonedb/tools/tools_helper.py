@@ -1,3 +1,6 @@
+import json
+from datetime import datetime
+
 import pandas as pd
 
 
@@ -53,3 +56,10 @@ def normalize_interactions(interactions, interaction_1_key='protein_1', interact
 
     """
     return sort_interactions_partners_alphabetically(interactions, (interaction_1_key, interaction_2_key))
+
+
+def add_to_meta(file: str, meta_path: str):
+    with open(meta_path, 'r+') as metafile:
+        meta = json.load(metafile)
+        meta[file] = {'date': datetime.now().strftime('%Y%m%d')}
+        json.dump(meta, metafile, indent=2)

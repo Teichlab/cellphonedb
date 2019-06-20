@@ -9,6 +9,7 @@ import requests
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import data_dir
 from cellphonedb.tools.generate_data.getters.get_imex import CouldNotFetchFromApiException
+from cellphonedb.tools.tools_helper import add_to_meta
 
 
 def call(downloads_path: str, fetch: bool, save_backup: bool = True) -> pd.DataFrame:
@@ -17,14 +18,6 @@ def call(downloads_path: str, fetch: bool, save_backup: bool = True) -> pd.DataF
     compression = 'xz'
     file_name = 'iuphar_interaction_raw.csv.{}'.format(compression)
     download_file_path = os.path.join(downloads_path, file_name)
-
-    def add_to_meta(file):
-        with open(os.path.join(downloads_path, 'meta.json'), 'r+') as metafile:
-            meta = json.load(metafile)
-            meta[file] = {
-                'date': datetime.now().strftime('%Y%m%d')
-            }
-            json.dump(meta, metafile, indent=2)
 
     def best_path():
         saved_file_path = os.path.join(data_dir, 'sources', file_name)
@@ -48,7 +41,7 @@ def call(downloads_path: str, fetch: bool, save_backup: bool = True) -> pd.DataF
                 df.drop_duplicates(inplace=True)
                 if save_backup:
                     df.to_csv(download_file_path, index=False, compression=compression)
-                    add_to_meta(file_name)
+                    add_to_meta(file_name, os.path.join(downloads_path, 'meta.json'))
 
                 return df
             else:
