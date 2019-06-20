@@ -70,7 +70,7 @@ def generate(ctx: Context,
     complex_file = os.path.join(output_path, 'complex_generated.csv')
 
     ctx.invoke(generate_interactions, proteins=proteins_file, genes=genes_file, complex=complex_file,
-               user_interactions=user_interactions, result_path=result_path)
+               user_interactions=user_interactions, result_path=result_path, fetch_imex=fetch, fetch_iuphar=fetch)
 
     ctx.invoke(filter_all, input_path=output_path, result_path=result_path)
 

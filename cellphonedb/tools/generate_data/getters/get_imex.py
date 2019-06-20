@@ -1,4 +1,6 @@
+import json
 import os
+from datetime import datetime
 from io import StringIO
 
 import pandas as pd
@@ -9,7 +11,7 @@ from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import data_dir
 
 
-def read_imex_data(genes: pd.DataFrame, downloads_path: str, fetch: bool) -> pd.DataFrame:
+def call(genes: pd.DataFrame, downloads_path: str, fetch: bool, save_backup: bool = True) -> pd.DataFrame:
     proteins = genes['uniprot'].tolist()
 
     sources = [
@@ -70,13 +72,12 @@ def read_imex_data(genes: pd.DataFrame, downloads_path: str, fetch: bool) -> pd.
     carry = pd.DataFrame(columns=significant_columns)
 
     for source in tqdm.tqdm(sources, desc='Fetching sources'.ljust(20)):
-        carry = carry.append(_get_source(source, proteins, downloads_path, significant_columns, fetch),
+        carry = carry.append(_get_source(source, proteins, downloads_path, significant_columns, fetch, save_backup),
                              ignore_index=True,
                              sort=False)
     print()
 
     carry.drop_duplicates(inplace=True)
-    print(carry)
 
     return carry
 
@@ -84,21 +85,30 @@ def read_imex_data(genes: pd.DataFrame, downloads_path: str, fetch: bool) -> pd.
 def _get_source(source, proteins, downloads_path, significant_columns, fetch: bool, save_backup: bool = True):
     carry = pd.DataFrame(columns=significant_columns)
     columns_to_save = ['A', 'B', 'altA', 'altB']
-    compression = 'gzip'
-    download_file_path = os.path.join(downloads_path, '{}_interaction_raw.csv.gz'.format(source))
+    compression = 'xz'
+    file_name = '{}_interaction_raw.csv.{}'.format(source['name'], compression)
+    download_file_path = os.path.join(downloads_path, file_name)
 
-    def best_path_for(source: str):
-        saved_file_path = os.path.join(data_dir, 'sources', '{}_interaction_raw.csv.gz'.format(source))
+    def add_to_meta(file):
+        with open(os.path.join(downloads_path, 'meta.json'), 'r+') as metafile:
+            meta = json.load(metafile)
+            meta[file] = {
+                'date': datetime.now().strftime('%Y%m%d')
+            }
+            json.dump(meta, metafile, indent=2)
+
+    def best_path_for(name: str):
+        saved_file_path = os.path.join(data_dir, 'sources', name)
 
         if os.path.exists(download_file_path):
             return download_file_path
         if os.path.exists(saved_file_path):
             return saved_file_path
 
-        app_logger.error('Could not find local source for {}'.format(source))
+        app_logger.error('Could not find local source for {}'.format(name))
         exit(1)
 
-    file_path = best_path_for(source['name'])
+    file_path = best_path_for(file_name)
 
     try:
         if fetch:
@@ -106,8 +116,14 @@ def _get_source(source, proteins, downloads_path, significant_columns, fetch: bo
                 carry = _get_chunked_api_results(carry, columns_to_save, proteins, source)
             else:
                 carry = _get_single_api_results(carry, columns_to_save, source)
+
+            carry.drop_duplicates(inplace=True)
+            if save_backup:
+                carry.to_csv(download_file_path, index=False, compression=compression)
+                add_to_meta(file_name)
+
         else:
-            app_logger.warning('Using local version for source {}, using available backup'.format(source['name']))
+            app_logger.warning('Using local version for source {}'.format(source['name']))
             carry = pd.read_csv(file_path, compression=compression)
 
     except CouldNotFetchFromApiException:
@@ -115,10 +131,6 @@ def _get_source(source, proteins, downloads_path, significant_columns, fetch: bo
         carry = pd.read_csv(file_path, compression=compression)
 
     carry['provider'] = source['name']
-    carry.drop_duplicates(inplace=True)
-
-    if save_backup:
-        carry.to_csv(download_file_path, index=False, compression=compression)
 
     return carry
 
@@ -128,10 +140,10 @@ class CouldNotFetchFromApiException(Exception):
 
 
 def _get_chunked_api_results(carry, columns_to_save, proteins, source):
-    chunk_size = 10
-    for idx, chunk in tqdm.tqdm(enumerate(zip(*[iter(proteins)] * chunk_size)),
+    chunk_size = 500
+    for idx, chunk in enumerate(tqdm.tqdm(zip(*[iter(proteins)] * chunk_size),
                                 desc=source['name'].ljust(20),
-                                total=int(len(proteins) / chunk_size)):
+                                total=int(len(proteins) / chunk_size))):
         url = source['base_url'].format(' or '.join(chunk))
         try:
             response = requests.get(url)
@@ -144,7 +156,7 @@ def _get_chunked_api_results(carry, columns_to_save, proteins, source):
             else:
                 if response.status_code != 200:
                     raise CouldNotFetchFromApiException()
-        except requests.ConnectionError:
+        except (requests.exceptions.ConnectionError, requests.exceptions.SSLError):
             raise CouldNotFetchFromApiException()
 
     return carry
@@ -152,8 +164,8 @@ def _get_chunked_api_results(carry, columns_to_save, proteins, source):
 
 def _get_single_api_results(carry, columns_to_save, source):
     url = source['base_url']
-    response = requests.get(url)
     try:
+        response = requests.get(url)
         if response.text:
             s = StringIO(response.text)
             df = pd.read_csv(s, sep='\t', names=columns_to_save, usecols=range(4), na_values='-')
@@ -164,7 +176,8 @@ def _get_single_api_results(carry, columns_to_save, source):
             if response.status_code != 200:
                 raise CouldNotFetchFromApiException()
 
-    except requests.ConnectionError:
+    except (requests.exceptions.ConnectionError, requests.exceptions.SSLError) as e:
+        print(e)
         raise CouldNotFetchFromApiException()
 
     return carry
