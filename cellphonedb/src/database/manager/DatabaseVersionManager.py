@@ -19,22 +19,34 @@ cpdb_releases = '~/.cpdb/releases'
 database_file = 'cellphone.db'
 
 
-def _ensure_core_version_in_user_dbs():
+def _major(version: LooseVersion) -> int:
+    for component in version.version:
+        if isinstance(component, int):
+            return component
+
+
+def _get_core_version() -> LooseVersion:
     with open(os.path.join(core_dir, 'metadata.json')) as metadata_file:
         metadata = json.load(metadata_file)
         core_version = metadata.get('database_version', 'core')
 
-        user_databases_prefix = os.path.expanduser(cpdb_releases)
-        dest_folder = os.path.join(user_databases_prefix, core_version)
-        database_file_location = os.path.join(dest_folder, database_file)
+        return LooseVersion(core_version)
 
-        if os.path.isfile(database_file_location):
-            return
 
-        os.makedirs(dest_folder, exist_ok=True)
+def _ensure_core_version_in_user_dbs():
+    core_version = _get_core_version()
 
-        copy_file(os.path.join(core_dir, database_file), dest_folder)
-        copy_tree(os.path.join(core_dir, 'data'), dest_folder)
+    user_databases_prefix = os.path.expanduser(cpdb_releases)
+    dest_folder = os.path.join(user_databases_prefix, str(core_version))
+    database_file_location = os.path.join(dest_folder, database_file)
+
+    if os.path.isfile(database_file_location):
+        return
+
+    os.makedirs(dest_folder, exist_ok=True)
+
+    copy_file(os.path.join(core_dir, database_file), dest_folder)
+    copy_tree(os.path.join(core_dir, 'data'), dest_folder)
 
 
 def find_database_for(value: str) -> str:
@@ -49,14 +61,13 @@ def find_database_for(value: str) -> str:
     user_databases_prefix = os.path.expanduser(cpdb_releases)
 
     if not os.path.isdir(user_databases_prefix):
-        app_logger.error('No downloaded databases found, run the `tools download_database` command from the cli first')
-        # todo: should we abort in this case?
+        app_logger.error('No downloaded databases found, run the `database download` command from the cli first')
         exit(1)
 
     if value == 'latest' or not value:
         available = list_local_versions()
         latest_available = available[0]
-        app_logger.warning('Latest dowloaded version is `{}`, using it'.format(latest_available))
+        app_logger.warning('Latest local available version is `{}`, using it'.format(latest_available))
         value = latest_available
 
     downloaded_candidate = os.path.join(user_databases_prefix, value, database_file)
@@ -100,7 +111,7 @@ def download_database(version):
 
             zip_to_download = releases[version]['url']
 
-        print('Downloading {} release of database'.format(version))
+        print('Downloading `{}` release of CellPhoneDB database'.format(version))
 
         output_folder = os.path.expanduser('{}/{}'.format(cpdb_releases, version))
         os.makedirs(output_folder, exist_ok=True)
@@ -131,8 +142,13 @@ def download_database(version):
 def list_local_versions() -> list:
     try:
         releases_folder = os.path.expanduser(cpdb_releases)
+        core = _get_core_version()
 
-        return sorted(os.listdir(releases_folder), key=LooseVersion, reverse=True)
+        local_versions = os.listdir(releases_folder)
+
+        compatible_versions = [version for version in local_versions if _matching_major(core, version)]
+
+        return sorted(compatible_versions, key=LooseVersion, reverse=True)
     except FileNotFoundError:
         return []
 
@@ -143,7 +159,8 @@ def list_remote_database_versions():
 
         for idx, (_, version) in enumerate(releases.items()):
             note = ' *latest' if idx == 0 else ''
-            print('version {}{}: released: {}, url: {}'.format(version['tag'], note, version['date'], version['link']))
+            print('version {}{}: released: {}, url: {}, compatible: {}'.format(version['tag'], note, version['date'],
+                                                                               version['link'], version['compatible']))
 
     except NoReleasesException:
         print('There are no versions available (or connection could not be made to server to retrieve them)')
@@ -162,7 +179,7 @@ def list_local_database_versions():
         print('version {}{}'.format(version, note))
 
 
-def _list_releases():
+def _list_releases() -> dict:
     try:
         releases = _github_query('releases')
 
@@ -177,12 +194,14 @@ def _list_releases():
 
 def _latest_release():
     try:
-        latest_release = _github_query('latest')
+        compatible_versions = {key: value for key, value in _list_releases().items() if value['compatible']}
 
-        if not latest_release:
+        if not compatible_versions:
             raise NoReleasesException()
 
-        return _format_release(latest_release)
+        latest = sorted(compatible_versions, key=LooseVersion, reverse=True)[0]
+
+        return compatible_versions[latest]
 
     except requests.exceptions.ConnectionError:
         raise NoReleasesException()
@@ -190,11 +209,13 @@ def _latest_release():
 
 def _github_query(kind) -> Union[dict, list]:
     queries = {
-        'releases': 'https://api.github.com/repos/{}/{}/releases'.format('ydevs', 'cpdb-data'),
-        'latest': 'https://api.github.com/repos/{}/{}/releases/latest'.format('ydevs', 'cpdb-data')
+        'releases': 'https://api.github.com/repos/{}/{}/releases'.format('ydevs', 'cpdb-data')
     }
 
     query = queries[kind]
+
+    if not query:
+        raise Exception('unexpected query to github')
 
     response = requests.get(query, headers={'Accept': 'application/vnd.github.v3+json'})
 
@@ -205,11 +226,21 @@ def _github_query(kind) -> Union[dict, list]:
 
 
 def _format_releases(*releases) -> dict:
-    return {item['tag_name']: _format_release(item) for item in releases}
+    core_version = _get_core_version()
+
+    return {item['tag_name']: _format_release(item, core_version) for item in releases}
 
 
-def _format_release(item) -> dict:
+def _format_release(item: dict, core: LooseVersion) -> dict:
+    tag_name = item['tag_name']
+
     return {'url': item['zipball_url'],
-            'tag': item['tag_name'],
+            'tag': tag_name,
             'date': item['published_at'],
-            'link': item['html_url']}
+            'link': item['html_url'],
+            'compatible': _matching_major(core, tag_name)
+            }
+
+
+def _matching_major(core, candidate):
+    return _major(LooseVersion(candidate)) == _major(core)
