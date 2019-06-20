@@ -16,8 +16,8 @@ dot_plot = function(selected_rows = NULL,
 
   rownames(all_pval) = all_pval$interacting_pair
   rownames(all_means) = all_means$interacting_pair
-  all_pval = all_pval[,-c(1:10)]
-  all_means = all_means[,-c(1:10)]
+  all_pval = all_pval[,-c(1:11)]
+  all_means = all_means[,-c(1:11)]
 
   if(is.null(selected_rows)){
     selected_rows = rownames(all_pval)
