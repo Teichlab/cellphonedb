@@ -4,8 +4,14 @@ import traceback
 import click
 
 from cellphonedb.src.app.app_logger import app_logger
+from cellphonedb.src.exceptions.MissingR import MissingR
 from cellphonedb.src.exceptions.RRuntimeException import RRuntimeException
 from cellphonedb.src.plotters import r_plotter
+
+try:
+    r_plotter.ensure_R_setup()
+except MissingR:
+    print('As there is no R environment set up, some functionalities will be disabled, e.g. plot')
 
 
 @click.command()
@@ -25,6 +31,8 @@ def dot_plot(means_path: str, pvalues_path: str, output_path: str, output_name: 
              columns: str, verbose: bool):
     try:
         r_plotter.dot_plot(means_path, pvalues_path, output_path, output_name, rows, columns)
+    except MissingR:
+        print('You cannot perform this plot command unless there is a working R setup according to CellPhoneDB specs')
     except RRuntimeException as e:
         app_logger.error(str(e))
     except:
@@ -50,6 +58,8 @@ def dot_plot(means_path: str, pvalues_path: str, output_path: str, output_name: 
 def heatmap_plot(meta_path: str, pvalues_path: str, output_path: str, count_name: str, log_name: str, verbose: bool):
     try:
         r_plotter.heatmaps_plot(meta_path, pvalues_path, output_path, log_name, count_name)
+    except MissingR:
+        print('You cannot perform this plot command unless there is a working R setup according to CellPhoneDB specs')
     except RRuntimeException as e:
         app_logger.error(str(e))
     except:
