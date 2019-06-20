@@ -24,12 +24,12 @@ from cellphonedb.utils.utils import _get_separator, write_to_file
 
 
 @click.command()
-@click.option('--user-gene', type=click.File('r'), default=None)
+@click.option('--user-gene', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--fetch-uniprot', is_flag=True)
 @click.option('--fetch-ensembl', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
-def generate_genes(user_gene: Optional[click.File],
+def generate_genes(user_gene: Optional[str],
                    fetch_uniprot: bool,
                    fetch_ensembl: bool,
                    result_path: str,
@@ -95,7 +95,7 @@ def generate_genes(user_gene: Optional[click.File],
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
     hla_genes = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/hla_curated.csv'))
     if user_gene:
-        separator = _get_separator(os.path.splitext(user_gene.name)[-1])
+        separator = _get_separator(os.path.splitext(user_gene)[-1])
         user_gene = pd.read_csv(user_gene, sep=separator)
 
     cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, user_gene, result_columns)
@@ -179,11 +179,11 @@ def generate_interactions(proteins: str,
 
 
 @click.command()
-@click.option('--user-protein', type=click.File('r'), default=None)
+@click.option('--user-protein', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--fetch-uniprot', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
-def generate_proteins(user_protein: Optional[click.File],
+def generate_proteins(user_protein: Optional[str],
                       fetch_uniprot: bool,
                       result_path: str,
                       log_file: str):
@@ -247,7 +247,7 @@ def generate_proteins(user_protein: Optional[click.File],
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
     curated_proteins = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
     if user_protein:
-        separator = _get_separator(os.path.splitext(user_protein.name)[-1])
+        separator = _get_separator(os.path.splitext(user_protein)[-1])
         user_protein = pd.read_csv(user_protein, sep=separator)
 
     result = protein_generator(uniprot_db, curated_proteins, user_protein, default_values, default_types,
@@ -257,7 +257,7 @@ def generate_proteins(user_protein: Optional[click.File],
 
 
 @click.command()
-@click.option('--user-complex', type=click.File('r'), default=None)
+@click.option('--user-complex', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
 def generate_complex(user_complex: Optional[click.File], result_path: str, log_file: str):
@@ -266,7 +266,7 @@ def generate_complex(user_complex: Optional[click.File], result_path: str, log_f
 
     curated_complex = pd.read_csv(os.path.join(data_dir, 'sources/complex_curated.csv'))
     if user_complex:
-        separator = _get_separator(os.path.splitext(user_complex.name)[-1])
+        separator = _get_separator(os.path.splitext(user_complex)[-1])
         user_complex = pd.read_csv(user_complex, sep=separator)
 
     result = complex_generator(curated_complex, user_complex, log_path)
