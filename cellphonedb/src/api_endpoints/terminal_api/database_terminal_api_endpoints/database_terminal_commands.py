@@ -40,19 +40,19 @@ def list_local():
 
 
 @click.command()
-@click.option('--user-protein', type=click.File('r'))
-@click.option('--user-gene', type=click.File('r'))
-@click.option('--user-complex', type=click.File('r'))
-@click.option('--user-interactions', type=click.File('r'))
+@click.option('--user-protein', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.option('--user-gene', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.option('--user-complex', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.option('--user-interactions', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--fetch', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
 @click.pass_context
 def generate(ctx: Context,
-             user_protein: str,
-             user_gene: str,
-             user_complex: str,
-             user_interactions: str,
+             user_protein: Optional[str],
+             user_gene: Optional[str],
+             user_complex: Optional[str],
+             user_interactions: Optional[str],
              fetch: bool,
              result_path: Optional[str],
              log_file: str
@@ -70,7 +70,7 @@ def generate(ctx: Context,
     complex_file = os.path.join(output_path, 'complex_generated.csv')
 
     ctx.invoke(generate_interactions, proteins=proteins_file, genes=genes_file, complex=complex_file,
-               user_interactions=user_interactions, result_path=result_path)
+               user_interactions=user_interactions, result_path=result_path, fetch_imex=fetch, fetch_iuphar=fetch)
 
     ctx.invoke(filter_all, input_path=output_path, result_path=result_path)
 

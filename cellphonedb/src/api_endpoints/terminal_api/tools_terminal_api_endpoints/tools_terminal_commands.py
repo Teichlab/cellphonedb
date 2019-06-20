@@ -13,7 +13,7 @@ from cellphonedb.src.core.generators.protein_generator import protein_generator
 from cellphonedb.tools import tools_helper
 from cellphonedb.tools.generate_data.filters.non_complex_interactions import only_noncomplex_interactions
 from cellphonedb.tools.generate_data.filters.remove_interactions import remove_interactions_in_file
-from cellphonedb.tools.generate_data.getters import get_iuphar_guidetopharmacology
+from cellphonedb.tools.generate_data.getters import get_iuphar, get_imex
 from cellphonedb.tools.generate_data.mergers.add_curated import add_curated
 from cellphonedb.tools.generate_data.mergers.merge_interactions import merge_iuphar_imex_interactions
 from cellphonedb.tools.generate_data.parsers import parse_iuphar_guidetopharmacology
@@ -23,12 +23,12 @@ from cellphonedb.utils.utils import _get_separator, write_to_file
 
 
 @click.command()
-@click.option('--user-gene', type=click.File('r'), default=None)
+@click.option('--user-gene', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--fetch-uniprot', is_flag=True)
 @click.option('--fetch-ensembl', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
-def generate_genes(user_gene: Optional[click.File],
+def generate_genes(user_gene: Optional[str],
                    fetch_uniprot: bool,
                    fetch_ensembl: bool,
                    result_path: str,
@@ -94,7 +94,7 @@ def generate_genes(user_gene: Optional[click.File],
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
     hla_genes = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/hla_curated.csv'))
     if user_gene:
-        separator = _get_separator(os.path.splitext(user_gene.name)[-1])
+        separator = _get_separator(os.path.splitext(user_gene)[-1])
         user_gene = pd.read_csv(user_gene, sep=separator)
 
     cpdb_genes = gene_generator(ensembl_db, uniprot_db, hla_genes, user_gene, result_columns)
@@ -103,29 +103,36 @@ def generate_genes(user_gene: Optional[click.File],
 
 
 @click.command()
-@click.argument('proteins', default='protein.csv')
-@click.argument('genes', default='gene.csv')
-@click.argument('complex', default='complex.csv')
-@click.option('--user-interactions', type=click.File('r'), default=None)
+@click.argument('proteins', default='protein.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.argument('genes', default='gene.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.argument('complex', default='complex.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.option('--user-interactions', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--result-path', type=str, default=None)
+@click.option('--fetch-imex', is_flag=True)
+@click.option('--fetch-iuphar', is_flag=True)
 def generate_interactions(proteins: str,
                           genes: str,
                           complex: str,
-                          user_interactions: Optional[click.File],
+                          user_interactions: Optional[str],
                           result_path: str,
+                          fetch_imex: bool,
+                          fetch_iuphar: bool,
                           ) -> None:
-    # TODO: Read imex from API
-    raw_imex = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/IMEX_all_sources.csv'),
-                                               na_values='-')
+    output_path = utils.set_paths(output_dir, result_path)
+    downloads_path = utils.set_paths(output_path, 'downloads')
+
     proteins = utils.read_data_table_from_file(proteins)
     genes = utils.read_data_table_from_file(genes)
     complexes = utils.read_data_table_from_file(complex)
+
+    raw_imex = get_imex.call(genes, downloads_path, fetch_imex)
+
     interactions_to_remove = utils.read_data_table_from_file(
         os.path.join(data_dir, 'sources/excluded_interaction.csv'))
     interaction_curated = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/interaction_curated.csv'))
 
     if user_interactions:
-        separator = _get_separator(os.path.splitext(user_interactions.name)[-1])
+        separator = _get_separator(os.path.splitext(user_interactions)[-1])
         user_interactions = pd.read_csv(user_interactions, sep=separator)
         user_interactions['annotation_strategy'] = 'user_curated'
 
@@ -139,19 +146,11 @@ def generate_interactions(proteins: str,
     print('Parsing IMEX file')
     imex_interactions = parse_interactions_imex(raw_imex, proteins, genes)
 
-    output_path = utils.set_paths(output_dir, result_path)
-    download_path = utils.set_paths(output_path, 'downloads')
+    print('Getting iuphar data')
+    raw_iuphar = get_iuphar.call(downloads_path, fetch_iuphar)
 
-    print('Getting Iuphar interactions')
-    # TODO: Refactorize, extract dowloader
-    iuphar_original = get_iuphar_guidetopharmacology.call(
-        os.path.join(data_dir, 'sources/interaction_iuphar_guidetopharmacology.csv'),
-        download_path,
-        default_download_response='no',
-    )
-
-    print('Generating iuphar file')
-    iuphar_interactions = parse_iuphar_guidetopharmacology.call(iuphar_original, genes, proteins)
+    print('Generating iuphar interactions')
+    iuphar_interactions = parse_iuphar_guidetopharmacology.call(raw_iuphar, genes, proteins)
 
     print('Merging iuphar/imex')
     merged_interactions = merge_iuphar_imex_interactions(iuphar_interactions, imex_interactions)
@@ -174,11 +173,11 @@ def generate_interactions(proteins: str,
 
 
 @click.command()
-@click.option('--user-protein', type=click.File('r'), default=None)
+@click.option('--user-protein', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--fetch-uniprot', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
-def generate_proteins(user_protein: Optional[click.File],
+def generate_proteins(user_protein: Optional[str],
                       fetch_uniprot: bool,
                       result_path: str,
                       log_file: str):
@@ -242,7 +241,7 @@ def generate_proteins(user_protein: Optional[click.File],
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
     curated_proteins = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
     if user_protein:
-        separator = _get_separator(os.path.splitext(user_protein.name)[-1])
+        separator = _get_separator(os.path.splitext(user_protein)[-1])
         user_protein = pd.read_csv(user_protein, sep=separator)
 
     result = protein_generator(uniprot_db, curated_proteins, user_protein, default_values, default_types,
@@ -252,16 +251,16 @@ def generate_proteins(user_protein: Optional[click.File],
 
 
 @click.command()
-@click.option('--user-complex', type=click.File('r'), default=None)
+@click.option('--user-complex', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
-def generate_complex(user_complex: Optional[click.File], result_path: str, log_file: str):
+def generate_complex(user_complex: Optional[str], result_path: str, log_file: str):
     output_path = _set_paths(output_dir, result_path)
     log_path = '{}/{}'.format(output_path, log_file)
 
     curated_complex = pd.read_csv(os.path.join(data_dir, 'sources/complex_curated.csv'))
     if user_complex:
-        separator = _get_separator(os.path.splitext(user_complex.name)[-1])
+        separator = _get_separator(os.path.splitext(user_complex)[-1])
         user_complex = pd.read_csv(user_complex, sep=separator)
 
     result = complex_generator(curated_complex, user_complex, log_path)
@@ -307,7 +306,8 @@ def _filter_genes(genes: pd.DataFrame, interacting_proteins: pd.Series) -> pd.Da
 def _filter_proteins(proteins: pd.DataFrame,
                      filtered_complexes: pd.DataFrame,
                      interacting_partners: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
-    interacting_proteins = pd.concat([filtered_complexes['uniprot_{}'.format(i)] for i in range(1, 5)]).drop_duplicates()
+    interacting_proteins = pd.concat(
+        [filtered_complexes['uniprot_{}'.format(i)] for i in range(1, 5)]).drop_duplicates()
 
     filtered_proteins = proteins[
         proteins['uniprot'].isin(interacting_partners) | proteins['uniprot'].isin(interacting_proteins)]
