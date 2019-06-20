@@ -106,14 +106,14 @@ def generate_genes(user_gene: Optional[str],
 @click.argument('proteins', default='protein.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.argument('genes', default='gene.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.argument('complex', default='complex.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
-@click.option('--user-interactions', type=click.File('r'), default=None)
+@click.option('--user-interactions', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--result-path', type=str, default=None)
 @click.option('--fetch-imex', is_flag=True)
 @click.option('--fetch-iuphar', is_flag=True)
 def generate_interactions(proteins: str,
                           genes: str,
                           complex: str,
-                          user_interactions: Optional[click.File],
+                          user_interactions: Optional[str],
                           result_path: str,
                           fetch_imex: bool,
                           fetch_iuphar: bool,
@@ -132,7 +132,7 @@ def generate_interactions(proteins: str,
     interaction_curated = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/interaction_curated.csv'))
 
     if user_interactions:
-        separator = _get_separator(os.path.splitext(user_interactions.name)[-1])
+        separator = _get_separator(os.path.splitext(user_interactions)[-1])
         user_interactions = pd.read_csv(user_interactions, sep=separator)
         user_interactions['annotation_strategy'] = 'user_curated'
 
@@ -254,7 +254,7 @@ def generate_proteins(user_protein: Optional[str],
 @click.option('--user-complex', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
-def generate_complex(user_complex: Optional[click.File], result_path: str, log_file: str):
+def generate_complex(user_complex: Optional[str], result_path: str, log_file: str):
     output_path = _set_paths(output_dir, result_path)
     log_path = '{}/{}'.format(output_path, log_file)
 
