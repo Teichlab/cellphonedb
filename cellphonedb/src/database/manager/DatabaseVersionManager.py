@@ -190,8 +190,8 @@ def _latest_release():
 
 def _github_query(kind) -> Union[dict, list]:
     queries = {
-        'releases': 'https://api.github.com/repos/{}/{}/releases'.format('ydevs', 'cpdb-data'),
-        'latest': 'https://api.github.com/repos/{}/{}/releases/latest'.format('ydevs', 'cpdb-data')
+        'releases': 'https://api.github.com/repos/{}/{}/releases'.format('Teichlab', 'cellphonedb-data'),
+        'latest': 'https://api.github.com/repos/{}/{}/releases/latest'.format('Teichlab', 'cellphonedb-data')
     }
 
     query = queries[kind]
