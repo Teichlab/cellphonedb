@@ -209,7 +209,7 @@ def _latest_release():
 
 def _github_query(kind) -> Union[dict, list]:
     queries = {
-        'releases': 'https://api.github.com/repos/{}/{}/releases'.format('ydevs', 'cpdb-data')
+        'releases': 'https://api.github.com/repos/{}/{}/releases'.format('Teichlab', 'cellphonedb-data'),
     }
 
     query = queries[kind]
