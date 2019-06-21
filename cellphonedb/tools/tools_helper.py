@@ -1,7 +1,10 @@
 import json
+import os
 from datetime import datetime
+from json import JSONDecodeError
 
 import pandas as pd
+import tqdm
 
 
 def interaction_exist(interaction, interactions, interaction_1_key='uniprot_1', interaction_2_key='uniprot_2'):
@@ -59,7 +62,15 @@ def normalize_interactions(interactions, interaction_1_key='protein_1', interact
 
 
 def add_to_meta(file: str, meta_path: str):
-    with open(meta_path, 'r+') as metafile:
-        meta = json.load(metafile)
+    if not os.path.exists(meta_path):
+        meta = {}
+    else:
+        try:
+            with open(meta_path, 'r') as metafile:
+                meta = json.load(metafile)
+        except JSONDecodeError:
+            meta = {}
+
+    with open(meta_path, 'w') as metafile:
         meta[file] = {'date': datetime.now().strftime('%Y%m%d')}
         json.dump(meta, metafile, indent=2)

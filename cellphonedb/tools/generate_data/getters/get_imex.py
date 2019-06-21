@@ -114,11 +114,11 @@ def _get_source(source, proteins, downloads_path, significant_columns, fetch: bo
                 add_to_meta(file_name, os.path.join(downloads_path, 'meta.json'))
 
         else:
-            app_logger.warning('Using local version for source {}'.format(source['name']))
+            tqdm.tqdm.write('Using local version for source {}'.format(source['name']))
             carry = pd.read_csv(file_path, compression=compression)
 
     except CouldNotFetchFromApiException:
-        app_logger.warning('Could not fetch remote source {}, using available backup'.format(source['name']))
+        tqdm.tqdm.write('Could not fetch remote source {}, using available backup'.format(source['name']))
         carry = pd.read_csv(file_path, compression=compression)
 
     carry['provider'] = source['name']
@@ -162,13 +162,11 @@ def _get_single_api_results(carry, columns_to_save, source):
             df = pd.read_csv(s, sep='\t', names=columns_to_save, usecols=range(4), na_values='-')
             carry = pd.concat([carry, df], sort=False, axis=0, ignore_index=True)
             carry.drop_duplicates(inplace=True)
-
         else:
             if response.status_code != 200:
                 raise CouldNotFetchFromApiException()
 
-    except (requests.exceptions.ConnectionError, requests.exceptions.SSLError) as e:
-        print(e)
+    except (requests.exceptions.ConnectionError, requests.exceptions.SSLError):
         raise CouldNotFetchFromApiException()
 
     return carry
