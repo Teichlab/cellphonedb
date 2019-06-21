@@ -139,8 +139,8 @@ def generate_interactions(proteins: str,
     result_columns = [
         'partner_a',
         'partner_b',
-        'protein_name_b',
         'protein_name_a',
+        'protein_name_b',
         'annotation_strategy',
         'source'
     ]
