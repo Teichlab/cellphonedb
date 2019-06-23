@@ -18,7 +18,11 @@ class GeneRepository(Repository):
         return result
 
     def get_all_expanded(self):
-        query = self.database_manager.database.session.query(Gene, Protein, Multidata).join(Protein).join(Multidata)
+        protein_multidata_join = Protein.protein_multidata_id == Multidata.id_multidata
+        gene_protein_join = Gene.protein_id == Protein.id_protein
+        query = self.database_manager.database.session.query(Gene, Protein, Multidata).join(
+            Protein, gene_protein_join).join(Multidata, protein_multidata_join)
+
         result = pd.read_sql(query.statement, self.database_manager.database.session.bind)
 
         return result
@@ -31,9 +35,9 @@ class GeneRepository(Repository):
         genes = self._blend_multidata(genes, ['name'], multidatas)
 
         genes.rename(index=str, columns={'id_protein': 'protein_id'}, inplace=True)
-        genes = filters.remove_not_defined_columns(genes, self.database_manager.get_column_table_names('gene'))
+        genes = filters.remove_not_defined_columns(genes, self.database_manager.get_column_table_names('gene_table'))
 
-        genes.to_sql(name='gene', if_exists='append', con=self.database_manager.database.engine, index=False,
+        genes.to_sql(name='gene_table', if_exists='append', con=self.database_manager.database.engine, index=False,
                      chunksize=50)
 
     @staticmethod

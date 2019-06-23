@@ -35,12 +35,18 @@ class ComplexRepository(Repository):
         query = self.database_manager.database.session.query(ComplexComposition)
         complex_composition = pd.read_sql(query.statement, self.database_manager.database.engine)
 
+        protein_gene_join = Protein.protein_multidata_id == Multidata.id_multidata
         if include_gene:
-            multidatas_proteins_query = self.database_manager.database.session.query(Gene, Protein, Multidata).join(
-                Protein).join(Multidata)
+            gene_protein_join = Gene.protein_id == Protein.id_protein
+            multidatas_proteins_query = self.database_manager.database.session.query(Gene,
+                                                                                     Protein,
+                                                                                     Multidata).join(Protein,
+                                                                                                     gene_protein_join
+                                                                                                     ).join(Multidata,
+                                                                                                            protein_gene_join)
         else:
             multidatas_proteins_query = self.database_manager.database.session.query(Protein, Multidata).join(
-                Multidata)
+                Multidata, protein_gene_join)
 
         multidatas_proteins = pd.read_sql(multidatas_proteins_query.statement, self.database_manager.database.engine)
         multidatas_proteins.columns = multidatas_proteins.columns.map(lambda column: column + '_protein')
@@ -107,9 +113,6 @@ class ComplexRepository(Repository):
         proteins = self.database_manager.database.session.query(Multidata.name, Multidata.id_multidata).join(
             Protein).all()
         proteins = {p[0]: p[1] for p in proteins}
-        # Read in complexes
-        complexes.dropna(axis=1, inplace=True, how='all')
-        complexes.rename(index=str, columns={'complex_name': 'name'}, inplace=True)
 
         # Get complex composition info
         complete_indices = []
@@ -154,8 +157,8 @@ class ComplexRepository(Repository):
             complexes = complexes.iloc[complete_indices, :]
 
             # Convert ints to bool
-            bools = ['receptor', 'adhesion', 'other', 'transporter', 'secreted_highlight', 'transmembrane', 'secretion',
-                     'peripheral', 'extracellular', 'cytoplasm']
+            bools = ['receptor', 'other', 'secreted_highlight', 'transmembrane', 'secreted',
+                     'peripheral']
             complexes[bools] = complexes[bools].astype(bool)
 
             # Drop existing complexes
@@ -164,10 +167,10 @@ class ComplexRepository(Repository):
 
             multidata_df = filters.remove_not_defined_columns(complexes.copy(),
                                                               self.database_manager.get_column_table_names(
-                                                                  'multidata'))
+                                                                  'multidata_table'))
 
             multidata_df = self._add_complex_optimitzations(multidata_df)
-            multidata_df.to_sql(name='multidata', if_exists='append', con=self.database_manager.database.engine,
+            multidata_df.to_sql(name='multidata_table', if_exists='append', con=self.database_manager.database.engine,
                                 index=False, chunksize=50)
 
         # Now find id's of new complex rows
@@ -191,14 +194,14 @@ class ComplexRepository(Repository):
         complex_table_df = pd.merge(complex_table_df, complexes, on='name')
 
         filters.remove_not_defined_columns(complex_table_df,
-                                           self.database_manager.get_column_table_names('complex'))
+                                           self.database_manager.get_column_table_names('complex_table'))
 
         complex_table_df.to_sql(
-            name='complex', if_exists='append',
+            name='complex_table', if_exists='append',
             con=self.database_manager.database.engine, index=False, chunksize=50)
 
         complex_set_df.to_sql(
-            name='complex_composition', if_exists='append',
+            name='complex_composition_table', if_exists='append',
             con=self.database_manager.database.engine, index=False, chunksize=50)
 
     @staticmethod

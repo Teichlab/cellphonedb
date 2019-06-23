@@ -15,7 +15,9 @@ class ProteinRepository(Repository):
         return protein
 
     def get_all_expanded(self) -> pd.DataFrame:
-        protein_query = self.database_manager.database.session.query(Protein, Multidata).join(Multidata)
+        protein_multidata_join = Protein.protein_multidata_id == Multidata.id_multidata
+        protein_query = self.database_manager.database.session.query(Protein, Multidata).join(Multidata,
+                                                                                              protein_multidata_join)
         protein = pd.read_sql(protein_query.statement, self.database_manager.database.session.bind)
 
         return protein
@@ -37,7 +39,8 @@ class ProteinRepository(Repository):
         return None
 
     def add_proteins(self, proteins: pd.DataFrame, multidatas: pd.DataFrame):
-        multidatas.to_sql(name='multidata', if_exists='append', con=self.database_manager.database.engine, index=False,
+        multidatas.to_sql(name='multidata_table', if_exists='append', con=self.database_manager.database.engine,
+                          index=False,
                           chunksize=50)
 
         multidata_query = self.database_manager.database.session.query(Multidata.id_multidata, Multidata.name)
@@ -46,5 +49,5 @@ class ProteinRepository(Repository):
         proteins_to_add = pd.merge(proteins, multidatas_db, on='name')
         proteins_to_add.drop('name', inplace=True, axis=1)
 
-        proteins_to_add.to_sql(name='protein', if_exists='append', con=self.database_manager.database.engine,
+        proteins_to_add.to_sql(name='protein_table', if_exists='append', con=self.database_manager.database.engine,
                                index=False, chunksize=50)

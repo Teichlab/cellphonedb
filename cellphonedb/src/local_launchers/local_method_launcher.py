@@ -1,11 +1,13 @@
 import os
+from typing import Optional
+
 import pandas as pd
 
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.app.cellphonedb_app import output_dir
-from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
-from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
+from cellphonedb.src.core.utils.subsampler import Subsampler
 from cellphonedb.utils import utils
+from cellphonedb.utils.utils import write_to_file
 
 
 class LocalMethodLauncher(object):
@@ -22,18 +24,22 @@ class LocalMethodLauncher(object):
 
     def cpdb_statistical_analysis_local_method_launcher(self, meta_filename: str,
                                                         counts_filename: str,
+                                                        counts_data: str,
                                                         project_name: str = '',
                                                         iterations: int = 1000,
                                                         threshold: float = 0.1,
                                                         output_path: str = '',
-                                                        means_filename: str = 'means.txt',
-                                                        pvalues_filename: str = 'pvalues.txt',
-                                                        significant_mean_filename: str = 'significant_means.txt',
-                                                        means_pvalues_filename: str = 'pvalues_means.txt',
-                                                        deconvoluted_filename='deconvoluted.txt',
+                                                        output_format: Optional[str] = None,
+                                                        means_filename: str = 'means',
+                                                        pvalues_filename: str = 'pvalues',
+                                                        significant_means_filename: str = 'significant_means',
+                                                        deconvoluted_filename='deconvoluted',
                                                         debug_seed: int = -1,
                                                         threads: int = -1,
-                                                        result_precision: int = 3) -> None:
+                                                        result_precision: int = 3,
+                                                        pvalue: float = 0.05,
+                                                        subsampler: Subsampler = None,
+                                                        ) -> None:
         output_path = self._set_paths(output_path, project_name)
 
         debug_seed = int(debug_seed)
@@ -44,31 +50,37 @@ class LocalMethodLauncher(object):
 
         counts, meta = self._load_meta_counts(counts_filename, meta_filename)
 
-        pvalues_simple, means_simple, significant_means_simple, means_pvalues_simple, deconvoluted_simple = \
+        pvalues_simple, means_simple, significant_means_simple, deconvoluted_simple = \
             self.cellphonedb_app.method.cpdb_statistical_analysis_launcher(
                 meta,
                 counts,
+                counts_data,
                 iterations,
                 threshold,
                 threads,
                 debug_seed,
-                result_precision)
+                result_precision,
+                pvalue,
+                subsampler
+            )
 
-        means_simple.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
-        pvalues_simple.to_csv('{}/{}'.format(output_path, pvalues_filename), sep='\t', index=False)
-        significant_means_simple.to_csv('{}/{}'.format(output_path, significant_mean_filename), sep='\t', index=False)
-        means_pvalues_simple.to_csv('{}/{}'.format(output_path, means_pvalues_filename), sep='\t', index=False)
-        deconvoluted_simple.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
+        write_to_file(means_simple, means_filename, output_path, output_format)
+        write_to_file(pvalues_simple, pvalues_filename, output_path, output_format)
+        write_to_file(significant_means_simple, significant_means_filename, output_path, output_format)
+        write_to_file(deconvoluted_simple, deconvoluted_filename, output_path, output_format)
 
     def cpdb_analysis_local_method_launcher(self, meta_filename: str,
                                             counts_filename: str,
+                                            counts_data: str,
                                             project_name: str = '',
                                             threshold: float = 0.1,
                                             output_path: str = '',
-                                            means_filename: str = 'means.txt',
-                                            significant_means_filename: str = 'significant_means.txt',
-                                            deconvoluted_filename='deconvoluted.txt',
-                                            result_precision: int = 3
+                                            output_format: Optional[str] = None,
+                                            means_filename: str = 'means',
+                                            significant_means_filename: str = 'significant_means',
+                                            deconvoluted_filename='deconvoluted',
+                                            result_precision: int = 3,
+                                            subsampler: Subsampler = None,
                                             ) -> None:
         output_path = self._set_paths(output_path, project_name)
 
@@ -80,12 +92,14 @@ class LocalMethodLauncher(object):
         means, significant_means, deconvoluted = \
             self.cellphonedb_app.method.cpdb_method_analysis_launcher(meta,
                                                                       counts,
+                                                                      counts_data,
                                                                       threshold,
-                                                                      result_precision)
+                                                                      result_precision,
+                                                                      subsampler)
 
-        means.to_csv('{}/{}'.format(output_path, means_filename), sep='\t', index=False)
-        significant_means.to_csv('{}/{}'.format(output_path, significant_means_filename), sep='\t', index=False)
-        deconvoluted.to_csv('{}/{}'.format(output_path, deconvoluted_filename), sep='\t', index=False)
+        write_to_file(means, means_filename, output_path, output_format)
+        write_to_file(significant_means, significant_means_filename, output_path, output_format)
+        write_to_file(deconvoluted, deconvoluted_filename, output_path, output_format)
 
     @staticmethod
     def _path_is_empty(path):

@@ -5,13 +5,13 @@ from cellphonedb.src.core.database.sqlalchemy_models import Base
 
 
 class Protein(Base):
-    __tablename__ = 'protein'
+    __tablename__ = 'protein_table'
     id_protein = Column(Integer, nullable=False, primary_key=True)
 
-    entry_name = Column(String)
+    protein_name = Column(String)
     tags = Column(String)
     tags_reason = Column(String)
     tags_description = Column(String)
 
-    protein_multidata_id = Column(Integer, ForeignKey('multidata.id_multidata'), unique=True, nullable=False)
-    gene = relationship('Gene', backref='gene', lazy='subquery')
+    protein_multidata_id = Column(Integer, ForeignKey('multidata_table.id_multidata'), unique=True, nullable=False)
+    gene = relationship('Gene', backref='gene_table', lazy='subquery')

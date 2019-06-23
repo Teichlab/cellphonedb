@@ -1,8 +1,9 @@
-include QuickStart.md
 include ppi-resources.md
-include RESULTS-DOCUMENTATION.md
 include cellphonedb/src/core/cellphone.db
 include cellphonedb/src/app/config/*.yml
-include in/example_data/*
-include Docs/*.md
-include Docs/images/*.png
+include cellphonedb/src/core/data/*.csv
+include cellphonedb/src/core/metadata.json
+include cellphonedb/src/core/data/sources/*.csv
+include cellphonedb/src/core/data/sources/*.txt
+include cellphonedb/src/core/data/sources/*.xz
+include cellphonedb/src/core/data/sources/*.tab

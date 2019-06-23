@@ -7,6 +7,7 @@ from cellphonedb.src.core.methods import cpdb_statistical_analysis_simple_method
 
 def call(meta: pd.DataFrame,
          count: pd.DataFrame,
+         counts_data: str,
          interactions: pd.DataFrame,
          genes: pd.DataFrame,
          complex_expanded: pd.DataFrame,
@@ -15,30 +16,40 @@ def call(meta: pd.DataFrame,
          threshold: float,
          threads: int,
          debug_seed: int,
-         result_precision: int
+         result_precision: int,
+         pvalue: float,
+         separator: str
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    pvalues_simple, means_simple, significant_means_simple, mean_pvalue_simple, deconvoluted_simple = \
+    pvalues_simple, means_simple, significant_means_simple, deconvoluted_simple = \
         cpdb_statistical_analysis_simple_method.call(meta.copy(),
                                                      count.copy(),
+                                                     counts_data,
                                                      interactions,
+                                                     pvalue,
+                                                     separator,
                                                      iterations,
                                                      threshold,
                                                      threads,
                                                      debug_seed,
-                                                     result_precision)
+                                                     result_precision,
+                                                     )
 
-    pvalues_complex, means_complex, significant_means_complex, mean_pvalue_complex, deconvoluted_complex = \
+    pvalues_complex, means_complex, significant_means_complex, deconvoluted_complex = \
         cpdb_statistical_analysis_complex_method.call(meta.copy(),
                                                       count.copy(),
+                                                      counts_data,
                                                       interactions,
                                                       genes,
                                                       complex_expanded,
                                                       complex_composition,
+                                                      pvalue,
+                                                      separator,
                                                       iterations,
                                                       threshold,
                                                       threads,
                                                       debug_seed,
-                                                      result_precision)
+                                                      result_precision,
+                                                      )
 
     pvalues = pvalues_simple.append(pvalues_complex, sort=False)
     means = means_simple.append(means_complex, sort=False)
@@ -51,10 +62,7 @@ def call(meta: pd.DataFrame,
     significant_means['rank'] = significant_means['rank'].apply(lambda rank: rank if rank != 0 else (1 + max_rank))
     significant_means.sort_values('rank', inplace=True)
 
-    mean_pvalue = mean_pvalue_simple.append(mean_pvalue_complex, sort=False)
     deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
+    deconvoluted.drop_duplicates(inplace=True)
 
-    if not 'complex_name' in deconvoluted:
-        deconvoluted['complex_name'] = ''
-
-    return deconvoluted, mean_pvalue, means, pvalues, significant_means
+    return deconvoluted, means, pvalues, significant_means

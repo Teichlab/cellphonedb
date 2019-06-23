@@ -18,8 +18,8 @@ class Collector(object):
         return method
 
     def protein(self, proteins: pd.DataFrame):
-        multidata_columns = self.database_manager.get_column_table_names('multidata')
-        protein_columns = self.database_manager.get_column_table_names('protein')
+        multidata_columns = self.database_manager.get_column_table_names('multidata_table')
+        protein_columns = self.database_manager.get_column_table_names('protein_table')
 
         proteins_to_add, multidata_to_add = protein_preprocess_collector.call(proteins, multidata_columns,
                                                                               protein_columns)
@@ -27,7 +27,8 @@ class Collector(object):
         self.database_manager.get_repository('protein').add_proteins(proteins_to_add, multidata_to_add)
 
     def gene(self, genes: pd.DataFrame):
-        genes_processed = gene_preprocess_collector.call(genes, self.database_manager.get_column_table_names('gene'))
+        genes_processed = gene_preprocess_collector.call(genes,
+                                                         self.database_manager.get_column_table_names('gene_table'))
         self.database_manager.get_repository('gene').add(genes_processed)
 
     def complex(self, complexes: pd.DataFrame):

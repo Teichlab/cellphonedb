@@ -6,7 +6,9 @@ def percent_analysis(clusters: dict,
                      interactions: pd.DataFrame,
                      cluster_interactions: list,
                      base_result: pd.DataFrame,
-                     suffixes: tuple = ('_1', '_2')) -> pd.DataFrame:
+                     separator: str,
+                     suffixes: tuple = ('_1', '_2'),
+                     counts_data: str = 'ensembl') -> pd.DataFrame:
     result = base_result.copy()
     percents = {}
     for cluster_name in clusters['names']:
@@ -16,9 +18,11 @@ def percent_analysis(clusters: dict,
 
     for interaction_index, interaction in interactions.iterrows():
         for cluster_interaction in cluster_interactions:
-            cluster_interaction_string = '{}_{}'.format(cluster_interaction[0], cluster_interaction[1])
+            cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
 
-            interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents, suffixes)
+            interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents, suffixes,
+                                                              counts_data=counts_data)
+
             result.at[interaction_index, cluster_interaction_string] = interaction_percent
 
     return result
@@ -38,11 +42,14 @@ def counts_percent(counts: pd.Series,
 def cluster_interaction_percent(cluster_interaction: tuple,
                                 interaction: pd.Series,
                                 clusters_percents: dict,
-                                suffixes: tuple = ('_1', '_2')) -> int:
+                                suffixes: tuple = ('_1', '_2'),
+                                counts_data: str = 'ensembl'
+                                ) -> int:
     percent_cluster_receptors = clusters_percents[cluster_interaction[0]]
     percent_cluster_ligands = clusters_percents[cluster_interaction[1]]
-    percent_receptor = percent_cluster_receptors[interaction['ensembl{}'.format(suffixes[0])]]
-    percent_ligand = percent_cluster_ligands[interaction['ensembl{}'.format(suffixes[1])]]
+
+    percent_receptor = percent_cluster_receptors[interaction['{}{}'.format(counts_data, suffixes[0])]]
+    percent_ligand = percent_cluster_ligands[interaction['{}{}'.format(counts_data, suffixes[1])]]
 
     if percent_receptor and percent_ligand:
         interaction_percent = 1
