@@ -7,3 +7,4 @@ include cellphonedb/src/core/data/sources/*.csv
 include cellphonedb/src/core/data/sources/*.txt
 include cellphonedb/src/core/data/sources/*.xz
 include cellphonedb/src/core/data/sources/*.tab
+include cellphonedb/src/plotters/R/*.R
