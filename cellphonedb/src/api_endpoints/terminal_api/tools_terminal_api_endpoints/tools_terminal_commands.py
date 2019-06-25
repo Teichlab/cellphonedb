@@ -59,14 +59,20 @@ def generate_genes(user_gene: Optional[str],
 
     # additional data comes from given file or uniprot remote url
     if fetch_uniprot:
-        print('fetching remote uniprot file ... ', end='')
-        source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
-                     '&columns=id,entry%20name,reviewed,protein%20names,genes,organism,length' \
-                     '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
-                     '&compress=yes'
+        try:
+            print('fetching remote uniprot file ... ', end='')
+            source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
+                         '&columns=id,entry%20name,reviewed,protein%20names,genes,organism,length' \
+                         '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
+                         '&compress=yes'
 
-        uniprot_db = pd.read_csv(source_url, sep='\t', compression='gzip')
-        print('done')
+            uniprot_db = pd.read_csv(source_url, sep='\t', compression='gzip')
+            print('done')
+
+        except Exception as e:
+            print('Error fetching remote UniProt data, fetching local data')
+            uniprot_db = pd.read_csv(os.path.join(data_dir, 'sources/uniprot.tab'), sep='\t')
+            print('read local uniprot file')
     else:
         uniprot_db = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/uniprot.tab'))
         print('read local uniprot file')
@@ -190,14 +196,19 @@ def generate_proteins(user_protein: Optional[str],
 
     # additional data comes from given file or uniprot remote url
     if fetch_uniprot:
-        source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
-                     '&columns=id,entry%20name,reviewed,protein%20names,genes,organism,length' \
-                     '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
-                     '&compress=yes'
+        try:
+            source_url = 'https://www.uniprot.org/uniprot/?query=*&format=tab&force=true' \
+                         '&columns=id,entry%20name,reviewed,protein%20names,genes,organism,length' \
+                         '&fil=organism:%22Homo%20sapiens%20(Human)%20[9606]%22%20AND%20reviewed:yes' \
+                         '&compress=yes'
 
-        uniprot_db = pd.read_csv(source_url, sep='\t', compression='gzip')
+            uniprot_db = pd.read_csv(source_url, sep='\t', compression='gzip')
 
-        print('read remote uniprot file')
+            print('read remote uniprot file')
+        except Exception as e:
+            print('Error fetching remote UniProt data, fetching local data')
+            uniprot_db = pd.read_csv(os.path.join(data_dir, 'sources/uniprot.tab'), sep='\t')
+            print('read local uniprot file')
     else:
         uniprot_db = pd.read_csv(os.path.join(data_dir, 'sources/uniprot.tab'), sep='\t')
         print('read local uniprot file')
