@@ -7,10 +7,10 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
 
   meta = read.table(meta_file, header=T, stringsAsFactors = F, sep='\t', comment.char = '')
 
-  all_intr = read.table(pvalues_file, header=T, stringsAsFactors = F, sep='\t', comment.char = '')
-
-  rownames(all_intr) = all_intr$interacting_pair
+  all_intr = read.table(pvalues_file, header=T, stringsAsFactors = F, sep='\t', comment.char = '', check.names = F)
+  intr_pairs = all_intr$interacting_pair
   all_intr = all_intr[,-c(1:11)]
+
 
   split_sep = '\\.'
   join_sep = '.'
@@ -31,9 +31,9 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
     p1 = strsplit(pairs1[i], split_sep)[[1]][1]
     p2 = strsplit(pairs1[i], split_sep)[[1]][2]
 
-    n1 = rownames(all_intr)[which(all_intr[,pairs1[i]]<0.05)]
+    n1 = intr_pairs[which(all_intr[,pairs1[i]]<0.05)]
     pairs_rev = paste(p2, p1, sep=join_sep)
-    n2 = rownames(all_intr)[which(all_intr[,pairs_rev]<0.05)]
+    n2 = intr_pairs[which(all_intr[,pairs_rev]<0.05)]
 
     if(p1!=p2)
       count1 = length(unique(n1))+length(unique(n2))
@@ -57,10 +57,10 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
     p1 = strsplit(pairs1[i], split_sep)[[1]][1]
     p2 = strsplit(pairs1[i], split_sep)[[1]][2]
 
-    n1 = rownames(all_intr)[which(all_intr[,pairs1[i]]<0.05)]
+    n1 = intr_pairs[which(all_intr[,pairs1[i]]<0.05)]
 
     pairs_rev = paste(p2, p1, sep=join_sep)
-    n2 = rownames(all_intr)[which(all_intr[,pairs_rev]<0.05)]
+    n2 = intr_pairs[which(all_intr[,pairs_rev]<0.05)]
     if(p1!=p2)
       count1 = c(count1,length(unique(n1))+length(unique(n2)))
     else
