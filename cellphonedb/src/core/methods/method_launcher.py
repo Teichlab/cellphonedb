@@ -37,7 +37,7 @@ class MethodLauncher:
                                            result_precision: int,
                                            pvalue: float,
                                            subsampler: Subsampler = None,
-                                           ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
+                                           ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         if threads < 1:
             core_logger.info('Using Default thread number: %s' % self.default_threads)
