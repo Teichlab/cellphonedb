@@ -7,6 +7,10 @@ import sys
 import tempfile
 import time
 import traceback
+from distutils.util import strtobool
+from functools import wraps
+from logging import INFO
+from typing import Callable
 
 import boto3
 import pandas as pd
@@ -43,6 +47,22 @@ try:
 except KeyError as e:
     app_logger.error('ENVIRONMENT VARIABLE {} not defined. Please set it'.format(e))
     exit(1)
+
+verbose = bool(strtobool(os.getenv('VERBOSE', 'true')))
+
+if verbose:
+    app_logger.setLevel(INFO)
+
+
+def _track_success(f) -> Callable:
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        app_logger.info('calling {} method'.format(f.__name__))
+        result = f(*args, **kwargs)
+        app_logger.info('successfully called {} method'.format(f.__name__))
+        return result
+
+    return wrapper
 
 
 def create_rabbit_connection():
@@ -92,6 +112,7 @@ def write_image_to_s3(path: str, filename: str):
     s3_client.put_object(Body=_io, Bucket=s3_bucket_name, Key=filename)
 
 
+@_track_success
 def dot_plot_results(means: str, pvalues: str, rows: str, columns: str, job_id: str):
     with tempfile.TemporaryDirectory() as output_path:
         with tempfile.NamedTemporaryFile(suffix=os.path.splitext(means)[-1]) as means_file:
@@ -126,6 +147,7 @@ def dot_plot_results(means: str, pvalues: str, rows: str, columns: str, job_id: 
                         return response
 
 
+@_track_success
 def heatmaps_plot_results(meta: str, pvalues: str, job_id: str):
     with tempfile.TemporaryDirectory() as output_path:
         with tempfile.NamedTemporaryFile(suffix=os.path.splitext(pvalues)[-1]) as pvalues_file:
@@ -167,6 +189,7 @@ def _from_s3_to_temp(key, file):
     return file
 
 
+@_track_success
 def process_plot(method, properties, body) -> dict:
     metadata = json.loads(body.decode('utf-8'))
     job_id = metadata['job_id']
@@ -198,6 +221,7 @@ def process_plot(method, properties, body) -> dict:
     }
 
 
+@_track_success
 def process_method(method, properties, body) -> dict:
     metadata = json.loads(body.decode('utf-8'))
     job_id = metadata['job_id']
@@ -215,7 +239,7 @@ def process_method(method, properties, body) -> dict:
     if database_version not in list_local_versions() + ['latest']:
         database_version = 'latest'
 
-    app = cpdb_app.create_app(verbose=False, database_file=find_database_for(database_version))
+    app = cpdb_app.create_app(verbose=verbose, database_file=find_database_for(database_version))
 
     if metadata['iterations']:
         response = statistical_analysis(app, meta, counts, job_id, metadata, subsampler)
@@ -225,6 +249,7 @@ def process_method(method, properties, body) -> dict:
     return response
 
 
+@_track_success
 def statistical_analysis(app, meta, counts, job_id, metadata, subsampler):
     pvalues, means, significant_means, deconvoluted = \
         app.method.cpdb_statistical_analysis_launcher(meta,
@@ -255,6 +280,7 @@ def statistical_analysis(app, meta, counts, job_id, metadata, subsampler):
     return response
 
 
+@_track_success
 def non_statistical_analysis(app, meta, counts, job_id, metadata, subsampler):
     means, significant_means, deconvoluted = \
         app.method.cpdb_method_analysis_launcher(meta,
