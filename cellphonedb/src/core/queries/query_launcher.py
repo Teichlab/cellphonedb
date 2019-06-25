@@ -21,7 +21,7 @@ class QueryLauncher:
     def autocomplete_launcher(self, partial_element) -> pd.DataFrame:
         multidatas = self.database_manager.get_repository('multidata').get_all()
         genes = self.database_manager.get_repository('gene').get_all_expanded()[
-            ['name', 'ensembl', 'protein_name', 'gene_name']]
+            ['name', 'ensembl', 'protein_name', 'gene_name', 'hgnc_symbol']]
 
         return autocomplete_query(genes, multidatas, partial_element)
 
