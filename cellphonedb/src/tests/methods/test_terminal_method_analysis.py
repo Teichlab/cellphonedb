@@ -23,11 +23,18 @@ class TestTerminalMethodlAnalysis(CellphoneFlaskTestCase):
         self._method_call(data, project_name, threshold, result_precision)
 
     def test_non_statistical_method__data_test__threshold__01__precision_1_hgnc(self):
-        data = 'test_hgnc'
+        data = 'test_custom_counts_data'
         project_name = 'test_data'
         threshold = 0.1
         result_precision = 1
         self._method_call(data, project_name, threshold, result_precision, counts_data='hgnc_symbol')
+
+    def test_non_statistical_method__data_test__threshold__01__precision_1_gene_name(self):
+        data = 'test_custom_counts_data'
+        project_name = 'test_data'
+        threshold = 0.1
+        result_precision = 1
+        self._method_call(data, project_name, threshold, result_precision, counts_data='gene_name')
 
     def test_non_statistical_method__data_test__threshold__01__precision_3(self):
         data = 'test'
