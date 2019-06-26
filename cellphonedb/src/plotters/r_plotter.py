@@ -43,6 +43,8 @@ def heatmaps_plot(robjects,
                   count_name: str,
                   log_name: str,
                   ) -> None:
+    meta_file_separator = _get_separator(os.path.splitext(meta_file)[-1])
+    pvalues_file_separator = _get_separator(os.path.splitext(pvalues_file)[-1])
     this_file_dir = os.path.dirname(os.path.realpath(__file__))
     robjects.r.source(os.path.join(this_file_dir, 'R/plot_heatmaps.R'))
     available_names = list(robjects.globalenv.keys())
@@ -50,28 +52,23 @@ def heatmaps_plot(robjects,
     log_filename = os.path.join(output_path, log_name)
     plot_function = 'heatmaps_plot'
 
-    with open(pvalues_file, 'rt') as original:
-        with tempfile.NamedTemporaryFile(suffix=os.path.splitext(pvalues_file)[-1], mode='wt', encoding='utf8') as new:
-            line = original.readline().replace('.', '_').replace('|', '.')
-            new.write(line)
-            for line in original.readlines():
-                new.write(line)
+    if plot_function in available_names:
+        function_name = plot_function
+    else:
+        raise MissingPlotterFunctionException()
 
-            if plot_function in available_names:
-                function_name = plot_function
-            else:
-                raise MissingPlotterFunctionException()
+    plotter = robjects.r[function_name]
 
-            plotter = robjects.r[function_name]
-
-            try:
-                plotter(meta_file=meta_file,
-                        pvalues_file=new.name,
-                        count_filename=count_filename,
-                        log_filename=log_filename
-                        )
-            except r_runtime_error as e:
-                raise RRuntimeException(e)
+    try:
+        plotter(meta_file=meta_file,
+                pvalues_file=pvalues_file,
+                count_filename=count_filename,
+                log_filename=log_filename,
+                meta_sep=meta_file_separator,
+                pvalues_sep=pvalues_file_separator,
+                )
+    except r_runtime_error as e:
+        raise RRuntimeException(e)
 
 
 @with_r_setup
