@@ -12,8 +12,8 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
   all_intr = all_intr[,-c(1:11)]
 
 
-  split_sep = '\\.'
-  join_sep = '.'
+  split_sep = '\\|'
+  join_sep = '|'
 
   pairs1_all = unique(meta[,2])
 
