@@ -11,7 +11,7 @@ class WebEndpointQueryInteractionGene(WebApiEndpointBase):
 
         columns = columns.split(',') if columns else None
 
-        genes = cellphonedb_app.cellphonedb.query.get_interaction_gene(columns)
+        genes = cellphonedb_app.cellphonedb.query.get_all_genes(columns)
         genes = genes.to_json(orient='records')
 
         response = Response(genes, content_type='application/json')

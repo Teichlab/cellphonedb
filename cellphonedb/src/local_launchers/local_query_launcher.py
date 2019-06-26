@@ -20,7 +20,7 @@ class LocalQueryLauncher:
         if columns:
             columns = columns.split(',')
 
-        print(self.cellphonedb_app.cellphonedb.query.get_interaction_gene(columns).to_csv(index=False))
+        print(self.cellphonedb_app.cellphonedb.query.get_all_genes(columns).to_csv(index=False))
 
     def autocomplete_element(self, partial_element: str) -> None:
         print(self.cellphonedb_app.cellphonedb.query.autocomplete_launcher(partial_element).to_csv(index=False))
