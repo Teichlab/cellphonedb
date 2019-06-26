@@ -1,5 +1,4 @@
 import os
-import tempfile
 from functools import wraps
 from typing import Optional
 
