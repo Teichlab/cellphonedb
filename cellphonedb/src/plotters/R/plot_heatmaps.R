@@ -2,12 +2,12 @@ library(pheatmap)
 heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, show_rownames = T, show_colnames = T,
                          scale="none", cluster_cols = T,border_color='white', cluster_rows = T, fontsize_row=11,
                          fontsize_col = 11, main = '',treeheight_row=0, family='Arial', treeheight_col = 0,
-                         col1 = "dodgerblue4", col2 = 'peachpuff', col3 = 'deeppink4', sep){
+                         col1 = "dodgerblue4", col2 = 'peachpuff', col3 = 'deeppink4', meta_sep='\t', pvalues_sep='\t'){
   #######   Network
 
-  meta = read.csv(meta_file, comment.char = '', sep=sep)
+  meta = read.csv(meta_file, comment.char = '', sep=meta_sep)
 
-  all_intr = read.table(pvalues_file, header=T, stringsAsFactors = F, sep='\t', comment.char = '', check.names = F)
+  all_intr = read.table(pvalues_file, header=T, stringsAsFactors = F, sep=pvalues_sep, comment.char = '', check.names = F)
   intr_pairs = all_intr$interacting_pair
   all_intr = all_intr[,-c(1:11)]
 
