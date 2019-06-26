@@ -17,7 +17,6 @@ import pandas as pd
 import pika
 
 from cellphonedb.src.app import cpdb_app
-from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
@@ -29,6 +28,9 @@ from cellphonedb.src.exceptions.PlotException import PlotException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
 from cellphonedb.src.plotters.r_plotter import dot_plot, heatmaps_plot
 from cellphonedb.utils import utils
+from rabbit_logger import RabbitAdapter, RabbitLogger
+
+rabbit_logger = RabbitLogger()
 
 try:
     s3_access_key = os.environ['S3_ACCESS_KEY']
@@ -45,21 +47,27 @@ try:
 
 
 except KeyError as e:
-    app_logger.error('ENVIRONMENT VARIABLE {} not defined. Please set it'.format(e))
+    rabbit_logger.error('ENVIRONMENT VARIABLE {} not defined. Please set it'.format(e))
     exit(1)
 
 verbose = bool(strtobool(os.getenv('VERBOSE', 'true')))
 
 if verbose:
-    app_logger.setLevel(INFO)
+    rabbit_logger.setLevel(INFO)
+
+
+def logger_for_job(job_id):
+    return RabbitAdapter.logger_for(rabbit_logger, job_id)
 
 
 def _track_success(f) -> Callable:
     @wraps(f)
     def wrapper(*args, **kwargs):
-        app_logger.info('calling {} method'.format(f.__name__))
+        logger = kwargs.get('logger', rabbit_logger)
+
+        logger.info('calling {} method'.format(f.__name__))
         result = f(*args, **kwargs)
-        app_logger.info('successfully called {} method'.format(f.__name__))
+        logger.info('successfully called {} method'.format(f.__name__))
         return result
 
     return wrapper
@@ -199,10 +207,10 @@ def _from_s3_to_temp(key, file):
 
 
 @_track_success
-def process_plot(method, properties, body) -> dict:
+def process_plot(method, properties, body, logger) -> dict:
     metadata = json.loads(body.decode('utf-8'))
     job_id = metadata['job_id']
-    app_logger.info('New Plot Queued: {}'.format(job_id))
+    logger.info('New Plot Queued')
 
     plot_type = metadata.get('type', None)
 
@@ -232,10 +240,10 @@ def process_plot(method, properties, body) -> dict:
 
 
 @_track_success
-def process_method(method, properties, body) -> dict:
+def process_method(method, properties, body, logger) -> dict:
     metadata = json.loads(body.decode('utf-8'))
     job_id = metadata['job_id']
-    app_logger.info('New Job Queued: {}'.format(job_id))
+    logger.info('New Job Queued')
     meta = read_data_from_s3(metadata['file_meta'], s3_bucket_name, index_column_first=False)
     counts = read_data_from_s3(metadata['file_counts'], s3_bucket_name, index_column_first=True)
 
@@ -328,11 +336,13 @@ while jobs_runned < 3 and consume_more_jobs:
     job = channel.basic_get(queue=jobs_queue_name, no_ack=True)
 
     if all(job):
+        job_id = json.loads(job[2].decode('utf-8'))['job_id']
+        job_logger = logger_for_job(job_id)
         try:
             if queue_type == 'plot':
-                job_response = process_plot(*job)
+                job_response = process_plot(*job, logger=job_logger)
             elif queue_type == 'method':
-                job_response = process_method(*job)
+                job_response = process_method(*job, logger=job_logger)
             else:
                 raise Exception('Unknown queue type')
 
@@ -342,11 +352,11 @@ while jobs_runned < 3 and consume_more_jobs:
             channel.basic_qos(prefetch_count=1)
 
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(job_response))
-            app_logger.info('JOB %s PROCESSED' % job_response['job_id'])
+            job_logger.info('JOB PROCESSED')
         except (ReadFileException, ParseMetaException, ParseCountsException, ThresholdValueException,
                 AllCountsFilteredException, EmptyResultException, PlotException) as e:
             error_response = {
-                'job_id': json.loads(job[2].decode('utf-8'))['job_id'],
+                'job_id': job_id,
                 'success': False,
                 'error': {
                     'id': str(e),
@@ -356,16 +366,16 @@ while jobs_runned < 3 and consume_more_jobs:
                 }
             }
             print(traceback.print_exc(file=sys.stdout))
-            app_logger.error('[-] ERROR DURING PROCESSING JOB %s' % error_response['job_id'])
+            job_logger.error('[-] ERROR DURING PROCESSING JOB')
             if connection.is_closed:
                 connection = create_rabbit_connection()
                 channel = connection.channel()
                 channel.basic_qos(prefetch_count=1)
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(error_response))
-            app_logger.error(e)
+            job_logger.error(e)
         except Exception as e:
             error_response = {
-                'job_id': json.loads(job[2].decode('utf-8'))['job_id'],
+                'job_id': job_id,
                 'success': False,
                 'error': {
                     'id': 'unknown_error',
@@ -373,17 +383,17 @@ while jobs_runned < 3 and consume_more_jobs:
                 }
             }
             print(traceback.print_exc(file=sys.stdout))
-            app_logger.error('[-] ERROR DURING PROCESSING JOB %s' % error_response['job_id'])
+            job_logger.error('[-] ERROR DURING PROCESSING JOB')
             if connection.is_closed:
                 connection = create_rabbit_connection()
                 channel = connection.channel()
                 channel.basic_qos(prefetch_count=1)
             channel.basic_publish(exchange='', routing_key=result_queue_name, body=json.dumps(error_response))
-            app_logger.error(e)
+            job_logger.error(e)
 
         jobs_runned += 1
 
     else:
-        app_logger.debug('Empty queue')
+        rabbit_logger.debug('Empty queue')
 
     time.sleep(1)
