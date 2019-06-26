@@ -11,8 +11,8 @@ dot_plot = function(selected_rows = NULL,
                     output_extension = '.pdf'
 ){
 
-  all_pval = read.table(pvalues_path, header=T, stringsAsFactors = F, sep=means_separator, comment.char = '')
-  all_means = read.table(means_path, header=T, stringsAsFactors = F, sep=pvalues_separator, comment.char = '')
+  all_pval = read.table(pvalues_path, header=T, stringsAsFactors = F, sep=means_separator, comment.char = '', check.names=F)
+  all_means = read.table(means_path, header=T, stringsAsFactors = F, sep=pvalues_separator, comment.char = '', check.names=F)
 
   rownames(all_pval) = all_pval$interacting_pair
   rownames(all_means) = all_means$interacting_pair
