@@ -5,7 +5,7 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
                          col1 = "dodgerblue4", col2 = 'peachpuff', col3 = 'deeppink4'){
   #######   Network
 
-  meta = read.table(meta_file, header=T, stringsAsFactors = F, sep='\t', comment.char = '')
+  meta = read.csv(meta_file, comment.char = '')
 
   all_intr = read.table(pvalues_file, header=T, stringsAsFactors = F, sep='\t', comment.char = '', check.names = F)
   intr_pairs = all_intr$interacting_pair
@@ -20,7 +20,6 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
   pairs1 = c()
   for (i in 1:length(pairs1_all))
     for (j in 1:length(pairs1_all))
-      if (i<=j)
         pairs1 = c(pairs1,paste(pairs1_all[i],pairs1_all[j],sep=join_sep))
 
   all_count = matrix(ncol=3)
@@ -84,7 +83,7 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
            border_color=border_color, cluster_rows = cluster_rows, fontsize_row = fontsize_row, fontsize_col = fontsize_col,
            main = main, treeheight_row = treeheight_row, family = family,color = col.heatmap, treeheight_col = treeheight_col, filename = count_filename)
 
-  pheatmap(log(count_matrix), show_rownames = show_rownames, show_colnames = show_colnames, scale=scale, cluster_cols = cluster_cols,
+  pheatmap(log(count_matrix+1), show_rownames = show_rownames, show_colnames = show_colnames, scale=scale, cluster_cols = cluster_cols,
            border_color=border_color, cluster_rows = cluster_rows, fontsize_row = fontsize_row, fontsize_col = fontsize_col,
            main = main, treeheight_row = treeheight_row, family = family,color = col.heatmap, treeheight_col = treeheight_col, filename = log_filename)
 }
