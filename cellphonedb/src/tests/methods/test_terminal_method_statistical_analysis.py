@@ -24,6 +24,26 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
         result_precision = 1
         self._method_call(data, iterations, project_name, threshold, debug_seed, result_precision)
 
+    def test_statistical_method__data_test__it_10__seed_0__threshold__01__precision_1_hgnc_symbol(self):
+        iterations = 10
+        data = 'test_custom_counts_data'
+        debug_seed = 0
+        project_name = 'test_data'
+        threshold = 0.1
+        result_precision = 1
+        self._method_call(data, iterations, project_name, threshold, debug_seed, result_precision,
+                          counts_data='hgnc_symbol')
+
+    def test_statistical_method__data_test__it_10__seed_0__threshold__01__precision_1_gene_name(self):
+        iterations = 10
+        data = 'test_custom_counts_data'
+        debug_seed = 0
+        project_name = 'test_data'
+        threshold = 0.1
+        result_precision = 1
+        self._method_call(data, iterations, project_name, threshold, debug_seed, result_precision,
+                          counts_data='gene_name')
+
     def test_statistical_method__data_test__it_10__seed_0__threshold__01__precision_3(self):
         iterations = 10
         data = 'test'
@@ -51,6 +71,7 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                      debug_seed: int,
                      result_precision: int,
                      subsampler: Optional[Subsampler] = None,
+                     counts_data: str = 'ensembl'
                      ):
 
         result_names_as_fixture = False
@@ -70,12 +91,18 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                                                                      threshold, result_precision)
 
         meta_filename = os.path.realpath('{}/hi_{}_meta.txt'.format(data_test_dir, data))
-        counts_filename = os.path.realpath('{}/hi_{}_counts.txt'.format(data_test_dir, data))
+
+        if counts_data == 'ensembl':
+            counts_file = '{}/hi_{}_counts.txt'.format(data_test_dir, data)
+        else:
+            counts_file = '{}/hi_{}_counts_{}.txt'.format(data_test_dir, data, counts_data)
+
+        counts_filename = os.path.realpath(counts_file)
 
         LocalMethodLauncher(cellphonedb_app.cellphonedb). \
             cpdb_statistical_analysis_local_method_launcher(meta_filename,
                                                             counts_filename,
-                                                            'ensembl',
+                                                            counts_data,
                                                             project_name,
                                                             iterations,
                                                             threshold,

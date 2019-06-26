@@ -11,6 +11,9 @@ def autocomplete_query(genes: pd.DataFrame, multidatas: pd.DataFrame, partial_el
         genes[genes['gene_name'].str.contains(partial_element, flags=re.IGNORECASE)]['gene_name'],
         ignore_index=True)
     values = values.append(
+        genes[genes['hgnc_symbol'].str.contains(partial_element, flags=re.IGNORECASE)]['hgnc_symbol'],
+        ignore_index=True)
+    values = values.append(
         multidatas[multidatas['name'].str.contains(partial_element, flags=re.IGNORECASE)]['name'],
         ignore_index=True)
     result = pd.DataFrame(data=values, columns=['value'])

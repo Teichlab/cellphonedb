@@ -232,11 +232,11 @@ def deconvoluted_complex_result_build(clusters_means: dict, interactions: pd.Dat
 def deconvolute_interaction_component(interactions, suffix, counts_data):
     interactions = interactions[~interactions['is_complex{}'.format(suffix)]]
     deconvoluted_result = pd.DataFrame()
-    deconvoluted_result[
-        ['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
-        interactions[
-            ['{}{}'.format(counts_data, suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
-             'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction', 'receptor{}'.format(suffix)]]
+    deconvoluted_result['gene'] = interactions['{}{}'.format(counts_data, suffix)]
+
+    deconvoluted_result[['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
+        interactions[['protein_name{}'.format(suffix), 'gene_name{}'.format(suffix), 'name{}'.format(suffix),
+                      'is_complex{}'.format(suffix), 'id_cp_interaction', 'receptor{}'.format(suffix)]]
     deconvoluted_result['complex_name'] = pd.np.nan
 
     return deconvoluted_result
@@ -245,11 +245,10 @@ def deconvolute_interaction_component(interactions, suffix, counts_data):
 def deconvolute_complex_interaction_component(complex_compositions, genes_filtered, interactions, suffix, counts_data):
     deconvoluted_result = pd.DataFrame()
     component = pd.DataFrame()
-    component[
-        [counts_data, 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction',
-         'id_multidata', 'receptor']] = \
+    component[counts_data] = interactions['{}{}'.format(counts_data, suffix)]
+    component[['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'id_multidata', 'receptor']] = \
         interactions[
-            ['{}{}'.format(counts_data, suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
+            ['protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
              'name{}'.format(suffix), 'is_complex{}'.format(suffix), 'id_cp_interaction',
              'id_multidata{}'.format(suffix), 'receptor{}'.format(suffix)]]
 
@@ -258,10 +257,13 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvolution_complex = pd.merge(deconvolution_complex, genes_filtered, left_on='protein_multidata_id',
                                      right_on='protein_multidata_id', suffixes=['_complex', '_simple'])
 
-    deconvoluted_result[['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction',
-                         'receptor', 'complex_name']] = deconvolution_complex[
-        ['{}_simple'.format(counts_data), 'protein_name_simple', 'gene_name_simple', 'name_simple',
-         'is_complex_complex', 'id_cp_interaction', 'receptor_simple', 'name_complex']]
+    deconvoluted_result['gene'] = deconvolution_complex['{}_simple'.format(counts_data)]
+
+    deconvoluted_result[
+        ['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor', 'complex_name']] = \
+        deconvolution_complex[
+            ['protein_name_simple', 'gene_name_simple', 'name_simple',
+             'is_complex_complex', 'id_cp_interaction', 'receptor_simple', 'name_complex']]
 
     return deconvoluted_result
 

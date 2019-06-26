@@ -69,7 +69,8 @@ def build_results(interactions: pd.DataFrame,
 
     interactions_data_result = pd.DataFrame(
         interactions[
-            ['id_cp_interaction', 'name_1', 'name_2', 'receptor_1', 'receptor_2', *gene_columns, 'annotation_strategy']].copy())
+            ['id_cp_interaction', 'name_1', 'name_2', 'receptor_1', 'receptor_2', *gene_columns,
+             'annotation_strategy']].copy())
 
     interactions_data_result = pd.concat([interacting_pair, interactions_data_result], axis=1, sort=False)
 
@@ -122,16 +123,14 @@ def build_results(interactions: pd.DataFrame,
 def deconvoluted_result_build(clusters_means: dict, interactions: pd.DataFrame, counts_data: str) -> pd.DataFrame:
     deconvoluted_result_1 = pd.DataFrame()
     deconvoluted_result_2 = pd.DataFrame()
-    deconvoluted_result_1[
-        ['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
-        interactions[
-            ['{}_1'.format(counts_data), 'protein_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_cp_interaction',
-             'receptor_1']]
-    deconvoluted_result_2[
-        ['gene', 'protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
-        interactions[
-            ['{}_2'.format(counts_data), 'protein_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_cp_interaction',
-             'receptor_2']]
+
+    deconvoluted_result_1['gene'] = interactions['{}_1'.format(counts_data)]
+    deconvoluted_result_2['gene'] = interactions['{}_2'.format(counts_data)]
+
+    deconvoluted_result_1[['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
+        interactions[['protein_name_1', 'gene_name_1', 'name_1', 'is_complex_1', 'id_cp_interaction', 'receptor_1']]
+    deconvoluted_result_2[['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
+        interactions[['protein_name_2', 'gene_name_2', 'name_2', 'is_complex_2', 'id_cp_interaction', 'receptor_2']]
 
     deconvoluted_result = deconvoluted_result_1.append(deconvoluted_result_2)
     deconvoluted_result['complex_name'] = pd.np.nan
