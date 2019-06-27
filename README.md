@@ -158,6 +158,7 @@ You can tweak the options for the plot with these arguments:
 - `--pvalues-path`: Analysis output pvalues [./out/pvalues.txt]
 - `--output-path`: Path to write generated plots [./out]
 - `--count-name`: Analysis output pvalues [heatmap_count.pdf]
+- `--pvalue`: pvalue threshold to consider when plotting [0.05]
 - `--log-name`: Analysis output pvalues [heatmap_log_count.pdf]
 - `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
 
