@@ -30,6 +30,7 @@ class TestPlots(unittest.TestCase):
         output_path = os.path.join(output_test_dir, plot_output)
         self.assertTrue(os.path.exists(output_path), 'Plot of type dot_plot did not work')
         self.assertGreater(os.path.getsize(output_path), 0)
+        os.remove(output_path)
 
     def test_dot_plot_with_custom_columns_and_rows(self):
         means_path = self._get_input_file_path_for('means')
@@ -49,6 +50,7 @@ class TestPlots(unittest.TestCase):
         output_path = os.path.join(output_test_dir, plot_output)
         self.assertTrue(os.path.exists(output_path), 'Plot of type dot_plot did not work')
         self.assertGreater(os.path.getsize(output_path), 0)
+        os.remove(output_path)
 
     def test_heatmaps_plot(self):
         meta_path = self._get_fixture('hi_test_meta.txt')
@@ -68,6 +70,7 @@ class TestPlots(unittest.TestCase):
             output_path = os.path.join(output_test_dir, file)
             self.assertTrue(os.path.exists(output_path), 'Plot of type heatmap_plot did not work')
             self.assertGreater(os.path.getsize(output_path), 0)
+            os.remove(output_path)
 
     @staticmethod
     def _get_input_file_path_for(kind):
