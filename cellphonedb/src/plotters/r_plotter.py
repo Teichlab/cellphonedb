@@ -28,19 +28,20 @@ def with_r_setup(f):
         from rpy2.rinterface_lib.embedded import RRuntimeError
         from rpy2 import robjects
 
-        return f(robjects, RRuntimeError, *args, **kwargs)
+        return f(*args, **kwargs, robjects=robjects, r_runtime_error=RRuntimeError)
 
     return wrapper
 
 
 @with_r_setup
-def heatmaps_plot(robjects,
-                  r_runtime_error: Exception,
+def heatmaps_plot(*,
                   meta_file: str,
                   pvalues_file: str,
                   output_path: str,
                   count_name: str,
                   log_name: str,
+                  robjects,
+                  r_runtime_error: Exception,
                   ) -> None:
     meta_file_separator = _get_separator(os.path.splitext(meta_file)[-1])
     pvalues_file_separator = _get_separator(os.path.splitext(pvalues_file)[-1])
@@ -71,12 +72,13 @@ def heatmaps_plot(robjects,
 
 
 @with_r_setup
-def dot_plot(robjects,
-             r_runtime_error: Exception,
+def dot_plot(*,
              means_path: str,
              pvalues_path: str,
              output_path: str,
              output_name: str,
+             robjects,
+             r_runtime_error: Exception,
              rows: Optional[str] = None,
              columns: Optional[str] = None,
              ) -> None:
@@ -121,7 +123,7 @@ def dot_plot(robjects,
 
 
 @with_r_setup
-def selected_items(robjects, _, selection: Optional[str], size):
+def selected_items(selection: Optional[str], size, *, robjects, r_runtime_error):
     if selection is not None:
         df = pd.read_csv(selection, header=None)
         names = df[0].tolist()
