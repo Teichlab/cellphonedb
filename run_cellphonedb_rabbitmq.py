@@ -105,8 +105,12 @@ def dot_plot_results(means: str, pvalues: str, rows: str, columns: str, job_id: 
 
                         output_name = 'plot__{}.png'.format(job_id)
 
-                        dot_plot(means_file.name, pvalues_file.name, output_path, output_name, rows_file.name,
-                                 columns_file.name)
+                        dot_plot(means_path=means_file.name,
+                                 pvalues_path=pvalues_file.name,
+                                 output_path=output_path,
+                                 output_name=output_name,
+                                 rows=rows_file.name,
+                                 columns=columns_file.name)
 
                         output_file = os.path.join(output_path, output_name)
 
@@ -126,17 +130,22 @@ def dot_plot_results(means: str, pvalues: str, rows: str, columns: str, job_id: 
                         return response
 
 
-def heatmaps_plot_results(meta: str, pvalues: str, job_id: str):
+def heatmaps_plot_results(meta: str, pvalues: str, pvalue: float, job_id: str):
     with tempfile.TemporaryDirectory() as output_path:
         with tempfile.NamedTemporaryFile(suffix=os.path.splitext(pvalues)[-1]) as pvalues_file:
-            with tempfile.NamedTemporaryFile() as meta_file:
+            with tempfile.NamedTemporaryFile(suffix=os.path.splitext(meta)[-1]) as meta_file:
                 _from_s3_to_temp(pvalues, pvalues_file)
                 _from_s3_to_temp(meta, meta_file)
 
                 count_name = 'plot_count__{}.png'.format(job_id)
                 count_log_name = 'plot_count_log__{}.png'.format(job_id)
 
-                heatmaps_plot(meta_file.name, pvalues_file.name, output_path, count_name, count_log_name)
+                heatmaps_plot(meta_file=meta_file.name,
+                              pvalues_file=pvalues_file.name,
+                              output_path=output_path,
+                              count_name=count_name,
+                              log_name=count_log_name,
+                              pvalue=pvalue)
 
                 output_count_file = os.path.join(output_path, count_name)
                 output_count_log_file = os.path.join(output_path, count_log_name)
@@ -185,6 +194,7 @@ def process_plot(method, properties, body) -> dict:
     if plot_type == 'heatmaps_plot':
         return heatmaps_plot_results(metadata.get('file_meta'),
                                      metadata.get('file_pvalues'),
+                                     metadata.get('pvalue', 0.05),
                                      job_id
                                      )
 

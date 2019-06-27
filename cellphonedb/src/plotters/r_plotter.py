@@ -28,19 +28,21 @@ def with_r_setup(f):
         from rpy2.rinterface_lib.embedded import RRuntimeError
         from rpy2 import robjects
 
-        return f(robjects, RRuntimeError, *args, **kwargs)
+        return f(*args, **kwargs, robjects=robjects, r_runtime_error=RRuntimeError)
 
     return wrapper
 
 
 @with_r_setup
-def heatmaps_plot(robjects,
-                  r_runtime_error: Exception,
+def heatmaps_plot(*,
                   meta_file: str,
                   pvalues_file: str,
                   output_path: str,
                   count_name: str,
                   log_name: str,
+                  pvalue: float,
+                  robjects,
+                  r_runtime_error: Exception
                   ) -> None:
     meta_file_separator = _get_separator(os.path.splitext(meta_file)[-1])
     pvalues_file_separator = _get_separator(os.path.splitext(pvalues_file)[-1])
@@ -65,20 +67,22 @@ def heatmaps_plot(robjects,
                 log_filename=log_filename,
                 meta_sep=meta_file_separator,
                 pvalues_sep=pvalues_file_separator,
+                pvalue=pvalue,
                 )
     except r_runtime_error as e:
         raise RRuntimeException(e)
 
 
 @with_r_setup
-def dot_plot(robjects,
-             r_runtime_error: Exception,
+def dot_plot(*,
              means_path: str,
              pvalues_path: str,
              output_path: str,
              output_name: str,
+             robjects,
+             r_runtime_error: Exception,
              rows: Optional[str] = None,
-             columns: Optional[str] = None,
+             columns: Optional[str] = None
              ) -> None:
     pvalues_separator = _get_separator(os.path.splitext(pvalues_path)[-1])
     means_separator = _get_separator(os.path.splitext(means_path)[-1])
@@ -121,19 +125,15 @@ def dot_plot(robjects,
 
 
 @with_r_setup
-def selected_items(robjects, _, selection: Optional[str], size):
+def selected_items(selection: Optional[str], size, *, robjects, r_runtime_error):
     if selection is not None:
         df = pd.read_csv(selection, header=None)
         names = df[0].tolist()
 
         from rpy2.robjects.vectors import StrVector
-        selected = StrVector(_sanitize_names(names))
+        selected = StrVector(names)
         size = len(names)
     else:
         selected = robjects.NULL
 
     return size, selected
-
-
-def _sanitize_names(names):
-    return [name.replace('|', '.') for name in names]
