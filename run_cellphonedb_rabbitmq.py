@@ -129,7 +129,7 @@ def dot_plot_results(means: str, pvalues: str, rows: str, columns: str, job_id: 
 def heatmaps_plot_results(meta: str, pvalues: str, job_id: str):
     with tempfile.TemporaryDirectory() as output_path:
         with tempfile.NamedTemporaryFile(suffix=os.path.splitext(pvalues)[-1]) as pvalues_file:
-            with tempfile.NamedTemporaryFile() as meta_file:
+            with tempfile.NamedTemporaryFile(suffix=os.path.splitext(meta)[-1]) as meta_file:
                 _from_s3_to_temp(pvalues, pvalues_file)
                 _from_s3_to_temp(meta, meta_file)
 
