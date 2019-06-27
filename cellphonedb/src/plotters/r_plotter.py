@@ -42,7 +42,7 @@ def heatmaps_plot(*,
                   log_name: str,
                   pvalue: float,
                   robjects,
-                  r_runtime_error: Exception,
+                  r_runtime_error: Exception
                   ) -> None:
     meta_file_separator = _get_separator(os.path.splitext(meta_file)[-1])
     pvalues_file_separator = _get_separator(os.path.splitext(pvalues_file)[-1])
@@ -82,7 +82,7 @@ def dot_plot(*,
              robjects,
              r_runtime_error: Exception,
              rows: Optional[str] = None,
-             columns: Optional[str] = None,
+             columns: Optional[str] = None
              ) -> None:
     pvalues_separator = _get_separator(os.path.splitext(pvalues_path)[-1])
     means_separator = _get_separator(os.path.splitext(means_path)[-1])
