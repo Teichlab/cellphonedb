@@ -2,7 +2,7 @@ library(pheatmap)
 heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, show_rownames = T, show_colnames = T,
                          scale="none", cluster_cols = T,border_color='white', cluster_rows = T, fontsize_row=11,
                          fontsize_col = 11, main = '',treeheight_row=0, family='Arial', treeheight_col = 0,
-                         col1 = "dodgerblue4", col2 = 'peachpuff', col3 = 'deeppink4', meta_sep='\t', pvalues_sep='\t'){
+                         col1 = "dodgerblue4", col2 = 'peachpuff', col3 = 'deeppink4', meta_sep='\t', pvalues_sep='\t', pvalue){
   #######   Network
 
   meta = read.csv(meta_file, comment.char = '', sep=meta_sep)
@@ -30,9 +30,9 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
     p1 = strsplit(pairs1[i], split_sep)[[1]][1]
     p2 = strsplit(pairs1[i], split_sep)[[1]][2]
 
-    n1 = intr_pairs[which(all_intr[,pairs1[i]]<0.05)]
+    n1 = intr_pairs[which(all_intr[,pairs1[i]]<pvalue)]
     pairs_rev = paste(p2, p1, sep=join_sep)
-    n2 = intr_pairs[which(all_intr[,pairs_rev]<0.05)]
+    n2 = intr_pairs[which(all_intr[,pairs_rev]<pvalue)]
 
     if(p1!=p2)
       count1 = length(unique(n1))+length(unique(n2))
@@ -56,10 +56,10 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
     p1 = strsplit(pairs1[i], split_sep)[[1]][1]
     p2 = strsplit(pairs1[i], split_sep)[[1]][2]
 
-    n1 = intr_pairs[which(all_intr[,pairs1[i]]<0.05)]
+    n1 = intr_pairs[which(all_intr[,pairs1[i]]<pvalue)]
 
     pairs_rev = paste(p2, p1, sep=join_sep)
-    n2 = intr_pairs[which(all_intr[,pairs_rev]<0.05)]
+    n2 = intr_pairs[which(all_intr[,pairs_rev]<pvalue)]
     if(p1!=p2)
       count1 = c(count1,length(unique(n1))+length(unique(n2)))
     else
