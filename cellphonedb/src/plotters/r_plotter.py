@@ -40,6 +40,7 @@ def heatmaps_plot(*,
                   output_path: str,
                   count_name: str,
                   log_name: str,
+                  pvalue: float,
                   robjects,
                   r_runtime_error: Exception,
                   ) -> None:
@@ -66,6 +67,7 @@ def heatmaps_plot(*,
                 log_filename=log_filename,
                 meta_sep=meta_file_separator,
                 pvalues_sep=pvalues_file_separator,
+                pvalue=pvalue,
                 )
     except r_runtime_error as e:
         raise RRuntimeException(e)
