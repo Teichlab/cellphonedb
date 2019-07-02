@@ -14,23 +14,22 @@ dot_plot = function(selected_rows = NULL,
   all_pval = read.table(pvalues_path, header=T, stringsAsFactors = F, sep=means_separator, comment.char = '', check.names=F)
   all_means = read.table(means_path, header=T, stringsAsFactors = F, sep=pvalues_separator, comment.char = '', check.names=F)
 
-  rownames(all_pval) = all_pval$interacting_pair
-  rownames(all_means) = all_means$interacting_pair
+  intr_pairs = all_pval$interacting_pair
   all_pval = all_pval[,-c(1:11)]
   all_means = all_means[,-c(1:11)]
 
   if(is.null(selected_rows)){
-    selected_rows = rownames(all_pval)
+    selected_rows = intr_pairs
   }
 
   if(is.null(selected_columns)){
     selected_columns = colnames(all_pval)
   }
 
-  sel_pval = all_pval[selected_rows, selected_columns]
-  sel_means = all_means[selected_rows, selected_columns]
+  sel_pval = all_pval[match(selected_rows, intr_pairs), selected_columns]
+  sel_means = all_means[match(selected_rows, intr_pairs), selected_columns]
 
-  df_names = expand.grid(rownames(sel_pval), colnames(sel_pval))
+  df_names = expand.grid(selected_rows, selected_columns)
   pval = unlist(sel_pval)
   pval[pval==0] = 0.0009
   plot.data = cbind(df_names,pval)

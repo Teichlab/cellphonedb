@@ -14,13 +14,13 @@ class LocalQueryLauncher:
         self.cellphonedb_app = cellphonedb_app
 
     def find_interactions_by_element(self, element: str) -> None:
-        print(self.cellphonedb_app.cellphonedb.query.find_interactions_by_element(element).to_csv(index=False))
+        print(self.cellphonedb_app.query.find_interactions_by_element(element).to_csv(index=False))
 
     def get_interaction_gene(self, columns: str) -> None:
         if columns:
             columns = columns.split(',')
 
-        print(self.cellphonedb_app.cellphonedb.query.get_all_genes(columns).to_csv(index=False))
+        print(self.cellphonedb_app.query.get_all_genes(columns).to_csv(index=False))
 
     def autocomplete_element(self, partial_element: str) -> None:
-        print(self.cellphonedb_app.cellphonedb.query.autocomplete_launcher(partial_element).to_csv(index=False))
+        print(self.cellphonedb_app.query.autocomplete_launcher(partial_element).to_csv(index=False))
