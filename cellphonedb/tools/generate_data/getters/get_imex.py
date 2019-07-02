@@ -155,7 +155,7 @@ def _get_chunked_api_results(carry, columns_to_save, proteins, source):
 
 def _get_single_api_results(carry, columns_to_save, source):
     url = source['base_url']
-    print('Fetching {}'.format(source['name']))
+    tqdm.tqdm.write('Fetching {}'.format(source['name']))
     try:
         response = requests.get(url)
         if response.text:
