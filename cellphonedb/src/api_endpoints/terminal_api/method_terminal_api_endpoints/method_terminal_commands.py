@@ -5,13 +5,13 @@ from typing import Optional, Any, Callable
 import click
 from click import Context, Argument
 
+from cellphonedb.src.api_endpoints.terminal_api.util.choose_database import choose_database
 from cellphonedb.src.app import cpdb_app
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
 from cellphonedb.src.core.exceptions.ThresholdValueException import ThresholdValueException
 from cellphonedb.src.core.utils.subsampler import Subsampler
-from cellphonedb.src.database.manager import DatabaseVersionManager
 from cellphonedb.src.exceptions.ParseCountsException import ParseCountsException
 from cellphonedb.src.exceptions.ParseMetaException import ParseMetaException
 from cellphonedb.src.exceptions.ReadFileException import ReadFileException
@@ -57,10 +57,6 @@ def subsampling_options(f: Callable) -> Callable:
         f = option(f)
 
     return f
-
-
-def choose_database(ctx: Context, argument: Argument, value: str) -> Optional[str]:
-    return DatabaseVersionManager.find_database_for(value)
 
 
 def common_options(f: Callable) -> Callable:

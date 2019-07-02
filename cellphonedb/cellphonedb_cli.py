@@ -3,11 +3,9 @@ import os
 
 import click
 
-import cellphonedb.src.api_endpoints.terminal_api.database_terminal_api_endpoints.database_terminal_commands
-from cellphonedb.src.api_endpoints.terminal_api import database_terminal_api_endpoints
+from cellphonedb.src.api_endpoints.terminal_api.database_terminal_api_endpoints import database_terminal_commands
 from cellphonedb.src.api_endpoints.terminal_api.method_terminal_api_endpoints import method_terminal_commands
 from cellphonedb.src.api_endpoints.terminal_api.plot_terminal_api_endpoints import plot_terminal_commands
-
 from cellphonedb.src.api_endpoints.terminal_api.query_terminal_api_endpoints import query_terminal_commands
 from cellphonedb.src.api_endpoints.terminal_api.tools_terminal_api_endpoints import tools_terminal_commands
 
@@ -42,10 +40,10 @@ method.add_command(method_terminal_commands.analysis)
 query.add_command(query_terminal_commands.find_interactions_by_element)
 query.add_command(query_terminal_commands.get_interaction_gene)
 
-database.add_command(database_terminal_api_endpoints.database_terminal_commands.download)
-database.add_command(database_terminal_api_endpoints.database_terminal_commands.list_remote)
-database.add_command(database_terminal_api_endpoints.database_terminal_commands.list_local)
-database.add_command(database_terminal_api_endpoints.database_terminal_commands.generate)
+database.add_command(database_terminal_commands.download)
+database.add_command(database_terminal_commands.list_remote)
+database.add_command(database_terminal_commands.list_local)
+database.add_command(database_terminal_commands.generate)
 
 plot.add_command(plot_terminal_commands.dot_plot)
 plot.add_command(plot_terminal_commands.heatmap_plot)
@@ -58,7 +56,8 @@ if os.getenv(advanced_flag_var, None):
         pass
 
 
-    database.add_command(database_terminal_api_endpoints.database_terminal_commands.collect)
+    query.add_command(query_terminal_commands.autocomplete)
+    database.add_command(database_terminal_commands.collect)
     tools.add_command(tools_terminal_commands.generate_genes)
     tools.add_command(tools_terminal_commands.generate_proteins)
     tools.add_command(tools_terminal_commands.generate_complex)
