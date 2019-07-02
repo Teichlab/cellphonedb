@@ -4,3 +4,5 @@
 .dockerignore
 .git
 ./venv
+./dist
+./cpdb-venv/
