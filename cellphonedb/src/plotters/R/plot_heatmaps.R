@@ -30,9 +30,9 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
     p1 = strsplit(pairs1[i], split_sep)[[1]][1]
     p2 = strsplit(pairs1[i], split_sep)[[1]][2]
 
-    n1 = intr_pairs[which(all_intr[,pairs1[i]]<pvalue)]
+    n1 = intr_pairs[which(all_intr[,pairs1[i]]<=pvalue)]
     pairs_rev = paste(p2, p1, sep=join_sep)
-    n2 = intr_pairs[which(all_intr[,pairs_rev]<pvalue)]
+    n2 = intr_pairs[which(all_intr[,pairs_rev]<=pvalue)]
 
     if(p1!=p2)
       count1 = length(unique(n1))+length(unique(n2))
@@ -56,34 +56,40 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
     p1 = strsplit(pairs1[i], split_sep)[[1]][1]
     p2 = strsplit(pairs1[i], split_sep)[[1]][2]
 
-    n1 = intr_pairs[which(all_intr[,pairs1[i]]<pvalue)]
+    n1 = intr_pairs[which(all_intr[,pairs1[i]]<=pvalue)]
 
     pairs_rev = paste(p2, p1, sep=join_sep)
-    n2 = intr_pairs[which(all_intr[,pairs_rev]<pvalue)]
+    n2 = intr_pairs[which(all_intr[,pairs_rev]<=pvalue)]
     if(p1!=p2)
       count1 = c(count1,length(unique(n1))+length(unique(n2)))
     else
       count1 = c(count1,length(unique(n1)))
 
   }
+  
+  if (any(count1)>0)
+  {
+    count_matrix = matrix(count1, nrow=length(unique(meta[,2])), ncol=length(unique(meta[,2])))
+    rownames(count_matrix)= unique(meta[,2])
+    colnames(count_matrix)= unique(meta[,2])
 
-  count_matrix = matrix(count1, nrow=length(unique(meta[,2])), ncol=length(unique(meta[,2])))
-  rownames(count_matrix)= unique(meta[,2])
-  colnames(count_matrix)= unique(meta[,2])
+    # here we disable this file generation
+    # all_sum = rowSums(count_matrix)
+    # all_sum = cbind(names(all_sum), all_sum)
+    # write.table(all_sum, file='interactions_sum.txt', quote=F, sep='\t', row.names=F)
 
-  # here we disable this file generation
-  # all_sum = rowSums(count_matrix)
-  # all_sum = cbind(names(all_sum), all_sum)
-  # write.table(all_sum, file='interactions_sum.txt', quote=F, sep='\t', row.names=F)
+    col.heatmap <- colorRampPalette(c(col1,col2,col3 ))( 1000 )
 
+    pheatmap(count_matrix, show_rownames = show_rownames, show_colnames = show_colnames, scale=scale, cluster_cols = cluster_cols,
+             border_color=border_color, cluster_rows = cluster_rows, fontsize_row = fontsize_row, fontsize_col = fontsize_col,
+             main = main, treeheight_row = treeheight_row, family = family,color = col.heatmap, treeheight_col = treeheight_col, filename = count_filename)
 
-  col.heatmap <- colorRampPalette(c(col1,col2,col3 ))( 1000 )
+    pheatmap(log(count_matrix+1), show_rownames = show_rownames, show_colnames = show_colnames, scale=scale, cluster_cols = cluster_cols,
+             border_color=border_color, cluster_rows = cluster_rows, fontsize_row = fontsize_row, fontsize_col = fontsize_col,
+             main = main, treeheight_row = treeheight_row, family = family,color = col.heatmap, treeheight_col = treeheight_col, filename = log_filename)
+   } else {
+      message("There are no significant results using p-value of: ", pvalue)
+    }
 
-  pheatmap(count_matrix, show_rownames = show_rownames, show_colnames = show_colnames, scale=scale, cluster_cols = cluster_cols,
-           border_color=border_color, cluster_rows = cluster_rows, fontsize_row = fontsize_row, fontsize_col = fontsize_col,
-           main = main, treeheight_row = treeheight_row, family = family,color = col.heatmap, treeheight_col = treeheight_col, filename = count_filename)
-
-  pheatmap(log(count_matrix+1), show_rownames = show_rownames, show_colnames = show_colnames, scale=scale, cluster_cols = cluster_cols,
-           border_color=border_color, cluster_rows = cluster_rows, fontsize_row = fontsize_row, fontsize_col = fontsize_col,
-           main = main, treeheight_row = treeheight_row, family = family,color = col.heatmap, treeheight_col = treeheight_col, filename = log_filename)
+  
 }
