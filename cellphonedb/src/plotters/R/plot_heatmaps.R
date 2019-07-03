@@ -87,9 +87,7 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
     pheatmap(log(count_matrix+1), show_rownames = show_rownames, show_colnames = show_colnames, scale=scale, cluster_cols = cluster_cols,
              border_color=border_color, cluster_rows = cluster_rows, fontsize_row = fontsize_row, fontsize_col = fontsize_col,
              main = main, treeheight_row = treeheight_row, family = family,color = col.heatmap, treeheight_col = treeheight_col, filename = log_filename)
-   } else {
-      message("There are no significant results using p-value of: ", pvalue)
-    }
-
-  
+  } else {
+    stop("There are no significant results using p-value of: ", pvalue, call.=FALSE)
+  }
 }
