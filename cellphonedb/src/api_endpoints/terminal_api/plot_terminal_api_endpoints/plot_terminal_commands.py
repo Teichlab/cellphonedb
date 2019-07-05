@@ -19,7 +19,7 @@ except MissingR:
               default='./out/means.txt', help='Analysis output means [./out/means.txt]')
 @click.option('--pvalues-path', type=click.Path(exists=True, file_okay=True, dir_okay=False),
               default='./out/pvalues.txt', help='Analysis output pvalues [./out/pvalues.txt]')
-@click.option('--output-path', type=click.Path(exists=True, file_okay=False, writable=True),
+@click.option('--output-path', type=click.Path(file_okay=False, writable=True),
               default='./out', help='Path to write generated plot [./out]')
 @click.option('--output-name', type=str, default='./plot.pdf', help='Output file with plot [plot.pdf]')
 @click.option('--rows', type=click.Path(exists=True, file_okay=True, dir_okay=False),
@@ -53,7 +53,7 @@ def dot_plot(means_path: str, pvalues_path: str, output_path: str, output_name: 
 @click.argument('meta-path', type=click.Path(exists=True, file_okay=True, dir_okay=False))
 @click.option('--pvalues-path', type=click.Path(exists=True, file_okay=True, dir_okay=False),
               default='./out/pvalues.txt', help='Analysis output pvalues [./out/pvalues.txt]')
-@click.option('--output-path', type=click.Path(exists=True, file_okay=False, writable=True),
+@click.option('--output-path', type=click.Path(file_okay=False, writable=True),
               default='./out', help='Path to write generated plot [./out]')
 @click.option('--count-name', type=str, default='heatmap_count.pdf',
               help='Output file with count plot [heatmap_count.pdf]')
