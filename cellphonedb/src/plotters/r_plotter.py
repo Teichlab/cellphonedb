@@ -20,6 +20,13 @@ def ensure_R_setup():
         raise e
 
 
+def _ensure_path_exists(path: str) -> None:
+    expanded_path = os.path.expanduser(path)
+
+    if not os.path.exists(expanded_path):
+        os.makedirs(expanded_path)
+
+
 def with_r_setup(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -44,6 +51,7 @@ def heatmaps_plot(*,
                   robjects,
                   r_runtime_error: Exception
                   ) -> None:
+    _ensure_path_exists(output_path)
     meta_file_separator = _get_separator(os.path.splitext(meta_file)[-1])
     pvalues_file_separator = _get_separator(os.path.splitext(pvalues_file)[-1])
     this_file_dir = os.path.dirname(os.path.realpath(__file__))
@@ -84,6 +92,7 @@ def dot_plot(*,
              rows: Optional[str] = None,
              columns: Optional[str] = None
              ) -> None:
+    _ensure_path_exists(output_path)
     pvalues_separator = _get_separator(os.path.splitext(pvalues_path)[-1])
     means_separator = _get_separator(os.path.splitext(means_path)[-1])
     output_extension = os.path.splitext(output_name)[-1].lower()
