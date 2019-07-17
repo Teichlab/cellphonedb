@@ -211,7 +211,7 @@ cellphonedb database download --version <version_spec|latest>
 If no version is specified or `latest` is used as a `version_spec` the newest available version will be downloaded
 
 
-## Generating custom database
+## Generating user-specific custom database
 A user can generate custom databases and use them. In order to generate a new database a user can provide his/her own lists.
 
 These lists can be: genes, proteins, complexes and/or interactions. In the generation process they will get merged with the ones from
