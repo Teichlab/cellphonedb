@@ -67,6 +67,7 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 ### Method optional parameters
 
 ~ **Optional Method parameters**:
+- `--counts-data`: [ensembl \| gene_name \| hgnc_symbol] Type of counts data genes
 - `--project-name`: Name of the project. It creates a subfolder in output folder
 - `--iterations`: Number of pvalues analysis iterations [1000]
 - `--threshold`: % of cells expressing a gene
@@ -86,7 +87,7 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 ~ **Optional Method Statistical parameters**
 - `--pvalues-result-name`: Pvalues result filename [pvalues]
 - `--pvalue`: Pvalue threshold [0.05]
-- `--debug-seed`: Debug random seed -1 for disable it. >=0 [-1]
+- `--debug-seed`: Debug random seed -1. To disable it please use a value >=0 [-1]
 - `--threads`: Number of threads to use. >=1 [-1]
 
 **Usage Examples**:
@@ -190,7 +191,7 @@ cellphonedb database list_remote
 ``` 
 
 ## Listing local available versions
-The command to list available versions from the remote repository is:
+The command to list available versions from the local repository is:
 ```shell
 cellphonedb database list_local
 ``` 
@@ -210,7 +211,7 @@ cellphonedb database download --version <version_spec|latest>
 If no version is specified or `latest` is used as a `version_spec` the newest available version will be downloaded
 
 
-## Generating User database
+## Generating custom database
 A user can generate custom databases and use them. In order to generate a new database a user can provide his/her own lists.
 
 These lists can be: genes, proteins, complexes and/or interactions. In the generation process they will get merged with the ones from
@@ -238,51 +239,6 @@ As the lists as processed, then filtered, and lastly collected, two versions may
 whereas `_input` is the final state prior being inserted in the database.
 
 Generating individually lists is considered advanced it is disabled by default, to enable it an `ADVANCED` environment variable must be set to any value in the running shell.  
-
-
-## Using different database versions
-CellPhoneDB databases can be updated from remote repository through our tool. Available versions can be listed and downloaded to be used.
-
-To use one of those versions a user must provide the `--database <version_or_file>` to the method to be executed.
-
-If the given parameter is a readable database file it will be used as is. Otherwise it will use some of the versions matching the selected version.
-
-
-If the selected version does not exist in the local environment it will be downloaded from the remote repository. (See below)
-If no `--database` argument is given in methods execution it will use the latest local version available.
-
-Downloaded versions will be stored in a user folder under `~/.cpdb/releases`
-
-## Listing remote available versions
-The command to list available versions from the remote repository is:
-```shell
-cellphonedb database list_remote
-``` 
-
-## Listing local available versions
-The command to list available versions from the remote repository is:
-```shell
-cellphonedb database list_local
-``` 
-
-## Download version
-The command to download a version from the remote repository is:
-```shell
-cellphonedb database download
-``` 
-or 
-
-```shell 
-cellphonedb database download --version <version_spec|latest> 
-``` 
-
-`version_spec` must be one of the listed in the `database list_remote` command.
-If no version is specified or `latest` is used as a `version_spec` the newest available version will be downloaded
-
-
-## Generating Custom database
-A user can generate custom databases and use them (See advanced documentation regarding this issue) 
-
 
 
 ## Contributing to CellPhoneDB
