@@ -67,11 +67,11 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 ### Method optional parameters
 
 ~ **Optional Method parameters**:
+- `--counts-data`: [ensembl \| gene_name \| hgnc_symbol] Type of counts data genes
 - `--project-name`: Name of the project. It creates a subfolder in output folder
 - `--iterations`: Number of pvalues analysis iterations [1000]
 - `--threshold`: % of cells expressing a gene
 - `--result-precision`: Number of decimal digits in results [3]
-- `--counts-data=gene_name`: If the count data is presented with gene names as identifiers
 - `--output-path`: Directory where the results will be allocated (the directory must exist) [out]
 - `--output-format`: Result files output format (extension will be added to filename if not present) [txt]
 - `--means-result-name`: Means result filename [means]
