@@ -214,15 +214,14 @@ If no version is specified or `latest` is used as a `version_spec` the newest av
 ## Generating user-specific custom database
 A user can generate custom databases and use them. In order to generate a new database a user can provide his/her own lists.
 
-These lists can be: genes, proteins, complexes and/or interactions. In the generation process they will get merged with the ones from
-the CellPhoneDB release sources. The user lists have higher precedence than the ones included in CellPhoneDB package.
+These lists can be: genes, proteins, complexes and/or interactions. In the generation process they will get merged with the ones from the CellPhoneDB release sources. The user lists have higher precedence than the ones included in CellPhoneDB package.
 
 To generate such a database the user has to issue this command:
 ```shell
 cellphonedb database generate  
 ```
 
-Result database file is generated in `out` with `cellphonedb_user_{datetime}.db`. To use this database, please use `--database` parameter in methods.
+Result database file is generated in `out` with `cellphonedb_user_{datetime}.db`. The user defined input tables will be merged with the current CellPhoneDB input tables. To use this database, please use `--database` parameter in methods.
 E.g:
 ```
  cellphonedb method statistical_analysis in/example_data/test_meta.txt in/example_data/test_counts.txt --database out/cellphonedb_user_2019-05-10-11_10.db
@@ -235,11 +234,16 @@ In order to use specific lists those can be specified like this `--user-protein`
 followed by the corresponding file path.
 
 The database file can be then used as explained below. The intrermediate lists used for the generation will be saved along the database itself.
-As the lists as processed, then filtered, and lastly collected, two versions may exist: `_generated` is the unfiltered one 
+
+As the lists are processed, then filtered, and lastly collected, two versions may exist: `_generated` is the unfiltered one 
 whereas `_input` is the final state prior being inserted in the database.
 
-Generating individually lists is considered advanced it is disabled by default, to enable it an `ADVANCED` environment variable must be set to any value in the running shell.  
+Generating individually lists is considered advanced it is disabled by default, to enable it an `ADVANCED` environment variable must be set to any value in the running shell. 
 
+E.g:
+```
+ADVANCED=1 cellphonedb database generate
+```
 
 ## Contributing to CellPhoneDB
 
