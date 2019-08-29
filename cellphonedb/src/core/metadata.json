@@ -2,6 +2,9 @@
   "interaction_curated.csv": {
     "date": "20190527"
   },
+  "protein_curated.csv": {
+    "date": "20190829"
+  },
   "excluded_interaction.csv": {
     "date": "20180330"
   },
@@ -14,7 +17,6 @@
   "hla_curated.csv": {
     "date": "20190604"
   },
-
   "iuphar interaction_raw.csv.xz": {
     "date": "20190606"
   },
@@ -48,6 +50,5 @@
   "I2D_interaction_raw.csv.xz": {
     "date": "20190618"
   },
-
-  "database_version": "v2.0.0"
+  "database_version": "v2.1.0"
 }
