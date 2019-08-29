@@ -227,6 +227,7 @@ def generate_proteins(user_protein: Optional[str],
         'tags': 'To_add',
         'tags_reason': pd.np.nan,
         'tags_description': pd.np.nan,
+        'pfam': pd.np.nan,
     }
 
     default_types = {
@@ -245,6 +246,7 @@ def generate_proteins(user_protein: Optional[str],
         'tags': str,
         'tags_reason': str,
         'tags_description': str,
+        'pfam': str,
     }
 
     result_columns = list(default_types.keys())

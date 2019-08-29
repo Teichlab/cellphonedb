@@ -224,10 +224,10 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvoluted_result['gene'] = deconvolution_complex['{}_simple'.format(counts_data)]
 
     deconvoluted_result[
-        ['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor', 'complex_name']] = \
+        ['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor', 'complex_name', 'pfam']] = \
         deconvolution_complex[
             ['protein_name_simple', 'gene_name_simple', 'name_simple',
-             'is_complex_complex', 'id_cp_interaction', 'receptor_simple', 'name_complex']]
+             'is_complex_complex', 'id_cp_interaction', 'receptor_simple', 'name_complex', 'pfam']]
 
     return deconvoluted_result
 
