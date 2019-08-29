@@ -113,6 +113,7 @@ def generate_genes(user_gene: Optional[str],
 @click.argument('genes', default='gene.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.argument('complex', default='complex.csv', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--user-interactions', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.option('--user-interactions-only', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--fetch-imex', is_flag=True)
 @click.option('--fetch-iuphar', is_flag=True)
@@ -120,10 +121,14 @@ def generate_interactions(proteins: str,
                           genes: str,
                           complex: str,
                           user_interactions: Optional[str],
+                          user_interactions_only: bool,
                           result_path: str,
                           fetch_imex: bool,
                           fetch_iuphar: bool,
                           ) -> None:
+    if user_interactions_only and not user_interactions:
+        raise Exception('You need to set --user-interactions parameter')
+
     output_path = utils.set_paths(output_dir, result_path)
     downloads_path = utils.set_paths(output_path, 'downloads')
 
@@ -131,16 +136,23 @@ def generate_interactions(proteins: str,
     genes = utils.read_data_table_from_file(genes)
     complexes = utils.read_data_table_from_file(complex)
 
-    raw_imex = get_imex.call(genes, downloads_path, fetch_imex)
+    if not user_interactions_only:
+        raw_imex = get_imex.call(genes, downloads_path, fetch_imex)
 
-    interactions_to_remove = utils.read_data_table_from_file(
-        os.path.join(data_dir, 'sources/excluded_interaction.csv'))
-    interaction_curated = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/interaction_curated.csv'))
+        interactions_to_remove = utils.read_data_table_from_file(
+            os.path.join(data_dir, 'sources/excluded_interaction.csv'))
+        interaction_curated = utils.read_data_table_from_file(os.path.join(data_dir, 'sources/interaction_curated.csv'))
 
     if user_interactions:
         separator = _get_separator(os.path.splitext(user_interactions)[-1])
         user_interactions = pd.read_csv(user_interactions, sep=separator)
         user_interactions['annotation_strategy'] = 'user_curated'
+
+        if not 'protein_name_a' in user_interactions.columns:
+            user_interactions['protein_name_a'] = ''
+
+        if not 'protein_name_b' in user_interactions.columns:
+            user_interactions['protein_name_b'] = ''
 
     result_columns = [
         'partner_a',
@@ -150,33 +162,36 @@ def generate_interactions(proteins: str,
         'annotation_strategy',
         'source'
     ]
+    if not user_interactions_only:
+        print('Parsing IMEX file')
+        imex_interactions = parse_interactions_imex(raw_imex, proteins, genes)
 
-    print('Parsing IMEX file')
-    imex_interactions = parse_interactions_imex(raw_imex, proteins, genes)
+        print('Getting iuphar data')
+        raw_iuphar = get_iuphar.call(downloads_path, fetch_iuphar)
 
-    print('Getting iuphar data')
-    raw_iuphar = get_iuphar.call(downloads_path, fetch_iuphar)
+        print('Generating iuphar interactions')
+        iuphar_interactions = parse_iuphar_guidetopharmacology.call(raw_iuphar, genes, proteins)
 
-    print('Generating iuphar interactions')
-    iuphar_interactions = parse_iuphar_guidetopharmacology.call(raw_iuphar, genes, proteins)
+        print('Merging iuphar/imex')
+        merged_interactions = merge_iuphar_imex_interactions(iuphar_interactions, imex_interactions)
 
-    print('Merging iuphar/imex')
-    merged_interactions = merge_iuphar_imex_interactions(iuphar_interactions, imex_interactions)
+        print('Removing complex interactions')
+        no_complex_interactions = only_noncomplex_interactions(merged_interactions, complexes)
 
-    print('Removing complex interactions')
-    no_complex_interactions = only_noncomplex_interactions(merged_interactions, complexes)
+        print('Removing selected interactions')
+        clean_interactions = remove_interactions_in_file(no_complex_interactions, interactions_to_remove)
 
-    print('Removing selected interactions')
-    clean_interactions = remove_interactions_in_file(no_complex_interactions, interactions_to_remove)
+        print('Adding curated interaction')
+        interactions_with_curated = add_curated(clean_interactions, interaction_curated)
 
-    print('Adding curated interaction')
-    interactions_with_curated = add_curated(clean_interactions, interaction_curated)
+        result = tools_helper.normalize_interactions(
+            interactions_with_curated.append(user_interactions, ignore_index=True, sort=False), 'partner_a',
+            'partner_b').drop_duplicates(['partner_a', 'partner_b'], keep='last')
 
-    interactions_with_curated = tools_helper.normalize_interactions(
-        interactions_with_curated.append(user_interactions, ignore_index=True, sort=False), 'partner_a',
-        'partner_b').drop_duplicates(['partner_a', 'partner_b'], keep='last')
+    else:
+        result = user_interactions
 
-    interactions_with_curated[result_columns].sort_values(['partner_a', 'partner_b']).to_csv(
+    result[result_columns].sort_values(['partner_a', 'partner_b']).to_csv(
         '{}/interaction_input.csv'.format(output_path), index=False)
 
 
