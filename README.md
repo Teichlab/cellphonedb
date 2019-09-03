@@ -330,11 +330,6 @@ As the lists are processed, then filtered, and lastly collected, two versions ma
 whereas `_input` is the final state prior being inserted in the database.
 
 
-E.g:
-```
-ADVANCED=1 cellphonedb database generate
-```
-
 ## Contributing to CellPhoneDB
 
 CellPhoneDB is Open Source project. If you are interesed to contribute to this project, please let us know.
