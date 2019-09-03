@@ -6,6 +6,10 @@
 !/in/.gitkeep
 !/in/example_data/
 /src/data/queries/
+
+# Temp files
+/sandbox/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
