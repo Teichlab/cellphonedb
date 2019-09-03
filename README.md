@@ -238,7 +238,7 @@ E.g:
 
 ### Examples for user-specific custom database
 
-1. Tto add or correct some interactions
+1. To add or correct some interactions
 
     **Input**:
     
