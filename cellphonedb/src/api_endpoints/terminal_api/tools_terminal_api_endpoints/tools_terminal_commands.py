@@ -311,13 +311,13 @@ def filter_all(input_path, result_path):
     interacting_partners = pd.concat([interactions['partner_a'], interactions['partner_b']]).drop_duplicates()
 
     filtered_complexes = _filter_complexes(complexes, interacting_partners)
-    write_to_file(filtered_complexes, 'complex_input.csv', output_path=output_path)
+    write_to_file(filtered_complexes.sort_values('complex_name'), 'complex_input.csv', output_path=output_path)
 
     filtered_proteins, interacting_proteins = _filter_proteins(proteins, filtered_complexes, interacting_partners)
-    write_to_file(filtered_proteins, 'protein_input.csv', output_path=output_path)
+    write_to_file(filtered_proteins.sort_values('uniprot'), 'protein_input.csv', output_path=output_path)
 
     filtered_genes = _filter_genes(genes, filtered_proteins['uniprot'])
-    write_to_file(filtered_genes, 'gene_input.csv', output_path=output_path)
+    write_to_file(filtered_genes.sort_values('gene_name'), 'gene_input.csv', output_path=output_path)
 
     rejected_members = interacting_partners[~(interacting_partners.isin(filtered_complexes['complex_name']) |
                                               interacting_partners.isin(filtered_proteins['uniprot']))]

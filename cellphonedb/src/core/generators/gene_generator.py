@@ -30,8 +30,8 @@ def gene_generator(ensembl_db: pd.DataFrame,
     ensembl_db_filtered = ensembl_db.drop_duplicates()
     ensembl_db_filtered.dropna(inplace=True)
 
-    print('duplicated ensembl in ensembl list')
-    print(len(ensembl_db_filtered[ensembl_db_filtered['ensembl'].duplicated()]))
+    # print('duplicated ensembl in ensembl list')
+    # print(len(ensembl_db_filtered[ensembl_db_filtered['ensembl'].duplicated()]))
 
     # Add only if the uniprot exist in result gene list
     additional_genes = ensembl_db_filtered[
@@ -59,8 +59,8 @@ def gene_generator(ensembl_db: pd.DataFrame,
                                                                                              keep='last')
 
     # Check if exist any duplicated ensembl
-    print('Duplicated ensembl genes')
-    print(len(cpdb_genes[cpdb_genes['ensembl'].duplicated()]))
-    print(cpdb_genes[cpdb_genes['ensembl'].duplicated(keep=False)].to_csv(index=False))
+    # print('Duplicated ensembl genes')
+    # print(len(cpdb_genes[cpdb_genes['ensembl'].duplicated()]))
+    # print(cpdb_genes[cpdb_genes['ensembl'].duplicated(keep=False)].to_csv(index=False))
 
     return cpdb_genes[result_columns]

@@ -228,17 +228,98 @@ E.g:
  cellphonedb method statistical_analysis in/example_data/test_meta.txt in/example_data/test_counts.txt --database out/cellphonedb_user_2019-05-10-11_10.db
 ```
 
+### Examples for user-specific custom database
+
+1. If you need to add or correct some interactions
+
+    **Input**:
+    
+    - `your_custom_interaction_file.csv`: Comma separated file (use mandatory columns!) with interactions to add/correct.
+     
+    **Comand**:
+    
+    ```shell
+    cellphonedb database generate --user-interactions your_custom_interaction_file.csv 
+    ```
+    **Result**:
+    
+    New database file with CellPhoneDB interactions + user custom interactions. On duplicated interactions, user list overwrites CellPhoneDB original data.
+
+2. If you need to use only your interactions
+    
+    **Input**:
+    
+    - `your_custom_interaction_file.csv`: Comma separated file (use mandatory columns!) with interactions to use.
+    
+    **Comand**:
+    
+    ```shell
+    cellphonedb database generate --user-interactions your_custom_interaction_file.csv --user-interactions-only
+    ```
+    **Result**:
+    
+    New database file with **only** user custom interactions. 
+
+3. If you need to correct any protein data
+    
+    **Input**:
+    - `your_custom_protein_file.csv`: Comma separated file (use mandatory columns!) with proteins to overwrite. 
+     
+    **Comand**:
+    ```shell
+    cellphonedb database generate --user-protein your_custom_protein_file.csv 
+    ```
+    **Result**:
+    
+    New database file with CellPhoneDB interactions + user custom interactions. On duplicated interactions or proteins, user list overwrites CellPhoneDB original data.
+
+4. If you need to add some interactions and correct any protein data
+    
+    **Input**:
+    
+    - `your_custom_interaction_file.csv`: Comma separated file (use mandatory columns!) with interactions to add/correct.
+    - `your_custom_protein_file.csv`: Comma separated file (use mandatory columns!) with proteins to overwrite. 
+    
+    **Comand**:
+    
+    ```shell
+    cellphonedb database generate --user-interactions your_custom_interaction_file.csv --user-protein your_custom_protein_file.csv 
+    ```
+    **Result**:
+    
+    New database file with CellPhoneDB interactions + user custom interactions. On duplicated interactions or proteins, user list overwrites CellPhoneDB original data.    
+     
+5. If you need to uplade remote sources (UniProt, IMEx, ensembl, etc.)     
+    
+    **IMPORTANT**
+    
+    This command uses external resources allocated in external servers. This command may not end correctly if external servers are not available. The time of this command depends of external servers and your internet connection and can take a lot of time. 
+    
+    **Input**:
+    
+    - `your_custom_interaction_file.csv`: Comma separated file (use mandatory columns!) with interactions to add/correct.
+    - `your_custom_protein_file.csv`: Comma separated file (use mandatory columns!) with proteins to overwrite. 
+    
+    **Comand**:
+    
+    ```shell
+    cellphonedb database generate --fetch 
+    ```
+    **Result**:
+    
+    New database file with CellPhoneDB interactions + user custom interactions. On duplicated interactions or proteins, user list overwrites CellPhoneDB original data.
+    
+    
 Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By the default the snapshots included in
 the CellPhoneDB package will be used, to enable a fresh copy `--fetch` must be appended to the command.
 
-In order to use specific lists those can be specified like this `--user-protein`, `--user-gene`, `--user-complex`, `--user-interactions`,
+In order to use specific lists those can be specified like this `--user-protein`, `--user-gene`, `--user-complex`, `--user-interactions`, `--user-interactions-only`
 followed by the corresponding file path.
 
 The database file can be then used as explained below. The intrermediate lists used for the generation will be saved along the database itself.
 As the lists as processed, then filtered, and lastly collected, two versions may exist: `_generated` is the unfiltered one 
 whereas `_input` is the final state prior being inserted in the database.
 
-Generating individually lists is considered advanced it is disabled by default, to enable it an `ADVANCED` environment variable must be set to any value in the running shell.  
 
 
 ## Contributing to CellPhoneDB

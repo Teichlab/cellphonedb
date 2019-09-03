@@ -217,8 +217,7 @@ def deconvoluted_complex_result_build(clusters_means: dict, interactions: pd.Dat
     cluster_counts = cluster_counts.reindex(sorted(cluster_counts.columns), axis=1)
 
     # Here we sort and filter unwanted columns
-    deconvoluted_columns = ['gene_name', 'name', 'is_complex', 'protein_name', 'complex_name', 'pfam',
-                            'id_cp_interaction']
+    deconvoluted_columns = ['gene_name', 'name', 'is_complex', 'protein_name', 'complex_name', 'id_cp_interaction']
 
     deconvoluted_result = deconvoluted_result[deconvoluted_columns]
     deconvoluted_result.rename({'name': 'uniprot'}, axis=1, inplace=True)
@@ -261,10 +260,10 @@ def deconvolute_complex_interaction_component(complex_compositions, genes_filter
     deconvoluted_result['gene'] = deconvolution_complex['{}_simple'.format(counts_data)]
 
     deconvoluted_result[
-        ['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor', 'complex_name', 'pfam']] = \
+        ['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor', 'complex_name']] = \
         deconvolution_complex[
             ['protein_name_simple', 'gene_name_simple', 'name_simple',
-             'is_complex_complex', 'id_cp_interaction', 'receptor_simple', 'name_complex', 'pfam']]
+             'is_complex_complex', 'id_cp_interaction', 'receptor_simple', 'name_complex']]
 
     return deconvoluted_result
 

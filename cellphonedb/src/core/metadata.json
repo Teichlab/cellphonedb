@@ -50,5 +50,6 @@
   "I2D_interaction_raw.csv.xz": {
     "date": "20190618"
   },
-  "database_version": "v2.1.0"
+
+  "database_version": "v2.0.0"
 }
