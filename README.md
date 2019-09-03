@@ -43,7 +43,7 @@ Please, run step 0 if you didn't activate the virtual-env previously
 source cpdb-venv/bin/activate
 ```
 
-For run example data, please [download meta/counts test data](https://github.com/Teichlab/cellphonedb/blob/master/in/example_data/cellphonedb_example_data.zip?raw=true).
+To use the example data, please [download meta/counts test data](https://github.com/Teichlab/cellphonedb/blob/master/in/example_data/cellphonedb_example_data.zip?raw=true).
 
 Hint (if you are in terminal):
 ```shell
@@ -67,21 +67,21 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 ### Method optional parameters
 
 ~ **Optional Method parameters**:
-- `--counts-data`: [ensembl \| gene_name \| hgnc_symbol] Type of counts data genes
-- `--project-name`: Name of the project. It creates a subfolder in output folder
-- `--iterations`: Number of pvalues analysis iterations [1000]
-- `--threshold`: % of cells expressing a gene
+- `--counts-data`: [ensembl \| gene_name \| hgnc_symbol] Type of gene identifiers in the counts data
+- `--project-name`: Name of the project. A subfolder with this name is created in the output folder
+- `--iterations`: Number of iterations for the statistical analysis [1000]
+- `--threshold`: % of cells expressing the specific ligand/receptor
 - `--result-precision`: Number of decimal digits in results [3]
 - `--output-path`: Directory where the results will be allocated (the directory must exist) [out]
-- `--output-format`: Result files output format (extension will be added to filename if not present) [txt]
+- `--output-format`: Output format of the results files (extension will be added to filename if not present) [txt]
 - `--means-result-name`: Means result filename [means]
-- `--significant-means-result-name`: Significant result filename [significant_means]
+- `--significant-means-result-name`: Significant mean result filename [significant_means]
 - `--deconvoluted-result-name`: Deconvoluted result filename [deconvoluted]
 - `--verbose/--quiet`: Print or hide CellPhoneDB logs [verbose]
-- `--subsampling`: Enable Cells subsampling
-- `--subsampling-log`: Enable subsampling log1p for non transformed data inputs !!mandatory!!
-- `--subsampling-num-pc`: Subsampling NumPC argument [100]
-- `--subsampling-num-cells`: Number of cells to subsample [1/3 of cells]
+- `--subsampling`: Enable subsampling
+- `--subsampling-log`: Enable subsampling log1p for non log-transformed data inputs !!mandatory!!
+- `--subsampling-num-pc`: Subsampling NumPC argument (number of PCs to use) [100]
+- `--subsampling-num-cells`: Number of cells to subsample to [1/3 of cells]
 
 
 ~ **Optional Method Statistical parameters**
@@ -131,10 +131,10 @@ cellphonedb plot heatmap_plot yourmeta.txt
 This plot type requires `ggplot2` R package installed and working
 
 You can tweak the options for the plot with these arguments:
-- `--means-path`: Analysis output means [./out/means.txt]
-- `--pvalues-path`: Analysis output pvalues [./out/pvalues.txt]
-- `--output-path`: Path to write generated plot [./out]
-- `--output-name`: Output file with plot [plot.pdf]
+- `--means-path`: The means output file [./out/means.txt]
+- `--pvalues-path`: The pvalues output file [./out/pvalues.txt]
+- `--output-path`: Output folder [./out]
+- `--output-name`: Filename of the output plot [plot.pdf]
 - `--rows`: File with a list of rows to plot, one per line [all available]
 - `--columns`: File with a list of columns to plot, one per line [all available]
 - `--verbose / --quiet`: Print or hide CellPhoneDB logs [verbose]
@@ -156,11 +156,11 @@ This plot type requires `pheatmap` R package installed and working
 This plot type includes to plots: `count` & `log_count` 
 
 You can tweak the options for the plot with these arguments:
-- `--pvalues-path`: Analysis output pvalues [./out/pvalues.txt]
-- `--output-path`: Path to write generated plots [./out]
-- `--count-name`: Analysis output pvalues [heatmap_count.pdf]
+- `--pvalues-path`: The pvalues output file [./out/pvalues.txt]
+- `--output-path`: Output folder [./out]
+- `--count-name`: Filename of the output plot [heatmap_count.pdf]
 - `--pvalue`: pvalue threshold to consider when plotting [0.05]
-- `--log-name`: Analysis output pvalues [heatmap_log_count.pdf]
+- `--log-name`: Filename of the output plot using log-count of interactions [heatmap_log_count.pdf]
 - `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
 
 Available output formats are those supported by `R's pheatmap` package, among others they are:
@@ -220,8 +220,17 @@ To generate such a database the user has to issue this command:
 ```shell
 cellphonedb database generate  
 ```
+Generate specific parameters:
 
-Result database file is generated in `out` with `cellphonedb_user_{datetime}.db`. The user defined input tables will be merged with the current CellPhoneDB input tables. To use this database, please use `--database` parameter in methods.
+- `--user-protein`: Protein input file
+- `--user-gene`: Gene input file
+- `--user-complex`: Compex input file
+- `--user-interactions`: Interactions input file
+- `--fetch`: Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By default, the snapshots included in the CellPhoneDB package will be used; to enable a fresh copy --fetch must be appended to the command
+- `--result-path`: Output folder
+- `--log-file`: Log file
+
+Result database file is generated in the folder `out` with `cellphonedb_user_{datetime}.db`. The user defined input tables will be merged with the current CellPhoneDB input tables. To use this database, please use `--database` parameter in methods.
 E.g:
 ```
  cellphonedb method statistical_analysis in/example_data/test_meta.txt in/example_data/test_counts.txt --database out/cellphonedb_user_2019-05-10-11_10.db
@@ -229,7 +238,7 @@ E.g:
 
 ### Examples for user-specific custom database
 
-1. If you need to add or correct some interactions
+1. Tto add or correct some interactions
 
     **Input**:
     
@@ -242,9 +251,9 @@ E.g:
     ```
     **Result**:
     
-    New database file with CellPhoneDB interactions + user custom interactions. On duplicated interactions, user list overwrites CellPhoneDB original data.
+    New database file with CellPhoneDB interactions + user custom interactions. For duplicated interactions, user lists overwrite the CellPhoneDB original data.
 
-2. If you need to use only your interactions
+2. To use only user-specific interactions
     
     **Input**:
     
@@ -259,7 +268,7 @@ E.g:
     
     New database file with **only** user custom interactions. 
 
-3. If you need to correct any protein data
+3. To correct any protein data
     
     **Input**:
     - `your_custom_protein_file.csv`: Comma separated file (use mandatory columns!) with proteins to overwrite. 
@@ -270,9 +279,9 @@ E.g:
     ```
     **Result**:
     
-    New database file with CellPhoneDB interactions + user custom interactions. On duplicated interactions or proteins, user list overwrites CellPhoneDB original data.
+    New database file with CellPhoneDB interactions + user custom interactions. For duplicated interactions or proteins, user lists overwrite the CellPhoneDB original data.
 
-4. If you need to add some interactions and correct any protein data
+4. To add some interactions and correct any protein data
     
     **Input**:
     
@@ -288,11 +297,11 @@ E.g:
     
     New database file with CellPhoneDB interactions + user custom interactions. On duplicated interactions or proteins, user list overwrites CellPhoneDB original data.    
      
-5. If you need to uplade remote sources (UniProt, IMEx, ensembl, etc.)     
+5. To update remote sources (UniProt, IMEx, ensembl, etc.)     
     
     **IMPORTANT**
     
-    This command uses external resources allocated in external servers. This command may not end correctly if external servers are not available. The time of this command depends of external servers and your internet connection and can take a lot of time. 
+    This command uses external resources allocated in external servers. The command may not end correctly if external servers are not available. The timing of this step depends of external servers and the user's internet connection and can take a lot of time. 
     
     **Input**:
     
@@ -306,10 +315,10 @@ E.g:
     ```
     **Result**:
     
-    New database file with CellPhoneDB interactions + user custom interactions. On duplicated interactions or proteins, user list overwrites CellPhoneDB original data.
+    New database file with CellPhoneDB interactions + user custom interactions. For duplicated interactions or proteins, user lists overwrite the CellPhoneDB original data.
     
     
-Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By the default the snapshots included in
+Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By default, the snapshots included in
 the CellPhoneDB package will be used, to enable a fresh copy `--fetch` must be appended to the command.
 
 In order to use specific lists those can be specified like this `--user-protein`, `--user-gene`, `--user-complex`, `--user-interactions`, `--user-interactions-only`
