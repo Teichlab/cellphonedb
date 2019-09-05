@@ -59,16 +59,22 @@ def dot_plot(means_path: str, pvalues_path: str, output_path: str, output_name: 
               help='Output file with count plot [heatmap_count.pdf]')
 @click.option('--log-name', type=str, default='heatmap_log_count.pdf',
               help='Output file with log count plot [heatmap_log_count.pdf]')
+@click.option('--count-network-name', type=str, default='count_network.txt',
+              help='Output file name for count network [count_network.txt]')
+@click.option('--interaction-count-name', type=str, default='interaction_count.txt',
+              help='Output file name for interaction count [interaction_count.txt]')
 @click.option('--pvalue', type=float, default=0.05, help='pvalue threshold to consider when plotting [0.05]')
 @click.option('--verbose/--quiet', default=True, help='Print or hide cellphonedb logs [verbose]')
-def heatmap_plot(meta_path: str, pvalues_path: str, output_path: str, count_name: str, log_name: str, pvalue: float,
-                 verbose: bool):
+def heatmap_plot(meta_path: str, pvalues_path: str, output_path: str, count_name: str, log_name: str,
+                 count_network_name, interaction_count_name, pvalue: float, verbose: bool):
     try:
         r_plotter.heatmaps_plot(meta_file=meta_path,
                                 pvalues_file=pvalues_path,
                                 output_path=output_path,
-                                log_name=log_name,
                                 count_name=count_name,
+                                log_name=log_name,
+                                count_network_filename=count_network_name,
+                                interaction_count_filename=interaction_count_name,
                                 pvalue=pvalue)
     except MissingR:
         print('You cannot perform this plot command unless there is a working R setup according to CellPhoneDB specs')

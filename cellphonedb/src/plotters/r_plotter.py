@@ -47,6 +47,8 @@ def heatmaps_plot(*,
                   output_path: str,
                   count_name: str,
                   log_name: str,
+                  count_network_filename: str,
+                  interaction_count_filename: str,
                   pvalue: float,
                   robjects,
                   r_runtime_error: Exception
@@ -68,11 +70,21 @@ def heatmaps_plot(*,
 
     plotter = robjects.r[function_name]
 
+    count_network_separator = _get_separator(os.path.splitext(count_network_filename)[-1])
+    interaction_count_separator = _get_separator(os.path.splitext(interaction_count_filename)[-1])
+
+    count_network_filename = os.path.join(output_path, count_network_filename)
+    interaction_count_filename = os.path.join(output_path, interaction_count_filename)
+
     try:
         plotter(meta_file=meta_file,
                 pvalues_file=pvalues_file,
                 count_filename=count_filename,
                 log_filename=log_filename,
+                count_network_filename=count_network_filename,
+                interaction_count_filename=interaction_count_filename,
+                count_network_separator=count_network_separator,
+                interaction_count_separator=interaction_count_separator,
                 meta_sep=meta_file_separator,
                 pvalues_sep=pvalues_file_separator,
                 pvalue=pvalue,

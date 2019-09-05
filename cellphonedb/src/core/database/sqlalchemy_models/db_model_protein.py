@@ -12,7 +12,7 @@ class Protein(Base):
     tags = Column(String)
     tags_reason = Column(String)
     tags_description = Column(String)
-    pfam = Column(String)
+    # pfam = Column(String)
 
     protein_multidata_id = Column(Integer, ForeignKey('multidata_table.id_multidata'), unique=True, nullable=False)
     gene = relationship('Gene', backref='gene_table', lazy='subquery')
