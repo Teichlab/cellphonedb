@@ -1,5 +1,5 @@
 library(pheatmap)
-heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, show_rownames = T, show_colnames = T,
+heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, count_network_filename, interactions_sum_filename, count_network_separator, interactions_sum_separator, show_rownames = T, show_colnames = T,
                          scale="none", cluster_cols = T,border_color='white', cluster_rows = T, fontsize_row=11,
                          fontsize_col = 11, main = '',treeheight_row=0, family='Arial', treeheight_col = 0,
                          col1 = "dodgerblue4", col2 = 'peachpuff', col3 = 'deeppink4', meta_sep='\t', pvalues_sep='\t', pvalue=0.05){
@@ -44,9 +44,8 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
     all_count = rbind(all_count, new_count)
   }
 
-  # here we disable this file generation
-  # all_count = all_count[-1,]
-  # write.table(all_count, 'count_network.txt', sep='\t', quote=F, row.names = F)
+  all_count = all_count[-1,]
+  write.table(all_count, count_network_filename, sep=count_network_separator, quote=F, row.names = F)
 
   #######   count interactions
 
@@ -73,10 +72,9 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
     rownames(count_matrix)= unique(meta[,2])
     colnames(count_matrix)= unique(meta[,2])
 
-    # here we disable this file generation
-    # all_sum = rowSums(count_matrix)
-    # all_sum = cbind(names(all_sum), all_sum)
-    # write.table(all_sum, file='interactions_sum.txt', quote=F, sep='\t', row.names=F)
+    all_sum = rowSums(count_matrix)
+    all_sum = cbind(names(all_sum), all_sum)
+    write.table(all_sum, file=interactions_sum_filename, quote=F, sep=count_network_separator, row.names=F)
 
     col.heatmap <- colorRampPalette(c(col1,col2,col3 ))( 1000 )
 
