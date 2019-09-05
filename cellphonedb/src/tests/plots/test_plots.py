@@ -57,12 +57,17 @@ class TestPlots(unittest.TestCase):
         pvalues_path = self._get_input_file_path_for('pvalues')
         plot_output_counts = 'heatmaps_plot_counts.png'
         plot_output_count_logs = 'heatmaps_plot_count_logs.png'
+        count_network_filename = 'count_network.txt'
+        interaction_count_filename = 'interaction_count.txt'
+
 
         heatmaps_plot(meta_file=meta_path,
                       pvalues_file=pvalues_path,
                       output_path=output_test_dir,
                       count_name=plot_output_counts,
                       log_name=plot_output_count_logs,
+                      count_network_filename=count_network_filename,
+                      interaction_count_filename=interaction_count_filename,
                       pvalue=0.05
                       )
 
