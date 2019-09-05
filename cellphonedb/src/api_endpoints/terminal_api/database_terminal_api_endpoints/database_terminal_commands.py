@@ -44,6 +44,7 @@ def list_local():
 @click.option('--user-gene', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--user-complex', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--user-interactions', type=click.Path(file_okay=True, exists=True, dir_okay=False))
+@click.option('--user-interactions-only', is_flag=True)
 @click.option('--fetch', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
@@ -53,6 +54,7 @@ def generate(ctx: Context,
              user_gene: Optional[str],
              user_complex: Optional[str],
              user_interactions: Optional[str],
+             user_interactions_only: Optional[str],
              fetch: bool,
              result_path: Optional[str],
              log_file: str
@@ -70,7 +72,8 @@ def generate(ctx: Context,
     complex_file = os.path.join(output_path, 'complex_generated.csv')
 
     ctx.invoke(generate_interactions, proteins=proteins_file, genes=genes_file, complex=complex_file,
-               user_interactions=user_interactions, result_path=result_path, fetch_imex=fetch, fetch_iuphar=fetch)
+               user_interactions=user_interactions, user_interactions_only=user_interactions_only,
+               result_path=result_path, fetch_imex=fetch, fetch_iuphar=fetch)
 
     ctx.invoke(filter_all, input_path=output_path, result_path=result_path)
 

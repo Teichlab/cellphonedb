@@ -108,6 +108,10 @@ class ComplexRepository(Repository):
         - Creates reference in Complex table
         - Creates complex composition to define complexes.
         """
+
+        if complexes.empty:
+            return
+
         existing_complexes = self.database_manager.database.session.query(Multidata.name).all()
         existing_complexes = [c[0] for c in existing_complexes]
         proteins = self.database_manager.database.session.query(Multidata.name, Multidata.id_multidata).join(

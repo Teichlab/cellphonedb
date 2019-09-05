@@ -12,10 +12,8 @@ def filter_by_cellphonedb_interactor(uniprots: pd.DataFrame, interactions: pd.Da
     interactions_filtered.rename(columns={'uniprot_1': 'id_multidata_1', 'uniprot_2': 'id_multidata_2'}, inplace=True)
     interactions_filtered.drop_duplicates(inplace=True)
 
-    print(len(interactions_filtered))
     interactions_filtered = interactions_filtered[
         interactions_filtered.apply(lambda interaction: interaction_properties.is_cellphonedb_interactor(interaction),
                                     axis=1)]
-    print(len(interactions_filtered))
 
     return interactions_filtered[interactions.columns.values]
