@@ -161,7 +161,7 @@ You can tweak the options for the plot with these arguments:
 - `--count-name`: Filename of the output plot [heatmap_count.pdf]
 - `--log-name`: Filename of the output plot using log-count of interactions [heatmap_log_count.pdf]
 - `--count-network-name`: Filename of the output netowrk file [count_network.txt]
-- `--interactions-sum-name`: Filename of the output interactions-sum file [interactions_sum.txt] 
+- `--interactions-count-name`: Filename of the output interactions-count file [interactions_count.txt] 
 - `--pvalue`: pvalue threshold to consider when plotting [0.05]
 - `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
 
