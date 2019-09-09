@@ -122,6 +122,7 @@ class MethodLauncher:
             counts = counts.astype(pd.np.float)  # type: pd.DataFrame
         except:
             raise ParseCountsException
+        meta.index = meta.index.astype(str)
         for cell in meta.index.values:
             if cell not in counts.columns.values:
                 raise ParseCountsException('Some cells in meta didnt exist in counts columns',

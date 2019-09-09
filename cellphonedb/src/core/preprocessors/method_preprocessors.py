@@ -28,6 +28,7 @@ def meta_preprocessor(meta_raw: pd.DataFrame) -> pd.DataFrame:
         meta = pd.DataFrame(data={'cell_type': meta_raw.iloc[:, 1]})
         meta.set_index(meta_raw.iloc[:, 0], inplace=True)
         meta.index.name = 'cell'
+        meta.index = meta.index.astype(str)
         return meta
 
     except:

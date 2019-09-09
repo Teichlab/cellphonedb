@@ -170,30 +170,44 @@ def heatmaps_plot_results(meta: str, pvalues: str, pvalue: float, job_id: str):
                 count_name = 'plot_count__{}.png'.format(job_id)
                 count_log_name = 'plot_count_log__{}.png'.format(job_id)
 
+                count_network_name = 'count_network__{}.txt'.format(job_id)
+                interactions_count_name = 'interactions_count__{}.txt'.format(job_id)
+
                 heatmaps_plot(meta_file=meta_file.name,
                               pvalues_file=pvalues_file.name,
                               output_path=output_path,
                               count_name=count_name,
                               log_name=count_log_name,
+                              count_network_filename=count_network_name,
+                              interaction_count_filename=interactions_count_name,
                               pvalue=pvalue)
 
                 output_count_file = os.path.join(output_path, count_name)
                 output_count_log_file = os.path.join(output_path, count_log_name)
+                output_count_network_file = os.path.join(output_path, count_network_name)
+                output_interactions_count_file = os.path.join(output_path, interactions_count_name)
 
-                if not os.path.exists(output_count_file) or not os.path.exists(output_count_log_file):
-                    raise PlotException('Could not generate output file for plot of type dot_plot')
+                if not os.path.exists(output_count_file) \
+                        or not os.path.exists(output_count_log_file) \
+                        or not os.path.exists(output_count_network_file) \
+                        or not os.path.exists(output_interactions_count_file):
+                    raise PlotException('Could not generate output file for plot of type heatmap_plot')
 
                 response = {
                     'job_id': job_id,
                     'files': {
                         'count_plot': count_name,
-                        'count_log_plot': count_log_name
+                        'count_log_plot': count_log_name,
+                        'count_network': count_network_name,
+                        'interactions_sum': interactions_count_name,
                     },
                     'success': True
                 }
 
                 write_image_to_s3(output_count_file, count_name)
                 write_image_to_s3(output_count_log_file, count_log_name)
+                write_image_to_s3(output_count_network_file, count_network_name)
+                write_image_to_s3(output_interactions_count_file, interactions_count_name)
 
                 return response
 
