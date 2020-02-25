@@ -27,13 +27,14 @@ from cellphonedb.utils.utils import _get_separator, write_to_file
 @click.option('--fetch-uniprot', is_flag=True)
 @click.option('--fetch-ensembl', is_flag=True)
 @click.option('--result-path', type=str, default=None)
-@click.option('--log-file', type=str, default='log.txt')
+@click.option('--project-name', type=str, default=None)
 def generate_genes(user_gene: Optional[str],
                    fetch_uniprot: bool,
                    fetch_ensembl: bool,
                    result_path: str,
-                   log_file: str) -> None:
-    output_path = utils.set_paths(output_dir, result_path)
+                   project_name:str,
+                   ) -> None:
+    output_path = _set_paths(result_path, project_name)
 
     # TODO: Add logger
     if fetch_ensembl:
@@ -117,6 +118,7 @@ def generate_genes(user_gene: Optional[str],
 @click.option('--result-path', type=str, default=None)
 @click.option('--fetch-imex', is_flag=True)
 @click.option('--fetch-iuphar', is_flag=True)
+@click.option('--project-name', type=str, default=None)
 def generate_interactions(proteins: str,
                           genes: str,
                           complex: str,
@@ -125,12 +127,13 @@ def generate_interactions(proteins: str,
                           result_path: str,
                           fetch_imex: bool,
                           fetch_iuphar: bool,
+                          project_name: str,
                           ) -> None:
     if user_interactions_only and not user_interactions:
         raise Exception('You need to set --user-interactions parameter')
 
-    output_path = utils.set_paths(output_dir, result_path)
-    downloads_path = utils.set_paths(output_path, 'downloads')
+    output_path = utils.set_paths(result_path, project_name)
+    downloads_path = utils.set_paths(utils.set_paths(result_path, project_name), 'downloads')
 
     proteins = utils.read_data_table_from_file(proteins)
     genes = utils.read_data_table_from_file(genes)
@@ -200,10 +203,12 @@ def generate_interactions(proteins: str,
 @click.option('--fetch-uniprot', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
+@click.option('--project-name', type=str, default=None)
 def generate_proteins(user_protein: Optional[str],
                       fetch_uniprot: bool,
                       result_path: str,
-                      log_file: str):
+                      log_file: str,
+                      project_name:str):
     uniprot_columns = {
         'Entry': 'uniprot',
         'Entry name': 'protein_name',
@@ -266,7 +271,7 @@ def generate_proteins(user_protein: Optional[str],
 
     result_columns = list(default_types.keys())
 
-    output_path = _set_paths(output_dir, result_path)
+    output_path = _set_paths(result_path, project_name)
     log_path = '{}/{}'.format(output_path, log_file)
     uniprot_db = uniprot_db[list(uniprot_columns.keys())].rename(columns=uniprot_columns)
     curated_proteins = pd.read_csv(os.path.join(data_dir, 'sources/protein_curated.csv'))
@@ -284,8 +289,12 @@ def generate_proteins(user_protein: Optional[str],
 @click.option('--user-complex', type=click.Path(file_okay=True, exists=True, dir_okay=False))
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
-def generate_complex(user_complex: Optional[str], result_path: str, log_file: str):
-    output_path = _set_paths(output_dir, result_path)
+@click.option('--project-name', type=str, default=None)
+def generate_complex(user_complex: Optional[str],
+                     result_path: str,
+                     log_file: str,
+                     project_name: str):
+    output_path = _set_paths(result_path, project_name)
     log_path = '{}/{}'.format(output_path, log_file)
 
     curated_complex = pd.read_csv(os.path.join(data_dir, 'sources/complex_curated.csv'))
@@ -301,12 +310,15 @@ def generate_complex(user_complex: Optional[str], result_path: str, log_file: st
 @click.command()
 @click.option('--input-path', type=str, default=data_dir)
 @click.option('--result-path', type=str, default='filtered')
-def filter_all(input_path, result_path):
+@click.option('--project-name', type=str, default=None)
+def filter_all(input_path,
+               result_path,
+               project_name: str):
     interactions = pd.read_csv(os.path.join(input_path, 'interaction_input.csv'))
     complexes = pd.read_csv(os.path.join(input_path, 'complex_generated.csv'))
     proteins = pd.read_csv(os.path.join(input_path, 'protein_generated.csv'))
     genes = pd.read_csv(os.path.join(input_path, 'gene_generated.csv'))
-    output_path = _set_paths(output_dir, result_path)
+    output_path = _set_paths(result_path, project_name)
 
     interacting_partners = pd.concat([interactions['partner_a'], interactions['partner_b']]).drop_duplicates()
 

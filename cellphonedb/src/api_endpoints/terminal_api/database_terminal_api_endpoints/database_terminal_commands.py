@@ -48,6 +48,7 @@ def list_local():
 @click.option('--fetch', is_flag=True)
 @click.option('--result-path', type=str, default=None)
 @click.option('--log-file', type=str, default='log.txt')
+@click.option('--project-name', type=str, default=None)
 @click.pass_context
 def generate(ctx: Context,
              user_protein: Optional[str],
@@ -57,23 +58,49 @@ def generate(ctx: Context,
              user_interactions_only: Optional[str],
              fetch: bool,
              result_path: Optional[str],
-             log_file: str
+             log_file: str,
+             project_name: str
              ):
-    ctx.invoke(generate_proteins, user_protein=user_protein, fetch_uniprot=fetch, result_path=result_path,
-               log_file=log_file)
-    ctx.invoke(generate_genes, user_gene=user_gene, fetch_uniprot=fetch, fetch_ensembl=fetch, result_path=result_path,
-               log_file=log_file)
-    ctx.invoke(generate_complex, user_complex=user_complex, result_path=result_path, log_file=log_file)
+    ctx.invoke(generate_proteins,
+               user_protein=user_protein,
+               fetch_uniprot=fetch,
+               result_path=result_path,
+               log_file=log_file,
+               project_name=project_name
+               )
 
-    output_path = _set_paths(output_dir, result_path)
+    ctx.invoke(generate_genes,
+               user_gene=user_gene,
+               fetch_uniprot=fetch,
+               fetch_ensembl=fetch,
+               result_path=result_path,
+               project_name=project_name
+               )
+
+    ctx.invoke(generate_complex,
+               user_complex=user_complex,
+               result_path=result_path,
+               log_file=log_file,
+               project_name=project_name
+               )
+
+    output_path = _set_paths(result_path, project_name)
 
     proteins_file = os.path.join(output_path, 'protein_generated.csv')
     genes_file = os.path.join(output_path, 'gene_generated.csv')
     complex_file = os.path.join(output_path, 'complex_generated.csv')
 
-    ctx.invoke(generate_interactions, proteins=proteins_file, genes=genes_file, complex=complex_file,
-               user_interactions=user_interactions, user_interactions_only=user_interactions_only,
-               result_path=result_path, fetch_imex=fetch, fetch_iuphar=fetch)
+    ctx.invoke(generate_interactions,
+               proteins=proteins_file,
+               genes=genes_file,
+               complex=complex_file,
+               user_interactions=user_interactions,
+               user_interactions_only=user_interactions_only,
+               result_path=result_path,
+               fetch_imex=fetch,
+               fetch_iuphar=fetch,
+               project_name=project_name
+               )
 
     ctx.invoke(filter_all, input_path=output_path, result_path=result_path)
 
