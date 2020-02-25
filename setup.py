@@ -4,7 +4,7 @@ setup(
     name='CellPhoneDB',
     author='TeichLab',
     author_email='contact@cellphonedb.org',
-    version='2.1.1',
+    version='2.1.2',
     long_description=__doc__,
     packages=find_packages(),
     include_package_data=True,
@@ -34,5 +34,6 @@ setup(
         'geosketch==0.3',
         'rpy2>=3.0.4,<3.0.99',
         'tqdm>=4.32,<4.32.99',
+        'cython>=0.29,<0.29.99'
     ],
 )

@@ -8,7 +8,7 @@ Update the CellPhoneDB version editing version line in setup.py.
 
 Make sure you have the latest versions of setuptools and wheel installed:
 ```shell
-python -m pip install --user --upgrade setuptools wheel
+python -m pip install --user --upgrade setuptools wheel 
 ```
 
 Create new package
