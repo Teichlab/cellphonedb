@@ -318,7 +318,7 @@ E.g:
     New database file with CellPhoneDB interactions + user custom interactions. For duplicated interactions or proteins, user lists overwrite the CellPhoneDB original data.
     
     
-Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By default, the snapshots included in the CellPhoneDB package will be used, to enable a fresh copy `--fetch` must be appended to the command.
+Some lists can be downloaded from original sources while creating the database, e.g. uniprot, ensembl. By default, the snapshots included in the CellPhoneDB package will be used---to enable a fresh copy `--fetch` must be appended to the command.
 
 In order to use specific lists those can be specified like this `--user-protein`, `--user-gene`, `--user-complex`, `--user-interactions`, `--user-interactions-only`
 followed by the corresponding file path.

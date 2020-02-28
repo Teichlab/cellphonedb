@@ -1,9 +1,19 @@
 # CellPhoneDB Project Structure
 
-This is the CelPhoneDB basic project structure
+This is the basic project structure of CelPhoneDB
 
 ```
 +-- cellphonedb
+|	+-- tools
+|	|   +-- actions
+|	|   +-- data
+|	|   +-- generate_data
+|	|   +-- out
+|	|   +-- validators
+|	|   +-- app.py
+|	|   +-- interaction_actions.py
+|	|   +-- merged_duplicated_proteins.py
+|	|   +-- tools_helper.py
 |   +-- api_endpoints
 |   |   +-- terminal_api
 |   |   +-- web_api
@@ -34,16 +44,6 @@ This is the CelPhoneDB basic project structure
 +-- Docs
 +-- in
 +-- out
-+-- tools
-|   +-- actions
-|   +-- data
-|   +-- generate_data
-|   +-- out
-|   +-- validators
-|   +-- app.py
-|   +-- interaction_actions.py
-|   +-- merged_duplicated_proteins.py
-|   +-- tools_helper.py
 +-- manage.py
 +-- utils
 +-- cellphonedb.ini
@@ -65,7 +65,6 @@ This is where api_endpoints (web/terminal) are defined.
 
 Contains the configs of database/debug for different scenarios. 
 You can create new one and use it setting the APP_ENV environment variable.
-
 
 **app/flask**
 
