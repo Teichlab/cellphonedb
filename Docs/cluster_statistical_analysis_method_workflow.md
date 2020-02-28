@@ -1,11 +1,10 @@
-# Cluster Statistical Analysis method Workflow
+# Cluster Statistical Analysis Method Workflow
 
-This document is focused in Cluster Statistical Method, please, read before the [project_workflow documentation](project_workflow.md)
-to have a more global vision of the project structure.
+This document is focused on the statistical methods. Before continuing, please read [project_workflow documentation](project_workflow.md) to have a more global vision of the project structure.
 
 ## Calling Cluster Statistical Method
 
-This is the workflow when method call is launched:
+This is the workflow when the method call is launched:
 
 ![cluster_statistical_analyisis_launcher](images/cluster_statistical_analysis_launcher.png "Cluster Statistical Analysis workflow")
 
@@ -14,19 +13,19 @@ This is the workflow when method call is launched:
 
 This method allocated in `core/methods/method_launcher.py` is called from API's, local launchers or other future implementations.
 
-Later, analysis is splited in two ways: one for simple analysis and other for comlpex analysis.
+Later, analysis is split in two ways: one for simple analysis and other for complex analysis.
 
 This is where CellPhoneDB database data is loaded. 
 
 **cluster_statistical_analysis_{simple/complex}_method** 
 
-This is where analysis method non common logic are implemented. This functions are completely isolated from the databases/frameworks. 
+The method functions are completely isolated from the databases/frameworks. 
 
-It just uses Pandas library to manage the datasets.
+It just uses the library `pandas` to manage the datasets.
 
 **cluster_statistical_analysis_helper**
 
-This is where method common for simple/complex analysis is implemented.
+This is where the method common for simple/complex analysis is implemented.
 
 ## Cluster Statistical {simple/complex} Analysis workflow
 

@@ -4,43 +4,54 @@ This is the basic project structure of CelPhoneDB
 
 ```
 +-- cellphonedb
-|	+-- tools
-|	|   +-- actions
-|	|   +-- data
-|	|   +-- generate_data
-|	|   +-- out
-|	|   +-- validators
+|	+-- src/
+|	|   +-- api_endpoints/
+|	|   |   +-- terminal_api/
+|	|   |   +-- web_api/
+|	|   +-- app/
+|	|   |   +-- config/
+|	|   |   +-- flask/
+|	|   |   +-- app_config.py
+|	|   |   +-- app_logger.py
+|	|   |   +-- cellphonedb_app.py
+|	|   |   +-- cpdb_app.py
+|	|   +-- core/
+|	|   |   +-- collectors/
+|	|   |   +-- data/
+|	|   |   +-- database/
+|	|   |   |   +-- sqlalchemy_repository/
+|	|   |   |   +-- sqlalchemy_models/
+|	| 	|   +-- exceptions/
+|	|   |   +-- exporters/
+|	|   |   +-- generators/
+|	|   |   +-- methods/
+|	|   |   +-- models/
+|	|   |   +-- preprocessors/
+|	|   |   +-- queries/
+|	|   |   +-- tests/
+|	|   |   +-- utils/
+|	|   |   +-- cellphonedb.py
+|	|   |   +-- CellphonedbSqlalchemy.py
+|	|   |   +-- core_logger.py
+|	|   +-- database/
+|	|   +-- exceptions/
+|	|   +-- local_launchers/
+|	|   +-- plotters/
+|	|   +-- tests/
+|	+-- tools/
+|	|   +-- actions/
+|	|   +-- generate_data/
+|	|   +-- validators/
 |	|   +-- app.py
-|	|   +-- interaction_actions.py
-|	|   +-- merged_duplicated_proteins.py
+|	|   +-- interactions_helper.py
 |	|   +-- tools_helper.py
-|   +-- api_endpoints
-|   |   +-- terminal_api
-|   |   +-- web_api
-|   +-- app
-|   |   +-- config
-|   |   +-- flask
-|   |   +-- app_config.py
-|   |   +-- app_logger.py
-|   |   +-- cellphonedb_app.py
-|   +-- core
-|   |   +-- collectors
-|   |   +-- data
-|   |   +-- database
-|   |   |   +-- sqlalchemy_repository
-|   |   |   +-- sqlalchemy_models
-|   |   +-- exporters
-|   |   +-- methods
-|   |   +-- models
-|   |   +-- queries
-|   |   +-- tests
-|   |   +-- utils
-|   |   +-- cellphone.db
-|   |   +-- cellphonedb.py
-|   |   +-- CellphonedbSqlalchemy.py
-|   |   +-- core_logger.py
-|   +-- local_launchers
-|   +-- tests
+|	+-- utils/
+|	|   +-- tests/
+|	|   +-- dataframe_format.py
+|	|   +-- unique_id_generator.py
+|	|   +-- utils.py
+|	+-- cellphonedb_cli.py
++-- docker
 +-- Docs
 +-- in
 +-- out
@@ -48,6 +59,7 @@ This is the basic project structure of CelPhoneDB
 +-- utils
 +-- cellphonedb.ini
 +-- MANIFEST.in
++-- rabbit_logger.py
 +-- setup.py
 +-- tools.py
 +-- wsgi.py
