@@ -35,7 +35,7 @@ different data preprocess/postprocess.
 
 **Simple analysis**
 
-![Cluster Statistical Analysis Common Workflow](images/cluster_statistical_analalysis_workflow.png "Cluster Statistical Analysis Common Workflow")
+![Cluster Statistical Analysis Common Workflow](images/cluster_statistical_analysis_workflow.png "Cluster Statistical Analysis Common Workflow")
 
 
 **Complex analysis**
