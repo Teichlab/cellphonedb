@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import os
 
+import os
 import click
 
 from cellphonedb.src.api_endpoints.terminal_api.database_terminal_api_endpoints import database_terminal_commands
