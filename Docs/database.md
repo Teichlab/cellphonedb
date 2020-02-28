@@ -1,5 +1,5 @@
 # CellPhoneDB Database 
-CellPhoneDB uses [SqlAlchemy](https://www.sqlalchemy.org/) for database schema connection. By defaultm runs using sqllite connector and its data are written to`cellphonedb/core/cellphone.db`.
+CellPhoneDB uses [SqlAlchemy](https://www.sqlalchemy.org/) for database schema connection. By default runs using sqllite connector and its data are written to `cellphonedb/core/cellphone.db`.
 
 ## Cellphonedb Schema
 This is the data schema:
