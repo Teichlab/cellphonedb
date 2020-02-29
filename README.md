@@ -5,13 +5,12 @@ CellPhoneDB is a publicly available repository of curated receptors, ligands and
 
 CellPhoneDB integrates [existing datasets](Docs/ppi-resources.md) that pertain to cellular communication and new manually reviewed information. Databases from which CellPhoneDB gets information are: UniProt, Ensembl, PDB, the IMEx consortium, IUPHAR.
 
-CellPhoneDB can be used to search for a particular ligand/receptor or interrogate your own single-cell transcriptomics data.
+CellPhoneDB can be used to search for a particular ligand/receptor, or interrogate your own single-cell transcriptomics data.
 
 
 ## Starting to use CellPhoneDB 
 
-To start using CellPhoneDB, you can use our interactive web application ([cellphonedb.org](https://www.cellphonedb.org)) and run in the analysis in our private cloud, 
-or just run CellPhoneDB in your computer/cloud/farm. (The latter is preferable if you are going to work with big datasets).
+To start using CellPhoneDB, you can use our interactive web application ([cellphonedb.org](https://www.cellphonedb.org)) and run in the analysis in our private cloud, or just run CellPhoneDB with your own computational resources. (The latter is preferable if you are going to work with big datasets).
 
 
 ### Installing CellPhoneDB
@@ -50,13 +49,13 @@ curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_da
 curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_data/test_meta.txt --output test_meta.txt
 ```
 
-###  Example with running the statistical method
+####  Example with running the statistical method
 ```shell
 cellphonedb method statistical_analysis test_meta.txt test_counts.txt 
 ```
 
 
-### Example without using the statistical method
+#### Example without using the statistical method
 ```shell
 cellphonedb method analysis test_meta.txt test_counts.txt 
 ```
@@ -89,12 +88,13 @@ Please check the [results documentation](Docs/RESULTS-DOCUMENTATION.md) in order
 - `--debug-seed`: Debug random seed -1. To disable it please use a value >=0 [-1]
 - `--threads`: Number of threads to use. >=1 [-1]
 
-**Usage Examples**:
+### Usage Examples
 
 Set number of iterations and threads
 ```shell
 cellphonedb method statistical_analysis yourmetafile.txt yourcountsfile.txt --iterations=10 --threads=2
 ```
+
 Set project subfolder
 ```shell
 cellphonedb method analysis yourmetafile.txt yourcountsfile.txt --project-name=new_project
@@ -113,9 +113,9 @@ cellphonedb method analysis yourmetafile.txt yourcountsfile.txt --subsampling --
 
 ## Plotting statistical method results
 
-In order to plot results from statistical methods you need to run it first.
+In order to plot results from the statistical methods, you need to run it first.
 
-Currently there are two plot types available `dot_plot` & `heatmap_plot`
+Currently there are two plot types available: `dot_plot` & `heatmap_plot`
 
 Once you have the needed files (`means` & `pvalues`) you can proceed as follows:
 ```shell
@@ -179,8 +179,7 @@ To use one of those versions, a user must provide the argument `--database <vers
 
 If the given parameter is a readable database file, it will be used as is. Otherwise it will use some of the versions matching the selected version.
 
-If the selected version does not exist in the local environment it will be downloaded from the remote repository. (See below)
-If no `--database` argument is given in methods execution, it will use the latest local version available.
+If the selected version does not exist in the local environment it will be downloaded from the remote repository. (See below.) If no `--database` argument is given in methods execution, it will use the latest local version available.
 
 Downloaded versions will be stored in a user folder under `~/.cpdb/releases`
 
@@ -207,12 +206,12 @@ or
 cellphonedb database download --version <version_spec|latest> 
 ``` 
 
-`version_spec` must be one of the listed in the `database list_remote` command.
-If no version is specified or `latest` is used as a `version_spec` the newest available version will be downloaded
+whereby `version_spec` must be one of the listed in the `database list_remote` command.
+If no version is specified or `latest` is used as a `version_spec`, the newest available version will be downloaded
 
 
 ## Generating user-specific custom database
-A user can generate custom databases and use them. In order to generate a new database a user can provide his/her own lists.
+A user can generate custom databases and use them. In order to generate a new database, a user can provide his/her own lists.
 
 These lists can be: genes, proteins, complexes and/or interactions. In the generation process they will get merged with the ones from the CellPhoneDB release sources. The user lists have higher precedence than the ones included in CellPhoneDB package.
 
@@ -332,5 +331,4 @@ As the lists are processed, then filtered, and lastly collected, two versions ma
 
 CellPhoneDB is an open-source project. If you are interested in contributing to this project, please let us know.
 
-
-You can check all project documentation in [Docs](Docs) section
+You can check all project documentation in the [Docs](Docs) section
