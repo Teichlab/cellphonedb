@@ -1,10 +1,10 @@
 # Deploy CellPhoneDB
-Based on [python official documentation](https://packaging.python.org/tutorials/packaging-projects/)
+Based on the python official documentation for [packaging python products](https://packaging.python.org/tutorials/packaging-projects/)
 
 
 ## Deploy a new version of CellPhoneDB
 
-Update the CellPhoneDB version editing version line in setup.py.
+Update the CellPhoneDB version editing version line in `setup.py`.
 
 Make sure you have the latest versions of setuptools and wheel installed:
 ```shell
@@ -16,9 +16,7 @@ Create new package
 python setup.py sdist bdist_wheel
 ```
 
-This create a CellPhoneDB package ready to be distributed in dist folder.
-
-ie:
+This will create a CellPhoneDB package ready to be distributed in the `/dist` folder, i.e.
 ```
 dist/CellPhoneDB-0.0.5.tar.gz
 ```

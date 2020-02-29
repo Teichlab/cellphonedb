@@ -230,21 +230,21 @@ Some common functions used in tools.
 
 ## Other folders
 
-**Docs**
+* `/Docs`
 
 Allocates the CellPhoneDB documentation in markdown.
 
-**in**
+* `/in`
 
 Default input folder for CellPhoneDB Terminal API methods
 
-**out**
+* `/out`
 
 Default output folder for
 
-**utils**
+* `/cellphonedb/utils`
 
-Contain some util functions to process dataframes, and generate ids.
+Contain some utility functions to process dataframes, and generate ids.
   
 
 

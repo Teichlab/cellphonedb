@@ -1,11 +1,11 @@
 # Create Datafiles
 The CellPhoneDB base data is based on other biological databases.
-You can use **tools scripts** to update/recreate CellPhoneDB base data.
+You can use **tools scripts** to update/recreate the CellPhoneDB base data.
 When you finish to generate all data, please copy it into the `cellphonedb/code/data` path and run collect script to update the database    
 
 ## Database input files
 
-CellPhoneDB database needs these input tables:
+CellPhoneDB database requires the following input tables:
 1. **complex.csv**
 2. **gene.csv**
 3. **interaction.csv**
@@ -19,8 +19,8 @@ The order is important because they have data dependencies.
 Result data is saved in `tools/out` and input data is saved in `tools/data`. 
 
 ### Recreating gene.csv
-**gene.csv** data is based on [Ensembl database](https://www.ensembl.org/) and [Uniprot database](https://www.uniprot.org). This data files needs to be downloaded from the respective source pages.
-In addition, you need to provide:
+**gene.csv** data is based on [Ensembl database](https://www.ensembl.org/) and [Uniprot database](https://www.uniprot.org). These data files needs to be downloaded from the respective source pages.
+In addition, users must provide:
 
 - _protein.csv_: CellPhoneDB protein list (to filter only the genes associated to CellPhoneDB proteins).
 - _remove_genes.csv_: Gene list needed to remove duplicated ensembls from imported data.
