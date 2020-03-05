@@ -1,29 +1,29 @@
 # CellPhoneDB
 
 ## What is CellPhoneDB?
-CellPhoneDB is a publicly available repository of curated receptors, ligands and its interactions. Subunit architecture is included for both ligands and receptors, representing heteromeric complexes accurately. This is crucial, as cell-cell communication relies on multi-subunit protein complexes that go beyond the binary representation used in most databases and studies.
+CellPhoneDB is a publicly available repository of curated receptors, ligands and their interactions. Subunit architecture is included for both ligands and receptors, representing heteromeric complexes accurately. This is crucial, as cell-cell communication relies on multi-subunit protein complexes that go beyond the binary representation used in most databases and studies.
 
-CellPhoneDB integrates [existing datasets](Docs/ppi-resources.md) that pertain to cellular communication and new manually reviewed information. Prestigious databases CellPhoneDB gets information are: UniProt, Ensembl, PDB, the IMEx consortium, IUPHAR.
+CellPhoneDB integrates [existing datasets](Docs/ppi-resources.md) that pertain to cellular communication and new manually reviewed information. Databases from which CellPhoneDB gets information are: UniProt, Ensembl, PDB, the IMEx consortium, IUPHAR.
 
-CellPhoneDB can be used to search for a particular ligand/receptor or interrogate your own single-cell transcriptomics data.
+CellPhoneDB can be used to search for a particular ligand/receptor, or interrogate your own single-cell transcriptomics data.
 
 
 ## Starting to use CellPhoneDB 
 
-To start using CellPhoneDB, you can use our interactive web ([cellphonedb.org](https://www.cellphonedb.org)) and run in the analysis in our private cloud, 
-or just run CellPhoneDB in your computer/cloud/farm. Please, take the second way if you are going to work with big datasets).
+To start using CellPhoneDB, you can use our interactive web application ([cellphonedb.org](https://www.cellphonedb.org)) and run in the analysis in our private cloud, or just run CellPhoneDB with your own computational resources. (The latter is preferable if you are going to work with big datasets).
 
 
 ### Installing CellPhoneDB
-NOTE: Works with Python v3.5 or superior. If your default Python interpreter is for v2.x (you can check it with `python --version`), calls to `python`/`pip` should be substituted by `python3`/`pip3`.
+NOTE: Works with Python v3.5 or greater. If your default Python interpreter is for `v2.x` (you can check it with `python --version`), calls to `python`/`pip` should be substituted by `python3`/`pip3`.
 
-We highly recommend to use a virtual env (steps 1 and 2) but you can omit.
-1. Create python > 3.5 virtual-env
+We highly recommend using a python virtual environment (as described in steps 1 and 2) but you could of course omit these steps and install via `pip` immediately.
+
+1. Create python>3.5 virtualenv
 ```shell
 python -m venv cpdb-venv
 ```
 
-2. Activate virtual-env
+2. Activate virtualenv
 ```shell
 source cpdb-venv/bin/activate
 ```
@@ -36,35 +36,33 @@ pip install cellphonedb
 
 ## Running CellPhoneDB Methods
 
-Please, run step 0 if you didn't activate the virtual-env previously
+Please, run step 0 if you didn't activate the virtualenv previously
 
-0. Activate virtual-env
+0. Activate virtualenv
 ```shell
 source cpdb-venv/bin/activate
 ```
 
-To use the example data, please [download meta/counts test data](https://github.com/Teichlab/cellphonedb/blob/master/in/example_data/cellphonedb_example_data.zip?raw=true).
-
-Hint (if you are in terminal):
+To use the example data, please [download meta/counts test data](https://github.com/Teichlab/cellphonedb/blob/master/in/example_data/cellphonedb_example_data.zip?raw=true). i.e.
 ```shell
 curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_data/test_counts.txt --output test_counts.txt
 curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_data/test_meta.txt --output test_meta.txt
 ```
 
-###  Example with running the statistical method
+####  Example with running the statistical method
 ```shell
 cellphonedb method statistical_analysis test_meta.txt test_counts.txt 
 ```
 
 
-### Example without using the statistical method
+#### Example without using the statistical method
 ```shell
 cellphonedb method analysis test_meta.txt test_counts.txt 
 ```
 
-Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underestand the results.
+Please check the [results documentation](Docs/RESULTS-DOCUMENTATION.md) in order to understand the results.
 
-### Method optional parameters
+### Optional Parameters
 
 ~ **Optional Method parameters**:
 - `--counts-data`: [ensembl \| gene_name \| hgnc_symbol] Type of gene identifiers in the counts data
@@ -85,17 +83,18 @@ Please check [result documentation](Docs/RESULTS-DOCUMENTATION.md) for underesta
 
 
 ~ **Optional Method Statistical parameters**
-- `--pvalues-result-name`: Pvalues result filename [pvalues]
-- `--pvalue`: Pvalue threshold [0.05]
+- `--pvalues-result-name`: P-values result filename [pvalues]
+- `--pvalue`: P-value threshold [0.05]
 - `--debug-seed`: Debug random seed -1. To disable it please use a value >=0 [-1]
 - `--threads`: Number of threads to use. >=1 [-1]
 
-**Usage Examples**:
+### Usage Examples
 
 Set number of iterations and threads
 ```shell
 cellphonedb method statistical_analysis yourmetafile.txt yourcountsfile.txt --iterations=10 --threads=2
 ```
+
 Set project subfolder
 ```shell
 cellphonedb method analysis yourmetafile.txt yourcountsfile.txt --project-name=new_project
@@ -114,9 +113,9 @@ cellphonedb method analysis yourmetafile.txt yourcountsfile.txt --subsampling --
 
 ## Plotting statistical method results
 
-In order to plot results from statistical methods you need to run it first.
+In order to plot results from the statistical methods, you need to run it first.
 
-Currently there are two plot types available `dot_plot` & `heatmap_plot`
+Currently there are two plot types available: `dot_plot` & `heatmap_plot`
 
 Once you have the needed files (`means` & `pvalues`) you can proceed as follows:
 ```shell
@@ -146,21 +145,21 @@ Available output formats are those supported by `R's ggplot2` package, among oth
 
 This format will be inferred from the `--output-name` argument
 
-To plot only desired rows/columns (samples for [rows](in/example_data/rows.txt) and [columns](in/example_data/columns.txt) based in example data files) :
+To plot only desired rows/columns (samples for [rows](in/example_data/rows.txt) and [columns](in/example_data/columns.txt) based in example data files):
 ```shell
 cellphonedb plot dot_plot --rows in/rows.txt --columns in/columns.txt
 ``` 
 
 ### `heatmap_plot`
 This plot type requires `pheatmap` R package installed and working 
-This plot type includes to plots: `count` & `log_count` 
+This plot type includes two features `count` & `log_count` 
 
 You can tweak the options for the plot with these arguments:
 - `--pvalues-path`: The pvalues output file [./out/pvalues.txt]
 - `--output-path`: Output folder [./out]
 - `--count-name`: Filename of the output plot [heatmap_count.pdf]
 - `--log-name`: Filename of the output plot using log-count of interactions [heatmap_log_count.pdf]
-- `--count-network-name`: Filename of the output netowrk file [count_network.txt]
+- `--count-network-name`: Filename of the output network file [count_network.txt]
 - `--interactions-count-name`: Filename of the output interactions-count file [interactions_count.txt] 
 - `--pvalue`: pvalue threshold to consider when plotting [0.05]
 - `--verbose / --quiet`: Print or hide cellphonedb logs [verbose]
@@ -170,19 +169,17 @@ Available output formats are those supported by `R's pheatmap` package, among ot
 - `png`
 - `jpeg`
 
-This format will be inferred from the `--count-name` & `--log-name` argument
+This format will be inferred from the `--count-name` & `--log-name` arguments.
 
 
 ## Using different database versions
-CellPhoneDB databases can be updated from remote repository through our tool. Available versions can be listed and downloaded to be used.
+CellPhoneDB databases can be updated from the remote repository through our tool. Furthermore, available versions can be listed and downloaded for use. 
 
-To use one of those versions a user must provide the `--database <version_or_file>` to the method to be executed.
+To use one of those versions, a user must provide the argument `--database <version_or_file>` to the method to be executed.
 
-If the given parameter is a readable database file it will be used as is. Otherwise it will use some of the versions matching the selected version.
+If the given parameter is a readable database file, it will be used as is. Otherwise it will use some of the versions matching the selected version.
 
-
-If the selected version does not exist in the local environment it will be downloaded from the remote repository. (See below)
-If no `--database` argument is given in methods execution it will use the latest local version available.
+If the selected version does not exist in the local environment it will be downloaded from the remote repository. (See below.) If no `--database` argument is given in methods execution, it will use the latest local version available.
 
 Downloaded versions will be stored in a user folder under `~/.cpdb/releases`
 
@@ -209,12 +206,12 @@ or
 cellphonedb database download --version <version_spec|latest> 
 ``` 
 
-`version_spec` must be one of the listed in the `database list_remote` command.
-If no version is specified or `latest` is used as a `version_spec` the newest available version will be downloaded
+whereby `version_spec` must be one of the listed in the `database list_remote` command.
+If no version is specified or `latest` is used as a `version_spec`, the newest available version will be downloaded
 
 
 ## Generating user-specific custom database
-A user can generate custom databases and use them. In order to generate a new database a user can provide his/her own lists.
+A user can generate custom databases and use them. In order to generate a new database, a user can provide his/her own lists.
 
 These lists can be: genes, proteins, complexes and/or interactions. In the generation process they will get merged with the ones from the CellPhoneDB release sources. The user lists have higher precedence than the ones included in CellPhoneDB package.
 
@@ -246,7 +243,7 @@ E.g:
     
     - `your_custom_interaction_file.csv`: Comma separated file (use mandatory columns!) with interactions to add/correct.
      
-    **Comand**:
+    **Command**:
     
     ```shell
     cellphonedb database generate --user-interactions your_custom_interaction_file.csv 
@@ -261,7 +258,7 @@ E.g:
     
     - `your_custom_interaction_file.csv`: Comma separated file (use mandatory columns!) with interactions to use.
     
-    **Comand**:
+    **Command**:
     
     ```shell
     cellphonedb database generate --user-interactions your_custom_interaction_file.csv --user-interactions-only
@@ -275,7 +272,7 @@ E.g:
     **Input**:
     - `your_custom_protein_file.csv`: Comma separated file (use mandatory columns!) with proteins to overwrite. 
      
-    **Comand**:
+    **Command**:
     ```shell
     cellphonedb database generate --user-protein your_custom_protein_file.csv 
     ```
@@ -290,7 +287,7 @@ E.g:
     - `your_custom_interaction_file.csv`: Comma separated file (use mandatory columns!) with interactions to add/correct.
     - `your_custom_protein_file.csv`: Comma separated file (use mandatory columns!) with proteins to overwrite. 
     
-    **Comand**:
+    **Command**:
     
     ```shell
     cellphonedb database generate --user-interactions your_custom_interaction_file.csv --user-protein your_custom_protein_file.csv 
@@ -303,14 +300,14 @@ E.g:
     
     **IMPORTANT**
     
-    This command uses external resources allocated in external servers. The command may not end correctly if external servers are not available. The timing of this step depends of external servers and the user's internet connection and can take a lot of time. 
+    This command uses external resources allocated in external servers. The command may not end correctly if external servers are not available. The timing of this step depends on external servers and the user's internet connection and can take a lot of time. 
     
     **Input**:
     
     - `your_custom_interaction_file.csv`: Comma separated file (use mandatory columns!) with interactions to add/correct.
     - `your_custom_protein_file.csv`: Comma separated file (use mandatory columns!) with proteins to overwrite. 
     
-    **Comand**:
+    **Command**:
     
     ```shell
     cellphonedb database generate --fetch 
@@ -320,21 +317,18 @@ E.g:
     New database file with CellPhoneDB interactions + user custom interactions. For duplicated interactions or proteins, user lists overwrite the CellPhoneDB original data.
     
     
-Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By default, the snapshots included in
-the CellPhoneDB package will be used, to enable a fresh copy `--fetch` must be appended to the command.
+Some lists can be downloaded from original sources while creating the database, e.g. uniprot, ensembl. By default, the snapshots included in the CellPhoneDB package will be used---to enable a fresh copy `--fetch` must be appended to the command.
 
 In order to use specific lists those can be specified like this `--user-protein`, `--user-gene`, `--user-complex`, `--user-interactions`, `--user-interactions-only`
 followed by the corresponding file path.
 
-The database file can be then used as explained below. The intrermediate lists used for the generation will be saved along the database itself.
+The database file can be then used as explained below. The intermediate lists used for the generation will be saved along the database itself.
 
-As the lists are processed, then filtered, and lastly collected, two versions may exist: `_generated` is the unfiltered one 
-whereas `_input` is the final state prior being inserted in the database.
+As the lists are processed, then filtered, and lastly collected, two versions may exist: `_generated` is the unfiltered one whereas `_input` is the final state prior being inserted in the database.
 
 
 ## Contributing to CellPhoneDB
 
-CellPhoneDB is Open Source project. If you are interesed to contribute to this project, please let us know.
+CellPhoneDB is an open-source project. If you are interested in contributing to this project, please let us know.
 
-
-You can check all project documentation in [Docs](Docs) section
+You can check all project documentation in the [Docs](Docs) section

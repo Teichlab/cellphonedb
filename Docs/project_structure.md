@@ -1,53 +1,65 @@
 # CellPhoneDB Project Structure
 
-This is the CelPhoneDB basic project structure
+This is the basic project structure of CelPhoneDB
 
 ```
 +-- cellphonedb
-|   +-- api_endpoints
-|   |   +-- terminal_api
-|   |   +-- web_api
-|   +-- app
-|   |   +-- config
-|   |   +-- flask
-|   |   +-- app_config.py
-|   |   +-- app_logger.py
-|   |   +-- cellphonedb_app.py
-|   +-- core
-|   |   +-- collectors
-|   |   +-- data
-|   |   +-- database
-|   |   |   +-- sqlalchemy_repository
-|   |   |   +-- sqlalchemy_models
-|   |   +-- exporters
-|   |   +-- methods
-|   |   +-- models
-|   |   +-- queries
-|   |   +-- tests
-|   |   +-- utils
-|   |   +-- cellphone.db
-|   |   +-- cellphonedb.py
-|   |   +-- CellphonedbSqlalchemy.py
-|   |   +-- core_logger.py
-|   +-- local_launchers
-|   +-- tests
+|	+-- src/
+|	|   +-- api_endpoints/
+|	|   |   +-- terminal_api/
+|	|   |   +-- web_api/
+|	|   +-- app/
+|	|   |   +-- config/
+|	|   |   +-- flask/
+|	|   |   +-- app_config.py
+|	|   |   +-- app_logger.py
+|	|   |   +-- cellphonedb_app.py
+|	|   |   +-- cpdb_app.py
+|	|   +-- core/
+|	|   |   +-- collectors/
+|	|   |   +-- data/
+|	|   |   +-- database/
+|	|   |   |   +-- sqlalchemy_repository/
+|	|   |   |   +-- sqlalchemy_models/
+|	| 	|   +-- exceptions/
+|	|   |   +-- exporters/
+|	|   |   +-- generators/
+|	|   |   +-- methods/
+|	|   |   +-- models/
+|	|   |   +-- preprocessors/
+|	|   |   +-- queries/
+|	|   |   +-- tests/
+|	|   |   +-- utils/
+|	|   |   +-- cellphonedb.py
+|	|   |   +-- CellphonedbSqlalchemy.py
+|	|   |   +-- core_logger.py
+|	|   +-- database/
+|	|   +-- exceptions/
+|	|   +-- local_launchers/
+|	|   +-- plotters/
+|	|   +-- tests/
+|	+-- tools/
+|	|   +-- actions/
+|	|   +-- generate_data/
+|	|   +-- validators/
+|	|   +-- app.py
+|	|   +-- interactions_helper.py
+|	|   +-- tools_helper.py
+|	+-- utils/
+|	|   +-- tests/
+|	|   +-- dataframe_format.py
+|	|   +-- unique_id_generator.py
+|	|   +-- utils.py
+|	+-- cellphonedb_cli.py
++-- docker
 +-- Docs
 +-- in
 +-- out
-+-- tools
-|   +-- actions
-|   +-- data
-|   +-- generate_data
-|   +-- out
-|   +-- validators
-|   +-- app.py
-|   +-- interaction_actions.py
-|   +-- merged_duplicated_proteins.py
-|   +-- tools_helper.py
 +-- manage.py
 +-- utils
 +-- cellphonedb.ini
 +-- MANIFEST.in
++-- rabbit_logger.py
 +-- setup.py
 +-- tools.py
 +-- wsgi.py
@@ -65,7 +77,6 @@ This is where api_endpoints (web/terminal) are defined.
 
 Contains the configs of database/debug for different scenarios. 
 You can create new one and use it setting the APP_ENV environment variable.
-
 
 **app/flask**
 
@@ -219,21 +230,21 @@ Some common functions used in tools.
 
 ## Other folders
 
-**Docs**
+* `/Docs`
 
 Allocates the CellPhoneDB documentation in markdown.
 
-**in**
+* `/in`
 
 Default input folder for CellPhoneDB Terminal API methods
 
-**out**
+* `/out`
 
 Default output folder for
 
-**utils**
+* `/cellphonedb/utils`
 
-Contain some util functions to process dataframes, and generate ids.
+Contain some utility functions to process dataframes, and generate ids.
   
 
 

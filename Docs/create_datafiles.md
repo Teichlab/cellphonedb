@@ -1,25 +1,26 @@
 # Create Datafiles
-CellPhoneDB base data is based on other biologic databases.
-You can use **tools scripts** to update/recreate CellPhoneDB base data.
-When you finish to generate all data, please copy it in cellphonedb/code/data path and run collect script to update the database    
+The CellPhoneDB base data is based on other biological databases.
+You can use **tools scripts** to update/recreate the CellPhoneDB base data.
+When you finish to generate all data, please copy it into the `cellphonedb/code/data` path and run collect script to update the database    
 
 ## Database input files
-CellPhoneDB database needs this input tables:
+
+CellPhoneDB database requires the following input tables:
 1. **complex.csv**
 2. **gene.csv**
 3. **interaction.csv**
 4. **protein.csv**
 
-The order is important because they have data dependences.
+The order is important because they have data dependencies.
 
 ## Using tools.py
-Tools.py is the provided tool to preprocesate the CellPhoneDB database input data.
+`Tools.py `is the provided tool to preprocess the CellPhoneDB database input data.
 
-Result data is saved in out tools/out path and input data is allocated in tools/data path. 
+Result data is saved in `tools/out` and input data is saved in `tools/data`. 
 
 ### Recreating gene.csv
-**gene.csv** data is based on [Ensembl database](https://www.ensembl.org/) and [Uniprot database](https://www.uniprot.org). This data files needs to be downloaded from source page
-In addition, you need to provide:
+**gene.csv** data is based on [Ensembl database](https://www.ensembl.org/) and [Uniprot database](https://www.uniprot.org). These data files needs to be downloaded from the respective source pages.
+In addition, users must provide:
 
 - _protein.csv_: CellPhoneDB protein list (to filter only the genes associated to CellPhoneDB proteins).
 - _remove_genes.csv_: Gene list needed to remove duplicated ensembls from imported data.
@@ -27,7 +28,7 @@ In addition, you need to provide:
 
 
 #### Steps:
-1. Merge Ensembl database and Uniprot on gene_name
+1. Merge Ensembl database and Uniprot on `gene_name`
 2. Add HLA genes
 3. Remove genes from list and make some checks to validate the final result
 
@@ -40,7 +41,7 @@ python3 tools.py generate_genes uniprot_db_filename ensembl_db_filename proteins
 #### Execution example: 
  ```shell
 python3 tools.py generate_genes uniprot-filtered-organism_20180625.tab ensembl_db_20180625.txt ../../cellphonedb/core/data/protein.csv genes_to_remove_20180701.csv hla_genes_20180100.txt
- ```
+```
 
 ***Results***:
 generate_genes script creates multiple files in output dir:
@@ -70,7 +71,7 @@ In adition, you need to provide:
 7. Add curated interactions
 
 
- imex_raw_filename: str,
+imex_raw_filename: str,
 iuphar_raw_filename: str,
         database_proteins_filename: str,
         database_gene_filename: str,
@@ -88,10 +89,9 @@ python3 tools.py generate_interactions imex_raw_filename iuphar_raw_filename pro
 python3 tools.py generate_interactions interactionsMirjana.txt interaction_iuphar_guidetopharmacology__20180619.csv ../../cellphonedb/core/data/protein.csv ../../cellphonedb/core/data/gene.csv ../../cellphonedb/core/data/complex.csv remove_interactions_20180330.csv interaction_curated_20180729.csv
 ```
 
-## Loading the new data in CellPhoneDB 
+## Loading the new data into CellPhoneDB 
 
-Once the data is builded, you need to move the `interaction.csv` file and the `gene.csv` file from `tools/out` folder to
-`cellphonedb/core/data` replacing the old files. 
+Once the data is built, you need to move the `interaction.csv` file and the `gene.csv` file from the `tools/out` folder to `cellphonedb/core/data`, replacing the old files. 
 
 Aftewards, please upgrade the database using the following code:
 
@@ -100,5 +100,4 @@ FLASK_APP=manage.py flask reset_db
 FLASK_APP=manage.py flask collect all 
 ```
 
-This commands removes the actual database (allocated by default in `cellphonedb/code/cellphone.db` using sqlite) and 
-creates the new one with the updated data.
+This commands removes the actual database (allocated by default in `cellphonedb/code/cellphone.db` using sqlite) and creates the new one with the updated data.

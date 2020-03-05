@@ -1,41 +1,39 @@
-# Cluster Statistical Analysis method Workflow
+# Cluster Statistical Analysis Method Workflow
 
-This document is focused in Cluster Statistical Method, please, read before the [project_workflow documentation](project_workflow.md)
-to have a more global vision of the project structure.
+This document is focused on the statistical methods. Before continuing, please read [project_workflow documentation](project_workflow.md) to have an overview of the project structure.
 
 ## Calling Cluster Statistical Method
 
-This is the workflow when method call is launched:
+This is the workflow when the method call is launched:
 
 ![cluster_statistical_analyisis_launcher](images/cluster_statistical_analysis_launcher.png "Cluster Statistical Analysis workflow")
 
 
 **cluster_statistical_analysis_launcher**
 
-This method allocated in `core/methods/method_launcher.py` is called from API's, local launchers or other future implementations.
+This method allocated in `src/core/methods/method_launcher.py` is called from the API's, local launchers or other future implementations.
 
-Later, analysis is splited in two ways: one for simple analysis and other for comlpex analysis.
+Later, analysis is split in two ways: one for simple analysis and other for complex analysis.
 
 This is where CellPhoneDB database data is loaded. 
 
 **cluster_statistical_analysis_{simple/complex}_method** 
 
-This is where analysis method non common logic are implemented. This functions are completely isolated from the databases/frameworks. 
+The method functions are completely isolated from the databases/frameworks. 
 
-It just uses Pandas library to manage the datasets.
+It just uses the library `pandas` to manage the datasets.
 
 **cluster_statistical_analysis_helper**
 
-This is where method common for simple/complex analysis is implemented.
+This is where the method common for simple/complex analysis is implemented.
 
 ## Cluster Statistical {simple/complex} Analysis workflow
 
-Simple and complex analysis shares the analysis steps (present in _cluster_analysis_helper.py_) but complex requieres 
-different data preprocess/postprocess.
+Simple and complex analysis shares the analysis steps (present in `/src/core/methods/cluster_analysis_helper.py`) but complex requires different data preprocess/postprocess.
 
 **Simple analysis**
 
-![Cluster Statistical Analysis Common Workflow](images/cluster_statistical_analalysis_workflow.png "Cluster Statistical Analysis Common Workflow")
+![Cluster Statistical Analysis Common Workflow](images/cluster_statistical_analysis_workflow.png "Cluster Statistical Analysis Common Workflow")
 
 
 **Complex analysis**
@@ -46,7 +44,7 @@ different data preprocess/postprocess.
 ### Prefilters
 
 **Simple analysis**
-This is where _counts_ input and interactions are filtrated. It removes:
+This is where _counts_ input and interactions are filtered. It removes:
 - Duplicated ensembl: Keep the first.
 - If count is not in CellPhoneDB interactions components.
 - Empty counts: Remove counts if all row values are 0.
@@ -63,12 +61,11 @@ This is where _counts_ input and interactions are filtrated. It removes:
 - Remove duplicated counts
 
 
-### Build real clusters
+### Build Real Clusters
 
 Builds the counts clusters original datasets (meta/counts).
 
-Cluster process converts the counts dataset (ensembl/cells) to cluster dataset (ensembl/clusters) based on meta file relations. 
-The value of cluster is the mean value of all components
+Cluster process converts the counts dataset (ensembl/cells) to cluster dataset (ensembl/clusters) based on meta file relations. The value of cluster is the mean value of all components
 
 _Example:_
 ```
@@ -115,7 +112,7 @@ dict{
     }
 }
 ```
-### Real mean analysis
+### Real Mean Analysis
 
 Calculates the mean for the list of interactions and for each cluster. If one of both is not 0 sets the value to 0.
 ```
@@ -139,7 +136,7 @@ EXAMPLE:
 
     results with * are 0 because one of both components is 0.
 ```
-### Real percent analysis
+### Real Percent Analysis
 
 It build a ensembl1_ensembl2/cluster1_cluster2 table of percent values.
 
@@ -183,14 +180,14 @@ ensembl1_ensembl3   (0,1)-> 0           (0,0)-> 1           (0,1)->0            
 ```
 
 
-### Statistical analysis
+### Statistical Analysis
 
 It does mean analysis of shuffled meta multiple times (number of iterations). Saves all results in an array to process
 in build results. 
 
 ![Statistical analysis](images/statistical_analysis.png "Statistical analysis")
 
-### Build results
+### Build Results
 
 This is where results are created from the previous data analysis. The only non trivial processes are the 
 pvalues and significant_means builds.
