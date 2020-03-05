@@ -16,7 +16,7 @@ Create new package
 python setup.py sdist bdist_wheel
 ```
 
-This will create a CellPhoneDB package ready to be distributed in the `/dist` folder, i.e.
+This will create a CellPhoneDB package ready to be distributed in the `dist` folder, i.e.
 ```
 dist/CellPhoneDB-0.0.5.tar.gz
 ```
