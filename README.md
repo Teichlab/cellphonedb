@@ -225,7 +225,7 @@ Generate specific parameters:
 - `--user-gene`: Gene input file
 - `--user-complex`: Compex input file
 - `--user-interactions`: Interactions input file
-- `--fetch`: Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By default, the snapshots included in the CellPhoneDB package will be used; to enable a fresh copy --fetch must be appended to the command
+- `--fetch`: Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By default, the snapshots included in the CellPhoneDB package will be used; to enable a fresh copy `--fetch` must be appended to the command
 - `--result-path`: Output folder
 - `--log-file`: Log file
 
