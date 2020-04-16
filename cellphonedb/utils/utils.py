@@ -3,6 +3,7 @@ import os
 import pickle
 from typing import TextIO, Optional
 
+import scipy.io
 import pandas as pd
 from werkzeug.datastructures import FileStorage
 
@@ -16,6 +17,9 @@ from cellphonedb.src.exceptions.ReadFromPickleException import ReadFromPickleExc
 
 def read_data_table_from_file(file: str, index_column_first: bool = False, separator: str = '',
                               dtype=None, na_values=None, compression=None) -> pd.DataFrame:
+    if os.path.isdir(file):
+        return _read_mtx(file)
+    
     filename, file_extension = os.path.splitext(file)
 
     if file_extension == '.pickle':
@@ -84,6 +88,23 @@ def write_to_file(df: pd.DataFrame, filename: str, output_path: str, output_form
             separator = _get_separator(selected_extension)
 
     df.to_csv('{}/{}'.format(output_path, filename), sep=separator, index=False)
+
+
+def _read_mtx(path: str) -> pd.DataFrame:
+
+    mtx_file = path + '/matrix.mtx'
+    bc_file = path + '/barcodes.tsv'
+    feature_file = path + '/features.tsv'
+
+    df = pd.DataFrame(scipy.io.mmread(mtx_file).toarray())
+    bc = [line.strip() for line in open(bc_file)]
+    feature = [line.strip() for line in open(feature_file)]
+
+    df.index = feature
+    df.columns = bc
+    df.index.name = 'Gene'
+
+    return df
 
 
 def _read_data(file_stream: TextIO, separator: str, index_column_first: bool, dtype=None,
