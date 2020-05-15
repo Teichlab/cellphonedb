@@ -47,10 +47,9 @@ dot_plot = function(selected_rows = NULL,
   theme(panel.grid.minor = element_blank(),
         panel.grid.major = element_blank(),
         axis.text=element_text(size=14, colour = "black"),
-        axis.text.x = element_text(angle = 90, hjust = 1, family = 'Arial'),
-        axis.text.y = element_text(size=12, colour = "black", family = 'Arial'),
+        axis.text.x = element_text(angle = 90, hjust = 1),
+        axis.text.y = element_text(size=12, colour = "black"),
         axis.title=element_blank(),
-        text = element_text('Arial'),
         panel.border = element_rect(size = 0.7, linetype = "solid", colour = "black"))
 
   if (output_extension == '.pdf') {
