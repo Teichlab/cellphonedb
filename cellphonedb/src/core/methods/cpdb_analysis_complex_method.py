@@ -3,6 +3,7 @@ from functools import partial
 import pandas as pd
 
 from cellphonedb.src.core.core_logger import core_logger
+from cellphonedb.src.core.exceptions.NoComplexException import NoComplexException
 from cellphonedb.src.core.methods import cpdb_analysis_helper
 from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
 from cellphonedb.src.core.models.cluster_counts import cluster_counts_helper, cluster_counts_filter
@@ -22,6 +23,9 @@ def call(meta: pd.DataFrame,
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame):
     core_logger.info(
         '[Non Statistical Method] Threshold:{} Precision:{}'.format(threshold, result_precision))
+
+    if complexes.empty:
+        raise NoComplexException
 
     cells_names = sorted(counts.columns)
 

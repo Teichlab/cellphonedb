@@ -1,6 +1,7 @@
 import pandas as pd
 
 from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
+from cellphonedb.src.core.exceptions.NoComplexException import NoComplexException
 from cellphonedb.src.core.methods import cpdb_analysis_simple_method, cpdb_analysis_complex_method
 
 
@@ -22,22 +23,28 @@ def call(meta: pd.DataFrame,
                                          separator,
                                          threshold,
                                          result_precision)
-    means_complex, significant_means_complex, deconvoluted_complex = \
-        cpdb_analysis_complex_method.call(meta.copy(),
-                                          counts.copy(),
-                                          counts_data,
-                                          interactions.copy(),
-                                          genes,
-                                          complexes,
-                                          complex_compositions,
-                                          separator,
-                                          threshold,
-                                          result_precision)
 
-    means = means_simple.append(means_complex, sort=False)
-    significant_means = significant_means_simple.append(significant_means_complex, sort=False)
+    try:
+        means_complex, significant_means_complex, deconvoluted_complex = \
+            cpdb_analysis_complex_method.call(meta.copy(),
+                                              counts.copy(),
+                                              counts_data,
+                                              interactions.copy(),
+                                              genes,
+                                              complexes,
+                                              complex_compositions,
+                                              separator,
+                                              threshold,
+                                              result_precision)
+        means = means_simple.append(means_complex, sort=False)
+        significant_means = significant_means_simple.append(significant_means_complex, sort=False)
+        deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
 
-    deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
+    except NoComplexException:
+        means = means_simple
+        significant_means = significant_means_simple
+        deconvoluted = deconvoluted_simple
+
     deconvoluted.drop_duplicates(inplace=True)
 
     if means.empty:

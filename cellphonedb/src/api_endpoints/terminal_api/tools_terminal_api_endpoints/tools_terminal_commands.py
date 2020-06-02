@@ -32,7 +32,7 @@ def generate_genes(user_gene: Optional[str],
                    fetch_uniprot: bool,
                    fetch_ensembl: bool,
                    result_path: str,
-                   project_name:str,
+                   project_name: str,
                    ) -> None:
     output_path = _set_paths(result_path, project_name)
 
@@ -149,6 +149,8 @@ def generate_interactions(proteins: str,
     if user_interactions:
         separator = _get_separator(os.path.splitext(user_interactions)[-1])
         user_interactions = pd.read_csv(user_interactions, sep=separator)
+        user_interactions['partner_a'] = user_interactions['partner_a'].apply(lambda x: str(x).strip())
+        user_interactions['partner_b'] = user_interactions['partner_b'].apply(lambda x: str(x).strip())
         user_interactions['annotation_strategy'] = 'user_curated'
 
         if not 'protein_name_a' in user_interactions.columns:
@@ -192,7 +194,8 @@ def generate_interactions(proteins: str,
             'partner_b').drop_duplicates(['partner_a', 'partner_b'], keep='last')
 
     else:
-        result = user_interactions
+        result = tools_helper.normalize_interactions(user_interactions, 'partner_a', 'partner_b') \
+            .drop_duplicates(['partner_a', 'partner_b'], keep='last')
 
     result[result_columns].sort_values(['partner_a', 'partner_b']).to_csv(
         '{}/interaction_input.csv'.format(output_path), index=False)
@@ -208,7 +211,7 @@ def generate_proteins(user_protein: Optional[str],
                       fetch_uniprot: bool,
                       result_path: str,
                       log_file: str,
-                      project_name:str):
+                      project_name: str):
     uniprot_columns = {
         'Entry': 'uniprot',
         'Entry name': 'protein_name',

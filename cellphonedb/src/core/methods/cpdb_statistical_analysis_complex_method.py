@@ -4,6 +4,7 @@ import pandas as pd
 
 from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
+from cellphonedb.src.core.exceptions.NoComplexException import NoComplexException
 from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
 from cellphonedb.src.core.models.cluster_counts import cluster_counts_helper, cluster_counts_filter
 from cellphonedb.src.core.models.complex import complex_helper
@@ -31,6 +32,9 @@ def call(meta: pd.DataFrame,
                                                                                   debug_seed,
                                                                                   threads,
                                                                                   result_precision))
+    if complexes.empty:
+        raise NoComplexException
+
     if debug_seed >= 0:
         pd.np.random.seed(debug_seed)
         core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))

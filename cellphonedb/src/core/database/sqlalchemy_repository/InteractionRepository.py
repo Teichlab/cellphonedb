@@ -45,7 +45,10 @@ class InteractionRepository(Repository):
 
         interactions = pd.read_sql(interactions_query.statement, self.database_manager.database.engine)
 
-        multidata_expanded = self.database_manager.get_repository('multidata').get_all_expanded(include_gene)
+        multidata_expanded: pd.DataFrame = self.database_manager.get_repository('multidata').get_all_expanded(
+            include_gene)
+
+        multidata_expanded = multidata_expanded.astype({'id_multidata': 'int64'})
 
         interactions = pd.merge(interactions, multidata_expanded, left_on=['multidata_1_id'], right_on=['id_multidata'])
         interactions = pd.merge(interactions, multidata_expanded, left_on=['multidata_2_id'], right_on=['id_multidata'],
