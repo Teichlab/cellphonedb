@@ -44,7 +44,6 @@ database.add_command(database_terminal_commands.download)
 database.add_command(database_terminal_commands.list_remote)
 database.add_command(database_terminal_commands.list_local)
 database.add_command(database_terminal_commands.generate)
-database.add_command(database_terminal_commands.validate)
 
 plot.add_command(plot_terminal_commands.dot_plot)
 plot.add_command(plot_terminal_commands.heatmap_plot)
