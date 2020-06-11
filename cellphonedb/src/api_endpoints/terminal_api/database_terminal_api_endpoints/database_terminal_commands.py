@@ -112,3 +112,20 @@ def generate(ctx: Context,
                      complex_filename='complex_input.csv',
                      interaction_filename='interaction_input.csv',
                      data_path=output_path)
+
+
+@click.command()
+@click.argument('path', type=str)
+@click.option('--result-path', type=str, default=None)
+@click.option('--project-name', type=str, default=None)
+def collect_generated(path: str, result_path: Optional[str], project_name: str):
+    db_name = 'cellphonedb_user_{}.db'.format(datetime.now().strftime("%Y-%m-%d-%H_%M"))
+    output_path = _set_paths(result_path, project_name)
+
+    collect_database(db_name,
+                     output_path,
+                     protein_filename='{}/protein_input.csv'.format(path),
+                     gene_filename='{}/gene_input.csv'.format(path),
+                     complex_filename='{}/complex_input.csv'.format(path),
+                     interaction_filename='{}/interaction_input.csv'.format(path),
+                     data_path=output_path)

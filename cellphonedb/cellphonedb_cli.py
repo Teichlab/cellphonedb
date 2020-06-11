@@ -58,6 +58,7 @@ if os.getenv(advanced_flag_var, None):
 
     query.add_command(query_terminal_commands.autocomplete)
     database.add_command(database_terminal_commands.collect)
+    database.add_command(database_terminal_commands.collect_generated)
     tools.add_command(tools_terminal_commands.generate_genes)
     tools.add_command(tools_terminal_commands.generate_proteins)
     tools.add_command(tools_terminal_commands.generate_complex)

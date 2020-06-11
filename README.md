@@ -228,6 +228,7 @@ Generate specific parameters:
 - `--fetch`: Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By default, the snapshots included in the CellPhoneDB package will be used; to enable a fresh copy `--fetch` must be appended to the command
 - `--result-path`: Output folder
 - `--log-file`: Log file
+- `--user-interactions-only`: Use only interactions provided.
 
 Result database file is generated in the folder `out` with `cellphonedb_user_{datetime}.db`. The user defined input tables will be merged with the current CellPhoneDB input tables. To use this database, please use `--database` parameter in methods.
 E.g:

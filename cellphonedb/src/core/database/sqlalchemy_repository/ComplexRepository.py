@@ -139,15 +139,18 @@ class ComplexRepository(Repository):
                 complex_map[row['name']] = protein_id_list
                 complete_indices.append(int(index))
             else:
-                incomplete_indices.append(index)
+                incomplete_indices.append(int(index))
 
         if len(incomplete_indices) > 0:
             core_logger.warning('MISSING PROTEINS:')
             for protein in missing_proteins:
-                core_logger.warning('MISSING PROTEINS:')(protein)
+                core_logger.warning('MISSING PROTEINS:')
+                core_logger.warning(protein)
 
             core_logger.warning('COMEPLEXES WITH MISSING PROTEINS:')
-            core_logger.warning(complexes.iloc[incomplete_indices, :]['name'])
+            incomplete_complexes = complexes.iloc[incomplete_indices, :]['name']
+            for incomplete_complex in incomplete_complexes:
+                core_logger.warning(incomplete_complex)
 
         # Insert complexes
         if not complexes.empty:
