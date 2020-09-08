@@ -126,7 +126,7 @@ cellphonedb plot dot_plot
 cellphonedb plot heatmap_plot yourmeta.txt
 ```
 
-### `dot_pot`
+### `dot_plot`
 This plot type requires `ggplot2` R package installed and working
 
 You can tweak the options for the plot with these arguments:
@@ -223,7 +223,7 @@ Generate specific parameters:
 
 - `--user-protein`: Protein input file
 - `--user-gene`: Gene input file
-- `--user-complex`: Compex input file
+- `--user-complex`: Complex input file
 - `--user-interactions`: Interactions input file
 - `--fetch`: Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By default, the snapshots included in the CellPhoneDB package will be used; to enable a fresh copy `--fetch` must be appended to the command
 - `--result-path`: Output folder
