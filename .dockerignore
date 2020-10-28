@@ -1,6 +1,5 @@
 ./in/
 ./out/
-./docker/
 .dockerignore
 .git
 ./venv
