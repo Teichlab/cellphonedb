@@ -86,7 +86,7 @@ Please check the [results documentation](Docs/RESULTS-DOCUMENTATION.md) in order
 - `--pvalues-result-name`: P-values result filename [pvalues]
 - `--pvalue`: P-value threshold [0.05]
 - `--debug-seed`: Debug random seed -1. To disable it please use a value >=0 [-1]
-- `--threads`: Number of threads to use. >=1 [-1]
+- `--threads`: Number of threads to use. >=1 [4]
 
 ### Usage Examples
 
