@@ -1,9 +1,6 @@
 import pandas as pd
 
-from cellphonedb.src.core.exceptions.EmptyResultException import EmptyResultException
-from cellphonedb.src.core.exceptions.NoComplexException import NoComplexException
-from cellphonedb.src.core.methods import cpdb_statistical_analysis_simple_method, \
-    cpdb_statistical_analysis_complex_method
+from cellphonedb.src.core.methods import cpdb_statistical_analysis_complex_method
 
 
 def call(meta: pd.DataFrame,
@@ -21,56 +18,27 @@ def call(meta: pd.DataFrame,
          pvalue: float,
          separator: str
          ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-    pvalues_simple, means_simple, significant_means_simple, deconvoluted_simple = \
-        cpdb_statistical_analysis_simple_method.call(meta.copy(),
-                                                     count.copy(),
-                                                     counts_data,
-                                                     interactions,
-                                                     pvalue,
-                                                     separator,
-                                                     iterations,
-                                                     threshold,
-                                                     threads,
-                                                     debug_seed,
-                                                     result_precision,
-                                                     )
 
-    try:
-        pvalues_complex, means_complex, significant_means_complex, deconvoluted_complex = \
-            cpdb_statistical_analysis_complex_method.call(meta.copy(),
-                                                          count.copy(),
-                                                          counts_data,
-                                                          interactions,
-                                                          genes,
-                                                          complex_expanded,
-                                                          complex_composition,
-                                                          pvalue,
-                                                          separator,
-                                                          iterations,
-                                                          threshold,
-                                                          threads,
-                                                          debug_seed,
-                                                          result_precision,
-                                                          )
-        pvalues = pvalues_simple.append(pvalues_complex, sort=False)
-        means = means_simple.append(means_complex, sort=False)
-        significant_means = significant_means_simple.append(significant_means_complex, sort=False)
-        deconvoluted = deconvoluted_simple.append(deconvoluted_complex, sort=False)
+    pvalues, means, significant_means, deconvoluted = \
+        cpdb_statistical_analysis_complex_method.call(meta.copy(),
+                                                      count.copy(),
+                                                      counts_data,
+                                                      interactions,
+                                                      genes,
+                                                      complex_expanded,
+                                                      complex_composition,
+                                                      pvalue,
+                                                      separator,
+                                                      iterations,
+                                                      threshold,
+                                                      threads,
+                                                      debug_seed,
+                                                      result_precision,
+                                                      )
 
-
-    except NoComplexException:
-        pvalues = pvalues_simple
-        means = means_simple
-        significant_means = significant_means_simple
-        deconvoluted = deconvoluted_simple
-
-    if means.empty:
-        raise EmptyResultException
 
     max_rank = significant_means['rank'].max()
     significant_means['rank'] = significant_means['rank'].apply(lambda rank: rank if rank != 0 else (1 + max_rank))
     significant_means.sort_values('rank', inplace=True)
-
-    deconvoluted.drop_duplicates(inplace=True)
 
     return deconvoluted, means, pvalues, significant_means

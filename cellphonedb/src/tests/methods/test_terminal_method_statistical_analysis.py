@@ -116,7 +116,6 @@ class TestTerminalMethodStatisticalAnalysis(CellphoneFlaskTestCase):
                                                             result_precision=result_precision,
                                                             subsampler=subsampler,
                                                             )
-
         self._assert_result('means', data, iterations, project_name, result_means_filename, debug_seed, threshold,
                             result_precision)
         self._assert_result('pvalues', data, iterations, project_name, result_pvalues_filename, debug_seed, threshold,

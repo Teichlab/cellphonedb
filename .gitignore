@@ -1,7 +1,8 @@
 # Output files
 /api_interfaces/python/input_data/
 /api_interfaces/python/out/
-/out/
+/out/*
+!/out/.gitkeep
 /in/*
 !/in/.gitkeep
 !/in/example_data/

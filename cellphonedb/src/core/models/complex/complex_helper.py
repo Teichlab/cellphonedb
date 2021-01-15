@@ -1,36 +1,30 @@
 import pandas as pd
 
 
-def get_involved_complex_from_protein(proteins: pd.DataFrame, complexes: pd.DataFrame,
-                                      complex_compositions: pd.DataFrame, drop_duplicates: bool = True) -> pd.DataFrame:
+def get_involved_complex_composition_from_protein(proteins: pd.DataFrame,
+                                                  complex_compositions: pd.DataFrame) -> pd.DataFrame:
     """
     Returns a table of complex with all proteins declared in proteins.
     """
+    multidata_protein = list(proteins.index)
 
-    complex_counts_composition = pd.merge(complex_compositions, proteins, left_on='protein_multidata_id',
-                                          right_on='id_multidata')
+    complex_counts_filtered = complex_compositions[
+        complex_compositions['protein_multidata_id'].apply(lambda protein_multidata: protein_multidata in multidata_protein)]
 
-    if complex_counts_composition.empty:
-        return pd.DataFrame()
+    if complex_counts_filtered.empty:
+        return pd.DataFrame(columns=complex_compositions.columns)
 
-    def all_protein_involved(complex):
+    def all_protein_involved(complex: pd.Series) -> bool:
         number_proteins_in_counts = len(
-            complex_counts_composition[
-                complex_counts_composition['complex_multidata_id'] == complex['complex_multidata_id']])
+            complex_counts_filtered[
+                complex_counts_filtered['complex_multidata_id'] == complex['complex_multidata_id']])
 
         if number_proteins_in_counts < complex['total_protein']:
             return False
 
         return True
 
-    complex_counts_composition = complex_counts_composition[
-        complex_counts_composition.apply(all_protein_involved, axis=1)]
+    complex_composition_complete = complex_counts_filtered[
+        complex_counts_filtered.apply(all_protein_involved, axis=1)]
 
-    complex_counts_composition = pd.merge(complex_counts_composition, complexes,
-                                          left_on='complex_multidata_id',
-                                          right_on='id_multidata',
-                                          suffixes=['_protein', ''])
-
-    if drop_duplicates:
-        complex_counts_composition.drop_duplicates(['complex_multidata_id'], inplace=True)
-    return complex_counts_composition
+    return complex_composition_complete

@@ -5,9 +5,11 @@ from multiprocessing.pool import Pool
 import pandas as pd
 
 from cellphonedb.src.core.core_logger import core_logger
+from cellphonedb.src.core.models.complex import complex_helper
 
 
-def get_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
+def get_significant_means(real_mean_analysis: pd.DataFrame,
+                          result_percent: pd.DataFrame,
                           min_significant_mean: float) -> pd.DataFrame:
     """
     If the result_percent value is > min_significant_mean, sets the value to NaN, else, sets the mean value.
@@ -55,37 +57,57 @@ def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
     return meta_copy
 
 
-def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame) -> dict:
+def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame, complex_composition: pd.DataFrame) -> dict:
     """
     Builds a cluster structure and calculates the means values
     """
     cluster_names = meta['cell_type'].drop_duplicates().tolist()
     clusters = {'names': cluster_names, 'counts': {}, 'means': {}}
 
-    cluster_counts = {}
-    cluster_means = {}
+    clusters['counts'] = {}
+    clusters['means'] = pd.DataFrame(columns=cluster_names, index=counts.index, dtype='float32')
+    complex_composition = complex_composition
 
+    # Simple genes cluster counts
     for cluster_name in cluster_names:
         cells = meta[meta['cell_type'] == cluster_name].index
         cluster_count = counts.loc[:, cells]
-        cluster_counts[cluster_name] = cluster_count
-        cluster_means[cluster_name] = cluster_count.apply(lambda count: count.mean(), axis=1)
+        clusters['counts'][cluster_name] = cluster_count
+        clusters['means'][cluster_name] = cluster_count.apply(lambda count: count.mean(), axis=1)
 
-    clusters['counts'] = cluster_counts
-    clusters['means'] = cluster_means
+    # Complex genes cluster counts
+    if not complex_composition.empty:
+        complex_multidata_ids = complex_composition['complex_multidata_id'].drop_duplicates().to_list()
+        complex_means = pd.DataFrame(columns=cluster_names, index=complex_multidata_ids, dtype='float32')
+
+        for cluster_name in cluster_names:
+            for complex_multidata_id in complex_multidata_ids:
+                complex_components = complex_composition[
+                    complex_composition['complex_multidata_id'] == complex_multidata_id]
+                complex_components['mean'] = complex_components['protein_multidata_id'].apply(
+                    lambda protein: clusters['means'].at[protein, cluster_name])
+                min_component_mean_id = complex_components['mean'].idxmin()
+
+                complex_means.at[complex_multidata_id, cluster_name] = complex_components.at[
+                    min_component_mean_id, 'mean']
+                min_component = complex_components.loc[min_component_mean_id]
+                clusters['counts'][cluster_name].loc[min_component['complex_multidata_id']] = \
+                    clusters['counts'][cluster_name].loc[min_component['protein_multidata_id']]
+
+        clusters['means'] = clusters['means'].append(complex_means)
 
     return clusters
 
 
-def filter_counts_by_interactions(counts: pd.DataFrame, interactions: pd.DataFrame,
-                                  suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> pd.DataFrame:
+def filter_counts_by_interactions(counts: pd.DataFrame,
+                                  interactions: pd.DataFrame) -> pd.DataFrame:
     """
-    Removes count if is not in interaction component
+    Removes counts if is not defined in interactions components
     """
-    genes = interactions['{}{}'.format(counts_data, suffixes[0])].append(
-        interactions['{}{}'.format(counts_data, suffixes[1])]).drop_duplicates()
+    multidata_genes_ids = interactions['multidata_1_id'].append(
+        interactions['multidata_2_id']).drop_duplicates().tolist()
 
-    counts_filtered = counts.filter(genes, axis=0)
+    counts_filtered = counts.filter(multidata_genes_ids, axis=0)
 
     return counts_filtered
 
@@ -126,7 +148,7 @@ def get_cluster_combinations(cluster_names: list) -> list:
     cluster_names = ['cluster1', 'cluster2', 'cluster3']
 
     RESULT
-    [('cluster1','cluster1'),('cluster1','cluster1'),('cluster1','cluster1'),
+    [('cluster1','cluster1'),('cluster1','cluster2'),('cluster1','cluster3'),
      ('cluster2','cluster1'),('cluster2','cluster2'),('cluster2','cluster3'),
      ('cluster3','cluster1'),('cluster3','cluster2'),('cluster3','cluster3')]
 
@@ -148,9 +170,11 @@ def build_result_matrix(interactions: pd.DataFrame, cluster_interactions: list, 
     return result
 
 
-def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactions: list,
-                  base_result: pd.DataFrame, separator: str, suffixes: tuple = ('_1', '_2'),
-                  counts_data: str = 'ensembl') -> pd.DataFrame:
+def mean_analysis(interactions: pd.DataFrame,
+                  clusters: dict,
+                  cluster_interactions: list,
+                  base_result: pd.DataFrame,
+                  separator: str) -> pd.DataFrame:
     """
     Calculates the mean for the list of interactions and for each cluster
 
@@ -182,17 +206,19 @@ def mean_analysis(interactions: pd.DataFrame, clusters: dict, cluster_interactio
         for cluster_interaction in cluster_interactions:
             cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
 
-            interaction_mean = cluster_interaction_mean(cluster_interaction, interaction, clusters['means'], suffixes,
-                                                        counts_data=counts_data)
+            interaction_mean = cluster_interaction_mean(cluster_interaction, interaction, clusters['means'])
 
             result.at[interaction_index, cluster_interaction_string] = interaction_mean
 
     return result
 
 
-def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFrame, cluster_interactions: list,
-                     base_result: pd.DataFrame, separator: str, suffixes: tuple = ('_1', '_2'),
-                     counts_data: str = 'ensembl') -> pd.DataFrame:
+def percent_analysis(clusters: dict,
+                     threshold: float,
+                     interactions: pd.DataFrame,
+                     cluster_interactions: list,
+                     base_result: pd.DataFrame,
+                     separator: str) -> pd.DataFrame:
     """
     Calculates the percents for cluster interactions and foreach gene interaction
 
@@ -231,7 +257,8 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
 
     """
     result = base_result.copy()
-    percents = {}
+    percents = pd.DataFrame(columns=clusters['names'], index=clusters['means'].index)
+
     # percents calculation
     for cluster_name in clusters['names']:
         counts = clusters['counts'][cluster_name]
@@ -242,22 +269,26 @@ def percent_analysis(clusters: dict, threshold: float, interactions: pd.DataFram
         for cluster_interaction in cluster_interactions:
             cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
 
-            interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents, suffixes,
-                                                              counts_data=counts_data)
+            interaction_percent = cluster_interaction_percent(cluster_interaction, interaction, percents)
             result.at[interaction_index, cluster_interaction_string] = interaction_percent
 
     return result
 
 
-def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame, interactions: pd.DataFrame,
-                      cluster_interactions: list, base_result: pd.DataFrame, threads: int, separator: str,
-                      suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> list:
+def shuffled_analysis(iterations: int,
+                      meta: pd.DataFrame,
+                      counts: pd.DataFrame,
+                      interactions: pd.DataFrame,
+                      cluster_interactions: list,
+                      complex_composition: pd.DataFrame,
+                      base_result: pd.DataFrame,
+                      threads: int,
+                      separator: str) -> list:
     """
     Shuffles meta and calculates the means for each and saves it in a list.
 
     Runs it in a multiple threads to run it faster
     """
-    core_logger.info('Running Statistical Analysis')
     with Pool(processes=threads) as pool:
         statistical_analysis_thread = partial(_statistical_analysis,
                                               base_result,
@@ -265,24 +296,34 @@ def shuffled_analysis(iterations: int, meta: pd.DataFrame, counts: pd.DataFrame,
                                               counts,
                                               interactions,
                                               meta,
-                                              separator,
-                                              suffixes,
-                                              counts_data=counts_data
-                                              )
+                                              complex_composition,
+                                              separator)
         results = pool.map(statistical_analysis_thread, range(iterations))
 
     return results
 
 
-def _statistical_analysis(base_result, cluster_interactions, counts, interactions, meta, separator, suffixes,
-                          iteration_number, counts_data: str = 'ensembl') -> pd.DataFrame:
+def _statistical_analysis(base_result,
+                          cluster_interactions,
+                          counts,
+                          interactions,
+                          meta,
+                          complex_composition: pd.DataFrame,
+                          separator,
+                          iteration_number) -> pd.DataFrame:
     """
     Shuffles meta dataset and calculates calculates the means
     """
     shuffled_meta = shuffle_meta(meta)
-    shuffled_clusters = build_clusters(shuffled_meta, counts)
-    result_mean_analysis = mean_analysis(interactions, shuffled_clusters, cluster_interactions, base_result, separator,
-                                         suffixes, counts_data=counts_data)
+    shuffled_clusters = build_clusters(shuffled_meta,
+                                       counts,
+                                       complex_composition)
+
+    result_mean_analysis = mean_analysis(interactions,
+                                         shuffled_clusters,
+                                         cluster_interactions,
+                                         base_result,
+                                         separator)
     return result_mean_analysis
 
 
@@ -382,9 +423,9 @@ def interacting_pair_build(interactions: pd.DataFrame) -> pd.Series:
     return interacting_pair
 
 
-def build_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd.DataFrame,
-                            min_significant_mean: float) -> (
-        pd.Series, pd.DataFrame):
+def build_significant_means(real_mean_analysis: pd.DataFrame,
+                            result_percent: pd.DataFrame,
+                            min_significant_mean: float) -> (pd.Series, pd.DataFrame):
     """
     Calculates the significant means and add rank (number of non empty entries divided by total entries)
     """
@@ -399,9 +440,7 @@ def build_significant_means(real_mean_analysis: pd.DataFrame, result_percent: pd
 
 def cluster_interaction_percent(cluster_interaction: tuple,
                                 interaction: pd.Series,
-                                clusters_percents: dict,
-                                suffixes: tuple = ('_1', '_2'),
-                                counts_data: str = 'ensembl'
+                                clusters_percents: pd.DataFrame,
                                 ) -> int:
     """
     If one of both is not 0 the result is 0 other cases are 1
@@ -410,8 +449,10 @@ def cluster_interaction_percent(cluster_interaction: tuple,
     percent_cluster_receptors = clusters_percents[cluster_interaction[0]]
     percent_cluster_ligands = clusters_percents[cluster_interaction[1]]
 
-    percent_receptor = percent_cluster_receptors[interaction['{}{}'.format(counts_data, suffixes[0])]]
-    percent_ligand = percent_cluster_ligands[interaction['{}{}'.format(counts_data, suffixes[1])]]
+    receptor = interaction['multidata_1_id']
+    percent_receptor = percent_cluster_receptors.loc[receptor]
+    ligand = interaction['multidata_2_id']
+    percent_ligand = percent_cluster_ligands.loc[ligand]
 
     if percent_receptor or percent_ligand:
         interaction_percent = 0
@@ -422,7 +463,8 @@ def cluster_interaction_percent(cluster_interaction: tuple,
     return interaction_percent
 
 
-def counts_percent(counts: pd.Series, threshold: float) -> int:
+def counts_percent(counts: pd.Series,
+                   threshold: float) -> int:
     """
     Calculates the number of positive values and divides it for the total.
     If this value is < threshold, returns 1, else, returns 0
@@ -447,8 +489,9 @@ def counts_percent(counts: pd.Series, threshold: float) -> int:
         return 0
 
 
-def cluster_interaction_mean(cluster_interaction: tuple, interaction: pd.Series, clusters_means: dict,
-                             suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> float:
+def cluster_interaction_mean(cluster_interaction: tuple,
+                             interaction: pd.Series,
+                             clusters_means: pd.DataFrame) -> float:
     """
     Calculates the mean value for two clusters.
 
@@ -458,9 +501,10 @@ def cluster_interaction_mean(cluster_interaction: tuple, interaction: pd.Series,
     means_cluster_receptors = clusters_means[cluster_interaction[0]]
     means_cluster_ligands = clusters_means[cluster_interaction[1]]
 
-    receptor = interaction['{}{}'.format(counts_data, suffixes[0])]
+    receptor = interaction['multidata_1_id']
     mean_receptor = means_cluster_receptors[receptor]
-    mean_ligand = means_cluster_ligands[interaction['{}{}'.format(counts_data, suffixes[1])]]
+    ligand = interaction['multidata_2_id']
+    mean_ligand = means_cluster_ligands[ligand]
 
     if mean_receptor == 0 or mean_ligand == 0:
         interaction_mean = 0
@@ -470,14 +514,78 @@ def cluster_interaction_mean(cluster_interaction: tuple, interaction: pd.Series,
     return interaction_mean
 
 
-def filter_interactions_by_counts(interactions: pd.DataFrame, counts: pd.DataFrame,
-                                  suffixes: tuple = ('_1', '_2'), counts_data: str = 'ensembl') -> pd.DataFrame:
-    """
-    Remove interaction if both components are not in counts lists
-    """
-    counts_index = list(counts.index)
-    interactions_filtered = interactions[interactions.apply(
-        lambda row: row['{}{}'.format(counts_data, suffixes[0])] in counts_index and row[
-            '{}{}'.format(counts_data, suffixes[1])] in counts_index, axis=1
-    )]
+def filter_interactions_by_counts(interactions: pd.DataFrame,
+                                  counts: pd.DataFrame,
+                                  complex_composition: pd.DataFrame) -> pd.DataFrame:
+    multidatas = list(counts.index)
+
+    if not complex_composition.empty:
+        multidatas += complex_composition['complex_multidata_id'].to_list() + complex_composition[
+            'protein_multidata_id'].to_list()
+
+    multidatas = list(set(multidatas))
+
+    def filter_interactions(interaction: pd.Series) -> bool:
+        if interaction['multidata_1_id'] in multidatas and interaction['multidata_2_id'] in multidatas:
+            return True
+        return False
+
+    interactions_filtered = interactions[interactions.apply(filter_interactions, axis=1)]
+
     return interactions_filtered
+
+
+def prefilters(interactions: pd.DataFrame,
+               counts: pd.DataFrame,
+               complexes: pd.DataFrame,
+               complex_compositions: pd.DataFrame):
+    """
+    - Finds the complex defined in counts and calculates their counts values
+    - Remove interactions if the simple component ensembl is not in the counts list
+    - Remove interactions if the complex component is not in the calculated complex list
+    - Remove undefined simple counts
+    - Merge simple filtered counts and calculated complex counts
+    - Remove duplicated counts
+    """
+    counts_filtered = filter_empty_cluster_counts(counts)
+    complex_composition_filtered, counts_complex = get_involved_complex_from_counts(counts_filtered,
+                                                                                    complex_compositions)
+
+    interactions_filtered = filter_interactions_by_counts(interactions,
+                                                          counts_filtered,
+                                                          complex_composition_filtered)
+
+    counts_simple = filter_counts_by_interactions(counts_filtered,
+                                                                                   interactions_filtered)
+
+    counts_filtered = counts_simple.append(counts_complex, sort=False)
+    counts_filtered = counts_filtered[~counts_filtered.index.duplicated()]
+
+    return interactions_filtered, counts_filtered, complex_composition_filtered
+
+def get_involved_complex_from_counts(counts: pd.DataFrame,
+                                     complex_composition: pd.DataFrame) -> (
+        pd.DataFrame, pd.DataFrame):
+    """
+    Finds the complexes defined in counts and calculates the counts values
+    """
+    proteins_in_complexes = complex_composition['protein_multidata_id'].drop_duplicates().tolist()
+
+    # Remove counts that can't be part of a complex
+    counts_filtered = counts[
+        counts.apply(lambda count: count.name in proteins_in_complexes, axis=1)]
+
+    # Find complexes with all components defined in counts
+    complex_composition_filtered = complex_helper.get_involved_complex_composition_from_protein(counts_filtered,
+                                                                                                complex_composition)
+
+    if complex_composition_filtered.empty:
+        return complex_composition_filtered, pd.DataFrame(columns=counts.columns)
+
+    available_complex_proteins = complex_composition_filtered['protein_multidata_id'].drop_duplicates().to_list()
+
+    # Remove counts that are not defined in selected complexes
+    counts_filtered = counts_filtered[
+        counts_filtered.apply(lambda count: count.name in available_complex_proteins, axis=1)]
+
+    return complex_composition_filtered, counts_filtered
