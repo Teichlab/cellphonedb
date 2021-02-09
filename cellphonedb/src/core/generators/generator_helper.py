@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def set_defaults(df: pd.DataFrame, defaults: dict, quiet=False) -> pd.DataFrame:
@@ -10,6 +11,6 @@ def set_defaults(df: pd.DataFrame, defaults: dict, quiet=False) -> pd.DataFrame:
             df[column_name] = default_value
             continue
 
-        df[column_name].replace({pd.np.nan: default_value}, inplace=True)
+        df[column_name].replace({np.nan: default_value}, inplace=True)
 
     return df

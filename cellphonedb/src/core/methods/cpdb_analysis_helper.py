@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 
 def percent_analysis(clusters: dict,
                      threshold: float,
@@ -64,7 +64,7 @@ def get_significant_means(mean_analysis: pd.DataFrame,
     for index, mean_analysis in mean_analysis.iterrows():
         for cluster_interaction in list(result_percent.columns):
             if not result_percent.at[index, cluster_interaction]:
-                significant_means.at[index, cluster_interaction] = pd.np.nan
+                significant_means.at[index, cluster_interaction] = np.nan
     return significant_means
 
 

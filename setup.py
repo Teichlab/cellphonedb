@@ -22,7 +22,8 @@ setup(
     },
     install_requires=[
         'click>=6.7,<6.7.99',
-        'pandas>0.25,<=0.25.99',
+        'pandas',
+        'numpy',
         'flask>=1.0,<1.0.99',
         'Flask-RESTful>=0.3,<0.3.99',
         'scikit-learn==0.22',
@@ -36,7 +37,7 @@ setup(
         'rpy2>=3.0.4,<3.0.99',
         'tqdm>=4.32,<4.32.99',
         'cython>=0.29,<0.29.99',
-        'anndata>=0.7,<=0.7.3',
+        'anndata>=0.7',
         'h5py<3.0.0'
     ],
 )

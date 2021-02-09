@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 from cellphonedb.src.app.app_logger import app_logger
 from cellphonedb.src.core.generators.generator_helper import set_defaults
 from cellphonedb.src.exceptions.MissingRequiredColumns import MissingRequiredColumns
@@ -20,22 +20,22 @@ def _merge_complex(base_complex: pd.DataFrame, additional: pd.DataFrame, log_fil
     additional = additional.copy()
 
     defaults = {
-        'uniprot_3': pd.np.nan,
-        'uniprot_4': pd.np.nan,
+        'uniprot_3': np.nan,
+        'uniprot_4': np.nan,
         'receptor': False,
         'integrin': False,
         'other': False,
-        'other_desc': pd.np.nan,
+        'other_desc': np.nan,
         'peripheral': False,
-        'receptor_desc': pd.np.nan,
-        'secreted_desc': pd.np.nan,
+        'receptor_desc': np.nan,
+        'secreted_desc': np.nan,
         'secreted_highlight': False,
         'secreted': False,
         'transmembrane': False,
         'pdb_structure': False,
-        'pdb_id': pd.np.nan,
-        'stoichiometry': pd.np.nan,
-        'comments_complex': pd.np.nan
+        'pdb_id': np.nan,
+        'stoichiometry': np.nan,
+        'comments_complex': np.nan
     }
 
     default_types = {
