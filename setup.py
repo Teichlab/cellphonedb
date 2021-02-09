@@ -22,7 +22,7 @@ setup(
     },
     install_requires=[
         'click>=6.7,<6.7.99',
-        'pandas',
+        'pandas>0.25,<=0.25.99',
         'flask>=1.0,<1.0.99',
         'Flask-RESTful>=0.3,<0.3.99',
         'scikit-learn==0.22',
