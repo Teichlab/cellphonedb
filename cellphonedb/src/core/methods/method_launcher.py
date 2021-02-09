@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.database import DatabaseManager
@@ -119,7 +120,7 @@ class MethodLauncher:
         if not len(counts.columns):
             raise ParseCountsException('Counts values are not decimal values', 'Incorrect file format')
         try:
-            counts = counts.astype(pd.np.float)  # type: pd.DataFrame
+            counts = counts.astype(np.float)  # type: pd.DataFrame
         except:
             raise ParseCountsException
         meta.index = meta.index.astype(str)
