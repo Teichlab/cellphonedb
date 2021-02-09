@@ -1,7 +1,7 @@
 import itertools
 from functools import partial
 from multiprocessing.pool import Pool
-
+import sklearn
 import pandas as pd
 import numpy as np
 from cellphonedb.src.core.core_logger import core_logger
@@ -52,7 +52,8 @@ def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
     Permutates the meta values aleatory generating a new meta file
     """
     meta_copy = meta.copy()
-    np.random.shuffle(meta_copy['cell_type'].values())
+    meta_copy['cell_type'] = sklearn.utils.shuffle(meta_copy['cell_type'])
+    # np.random.shuffle(np.array(meta_copy['cell_type']))
 
     return meta_copy
 
