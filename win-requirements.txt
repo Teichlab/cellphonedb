@@ -12,5 +12,3 @@ boto3>=1.7,<1.7.99
 rpy2==3.0.3
 geosketch==0.3
 scikit-learn==0.22
-anndata>=0.7
-h5py<3.0.0
