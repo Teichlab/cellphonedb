@@ -51,8 +51,10 @@ def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
     """
     Permutates the meta values aleatory generating a new meta file
     """
-    meta_copy = meta.copy()    
-    np.random.shuffle(np.array(meta_copy['cell_type']))
+    meta_copy = meta.copy()
+    tmp = np.array(meta_copy['cell_type'])
+    np.random.shuffle(tmp)
+    meta_copy['cell_type'] = tmp
 
     return meta_copy
 
