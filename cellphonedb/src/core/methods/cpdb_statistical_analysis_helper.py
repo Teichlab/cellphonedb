@@ -52,8 +52,8 @@ def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
     Permutates the meta values aleatory generating a new meta file
     """
     meta_copy = meta.copy()
-    # meta_copy['cell_type'] = sklearn.utils.shuffle(meta_copy['cell_type']) # supposedly faster? but shuffles the index as well. Not sure if this is what they want.
-    np.random.shuffle(np.array(meta_copy['cell_type']))
+    meta_copy['cell_type'] = list(sklearn.utils.shuffle(meta_copy['cell_type'])) # supposedly faster?
+    # np.random.shuffle(np.array(meta_copy['cell_type']))
 
     return meta_copy
 
