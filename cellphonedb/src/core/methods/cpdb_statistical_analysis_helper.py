@@ -83,7 +83,7 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame, complex_composition
         for cluster_name in cluster_names:
             for complex_multidata_id in complex_multidata_ids:
                 complex_components = complex_composition[
-                    complex_composition['complex_multidata_id'] == complex_multidata_id]
+                    complex_composition['complex_multidata_id'] == complex_multidata_id].copy()
                 complex_components['mean'] = complex_components['protein_multidata_id'].apply(
                     lambda protein: clusters['means'].at[protein, cluster_name])
                 min_component_mean_id = complex_components['mean'].idxmin()
