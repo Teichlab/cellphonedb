@@ -25,6 +25,7 @@ setup(
         'pandas',
         'flask>=1.0,<1.0.99',
         'Flask-RESTful>=0.3,<0.3.99',
+        'scikit-learn==0.22',
         'Flask-Testing>=0.7,<0.7.99',
         'SQLAlchemy>=1.3,<1.3.99',
         'PyYAML>=5.1,<5.1.99',
