@@ -3,6 +3,7 @@ import os
 import pickle
 from typing import TextIO, Optional
 
+import scipy.io
 import pandas as pd
 from werkzeug.datastructures import FileStorage
 
@@ -16,7 +17,15 @@ from cellphonedb.src.exceptions.ReadFromPickleException import ReadFromPickleExc
 
 def read_data_table_from_file(file: str, index_column_first: bool = False, separator: str = '',
                               dtype=None, na_values=None, compression=None) -> pd.DataFrame:
+    if os.path.isdir(file):
+        return _read_mtx(file)
+
     filename, file_extension = os.path.splitext(file)
+
+    if file_extension == '.h5ad':
+        return _read_h5ad(file)
+    if file_extension == '.h5':
+        return _read_h5(file)
 
     if file_extension == '.pickle':
         try:
@@ -86,9 +95,40 @@ def write_to_file(df: pd.DataFrame, filename: str, output_path: str, output_form
     df.to_csv('{}/{}'.format(output_path, filename), sep=separator, index=False)
 
 
+def _read_mtx(path: str) -> pd.DataFrame:
+
+    mtx_file = path + '/matrix.mtx'
+    bc_file = path + '/barcodes.tsv'
+    feature_file = path + '/features.tsv'
+
+    df = pd.DataFrame(scipy.io.mmread(mtx_file).toarray())
+    bc = [line.strip() for line in open(bc_file)]
+    feature = [line.strip() for line in open(feature_file)]
+
+    df.index = feature
+    df.columns = bc
+    df.index.name = 'Gene'
+
+    return df
+
+def _read_h5ad(path: str) -> pd.DataFrame:
+    try:
+        from anndata import read_h5ad
+    except:
+        raise ImportError('Please install anndata. pip install anndata')
+    adata = read_h5ad(path)
+    df = adata.to_df().T
+    return df
+
+
+def _read_h5(path: str) -> pd.DataFrame:
+    df = pd.read_hdf(path)
+    return df
+
+
 def _read_data(file_stream: TextIO, separator: str, index_column_first: bool, dtype=None,
                na_values=None, compression=None) -> pd.DataFrame:
-    return pd.read_csv(file_stream, sep=separator, chunksize = 100000, index_col=0 if index_column_first else None, dtype=dtype,
+    return pd.read_csv(file_stream, sep=separator, index_col=0 if index_column_first else None, dtype=dtype,
                        na_values=na_values, compression=compression)
 
 
