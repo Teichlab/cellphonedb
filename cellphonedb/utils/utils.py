@@ -88,7 +88,7 @@ def write_to_file(df: pd.DataFrame, filename: str, output_path: str, output_form
 
 def _read_data(file_stream: TextIO, separator: str, index_column_first: bool, dtype=None,
                na_values=None, compression=None) -> pd.DataFrame:
-    return pd.read_csv(file_stream, sep=separator, index_col=0 if index_column_first else None, dtype=dtype,
+    return pd.read_csv(file_stream, sep=separator, chunksize = 100000, index_col=0 if index_column_first else None, dtype=dtype,
                        na_values=na_values, compression=compression)
 
 
