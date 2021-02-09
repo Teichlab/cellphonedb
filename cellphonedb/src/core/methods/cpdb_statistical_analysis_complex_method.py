@@ -255,7 +255,7 @@ def deconvoluted_complex_result_build(clusters_means: pd.DataFrame,
 
     deconvoluted_result = deconvoluted_result[deconvoluted_columns]
     deconvoluted_result.rename({'name': 'uniprot'}, axis=1, inplace=True)
-    deconvoluted_result = pd.concat([deconvoluted_result, clusters_means], axis=1, join='inner', sort=False)
+    deconvoluted_result = pd.concat([deconvoluted_result, clusters_means.reindex(deconvoluted_result.index)], axis=1, join='inner', sort=False)
     deconvoluted_result.set_index('gene', inplace=True, drop=True)
     deconvoluted_result.drop_duplicates(inplace=True)
 
