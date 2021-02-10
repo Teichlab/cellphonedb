@@ -4,6 +4,7 @@ import pickle
 from typing import TextIO, Optional
 
 import scipy.io
+from anndata import read_h5ad
 import pandas as pd
 from werkzeug.datastructures import FileStorage
 
@@ -112,10 +113,6 @@ def _read_mtx(path: str) -> pd.DataFrame:
     return df
 
 def _read_h5ad(path: str) -> pd.DataFrame:
-    try:
-        from anndata import read_h5ad
-    except:
-        raise ImportError('Please install anndata. pip install anndata')
     adata = read_h5ad(path)
     df = adata.to_df().T
     return df
