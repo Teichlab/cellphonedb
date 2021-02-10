@@ -1,6 +1,7 @@
 click>=6.7,<6.7.99
 pandas
 numpy
+scikit-learn==0.22
 flask>=1.0,<1.0.99
 Flask-RESTful>=0.3,<0.3.99
 Flask-Testing>=0.7,<0.7.99
@@ -9,6 +10,8 @@ PyYAML>=5.1,<5.1.99
 requests
 pika>=0.12,<0.12.99
 boto3>=1.7,<1.7.99
-rpy2==3.0.3
 geosketch==0.3
-scikit-learn==0.22
+rpy2==3.0.3
+tqdm>=4.32,<4.32.99
+cython>=0.29,<0.29.9
+anndata>=0.7.5,<0.7.9
