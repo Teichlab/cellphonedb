@@ -98,9 +98,9 @@ def write_to_file(df: pd.DataFrame, filename: str, output_path: str, output_form
 
 def _read_mtx(path: str) -> pd.DataFrame:
 
-    mtx_file = path + '/matrix.mtx'
-    bc_file = path + '/barcodes.tsv'
-    feature_file = path + '/features.tsv'
+    mtx_file = os.path.join(path,'matrix.mtx')
+    bc_file = os.path.join(path, 'barcodes.tsv')
+    feature_file = os.path.join(path + 'features.tsv')
 
     df = pd.DataFrame(scipy.io.mmread(mtx_file).toarray())
     bc = [line.strip() for line in open(bc_file)]
