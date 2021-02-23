@@ -14,34 +14,26 @@ To start using CellPhoneDB, you can use our interactive web application ([cellph
 
 
 ### Installing CellPhoneDB
-NOTE: Works with Python v3.5 or greater. If your default Python interpreter is for `v2.x` (you can check it with `python --version`), calls to `python`/`pip` should be substituted by `python3`/`pip3`.
+NOTE: Works with Python v3.6 or greater. If your default Python interpreter is for `v2.x` (you can check it with `python --version`), calls to `python`/`pip` should be substituted by `python3`/`pip3`.
 
-We highly recommend using a python virtual environment (as described in steps 1 and 2) but you could of course omit these steps and install via `pip` immediately.
+We highly recommend using an isolated python environment (as described in steps 1 and 2) using [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) or [virtualenv](https://docs.python.org/3/library/venv.html) but you could of course omit these steps and install via `pip` immediately.
 
-1. Create python>3.5 virtualenv
-```shell
-python -m venv cpdb-venv
-```
+1. Create python=>3.6 environment
+- Using conda: `conda create -n cpdb python=3.7`
+- Using virtualenv: `python -m venv cpdb`
 
-2. Activate virtualenv
-```shell
-source cpdb-venv/bin/activate
-```
+2. Activate environment
+- Using conda: `source activate cpdb`
+- Using virtualenv: `source cpdb/bin/activate`
 
-3. Install CellPhoneDB
-```shell
-pip install cellphonedb
-```
+3. Install CellPhoneDB `pip install cellphonedb`
 
 
 ## Running CellPhoneDB Methods
 
-Please, run step 0 if you didn't activate the virtualenv previously
-
-0. Activate virtualenv
-```shell
-source cpdb-venv/bin/activate
-```
+Please, activate your environment if you didn't previously
+- Using conda: `source activate cpdb`
+- Using virtualenv: `source cpdb/bin/activate`
 
 To use the example data, please [download meta/counts test data](https://github.com/Teichlab/cellphonedb/blob/master/in/example_data/cellphonedb_example_data.zip?raw=true). i.e.
 ```shell
@@ -49,15 +41,24 @@ curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_da
 curl https://raw.githubusercontent.com/Teichlab/cellphonedb/master/in/example_data/test_meta.txt --output test_meta.txt
 ```
 
+Note: counts file can be a text file or `h5ad` (recoommended), `h5` or a path to a folder containing `mtx/barcode/features`.
+
+
 ####  Example with running the statistical method
 ```shell
-cellphonedb method statistical_analysis test_meta.txt test_counts.txt 
+cellphonedb method statistical_analysis test_meta.txt test_counts.txt
 ```
 
 
 #### Example without using the statistical method
+**Using text files**
 ```shell
 cellphonedb method analysis test_meta.txt test_counts.txt 
+```
+
+**Using h5ad count file**
+```shell
+cellphonedb method analysis test_meta.txt test_counts.h5ad
 ```
 
 Please check the [results documentation](Docs/RESULTS-DOCUMENTATION.md) in order to understand the results.
@@ -86,7 +87,7 @@ Please check the [results documentation](Docs/RESULTS-DOCUMENTATION.md) in order
 - `--pvalues-result-name`: P-values result filename [pvalues]
 - `--pvalue`: P-value threshold [0.05]
 - `--debug-seed`: Debug random seed -1. To disable it please use a value >=0 [-1]
-- `--threads`: Number of threads to use. >=1 [-1]
+- `--threads`: Number of threads to use. >=1 [4]
 
 ### Usage Examples
 
@@ -126,7 +127,7 @@ cellphonedb plot dot_plot
 cellphonedb plot heatmap_plot yourmeta.txt
 ```
 
-### `dot_pot`
+### `dot_plot`
 This plot type requires `ggplot2` R package installed and working
 
 You can tweak the options for the plot with these arguments:
@@ -223,7 +224,7 @@ Generate specific parameters:
 
 - `--user-protein`: Protein input file
 - `--user-gene`: Gene input file
-- `--user-complex`: Compex input file
+- `--user-complex`: Complex input file
 - `--user-interactions`: Interactions input file
 - `--fetch`: Some lists can be downloaded from original sources while creating the database, eg: uniprot, ensembl. By default, the snapshots included in the CellPhoneDB package will be used; to enable a fresh copy `--fetch` must be appended to the command
 - `--result-path`: Output folder
