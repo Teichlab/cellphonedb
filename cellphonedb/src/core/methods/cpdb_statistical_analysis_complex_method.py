@@ -1,6 +1,7 @@
 from functools import partial
 
 import pandas as pd
+import numpy as np
 
 from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
@@ -31,7 +32,7 @@ def call(meta: pd.DataFrame,
                                                                                   threads,
                                                                                   result_precision))
     if debug_seed >= 0:
-        pd.np.random.seed(debug_seed)
+        np.random.seed(debug_seed)
         core_logger.warning('Debug random seed enabled. Setted to {}'.format(debug_seed))
     cells_names = sorted(counts.columns)
 
@@ -254,7 +255,7 @@ def deconvoluted_complex_result_build(clusters_means: pd.DataFrame,
 
     deconvoluted_result = deconvoluted_result[deconvoluted_columns]
     deconvoluted_result.rename({'name': 'uniprot'}, axis=1, inplace=True)
-    deconvoluted_result = pd.concat([deconvoluted_result, clusters_means], axis=1, join='inner', sort=False)
+    deconvoluted_result = pd.concat([deconvoluted_result, clusters_means.reindex(deconvoluted_result.index)], axis=1, join='inner', sort=False)
     deconvoluted_result.set_index('gene', inplace=True, drop=True)
     deconvoluted_result.drop_duplicates(inplace=True)
 
@@ -272,7 +273,7 @@ def deconvolute_interaction_component(interactions, suffix, counts_data):
             ['multidata{}_id'.format(suffix), 'protein_name{}'.format(suffix), 'gene_name{}'.format(suffix),
              'name{}'.format(suffix),
              'is_complex{}'.format(suffix), 'id_cp_interaction', 'receptor{}'.format(suffix)]]
-    deconvoluted_result['complex_name'] = pd.np.nan
+    deconvoluted_result['complex_name'] = np.nan
 
     return deconvoluted_result
 

@@ -3,7 +3,7 @@ from functools import partial
 from multiprocessing.pool import Pool
 
 import pandas as pd
-
+import numpy as np
 from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.models.complex import complex_helper
 
@@ -43,7 +43,7 @@ def get_significant_means(real_mean_analysis: pd.DataFrame,
     for index, mean_analysis in real_mean_analysis.iterrows():
         for cluster_interaction in list(result_percent.columns):
             if result_percent.at[index, cluster_interaction] > min_significant_mean:
-                significant_means.at[index, cluster_interaction] = pd.np.nan
+                significant_means.at[index, cluster_interaction] = np.nan
     return significant_means
 
 
@@ -52,7 +52,9 @@ def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
     Permutates the meta values aleatory generating a new meta file
     """
     meta_copy = meta.copy()
-    pd.np.random.shuffle(meta_copy['cell_type'])
+    tmp = np.array(meta_copy['cell_type'])
+    np.random.shuffle(tmp)
+    meta_copy['cell_type'] = tmp
 
     return meta_copy
 
@@ -83,7 +85,7 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame, complex_composition
         for cluster_name in cluster_names:
             for complex_multidata_id in complex_multidata_ids:
                 complex_components = complex_composition[
-                    complex_composition['complex_multidata_id'] == complex_multidata_id]
+                    complex_composition['complex_multidata_id'] == complex_multidata_id].copy()
                 complex_components['mean'] = complex_components['protein_multidata_id'].apply(
                     lambda protein: clusters['means'].at[protein, cluster_name])
                 min_component_mean_id = complex_components['mean'].idxmin()

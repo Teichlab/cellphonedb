@@ -3,6 +3,9 @@ import os
 import pickle
 from typing import TextIO, Optional
 
+import csv
+import scipy.io
+from anndata import read_h5ad
 import pandas as pd
 from werkzeug.datastructures import FileStorage
 
@@ -16,7 +19,15 @@ from cellphonedb.src.exceptions.ReadFromPickleException import ReadFromPickleExc
 
 def read_data_table_from_file(file: str, index_column_first: bool = False, separator: str = '',
                               dtype=None, na_values=None, compression=None) -> pd.DataFrame:
+    if os.path.isdir(file):
+        return _read_mtx(file)
+
     filename, file_extension = os.path.splitext(file)
+
+    if file_extension == '.h5ad':
+        return _read_h5ad(file)
+    if file_extension == '.h5':
+        return _read_h5(file)
 
     if file_extension == '.pickle':
         try:
@@ -84,6 +95,32 @@ def write_to_file(df: pd.DataFrame, filename: str, output_path: str, output_form
             separator = _get_separator(selected_extension)
 
     df.to_csv('{}/{}'.format(output_path, filename), sep=separator, index=False)
+
+
+def _read_mtx(path: str) -> pd.DataFrame:
+
+    mtx_path = os.path.join(path,'matrix.mtx')
+    bc_path = os.path.join(path, 'barcodes.tsv')
+    feature_path = os.path.join(path, 'features.tsv')
+
+    df = pd.DataFrame(scipy.io.mmread(mtx_path).toarray())
+    with open(bc_path) as bc_file:
+        df.columns = [bc[0].strip() for bc in list(csv.reader(bc_file, delimiter="\t"))]
+    with open(feature_path) as feature_file:
+        df.index = [feat[0].strip() for feat in list(csv.reader(feature_file, delimiter="\t"))]
+    df.index.name = 'Gene'
+
+    return df
+
+def _read_h5ad(path: str) -> pd.DataFrame:
+    adata = read_h5ad(path)
+    df = adata.to_df().T
+    return df
+
+
+def _read_h5(path: str) -> pd.DataFrame:
+    df = pd.read_hdf(path)
+    return df
 
 
 def _read_data(file_stream: TextIO, separator: str, index_column_first: bool, dtype=None,

@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 from cellphonedb.src.core.core_logger import core_logger
 from cellphonedb.src.core.exceptions.AllCountsFilteredException import AllCountsFilteredException
 from cellphonedb.src.core.exceptions.NoInteractionsFound import NoInteractionsFound
@@ -228,7 +228,7 @@ def deconvolute_interaction_component(interactions, suffix, counts_data):
     deconvoluted_result[['protein_name', 'gene_name', 'name', 'is_complex', 'id_cp_interaction', 'receptor']] = \
         interactions[['protein_name{}'.format(suffix), 'gene_name{}'.format(suffix), 'name{}'.format(suffix),
                       'is_complex{}'.format(suffix), 'id_cp_interaction', 'receptor{}'.format(suffix)]]
-    deconvoluted_result['complex_name'] = pd.np.nan
+    deconvoluted_result['complex_name'] = np.nan
 
     return deconvoluted_result
 
