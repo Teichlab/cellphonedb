@@ -3,6 +3,7 @@ import os
 import pickle
 from typing import TextIO, Optional
 
+import csv
 import scipy.io
 from anndata import read_h5ad
 import pandas as pd
@@ -98,16 +99,15 @@ def write_to_file(df: pd.DataFrame, filename: str, output_path: str, output_form
 
 def _read_mtx(path: str) -> pd.DataFrame:
 
-    mtx_file = os.path.join(path,'matrix.mtx')
-    bc_file = os.path.join(path, 'barcodes.tsv')
-    feature_file = os.path.join(path, 'features.tsv')
+    mtx_path = os.path.join(path,'matrix.mtx')
+    bc_path = os.path.join(path, 'barcodes.tsv')
+    feature_path = os.path.join(path, 'features.tsv')
 
-    df = pd.DataFrame(scipy.io.mmread(mtx_file).toarray())
-    bc = [line.strip() for line in open(bc_file)]
-    feature = [line.strip() for line in open(feature_file)]
-
-    df.index = feature
-    df.columns = bc
+    df = pd.DataFrame(scipy.io.mmread(mtx_path).toarray())
+    with open(bc_path) as bc_file:
+        df.columns = [bc[0].strip() for bc in list(csv.reader(bc_file, delimiter="\t"))]
+    with open(feature_path) as feature_file:
+        df.index = [feat[0].strip() for feat in list(csv.reader(feature_file, delimiter="\t"))]
     df.index.name = 'Gene'
 
     return df
