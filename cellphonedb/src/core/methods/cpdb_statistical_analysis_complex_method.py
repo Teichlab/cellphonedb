@@ -95,7 +95,7 @@ def call(meta: pd.DataFrame,
                                                                                    base_result,
                                                                                    threads,
                                                                                    separator)
-
+    core_logger.info('Building Statistical Analysis Results')
     result_percent = cpdb_statistical_analysis_helper.build_percent_result(real_mean_analysis,
                                                                            real_percents_analysis,
                                                                            statistical_mean_analysis,
@@ -103,7 +103,7 @@ def call(meta: pd.DataFrame,
                                                                            cluster_interactions,
                                                                            base_result,
                                                                            separator)
-
+    core_logger.info('Building Results')
     pvalues_result, means_result, significant_means, deconvoluted_result = build_results(
         interactions_filtered,
         interactions,
