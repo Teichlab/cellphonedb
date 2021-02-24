@@ -24,7 +24,8 @@ class MethodLauncher:
         return method
 
     def get_multidatas_from_string(self, string: str) -> pd.DataFrame:
-        multidatas = self.database_manager.get_repository('multidata').get_multidatas_from_string(string)
+        multidatas = self.database_manager.get_repository(
+            'multidata').get_multidatas_from_string(string)
         return multidatas
 
     def cpdb_statistical_analysis_launcher(self,
@@ -41,7 +42,8 @@ class MethodLauncher:
                                            ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
 
         if threads < 1:
-            core_logger.info('Using Default thread number: %s' % self.default_threads)
+            core_logger.info('Using Default thread number: %s' %
+                             self.default_threads)
             threads = self.default_threads
 
         if threshold < 0 or threshold > 1:
@@ -54,10 +56,13 @@ class MethodLauncher:
             counts = subsampler.subsample(counts)
             meta = meta.filter(items=(list(counts)), axis=0)
 
-        interactions = self.database_manager.get_repository('interaction').get_all_expanded(include_gene=False)
+        interactions = self.database_manager.get_repository(
+            'interaction').get_all_expanded(include_gene=False)
         genes = self.database_manager.get_repository('gene').get_all_expanded()
-        complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
-        complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
+        complex_composition = self.database_manager.get_repository(
+            'complex').get_all_compositions()
+        complex_expanded = self.database_manager.get_repository(
+            'complex').get_all_expanded()
 
         deconvoluted, means, pvalues, significant_means = \
             cpdb_statistical_analysis_method.call(meta,
@@ -96,10 +101,13 @@ class MethodLauncher:
             counts = subsampler.subsample(counts)
             meta = meta.filter(items=list(counts), axis=0)
 
-        interactions = self.database_manager.get_repository('interaction').get_all_expanded(include_gene=False)
+        interactions = self.database_manager.get_repository(
+            'interaction').get_all_expanded(include_gene=False)
         genes = self.database_manager.get_repository('gene').get_all_expanded()
-        complex_composition = self.database_manager.get_repository('complex').get_all_compositions()
-        complex_expanded = self.database_manager.get_repository('complex').get_all_expanded()
+        complex_composition = self.database_manager.get_repository(
+            'complex').get_all_compositions()
+        complex_expanded = self.database_manager.get_repository(
+            'complex').get_all_expanded()
 
         means, significant_means, deconvoluted = cpdb_analysis_method.call(
             meta,
@@ -118,14 +126,15 @@ class MethodLauncher:
     @staticmethod
     def _counts_validations(counts: pd.DataFrame, meta: pd.DataFrame) -> pd.DataFrame:
         if not len(counts.columns):
-            raise ParseCountsException('Counts values are not decimal values', 'Incorrect file format')
+            raise ParseCountsException(
+                'Counts values are not decimal values', 'Incorrect file format')
         if not all(d in (np.dtype('float64'), np.dtype('float32')) for d in counts.dtypes):
-          try:
-              counts = counts.astype(np.float)  # type: pd.DataFrame
-          except:
-              raise ParseCountsException
+            try:
+                counts = counts.astype(np.float)  # type: pd.DataFrame
+            except:
+                raise ParseCountsException
         meta.index = meta.index.astype(str)
         if not all(i in counts.columns for i in meta.index):
             raise ParseCountsException('Some cells in meta didnt exist in counts columns',
-                                           'Maybe incorrect file format')
+                                       'Maybe incorrect file format')
         return counts
