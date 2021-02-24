@@ -103,7 +103,7 @@ def call(meta: pd.DataFrame,
                                                                            cluster_interactions,
                                                                            base_result,
                                                                            separator)
-    core_logger.info('Building Results')
+    
     pvalues_result, means_result, significant_means, deconvoluted_result = build_results(
         interactions_filtered,
         interactions,
