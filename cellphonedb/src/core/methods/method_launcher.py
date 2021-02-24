@@ -124,8 +124,7 @@ class MethodLauncher:
         except:
             raise ParseCountsException
         meta.index = meta.index.astype(str)
-        for cell in meta.index.values:
-            if cell not in counts.columns.values:
-                raise ParseCountsException('Some cells in meta didnt exist in counts columns',
+        if not all(i in counts.columns for i in meta.index):
+            raise ParseCountsException('Some cells in meta didnt exist in counts columns',
                                            'Maybe incorrect file format')
         return counts
