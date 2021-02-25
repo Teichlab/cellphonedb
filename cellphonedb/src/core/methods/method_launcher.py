@@ -119,13 +119,13 @@ class MethodLauncher:
     def _counts_validations(counts: pd.DataFrame, meta: pd.DataFrame) -> pd.DataFrame:
         if not len(counts.columns):
             raise ParseCountsException('Counts values are not decimal values', 'Incorrect file format')
-        try:
-            counts = counts.astype(np.float)  # type: pd.DataFrame
-        except:
-            raise ParseCountsException
+        if not all(d == np.dtype('float32') for d in counts.dtypes):
+            try:
+                counts = counts.astype(np.float32)  # type: pd.DataFrame
+            except:
+                raise ParseCountsException
         meta.index = meta.index.astype(str)
-        for cell in meta.index.values:
-            if cell not in counts.columns.values:
-                raise ParseCountsException('Some cells in meta didnt exist in counts columns',
+        if not all(i in counts.columns for i in meta.index):
+            raise ParseCountsException('Some cells in meta didnt exist in counts columns',
                                            'Maybe incorrect file format')
         return counts

@@ -71,11 +71,16 @@ def build_clusters(meta: pd.DataFrame, counts: pd.DataFrame, complex_composition
     complex_composition = complex_composition
 
     # Simple genes cluster counts
+    # for cluster_name in cluster_names: # previous
+    #     cells = meta[meta['cell_type'] == cluster_name].index
+    #     cluster_count = counts.loc[:, cells]
+    #     clusters['counts'][cluster_name] = cluster_count
+    #     clusters['means'][cluster_name] = cluster_count.apply(lambda count: count.mean(), axis=1)
     for cluster_name in cluster_names:
         cells = meta[meta['cell_type'] == cluster_name].index
-        cluster_count = counts.loc[:, cells]
-        clusters['counts'][cluster_name] = cluster_count
-        clusters['means'][cluster_name] = cluster_count.apply(lambda count: count.mean(), axis=1)
+        cluster_count = counts.to_numpy()[:, [counts.columns.get_loc(i) for i in cells]]
+        clusters['counts'][cluster_name] = pd.DataFrame(cluster_count, index = counts.index, columns = cells)
+        clusters['means'][cluster_name] = pd.Series(np.mean(cluster_count, axis = 1), index = counts.index)
 
     # Complex genes cluster counts
     if not complex_composition.empty:

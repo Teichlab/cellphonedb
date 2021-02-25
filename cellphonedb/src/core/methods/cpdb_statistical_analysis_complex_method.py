@@ -47,7 +47,8 @@ def call(meta: pd.DataFrame,
 
     counts.set_index('id_multidata', inplace=True, drop=True)
     counts = counts[cells_names]
-    counts = counts.astype('float32')
+    if not all(d == np.dtype('float32') for d in counts.dtypes):
+        counts = counts.astype('float32')
     counts = counts.groupby(counts.index).mean()
 
     if counts.empty:
@@ -95,7 +96,7 @@ def call(meta: pd.DataFrame,
                                                                                    base_result,
                                                                                    threads,
                                                                                    separator)
-
+    
     result_percent = cpdb_statistical_analysis_helper.build_percent_result(real_mean_analysis,
                                                                            real_percents_analysis,
                                                                            statistical_mean_analysis,
@@ -103,7 +104,7 @@ def call(meta: pd.DataFrame,
                                                                            cluster_interactions,
                                                                            base_result,
                                                                            separator)
-
+    
     pvalues_result, means_result, significant_means, deconvoluted_result = build_results(
         interactions_filtered,
         interactions,
