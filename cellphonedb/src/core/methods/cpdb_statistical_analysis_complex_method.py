@@ -47,7 +47,8 @@ def call(meta: pd.DataFrame,
 
     counts.set_index('id_multidata', inplace=True, drop=True)
     counts = counts[cells_names]
-    counts = counts.astype('float32')
+    if not all(d == np.dtype('float32') for d in counts.dtypes):
+        counts = counts.astype('float32')
     counts = counts.groupby(counts.index).mean()
 
     if counts.empty:
