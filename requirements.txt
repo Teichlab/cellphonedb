@@ -1,6 +1,6 @@
 click>=6.7,<6.7.99
-pandas
-numpy
+pandas==1.2.3
+numpy==1.20.1
 scikit-learn==0.22
 flask>=1.0,<1.0.99
 Flask-RESTful>=0.3,<0.3.99
