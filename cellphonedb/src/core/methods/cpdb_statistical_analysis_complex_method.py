@@ -63,7 +63,7 @@ def call(meta: pd.DataFrame,
     if interactions_filtered.empty:
         raise NoInteractionsFound()
 
-    clusters = cpdb_statistical_analysis_helper.build_clusters(meta, counts_filtered, complex_composition_filtered)
+    clusters = cpdb_statistical_analysis_helper.build_clusters(meta, counts_filtered, complex_composition_filtered, skip_percent=False)
     core_logger.info('Running Real Analysis')
 
     cluster_interactions = cpdb_statistical_analysis_helper.get_cluster_combinations(clusters['names'])

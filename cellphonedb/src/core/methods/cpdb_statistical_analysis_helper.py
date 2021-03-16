@@ -331,7 +331,8 @@ def _statistical_analysis(base_result,
     shuffled_meta = shuffle_meta(meta)
     shuffled_clusters = build_clusters(shuffled_meta,
                                        counts,
-                                       complex_composition)
+                                       complex_composition,
+                                       skip_percent=True)
 
     result_mean_analysis = mean_analysis(interactions,
                                          shuffled_clusters,
