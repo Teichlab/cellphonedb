@@ -1,3 +1,6 @@
+import warnings
+warnings.simplefilter("ignore", UserWarning)
+
 import itertools
 from functools import partial
 from multiprocessing.pool import Pool
