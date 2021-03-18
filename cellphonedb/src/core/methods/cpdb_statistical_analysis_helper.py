@@ -40,12 +40,12 @@ def get_significant_means(real_mean_analysis: pd.DataFrame,
     ensembl2    2.0         0.1         NaN
     ensembl3    NaN         NaN         0.5
     """
-    significant_means = real_mean_analysis.copy()
-    for index, mean_analysis in real_mean_analysis.iterrows():
-        for cluster_interaction in list(result_percent.columns):
-            if result_percent.at[index, cluster_interaction] > min_significant_mean:
-                significant_means.at[index, cluster_interaction] = np.nan
-    return significant_means
+    significant_means = real_mean_analysis.values.copy()
+    mask = result_percent > min_significant_mean
+    significant_means[mask] = np.nan
+    return pd.DataFrame(significant_means,
+                        index=real_mean_analysis.index,
+                        columns=real_mean_analysis.columns)
 
 
 def shuffle_meta(meta: pd.DataFrame) -> pd.DataFrame:
@@ -295,6 +295,7 @@ def shuffled_analysis(iterations: int,
                       interactions: pd.DataFrame,
                       cluster_interactions: list,
                       complex_composition: pd.DataFrame,
+                      real_mean_analysis: pd.DataFrame,
                       base_result: pd.DataFrame,
                       threads: int,
                       separator: str) -> list:
@@ -311,7 +312,8 @@ def shuffled_analysis(iterations: int,
                                               interactions,
                                               meta,
                                               complex_composition,
-                                              separator)
+                                              separator,
+                                              real_mean_analysis)
         results = pool.map(statistical_analysis_thread, range(iterations))
 
     return results
@@ -324,6 +326,7 @@ def _statistical_analysis(base_result,
                           meta,
                           complex_composition: pd.DataFrame,
                           separator,
+                          real_mean_analysis: pd.DataFrame,
                           iteration_number) -> pd.DataFrame:
     """
     Shuffles meta dataset and calculates calculates the means
@@ -334,15 +337,23 @@ def _statistical_analysis(base_result,
                                        complex_composition,
                                        skip_percent=True)
 
-    result_mean_analysis = mean_analysis(interactions,
-                                         shuffled_clusters,
-                                         cluster_interactions,
-                                         base_result,
-                                         separator)
+    shuffled_mean_analysis = mean_analysis(interactions,
+                                           shuffled_clusters,
+                                           cluster_interactions,
+                                           base_result,
+                                           separator)
+
+    result_mean_analysis = shuffled_greater_than_real(shuffled_mean_analysis,
+                                                    real_mean_analysis)
     return result_mean_analysis
 
 
-def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analysis: pd.DataFrame,
+def shuffled_greater_than_real(shuffled_mean_analysis: pd.DataFrame,
+                             real_mean_analysis: pd.DataFrame):
+    return np.packbits(shuffled_mean_analysis.values > real_mean_analysis.values, axis=None)
+
+
+def build_percent_result(real_mean_analysis: pd.DataFrame, real_percents_analysis: pd.DataFrame,
                          statistical_mean_analysis: list, interactions: pd.DataFrame, cluster_interactions: list,
                          base_result: pd.DataFrame, separator: str) -> pd.DataFrame:
     """
@@ -392,30 +403,19 @@ def build_percent_result(real_mean_analysis: pd.DataFrame, real_perecents_analys
 
     """
     core_logger.info('Building Pvalues result')
-    percent_result = base_result.copy()
+    percent_result = np.zeros(real_mean_analysis.shape)
+    result_size = percent_result.size
+    result_shape = percent_result.shape
 
-    for interaction_index, interaction in interactions.iterrows():
-        for cluster_interaction in cluster_interactions:
-            cluster_interaction_string = '{}{}{}'.format(cluster_interaction[0], separator, cluster_interaction[1])
-            real_mean = real_mean_analysis.at[interaction_index, cluster_interaction_string]
-            real_percent = real_perecents_analysis.at[interaction_index, cluster_interaction_string]
+    for statistical_mean in statistical_mean_analysis:
+        percent_result += np.unpackbits(statistical_mean, axis=None)[:result_size].reshape(result_shape)
+    percent_result /= len(statistical_mean_analysis)
 
-            if int(real_percent) == 0 or real_mean == 0:
-                result_percent = 1.0
+    mask = (real_mean_analysis.values == 0) | (real_percents_analysis == 0)
 
-            else:
-                shuffled_bigger = 0
+    percent_result[mask] = 1
 
-                for statistical_mean in statistical_mean_analysis:
-                    mean = statistical_mean.at[interaction_index, cluster_interaction_string]
-                    if mean > real_mean:
-                        shuffled_bigger += 1
-
-                result_percent = shuffled_bigger / len(statistical_mean_analysis)
-
-            percent_result.at[interaction_index, cluster_interaction_string] = result_percent
-
-    return percent_result
+    return pd.DataFrame(percent_result, index=base_result.index, columns=base_result.columns)
 
 
 def interacting_pair_build(interactions: pd.DataFrame) -> pd.Series:

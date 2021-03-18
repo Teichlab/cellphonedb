@@ -92,6 +92,7 @@ def call(meta: pd.DataFrame,
                                                                                    interactions_filtered,
                                                                                    cluster_interactions,
                                                                                    complex_composition_filtered,
+                                                                                   real_mean_analysis,
                                                                                    base_result,
                                                                                    threads,
                                                                                    separator)
