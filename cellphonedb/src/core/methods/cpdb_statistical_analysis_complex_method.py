@@ -64,6 +64,8 @@ def call(meta: pd.DataFrame,
     if interactions_filtered.empty:
         raise NoInteractionsFound()
 
+    meta = meta.loc[counts.columns]
+
     clusters = cpdb_statistical_analysis_helper.build_clusters(meta, counts_filtered, complex_composition_filtered, skip_percent=False)
     core_logger.info('Running Real Analysis')
 
