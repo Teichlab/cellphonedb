@@ -125,7 +125,9 @@ class MethodLauncher:
         except:
             raise ParseCountsException
         meta.index = meta.index.astype(str)
-        if np.any(~counts.columns.isin(meta.index)):
-            raise ParseCountsException('Some cells in meta didnt exist in counts columns',
+        if np.any(~meta.index.isin(counts.columns)):
+            raise ParseCountsException('Some cells in meta didnt exist in counts',
                                        'Maybe incorrect file format')
+        if np.any(~counts.columns.isin(meta.index)):
+            counts = counts[counts.columns.isin(meta.index)].copy()
         return counts
