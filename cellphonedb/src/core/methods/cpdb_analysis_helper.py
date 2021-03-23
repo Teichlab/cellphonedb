@@ -27,38 +27,6 @@ def percent_analysis(clusters: dict,
     return result
 
 
-def counts_percent(counts: pd.Series,
-                   threshold: float) -> int:
-    total = len(counts)
-    positive = len(counts[counts > 0])
-
-    if (positive / total) > threshold:
-        return 1
-    else:
-        return 0
-
-
-def cluster_interaction_percent(cluster_interaction: tuple,
-                                interaction: pd.Series,
-                                clusters_percents: dict,
-                                ) -> int:
-    percent_cluster_receptors = clusters_percents[cluster_interaction[0]]
-    percent_cluster_ligands = clusters_percents[cluster_interaction[1]]
-
-    receptor = interaction['multidata_1_id']
-    percent_receptor = percent_cluster_receptors.loc[receptor]
-    ligand = interaction['multidata_2_id']
-    percent_ligand = percent_cluster_ligands.loc[ligand]
-
-    if percent_receptor and percent_ligand:
-        interaction_percent = 1
-
-    else:
-        interaction_percent = 0
-
-    return interaction_percent
-
-
 def get_significant_means(mean_analysis: pd.DataFrame,
                           result_percent: pd.DataFrame) -> pd.DataFrame:
     significant_means = mean_analysis.values.copy()
