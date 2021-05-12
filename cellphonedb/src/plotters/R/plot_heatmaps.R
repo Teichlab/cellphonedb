@@ -7,7 +7,7 @@ heatmaps_plot = function(meta_file, pvalues_file, count_filename, log_filename, 
 
   meta = read.csv(meta_file, comment.char = '', sep=meta_sep)
 
-  all_intr = read.table(pvalues_file, header=T, stringsAsFactors = F, sep=pvalues_sep, comment.char = '', check.names = F)
+  all_intr = read.delim(pvalues_file, header=T, stringsAsFactors = F, sep=pvalues_sep, comment.char = '', check.names = F)
   intr_pairs = all_intr$interacting_pair
   all_intr = all_intr[,-c(1:11)]
 
