@@ -11,8 +11,8 @@ dot_plot = function(selected_rows = NULL,
                     output_extension = '.pdf'
 ){
 
-  all_pval = read.table(pvalues_path, header=T, stringsAsFactors = F, sep=means_separator, comment.char = '', check.names=F)
-  all_means = read.table(means_path, header=T, stringsAsFactors = F, sep=pvalues_separator, comment.char = '', check.names=F)
+  all_pval = read.delim(pvalues_path, header=T, stringsAsFactors = F, sep=means_separator, comment.char = '', check.names=F)
+  all_means = read.delim(means_path, header=T, stringsAsFactors = F, sep=pvalues_separator, comment.char = '', check.names=F)
 
   intr_pairs = all_pval$interacting_pair
   all_pval = all_pval[,-c(1:11)]
@@ -53,7 +53,7 @@ dot_plot = function(selected_rows = NULL,
         panel.border = element_rect(size = 0.7, linetype = "solid", colour = "black"))
 
   if (output_extension == '.pdf') {
-      ggsave(filename, width = width, height = height, device = cairo_pdf, limitsize=F)
+      ggsave(filename, width = width, height = height, limitsize=F)
   }
   else {
       ggsave(filename, width = width, height = height, limitsize=F)
