@@ -1,5 +1,8 @@
 # CellPhoneDB
 
+| :warning: We have updated CellPhoneDB to v3 and migted CellPhoneDB to a new repository. <br> Please refer to [ventolab/CellphoneDB](https://github.com/ventolab/CellphoneDB) for the most up to date version. |
+| -------- | 
+
 ## What is CellPhoneDB?
 CellPhoneDB is a publicly available repository of curated receptors, ligands and their interactions. Subunit architecture is included for both ligands and receptors, representing heteromeric complexes accurately. This is crucial, as cell-cell communication relies on multi-subunit protein complexes that go beyond the binary representation used in most databases and studies.
 
