@@ -34,15 +34,15 @@ dot_plot = function(selected_rows = NULL,
   pval[pval==0] = 0.0009
   plot.data = cbind(df_names,pval)
   pr = unlist(as.data.frame(sel_means))
-  pr[pr==0] = 1
-  plot.data = cbind(plot.data,log2(pr))
+  #pr[pr==0] = 1
+  plot.data = cbind(plot.data,log2(pr+1))
   colnames(plot.data) = c('pair', 'clusters', 'pvalue', 'mean')
 
   my_palette <- colorRampPalette(c("black", "blue", "yellow", "red"), alpha=TRUE)(n=399)
 
   ggplot(plot.data,aes(x=clusters,y=pair)) +
   geom_point(aes(size=-log10(pvalue),color=mean)) +
-  scale_color_gradientn('Log2 mean (Molecule 1, Molecule 2)', colors=my_palette) +
+  scale_color_gradientn('Log2+1 mean (Molecule 1, Molecule 2)', colors=my_palette) +
   theme_bw() +
   theme(panel.grid.minor = element_blank(),
         panel.grid.major = element_blank(),
